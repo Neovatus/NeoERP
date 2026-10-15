@@ -111,3 +111,5 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-15 21:40 · NeoERP-Design stale screens removed (Jabran OK); pointers added
 2026-10-15 22:00 · design system move briefed to Accounts · App (ERP-120)
 2026-10-15 22:36 · NeoERP-Design removal: domain docs moved to docs/domain; CLAUDE.md/CODEX rewritten; ERP-121 (App), ERP-122 (Backend), ERP-123 (ACC), ERP-124 (HRP)
+2026-10-15 · Jabran paused the HR & Payroll lead; .paused-hr-payroll-lead set
+2026-10-15 23:10 · ACC-156/158/162/165, ACC-A-20/22, ACC-B-18, HRP-49 handled; NeoERP-Design removed (ERP-125)

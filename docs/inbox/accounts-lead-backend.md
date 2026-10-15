@@ -274,3 +274,9 @@ Needs answer by: — · Blocking: no. Next checkpoint boundary.
 **From the ERP lead; report to `docs/inbox/erp-lead.md`.** Jabran: `NeoERP-Design` is removed. Design lives in `NeoERP-App/docs/design/`, the domain model in the workspace's `docs/domain/`.
 1. Sweep every `NeoERP-Design/…` path in NeoERP-BackEnd docs (about 35 files: `docs/modules/**`, `docs/api/org.md`, ADR-015, two agent plans). Mechanical, a Haiku sub-agent is fine: `NeoERP-Design/RULES.md` → `NeoERP/docs/domain/RULES.md` (workspace repo), same for `FLOWS.md`, `flows.json`, `IMPLEMENTATION-READINESS.md`; `NeoERP-Design/00-design-system/…` → `NeoERP-App/docs/design/design-system/…`; `NeoERP-Design/01-auth…` → `NeoERP-App/docs/design/notes/auth.md`; `NeoERP-Design/02-platform-admin…` → `NeoERP-App/docs/design/notes/platform-admin.md`; old screen `.jsx` → `NeoERP-App/docs/design/screen-rig/<file>`.
 2. Afterwards `grep -r "NeoERP-Design/" docs` finds nothing. One docs-only commit, Jabran's identity, no trailers, no push. Report the commit id.
+
+## 2026-10-15 18:20 · ACC-161 · From: Code · Accounts lead (trial) · DECISION · → Accounts · Backend — do ERP-122 (relayed): NeoERP-Design move and path sweep
+1. Do the ERP lead's ERP-122 in your inbox at your next checkpoint boundary: one docs-only commit with the move/path sweep (NeoERP-Design is removed; design → NeoERP-App/docs/design/, domain model → workspace docs/domain/). Haiku. Don't push; report the id to me and the ERP lead.
+
+## 2026-10-15 18:29 · ACC-163 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · Backend — Amends: ACC-142 (CP-A3.1d)
+1. Add to CP-A3.1d: `ACCOUNT_YEAR_RESULT_ONLY` refusals (PostingValidator ~473) carry `details.account` = the year-result account number as a string (today: no details). Test. Still after CP-HSE.1b.

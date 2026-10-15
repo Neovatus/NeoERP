@@ -30,3 +30,7 @@ Owner (the main) only. One line per handled brief.
 - ERP-106/ERP-111: done (ERP-106 = cd30e3d1, ERP-111 = 008af362). ERP-115 (track agent folders, from the ERP lead): held, asked the Accounts lead to relay (ACC-A-19).
 - ACC-159 (do ERP-115, relayed): queued for the next checkpoint boundary (after X2).
 - ACC-159 / ERP-115: done (01ce2618), reported as ACC-A-20 (and to erp-lead.md).
+- ACC-155.3 (CP-A3.2c): done, reported as ACC-A-21 (X1 9064c9c7, X2 b0ae17d6, X3 1ea046da).
+- ACC-160 (do ERP-120/121, relayed): in progress (Haiku, one docs commit).
+- ACC-160 / ERP-120 / ERP-121: done (7f3f402d), reported as ACC-A-22 (and to erp-lead.md).
+- ACC-164 (CP-A3.2c accepted; read details.account string only): in progress (Haiku, one tiny commit).

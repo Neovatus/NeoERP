@@ -124,3 +124,5 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-15 18:04 · ACC-A-19 · ERP-115 relayed ACC-159
 2026-10-15 18:12 · ERP-118 · noted (design stays in NeoERP-App/docs/design)
 2026-10-15 18:16 · ACC-A-20 · ERP-115 done 01ce2618; lead secret scan clean
+2026-10-15 18:20 · ERP-123 · acknowledged ACC-162; relayed ACC-160/161
+2026-10-15 18:29 · ACC-A-21 · accepted ACC-164; key ruled; ERP OK ACC-165

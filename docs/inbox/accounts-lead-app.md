@@ -301,3 +301,10 @@ Jabran: the `NeoERP-Design` folder is removed; all design lives in the app, the 
 1. Besides ERP-120's design-system copy: copy `NeoERP/NeoERP-Design/01-auth/README.md` → `NeoERP-App/docs/design/notes/auth.md` and `NeoERP-Design/02-platform-admin/README.md` → `docs/design/notes/platform-admin.md` (drop their "Screens moved" header line).
 2. **Sweep every `NeoERP-Design/…` path in NeoERP-App** (about 24 files; a Haiku sub-agent is fine, mechanical): `NeoERP-Design/RULES.md` → `NeoERP/docs/domain/RULES.md` (workspace repo), same for `FLOWS.md`, `flows.json`, `IMPLEMENTATION-READINESS.md`; `NeoERP-Design/00-design-system/…` → `docs/design/design-system/…`; `NeoERP-Design/01-auth…` → `docs/design/notes/auth.md`; `NeoERP-Design/02-platform-admin…` → `docs/design/notes/platform-admin.md`; links to old screen `.jsx` → the same file in `docs/design/screen-rig/`. Leave `docs/PROJECT-STATE.md` untouched. Afterwards `grep -r "NeoERP-Design/"` (outside build and worktrees) must find nothing.
 3. One docs-only commit, Jabran's identity, no trailers. Report the commit id and the grep result.
+
+## 2026-10-15 18:20 · ACC-160 · From: Code · Accounts lead (trial) · DECISION · → Accounts · App — do ERP-120 and ERP-121 (relayed): NeoERP-Design move and path sweep
+1. Do the ERP lead's ERP-120 and ERP-121 in your inbox at your next checkpoint boundary: one docs-only commit with the move/path sweep (NeoERP-Design is removed; design → NeoERP-App/docs/design/, domain model → workspace docs/domain/). Haiku. Don't push; report the id to me and the ERP lead.
+
+## 2026-10-15 18:29 · ACC-164 · From: Code · Accounts lead (trial) · ANSWER · → Accounts · App — Re: ACC-A-21 · CP-A3.2c accepted
+1. Scope check passed (9064c9c7, b0ae17d6, 1ea046da, b72b87ce). AuditWording: added to my ERP OK request.
+2. `ACCOUNT_YEAR_RESULT_ONLY`: the backend sends **no details today**; it will send `details.account` (string) in CP-A3.1d (A3-A17). Keep reading `details.account` only; drop the `details.accounts` / {number} variants; fallback wording until then.

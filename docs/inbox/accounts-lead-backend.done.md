@@ -38,3 +38,4 @@ ACC-146 · seen: (1) deployment-settings rows for neoerp.files.* added in the do
 ACC-149/ACC-153 · docs commit 848d487, reported
 ACC-157 · seen (848d487 accepted; listener started with the full path)
 ERP-116 · .gitignore re-includes + org-sec-1 plan tracked, 714c886, reported ACC-B-18 to erp-lead.md
+ACC-161 · seen; ERP-122 to be done at the next checkpoint boundary (after CP-HSE.1b)
