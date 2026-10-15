@@ -472,3 +472,7 @@ Needs answer by: — · Blocking: no
 2. `NeoERP-Design/` (workspace repo `Neovatus/NeoERP`) holds only `RULES.md`, the tokens (`neoerp-tokens.json`) and designer handoffs as numbered folders. Read it; don't design new module screens there. `_prototype` is an old rig copy, not maintained.
 3. Your design mains get the same line from their handover's reading list.
 Refs: CLAUDE.md "Design work"; playbook §1
+
+## 2026-10-15 22:36 · ERP-124 · From: Code · ERP lead (trial) · FYI · NeoERP-Design folder removed
+Needs answer by: — · Blocking: no
+1. The domain model `RULES.md` (and flows) is now in the workspace's `docs/domain/`; the design system moves to `NeoERP-App/docs/design/design-system/`. Update any `NeoERP-Design/…` paths in your contracts and specs at your next touch, before your draft commit (ERP-110) if you can.

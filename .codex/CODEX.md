@@ -12,11 +12,11 @@ approval rules and the temporary procedure while canonical project state is miss
 
 ## Workspace shape
 
-This folder contains two code repositories and the design source:
+This folder contains two code repositories and the workspace docs:
 
 - `NeoERP-App` - Kotlin Multiplatform + Compose frontend client
 - `NeoERP-BackEnd` - Kotlin multi-service backend
-- `NeoERP-Design` - the design source of truth (tokens, screens, domain rules)
+- `docs/domain/` - the domain model (`RULES.md`, flows); all design lives in `NeoERP-App/docs/design/`
 
 The umbrella folder is a workspace, not the main source of truth for architecture decisions.
 
@@ -52,32 +52,23 @@ Primary local guide:
 - `NeoERP-BackEnd/.codex/CODEX.md`
 - `NeoERP-BackEnd/.codex/skills/neoerp-backend-workflow/SKILL.md` for non-trivial work
 
-### Design work
+### Design work — read `NeoERP-App/docs/design/` and `docs/domain/`
 
-Read `NeoERP-Design` for:
+**Where design and domain live (Jabran, 2026-10-15):**
 
-- what a screen should look like and how it should behave
-- the domain rules those screens express
+| Home | Holds |
+|---|---|
+| `NeoERP-App/docs/design/` (frontend repo) | **All design**: `screen-rig/` (the clickable rig for every module), `specs/` (module screen specs, shared component contracts, `building-blocks.md`), `design-system/` (`neoerp-tokens.json`, the design-system pages and their assets), `notes/` (screen notes such as Keycloak sign-in). New and changed screens are committed with the code that implements them. |
+| `docs/domain/` (this workspace repo) | **The domain model**: `RULES.md`, `FLOWS.md`, `flows.json`, `IMPLEMENTATION-READINESS.md`. |
 
-Designs live here permanently and are added as new numbered folders, so read them
-in place - never ask for a handoff to be uploaded. List the directory rather than
-assuming which folders exist.
+There is no `NeoERP-Design` folder any more; its contents moved to the two homes above. List the directories rather than assuming which files exist.
 
-**Where design lives (Jabran, 2026-10-15, option A):**
-
-| Home | Holds | Changes |
-|---|---|---|
-| `NeoERP-Design/` (workspace repo) | `RULES.md` (domain model), `00-design-system/neoerp-tokens.json` (every design value), and designer handoffs as numbered folders (`01-auth`, `02-platform-admin`, …) | Rarely: rules, tokens, new handoffs |
-| `NeoERP-App/docs/design/` (frontend repo) | `screen-rig/` (the clickable rig for every module) and `specs/` (module screen specs, shared component contracts, `building-blocks.md`) | **All module design work.** New and changed screens go here, committed with the code that implements them |
-
-Never design new module screens in `NeoERP-Design/`. `NeoERP-Design/_prototype` is an old rig copy, not maintained and not in the repo.
-
-Read `NeoERP-Design/RULES.md` first. It is the domain model, not only UI guidance:
+Read `docs/domain/RULES.md` first. It is the domain model, not only UI guidance:
 section 3 (entitlement chain), section 7 (three independent financial flags) and
 section 8 (a franchise can hold its own agreement) are schema decisions. Screens
 built without those rules come out pixel-accurate and rule-wrong.
 
-`NeoERP-Design/00-design-system/neoerp-tokens.json` is authoritative for every
+`NeoERP-App/docs/design/design-system/neoerp-tokens.json` is authoritative for every
 design value; `styles.css` derives from it, never the reverse.
 
 ## Shared stage process
@@ -112,5 +103,5 @@ If a task touches both repos:
 
 - If the task starts with "screen", "state", "viewmodel", or "Compose", move into `NeoERP-App`.
 - If the task starts with "endpoint", "service", "JWT", "RBAC", "Flyway", or "database", move into `NeoERP-BackEnd`.
-- If the task mentions a screen design, tokens, or a handoff, read `NeoERP-Design` before choosing a repo.
+- If the task mentions a screen design, tokens, or a handoff, read `NeoERP-App/docs/design/` and `docs/domain/RULES.md` before choosing a repo.
 - If the task mentions bootstrap, login, permissions, or module enablement, expect both repos to be relevant.

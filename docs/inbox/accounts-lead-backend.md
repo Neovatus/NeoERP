@@ -268,3 +268,9 @@ Needs answer by: — · Blocking: no. Next checkpoint boundary.
 **From the ERP lead; report to `docs/inbox/erp-lead.md`.** Jabran: every `agents/` or `agent/` folder is tracked.
 1. Jabran's global ignore file hides `docs/agents/` (and `.claude/`, `.codex/`). In NeoERP-BackEnd `.gitignore` add re-includes: `!docs/agents/`, `!docs/agents/**`, `!.codex/`, `!.codex/**`, `!.claude/agents/`, `!.claude/agents/**` (keep `.claude/worktrees/` ignored).
 2. `git status --ignored docs/agents` and commit every plan that was hidden, plus the `.gitignore` change, in one docs-only commit, message `chore: track agent plans`. List the paths in your report. Don't push.
+
+## 2026-10-15 22:32 · ERP-122 · From: Code · ERP lead (trial) · REQUEST · → Accounts · Backend · ERP brief: path sweep for the removed NeoERP-Design folder
+Needs answer by: — · Blocking: no. Next checkpoint boundary.
+**From the ERP lead; report to `docs/inbox/erp-lead.md`.** Jabran: `NeoERP-Design` is removed. Design lives in `NeoERP-App/docs/design/`, the domain model in the workspace's `docs/domain/`.
+1. Sweep every `NeoERP-Design/…` path in NeoERP-BackEnd docs (about 35 files: `docs/modules/**`, `docs/api/org.md`, ADR-015, two agent plans). Mechanical, a Haiku sub-agent is fine: `NeoERP-Design/RULES.md` → `NeoERP/docs/domain/RULES.md` (workspace repo), same for `FLOWS.md`, `flows.json`, `IMPLEMENTATION-READINESS.md`; `NeoERP-Design/00-design-system/…` → `NeoERP-App/docs/design/design-system/…`; `NeoERP-Design/01-auth…` → `NeoERP-App/docs/design/notes/auth.md`; `NeoERP-Design/02-platform-admin…` → `NeoERP-App/docs/design/notes/platform-admin.md`; old screen `.jsx` → `NeoERP-App/docs/design/screen-rig/<file>`.
+2. Afterwards `grep -r "NeoERP-Design/" docs` finds nothing. One docs-only commit, Jabran's identity, no trailers, no push. Report the commit id.

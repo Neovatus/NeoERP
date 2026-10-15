@@ -110,3 +110,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-15 21:10 · design homes (option A) written in CLAUDE.md, CODEX.md, playbook; ERP-118 (ACC), ERP-119 (HRP)
 2026-10-15 21:40 · NeoERP-Design stale screens removed (Jabran OK); pointers added
 2026-10-15 22:00 · design system move briefed to Accounts · App (ERP-120)
+2026-10-15 22:36 · NeoERP-Design removal: domain docs moved to docs/domain; CLAUDE.md/CODEX rewritten; ERP-121 (App), ERP-122 (Backend), ERP-123 (ACC), ERP-124 (HRP)

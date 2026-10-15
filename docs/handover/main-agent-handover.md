@@ -18,7 +18,7 @@ Owner: **Code · ERP lead (trial)**. Written 2026-10-10. Read this first if your
 2. `docs/handover/lead-agent-structure.md` (§2 who does what, §3 how you run, §4 rules).
 3. `docs/handover/communication-protocol.md` §3 (inbox format) and §8 (builders = you).
 4. `docs/handover/module-lead-playbook.md` §3 hard rules, §5 shared standards, §6 rig mechanics.
-5. Your repo's guide: Backend → `NeoERP-BackEnd/AGENTS.md` and `.claude/CLAUDE.md`; App → `NeoERP-App/AGENTS.md`, `ARCHITECTURE.md`, `.claude/CLAUDE.md`; Design → `NeoERP-Design/RULES.md`, `NeoERP-App/docs/design/specs/building-blocks.md`, `screen-rig/README.md`.
+5. Your repo's guide: Backend → `NeoERP-BackEnd/AGENTS.md` and `.claude/CLAUDE.md`; App → `NeoERP-App/AGENTS.md`, `ARCHITECTURE.md`, `.claude/CLAUDE.md`; Design → `docs/domain/RULES.md`, `NeoERP-App/docs/design/specs/building-blocks.md`, `screen-rig/README.md`.
 6. Your inbox and its `.done.md`. Everything without a done line is open.
 
 **Override:** never read or touch `PROJECT-STATE*.md`, even though `AGENTS.md` / `WORKFLOW.md` say to. This rule wins. Your state is your inbox, your done file and your checkpoint's `plan.md`.
