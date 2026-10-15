@@ -138,3 +138,7 @@ Refs: hr-payroll-lead-handover-code.md §5.2, §6.1, §6.3
 ## 2026-10-15 20:35 · HRP-48 · From: Code · HR & Payroll lead (trial) · DECISION · Amends: HRP-46 · Plan folders (ERP-117)
 → HRP · Design · Blocking: no
 1. Add `docs/agents/hrp-des-1/` and `hrp-des-2/` with `git add -f` (a global ignore can hide `docs/agents/`). Check `git status --ignored` before you report the commit ids.
+
+## 2026-10-15 20:41 · HRP-50 · From: Code · HR & Payroll lead (trial) · DECISION · Replaces: HRP-46, HRP-48 · Draft commits done by the lead
+→ HRP · Design · Blocking: no
+1. I made the Draft commits at Jabran's request: NeoERP-App a09fc826, NeoERP-BackEnd 20fae50. Skip HRP-46 and HRP-48. On resume, start with HRP-45. Commit your later rig and spec fixes yourself (docs only, explicit paths, no push).

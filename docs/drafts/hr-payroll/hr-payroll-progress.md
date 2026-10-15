@@ -1,21 +1,16 @@
 # HR & Payroll — progress (workspace copy)
 
-Owner: Code · HR & Payroll lead (trial). Workspace copy; the reviewer mirrors it to the project. Updated 2026-10-13 18:45.
+Owner: Code · HR & Payroll lead (trial). Workspace copy; the reviewer mirrors it to the project. Updated 2026-10-15 20:25.
 
-## State (2026-10-13)
-Design and contract work only (Jabran); no builds until Accounts Phase 1 is pushed. Listener on hr-payroll-lead.md.
+## Paused (Jabran, 2026-10-15 20:25)
+Listener stopped. On resume: restart `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/inbox/listen.sh hr-payroll-lead`; read inbox vs done file.
 
-## Done today
-- Inbox ERP-46…ERP-77, ACC-45/46: done lines; ERP-74 answered (HRP-30), ERP lead applied all asks (ERP-77).
-- Contracts: drop 2 review server rules in P0–P4 (PR-2, 5, 7, 8, 13; PS-4…8, 10 note, 11, 12, 14, 17, 18); ACC-45/46 accounts in P2; ORG-FACTS-2 alignment in H1, H3, H4, P1–P4 incl. the Q8 consumer (P1-38, P3-35). Lead decisions L-10…L-13.
-- HRP · Design brief amended (HRP-29): rebuild drops 1 and 3, drop 2 from the review file, listener, models.
-
-## Waiting
-- Jabran: start HRP · Design (in `NeoERP/`). Backend/App not until builds are allowed.
-- ERP: HRP-31 (new codes, Accountant default, demo flag).
+## Where things stand
+- **Bundle 1** (drops 1+2, H0, H1, P0–P4, reserved roles; G-1…G-3): ready, waiting for Jabran. File: docs/drafts/hr-payroll/design-gate-bundle-1.md.
+- **Drop 3 (DES-2):** rig integrated (app.html 60 blocks), specs noted; open: HRP-45 fix pass (B-5/6/8/9/11/13, draft leak, router hook), Opus re-review, W11 load check. Then bundle 2 (H2–H4, H3 Q17).
+- **Draft commits (ERP-110):** done by the lead at Jabran's request: NeoERP-App a09fc826, NeoERP-BackEnd 20fae50 (not pushed); ids sent to ERP (HRP-49).
+- HRP · Design is idle; on resume prompt it with HRP-45 (HRP-46/48 replaced by HRP-50).
+- Country checks: PK leave/time corrected (2026-10-13); PK payroll figures unconfirmed (official sites unreachable); Nordic checks not started.
 
 ## Next
-1. Review DES-1 (rig drops 1+2) → per-id answers ERP-9/ERP-11 → design-gate bundle 1 to Jabran (incl. P3 Q13, H3 Q17).
-2. DES-2 (drop 3) → bundle 2.
-3. Check: NO zone key mapping (P1), FI release payables, P2 §8.2 Post on PENDING+AUTHZ_UNAVAILABLE.
-4. P5–P9 contracts with sub-agents (PS-10 NO June cycle, replacement A-melding go to P5); J-8 PK brief.
+1. DES-2 fixes → bundle 2. 3. Jabran's bundle 1 answer → decisions file. 4. PK payroll figures; P5–P9 with sub-agents once builds start.

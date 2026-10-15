@@ -77,7 +77,9 @@ waiting on: ACC FYI when accounts-data.jsx is regenerated (HRP-35.1)
 2026-10-15 17:30 · ERP-102 · done: shared listen.sh in use from 2026-10-15; mains told at their next brief
 2026-10-15 19:42 · HRP-D-3 · answered (HRP-45): fix pass B-5/6/8/9/11/13 + draft leak, re-review, harness from npm, router hook
 2026-10-15 17:47 · ACC-151 · noted: HRP drafts stay uncommitted until Jabran approves bundle 1/2; then HRP · App commits rig+specs as one design commit and HRP · Backend commits contracts with the first checkpoint
-2026-10-15 19:05 · ERP-110 · in progress: HRP · Design briefed (HRP-46); answer with commit ids. Note: docs/agents/hr|payroll and docs/drafts/hr-payroll are in the umbrella NeoERP/ (not a git repo), so they can't be committed
+2026-10-15 19:05 · ERP-110 · done: a09fc826 (App), 20fae50 (BackEnd); answered HRP-49
 2026-10-15 19:58 · ERP-114 · done: full path from now on; Design told (HRP-47)
 2026-10-15 20:32 · ERP-117 · done: Design told to use git add -f for plan folders (HRP-48)
 2026-10-15 21:10 · ERP-119 · noted: module design stays in NeoERP-App/docs/design; NeoERP-Design read-only (rules, tokens, handoffs)
+2026-10-15 22:36 · ERP-124 · checked: no NeoERP-Design/ paths in HRP contracts, specs, rig or scopes; nothing to change; ack goes with the ERP-110 answer
+2026-10-15 22:36 · ERP-124 · acknowledged in HRP-49
