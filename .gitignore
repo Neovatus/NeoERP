@@ -2,8 +2,6 @@
 # Code repos have their own GitHub repos; never duplicate them here.
 /NeoERP-App/
 /NeoERP-BackEnd/
-# Old copy of the screen rig; the live rig is NeoERP-App/docs/design/screen-rig.
-/NeoERP-Design/_prototype/
 # Generated output and scratch.
 /Claude outputs/
 /_scratch/

@@ -1,3 +1,5 @@
+> **Where design lives (Jabran, 2026-10-15):** this folder holds the domain rules (`RULES.md`), flows, the design tokens and the design-system pages. **All screens and module design live in `NeoERP-App/docs/design/`** (`screen-rig/`, `specs/`). The old screen copies and `_prototype/` were removed; git history keeps them.
+
 # NeoERP — Design
 
 The design source of truth for **NeoERP**, a multi-tenant Enterprise ERP built by

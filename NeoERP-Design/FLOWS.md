@@ -319,6 +319,6 @@ If the team builds straight to code, `flows.json` + `styles.css` + the token
 file is a stronger contract than any Figma file, because it cannot drift from
 what ships.
 
-**To see a state, run the prototype.** `cd _prototype && python3 -m http.server`
+**To see a state, run the screen rig** in the frontend repo: `NeoERP-App/docs/design/screen-rig/app.html` (the old `_prototype` was removed 2026-10-15).
 then use the Tweaks panel to jump to any screen, toggle theme, density and
 environment. That is more accurate than any static capture.

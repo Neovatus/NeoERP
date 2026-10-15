@@ -1,3 +1,5 @@
+> **Screens moved (2026-10-15):** the live screens are in `NeoERP-App/docs/design/screen-rig/` (frontend repo). The old copies were removed from here; git history keeps them. This README stays for its notes.
+
 # 02 — Platform Admin (Super Admin)
 
 The Neovatus-side console: enrol companies, hold agreements, grant entitlements,
