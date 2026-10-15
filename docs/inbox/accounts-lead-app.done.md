@@ -1,0 +1,30 @@
+# Done: accounts-lead-app
+
+Owner (the main) only. One line per handled brief.
+- ACC-43 item 1 (CP-A1.2a-FIX report = ACC-A-1) and item 2 (specs commit 09504fb): done. Items 3 (CP-A1.2b) in progress. ACC-18 item 1 and 2: done (superseded by ACC-43).
+- ACC-43 item 3 (CP-A1.2b): built, reported as ACC-A-2; waiting for accept/push order. Don't push.
+- ACC-51 + ACC-54 (CP-A1.2b-FIX): done, reported as ACC-A-3; waiting for the push line. ACC-57: inbox listener started. ACC-58 (CP-A2.2): not started, waits for the push line.
+- ACC-61: done, reported as ACC-A-4 (waiting for the push line).
+- ACC-62 (push): done, reported as ACC-A-5; origin/dev-app = 9de7f68. ACC-64 noted. ACC-58 (CP-A2.2): next, after /compact.
+- ACC-58 (CP-A2.2): plan written, questions sent as ACC-A-6 (money type, export network change); waiting for answer.
+- ACC-58 (CP-A2.2): screens/data/docs done, reported as ACC-A-7; export (D2/D4/S4) = CP-A2.2b waiting ACC-67. ACC-68/70/72/75 noted. Waiting for scope check / push line.
+- ACC-79 push: blocked by classifier, waiting Jabran. CP-A2.2b D2 blocked (KMM-Network streaming), asked as ACC-A-8. ACC-81 noted.
+- ACC-79.1 (CP-A2.2 push): done by Jabran, origin/dev-app = 93e9f39 (ACC-87). ACC-81: done (611c374, with CP-A2.2b). ACC-84 (CP-NET-1): next, after D4/S4 returns.
+- ACC-84 (CP-NET-1) + CP-A2.2b: done, reported as ACC-A-9; waiting for scope check and push line (Jabran pushes).
+- ACC-95: done: kmm-network 0.3.0 pin committed, handoff written; idle until Phase 1 review findings / Phase 2 brief. Jabran pushes (KMM-Network first, then app).
+- ACC-96 (P1-FIX-APP): done, reported as ACC-A-10; m-21 asked. Waiting for check/push.
+- ACC-99: m-21 done (KMM-Network 8b6786d), reported as ACC-A-11. Idle until next brief.
+- ACC-102 (ERP-80.2/80.3): done, reported as ACC-A-12 (7adba2de, 164a0110). Idle.
+- ACC-122 (CP-A3.2): plan done, questions ACC-A-13; W1 started.
+- ACC-124 (answers to ACC-A-13): noted: CP-A3.2b follows (Q1 yes), I draft missing copy (Q6), backend fields A3-A16 later.
+- ACC-131 (Amends ACC-124.3): A3-A16 fields (compareChangePercent, tbDifference, cash-flow cash.difference, year-end warnings incl. SE_2099, actorId) are to be SHOWN in CP-A3.2: queued as slice A16 after W3a.
+- ACC-132: string convention confirmed (ERP-94); matches the plan.
+- ACC-122 (CP-A3.2): done, reported as ACC-A-14. ACC-124/131/132 applied. Next: CP-A3.2b after the lead's check.
+- ACC-136 (CP-A3.2 scope check passed) noted. ACC-137 (copy approved with changes): in progress, one commit before the push.
+- ACC-137: done, reported as ACC-A-15 (e0c73ea6).
+- ACC-124.1 (CP-A3.2b): plan written, questions ACC-A-16; J1 + C1 starting.
+- ACC-139 (shared listener): done, using docs/inbox/listen.sh. ACC-140 (answers to ACC-A-16): noted: Q1-Q3 yes, Q12 audit titles in Kotlin, backend asks A3-A17, CP-A3.2c follow-up (list its scope in the CP-A3.2b report).
+- ACC-148 + ACC-152 (design commits): done 3b8754c6 + 008af362, reported as ACC-A-17. ERP-106/ERP-111: ERP-111 done (rig root = 008af362); ERP-106 (shared specs commit) waits for the Accounts lead's relay (asked in ACC-A-17).
+- CP-A3.2b (ACC-124.1, ACC-140): done, reported as ACC-A-17. Next: CP-A3.2c after the lead's OK.
+- ACC-155: ERP-106 done (docs commit), reported as ACC-A-18; ACC-155.3 CP-A3.2c starting; ACC-155.4 listener started with the full path.
+- ERP-106/ERP-111: done (ERP-106 = cd30e3d1, ERP-111 = 008af362). ERP-115 (track agent folders, from the ERP lead): held, asked the Accounts lead to relay (ACC-A-19).

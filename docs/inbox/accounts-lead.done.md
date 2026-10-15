@@ -1,0 +1,123 @@
+# Done: Cowork · accounts-lead
+
+Owner only. One line per handled item: `<entry date/time> · <sender> · item n · done | answered in <inbox> | decided: ...`
+
+2026-10-09 20:30 · ERP lead · inboxes live · done (read, following protocol)
+2026-10-09 20:45 · ERP-1 · done (protocol read; ids ACC-n from ACC-1)
+2026-10-09 20:55 · ERP-2 · done (working style applied)
+2026-10-09 21:00 · ERP-3.1–3.7 · answered in erp-lead.md (ACC-1); 3.1/3.2/3.3 added to builder prompts; queue taken
+2026-10-09 21:00 · ERP-3.8 · open — push range after V11-7 fix report
+2026-10-09 21:10 · ERP-4 · done (self-wake per §13; answered ACC-3)
+2026-10-09 21:40 · ERP-5.1–5.2 · done (seed change added to CP-P26.2 prompt; answered ACC-3)
+2026-10-09 21:40 · ERP-5.3 · open — seed commit id to ERP lead; FYI to HRP when companies exist
+2026-10-09 21:00 · ERP-3.8 · done — push range sent (ACC-5)
+2026-10-09 21:30 · HRP-1 · answered in hr-payroll-lead.md (ACC-4); template docs/drafts/accounts/R9-COUNTRY-REVIEW-BRIEF.md
+2026-10-09 22:00 · HRP-2 · answered in hr-payroll-lead.md (ACC-4); goes into A5 contract
+2026-10-09 · CC · Accounts backend V11-7 report · accepted; pushed fe90564..d422e5f; CI/PR #3 sent to ERP (ACC-7)
+2026-10-09 22:42 · HRP-5 · answered in hr-payroll-lead.md (ACC-8): PF-1 approved with additions a–f; Q6/Q7/P4 Q1/Q2 yes
+2026-10-09 23:20 · HRP-6.3 · decided, packs §6.2a; answered ACC-9
+2026-10-09 23:20 · HRP-6.1/6.2 · done — rig aligned; FYI ACC-10
+2026-10-09 23:00 · ERP-7.1/7.4 · noted
+2026-10-09 23:00 · ERP-7.2 · done — CI-1 queued on backend after CP-A2.1b (prompt to Jabran)
+2026-10-09 23:00 · ERP-7.3 · done — shared-rules commit added to app builder prompt
+2026-10-09 23:30 · ERP-8 · done (blocking + majors), answered ACC-11; remaining Med/Minor D/E items in next pass
+2026-10-10 08:50 · ERP-12 · noted (PS-13 thread; settled by ERP-19)
+2026-10-10 09:20 · ERP-14 · noted (dev/dev-app only; no PR actions — builders already don't touch PRs)
+2026-10-10 09:40 · HRP-9 · answered ACC-12; packs §6.4 PK amendment
+2026-10-10 10:30 · ERP-16 · noted (ERP lead = Code · ERP lead (trial), same inbox)
+2026-10-10 10:33 · ERP-19 · done (agreed; ACC-12)
+2026-10-10 11:00 · ERP-20 · noted
+2026-10-10 11:40 · ERP-22 · done (retention rows, notes); D-40 to Jabran bundle; answered ACC-13
+2026-10-10 12:20 · ERP-24 · done (contract fixes; EV-1 queued after A3); answered ACC-13
+2026-10-10 09:42 · ERP-26 · seen; 26.1/26.2 applied in accounts-a0.jsx, rest in progress; answered ACC-16
+2026-10-10 09:42 · ERP-28 · seen; in progress (sub-agents), item answers to follow; acknowledged ACC-16
+2026-10-10 09:42 · ERP-30 · agreed; builder switch via Jabran; answered ACC-16
+2026-10-10 09:48 · ERP-32 · done — briefs ACC-17/18/19; answered ACC-20
+2026-10-10 09:48 · ERP-33.1/.3/.4(a0)/.6/.7 · done; .2 A5 drafting; .4(b-c) and .5 next turn; answered ACC-20
+2026-10-10 09:48 · HRP-14 · noted (HRP lead is Code session)
+2026-10-10 13:27 · HRP-19 · answered ACC-27 (1,2,4 yes; 3 footnote done, PK/SE accounts in packs fold)
+2026-10-10 14:35 · ERP-35 · noted (design first; models per task)
+2026-10-10 14:35 · ERP-37, ERP-39 · applied: ACC-29/30/31 to mains; answered ACC-32
+2026-10-10 14:39 · ERP-28 · done; answered item by item ACC-33
+2026-10-10 14:39 · ERP-26 · done (26.3 in B/C); ACC-33
+2026-10-10 14:39 · ERP-33.4, ERP-33.5 · done; ACC-33
+2026-10-10 14:46 · HRP-26 · noted
+2026-10-10 14:46 · HRP-27 · agreed all (with X-1..X-3 yes); answered ACC-34; A5 edits running
+2026-10-10 14:46 · ERP-41 · applied (rename, d-e rows, ISSUED_DOCUMENT, credentials rule into docout, component contracts drafting); answered ACC-35
+2026-10-10 15:00 · HRP-28 · G-7 closed (A5 confirmed by HRP)
+2026-10-10 15:00 · ERP-43, ERP-44, ERP-45 · accepted; fixes running; answered ACC-39
+2026-10-10 18:13 · ACC-A-1, ACC-A-2 · seen; lead review running; answered ACC-48
+2026-10-10 18:13 · ACC-B-1, ACC-B-2 · seen; lead review running; answered ACC-47; CI-1 + shared code to ERP (ACC-49)
+2026-10-10 18:22 · ERP-47 · noted; CI-1 adds sent ACC-55
+2026-10-10 18:22 · ERP-48 · noted (lead accepts own module; ERP only shared/security)
+2026-10-10 18:22 · ERP-50, ERP-53 · applied to App fix round ACC-54
+2026-10-10 18:22 · ERP-51 · done: ACC rows R1–R7 in hosting-and-go-live-requirements.md §4
+2026-10-10 18:27 · ERP-54 · done: listening on accounts-lead.md; mains told (ACC-56/57)
+2026-10-10 18:37 · ERP-56 · noted (§14 timing: safe points, Amends/Replaces, one active brief per main)
+2026-10-10 18:49 · ACC-B-3 · accepted; push ordered ACC-59
+2026-10-10 18:53 · ACC-B-4 · done: pushed d422e5f..a677351; backend idle until Phase 2
+2026-10-10 19:00 · ERP-58 · noted (mains compact after push; lead after phase bundle / ~80%)
+2026-10-10 19:44 · ACC-A-3 · seen; lead check running; shared ids to ERP (ACC-60)
+2026-10-10 19:50 · ERP-62 · done: push line sent ACC-62
+2026-10-10 19:50 · ERP-63 · noted; passed to backend ACC-63
+2026-10-10 19:53 · ACC-A-4 · accepted; push line already in ACC-62 (full jvmTest first)
+2026-10-10 19:56 · ERP-65 · applied: ACC-64 (App), ACC-65 (Backend)
+2026-10-10 20:11 · ACC-A-5 · done: dev-app pushed 879d665..9de7f68; CP-A2.2 next after compact
+2026-10-13 08:16 · ACC-A-6 · answered ACC-68; backend CP-A2.1c ACC-66; ERP ACC-67
+2026-10-13 09:06 · Jabran 2026-10-13: lead end-of-phase review = scope + functionality + code (ACC-74/75)
+2026-10-13 10:32 · ACC-A-7 · scope check passed; answered ACC-77; shared OK asked ACC-78; backend nudged ACC-76; ERP-67 noted
+2026-10-13 10:35 · ERP-69 · applied: push line + CP-A2.2b brief ACC-79
+2026-10-13 10:39 · ACC-B-5 · accepted; push ACC-80; App told ACC-81
+2026-10-13 10:42 · ACC-B-6 · done: pushed a677351..5f48a1d; backend idle (paused)
+2026-10-13 15:43 · ACC-A-8 · answered ACC-83; KMM-Network change asked ACC-82; push needs Jabran
+2026-10-13 15:47 · ERP-71 · noted; Jabran decided main (ACC-85 already sent)
+2026-10-13 15:48 · CP-A2.2 pushed by Jabran to 93e9f39
+2026-10-13 16:00 · ERP-72 · .1 ruled; .2 mapping running; answered ACC-88
+2026-10-13 16:03 · ERP-75 · done: Codex briefed ACC-89
+2026-10-13 16:04 · ERP-73 · answered ACC-90 (companyCode + legalNameSet asked; rest handled in Accounts contracts)
+2026-10-13 16:06 · DK mapping folded; Codex told ACC-91
+2026-10-13 16:08 · ERP-76 · done (companyCode + legalNameSet in ORG-FACTS-2); consumer check closed
+2026-10-13 16:14 · ACC-C-1 · answered ACC-92
+2026-10-13 16:22 · ACC-C-2 · answered ACC-93
+2026-10-13 16:45 · ACC-A-9 · scope check passed; ERP OK asked ACC-94; App ACC-95
+2026-10-13 16:49 · ERP-79 · OK to push KMM + core/network
+2026-10-13 16:56 · Phase 1 review done (2 blocking app, 6 major); fix rounds ACC-96 (App), ACC-97 (Codex)
+2026-10-13 17:38 · ACC-A-10 · scope ok; ERP OK asked ACC-98; App ACC-99
+2026-10-13 17:42 · ACC-A-11 · m-21 done (8b6786d); added to ERP OK ACC-100
+2026-10-13 18:30 · HRP-35 · answered ACC-101 (ATP_PAYABLE 2771; rig chart after CP-P26.2)
+2026-10-13 18:33 · ERP-80 · OK to push; follow-ups ACC-102
+2026-10-14 11:36 · ACC-C-3..7 · ruled/dispositioned ACC-103; P1-FIX-BE accepted
+2026-10-14 12:45 · ACC-C-8 · accepted ACC-105; ERP OK asked ACC-104; ACC-A-12 seen (forwarded)
+2026-10-14 13:38 · ACC-C-9 · scope ok; routed to ERP ACC-108
+2026-10-14 17:59 · ERP-84 · noted (ACC-104 OK; app push cleared) · ERP-85 · passed to Codex ACC-109
+2026-10-14 18:11 · ACC-C-10 · scope ok; ERP OK asked ACC-110
+2026-10-14 18:14 · ERP-86 · ORG-FACTS-2 accepted; backend push cleared
+2026-10-14 18:21 · ACC-C-11 · ruled ACC-112 (reporting_framework)
+2026-10-14 18:32 · ACC-C-12 · approved PATCH /setup ACC-113
+2026-10-14 19:53 · ACC-B-7 · scope ok; rulings ACC-116; ERP OK asked ACC-117
+2026-10-14 19:56 · ERP-87 · OK; push 41e69c7; allowlist added ACC-118
+2026-10-15 13:00 · ACC-B-8 · accepted; push; follow-up ACC-119
+2026-10-15 13:04 · ERP-88 · noted (C3 strings in app briefs; C4 NO uploads when region live)
+2026-10-15 13:04 · ACC-B-9 · accepted; push whole range 41e69c7..24c2311
+2026-10-15 13:08 · ERP-91 · Codex now ERP backend (erp-lead-codex.md); I stop briefing it
+2026-10-15 13:52 · ACC-A-13 · answered ACC-124; backend A3-A16 ACC-125; ERP ACC-126
+2026-10-15 14:09 · ACC-B-10 · accepted ACC-127
+2026-10-15 14:24 · ACC-B-11 · accepted ACC-130; App told ACC-131
+2026-10-15 14:28 · ERP-94 · FS-1 takeover agreed (ERP-93 in backend inbox); string convention confirmed
+2026-10-15 15:34 · ERP-98 · answered ACC-133 (H-SE then EV-1); backend briefed H-SE ACC-134
+2026-10-15 16:37 · ACC-A-14 · scope ok; ERP OK ACC-135; copy check running; App ACC-136
+2026-10-15 16:38 · copy check done; changes ACC-137
+2026-10-15 16:39 · ERP-101 · done: switched to listen.sh; mains told ACC-138/139
+2026-10-15 16:39 · ERP-103 · CP-A3.2 shared files OK; push waits only for the ACC-137 copy commit
+2026-10-15 16:47 · ACC-A-15 · accepted; CP-A3.2 push cleared (20 commits)
+2026-10-15 16:56 · ACC-A-16 · answered ACC-140; ERP ACC-141; backend queued ACC-142
+2026-10-15 17:01 · ERP-104 · confirmed (audit titles stay in Kotlin)
+2026-10-15 17:38 · ACC-B-14 · scope ok; tax-pack check + answers ACC-143; ERP ACC-144
+2026-10-15 17:43 · ERP-105 · OK to push 0005bc1; conditions to backend ACC-146
+2026-10-15 17:43 · ACC-B-15 · accepted (no tax-pack bug, 9219ee2)
+2026-10-15 17:46 · ACC-B-16 · answered ACC-147
+2026-10-15 17:50 · ERP-109 · applied ACC-152/153; workspace files question ACC-154
+2026-10-15 17:55 · ACC-A-17 · accepted; ERP-106 routed; CP-A3.2c started ACC-155; ERP OK asked ACC-156
+2026-10-15 17:55 · ACC-B-17 · accepted (848d487)
+2026-10-15 17:55 · ERP-112 · noted (don't move workspace files) · ERP-113 · full-path listener, mains told
+2026-10-15 17:59 · ACC-A-18 · ERP-106 done cd30e3d1; ERP told ACC-158

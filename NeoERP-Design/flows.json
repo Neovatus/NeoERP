@@ -1,0 +1,488 @@
+{
+  "$comment": "NeoERP flow + state specification. Machine-readable companion to FLOWS.md. Every screen, route, state, transition and guard in the designed surfaces. An agent should be able to build routing, guards and state handling from this file alone, then use the .jsx files for visual detail. Rule references (R1..R15) point at RULES.md sections.",
+  "version": "1.0.0",
+  "generated": "2026-09-06",
+  "product": "NeoERP",
+  "operator": "Neovatus",
+  "scope": ["auth", "platform-admin"],
+  "notScoped": ["company-owner-dashboard", "role-dashboards", "functional-modules", "customer-storefront"],
+
+  "actors": [
+    { "id": "anonymous", "label": "Not signed in" },
+    { "id": "superAdmin", "label": "Neovatus Platform Admin", "canImpersonate": true },
+    { "id": "companyOwner", "label": "Company Owner (tenant)" },
+    { "id": "branchOwner", "label": "Branch/Franchise Owner (tenant)" },
+    { "id": "tenantUser", "label": "Manager, Sales, Employee (tenant)", "designed": false }
+  ],
+
+  "flows": [
+    {
+      "id": "auth",
+      "label": "Authentication",
+      "owner": "keycloak",
+      "note": "11 of 13 screens are Keycloak login-theme FreeMarker templates. Keycloak owns the URL, form action, CSRF token and error state. Only workspace entry is an application route.",
+      "initial": "workspace",
+      "states": [
+        {
+          "id": "workspace", "label": "Workspace Entry", "owner": "app", "route": "/workspace",
+          "component": "WorkspaceEntry",
+          "purpose": "Resolve a subdomain to a Keycloak realm before Keycloak is involved.",
+          "data": { "recent": "localStorage, never a cross-subdomain cookie" },
+          "transitions": [
+            { "on": "submit", "guard": "subdomain matches [a-z0-9-]+ and is non-empty", "to": "signin" },
+            { "on": "submit", "guard": "realm requires SSO", "to": "sso" },
+            { "on": "submit.invalid", "to": "workspace", "error": "Enter your workspace address to continue." },
+            { "on": "selectRecent", "to": "signin" }
+          ]
+        },
+        {
+          "id": "signin", "label": "Sign In", "owner": "keycloak", "template": "login.ftl",
+          "component": "SignIn",
+          "transitions": [
+            { "on": "submit.ok", "guard": "2FA enrolled", "to": "otp" },
+            { "on": "submit.ok", "guard": "no 2FA, no required actions", "to": "app" },
+            { "on": "submit.ok", "guard": "requiredAction=UPDATE_PASSWORD", "to": "pwExpired" },
+            { "on": "submit.ok", "guard": "requiredAction=VERIFY_EMAIL", "to": "verifyEmail" },
+            { "on": "submit.fail", "to": "signin", "error": "Invalid username or password", "rule": "R-SEC-1" },
+            { "on": "submit.fail", "guard": "bruteForce threshold reached", "to": "locked" },
+            { "on": "forgot", "to": "forgot" },
+            { "on": "changeWorkspace", "to": "workspace" }
+          ],
+          "security": {
+            "id": "R-SEC-1",
+            "rule": "Server-side sign-in errors must stay generic. One message for unknown account and wrong password.",
+            "why": "Splitting them leaks which staff email addresses exist in a tenant."
+          }
+        },
+        {
+          "id": "sso", "label": "SSO / Providers", "owner": "keycloak", "template": "login.ftl#social",
+          "component": "SsoSignIn",
+          "data": { "providers": "from realm config at runtime — order, labels and count are not design decisions" },
+          "transitions": [
+            { "on": "pickProvider", "to": "otp" },
+            { "on": "usePassword", "guard": "password sign-in enabled for realm", "to": "signin" },
+            { "on": "back", "to": "workspace" }
+          ]
+        },
+        {
+          "id": "otp", "label": "Two-factor challenge", "owner": "keycloak", "template": "login-otp.ftl",
+          "component": "OtpChallenge",
+          "config": { "digits": 6, "windowSeconds": 30 },
+          "transitions": [
+            { "on": "submit.ok", "to": "app" },
+            { "on": "submit.fail", "to": "otp", "error": "That code is invalid or has expired. Codes are valid for 30 seconds." },
+            { "on": "submit.short", "to": "otp", "error": "Enter all six digits." },
+            { "on": "useRecoveryCode", "to": "recoveryCode" },
+            { "on": "back", "to": "signin" }
+          ]
+        },
+        {
+          "id": "recoveryCode", "label": "Recovery code", "owner": "keycloak",
+          "template": "login-recovery-authn-code-config.ftl",
+          "config": { "codes": 12, "singleUse": true, "promptsSpecificIndex": true },
+          "transitions": [{ "on": "submit.ok", "to": "app" }]
+        },
+        {
+          "id": "forgot", "label": "Forgot password", "owner": "keycloak", "template": "login-reset-password.ftl",
+          "component": "ForgotPassword",
+          "transitions": [
+            { "on": "submit", "to": "emailSent", "guard": "always — success is unconditional", "rule": "R-SEC-2" },
+            { "on": "back", "to": "signin" }
+          ],
+          "security": {
+            "id": "R-SEC-2",
+            "rule": "Forgot Password always reports success, whether or not the address exists.",
+            "why": "Account enumeration."
+          }
+        },
+        { "id": "emailSent", "label": "Email sent", "owner": "keycloak", "template": "login-reset-password.ftl#success",
+          "component": "EmailSent",
+          "transitions": [{ "on": "resend", "to": "emailSent" }, { "on": "back", "to": "signin" }] },
+        { "id": "reset", "label": "Reset password", "owner": "keycloak", "template": "login-update-password.ftl",
+          "component": "ResetPassword", "entryVia": "emailed link",
+          "validation": { "minScore": 3, "of": 4, "mustMatch": true },
+          "transitions": [
+            { "on": "submit.ok", "to": "resetSuccess" },
+            { "on": "submit.weak", "to": "reset", "error": "Please choose a stronger password." },
+            { "on": "submit.mismatch", "to": "reset", "error": "Passwords don't match." }
+          ] },
+        { "id": "resetSuccess", "label": "Reset success", "owner": "keycloak", "template": "info.ftl",
+          "component": "ResetSuccess", "transitions": [{ "on": "continue", "to": "signin" }] },
+        {
+          "id": "invite", "label": "Invite → Set password", "owner": "keycloak", "template": "login-update-password.ftl",
+          "component": "SetPassword", "props": { "mode": "invite" },
+          "entryVia": "Keycloak Execute-Actions email carrying UPDATE_PASSWORD",
+          "note": "This is the entire staff onboarding path. There is no signup page anywhere (R1).",
+          "validation": { "minScore": 4, "of": 4, "mustMatch": true },
+          "transitions": [{ "on": "submit.ok", "to": "otpSetup" }]
+        },
+        { "id": "otpSetup", "label": "2FA setup", "owner": "keycloak", "required": true,
+          "note": "Required for all staff accounts.", "transitions": [{ "on": "complete", "to": "app" }] },
+        { "id": "pwExpired", "label": "Password expired", "owner": "keycloak", "template": "login-update-password.ftl",
+          "component": "SetPassword", "props": { "mode": "expired" },
+          "transitions": [{ "on": "submit.ok", "to": "app" }] },
+        { "id": "verifyEmail", "label": "Verify email", "owner": "keycloak", "template": "login-verify-email.ftl",
+          "component": "VerifyEmail", "blocking": true,
+          "note": "A required action, not a navigable page. Blocks until confirmed.",
+          "transitions": [
+            { "on": "linkClicked", "to": "app" },
+            { "on": "resend", "to": "verifyEmail" },
+            { "on": "differentAccount", "to": "signin" }
+          ] },
+        { "id": "locked", "label": "Account locked", "owner": "keycloak", "template": "login.ftl#bruteForce",
+          "component": "AccountLocked",
+          "data": { "attempts": "from Keycloak brute-force detector", "unlockIn": "real remaining lockout, ticking" },
+          "transitions": [
+            { "on": "resetPassword", "to": "forgot" },
+            { "on": "back", "to": "signin" },
+            { "on": "timerExpired", "to": "signin" }
+          ] },
+        { "id": "pageExpired", "label": "Page expired", "owner": "keycloak", "template": "login-page-expired.ftl",
+          "component": "PageExpired", "trigger": "back-button or stale-tab submit",
+          "transitions": [
+            { "on": "restart", "to": "signin", "url": "url.loginRestartFlowUrl" },
+            { "on": "continue", "to": "app", "url": "url.loginAction" }
+          ] },
+        { "id": "app", "label": "Signed in — role home", "terminal": true,
+          "note": "superAdmin → platform dashboard. Tenant roles → not yet designed." }
+      ],
+      "keycloakRealmConfig": {
+        "strategy": "realm per tenant",
+        "registration": "DISABLED — required by R1",
+        "bruteForceDetection": true,
+        "rememberMe": true,
+        "resetPasswordAllowed": true,
+        "otpPolicy": { "type": "totp", "digits": 6, "period": 30 },
+        "recoveryCodes": { "count": 12, "singleUse": true },
+        "verifyEmail": true,
+        "messageBundles": "all copy in messages_en.properties, never hardcoded in .ftl"
+      }
+    },
+
+    {
+      "id": "platformAdmin",
+      "label": "Super Admin console",
+      "owner": "app",
+      "actor": "superAdmin",
+      "initial": "dashboard",
+      "shell": {
+        "sidebar": { "width": 260, "compact": 232, "drawerBelow": 1024, "drawerWidth": 280 },
+        "topbar": { "height": 64, "shows": ["workspace switcher", "search", "env indicator (non-prod only)", "account menu"] },
+        "nav": [
+          { "section": "Overview", "items": ["dashboard", "audit"] },
+          { "section": "Platform Admin", "items": ["companies", "branches", "agreements", "entitlements", "requests", "people", "admins", "audit"] },
+          { "section": "Account", "items": ["profile", "settings"] }
+        ],
+        "badges": {
+          "requests": "openRequests() — one expression, shared with the dashboard KPI and the inbox header",
+          "dashboard": "QUEUE.length"
+        }
+      },
+      "states": [
+        {
+          "id": "dashboard", "label": "Platform dashboard", "route": "/", "component": "PlatformDashboard",
+          "purpose": "What needs a human today.",
+          "regions": [
+            { "id": "kpis", "derived": true, "from": ["TENANT_TREE", "REQUESTS", "BRANCH_REQUESTS"],
+              "items": ["Companies", "Branches", "Users", "Open requests"] },
+            { "id": "queue", "label": "Needs attention", "groups": ["Failed runs", "Security", "Access requests", "Blocked onboarding", "Expiring"] },
+            { "id": "agreements", "label": "Agreements", "source": "allAgreements()", "sort": "soonest expiry first", "includes": "company and franchise" },
+            { "id": "health" }, { "id": "portfolio" }
+          ],
+          "transitions": [
+            { "on": "queueItem.cta", "to": "varies by item" },
+            { "on": "agreementRow.open", "to": "company | branch" }
+          ]
+        },
+        {
+          "id": "companies", "label": "Companies", "route": "/companies", "component": "CompaniesList",
+          "transitions": [
+            { "on": "row.click", "to": "company", "params": ["id"] },
+            { "on": "enroll", "to": "enroll" }
+          ]
+        },
+        {
+          "id": "company", "label": "Company detail", "route": "/companies/:id", "component": "CompanyDetail",
+          "params": ["id"],
+          "tabs": ["overview", "branches", "modules", "users", "activity"],
+          "notFound": { "behaviour": "explicit empty state", "never": "fall back to another company — a wrong contract on screen is worse than a blank" },
+          "transitions": [
+            { "on": "branch.open", "to": "branch", "params": ["company", "branch"] },
+            { "on": "enterCompany", "to": "impersonation.launcher", "visibleTo": "superAdmin" },
+            { "on": "modules.edit", "to": "entitlements" }
+          ]
+        },
+        {
+          "id": "enroll", "label": "Company enrollment", "route": "/enroll", "component": "EnrollCompany",
+          "actor": "superAdmin", "note": "Only path by which a company comes into existence (R1).",
+          "steps": [
+            { "id": "company", "label": "Company & region", "fields": ["name", "legal", "country", "taxId", "registration", "address"] },
+            { "id": "agreement", "label": "Agreement",
+              "fields": ["ref", "term", "start", "end", "renewal"],
+              "modules": { "label": "Modules in this agreement", "meaning": "the ceiling — branches can switch these off, never on", "control": "mgrid cards" },
+              "limits": { "fields": ["users", "branches", "warehouses"], "unlimited": "explicit checkbox; 0 in data, never surfaced as 0 (R10)" },
+              "note": "No plan tiers exist (R2)." },
+            { "id": "owner", "label": "Owner invitation", "labelWhenKnown": "Owner",
+              "fields": ["name", "email", "role"],
+              "action": "Keycloak Execute-Actions invitation. Never sets a password." },
+            { "id": "review", "label": "Review & send", "eachRowLinksBackToItsStep": true }
+          ],
+          "transitions": [
+            { "on": "send", "to": "company", "sideEffects": ["create tenant", "create realm", "invite owner"] },
+            { "on": "cancel", "to": "companies" }
+          ]
+        },
+        {
+          "id": "branches", "label": "Branches (all tenants)", "route": "/branches", "component": "BranchesList",
+          "purpose": "Cross-tenant view. Without it, the only path to a branch is through its company.",
+          "filters": ["all", "company-owned", "franchised"],
+          "columns": ["branch", "company", "type", "owner", "books", "agreement"],
+          "predicates": { "ownerCell": "branchNeedsOwner() — shared with the KPI so they cannot disagree" },
+          "transitions": [{ "on": "row.open", "to": "branch", "params": ["company", "branch"] }]
+        },
+        {
+          "id": "branch", "label": "Branch detail", "route": "/companies/:company/branches/:branch",
+          "component": "BranchDetail", "params": ["company", "branch"],
+          "facts": ["ownership", "owner", "financials (own books vs group ledger)", "billing", "agreement"],
+          "resolution": "agreement ceiling → company default → branch override → feature override",
+          "provenanceTags": ["Inherited", "Overridden", "Addendum", "Own agreement", "Not entitled"],
+          "notFound": { "behaviour": "explicit empty state" },
+          "transitions": [
+            { "on": "enterBranch", "to": "impersonation.launcher", "visibleTo": "superAdmin" },
+            { "on": "deactivate", "to": "branch", "actor": "companyOwner", "reversible": true, "distinctFrom": "suspend (R9)" },
+            { "on": "entitlements.edit", "to": "entitlements" }
+          ]
+        },
+        {
+          "id": "agreements", "label": "Agreements", "route": "/agreements", "component": "AgreementsList",
+          "purpose": "Renewal pipeline.",
+          "source": "allAgreements()",
+          "filters": ["all", "manual renewal", "franchise-held"],
+          "states": ["active", "renewal (90d)", "soon (30d)", "critical (7d)", "expired"],
+          "transitions": [
+            { "on": "renew", "guard": "days <= 90" },
+            { "on": "open", "to": "company | branch" }
+          ]
+        },
+        {
+          "id": "entitlements", "label": "Entitlements", "route": "/entitlements", "component": "Entitlements",
+          "purpose": "The contract made operational.",
+          "chain": [
+            { "level": 1, "id": "agreementCeiling", "question": "is this module in the agreement at all?" },
+            { "level": 2, "id": "companyDefault", "question": "of what is entitled, what is on by default?" },
+            { "level": 3, "id": "branchOverride", "values": ["inherit", "on", "off"] },
+            { "level": 4, "id": "featureOverride", "values": ["inherit", "on", "off"] }
+          ],
+          "storage": "sparse — {branchId: 'on'|'off'}; never materialise a full matrix",
+          "gate": {
+            "id": "reasonGate",
+            "appliesTo": "every entitlement, limit and module change",
+            "fields": { "reason": { "required": true, "minLength": 6 }, "amendmentRef": { "required": "only for extensions", "minLength": 3 } },
+            "extension": {
+              "definition": "enabling a module the agreement does not cover",
+              "blocked": false,
+              "why": "Neovatus holds the agreement, so a hard wall is theatre — the operator would amend and return, having recorded nothing.",
+              "effects": ["notice turns red", "amendment reference becomes required", "button reads 'Extend agreement & apply'", "module badged 'Outside agreement'", "summary shows a separate red +N extension count"]
+            },
+            "writesTo": "audit"
+          }
+        },
+        {
+          "id": "requests", "label": "Requests inbox", "route": "/requests", "component": "CompanyRequests",
+          "note": "One inbox for everything a tenant asks for (R15).",
+          "tabs": [
+            { "id": "all", "title": "All requests" },
+            { "id": "branch", "title": "Branch requests" },
+            { "id": "company", "title": "Company requests" }
+          ],
+          "openPredicate": "isOpenRequest() — status is neither Approved nor Declined; shared with the sidebar badge and dashboard KPI",
+          "transitions": [
+            { "on": "approve", "to": "requests", "sideEffects": ["create branch", "write audit entry"] },
+            { "on": "decline", "guard": "reason required", "sideEffects": ["notify requester"] },
+            { "on": "impersonateRequester", "to": "impersonation.launcher", "guard": "source is owner AND actor is superAdmin" }
+          ]
+        },
+        {
+          "id": "requestBranch", "label": "Request a branch (tenant side)", "route": "/request-branch",
+          "component": "RequestBranch", "actor": "companyOwner",
+          "note": "Included because it defines the contract between the two sides.",
+          "fields": ["branch", "city", "code", "type", "owner (if franchised)", "reason"],
+          "typeChoice": {
+            "control": "two cards, not a dropdown",
+            "why": "This decides where the money lands and is hard to change once the branch is trading.",
+            "options": [
+              { "id": "company", "label": "Company-owned", "commits": ["posts to the group ledger", "rolls into the group P&L", "managed by your staff", "no separate invoice"] },
+              { "id": "franchise", "label": "Franchised", "commits": ["keeps its own books and P&L", "has its own owner with their own sign-in", "can be invoiced directly by Neovatus", "can hold its own agreement"] }
+            ]
+          },
+          "transitions": [{ "on": "submit", "to": "requests", "creates": "branch request" }]
+        },
+        {
+          "id": "people", "label": "People", "route": "/people", "component": "PeopleList",
+          "groups": ["platform staff", "tenant users"],
+          "transitions": [
+            { "on": "row.click", "to": "person", "params": ["id"] },
+            { "on": "sendReset", "note": "support-on-request; reason-gated and logged. The company admin owns this normally (R12)." }
+          ]
+        },
+        { "id": "person", "label": "Person detail", "route": "/people/:id", "component": "PersonDetail", "params": ["id"] },
+        { "id": "admins", "label": "Super Admins", "route": "/admins", "component": "SuperAdminUsers" },
+        {
+          "id": "audit", "label": "Audit log", "route": "/audit", "component": "AuditLog",
+          "purpose": "Where every reason gate lands. Without it the gates collect justifications and discard them.",
+          "appendOnly": true,
+          "kinds": ["entitlement", "agreement", "branch", "company", "limit", "people", "impersonation"],
+          "entry": { "fields": ["at", "actor", "actorRole", "kind", "tenant", "env", "action", "detail", "reason", "ref", "children"] },
+          "kpis": ["entries", "agreement extensions awaiting paperwork", "impersonation sessions", "missing a reason"],
+          "impersonationEntries": "expand into the actions taken inside the session, each double-logged (R13)"
+        },
+        {
+          "id": "settings", "label": "Settings", "route": "/settings", "component": "Settings",
+          "contains": ["environment switcher"],
+          "environmentSwitcher": {
+            "values": ["dev", "staging", "prod"],
+            "placement": "Settings, not the topbar",
+            "why": "A development-phase tool. In the topbar it is one mis-click from a real tenant's production data (R14).",
+            "indicator": "persistent topbar chip whenever not in production"
+          }
+        },
+        {
+          "id": "firstrun", "label": "Tenant first run", "route": "/firstrun", "component": "FirstRun",
+          "actor": "companyOwner",
+          "note": "Designed as a contract, not fully built. Defines the handover between Neovatus and the tenant."
+        }
+      ]
+    },
+
+    {
+      "id": "impersonation",
+      "label": "Impersonation",
+      "rule": "R13",
+      "why": "The ability to act as a customer is the most dangerous permission in the platform. It cannot be ambient.",
+      "initial": "idle",
+      "states": [
+        { "id": "idle" },
+        {
+          "id": "launcher", "component": "ImpersonationLauncher",
+          "fields": ["company", "branch (optional)", "user (optional)", "mode", "reason"],
+          "modes": ["readOnly", "full"],
+          "guards": [{ "field": "reason", "required": true }],
+          "transitions": [{ "on": "confirm", "to": "active" }, { "on": "cancel", "to": "idle" }]
+        },
+        {
+          "id": "active",
+          "banner": {
+            "fixed": true, "dismissable": false, "fullWidth": true,
+            "ground": "accent/base",
+            "shows": ["who you are acting as", "why", "live timer", "Exit"]
+          },
+          "logging": "every action double-logged — once as the acting user, once as the super admin",
+          "transitions": [{ "on": "exit", "to": "idle", "writes": "audit entry with duration and action count" }]
+        }
+      ],
+      "entryPoints": [
+        { "from": "company", "label": "Enter company", "visibleTo": "superAdmin" },
+        { "from": "branch", "label": "Enter branch", "visibleTo": "superAdmin" },
+        { "from": "requests", "label": "Act on behalf of requester", "visibleTo": "superAdmin" }
+      ],
+      "neverVisibleIn": "the tenant's own chrome"
+    },
+
+    {
+      "id": "branchLifecycle",
+      "label": "Branch lifecycle",
+      "rule": "R6",
+      "initial": "requested",
+      "states": [
+        { "id": "requested", "actor": "companyOwner", "note": "The owner cannot create a branch directly — it consumes an agreement limit and may change what is billed." },
+        { "id": "underReview", "actor": "superAdmin",
+          "decisions": [
+            { "id": "ownership", "values": ["company", "franchise"] },
+            { "id": "books", "values": ["own", "group"], "note": "Independent of ownership — a managed franchise can be consolidated." },
+            { "id": "billing", "values": ["own", "group"], "note": "Independent of books." },
+            { "id": "modules", "values": ["inherit", "explicit set"] }
+          ],
+          "transitions": [
+            { "on": "approve", "to": "active", "writes": "audit" },
+            { "on": "decline", "to": "declined", "guard": "reason required" }
+          ] },
+        { "id": "active",
+          "transitions": [
+            { "on": "deactivate", "to": "deactivated", "actor": "companyOwner", "kind": "operational" },
+            { "on": "suspend", "to": "suspended", "actor": "superAdmin", "kind": "commercial" }
+          ] },
+        { "id": "deactivated", "reversibleBy": "companyOwner", "meaning": "The shop is shut for renovation.",
+          "transitions": [{ "on": "reactivate", "to": "active", "actor": "companyOwner" }] },
+        { "id": "suspended", "reversibleBy": "superAdmin", "meaning": "Non-payment or a compliance hold.",
+          "transitions": [{ "on": "lift", "to": "active", "actor": "superAdmin" }] },
+        { "id": "declined", "terminal": true }
+      ],
+      "warning": "Deactivate and suspend must stay distinct verbs. One button for both is how a paying customer's shop gets switched off by accident, or a non-paying one switched back on by their own admin."
+    },
+
+    {
+      "id": "agreementLifecycle",
+      "label": "Agreement lifecycle",
+      "rule": "R11",
+      "scopes": ["company", "franchise"],
+      "note": "A franchise may hold its own agreement. Two agreements then expire on different days — never show one and imply the other (R8).",
+      "states": [
+        { "id": "active", "when": "days > 90", "tone": "neutral" },
+        { "id": "renewal", "when": "days <= 90", "tone": "info", "label": "Renewal due", "action": "Renew appears" },
+        { "id": "soon", "when": "days <= 30", "tone": "warn", "label": "Expiring", "tenantSees": "prominent banner" },
+        { "id": "critical", "when": "days <= 7", "tone": "danger" },
+        { "id": "expired", "when": "days < 0", "tone": "danger" }
+      ],
+      "renewalModes": [
+        { "id": "auto", "behaviour": "rolls unless cancelled" },
+        { "id": "manual", "behaviour": "lapses untouched — the failure mode worth surfacing" }
+      ],
+      "resolvers": {
+        "allAgreements": "every agreement on the platform, company and franchise, deduped by tenant name",
+        "agreementFor": "a company's agreement by name",
+        "agreementForBranch": "the agreement that actually governs a branch — its own if it holds one, otherwise the group's",
+        "branchRecord": "a branch across both tenant datasets; returns null rather than a stranger's record"
+      }
+    }
+  ],
+
+  "sharedPredicates": [
+    { "id": "isOpenRequest", "file": "platform-data.jsx", "definition": "status !== 'Approved' && status !== 'Declined'",
+      "consumers": ["dashboard KPI", "sidebar badge", "requests banner", "inbox header"],
+      "why": "Four counters of one queue is how a dashboard ends up disagreeing with the page it links to." },
+    { "id": "branchNeedsOwner", "file": "agreement.jsx", "definition": "ownership === 'franchise' && !owner",
+      "consumers": ["branches KPI", "branches owner cell", "branch detail owner row"],
+      "why": "A company-owned branch is run by group staff, so a blank owner is normal there and a defect on a franchise." },
+    { "id": "agreementState", "file": "agreement.jsx", "definition": "days-remaining → one of five states",
+      "consumers": ["chip", "card", "banner", "dashboard panel", "agreements screen"] },
+    { "id": "openRequests", "file": "platform-data.jsx", "definition": "count of isOpenRequest across REQUESTS and BRANCH_REQUESTS" }
+  ],
+
+  "globalRules": [
+    { "id": "R1", "rule": "Nobody signs up. Companies are enrolled by Super Admin; the first owner is invited; everyone after that is invited by their own company admin; branches are requested." },
+    { "id": "R2", "rule": "Agreements, not plans. No tiers, and no presets pretending otherwise." },
+    { "id": "R3", "rule": "The entitlement chain resolves in four levels, top down." },
+    { "id": "R4", "rule": "The ceiling is soft, but it remembers." },
+    { "id": "R5", "rule": "Every entitlement change is a contract event and passes a reason gate." },
+    { "id": "R6", "rule": "Branches are requested, then granted. Owners may activate and deactivate freely." },
+    { "id": "R7", "rule": "Branch type is a financial decision with three independent flags." },
+    { "id": "R8", "rule": "A franchise can hold its own agreement." },
+    { "id": "R9", "rule": "Deactivate is not suspend." },
+    { "id": "R10", "rule": "Limits are hard, and unlimited is explicit." },
+    { "id": "R11", "rule": "Agreement expiry must be impossible to miss." },
+    { "id": "R12", "rule": "Password resets belong to the company admin." },
+    { "id": "R13", "rule": "Impersonation is visible, reasoned and logged." },
+    { "id": "R14", "rule": "Environment switching lives in Settings." },
+    { "id": "R15", "rule": "Requests are one inbox." }
+  ],
+
+  "responsive": {
+    "breakpoints": { "phone": 480, "mobile": 720, "tablet": 1024, "desktop": 1280, "wide": 1440 },
+    "rules": [
+      { "at": 1024, "effect": "sidebar becomes a drawer; auth art panel hidden" },
+      { "at": 720, "effect": "tables reflow to cards via td::before content: attr(data-label); single column; 44px touch floor on every control regardless of density" },
+      { "at": 480, "effect": "KPI grid single column" }
+    ],
+    "verified": { "desktop": true, "tablet": true, "mobile": "rules written; Audit, Branches and Agreements not visually verified" }
+  }
+}

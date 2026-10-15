@@ -1,0 +1,1190 @@
+[
+  [
+    "1010",
+    "5010",
+    "exact",
+    "Færdiggjort udviklingsprojekter, herunder patenter og lignende rettigheder, der stammer fra udviklingsprojekter, Kostpris primo. Cost row of the roll-forward (\"kostpris primo\"); the standard also has separate rows for additions, disposals, revaluation and depreciation (5011-5032), see"
+  ],
+  [
+    "1020",
+    "5042",
+    "closest",
+    "Erhvervede immaterielle anlægsaktiver, kostpris primo. Acquired intangibles; software has no own balance account. Cost row (kostpris primo)."
+  ],
+  [
+    "1030",
+    "5042",
+    "closest",
+    "Erhvervede immaterielle anlægsaktiver, kostpris primo. Acquired intangibles (trademarks, franchise rights). Cost row."
+  ],
+  [
+    "1070",
+    "6020",
+    "exact",
+    "Udskudte skatteaktiver (anlægsaktiv). Non-current deferred tax asset."
+  ],
+  [
+    "1080",
+    "5062",
+    "exact",
+    "Goodwill, kostpris primo. Cost row (kostpris primo)."
+  ],
+  [
+    "1090",
+    "5055",
+    "closest",
+    "Erhvervede immaterielle anlægsaktiver, Af- og nedskrivninger primo. Accumulated amortisation, acquired intangibles; capitalised development has its own 5030 (Q1)."
+  ],
+  [
+    "1100",
+    "5320",
+    "exact",
+    "Grunde og bygninger, kostpris primo. Land and buildings combined in the standard; cost row."
+  ],
+  [
+    "1109",
+    "5372",
+    "exact",
+    "Grunde og bygninger, Af- og nedskrivninger primo. Accumulated depreciation row (af- og nedskrivninger primo)."
+  ],
+  [
+    "1130",
+    "5640",
+    "closest",
+    "Materielle anlægsaktiver under udførelse og forudbetalinger for materielle anlægsaktiver, kostpris primo. Property, plant and equipment under construction, cost row."
+  ],
+  [
+    "1150",
+    "5320",
+    "closest",
+    "Grunde og bygninger, kostpris primo. Land and buildings are one standard account."
+  ],
+  [
+    "1160",
+    "5500",
+    "exact",
+    "Indretning af lejede lokaler, kostpris primo. Cost row."
+  ],
+  [
+    "1169",
+    "5532",
+    "exact",
+    "Indretning af lejede lokaler, Af- og nedskrivninger primo. Accumulated depreciation row."
+  ],
+  [
+    "1200",
+    "5420",
+    "exact",
+    "Produktionsanlæg og maskiner, kostpris primo. Cost row."
+  ],
+  [
+    "1209",
+    "5452",
+    "exact",
+    "Produktionsanlæg og maskiner, Af- og nedskrivninger primo. Accumulated depreciation row."
+  ],
+  [
+    "1230",
+    "5570",
+    "closest",
+    "Andre anlæg, driftsmateriel og inventar, kostpris primo. Vehicles fall under \"Andre anlaeg, driftsmateriel og inventar\" (no vehicle account)."
+  ],
+  [
+    "1239",
+    "5602",
+    "closest",
+    "Andre anlæg, driftsmateriel og inventar, Af- og nedskrivninger primo. As 1230."
+  ],
+  [
+    "1250",
+    "5570",
+    "exact",
+    "Andre anlæg, driftsmateriel og inventar, kostpris primo. Cost row."
+  ],
+  [
+    "1259",
+    "5602",
+    "exact",
+    "Andre anlæg, driftsmateriel og inventar, Af- og nedskrivninger primo. Accumulated depreciation row."
+  ],
+  [
+    "1280",
+    "5570",
+    "closest",
+    "Andre anlæg, driftsmateriel og inventar, kostpris primo. IT equipment falls under \"Andre anlaeg, driftsmateriel og inventar\"."
+  ],
+  [
+    "1289",
+    "5602",
+    "closest",
+    "Andre anlæg, driftsmateriel og inventar, Af- og nedskrivninger primo. As 1280."
+  ],
+  [
+    "1290",
+    "5710",
+    "closest",
+    "Finansielt leasede aktiver, Kostpris primo. IFRS 16 right-of-use assets also cover leases that would be operating leases under Danish GAAP; 5710 is only the finance-lease concept."
+  ],
+  [
+    "1299",
+    "5745",
+    "closest",
+    "Finansielt leasede aktiver, af- og nedskrivninger primo. As 1290."
+  ],
+  [
+    "1300",
+    "5800",
+    "exact",
+    "Kapitalandele i tilknyttede virksomheder, kostpris primo. Cost row."
+  ],
+  [
+    "1350",
+    "6000",
+    "closest",
+    "Andre værdipapirer og kapitalandele. Other securities and holdings held as non-current assets."
+  ],
+  [
+    "1380",
+    "6030",
+    "closest",
+    "Øvrige tilgodehavender (anlægsaktiv). Other non-current receivables; the standard has no employee-loan account at non-current level."
+  ],
+  [
+    "1390",
+    "6040",
+    "exact",
+    "Deposita (anlægsaktiv). Deposita (anlaegsaktiv)."
+  ],
+  [
+    "1400",
+    "6080",
+    "exact",
+    "Råvarer og hjælpematerialer, kostpris primo. Cost row."
+  ],
+  [
+    "1420",
+    "6110",
+    "exact",
+    "Varer under fremstilling, kostpris primo. Cost row."
+  ],
+  [
+    "1440",
+    "6140",
+    "closest",
+    "Fremstillede varer og handelsvarer, kostpris primo. Finished goods and goods for resale are one standard account."
+  ],
+  [
+    "1460",
+    "6140",
+    "exact",
+    "Fremstillede varer og handelsvarer, kostpris primo"
+  ],
+  [
+    "1470",
+    "6140",
+    "closest",
+    "Fremstillede varer og handelsvarer, kostpris primo. Goods in transit: no own account; goods for resale."
+  ],
+  [
+    "1475",
+    "6080",
+    "closest",
+    "Råvarer og hjælpematerialer, kostpris primo. Packing materials, stores and spares: raw materials and consumables."
+  ],
+  [
+    "1480",
+    "6170",
+    "exact",
+    "Forudbetalinger for varer"
+  ],
+  [
+    "1490",
+    "6145",
+    "closest",
+    "Fremstillede varer og handelsvarer, nedskrivninger primo. Write-down row for goods (nedskrivninger primo); the standard splits write-downs per inventory class (6085, 6115, 6145)."
+  ],
+  [
+    "1500",
+    "6190",
+    "exact",
+    "Tilgodehavender fra salg og tjenesteydelser"
+  ],
+  [
+    "1530",
+    "6330",
+    "closest",
+    "Øvrige tilgodehavender (omsætningsaktiv). Accrued income is an other receivable; 6390/6400 are prepaid costs. Contract assets would be 6240 through a separate DK-only account (not added here)."
+  ],
+  [
+    "1550",
+    "6252",
+    "exact",
+    "Tilgodehavender hos tilknyttede virksomheder (omsætningsaktiv)"
+  ],
+  [
+    "1570",
+    "6330",
+    "closest",
+    "Øvrige tilgodehavender (omsætningsaktiv)"
+  ],
+  [
+    "1580",
+    "6200",
+    "exact",
+    "Tilgodehavender fra salg og tjenesteydelser, nedskrivninger primo"
+  ],
+  [
+    "1590",
+    "6330",
+    "exact",
+    "Øvrige tilgodehavender (omsætningsaktiv)"
+  ],
+  [
+    "1600",
+    "7740",
+    "exact",
+    "Købsmoms"
+  ],
+  [
+    "1605",
+    "7740",
+    "exact",
+    "Købsmoms"
+  ],
+  [
+    "1630",
+    "6315",
+    "exact",
+    "Tilgodehavende selskabsskat (omsætningsaktiv). Tilgodehavende selskabsskat (omsaetningsaktiv)."
+  ],
+  [
+    "1700",
+    "6390",
+    "closest",
+    "Periodeafgrænsningsposter, der kan opretholdes skattemæssigt. Prepayments that can be kept for tax (6400 if not)."
+  ],
+  [
+    "1710",
+    "6390",
+    "closest",
+    "Periodeafgrænsningsposter, der kan opretholdes skattemæssigt. As 1700."
+  ],
+  [
+    "1790",
+    "6390",
+    "closest",
+    "Periodeafgrænsningsposter, der kan opretholdes skattemæssigt. As 1700."
+  ],
+  [
+    "1800",
+    "6450",
+    "closest",
+    "Andre værdipapirer og kapitalandele som ikke er bestemt til vedvarende eje. Other securities and holdings not meant for lasting ownership."
+  ],
+  [
+    "1900",
+    "6470",
+    "exact",
+    "Likvide beholdninger"
+  ],
+  [
+    "1910",
+    "6470",
+    "exact",
+    "Likvide beholdninger. Cash on hand (petty cash)."
+  ],
+  [
+    "1920",
+    "6480",
+    "exact",
+    "Bankkonto"
+  ],
+  [
+    "1930",
+    "6480",
+    "exact",
+    "Bankkonto. Bank account."
+  ],
+  [
+    "1940",
+    "6480",
+    "exact",
+    "Bankkonto"
+  ],
+  [
+    "1950",
+    "6330",
+    "closest",
+    "Øvrige tilgodehavender (omsætningsaktiv). no card account in the standard)."
+  ],
+  [
+    "1960",
+    "6470",
+    "exact",
+    "Likvide beholdninger"
+  ],
+  [
+    "2000",
+    "6510",
+    "closest",
+    "Registreret kapital mv.. Registered amount; 6520/6525 split paid-in and not paid-in."
+  ],
+  [
+    "2020",
+    "6540",
+    "exact",
+    "Overkurs ved emission"
+  ],
+  [
+    "2030",
+    "6915",
+    "closest",
+    "Egenkapital primo (kun klasse A). Class A only (sole proprietorship); export guard in §2.1(3). 6915 not 6924: 2030 holds the running capital."
+  ],
+  [
+    "2040",
+    "6923",
+    "exact",
+    "Privat hævet (kun klasse A). Class A only (sole proprietorship); export guard in §2.1(3)."
+  ],
+  [
+    "2045",
+    "6560",
+    "exact",
+    "Reserve for opskrivninger"
+  ],
+  [
+    "2048",
+    "6910",
+    "exact",
+    "Øvrige reserver. Oevrige reserver."
+  ],
+  [
+    "2050",
+    "6940",
+    "exact",
+    "Overført resultat, jf. resultatdisponering"
+  ],
+  [
+    "2060",
+    "6960",
+    "exact",
+    "Foreslået udbytte jf. resultatdisponeringen. DK addition (proposed dividend); packs §2.3a."
+  ],
+  [
+    "2070",
+    "6800",
+    "exact",
+    "Reserve for nettoopskrivning efter den indre værdis metode. DK addition (Reserve for nettoopskrivning); packs §2.3a."
+  ],
+  [
+    "2090",
+    "none",
+    "unmapped",
+    "Presentation account; allowed to stay unmapped (rule §2.1(3), packs §2.3a)."
+  ],
+  [
+    "2098",
+    "none",
+    "unmapped",
+    "Technical account, must be zero for any filing; H-DK refuses an export while it holds a balance (§2.1(3))."
+  ],
+  [
+    "2100",
+    "6985",
+    "exact",
+    "Hensættelser til pensioner og lignende forpligtelser. Hensaettelser til pensioner og lignende forpligtelser."
+  ],
+  [
+    "2120",
+    "7010",
+    "exact",
+    "Hensættelser til udskudt skat"
+  ],
+  [
+    "2150",
+    "7040",
+    "exact",
+    "Andre hensatte forpligtelser"
+  ],
+  [
+    "2180",
+    "7040",
+    "exact",
+    "Andre hensatte forpligtelser"
+  ],
+  [
+    "2220",
+    "7120",
+    "exact",
+    "Gæld til banker (langfristet). Gaeld til banker (langfristet)."
+  ],
+  [
+    "2230",
+    "7125",
+    "closest",
+    "Leasingforpligtelser (langfristet). Also 7240 (Leasingforpligtelse, langfristet) exists in the \"other debt\" group; 7125 chosen as it sits with credit-institution debt."
+  ],
+  [
+    "2250",
+    "7210",
+    "exact",
+    "Gæld til virksomhedssdeltagere og ledelse (langfristet). Gaeld til virksomhedsdeltagere og ledelse (langfristet)."
+  ],
+  [
+    "2290",
+    "7195",
+    "exact",
+    "Anden gæld (langfristet). Anden gaeld (langfristet)."
+  ],
+  [
+    "2300",
+    "7330",
+    "closest",
+    "Gæld til banker (kortfristet). Short-term part of bank loans; 7310 if from mortgage institutions."
+  ],
+  [
+    "2330",
+    "7345",
+    "exact",
+    "Leasingforpligtelser (kortfristet)"
+  ],
+  [
+    "2380",
+    "7330",
+    "exact",
+    "Gæld til banker (kortfristet). Gaeld til banker (kortfristet)."
+  ],
+  [
+    "2400",
+    "7440",
+    "exact",
+    "Leverandører af varer og tjenesteydelser (kortfristet)"
+  ],
+  [
+    "2450",
+    "7440",
+    "closest",
+    "Leverandører af varer og tjenesteydelser (kortfristet)"
+  ],
+  [
+    "2460",
+    "7510",
+    "exact",
+    "Gæld til tilknyttede virksomheder (kortfristet)"
+  ],
+  [
+    "2500",
+    "8040",
+    "closest",
+    "Øvrig anden gæld. the standard has no short-term company-tax payable)."
+  ],
+  [
+    "2600",
+    "7920",
+    "exact",
+    "Skyldig A-skat"
+  ],
+  [
+    "2601",
+    "7940",
+    "exact",
+    "Skyldigt AM-bidrag. DK addition; already in packs §2.3a."
+  ],
+  [
+    "2610",
+    "8040",
+    "closest",
+    "Øvrig anden gæld"
+  ],
+  [
+    "2700",
+    "7680",
+    "exact",
+    "Salgsmoms"
+  ],
+  [
+    "2705",
+    "7700",
+    "exact",
+    "Moms af varekøb udland, EU og ikke-EU"
+  ],
+  [
+    "2706",
+    "7720",
+    "exact",
+    "Moms af ydelseskøb udland, EU og ikke-EU. DK addition; already in packs §2.3a."
+  ],
+  [
+    "2740",
+    "7840",
+    "exact",
+    "Skyldig moms"
+  ],
+  [
+    "2770",
+    "8010",
+    "exact",
+    "Skyldig arbejdsgiverbidrag (samlet betaling)"
+  ],
+  [
+    "2771",
+    "7960",
+    "exact",
+    "Skyldigt ATP-bidrag. DK ATP_PAYABLE; already in packs §2.3a."
+  ],
+  [
+    "2772",
+    "7900",
+    "exact",
+    "Skyldige feriepenge. DK FERIEKONTO_PAYABLE; already in packs §2.3a."
+  ],
+  [
+    "2800",
+    "7590",
+    "closest",
+    "Gæld til virksomhedsdeltagere og ledelse (kortfristet). Declared, unpaid dividend is short-term debt to owners; before the general meeting the proposal stays in 2060 (6960)."
+  ],
+  [
+    "2900",
+    "7410",
+    "exact",
+    "Modtagne forudbetalinger fra kunder (kortfristet)"
+  ],
+  [
+    "2910",
+    "8000",
+    "exact",
+    "Anden skyldig pension"
+  ],
+  [
+    "2930",
+    "7860",
+    "exact",
+    "Skyldig løn og gager"
+  ],
+  [
+    "2940",
+    "8030",
+    "exact",
+    "Skyldig feriepengeforpligtigelse"
+  ],
+  [
+    "2950",
+    "8040",
+    "closest",
+    "Øvrig anden gæld. No accrued-interest account in the standard; other short-term debt."
+  ],
+  [
+    "2960",
+    "8040",
+    "closest",
+    "Øvrig anden gæld. No accrued-expenses account in the standard; other short-term debt."
+  ],
+  [
+    "2970",
+    "8070",
+    "closest",
+    "Periodeafgrænsningsposter (kortfristet). Periodeafgraensningsposter (kortfristet); also 7456 for advance payments on contracts."
+  ],
+  [
+    "2990",
+    "8040",
+    "exact",
+    "Øvrig anden gæld. Oevrig anden gaeld."
+  ],
+  [
+    "2999",
+    "none",
+    "unmapped",
+    "Technical account, must be zero for any filing; H-DK refuses an export while it holds a balance (§2.1(3))."
+  ],
+  [
+    "3000",
+    "1010",
+    "exact",
+    "Salg af varer og ydelser"
+  ],
+  [
+    "3010",
+    "1050",
+    "exact",
+    "Salg af varer udland, EU. DK addition; goods EU."
+  ],
+  [
+    "3020",
+    "1150",
+    "exact",
+    "Salg af ydelser udland, EU. DK addition; services EU."
+  ],
+  [
+    "3050",
+    "1010",
+    "exact",
+    "Salg af varer og ydelser"
+  ],
+  [
+    "3060",
+    "1250",
+    "exact",
+    "Salgsfragt. (freight charged to customers)."
+  ],
+  [
+    "3080",
+    "1210",
+    "exact",
+    "Salgsrabatter"
+  ],
+  [
+    "3090",
+    "1210",
+    "closest",
+    "Salgsrabatter"
+  ],
+  [
+    "3100",
+    "1010",
+    "closest",
+    "Salg af varer og ydelser. The standard does not split exempt and zero-rated domestic sales."
+  ],
+  [
+    "3200",
+    "1100",
+    "closest",
+    "Salg af varer udland, ikke-EU. Goods outside EU; services would be 1200. Packs §2.3a says \"split or mapped to 1100 with a note\"."
+  ],
+  [
+    "3700",
+    "1550",
+    "closest",
+    "Øvrige andre driftsindtægter. Oevrige andre driftsindtaegter; 1010 if commission is the main business."
+  ],
+  [
+    "3710",
+    "1010",
+    "closest",
+    "Salg af varer og ydelser. Lead ruling 2026-10-13: franchise fees are a franchisor's core revenue, kept in net turnover (review proposal 1550 not applied)."
+  ],
+  [
+    "3720",
+    "1010",
+    "closest",
+    "Salg af varer og ydelser. As 3710."
+  ],
+  [
+    "3730",
+    "1550",
+    "closest",
+    "Øvrige andre driftsindtægter. As 3710; pass-through contributions, not turnover."
+  ],
+  [
+    "3800",
+    "1530",
+    "exact",
+    "Gevinst ved salg af materielle anlægsaktiver. Gevinst ved salg af materielle anlaegsaktiver (1510 for intangibles)."
+  ],
+  [
+    "3900",
+    "1545",
+    "exact",
+    "Offentlige tilskud"
+  ],
+  [
+    "3910",
+    "1550",
+    "closest",
+    "Øvrige andre driftsindtægter"
+  ],
+  [
+    "3990",
+    "1550",
+    "exact",
+    "Øvrige andre driftsindtægter"
+  ],
+  [
+    "4000",
+    "1610",
+    "exact",
+    "Varekøb. Varekoeb (raw materials consumed)."
+  ],
+  [
+    "4060",
+    "1760",
+    "closest",
+    "Fragtomkostninger. duties have no own account."
+  ],
+  [
+    "4300",
+    "1610",
+    "exact",
+    "Varekøb"
+  ],
+  [
+    "4380",
+    "1610",
+    "closest",
+    "Varekøb. the standard has no purchase-discount account."
+  ],
+  [
+    "4390",
+    "1610",
+    "closest",
+    "Varekøb"
+  ],
+  [
+    "4395",
+    "1770",
+    "closest",
+    "Varelagerregulering på lagre af råvarer og hjælpematerialer. Packs §2.3a: stock movement 1770 (proposal, verify)."
+  ],
+  [
+    "4396",
+    "1610",
+    "closest",
+    "Varekøb. DK addition; packs §2.3a lists it with 4380-4395 under 1610 (proposal, verify)."
+  ],
+  [
+    "4500",
+    "1745",
+    "exact",
+    "Underleverandører (varer/ydelser leveret til kunder). Underleverandoerer."
+  ],
+  [
+    "4700",
+    "1801",
+    "exact",
+    "Øvrige produktionsomkostninger. Oevrige produktionsomkostninger."
+  ],
+  [
+    "4710",
+    "1801",
+    "closest",
+    "Øvrige produktionsomkostninger. Production power and fuel; no own account."
+  ],
+  [
+    "5000",
+    "2845",
+    "exact",
+    "AM Bidragspligtig A-Indkomst"
+  ],
+  [
+    "5010",
+    "2845",
+    "closest",
+    "AM Bidragspligtig A-Indkomst. Overtime and bonus are AM-contribution-liable A income; bonus payable is 7880."
+  ],
+  [
+    "5020",
+    "2860",
+    "exact",
+    "Feriepenge og SH-tillæg"
+  ],
+  [
+    "5030",
+    "2880",
+    "closest",
+    "Bestyrelseshonorar. Board fees only; executive management pay goes to 5000 (2845)."
+  ],
+  [
+    "5400",
+    "2930",
+    "exact",
+    "Øvrige omkostninger til social sikring. dk, finansieringsbidrag)."
+  ],
+  [
+    "5405",
+    "2898",
+    "exact",
+    "ATP, arbejdsgiver. DK addition; already in packs §2.3a."
+  ],
+  [
+    "5420",
+    "2910",
+    "exact",
+    "Pensioner, arbejdsgiver"
+  ],
+  [
+    "5430",
+    "2870",
+    "exact",
+    "Jubilæumsgratiale og fratrædelsesgodtgørelse. Jubilaeumsgratiale og fratraedelsesgodtgoerelse."
+  ],
+  [
+    "5900",
+    "2887",
+    "closest",
+    "Personalegoder"
+  ],
+  [
+    "5910",
+    "2896",
+    "exact",
+    "Kursusudgifter"
+  ],
+  [
+    "5920",
+    "2810",
+    "closest",
+    "Andre eksterne omkostninger. No recruitment account; other external costs."
+  ],
+  [
+    "6000",
+    "3020",
+    "exact",
+    "Af- og nedskrivninger af grunde og bygninger"
+  ],
+  [
+    "6010",
+    "3050",
+    "closest",
+    "Af- og nedskrivninger af andre anlæg, driftsmateriel og inventar. Mixed: plant is 3030, vehicles and furniture 3050."
+  ],
+  [
+    "6015",
+    "3050",
+    "closest",
+    "Af- og nedskrivninger af andre anlæg, driftsmateriel og inventar. IT equipment falls under other plant and equipment."
+  ],
+  [
+    "6020",
+    "3000",
+    "exact",
+    "Af- og nedskrivninger af erhvervede immaterielle anlægsaktiver. Acquired intangibles (3060 for software, 3010 goodwill)."
+  ],
+  [
+    "6030",
+    "3070",
+    "closest",
+    "Af- og nedskrivninger af finansielt leasede grunde og bygninger. Right-of-use assets are mostly leased premises; 3090 only if mostly vehicles or equipment."
+  ],
+  [
+    "6050",
+    "3050",
+    "closest",
+    "Af- og nedskrivninger af andre anlæg, driftsmateriel og inventar. Impairment has no own account; the standard books it in the af- og nedskrivninger account of the asset class."
+  ],
+  [
+    "6100",
+    "1950",
+    "closest",
+    "Andre salgsomkostninger. Delivery costs out are a selling cost; 1760 is purchase freight."
+  ],
+  [
+    "6300",
+    "2030",
+    "exact",
+    "Husleje"
+  ],
+  [
+    "6340",
+    "2050",
+    "closest",
+    "El. Utilities: El (2050); water 2070, heating 2080 are separate."
+  ],
+  [
+    "6360",
+    "2150",
+    "closest",
+    "Rengøring og renovation (affaldshåndtering). Rengoering og renovation; security has no own account."
+  ],
+  [
+    "6400",
+    "2460",
+    "exact",
+    "Leje og operationelle leasingydelser (ekskl. husleje). Leje og operationelle leasingydelser (ekskl. husleje)."
+  ],
+  [
+    "6420",
+    "2310",
+    "exact",
+    "It-udstyr (hardware, software inkl. licenser og abonnementer). It-udstyr (hardware, software inkl. licenser og abonnementer)."
+  ],
+  [
+    "6540",
+    "2230",
+    "closest",
+    "Småanskaffelser under skattemæssig grænse for småaktiver. Below the tax threshold for small assets; 2240 if above."
+  ],
+  [
+    "6550",
+    "2450",
+    "closest",
+    "Kontorartikler"
+  ],
+  [
+    "6600",
+    "2160",
+    "exact",
+    "Reparation og vedligeholdelse. (premises)."
+  ],
+  [
+    "6620",
+    "2810",
+    "closest",
+    "Andre eksterne omkostninger. The standard has no equipment-repair account."
+  ],
+  [
+    "6700",
+    "2670",
+    "exact",
+    "Revision og regnskabsmæssig assistance. Revision og regnskabsmaessig assistance."
+  ],
+  [
+    "6705",
+    "2670",
+    "exact",
+    "Revision og regnskabsmæssig assistance"
+  ],
+  [
+    "6720",
+    "2680",
+    "closest",
+    "Advokatmæssig assistance. Advokatmaessig assistance; other advisers 2690."
+  ],
+  [
+    "6790",
+    "2810",
+    "closest",
+    "Andre eksterne omkostninger"
+  ],
+  [
+    "6800",
+    "2450",
+    "exact",
+    "Kontorartikler"
+  ],
+  [
+    "6860",
+    "2810",
+    "closest",
+    "Andre eksterne omkostninger. No meetings account."
+  ],
+  [
+    "6900",
+    "2410",
+    "exact",
+    "Telefon og internet mv. (kun virksomhed). Telefon og internet mv."
+  ],
+  [
+    "6940",
+    "2390",
+    "exact",
+    "Porto og gebyrer"
+  ],
+  [
+    "7000",
+    "2540",
+    "closest",
+    "Driftsomkostninger, personbiler. (2560 for vans)."
+  ],
+  [
+    "7020",
+    "2540",
+    "closest",
+    "Driftsomkostninger, personbiler"
+  ],
+  [
+    "7040",
+    "2540",
+    "closest",
+    "Driftsomkostninger, personbiler. Vehicle tax and insurance; other insurance is 2650."
+  ],
+  [
+    "7100",
+    "2470",
+    "closest",
+    "Rejseomkostninger (administrationsomkostning). sales travel is 2000."
+  ],
+  [
+    "7150",
+    "2470",
+    "closest",
+    "Rejseomkostninger (administrationsomkostning). Meals and per diem; 2895 for tax-free employee allowances."
+  ],
+  [
+    "7300",
+    "1950",
+    "closest",
+    "Andre salgsomkostninger"
+  ],
+  [
+    "7320",
+    "1850",
+    "exact",
+    "Annoncering og reklame"
+  ],
+  [
+    "7330",
+    "1850",
+    "closest",
+    "Annoncering og reklame. Franchise marketing fund paid by the franchisee."
+  ],
+  [
+    "7350",
+    "1910",
+    "closest",
+    "Repræsentationsomkostninger, skattemæssigt begrænset fradrag. Limited deduction (25 %); fully deductible items need their own account (1930)."
+  ],
+  [
+    "7400",
+    "2370",
+    "exact",
+    "Kontingenter"
+  ],
+  [
+    "7420",
+    "2810",
+    "closest",
+    "Andre eksterne omkostninger. No donations account."
+  ],
+  [
+    "7500",
+    "2650",
+    "exact",
+    "Øvrige forsikringer. Oevrige forsikringer."
+  ],
+  [
+    "7550",
+    "2810",
+    "closest",
+    "Andre eksterne omkostninger. No warranty-cost account."
+  ],
+  [
+    "7600",
+    "2810",
+    "closest",
+    "Andre eksterne omkostninger. No royalty account in the standard."
+  ],
+  [
+    "7610",
+    "2810",
+    "closest",
+    "Andre eksterne omkostninger. As 7600."
+  ],
+  [
+    "7620",
+    "2810",
+    "closest",
+    "Andre eksterne omkostninger. Licences and permits; software licences are 2310."
+  ],
+  [
+    "7720",
+    "1910",
+    "exact",
+    "Repræsentationsomkostninger, skattemæssigt begrænset fradrag. DK addition; already in packs §2.3a."
+  ],
+  [
+    "7770",
+    "2390",
+    "exact",
+    "Porto og gebyrer"
+  ],
+  [
+    "7790",
+    "2810",
+    "exact",
+    "Andre eksterne omkostninger"
+  ],
+  [
+    "7795",
+    "2720",
+    "exact",
+    "Øreafrunding/kassedifferencer"
+  ],
+  [
+    "7796",
+    "2720",
+    "exact",
+    "Øreafrunding/kassedifferencer"
+  ],
+  [
+    "7797",
+    "2720",
+    "exact",
+    "Øreafrunding/kassedifferencer. DK addition; already in packs §2.3a."
+  ],
+  [
+    "7800",
+    "3165",
+    "exact",
+    "Tab ved salg af materielle anlægsaktiver. Tab ved salg af materielle anlaegsaktiver (3160 for intangibles)."
+  ],
+  [
+    "7830",
+    "2280",
+    "exact",
+    "Tab på tilgodehavender fra salg og tjenesteydelser"
+  ],
+  [
+    "8000",
+    "3380",
+    "closest",
+    "Udbytte fra unoterede porteføljeaktier (bruttoudbytte). Dividend income from non-subsidiary holdings; 3193 / 3211 if from group or associates."
+  ],
+  [
+    "8050",
+    "3470",
+    "exact",
+    "Renter fra banker"
+  ],
+  [
+    "8060",
+    "3535",
+    "exact",
+    "Valutakursregulering (gevinst)"
+  ],
+  [
+    "8061",
+    "3535",
+    "exact",
+    "Valutakursregulering (gevinst)"
+  ],
+  [
+    "8070",
+    "3530",
+    "exact",
+    "Øvrige finansielle indtægter. Oevrige finansielle indtaegter."
+  ],
+  [
+    "8150",
+    "3670",
+    "exact",
+    "Renter til banker og realkreditinstitutter"
+  ],
+  [
+    "8155",
+    "3640",
+    "exact",
+    "Renter på finansiel leasinggæld. Renter paa finansiel leasinggaeld."
+  ],
+  [
+    "8160",
+    "3610",
+    "exact",
+    "Valutakursregulering (tab)"
+  ],
+  [
+    "8161",
+    "3610",
+    "exact",
+    "Valutakursregulering (tab)"
+  ],
+  [
+    "8170",
+    "3690",
+    "exact",
+    "Øvrige finansielle omkostninger. Oevrige finansielle omkostninger."
+  ],
+  [
+    "8300",
+    "3740",
+    "exact",
+    "Årets skat (skat af årets skattepligtige indkomst)"
+  ],
+  [
+    "8320",
+    "3760",
+    "exact",
+    "Årets regulering af udskudt skat. Aarets regulering af udskudt skat."
+  ]
+]

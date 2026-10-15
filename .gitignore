@@ -1,0 +1,24 @@
+# Workspace repo (Neovatus/NeoERP): only what lives nowhere else.
+# Code repos have their own GitHub repos; never duplicate them here.
+/NeoERP-App/
+/NeoERP-BackEnd/
+# Old copy of the screen rig; the live rig is NeoERP-App/docs/design/screen-rig.
+/NeoERP-Design/_prototype/
+# Generated output and scratch.
+/Claude outputs/
+/_scratch/
+# Project state files are not shared through this repo.
+/PROJECT-STATE*.md
+# Inbox listener runtime files.
+docs/inbox/.listen-*
+docs/inbox/.paused-*
+# OS and editor noise.
+.DS_Store
+~$*
+*.log
+# Override ~/.gitignore_global for this repo: these belong here.
+!CLAUDE.md
+!docs/agents/
+!docs/agents/**
+!.codex/
+!.codex/**

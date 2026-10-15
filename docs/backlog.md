@@ -1,0 +1,226 @@
+# Backlog
+
+Non-blocking review items (MINOR, nice-to-have). Picked up when a slice touches the same files, or in a cleanup batch.
+
+## Accounts A0
+
+- SE extension numbers 2449, 4969, 6591, 6592, 7961, 7991 not yet checked against BAS 2026 (UNCHECKED, by design).
+- NO SAF-T standard-account mapping unverified (UNCHECKED).
+- PK provincial sources marked draft.
+- Rig: 21 inline app.html blocks drift from their .jsx mirrors (pre-existing); app.html is authoritative.
+- Rig: branch-requests.jsx still offers "Own books / Group books" for a franchised branch; align with RULES §7 (revised) when the request flow is next touched.
+- Rig: audit.jsx "Branch created — Sialkot … own books" fixture; Sialkot Mills company page does not show "Franchise of Lahore Textiles".
+- Entry 32 minors: typed 403/409 for unresolved user; typed 503 for org-service unreachable; blank branchId guard.
+- S2 (user V35/V36): a role copy narrowed only by the company's entitled modules counts as edited in V36 and shows "update available"; the runtime would have followed it. A migration can't see entitlements; a stand-in rule was rejected because it could re-grant deliberately removed Accounts codes.
+- S2 (user V35): shared-exception "Not now" dismissals whose set contains a split code reappear once, because `set_key` hashes the old codes.
+- S0: cross-row deadlock possible when one transaction touches several related companies (org V29 triggers); add writer retry on 40P01/40001 if seen.
+- S0 tests: REPEATABLE READ snapshot proof; concurrent children added to one parent.
+- Audit dedup (all services): send outbox id as eventId; audit-service unique constraint, ignore repeats.
+- S0 (org V29): cross-row deadlock possible on multi-company transactions (V29:196-244); writers may retry on 40P01/40001 later.
+- S0: snapshot test for the REPEATABLE READ facts read; concurrent-children test.
+- Cross-cutting: audit dedup across services — send the outbox id as eventId, with a unique constraint in audit-service.
+- Org S1: lease query sorts whole open backlog; copy seq onto domain_event_deliveries, index (consumer, seq) WHERE status <> 'DELIVERED'.
+- Org/Accounts: company deleted after books exist emits no event; retry job should alert on found=false for existing books.
+- App: AccountsUi.kt `.ac-*` values and icons → design system (NeoAccountsTokens / NeoDesignIcons).
+- App: show Org facts drift on Accounts home (needs spec line).
+- Accounts: tenant-facing Accounts activity view (for "See changes", A-19).
+- Accounts: superseded mappings keep READY-era effective_from; accountEditsLost counts events not distinct accounts; protectOverrides bumps account version without audit.
+- Org V31: seeding from max outbox version fails if retention already deleted the company's events (edge).
+- SEC-1 (ADR-016, proposed): one first-party scope `neoerp.app`, shared neoerp-security library, machine scopes unchanged. Awaiting Jabran's approval.
+- PCT-1 (approved, queued after RP-1/SEC-1): Platform → Chart templates, read-only (packs, versions, sources/check state, companies per version).
+- Auth: per-device sign-out (key by authorization / idp_sid) + explicit "Sign out everywhere".
+- Auth: Keycloak "password updated" event → auth-service revokes app sign-ins (self-service password change).
+- Org: allow clearing a planned books start date (PATCH null keeps the value today).
+- Org: clear a planned books start date (PATCH null keeps the value; RP-1, reviewer entry 56).
+- SEC: overall per-call deadline for library HTTP clients.
+- SEC: move audit machine writes to /api/internal/audit/… (contract change).
+- SEC tier 2 adoption per module (org, user, hr, payroll, audit) when each API is reworked.
+- Auth: refresh-token reuse grace window (~30 s, same client gets the same successor) so an unknown-outcome refresh can retry safely.
+- Auth: failed-sign-in events from auth-service/Keycloak → per-user sign-in alerts (gateway can't see /oauth2/token).
+- Org: pin minimum JDK patch (≥21.0.7) so currency codes XCG/ZWG are recognised.
+- Org: minimum JDK patch level for org-service (>= 21.0.7, so XCG/ZWG are known); pin it in the build/Docker base (reviewer entry 63).
+- App: GoLiveRecoveryTest.keyReusedShowsOriginalSuccess is racy (waits for phase Done, then reads the done list the callback fills); wait for the entry before asserting.
+- App (Android): before the first release to real users, move the token call to OkHttp with retryOnConnectionFailure(false), or prove HttpURLConnection never retries the refresh POST (reviewer entry 68 R1; the 60 s grace window covers it meanwhile).
+- User: sign-in vs Withdraw lock-order inversion (user row then invite rows vs invite then user row); cannot fire today (Withdraw only touches PENDING with lastLoginAt null), Postgres would abort one side (40P01). Optional cleanup.
+- Audit/User: side-effect-free caller identity lookup (userId in the lifecycle decision, or a read-only /me); today audit's GET /me call saves the user row, stamps last-seen and accepts pending invites on every person request.
+- [x] **Done (verified by HR & Payroll lead 2026-10-09):** Audit: workflow decisions don't check producerClientId against the calling client (payroll could decide hr items and the reverse); pass the caller and answer 404 unless producerClientId == caller. — already enforced in audit-service WorkflowService.kt:73-78, tested in AuditCallerScopeTest.
+- Audit: drop the token subject from workflowIdentifiers (adds nothing today; an account named "payroll-service" would match all pay runs).
+- Audit: proper "my inbox" design at audit tier 2 — hr stores initiator = employeeId (not the IAM id), so people see none of their own hr items today (fails closed); do with the side-effect-free identity lookup, before any app feature uses notifications or workflows (reviewer entry 71).
+- Design/App: a designed "account status" screen (suspended, pending, no access) in NeoERP-Design; today lifecycle reasons show on the sign-in screen with Try again / Sign out (reviewer entry 72).
+- Docs tooling: scripts/sync-postman-docs.js overwrites hand-written Postman items (Org enroll/provision examples and status codes, Audit SEC-c notes); add per-item examples/notes to the script before anyone runs it again.
+- PCT: include companies reached through the tree (user-service reach) for scoped staff in the chart-template counts and company lists (reviewer entry 77).
+- [x] **Done:** App: SessionHardeningTest.anUnreadableRefreshTokenDuringRecoveryKeepsTheMarkerAndSendsNothing is order-dependent (reads the global NeoSessionRefreshStatus.state that other tests change); reset or isolate that state per test.
+- iOS: optional hardening — pin auth runtime retries to 0 explicitly and add a native Darwin test (connection reset after full POST → one submission, credentials cleared, no resend). Apple QA1941 + RetryPolicy default 0 mean no current bug; needs Jabran's approval (auth).
+- Accounts: DELETE guard on journal_entry_events for posted journals (keep the cascade from deleting a draft) — add in the next free accounts migration (numbers aren't reserved, ERP-12; V10–V11 frozen) (A1 S2 review, low).
+- [x] **Done:** App: NeoErpAuthRuntimeTargetTest.formPostReachesTheTokenEndpointAsARealForm needs the local stack on :8083 but does not skip when it is down (its comment says it should); make it skip (assume) without the stack.
+- Accounts: chart-preview shows a non-blocking `journals` count so the app can explain HAS_JOURNALS before a chart replace (reviewer entry 83).
+- PCT: harden the tree-reach tests — org outage on the §3.1/§3.2/§3.3 endpoints, scopeAll with org down, an empty scope makes no org call (PCT reach review).
+- [x] **Done:** Auth: SessionHardeningIntegrationTest "a refresh carrying a bearer header is refused 401…" decodes the JWT against a live http://localhost:8083/oauth2/jwks and fails when no auth-service runs there; make it use the test server's own port/JWKS.
+- **A1 §9 throughput on a representative host** (reviewer entry 92; after the rig gate). On Jabran's laptop the isolated stack reached p95 251 ms (target ≤150) and 16.9 posts/s (≥50); `a1-load.sh` now exits 3 `TARGET_MISSED` for this, separately from correctness failures (exit 1). Measure on a representative host and report the time held under the journal-sequence lock vs the total. Per (company, journal type), throughput is capped near 1 / sequence-lock hold time, and the lock is held through the line inserts, balance upserts and commit. If ≥ 50 posts/s per company still misses, propose an amendment through the reviewer (e.g. take the number as late as possible).
+- **A1 BOOKS_NOT_LIVE hint-position test** (reviewer entry 89): `actions.*.blockedBy` order test for not-live books; needs a not-live books fixture in `JournalApiHarness`.
+
+## From the developer guides (2026-10-09)
+
+Open questions collected from NeoERP-BackEnd/docs/modules/** (pages and module READMEs), deduped across pages. Format: area — problem — evidence.
+
+- Accounts — ADR-005 is stale (still "Accepted — Implemented" with journals, GL, trial balance, copy-template, /periods; A0 removed them, A1 rebuilt journals); no ADR supersedes it, and .claude/CLAUDE.md / .codex/CODEX.md repeat the old scope — NeoERP-BackEnd/docs/modules/accounts/README.md
+- Accounts — docs/api/accounts.md (old contract) still lists removed endpoints; add a "superseded by accounts-a0 / a1" banner — NeoERP-BackEnd/docs/modules/accounts/README.md
+- Accounts — accounts-a1.md header says "approved, not yet built" but the code exists (V10) — NeoERP-BackEnd/docs/modules/accounts/README.md
+- Accounts — A0 contract §6.3 state column says writes need LIVE; amendment A-13 (and the code) allow READY or LIVE for accounts, Used for and tax codes; only POST /fiscal-years/next and POST /setup/replace need LIVE — NeoERP-BackEnd/docs/modules/accounts/setup-and-go-live.md
+- Accounts — A0 text still says ACCOUNT_HAS_BALANCE is "always false in A0"; A1 fills it from balances.net — NeoERP-BackEnd/docs/modules/accounts/chart-and-used-for.md
+- Accounts — HAS_JOURNALS (409, details.count) on POST /setup/replace is in code but not in the A0 §12 error table — NeoERP-BackEnd/docs/modules/accounts/setup-and-go-live.md
+- Accounts — user-guide pages for the accounts features do not exist (only period-close.md and accounts.md; reports.md and year-end.md missing) — NeoERP-BackEnd/docs/modules/accounts/README.md
+- Accounts — contract drafts A2–E reserve migrations V11–V16 provisionally; numbers kept in one table (A1 §18.3) — NeoERP-BackEnd/docs/modules/accounts/README.md
+- Accounts — pack content (all 44 tax-code rows and the chart packs) is UNCHECKED against official sources (AC-0 P17); no country is ready until checked and piloted — NeoERP-BackEnd/docs/modules/accounts/tax-codes.md
+- Accounts — ChartService.groupSubtype / groupControl helpers and DEFAULT_SUBTYPE remain from the pre-A-15 inference, used only by FoundationsRulesTest (harmless) — NeoERP-BackEnd/docs/modules/accounts/chart-and-used-for.md
+- Accounts — contract cites docs/drafts/accounts/coa/ as the editable pack source "until A0 ships"; src/main/resources/packs/2026.1/ is now authoritative — NeoERP-BackEnd/docs/modules/accounts/chart-and-used-for.md
+- Accounts — ADR-005 "journals post only to OPEN periods" is enforced only via posting-engine status reads; no code can set a period CLOSED yet — NeoERP-BackEnd/docs/modules/accounts/fiscal-calendar.md
+- Accounts — TaxCodeService class comment ("every write needs a reason") is stale against A-13 (reason optional in READY) — NeoERP-BackEnd/docs/modules/accounts/tax-codes.md
+- Accounts — contract §6.12 omits the active-posting-account rule (A-14) and the TAX_ROLE_INVALID, ACCOUNT_HAS_TAX_CODE, RATE_DATE_INVALID codes on create — NeoERP-BackEnd/docs/modules/accounts/tax-codes.md
+- Accounts — contract §6.12 sends validFrom on create; in READY the code ignores it (today is used, re-dated at go live) per A-12 — NeoERP-BackEnd/docs/modules/accounts/tax-codes.md
+- Accounts — journal machine endpoints are pinned to the test client at compile time (@InternalEndpoint allowedClients = POSTING_TEST_CLIENT, BA-2); a real producer (Payroll first) needs the annotation changed or made config-driven, not only neoerp.accounts.posting.clients — NeoERP-BackEnd/docs/modules/accounts/journals-and-posting.md
+- Accounts — blockedBy names differ: contract §6.6 lists CONTRIBUTOR, BA-8 names TWO_PERSON_RULE; code uses CONTRIBUTOR and also returns CONTROL_REASON_REQUIRED, which §6.6 omits — NeoERP-BackEnd/docs/modules/accounts/journals-and-posting.md
+- Accounts — first-posting mark: contract §5.2 step 10.1 sets first_posted_at at lock; manual post marks it later (BooksLiveGuard.markFirstPosting, reviewer entry 82), machine path at lock time — NeoERP-BackEnd/docs/modules/accounts/journals-and-posting.md
+- Accounts — org facts before the lock: manual post prefetches (prefetchManual) and refuses 503 if stale under the lock; contract only describes a ≤5 min cache — NeoERP-BackEnd/docs/modules/accounts/journals-and-posting.md
+- Accounts — machine entitlement also checks the source module (SourceModules, D-56); contract §7 checks FINANCE only — NeoERP-BackEnd/docs/modules/accounts/journals-and-posting.md
+- Accounts — V10 seeds machine_allowed = true for SI, PY, PR, IV, FX; contract §18.2 shows FX and SI as "later"; a first producer must not rely on the flags alone — NeoERP-BackEnd/docs/modules/accounts/journals-and-posting.md
+- Accounts — A2 amendment A1-A4 (submit takes the period FOR SHARE) not built; a SUBMITTED journal can sit in a period later closed — NeoERP-BackEnd/docs/modules/accounts/journals-and-posting.md
+- Accounts — BA-3 "no refusal caught and committed after lockManual" is a comment and review rule; the architecture test only restricts who calls the engine methods — NeoERP-BackEnd/docs/modules/accounts/journals-and-posting.md
+- Accounts — BA-6: ChartReplaceWithJournalsTest asserts the HAS_JOURNALS code, not details.count — NeoERP-BackEnd/docs/modules/accounts/journals-and-posting.md
+- Accounts — A1 p95/p99 and 50 posts/s load results (scripts/a1-load.sh) are not recorded in repo docs — NeoERP-BackEnd/docs/modules/accounts/journals-and-posting.md
+- Accounts — period close, reports and year-end (A2/A3) are not built; the contracts still read "Draft for Jabran's approval" although §17 open points were decided 2026-10-09; approval of the drafts is not recorded — NeoERP-BackEnd/docs/modules/accounts/reports.md
+- Accounts — ACCOUNTS.REPORT.* and FISCAL_YEAR.CLOSE / .LOCK permission codes exist (user-service V35/V36, AccountsPermissions.kt) and sit in default roles with no endpoints behind them — NeoERP-BackEnd/docs/modules/accounts/reports.md
+- Accounts — A2 C-19, A3 C-27, §6.4 and A3 §1 still say "CSV now, XLSX and PDF later"; A2 §22 (2026-10-09) replaces it with PDF, XLSX and CSV — NeoERP-BackEnd/docs/modules/accounts/reports.md
+- Accounts — A3 excludes YE from P&L always, A2's TB has the closing toggle; the P&L reconciliation check uses TB closing=BEFORE, so the toggle must work before the P&L does — NeoERP-BackEnd/docs/modules/accounts/reports.md
+- Accounts — period 13 is empty until A3, so TB and GL period-13 tests need an A3 fixture hook (closingBeforeRemovesYeLinesOfThatYearOnly) — NeoERP-BackEnd/docs/modules/accounts/reports.md
+- Accounts — A3 depends on unbuilt A2 (period control, account_year_balances, period_status_events); the PERIODS_CLOSED year-end check cannot run until A2 ships — NeoERP-BackEnd/docs/modules/accounts/year-end.md
+- Accounts — YE journal type is engine_only and inactive in V10 (V12 flips it); engine refuses YE meanwhile and ReversalEngineTest inserts a YE row by SQL — NeoERP-BackEnd/docs/modules/accounts/year-end.md
+- Accounts — Sweden pack: practice books the result on 2099 and moves it to 2098; contract credits RETAINED_EARNINGS (2098) and leaves 2099 as presentation; matters for the SIE export (slice H) (A3 conflict 9) — NeoERP-BackEnd/docs/modules/accounts/year-end.md
+- Accounts — borrowings and provisions are all non-current in the v1 balance sheet (packs have no split) (A3 conflict 10) — NeoERP-BackEnd/docs/modules/accounts/year-end.md
+- Auth — auth-service is not on neoerp-security: own ApiAudienceFilter, ProblemDetail/sendError errors instead of the shared body, no neoerp.app check or lifecycle check on /api/auth/session-revocations/current; ADR-016 SEC-c lists only org, user, hr, payroll, audit; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/security-tiers.md
+- Auth — gateway sign-in rate limit (10/min) and SecurityAlertMonitor watch removed paths (signInPaths defaults /api/auth/login, /refresh, /password/forgot, /api/onboarding/invites/accept); real endpoints /oauth2/authorize and /oauth2/token are not routed by the gateway, so ADR-016 D6 item 3 failed-sign-in limits/alerts cover nothing real; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/sign-in.md
+- Auth — JWT signing key is generated at every start (RSA 2048, random kid, in memory); a restart invalidates all access tokens and two instances sign with different keys; production needs a persisted key before more than one instance; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/tokens-and-sessions.md
+- Auth — broker session registry is in memory (SessionRegistryImpl); revocation reaches only the handling instance, more than one auth-service instance needs shared session storage; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/tokens-and-sessions.md
+- Auth — failed Keycloak logout is silent by default (fail-on-sync-error=false, providerStatus=SKIPPED); the Keycloak session lives and the next sign-in resumes without credentials until idle timeout; auth.md does not say so; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/sign-in.md
+- Auth — internal endpoints do not pin allowedClients; auth.identity.security is "pinned" only by being held by one client, so a future client given that scope would pass; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/internal-endpoints.md
+- Auth — org-service holds auth.identity.provision (MachineClientCatalog) but no org code calls auth-service; unused authority against ADR-016 D2 least privilege; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/internal-endpoints.md
+- Auth — audit outbox (AuditEventOutbox.enqueue) and NotificationPublisher have no producer in auth-service main code; sign-out, resets and revocations are not audited here and auth.audit_event_outbox (V9) stays empty; audit-catalogue.md should say which side owns them; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/internal-endpoints.md
+- Auth — auth-service errors answer as ProblemDetail or sendError, not the §6.2 body; user-service clients must handle both shapes; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/internal-endpoints.md
+- Auth — ensureUserServiceClient grants only auth.session.revoke and is then overwritten by the catalogue / ensureMachineClient on every start; redundant and misleading; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/sign-in.md
+- Auth — docs/api/auth.md omits setup-email and email internal endpoints, provision fields (redirectUri, sendPasswordAction, created, hasPassword, emailVerified, signInAccount), the real provision step list, the SKIPPED / NO_PROVIDER_USERS providerStatus values and the redirect URI list; also says "trusted NeoERP services" while only user-service calls it; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/internal-endpoints.md
+- Auth — ADR-002 body still describes the removed credential facade and /api/auth/login, /refresh, /logout, /signup; only the header note is current; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/sign-in.md
+- Auth — ADR-016 D2 text stale (gateway client and scope deleted at SEC-e, V13), D5 transition text still reads as in progress, D4 rule 5 (legacy scopes as lists) gone from code (appScope is a fixed val); needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/scopes-adr-016.md
+- Auth — machine scope list is not in auth.md; scopes-adr-016.md is the only place it is listed; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/scopes-adr-016.md
+- Auth — AuthorizationServerPersistenceConfig.kt is entirely commented out (live beans are in AuthorizationServerJdbcConfig.kt); delete; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/sign-in.md
+- Auth — AuthPlatformAuthorityFilter and the /api/admin/** rule remain in auth-service with no controller behind them (gateway routes /api/admin/** to user-service); dead surface; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/sign-in.md
+- Auth — SelfAuthorizedEndpoint coverage is by rule, not by permission code; ADR-016 leaves tautologies to rule-parity tests and review; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/security-tiers.md
+- Auth — org-service and audit-service set no module-code (no module entitlement check); intended but not stated in ADR-016; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/security-tiers.md
+- Auth — legacy-machine-paths is described as transitional but still live with seven entries in audit-service; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/security-tiers.md
+- Auth — gateway does its own audience check (RequiredAudienceValidator) and permitAll's /api/auth/** at the edge; not on the library by design (reactive); needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/security-tiers.md
+- Auth — access-token and refresh-token lifetimes live in code (RegisteredClientsConfig), not properties; only the grace window is configurable; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/auth-sessions/tokens-and-sessions.md
+- IAM — public invitation token endpoints (GET /api/onboarding/invites/{token}, POST .../accept) are documented and named in the gateway rate-limit config but not built; invitations are accepted by email match at sign-in and the token hash is stored but never returned or looked up; needs Jabran (auth) — NeoERP-BackEnd/docs/modules/iam-people-roles/invitations.md
+- IAM — seat guard (UserSeatGuard) counts DISTINCT user_id over every membership including INACTIVE and never-accepted invitations, at invite time not accept; decide whether deactivated and pending people hold a seat; 409 AGREEMENT_LIMIT_EXCEEDED undocumented in user-iam.md — NeoERP-BackEnd/docs/modules/iam-people-roles/memberships.md
+- IAM — POST /api/rbac/memberships contract is stale (no status, roleIds required, isPrimary defaults false) — NeoERP-BackEnd/docs/modules/iam-people-roles/memberships.md
+- IAM — user-service has no @TenantOwnedRepository; ADR-012 isolation rests on endpoint gates and orgId checks; confirm accepted for the iam schema — NeoERP-BackEnd/docs/modules/iam-people-roles/memberships.md
+- IAM — People list sends only X-Total-Count (plus total), while user-iam.md says every IAM list sends X-Page, X-Size, X-Total-Count — NeoERP-BackEnd/docs/modules/iam-people-roles/people.md
+- IAM — people lookup limit (30/min) is an in-memory per-instance window; N instances allow up to N times that; contract omits the caveat — NeoERP-BackEnd/docs/modules/iam-people-roles/people.md
+- IAM — unchanged-exception reason: user-iam.md says a new reason is kept, code (ExceptionReasons.fill, mergeMembershipOverrides) keeps the stored reason; pick one — NeoERP-BackEnd/docs/modules/iam-people-roles/permission-exceptions.md
+- IAM — PUT …/overrides doc says minimum reason "min 3"; code (AccessGrantRules.MIN_REASON_LENGTH) says 6 — NeoERP-BackEnd/docs/modules/iam-people-roles/permission-exceptions.md
+- IAM — user-iam.md EffectiveAuthorizationResponse lacks companyOwner, platformAccessId, platformAccessMode, warehouseId — NeoERP-BackEnd/docs/modules/iam-people-roles/effective-permissions.md
+- IAM — ADR-003 out of date (branch-else-org-root vs company ∪ branch ∪ location; roles PUT needs a reason; employees may exist without a login, PA-Q1) — NeoERP-BackEnd/docs/modules/iam-people-roles/effective-permissions.md
+- IAM — two layering implementations (AuthzService vs CallerAccessResolver / MembershipAccessService) load memberships differently; no test runs both on the same data — NeoERP-BackEnd/docs/modules/iam-people-roles/effective-permissions.md
+- IAM — manifest architecture test (standard-roles rule 2: endpoint checks a code in no manifest, or a manifest code has no defaults) is documented but absent from architecture-tests; only UserRouteRuleParityTest exists — NeoERP-BackEnd/docs/modules/iam-people-roles/company-roles.md
+- IAM — ADR-014 text out of date (IAM.RBAC.WRITE, canWriteScopedRbac gone; gates are canCreateRole / canManageRole / canDeleteRole; role deletion is supported) — NeoERP-BackEnd/docs/modules/iam-people-roles/company-roles.md
+- IAM — customise-per-company: enforced by uq_roles_company_based_on (V17) and a 409; confirm the .CUSTOM code suffix is part of the contract (roles-rl1.md states only the name) — NeoERP-BackEnd/docs/modules/iam-people-roles/company-roles.md
+- IAM — Neovatus staff with PLATFORM.PEOPLE.ROLES (not Super Admin) get 403 ABOVE_OWN_RIGHTS when adding a code to a role outside Enter company; contract does not say the plain staff path is refused — NeoERP-BackEnd/docs/modules/iam-people-roles/company-roles.md
+- IAM — no user guides and no developer pages for platform staff, Enter company, security resets and bootstrap — NeoERP-BackEnd/docs/modules/iam-people-roles/README.md
+- IAM — user-iam.md is a long mixed file whose three contracts overlap (PA-1 / RL-1 sections only summarise each other); split by page — NeoERP-BackEnd/docs/modules/iam-people-roles/README.md
+- Org — company, branch and location not-found throw IllegalArgumentException and answer 400, only NoSuchElementException gives 404 (agreements); decide whether they should be 404 — NeoERP-BackEnd/docs/modules/org/companies.md
+- Org — POST /warehouses (create location) authorizes request.companyId but does not check the branch belongs to that company; a caller authorized for company A could attach a location to company B's branch id (ADR-012 tenant isolation); needs an owner decision and a test → ORG-SEC-1, in progress — NeoERP-BackEnd/docs/modules/org/stock-locations.md
+- Org — ADR-015 §2 union site list (branches plus child FRANCHISE companies) and agreementForBranch() / branchRecord() are not in org-service; GET /branches returns branch rows only; check whether the App builds the union client-side — NeoERP-BackEnd/docs/modules/org/branches.md
+- Org — RETURNS location type exists in WarehouseType, design and db-design.md but Create/UpdateWarehouseRequest accept only WAREHOUSE|STORE (400 otherwise) — NeoERP-BackEnd/docs/modules/org/stock-locations.md
+- Org — location create is not refused under an inactive or suspended branch or a non-active company; BranchService.create does not check company status — NeoERP-BackEnd/docs/modules/org/stock-locations.md
+- Org — RecordStatus SUSPENDED is unused for locations and its comment claims a column CHECK that V4 does not have — NeoERP-BackEnd/docs/modules/org/stock-locations.md
+- Org — PUT and PATCH on an inactive or suspended company return 400 "Company is <status>", not stated in org.md or the region contract — NeoERP-BackEnd/docs/modules/org/companies.md
+- Org — org.md CompanyResponse omits companyType, parentCompanyId, booksStartDate, branchCount, warehouseCount — NeoERP-BackEnd/docs/modules/org/companies.md
+- Org — directory status filter documented ACTIVE|INACTIVE (CompanyListFilter) but SUSPENDED is a valid stored status; check whether the filter accepts it — NeoERP-BackEnd/docs/modules/org/companies.md
+- Org — org.md facts status shown ACTIVE | INACTIVE | null; code can return SUSPENDED (active false, COMPANY_INACTIVE / BRANCH_INACTIVE) — NeoERP-BackEnd/docs/modules/org/org-facts-and-events.md
+- Org — db-design.md says next org migration is V31 (V31–V33 exist, next V34) and §4.14 trigger list predates V32 books_start_date; db-design.md §4.1 also claims a NON_TAXABLE alias that CreateCompanyRequest rejects (TAXABLE|EXEMPT only) — NeoERP-BackEnd/docs/modules/org/companies.md
+- Org — org.md omits limitChecks / limits[] on facts/resolve (counted in the 250-lookup bound) and BOOKS_START_DATE in the changed order (V32, A-20) — NeoERP-BackEnd/docs/modules/org/org-facts-and-events.md
+- Org — facts/resolve bad input is 400 IllegalArgumentException without details.code, unlike Accounts facts endpoints (CONTRACT_VERSION_UNSUPPORTED / VALIDATION) — NeoERP-BackEnd/docs/modules/org/org-facts-and-events.md
+- Org — event retention in code is by event age and delivery age; org.md says "acked more than 90 days ago"; add a sentence to the contract — NeoERP-BackEnd/docs/modules/org/org-facts-and-events.md
+- Org — books-start migration is V32 (V31 was taken) but org-region-profile.md still says V31, and its status line still reads "Build after Accounts A0 Wave 2" though org is built — NeoERP-BackEnd/docs/modules/org/region-profile.md
+- Org — PATCH company fiscal facts with a missing reason is 422 fieldErrors.reason (PUT is 400); confirm clients expect 422 — NeoERP-BackEnd/docs/modules/org/region-profile.md
+- Org — PUT ignores currency and fiscal fields (UpdateCompanyRequest); editing currency in Company details is two calls (PUT then PATCH) — NeoERP-BackEnd/docs/modules/org/region-profile.md
+- Org — V15 backfilled DK with "Statutory pack pending — payroll filing unavailable"; the current text is "Statutory pack pending"; backfilled rows keep the old text — NeoERP-BackEnd/docs/modules/org/region-profile.md
+- Org — org.md shows DELETE and PATCH activate for a branch with a body, but the controller accepts a missing body (@RequestBody(required = false)) and answers 400 fieldErrors.reason — NeoERP-BackEnd/docs/modules/org/branches.md
+- Org — franchisor BRANCHES ceiling should govern an inheriting franchise's group count; code compares the franchise's own branch count to the franchisor's limit — NeoERP-BackEnd/docs/modules/org/franchise-agreement-holder.md
+- Org — consolidated reporting and group-scope capability (ADR-013 follow-up) unbuilt; consolidates_into_parent only records intent — NeoERP-BackEnd/docs/modules/org/franchise-agreement-holder.md
+- Org — entitlement resolver handling of franchises (INHERITED / OVERRIDDEN / ADDENDUM / OWN_AGREEMENT / NOT_ENTITLED, EntitlementResolution.kt) is not traced on the franchise page — NeoERP-BackEnd/docs/modules/org/franchise-agreement-holder.md
+- Org — no single call creates a franchise with an addendum; enrollment does not create addenda, a company-request approval records decisions only — NeoERP-BackEnd/docs/modules/org/franchise-agreement-holder.md
+- Org — no user-guide pages and no App design spec for org (only stock-locations.md); user-guide links are placeholders — NeoERP-BackEnd/docs/modules/org/README.md
+- Org — test gaps: no end-to-end test of BranchService / WarehouseService create paths, branch suspension or the default-location rule — NeoERP-BackEnd/docs/modules/org/README.md
+- Platform admin — docs/api/platform.md says the three Super Admin endpoints use canWriteGlobalRbac; code uses isPlatformSuperAdmin (PUT /api/platform/standard-roles/{id} does use canWriteGlobalRbac) — NeoERP-BackEnd/docs/modules/platform-admin/staff.md
+- Platform admin — docs/api/org.md lists module codes CORE, ORG, IAM, HRMS, PAYROLL, ACCOUNTS (twice, plus the enroll example); code catalog is CORE/ORG/IAM plus FINANCE, HRMS, PAYROLL, INVENTORY, SALES, MANUFACTURING, so the example would be refused (not run) — NeoERP-BackEnd/docs/modules/platform-admin/enrollment.md
+- Platform admin — docs/agents/agreements-entitlements-review/review.md "Still open" and "limits enforced nowhere" are partly closed (AgreementLimitGuard, UserSeatGuard, org V16, V24 entitlement history, Beta/Add-on kinds); still open: per-module seats (ENT_MODULES.seats), group consolidated reporting — NeoERP-BackEnd/docs/modules/platform-admin/agreements.md
+- Platform admin — no org-service migration V23 (V22, V24); do not reuse 23 — NeoERP-BackEnd/docs/modules/platform-admin/README.md
+- Platform admin — AGREEMENT_LIMIT_EXCEEDED (409) from org-service and user-service is in no contract — NeoERP-BackEnd/docs/modules/platform-admin/agreements.md
+- Platform admin — no test names the limit guards (AgreementLimitExceededException, UserSeatLimitExceededException); enforcement paths untested by name — NeoERP-BackEnd/docs/modules/platform-admin/agreements.md
+- Platform admin — contracts say 403 "not a platform super admin" / "super admin only" for agreements and enrollment; code checks the platform code plus scope (PLATFORM.COMPANY.CREATE with every company in scope), so a staff role can hold it — NeoERP-BackEnd/docs/modules/platform-admin/agreements.md
+- Platform admin — GET /api/platform/agreements omits an agreement whose company is missing but counts it in total (pages can be shorter than size) — NeoERP-BackEnd/docs/modules/platform-admin/agreements.md
+- Platform admin — audit-catalogue.md §2.4 says accounts-service emits none; code writes accounts-journal and accounts-platform-catalog events via accounts.audit_outbox (V6), accounts-period planned — NeoERP-BackEnd/docs/modules/platform-admin/audit.md
+- Platform admin — auth-service has an AuditOutboxDispatcher and test but the catalogue lists no auth events — NeoERP-BackEnd/docs/modules/platform-admin/audit.md
+- Platform admin — many catalogue rows are "Historical wording snapshot" fallbacks in the app formatter; not verifiable from the backend repo — NeoERP-BackEnd/docs/modules/platform-admin/audit.md
+- Platform admin — Enter-company "double log" (RULES §13) not built: no service writes onBehalfOfActor; code keeps the real actor and adds enterCompany metadata to one event — NeoERP-BackEnd/docs/modules/platform-admin/enter-company.md
+- Platform admin — branch and location UPDATE audit events carry no before/after or reason; company-module REPLACE lists nothing changed (also no per-module change list in history) — NeoERP-BackEnd/docs/modules/platform-admin/audit.md
+- Platform admin — PlatformCompanyAccessService builds its audit payload by string concatenation with its own escape instead of AuditJson, and has no service-level test — NeoERP-BackEnd/docs/modules/platform-admin/enter-company.md
+- Platform admin — only accounts-service sets platform-read-only=true; other services' READ_ONLY enforcement relies on the shared filter alone (user-iam.md says all refuse writes) — NeoERP-BackEnd/docs/modules/platform-admin/enter-company.md
+- Platform admin — PlatformChartTemplatesTest.usageReadsWriteOneAuditEventPerRequest is not in the contract §5 test list (ten named, eleven in code); PLATFORM.CATALOG.READ fixtures registration only visible in AccountsFirstPartyTokenContractTest; App-side PCT-b tests not verified — NeoERP-BackEnd/docs/modules/platform-admin/chart-templates.md
+- Platform admin — catalogScope treats an empty platformCompanyIds as an empty set (counts 0), not a refusal, for staff holding the code but no companies; contract says "Platform person only" — NeoERP-BackEnd/docs/modules/platform-admin/chart-templates.md
+- Platform admin — CompanyEnrollmentStaleSweeper has no test class (covered inside CompanyProvisioningServiceEnrollmentRollbackTest); no service-level tests for platform staff, PlatformStaffService, platform role CRUD, PlatformPeopleService or Enter-company logic — NeoERP-BackEnd/docs/modules/platform-admin/staff.md
+- Platform admin — ModuleCodesContractTest referenced by ModuleCodes.kt does not exist; user-service COMMERCIAL_MODULES (FINANCE, HRMS, PAYROLL) is hand-kept and can drift from org-service's catalog — NeoERP-BackEnd/docs/modules/platform-admin/entitlements-modules.md
+- Platform admin — entitlement endpoints have no end-to-end HTTP authorization test beyond OrgScopedPlatformStaffWebTest; PUT routes covered only via OrgAuthorizationTest and OrgRouteRuleParityTest — NeoERP-BackEnd/docs/modules/platform-admin/entitlements-modules.md
+- Platform admin — no test covers REQUEST_* conflict codes or approve paths for MODULE, FEATURE, LIMIT_INCREASE, BRANCH (codes only in OrgRequestService.kt) — NeoERP-BackEnd/docs/modules/platform-admin/requests.md
+- Platform admin — RULES §15 lists "user resets" in the inbox but OrgRequestKind has no such kind; resets are a support action — NeoERP-BackEnd/docs/modules/platform-admin/requests.md
+- Platform admin — contracts say "Super Admin" for request review, approve and decline; code checks PLATFORM.REQUEST.DECIDE for the request's company — NeoERP-BackEnd/docs/modules/platform-admin/requests.md
+- Platform admin — PLATFORM.STAFF.READ is Super Admin only in V18 seed data though standard-roles.md §4 shows PLATFORM.*.READ for Support and Read-only; V25 PEOPLE.WRITE split not run against a database — NeoERP-BackEnd/docs/modules/platform-admin/staff.md
+- Platform admin — contracts describe new-account invitations "with the sign-in step (IAM step 6)"; code does it in addNewAccount (creates identity, sends setup email), no separate invite — NeoERP-BackEnd/docs/modules/platform-admin/staff.md
+- Platform admin — standard-roles rule 2 architecture test (permission manifests) not found in architecture-tests/ (MoneyTypesArchitectureTest, TenantRepositoryArchitectureTest, posting-path tests only) — NeoERP-BackEnd/docs/modules/platform-admin/standard-roles.md
+- Platform admin — no test asserts the V27 defaults (Org, IAM, HR, Payroll tables in standard-roles.md §3); only Accounts defaults (V36) are asserted; V27 interim HR/Payroll mapping differs from §3 by design — NeoERP-BackEnd/docs/modules/platform-admin/standard-roles.md
+- Platform admin — PUT /api/platform/standard-roles needs PLATFORM.CATALOG.WRITE with scope all (scoped staff refused) while the contract says only "needs PLATFORM.CATALOG.WRITE"; GET is open to any staff — NeoERP-BackEnd/docs/modules/platform-admin/standard-roles.md
+- Platform admin — standard-roles.md says Auditor reads the agreement (ORG.AGREEMENT.READ) and defines a "Commercial" platform role (agreements, entitlements, requests) that is not seeded — NeoERP-BackEnd/docs/modules/platform-admin/standard-roles.md
+
+## From the App developer pages (2026-10-09)
+
+- org / app: the stock-location form offers **Returns** (SL-1), but org-service accepts only WAREHOUSE and STORE (400). Fix: backend accepts RETURNS (check enum/CHECK constraint; new migration if needed) + test. Small, next Codex org batch.
+- auth / app — needs Jabran (auth): `AuthRepositoryImpl.signIn(role)` throws UnsupportedOperationException; paste-URL PKCE flow still present; Sign out tapped during a load is dropped; desktop token store has no OS keychain.
+- app tests: platform-admin ViewModels have no unit tests — add with the CP-UI3 migration where touched, the rest as a test batch.
+- app page states: org and platform still use NeoLoadError, Accounts its own accountsLoadFailure — covered by CP-UI3 (3c, 3d) and 3h (Accounts, with CP-A1.2).
+- design system: NeoSearchSelect, NeoMultiSelect (building-blocks.md "Choosing from a list") and NeoFileSaver (A2) don't exist yet — build with the first slice that needs them (A1 screens use NeoSearchSelect for accounts).
+- org-service denial path asks IAM for accessible org ids (ORG-SEC-1): when IAM is down a refused request answers an error instead of 404 — acceptable, revisit with the IAM availability work.
+
+## ERP lead (2026-10-09)
+
+- **ADR: domain-event relay** (outbox → consumers) for Accounts, HR, Payroll and later modules. Needed before Payroll posting (P2) and B/C module hooks (ADR-018). Owner: ERP lead.
+- **ADR: file store** (object store) for journal/document attachments, statutory exports and payslip PDFs. Needed before the attachments slice and H. Owner: ERP lead.
+- **Module-off wording:** A0/A2 still say "not in agreement"; standard is building-blocks "{Module} isn't part of your plan" (MODULE_NOT_ENABLED). Accounts lead aligns its screens.
+- **NeoMoney / number format** (building-blocks "Numbers and money"): built in CP-A1.2a; other modules move onto it when their screens are rebuilt.
+- **DB roles per service** (from CP-A2.1a V11-7): every service runs with a restricted runtime role (DML only), Flyway with the owner role. accounts-service first (approved 2026-10-09); then org, user, hr, payroll, audit, auth. Owner: ERP lead.
+- **ORG-FACTS-2:** Org facts carry the company's legal name and registration number (org.nr / CVR / Y-tunnus / kennitala / NTN), plus the HR & Payroll lead's E5 facts (AGA zone and sub-unit per NO branch, province per PK branch, company and branch time zone). Needed by A2 PDFs (V11-9), HR H1 and Payroll P1. Owner: ERP lead.
+- **Org demo data:** add Kystgruppe branch Tromsø (NO AGA zone 4) to org-service seed with ORG-FACTS-2; the HR rig uses it already.
+- **Rig horizontal scroll:** three Accounts and People screens scroll sideways at some widths (found by the HR & Payroll lead, 2026-10-09). People: ERP lead; Accounts: Accounts lead.
+- **Shared components for HR/Payroll/ESS (E8):** NeoDateRangeField, NeoTimeField, NeoCalendarMonth, NeoTimeGrid, NeoStepper, NeoVarianceTable, NeoFileDownload, NeoTabs, NeoBottomTabBar + phone sheet, NeoApprovalCard. The HR & Payroll lead proposes component contracts (as list-controls.md); the ERP lead approves; built in a design-system checkpoint before the first HR/Payroll screen build.
+- **From the HR & Payroll lead's findings (2026-10-09):**
+  - People rig scrolls sideways at 1280/1024/768 (`#company:lahore|people`): ERP lead. Accounts journal editor at 768 and period close at 390: Accounts lead.
+  - Stockholm Handel demo agreement gets HRMS (Org seed, with ORG-FACTS-2).
+  - API contract style drift: error bodies document `timestamp` the code doesn't send; paging headers (`X-Page`, `X-Total-Count`) undocumented. Write one shared "API conventions" page and check every contract. Owner: ERP lead.
+  - Permission naming: `permission-actions.md` already sets `.READ` + one code per action (`.WRITE` retired); HR/Payroll v2 follow it.
+
+## ACC (Accounts lead, 2026-10-10)
+- Accounts — export-job run lock: if the advisory unlock throws, the pooled connection keeps the lock until Hikari retires it; evict the connection on unlock failure (ACC-B-1 4d) — NeoERP-BackEnd/docs/modules/accounts/reports.md
+
+### ERP (2026-10-10)
+- ~~ERP · App: SessionHardeningTest flake~~ → fixed by Accounts · App in P1-FIX-APP (ERP-80.2).
+- ERP · Backend + App: bootstrap company entries gain `country` (ACC-52, ERP-53).
+- ERP · App: `AppSession.onCleared()` doesn't cancel its coroutine scope (harmless outside tests; found by Accounts · App, ACC-104).
+- ERP · App: move `AuditWording` (shared; Platform audit log, Org activity, Accounts) to string resources, keeping a synchronous path for CSV export and search; decide the export language (ACC-141).

@@ -1,0 +1,178 @@
+{
+  "$description": "NeoERP Super Admin — design tokens. AUTHORITATIVE: the spec page and styles.css derive from this file, not the reverse. Import into Figma via Tokens Studio, or use as a spec for Figma Variables.",
+  "$version": "1.1.0 — 2026-09-05: AA contrast ramp correction, density token sets, full motion scale, focus + elevation + zIndex groups.",
+  "color": {
+    "light": {
+      "bg/canvas":        { "value": "#FFFFFF", "type": "color", "description": "App background, page background" },
+      "bg/elevated":      { "value": "#FFFFFF", "type": "color", "description": "Cards, modals, popovers" },
+      "bg/soft":          { "value": "#F5F5F4", "type": "color", "description": "Table headers, inset tiles, tab track" },
+      "bg/sunken":        { "value": "#FAFAF9", "type": "color", "description": "Modal footer, auth art panel" },
+      "bg/hover":         { "value": "#F5F5F4", "type": "color", "description": "Row and nav hover" },
+      "border/default":   { "value": "#ECECEC", "type": "color" },
+      "border/strong":    { "value": "#D4D4D4", "type": "color", "description": "Checkbox outline, hover borders" },
+      "text/primary":     { "value": "#0A0A0A", "type": "color" },
+      "text/secondary":   { "value": "#404040", "type": "color" },
+      "text/tertiary":    { "value": "#5F5F5F", "type": "color", "description": "Captions, metadata. 5.85:1 on bg/soft" },
+      "text/quaternary":  { "value": "#707070", "type": "color", "description": "Table column headers, group labels, placeholders. 4.54:1 on bg/soft" },
+      "text/disabled":    { "value": "#D4D4D4", "type": "color" },
+      "accent/base":      { "value": "#0A0A0A", "type": "color", "description": "Primary button fill, active indicator" },
+      "accent/on":        { "value": "#FFFFFF", "type": "color", "description": "Text on accent" },
+      "status/success-text": { "value": "#0E783C", "type": "color", "description": "4.61:1 on success-bg" },
+      "status/success-bg":   { "value": "#D6F0E0", "type": "color" },
+      "status/success-dot":  { "value": "#16A34A", "type": "color" },
+      "status/warning-text": { "value": "#92400E", "type": "color" },
+      "status/warning-bg":   { "value": "#FEF3C7", "type": "color" },
+      "status/warning-dot":  { "value": "#F59E0B", "type": "color" },
+      "status/danger-text":  { "value": "#CA2222", "type": "color", "description": "4.57:1 on danger-bg" },
+      "status/danger-bg":    { "value": "#FEE2E2", "type": "color" },
+      "status/danger-dot":   { "value": "#EF4444", "type": "color" },
+      "status/info-text":    { "value": "#1D4ED8", "type": "color" },
+      "status/info-bg":      { "value": "#DBEAFE", "type": "color" }
+    },
+    "dark": {
+      "bg/canvas":        { "value": "#0A0A0A", "type": "color" },
+      "bg/elevated":      { "value": "#141414", "type": "color" },
+      "bg/soft":          { "value": "#1A1A1A", "type": "color" },
+      "bg/sunken":        { "value": "#0F0F0F", "type": "color" },
+      "bg/hover":         { "value": "#1F1F1F", "type": "color" },
+      "border/default":   { "value": "#262626", "type": "color" },
+      "border/strong":    { "value": "#404040", "type": "color" },
+      "text/primary":     { "value": "#FAFAFA", "type": "color" },
+      "text/secondary":   { "value": "#D4D4D4", "type": "color" },
+      "text/tertiary":    { "value": "#A3A3A3", "type": "color" },
+      "text/quaternary":  { "value": "#8A8A8A", "type": "color", "description": "5.04:1 on bg/soft" },
+      "text/disabled":    { "value": "#404040", "type": "color" },
+      "accent/base":      { "value": "#FAFAFA", "type": "color" },
+      "accent/on":        { "value": "#0A0A0A", "type": "color" },
+      "status/success-text": { "value": "#4ADE80", "type": "color" },
+      "status/success-bg":   { "value": "#052E16", "type": "color" },
+      "status/success-dot":  { "value": "#22C55E", "type": "color" },
+      "status/warning-text": { "value": "#FBBF24", "type": "color" },
+      "status/warning-bg":   { "value": "#2C1D04", "type": "color" },
+      "status/warning-dot":  { "value": "#F59E0B", "type": "color" },
+      "status/danger-text":  { "value": "#F87171", "type": "color" },
+      "status/danger-bg":    { "value": "#2C0A0A", "type": "color" },
+      "status/danger-dot":   { "value": "#EF4444", "type": "color" },
+      "status/info-text":    { "value": "#93C5FD", "type": "color" },
+      "status/info-bg":      { "value": "#0F1E3D", "type": "color" }
+    }
+  },
+  "fontFamily": {
+    "sans": { "value": "Inter Tight", "type": "fontFamilies", "description": "Fallback: Inter, system-ui" },
+    "mono": { "value": "JetBrains Mono", "type": "fontFamilies", "description": "IDs, codes, tabular data" }
+  },
+  "typography": {
+    "display":      { "value": { "fontFamily": "Inter Tight", "fontWeight": "700", "fontSize": "28", "lineHeight": "32", "letterSpacing": "-0.7" }, "type": "typography", "description": "Page title, auth H1" },
+    "heading-lg":   { "value": { "fontFamily": "Inter Tight", "fontWeight": "700", "fontSize": "22", "lineHeight": "26", "letterSpacing": "-0.44" }, "type": "typography", "description": "Entity name in detail header" },
+    "heading-md":   { "value": { "fontFamily": "Inter Tight", "fontWeight": "700", "fontSize": "18", "lineHeight": "24", "letterSpacing": "-0.36" }, "type": "typography", "description": "Section heading" },
+    "heading-sm":   { "value": { "fontFamily": "Inter Tight", "fontWeight": "600", "fontSize": "17", "lineHeight": "22", "letterSpacing": "-0.26" }, "type": "typography", "description": "Modal title" },
+    "title":        { "value": { "fontFamily": "Inter Tight", "fontWeight": "600", "fontSize": "16", "lineHeight": "22", "letterSpacing": "-0.24" }, "type": "typography", "description": "Card title" },
+    "metric":       { "value": { "fontFamily": "Inter Tight", "fontWeight": "700", "fontSize": "26", "lineHeight": "29", "letterSpacing": "-0.65" }, "type": "typography", "description": "KPI value, stat number" },
+    "body":         { "value": { "fontFamily": "Inter Tight", "fontWeight": "400", "fontSize": "13.5", "lineHeight": "20", "letterSpacing": "-0.07" }, "type": "typography", "description": "Default UI text, table cells, inputs" },
+    "body-medium":  { "value": { "fontFamily": "Inter Tight", "fontWeight": "500", "fontSize": "13.5", "lineHeight": "20", "letterSpacing": "-0.07" }, "type": "typography", "description": "Buttons, nav items, emphasis" },
+    "label":        { "value": { "fontFamily": "Inter Tight", "fontWeight": "500", "fontSize": "13", "lineHeight": "18" }, "type": "typography", "description": "Field label" },
+    "caption":      { "value": { "fontFamily": "Inter Tight", "fontWeight": "400", "fontSize": "12.5", "lineHeight": "17" }, "type": "typography", "description": "Card subtitle, helper, timestamps" },
+    "caption-sm":   { "value": { "fontFamily": "Inter Tight", "fontWeight": "400", "fontSize": "12", "lineHeight": "16" }, "type": "typography", "description": "Pills, chips, meta" },
+    "overline":     { "value": { "fontFamily": "Inter Tight", "fontWeight": "600", "fontSize": "11", "lineHeight": "14", "letterSpacing": "0.66", "textCase": "uppercase" }, "type": "typography", "description": "Table column header, group label" },
+    "overline-xs":  { "value": { "fontFamily": "Inter Tight", "fontWeight": "600", "fontSize": "10.5", "lineHeight": "14", "letterSpacing": "0.84", "textCase": "uppercase" }, "type": "typography", "description": "Sidebar section label" },
+    "mono":         { "value": { "fontFamily": "JetBrains Mono", "fontWeight": "400", "fontSize": "12.5", "lineHeight": "18" }, "type": "typography", "description": "UUIDs, codes" }
+  },
+  "spacing": {
+    "1": { "value": "8",  "type": "spacing" },
+    "2": { "value": "12", "type": "spacing" },
+    "3": { "value": "16", "type": "spacing" },
+    "4": { "value": "20", "type": "spacing" },
+    "5": { "value": "24", "type": "spacing" }
+  },
+  "density": {
+    "$description": "Three token sets, mapped 1:1 onto the [data-density] attribute. 'regular' duplicates the root spacing scale.",
+    "compact": {
+      "spacing/1": { "value": "6",  "type": "spacing" }, "spacing/2": { "value": "8",  "type": "spacing" },
+      "spacing/3": { "value": "12", "type": "spacing" }, "spacing/4": { "value": "16", "type": "spacing" },
+      "spacing/5": { "value": "20", "type": "spacing" },
+      "tableRow": { "value": "44", "type": "sizing" }, "field": { "value": "36", "type": "sizing" },
+      "button/md": { "value": "32", "type": "sizing" }, "sidebar": { "value": "232", "type": "sizing" }
+    },
+    "regular": {
+      "spacing/1": { "value": "8",  "type": "spacing" }, "spacing/2": { "value": "12", "type": "spacing" },
+      "spacing/3": { "value": "16", "type": "spacing" }, "spacing/4": { "value": "20", "type": "spacing" },
+      "spacing/5": { "value": "24", "type": "spacing" },
+      "tableRow": { "value": "56", "type": "sizing" }, "field": { "value": "44", "type": "sizing" },
+      "button/md": { "value": "40", "type": "sizing" }, "sidebar": { "value": "260", "type": "sizing" }
+    },
+    "cozy": {
+      "spacing/1": { "value": "10", "type": "spacing" }, "spacing/2": { "value": "14", "type": "spacing" },
+      "spacing/3": { "value": "18", "type": "spacing" }, "spacing/4": { "value": "22", "type": "spacing" },
+      "spacing/5": { "value": "28", "type": "spacing" },
+      "tableRow": { "value": "64", "type": "sizing" }, "field": { "value": "48", "type": "sizing" },
+      "button/md": { "value": "44", "type": "sizing" }, "sidebar": { "value": "260", "type": "sizing" }
+    },
+    "$touchFloor": { "value": "44", "type": "sizing", "description": "Below 720px every density clamps field, button/md and icon buttons to 44." }
+  },
+  "borderRadius": {
+    "sm":   { "value": "6",   "type": "borderRadius", "description": "Small buttons, code chips" },
+    "md":   { "value": "10",  "type": "borderRadius", "description": "Buttons, inputs, nav items, tiles" },
+    "lg":   { "value": "14",  "type": "borderRadius", "description": "Cards, stat tiles" },
+    "xl":   { "value": "18",  "type": "borderRadius", "description": "Modal" },
+    "pill": { "value": "999", "type": "borderRadius", "description": "Pills, avatars, switches" }
+  },
+  "sizing": {
+    "button/sm":     { "value": "30", "type": "sizing" },
+    "button/md":     { "value": "40", "type": "sizing" },
+    "button/lg":     { "value": "48", "type": "sizing" },
+    "field":         { "value": "44", "type": "sizing" },
+    "tableRow":      { "value": "56", "type": "sizing" },
+    "topbar":        { "value": "64", "type": "sizing" },
+    "sidebar":       { "value": "260", "type": "sizing" },
+    "sidebarDrawer": { "value": "280", "type": "sizing", "description": "Mobile / tablet drawer" },
+    "icon/sm":       { "value": "14", "type": "sizing" },
+    "icon/md":       { "value": "16", "type": "sizing" },
+    "icon/lg":       { "value": "20", "type": "sizing" },
+    "avatar/sm":     { "value": "32", "type": "sizing" },
+    "avatar/md":     { "value": "36", "type": "sizing" },
+    "avatar/lg":     { "value": "56", "type": "sizing" },
+    "touchTarget":   { "value": "44", "type": "sizing", "description": "Mobile minimum" }
+  },
+  "boxShadow": {
+    "1": { "value": [{ "x": "0", "y": "1", "blur": "2", "spread": "0", "color": "rgba(0,0,0,0.04)", "type": "dropShadow" }, { "x": "0", "y": "1", "blur": "1", "spread": "0", "color": "rgba(0,0,0,0.02)", "type": "dropShadow" }], "type": "boxShadow", "description": "Card resting" },
+    "2": { "value": [{ "x": "0", "y": "4", "blur": "16", "spread": "-4", "color": "rgba(0,0,0,0.08)", "type": "dropShadow" }, { "x": "0", "y": "2", "blur": "4", "spread": "0", "color": "rgba(0,0,0,0.04)", "type": "dropShadow" }], "type": "boxShadow", "description": "Raised / hover" },
+    "3": { "value": [{ "x": "0", "y": "16", "blur": "40", "spread": "-8", "color": "rgba(0,0,0,0.18)", "type": "dropShadow" }, { "x": "0", "y": "4", "blur": "12", "spread": "0", "color": "rgba(0,0,0,0.06)", "type": "dropShadow" }], "type": "boxShadow", "description": "Modal, toast, drawer" }
+  },
+  "breakpoint": {
+    "phone":   { "value": "480",  "type": "other" },
+    "mobile":  { "value": "720",  "type": "other", "description": "Tables collapse to cards, single column" },
+    "tablet":  { "value": "1024", "type": "other", "description": "Sidebar becomes drawer" },
+    "desktop": { "value": "1280", "type": "other", "description": "Declared, not yet queried" },
+    "wide":    { "value": "1440", "type": "other" }
+  },
+  "motion": {
+    "instant": { "value": "80ms",  "type": "other", "description": "Hover, background swaps" },
+    "quick":   { "value": "120ms", "type": "other", "description": "Switch thumb, checkbox, tab, role card" },
+    "fast":    { "value": "150ms", "type": "other", "description": "Fades, chevron rotation" },
+    "dialog":  { "value": "180ms", "type": "other", "description": "Modal rise, toast entry" },
+    "base":    { "value": "220ms", "type": "other", "description": "Drawer slide" },
+    "slow":    { "value": "400ms", "type": "other", "description": "Layout / bar chart growth" },
+    "easeOut": { "value": "cubic-bezier(0.2, 0.8, 0.2, 1)", "type": "other" },
+    "$note": "The full set. 100ms and 200ms were CSS-only strays, now folded into quick and dialog."
+  },
+  "focus": {
+    "ring/light":      { "value": "#0A0A0A", "type": "color", "description": "2px :focus-visible outline" },
+    "ring/dark":       { "value": "#FAFAFA", "type": "color" },
+    "ring/width":      { "value": "2", "type": "sizing" },
+    "ring/offset":     { "value": "2", "type": "sizing" },
+    "ringSoft/light":  { "value": "rgba(10,10,10,0.14)",   "type": "color", "description": "3px inner halo on focused fields" },
+    "ringSoft/dark":   { "value": "rgba(250,250,250,0.18)", "type": "color" }
+  },
+  "elevation": {
+    "$description": "Portable form of boxShadow — one y / blur / opacity triple per level, for Compose and SwiftUI. The two-layer CSS shadows in boxShadow are the web rendering of these.",
+    "1": { "y": "1",  "blur": "3",  "opacity": "0.06", "type": "other", "description": "Card resting" },
+    "2": { "y": "4",  "blur": "16", "opacity": "0.10", "type": "other", "description": "Raised / hover" },
+    "3": { "y": "16", "blur": "40", "opacity": "0.20", "type": "other", "description": "Modal, toast, drawer" }
+  },
+  "zIndex": {
+    "scrim":  { "value": "80",   "type": "other" },
+    "drawer": { "value": "90",   "type": "other" },
+    "modal":  { "value": "900",  "type": "other" },
+    "toast":  { "value": "1000", "type": "other" }
+  }
+}

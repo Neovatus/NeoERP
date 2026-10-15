@@ -1,0 +1,443 @@
+[
+  [
+    "DK",
+    "DK-MOMS-25",
+    "OUTPUT",
+    "25",
+    "base —, tax Salgsmoms",
+    "Momsloven § 33",
+    "25 from the pack's earliest supported date (not 1992-01-01: not in the law text read, (verify), DK 2.1; the act starts 1994-07-01 (verify))"
+  ],
+  [
+    "DK",
+    "DK-MOMS-0",
+    "ZERO",
+    "0",
+    "Rubrik C",
+    "ML § 34 stk. 1 nr. 5–21 (e.g. newspapers nr. 18)",
+    "0"
+  ],
+  [
+    "DK",
+    "DK-MOMS-EXPORT",
+    "ZERO",
+    "0",
+    "Rubrik C; covers goods and services with place of supply outside the EU (both go in Rubrik C)",
+    "ML § 34 stk. 1 nr. 5; momsbekendtgørelsen § 76 stk. 11",
+    "0"
+  ],
+  [
+    "DK",
+    "DK-MOMS-EU-GOODS",
+    "ZERO",
+    "0",
+    "Rubrik B – varer (reported to EU-salg) + DK-EU-SALG goods",
+    "ML § 34 stk. 1 nr. 1",
+    "0"
+  ],
+  [
+    "DK",
+    "DK-MOMS-EU-GOODS-NR",
+    "ZERO",
+    "0",
+    "Rubrik B – varer, not reported to EU-salg (e.g. installation)",
+    "momsbekendtgørelsen § 79 stk. 5 (replaces \"SKAT guide\"; verification 2026-10-10, DK 2.5 row, CHECKED by the researcher)",
+    "0"
+  ],
+  [
+    "DK",
+    "DK-MOMS-EU-SVC",
+    "ZERO",
+    "0",
+    "Rubrik B – ydelser + DK-EU-SALG services",
+    "ML § 16 stk. 1",
+    "0"
+  ],
+  [
+    "DK",
+    "DK-MOMS-RC-DOM-SALE",
+    "ZERO",
+    "0",
+    "Rubrik C (seller side of domestic reverse charge)",
+    "ML § 46 stk. 1 nr. 4 og 6–12, stk. 2 (verification 2026-10-10, DK-M2b row",
+    "0"
+  ],
+  [
+    "DK",
+    "DK-MOMS-EXEMPT",
+    "EXEMPT",
+    "",
+    "not reported",
+    "ML § 13",
+    "—"
+  ],
+  [
+    "DK",
+    "DK-MOMS-IN-25",
+    "INPUT",
+    "25",
+    "Købsmoms",
+    "ML § 37",
+    "25"
+  ],
+  [
+    "DK",
+    "DK-MOMS-IN-25-REP",
+    "INPUT",
+    "25",
+    "Købsmoms (25 % of the VAT)",
+    "ML § 42 stk. 2 (verification 2026-10-10, DK-M2c row",
+    "25, deductiblePercent 25"
+  ],
+  [
+    "DK",
+    "DK-MOMS-IN-25-NODED",
+    "INPUT",
+    "25",
+    "non-deductible column only",
+    "ML § 42 stk. 1 (e.g. passenger cars, entertainment, gifts)",
+    "25, deductiblePercent 0"
+  ],
+  [
+    "DK",
+    "DK-MOMS-RC-EU-GOODS",
+    "REVERSE_CHARGE",
+    "25",
+    "base Rubrik A – varer; tax Moms af varekøb i udlandet; deduction Købsmoms",
+    "ML § 11, § 46 stk. 4; momsbekendtgørelsen § 76 stk. 5, § 79 stk. 2 (verification 2026-10-10, DK-M2a row",
+    "25"
+  ],
+  [
+    "DK",
+    "DK-MOMS-RC-EU-SVC",
+    "REVERSE_CHARGE",
+    "25",
+    "base Rubrik A – ydelser; tax Moms af ydelseskøb i udlandet med omvendt betalingspligt; deduction Købsmoms",
+    "ML § 16, § 46 stk. 1 nr. 3 (CHECKED, DK 2.13; output account verification 2026-10-10, DK-M3 row)",
+    "25"
+  ],
+  [
+    "DK",
+    "DK-MOMS-RC-NONEU-SVC",
+    "REVERSE_CHARGE",
+    "25",
+    "tax Moms af ydelseskøb i udlandet…; deduction Købsmoms; no Rubrik A (Rubrik A-ydelser is EU only, § 79 stk. 3)",
+    "ML § 46 stk. 1 nr. 3 (CHECKED, DK 2.14)",
+    "25"
+  ],
+  [
+    "DK",
+    "DK-MOMS-RC-DOM",
+    "REVERSE_CHARGE",
+    "25",
+    "tax to Salgsmoms (output VAT), deduction Købsmoms, no Rubrik (resolved)",
+    "ML § 46 stk. 1 nr. 4 og 6–12; momsbekendtgørelsen § 76 stk. 4 (verification 2026-10-10, DK-M2b row",
+    "25"
+  ],
+  [
+    "DK",
+    "DK-MOMS-IMPORT",
+    "REVERSE_CHARGE",
+    "25",
+    "tax Moms af varekøb i udlandet (både EU og lande uden for EU); deduction Købsmoms; not Rubrik A",
+    "ML § 12, § 46 stk. 6; momsbekendtgørelsen § 76 stk. 5 nr. 2 (CHECKED, DK 2.16; tax point the day of import, § 26)",
+    "25"
+  ],
+  [
+    "DK",
+    "DK-MOMS-EU-TRIANG",
+    "ZERO",
+    "0",
+    "not on the return; EU sales list only (triangulation)",
+    "Skattestyrelsen S25; momsbekendtgørelsen § 99 stk. 2–3 (DK 3.7; launch code, verification 2026-10-10, DK-M9 row; code name is our proposal)",
+    "0"
+  ],
+  [
+    "DK",
+    "DK-MOMS-OUT-OF-SCOPE",
+    "EXEMPT",
+    "",
+    "outside the scope of ML; not reported",
+    "Skattestyrelsen S81 (launch code; code name is our proposal)",
+    "—"
+  ],
+  [
+    "DK",
+    "DK-MOMS-IN-25-50",
+    "INPUT",
+    "25",
+    "Købsmoms (50 %)",
+    "Skattestyrelsen K040 (launch code; name is our proposal)",
+    "25, deductiblePercent 50"
+  ],
+  [
+    "DK",
+    "DK-MOMS-IN-25-PRORATA",
+    "INPUT",
+    "25",
+    "Købsmoms (pro rata)",
+    "Skattestyrelsen K110 (launch code; name is our proposal)",
+    "25, deductiblePercent 0 until the company sets its own pro-rata percentage before first use (posting is refused while unset; lead decision 2026-10-10, review fix M-5)"
+  ],
+  [
+    "FI",
+    "FI-ALV-STD",
+    "OUTPUT",
+    "25.5",
+    "tax on domestic sales, general rate (field 301)",
+    "AVL 84 § (laki 462/2024, voimaan 2024-09-01)",
+    "24.00 from the pack's earliest supported date (2013-01-01 (verify), FI 1.3: read laki 706/2012); 25.50 from 2024-09-01"
+  ],
+  [
+    "FI",
+    "FI-ALV-RED",
+    "OUTPUT",
+    "13.5",
+    "tax at the reduced rate (field 302)",
+    "AVL 85 § (laki 1358/2025 for 13.5 %)",
+    "version 1: 14.0000 from the pack's earliest supported date; version 2: 13.5000 from 2026-01-01 (one code, two rate versions: the return field stays 302, \"Tax on domestic sales at 14% or 13.5%\")"
+  ],
+  [
+    "FI",
+    "FI-ALV-10",
+    "OUTPUT",
+    "10",
+    "tax at 10 % (field 303)",
+    "AVL 85 a §. Help text: \"From 2026-01-01 only newspapers and periodicals, physical or electronic, not mainly advertising and not mainly video or music.\" CHECKED (verification 2026-10-10, FI-M3 row)",
+    "10 from the pack's earliest supported date (2013-01-01 (verify), FI 1.3)"
+  ],
+  [
+    "FI",
+    "FI-ALV-0",
+    "ZERO",
+    "0",
+    "zero-rated turnover",
+    "AVL 209 b § list (e.g. 70 §, 72 a–72 e §)",
+    "0"
+  ],
+  [
+    "FI",
+    "FI-ALV-EXPORT",
+    "ZERO",
+    "0",
+    "zero-rated turnover",
+    "AVL 70 §",
+    "0"
+  ],
+  [
+    "FI",
+    "FI-ALV-EU-GOODS",
+    "ZERO",
+    "0",
+    "sales of goods to other EU countries + FI-YVI goods",
+    "AVL 72 a §",
+    "0"
+  ],
+  [
+    "FI",
+    "FI-ALV-EU-SVC",
+    "ZERO",
+    "0",
+    "sales of services to other EU countries + FI-YVI services",
+    "AVL 65 §",
+    "0"
+  ],
+  [
+    "FI",
+    "FI-ALV-RC-CONSTR-SALE",
+    "ZERO",
+    "0",
+    "construction services and scrap metal sold (buyer liable)",
+    "AVL 8 c §, 8 d §",
+    "0"
+  ],
+  [
+    "FI",
+    "FI-ALV-EXEMPT",
+    "EXEMPT",
+    "",
+    "not reported",
+    "AVL exempt sections (e.g. 34–60 §); not reported (verification 2026-10-10, FI 1.8 row)",
+    "—"
+  ],
+  [
+    "FI",
+    "FI-ALV-IN-STD",
+    "INPUT",
+    "25.5",
+    "deductible tax (field 307)",
+    "AVL 102 §",
+    "as the matching output code (FI-ALV-IN-RED has the same two versions as FI-ALV-RED; FI-ALV-IN-14 and -IN-13-5 are deleted)"
+  ],
+  [
+    "FI",
+    "FI-ALV-IN-RED",
+    "INPUT",
+    "13.5",
+    "deductible tax (field 307)",
+    "AVL 102 §",
+    "as the matching output code (FI-ALV-IN-RED has the same two versions as FI-ALV-RED; FI-ALV-IN-14 and -IN-13-5 are deleted)"
+  ],
+  [
+    "FI",
+    "FI-ALV-IN-10",
+    "INPUT",
+    "10",
+    "deductible tax (field 307)",
+    "AVL 102 §",
+    "as the matching output code (FI-ALV-IN-RED has the same two versions as FI-ALV-RED; FI-ALV-IN-14 and -IN-13-5 are deleted)"
+  ],
+  [
+    "FI",
+    "FI-ALV-IN-STD-NODED",
+    "INPUT",
+    "25.5",
+    "non-deductible column",
+    "AVL 114 § (entertainment, edustus)",
+    "as STD, deductiblePercent 0"
+  ],
+  [
+    "FI",
+    "FI-ALV-RC-EU-GOODS",
+    "REVERSE_CHARGE",
+    "25.5",
+    "base purchases of goods from other EU countries (313); tax on goods purchases from other EU countries (305); deduction (307)",
+    "AVL 26 a §",
+    "as STD (24 → 25.5)"
+  ],
+  [
+    "FI",
+    "FI-ALV-RC-EU-SVC",
+    "REVERSE_CHARGE",
+    "25.5",
+    "base purchases of services from other EU countries (314); tax on services from other EU countries (306); deduction (307)",
+    "AVL 9 §",
+    "as STD"
+  ],
+  [
+    "FI",
+    "FI-ALV-RC-NONEU-SVC",
+    "REVERSE_CHARGE",
+    "25.5",
+    "output tax → 301 (by rate: 302/303), deduction → 307, base → none (the purchase amount is not reported anywhere)",
+    "AVL 9 §",
+    "as STD"
+  ],
+  [
+    "FI",
+    "FI-ALV-IMPORT",
+    "REVERSE_CHARGE",
+    "25.5",
+    "base imports of goods from outside the EU (310); tax on imports (304); deduction (307)",
+    "AVL 86 a § (import VAT on the return)",
+    "as STD"
+  ],
+  [
+    "FI",
+    "FI-ALV-RC-CONSTR",
+    "REVERSE_CHARGE",
+    "25.5",
+    "base construction services and scrap purchases; tax on them; deduction",
+    "AVL 8 c §, 8 d §",
+    "as STD"
+  ],
+  [
+    "IS",
+    "IS-VSK-24",
+    "OUTPUT",
+    "24",
+    "taxable sales 24 %: base and útskattur",
+    "Lög 50/1988, 14. gr.",
+    "24 from 2015-01-01"
+  ],
+  [
+    "IS",
+    "IS-VSK-11",
+    "OUTPUT",
+    "11",
+    "taxable sales 11 %: base and tax",
+    "Lög 50/1988, 14. gr. 2. mgr.",
+    "11 from 2015-01-01"
+  ],
+  [
+    "IS",
+    "IS-VSK-0",
+    "ZERO",
+    "0",
+    "box text \"velta skv. 12. gr. (telst ekki til skattskyldrar veltu)\", kind ZERO (the old label \"undanþegin velta…\" is the word of 2. gr. 3. mgr. and wrong for 12. gr.)",
+    "Lög 50/1988, 12. gr.",
+    "0"
+  ],
+  [
+    "IS",
+    "IS-VSK-EXPORT",
+    "ZERO",
+    "0",
+    "as IS-VSK-0",
+    "Lög 50/1988, 12. gr. (as above)",
+    "0"
+  ],
+  [
+    "IS",
+    "IS-VSK-EXEMPT",
+    "EXEMPT",
+    "",
+    "not reported (verify)",
+    "Lög 50/1988, 2. gr. 3. mgr.",
+    "—"
+  ],
+  [
+    "IS",
+    "IS-VSK-IN-24",
+    "INPUT",
+    "24",
+    "innskattur",
+    "Lög 50/1988, 15.–16. gr.",
+    "24 / 11"
+  ],
+  [
+    "IS",
+    "IS-VSK-IN-11",
+    "INPUT",
+    "11",
+    "innskattur",
+    "Lög 50/1988, 15.–16. gr.",
+    "24 / 11"
+  ],
+  [
+    "IS",
+    "IS-VSK-IN-NODED",
+    "INPUT",
+    "24",
+    "non-deductible column",
+    "Lög 50/1988, 16. gr. (entertainment, private use)",
+    "24, deductiblePercent 0"
+  ],
+  [
+    "IS",
+    "IS-VSK-RC-SVC-NODED",
+    "REVERSE_CHARGE",
+    "24",
+    "output útskattur 24 % to SALES_TAX_OUTPUT_RC, no input deduction; reported on RSK 10.24, not on the VSK return",
+    "Lög 50/1988, 35. gr. 1.–2. mgr. (öfug skattskylda): a business with VSK-exempt activity, and a VSK-registered buyer to the extent the VSK would not be deductible",
+    "24, deductiblePercent 0"
+  ],
+  [
+    "IS",
+    "IS-VSK-RC-SVC-IMPORT",
+    "REVERSE_CHARGE",
+    "24",
+    "output and deductible input; reported on RSK 10.24",
+    "Lög 50/1988, 35. gr. 2. mgr.: services linked to an import of goods, always taxable for a registered buyer",
+    "24"
+  ],
+  [
+    "IS",
+    "IS-VSK-IMPORT-PAID",
+    "INPUT",
+    "24",
+    "innskattur (VSK paid at customs)",
+    "Lög 50/1988, 16. gr.; tollalög",
+    "24"
+  ]
+]
