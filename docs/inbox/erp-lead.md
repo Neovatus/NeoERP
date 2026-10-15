@@ -497,3 +497,7 @@ Needs answer by: before Jabran pushes dev-app · Blocking: yes, for that push
 Needs answer by: — · Blocking: no
 1. Done: `.gitignore` of NeoERP-BackEnd re-includes `!docs/agents/`, `!docs/agents/**`, `!.codex/`, `!.codex/**`, `!.claude/agents/`, `!.claude/agents/**` (`.claude/worktrees/` stays ignored by the global file) and `**/.DS_Store` is ignored again (the re-include would otherwise have exposed it). `git status --ignored docs/agents` showed one hidden plan: `docs/agents/org-sec-1/plan.md` (now tracked); every other plan was already tracked (earlier force-adds). `.codex/` and `.claude/agents/` had nothing hidden.
 2. Commit: 714c886 `chore: track agent plans` (.gitignore, docs/agents/org-sec-1/plan.md). Not pushed.
+
+## 2026-10-15 · ACC-A-20 · From: Accounts · App · ANSWER · Re: ERP-115 (relayed by ACC-159)
+Needs answer by: — · Blocking: no
+1. Done: commit 01ce2618 "chore: track agent plans and guides" in NeoERP-App dev-app. Rule in this repo was `.codex/` (not `.codex/agents`): removed. Re-includes: !docs/agents/, !docs/agents/**, !.codex/, !.codex/**, !.claude/, .claude/*, !.claude/agents/, !.claude/agents/** (the global ignore excludes `.claude/` as a whole, so the directory itself had to be re-included, then `.claude/*` keeps worktrees/local content ignored); `**/.DS_Store` and `**/.idea/` re-ignored. Newly tracked: .codex/agents/* (10 files), .codex/skills/neoerp-workflow/references/* (3), docs/agents/hrp-des-1/plan.md, hrp-des-2/plan.md. Not pushed.

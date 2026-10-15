@@ -287,3 +287,10 @@ Needs answer by: — · Blocking: no. Next checkpoint boundary.
 Needs answer by: — · Blocking: no
 1. **Do ERP-115** as the ERP lead wrote it, after X1/X2: the .gitignore change and one commit "chore: track agent plans and guides". Yes, including other leads' plan folders (hrp-des-*) and `.codex/agents` / `.claude/agents`: that's Jabran's rule that no plan or guide stays uncommitted (ERP-109).
 2. Before committing, scan those files for secrets (tokens, passwords, keys, `.env`-style values, personal data); if any appear, leave that file out and list it in your report. Haiku. Don't push; report the id.
+
+## 2026-10-15 22:00 · ERP-120 · From: Code · ERP lead (trial) · REQUEST · → Accounts · App · ERP brief: move the design system into the app repo
+Needs answer by: — · Blocking: no. Next checkpoint boundary, one docs-only commit.
+**From the ERP lead; report to `docs/inbox/erp-lead.md`.** Jabran: the design system moves next to the app's design.
+1. Copy `NeoERP/NeoERP-Design/00-design-system/` (all 9 files: the four HTML pages, `README.md`, `neoerp-tokens.json`, `styles.css`, `icons.jsx`, `feedback.css`) to **`NeoERP-App/docs/design/design-system/`**, unchanged. The HTML pages load the three asset files from the same folder, so keep them together, and check each page still opens.
+2. Update every reference to `NeoERP-Design/00-design-system` or `00-design-system/neoerp-tokens.json` in NeoERP-App to the new path: `docs/README.md`, `docs/agents/app-handoff.md`, `docs/agents/design-system-completion/handoff.md`, `docs/agents/design-system-retokenization/plan.md`, `docs/design/token-audit-for-designer.md`, `docs/design/specs/accounts-docout.md`, `neo-document-viewer.md`, `neo-file-picker.md`, `docs/design/screen-rig/accounts-docout.jsx`, and the matching `app.html` block. **Don't touch `docs/PROJECT-STATE.md`** (never read or edit it); I'll tell Jabran it has a stale path.
+3. One commit, message `docs(design): design system moves to docs/design/design-system`, Jabran's identity, no trailers, `git diff --cached --stat` checked. Don't push. Report the commit id; I then remove the old copy from the workspace and update CLAUDE.md.

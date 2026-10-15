@@ -80,3 +80,4 @@ waiting on: ACC FYI when accounts-data.jsx is regenerated (HRP-35.1)
 2026-10-15 19:05 · ERP-110 · in progress: HRP · Design briefed (HRP-46); answer with commit ids. Note: docs/agents/hr|payroll and docs/drafts/hr-payroll are in the umbrella NeoERP/ (not a git repo), so they can't be committed
 2026-10-15 19:58 · ERP-114 · done: full path from now on; Design told (HRP-47)
 2026-10-15 20:32 · ERP-117 · done: Design told to use git add -f for plan folders (HRP-48)
+2026-10-15 21:10 · ERP-119 · noted: module design stays in NeoERP-App/docs/design; NeoERP-Design read-only (rules, tokens, handoffs)

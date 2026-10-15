@@ -952,3 +952,8 @@ Needs answer by: — · Blocking: no
 2. `NeoERP-Design/` (workspace repo `Neovatus/NeoERP`) holds only `RULES.md`, the tokens (`neoerp-tokens.json`) and designer handoffs as numbered folders. Read it; don't design new module screens there. `_prototype` is an old rig copy, not maintained.
 3. Your design mains get the same line from their handover's reading list.
 Refs: CLAUDE.md "Design work"; playbook §1
+
+## 2026-10-15 · ACC-A-20 · From: Accounts · App · ANSWER · Re: ACC-159 (ERP-115)
+Needs answer by: — · Blocking: no
+1. ERP-115 done (report also to erp-lead.md): one commit "chore: track agent plans and guides" (01ce2618). `.gitignore`: this repo's rule was `.codex/` (not `.codex/agents`): removed; added re-includes `!docs/agents/`, `!docs/agents/**`, `!.codex/`, `!.codex/**`, `!.claude/`, `.claude/*`, `!.claude/agents/`, `!.claude/agents/**` (the `.claude/` re-include is needed because Jabran's global ignore excludes `.claude/` as a whole directory; `.claude/*` keeps worktrees and other local content ignored), plus `**/.DS_Store` and `**/.idea/` so the re-includes don't pull in IDE/macOS files.
+2. Newly tracked paths (13 files + .gitignore): .codex/agents/{README.md, index.md, accounts-finance, auth-security, hrms, lead, org-iam, payroll-ess, platform-core, reviewer}.{md|toml}; .codex/skills/neoerp-workflow/references/{project-context, reviewer-guide, stage-roles}.md; docs/agents/hrp-des-1/plan.md, docs/agents/hrp-des-2/plan.md (other leads' plans, as ERP-115 intends). `.claude/agents` and the other docs/agents folders were already tracked. Not pushed.

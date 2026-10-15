@@ -122,3 +122,5 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-15 17:55 · ERP-112 · noted (don't move workspace files) · ERP-113 · full-path listener, mains told
 2026-10-15 17:59 · ACC-A-18 · ERP-106 done cd30e3d1; ERP told ACC-158
 2026-10-15 18:04 · ACC-A-19 · ERP-115 relayed ACC-159
+2026-10-15 18:12 · ERP-118 · noted (design stays in NeoERP-App/docs/design)
+2026-10-15 18:16 · ACC-A-20 · ERP-115 done 01ce2618; lead secret scan clean

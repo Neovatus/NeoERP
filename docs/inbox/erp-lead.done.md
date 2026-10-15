@@ -108,3 +108,5 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-15 19:58 · listener full-path rule; ERP-113 (ACC), ERP-114 (HRP)
 2026-10-15 20:32 · agent folders always tracked; ERP-115 (App), ERP-116 (Backend), ERP-117 (HRP)
 2026-10-15 21:10 · design homes (option A) written in CLAUDE.md, CODEX.md, playbook; ERP-118 (ACC), ERP-119 (HRP)
+2026-10-15 21:40 · NeoERP-Design stale screens removed (Jabran OK); pointers added
+2026-10-15 22:00 · design system move briefed to Accounts · App (ERP-120)
