@@ -224,3 +224,4 @@ Open questions collected from NeoERP-BackEnd/docs/modules/** (pages and module R
 - ERP · Backend + App: bootstrap company entries gain `country` (ACC-52, ERP-53).
 - ERP · App: `AppSession.onCleared()` doesn't cancel its coroutine scope (harmless outside tests; found by Accounts · App, ACC-104).
 - ERP · App: move `AuditWording` (shared; Platform audit log, Org activity, Accounts) to string resources, keeping a synchronous path for CSV export and search; decide the export language (ACC-141).
+- ERP · Backend + ERP · App: build `docs/api/bootstrap-company-country.md` (accepted 2026-10-15): `country` on bootstrap `memberships[]` and `selectedContext` from `OrgScopeAccessPort.companyFacts`, non-null values cached; the app drops its Org-overview country fetch.

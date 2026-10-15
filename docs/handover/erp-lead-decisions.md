@@ -179,7 +179,7 @@ Owner: **Code · ERP lead (trial)** (until 2026-10-10: Cowork · ERP lead). Each
   - Tromsø branch and HRMS for Stockholm Handel in the demo data.
 - [ ] Database roles for every service, after Accounts.
 - [ ] An API conventions page (error body, paging headers), then check every contract against it.
-- [ ] Bootstrap contract amendment: `country` on company entries (ACC-52), then brief ERP · Backend / ERP · App.
+- [x] Bootstrap contract amendment: `country` on `memberships[]` and `selectedContext` (`NeoERP-BackEnd/docs/api/bootstrap-company-country.md`, accepted 2026-10-15; reuses `OrgScopeAccessPort.companyFacts`, cache non-null for process lifetime). Build: user-service + app, slot to be named.
 - [ ] People rig sideways scroll (1280/1024/768).
 - [ ] An ERP-wide review: consistency, old dropdowns in Org, People and Roles, security, docs.
 - [x] HR & Payroll component contracts approved (ERP-1); roles settled (ERP-2/3).
