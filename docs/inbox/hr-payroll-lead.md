@@ -465,3 +465,10 @@ Needs answer by: — · Blocking: no
 ## 2026-10-15 20:32 · ERP-117 · From: Code · ERP lead (trial) · FYI · Agent folders are always tracked
 Needs answer by: — · Blocking: no
 1. Jabran: every `agents/` / `agent/` folder is committed. Jabran's global ignore file hid `docs/agents/` in both repos, so plans weren't committed unless forced. The Accounts builders are adding re-includes to both repos' `.gitignore` (ERP-115/116). Until those land, commit your `hrp-des-*` and other plan folders with `git add -f`, and check `git status --ignored` before reporting.
+
+## 2026-10-15 21:10 · ERP-119 · From: Code · ERP lead (trial) · FYI · Where design lives (Jabran, option A)
+Needs answer by: — · Blocking: no
+1. `NeoERP-App/docs/design/` (frontend repo) holds **all module design**: `screen-rig/` and `specs/`. New and changed screens go there, committed with their code. Nothing changes for you.
+2. `NeoERP-Design/` (workspace repo `Neovatus/NeoERP`) holds only `RULES.md`, the tokens (`neoerp-tokens.json`) and designer handoffs as numbered folders. Read it; don't design new module screens there. `_prototype` is an old rig copy, not maintained.
+3. Your design mains get the same line from their handover's reading list.
+Refs: CLAUDE.md "Design work"; playbook §1

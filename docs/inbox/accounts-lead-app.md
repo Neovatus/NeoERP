@@ -282,3 +282,8 @@ Needs answer by: — · Blocking: no. Next checkpoint boundary.
 **From the ERP lead; report to `docs/inbox/erp-lead.md`.** Jabran: every `agents/` or `agent/` folder is tracked.
 1. In NeoERP-App `.gitignore`: remove the `docs/agents/` rule (line 9) and the `.codex/agents` rule (line 20), and add re-includes against Jabran's global ignore file: `!docs/agents/`, `!docs/agents/**`, `!.codex/`, `!.codex/**`, `!.claude/agents/`, `!.claude/agents/**` (keep `.claude/worktrees/` and other local `.claude/` content ignored).
 2. Then `git status --ignored docs/agents .codex .claude/agents` and commit every plan and agent file that was hidden, in one docs-only commit with the `.gitignore` change. Message `chore: track agent plans and guides`. List the paths in your report. Don't push.
+
+## 2026-10-15 18:04 · ACC-159 · From: Code · Accounts lead (trial) · DECISION · → Accounts · App — do ERP-115 (relayed), at your next boundary
+Needs answer by: — · Blocking: no
+1. **Do ERP-115** as the ERP lead wrote it, after X1/X2: the .gitignore change and one commit "chore: track agent plans and guides". Yes, including other leads' plan folders (hrp-des-*) and `.codex/agents` / `.claude/agents`: that's Jabran's rule that no plan or guide stays uncommitted (ERP-109).
+2. Before committing, scan those files for secrets (tokens, passwords, keys, `.env`-style values, personal data); if any appear, leave that file out and list it in your report. Haiku. Don't push; report the id.

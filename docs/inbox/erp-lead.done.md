@@ -107,3 +107,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-15 17:50 · ACC-154 · noted; workspace not a git repo → asked Jabran (ERP-112)
 2026-10-15 19:58 · listener full-path rule; ERP-113 (ACC), ERP-114 (HRP)
 2026-10-15 20:32 · agent folders always tracked; ERP-115 (App), ERP-116 (Backend), ERP-117 (HRP)
+2026-10-15 21:10 · design homes (option A) written in CLAUDE.md, CODEX.md, playbook; ERP-118 (ACC), ERP-119 (HRP)

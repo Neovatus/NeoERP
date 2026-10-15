@@ -50,6 +50,15 @@ Designs live here permanently and are added as new numbered folders, so read the
 in place — never ask for a handoff to be uploaded. List the directory rather than
 assuming which folders exist.
 
+**Where design lives (Jabran, 2026-10-15, option A):**
+
+| Home | Holds | Changes |
+|---|---|---|
+| `NeoERP-Design/` (workspace repo) | `RULES.md` (domain model), `00-design-system/neoerp-tokens.json` (every design value), and designer handoffs as numbered folders (`01-auth`, `02-platform-admin`, …) | Rarely: rules, tokens, new handoffs |
+| `NeoERP-App/docs/design/` (frontend repo) | `screen-rig/` (the clickable rig for every module) and `specs/` (module screen specs, shared component contracts, `building-blocks.md`) | **All module design work.** New and changed screens go here, committed with the code that implements them |
+
+Never design new module screens in `NeoERP-Design/`. `NeoERP-Design/_prototype` is an old rig copy, not maintained and not in the repo.
+
 Read `NeoERP-Design/RULES.md` **first**. It is the domain model, not only UI
 guidance: §3 (entitlement chain), §7 (three independent financial flags) and §8
 (a franchise can hold its own agreement) are schema decisions. Screens without

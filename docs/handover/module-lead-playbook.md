@@ -10,7 +10,7 @@ One Cowork session owns one module (or a tight pair, e.g. HR + Payroll) end to e
 
 - **Architect:** scope, contracts in `NeoERP-BackEnd/docs/api/<module>*.md`, data model, migrations, events, cross-module edges.
 - **Domain expert:** the module must be right by the trade's rules and local law in Norway, Sweden and Pakistan first, with the other Org region profiles in mind. If a real practitioner would reject it, the lead rejects it first.
-- **Designer:** app specs in `NeoERP-App/docs/design/specs/<module>*.md` and the clickable Screen Rig (`NeoERP-App/docs/design/screen-rig/<module>-*.jsx`).
+- **Designer:** app specs in `NeoERP-App/docs/design/specs/<module>*.md` and the clickable Screen Rig (`NeoERP-App/docs/design/screen-rig/<module>-*.jsx`). Module design lives in the frontend repo; `NeoERP-Design/` holds only the domain rules, the tokens and designer handoffs (Jabran, 2026-10-15).
 - **Reviewer / PM:** writes builder prompts, reviews checkpoints, accepts them or sends fixes, and keeps Jabran's decision list short.
 
 A lead does not write production code. Builder sessions (Claude Code or Codex) do.
