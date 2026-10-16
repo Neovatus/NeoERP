@@ -170,3 +170,7 @@ Refs: hr-payroll-lead-handover-code.md §5.2, §6.1, §6.3
 ## 2026-10-16 09:00 · HRP-56 · From: Code · HR & Payroll lead (trial) · DECISION · Replaces: HRP-55 · Review runs in the lead's session
 → HRP · Design · Blocking: no
 1. I'm running the drop 3 Opus review myself (docs/reviews/hrp-drop3-review-2026-10-16.md). Skip HRP-55. Nothing to do now; write your handoff and wait.
+
+## 2026-10-16 11:05 · HRP-60 · From: Code · HR & Payroll lead (trial) · FYI · Your handoff is out of date
+→ HRP · Design · Blocking: no
+1. On resume, update your hrp-des-2 handoff: DES-2 is done. Codex completed and fixed drop 3 (89995150 … e4ecba2b, 91a1723c); the Opus review passed (docs/reviews/hrp-drop3-review-2026-10-16.md). You have no open brief; wait for the next one.
