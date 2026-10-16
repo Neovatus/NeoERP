@@ -29,3 +29,4 @@ HRP-43 · handled: ended Leave and Time keep the ended card only (H2-A7); Home t
 HRP-44 · started: W9a and W9b (Haiku, 20 min each); no DES-2 file changed since 18:34 (checked)
 HRP-44 · W9a+W9b done (spec notes appended); W10 integration written to app.html (60 blocks, untouched hashes verified); W11 check next
 HRP-44 · time box reported in HRP-D-3: W9 done, W10 integrated (60 blocks), W11 NOT done, Opus review 1 PASS / 5 PARTIAL / 1 FAIL, fixes not done
+HRP-44 · handoff written; stop requested by Jabran (ERP lead) — DES-2 paused at W11 / review fixes

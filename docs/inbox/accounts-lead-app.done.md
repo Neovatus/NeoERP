@@ -61,3 +61,6 @@ Owner (the main) only. One line per handled brief.
 - ACC-215 item 2 (two 2099 lines as arguments): done (bb8cff65), reported as ACC-A-32.
 - ACC-219 (YEAR_END_NOT_AS_VOUCHERS details live, backend 9c52f46): noted, nothing to do; fallback stays for the absent case. ACC-220 (bb8cff65 accepted; export 'closed to 2099' goes into the Phase 2 fix round; Phase 2 review running; idle until the findings list): noted.
 - ACC-223 (Phase 2 fix round app): plan written (cp-p2-fix-app), ACC-A-33; wave 1 starting.
+- ACC-223 (Phase 2 fix round app): done, reported as ACC-A-34. ACC-229 (stop for today): handoff written (cp-p2-fix-app/plan.md, 5d07c575); listener stopped; no new work.
+
+2026-10-16 · ACC-A-34/ACC-223 closeout · remaining code/docs/screenshots verified by Codex under Jabran request;100 focused +4 screenshot rerun pass, Android/iOS compiles pass; Final Approval pending, no commit/push.

@@ -140,3 +140,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-16 · ACC-B-37 · upload quota 9e563a8 accepted; go-live P-14 for multi-instance (ERP-142)
 2026-10-16 · ACC-227 · covered by ERP-142 (9e563a8 accepted); told the lead directly
 2026-10-16 · end of day: all paused; handoff updated
+2026-10-16 · Actions off: testing rule changed; ERP-143 (ACC), ERP-144 (HRP)

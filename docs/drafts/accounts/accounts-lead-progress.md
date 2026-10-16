@@ -1,30 +1,17 @@
 # Accounts lead — progress
 
-Owner: **Code · Accounts lead (trial)**, from 2026-10-10 09:40 UTC. One screen: done / waiting / next. Detail lives in
-`docs/handover/accounts-lead-handover-code.md` §5 and the decisions log.
+Owner: Codex acting as Accounts lead, Backend and App closeout integrator under Jabran's 2026-10-16 request. Owning checkpoint: `docs/agents/accounts-phase2/plan.md`.
 
-## Done (2026-10-10)
-- Took over from Cowork · Accounts lead (handover read; §0 read).
-- ACC-14 (registry REQUEST → ERP), ACC-15 (FYI → HRP), ACC-16 (answer ERP-26/28/30 → ERP).
-- Rig shared helpers (accounts-a0.jsx): `acPct` = NeoPercent (`12,5 %` / `12.5%`); `acParseTypedDate` = the one typed-date parser.
-- Builders: no new commits since the handover (backend `dev` 3 unpushed: 73cb889, c98d4fd, dbbe068; app `dev-app` 17 unpushed up to 10199ab).
+## Done — 2026-10-16 closeout
+- Reconciled ACC-A-34 with ACC-B-37; accepted App resource copy. Previous pending-report, missing sampleNames and unpushed-count claims were stale. Both branches matched local origin refs at pickup (no fetch).
+- Backend: tenant-scoped hasPostings; SIE imbalance yearIndex/per-year overflow; configured result-account details on PREVIOUS_YEAR_NOT_CLOSED. No migration.37 focused tests +25 architecture tests pass, no failures/skips; disposable containers stopped.
+- App: actual-postings default; year-specific warnings with old-response compatibility; all missing Accounts docs completed.20 guide images refreshed, three new; desktop/mobile visual QA passed.100 affected tests +4 screenshot-suite rerun pass, Android/iOS simulator compiles pass.
+- Independent review has no blocking code/docs finding; year-end recovery wording corrected. Current changes remain uncommitted; prior Phase2 build and accepted backend fixes remain history in the owning plans/inbox.
 
-## Done in the design push (2026-10-10)
-- B/C/D/E/A3 fixes (ERP-26, ERP-28 incl. TAX-9/14), TAX-15 demo data; answered ACC-33.
-- New contracts + specs + rigs: A4, A5 (contract only), H-SE, document output + e-invoicing, attachments.
-- app.html: Accounts blocks refreshed, 4 new blocks; 192/192 design-index routes pass, zero console errors.
-- Jabran decided G-1…G-7, D-107, D-40, N-1 (2026-10-10). A5 updated per HRP-27 (waiting HRP confirm, ACC-37). NO e-invoicing dates CHECKED. Docout + component contracts with ERP lead (ACC-36).
+## Waiting / next
+1. Independent reviewer: Proceed to Final Approval, no blocking findings. Await Jabran Final Approval and the three explicit local commits listed in the owning plan. No push authorized.
+2. Jabran: native picker/live multipart, Phase1/Phase2 click-throughs, CP-HSE.4 real SIE samples. Automated fixtures do not claim this acceptance.
+3. Separate later scope: pack2026.4 (DK PL_DK_GROSS/label_local, short-term provisions, sign-pair CSV); branch name ACC-185.3; event follow-ups; Phase3 B/C briefs only after their own gate.
+4. ERP-owned backlog retained: shell connectivity/visibility (ERP-139.3b), shared failure wording, PENDING rescans (ERP-141), multi-instance in-flight quota (P-14). Go-live ACC-R10/R11/R12 remain.
 
-- Packs 2026.2: NO/DK/FI/IS verified, Opus-reviewed, folded, fold reviewed and fixed (REVIEW-*-2026-10-10.md). Ready for CP-P26.2 (Phase 2).
-- Build phases in accounts-roadmap.md; Phase 1 resumed (ACC-42/43); mains started by Jabran.
-
-## Waiting
-- Jabran: bundle answer. HRP: A5 agreement (ACC-24). ERP: ACC-25, ACC-28. Design main: VER-NDFI-1.
-- Builds on HOLD (ACC-21/22).
-- CP-A2.1b report (backend); CP-A1.2a fix-round report (app).
-- ERP-33.5 (missing cited files) after the B–E pass.
-
-## Next
-1. Integrate sub-agent output → sync app.html blocks → Playwright check → answer ERP-28 with ids.
-2. Bundle to Jabran: B, C, D, A3 (+E after TAX-9/14) rig approval, D-107, D-40.
-3. Review CP-A1.2a fix report and CP-A2.1b report → accept / fix → push order.
+Global listeners remain paused; no other sessions restarted. No live services/databases changed, migrations applied, commits or pushes in this closeout.

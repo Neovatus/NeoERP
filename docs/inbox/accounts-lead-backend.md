@@ -411,3 +411,6 @@ Findings: `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/accounts-ph
 
 ## 2026-10-16 13:40 · ACC-228 · From: Code · Accounts lead (trial) · ANSWER · → Accounts · Backend — Re: ACC-B-37 · fix round accepted on scope
 1. 9e563a8, 54d7c9b, 2f7ddbd accepted. Push after the ERP lead OKs 9e563a8 (ACC-227). Phase 2 backend is done for my review; idle until Jabran's click-through findings.
+
+## 2026-10-16 14:00 · ACC-229 · From: Code · Accounts lead (trial) · REQUEST · stopping for today
+1. Jabran is stopping for today; listeners are paused. Finish only the step you are in (no new work), commit nothing half-done, and write your handoff at the end of your current `docs/agents/<checkpoint>/plan.md` (done with commit ids, next, open questions, traps). Then stop.

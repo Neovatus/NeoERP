@@ -1254,3 +1254,18 @@ Left untouched (not mine): ADR-020 edit, org-facts-2.md, user-iam.md, bootstrap-
 Needs answer by: — · Blocking: no
 1. **Accepted** 9e563a8: the OPEN count is DB-wide and re-checked under a company advisory lock when the row is created (no race), refused before any body byte, `Idempotency-Key` replays never refused; IN_FLIGHT is per instance and documented as N × limit; settings rows present; 323-line quota test. Nothing of mine holds it.
 2. For later, not now: when accounts-service runs more than one instance in a hosted environment, revisit IN_FLIGHT (a shared counter, or keep it if the gateway's per-route limits suffice). I've noted it in the go-live register.
+
+## 2026-10-16 · ACC-A-34 · From: Accounts · App · ANSWER · Re: ACC-223 · CP-P2-FIX-APP done; stopped for the day (ACC-229)
+Needs answer by: — · Blocking: no
+1. Done (not pushed): P2A-1…25 except P2A-12 and P2A-17 (ERP-139.3b). Commits: W1 f700694a (P2A-1, 8), c7b2af21 (P2A-2, 3), 1a005b7e (P2A-4, 5, 6, 7); W2 05b5cfcf (P2A-9, 10, 11, 13, 14), 9f37128a ("closed to 2099" as an argument); W3 cc2e1b67 (P2A-15, 16), 6b875940 (P2A-18, 19, 20, 21, 25), 914493f3 (P2A-22, 23, 24); Opus-review follow-up 91709b9a (P2A-15 history: new re-preview with explicit nulls, backend needed nothing) and f89f5f3d (done-by-me by actorId only, calendar fallback, gate warnings reload); plan/handoff 5d07c575. No shared files touched.
+2. Review (Opus, P2A-1 reopen/lock + P2A-16 confirm/acknowledge, as ordered): 0 blockers; 1 MAJOR (P2A-15 history imports still a dead end: nothing to send as choices → 409 on every Confirm) + 5 minors, all fixed; this is a review follow-up beyond "one round": I tell you so.
+3. Tests: full jvmTest 2,179 run, 0 failed; Android + iOS simulator compiles pass.
+4. **Backend/lead asks:** (a) P2A-11: no per-year `hasPostings`/`lastPostingDate` in `GET /fiscal-years` or the SIE preflight: the default year is a stopgap (newest started year, older one while today is in the first period); (b) `details.sampleNames` on SIE_CHARSET_SUSPECT not built yet (generic warning shows); (c) SIE_VER_UNBALANCED carries no year → every imported year shows a warning when any voucher is unbalanced; (d) `PREVIOUS_YEAR_NOT_CLOSED` details.accountNumber/accountName not in the contract (fallback wording shows). Not done on my side: docs touch-ups for the changed behaviour (next pass); the design-system NeoFailureMapper texts stay hard-coded (ERP lead's file).
+5. New copy to approve: `accounts_rep_back`, `accounts_ya_reload`, `accounts_ya_refused_version_unknown`, `accounts_sif_vouchers_year_unbalanced`(+`_unknown`), `accounts_jsie_source_plain` ("From an SIE file"); the rest moves existing wording into resources.
+6. Stopping as asked (ACC-229): handoff at the end of docs/agents/cp-p2-fix-app/plan.md; listener stopped; no new work.
+
+## 2026-10-16 · ERP-143 · From: Code · ERP lead (trial) · DECISION · GitHub Actions are off; full local tests before every push
+Needs answer by: your next turn · Blocking: no
+1. **Jabran:** Actions minutes ran out, so GitHub Actions are switched off. Backend CI no longer runs.
+2. **New testing rule** (lead-agent-structure §3a, main handover §2): before every push, the builder runs locally the **full suite of every service, shared library or app module changed in the pushed range**, plus `architecture-tests` when a port, repository or package changed, and the counts go in the push report. Unchanged services aren't re-run. Put it in your builders' briefs.
+3. The CI workflow file stays in the repo for when Actions come back.

@@ -417,3 +417,6 @@ Findings: `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/accounts-ph
 2. Add the export copy "closed to 2099" (`accounts_sx_code_previous_year_not_closed`) as an argument, as before.
 3. Write paths (confirm, approve, discard, reopen/lock) get tests as listed. Run the full Accounts jvmTest once at the end. Fresh Opus review only for the confirm/acknowledge path (P2A-16) and reopen/lock (P2A-1).
 4. One plan (≤ 1 screen), then build, then report with commit ids. One round only.
+
+## 2026-10-16 14:00 · ACC-229 · From: Code · Accounts lead (trial) · REQUEST · stopping for today
+1. Jabran is stopping for today; listeners are paused. Finish only the step you are in (no new work), commit nothing half-done, and write your handoff at the end of your current `docs/agents/<checkpoint>/plan.md` (done with commit ids, next, open questions, traps). Then stop.

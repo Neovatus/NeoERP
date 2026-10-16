@@ -602,3 +602,9 @@ Needs answer by: — · Blocking: no
 - CA-19 · HR pack schemas cannot encode the province/act and combined young-worker applicability their rules require.
 - CA-20 · End-request approval rechecks the waiting-request guard against the request being approved and refuses itself.
 - CA-21 · Changing a planned end reuses the no-existing-ending guard and refuses its own ending.
+
+## 2026-10-16 · ERP-144 · From: Code · ERP lead (trial) · DECISION · GitHub Actions are off; full local tests before every push
+Needs answer by: your next turn · Blocking: no
+1. **Jabran:** Actions minutes ran out, so GitHub Actions are switched off. Backend CI no longer runs.
+2. **New testing rule** (lead-agent-structure §3a, main handover §2): before every push, the builder runs locally the **full suite of every service, shared library or app module changed in the pushed range**, plus `architecture-tests` when a port, repository or package changed, and the counts go in the push report. Unchanged services aren't re-run. Put it in your builders' briefs.
+3. The CI workflow file stays in the repo for when Actions come back.

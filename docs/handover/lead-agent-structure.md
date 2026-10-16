@@ -112,8 +112,8 @@ Effort: medium by default; high only when stuck, and only after a clear check fa
 
 **Testing (Jabran, 2026-10-10): only what's new or affected.**
 - Run the tests for **what you changed and what depends on it**: the changed module's affected test classes, plus modules that call the changed code. New code gets its new tests; existing tests are updated, not duplicated. Quiet logs. No `--rerun-tasks`.
-- **No full suite before every push.** Backend CI (CI-1) runs every service and shared library on each push to `dev`; that is the full run. A red CI run is fixed first, before anything else.
-- **Full local suite only when shared code changed**: `shared/*`, `designsystem/**`, `core/**`, shell or navigation, security or auth, or a migration that changes existing data. Then once per checkpoint, not per slice.
+- **GitHub Actions are off (Jabran, 2026-10-16: they used all the Actions minutes).** So before every push, the builder runs **locally the full test suite of every service, shared library and app module changed in the pushed range**, plus `architecture-tests` (backend) when a port, repository or package changed, and reports the counts in the push report. Services the push doesn't touch aren't re-run. The CI workflow file stays in the repo, ready for when Actions come back.
+- **Shared code changed** (`shared/*`, `designsystem/**`, `core/**`, shell or navigation, security or auth, or a data-changing migration): also run the full suites of every service or module that depends on it, once per push.
 - The app has no CI yet, so App mains run the full `jvmTest` once per checkpoint **only** when shared app code changed; otherwise the affected feature's tests.
 - While Hot Reload runs, app tests run in an isolated copy.
 

@@ -2,14 +2,16 @@
 
 | Field | Checkpoint |
 | --- | --- |
-| Identity / ownership | Accounts Phase 2; backend `dev`, App `dev-app`. Backend main: Codex · Accounts backend, under the Accounts lead (ACC-89 / ERP-75). Checkpoint integration: Codex; module acceptance: Accounts lead. Accounts/ERP design decisions stay with their owning leads. |
-| Stage / status | CP-P26.2 accepted by Accounts lead ACC-105; local delivery complete, independent fixes-only Proceed. Jabran pushes only after ERP lead OK; no push by Codex. |
-| Approval | Jabran authorized implementation of the already-defined Phase 2 on 2026-10-11 (“ok sure than go ahead”). ACC-103 explicitly authorizes buyer ruling, separate three-test correction and grouped local checkpoint commits; accepts P1-FIX-BE. No redesign, auth change or push authorized. |
-| Scope | CP-P26.2 packs/runtime/docs and ACC-103 separate test fixes only. ORG-FACTS-2 waits for its own brief; A3/A3b/H-SE are later roadmap, not current execution scope. |
-| Evidence | Backend dev currently ae021fd; App dev-app dc7234f6 (resume backend baseline dbc959f); unrelated dirty design/contracts/ADR and cp-a2.1b plan preserved. Owned checkpoint files committed and clean; unrelated lead-owned dirty files preserved. Workspace generator remains outside Git; committed manifest identifies delivered reference bytes. Full accounts521/22failed/3intentional skips; all19 affected failures corrected and focused52/52pass,0skips; architecture15/15pass. ACC-103 separate corrections resolve three remaining failures with12/12pass; buyer/loader/migration24/24pass,0skips. Fresh cp_final_review fixes-only verdict Proceed, no blocking findings; actual HTTP acceptance remains deferred to accepted local stack. |
-| Progress | Both prior blockers resolved ACC-89/91. New rulings ACC-92/93 applied: 77 roles, mutable READY plans, retention table, SE3041 extension. Runtime/data/migration integrated; seed SQL parser/static checks and two throwaway PostgreSQL15 executions pass. Docker restored. P1-FIX-BE delivered separately (1bd47ca,617af07). Seed11ea703/dff145a and CP-P26.2ae54277/9f5b616/ae021fd committed locally; App docsdc7234f6. Implementation reviewed; module scope check/launch acceptance belong to lead. No push. |
-| Findings | Resolved contract questions recorded in ACC-C-1/2 and replies ACC-92/93. ORG-FACTS-2 now exists and remains a separate future brief; no work on it in this checkpoint. Independent review: BAS moved-row provenance fixed; buyer-identity vocabulary/cases resolved by ACC-103, encoded and golden-tested; Nordic creation/historical retention/concurrent isolation tests passed. |
-| Resume point | ACC-103 complete and reported as ACC-C-8 with all nine origin/dev..HEAD commits grouped. Await Accounts lead scope check/push order; ORG-FACTS-2 requires its own brief. No later slice execution or push. |
+| Identity / ownership | Accounts Phase 2 closeout across Backend dev and App dev-app. Jabran asked this chat to handle lead/backend/App remaining handoffs on 2026-10-16; Codex owns integration and these existing checkpoints. File-disjoint backend/App workers own only the bounded scopes recorded below. |
+| Stage / status | Independent Reviewer: Proceed to Final Approval, no blocking findings. Code/docs/verification complete; awaiting Jabran Final Approval of the reviewed artifact and scoped local commit proposal. No commits or pushes. |
+| Approval | Jabran authorized the three-role closeout on 2026-10-16 and explicitly allowed disposable PostgreSQL Testcontainers. Existing services/databases untouched. Scope is the approved Phase 2 gaps and docs; no Phase 3, migrations, shared shell/security, listeners, commits or pushes. |
+| Scope | Actual postings metadata for SIE export default; per-file-year imbalance warnings including overflow; previous-year warning role details; ACC-A-34 copy approval, App documentation/screenshots and handoff reconciliation. sampleNames already existed on both sides. |
+| Evidence | Baselines Backend 2f7ddbd7, App 5d07c575. Both equal local origin tracking refs at pickup; no fetch. Backend compile + 37 affected tests and 25 architecture tests pass, zero failures/skips; retained XML under backend build/cp-p2-closeout. App: 100 affected tests passed plus 4 screenshot tests re-run after the new fixture, zero failures/skips; Android and iOS simulator compiles passed. XML/logs retained under App build/closeout-evidence. Preserve all pre-existing unrelated dirty paths recorded below. |
+| Progress | All bounded code/docs changes implemented; 20 guide images regenerated/copied, including new saved/refusal/year-warning images. Root visually checked desktop/mobile saved, queue refusal and year warning; reviewed blocking export and journal source. Contract, module/user docs, glossary/decisions and existing handoffs reconciled. Independent review has no blocking code finding; corrected its year-end wording finding. |
+| Findings | Resolved stale lead ACC-A-34 pending claim, App sampleNames missing claim, pending-push counts and Swedish mock availability. Keep shared connectivity/visibility, NeoFailureMapper, file rescan/multi-instance quota and pack2026.4 as separately owned follow-ups. No independent Claude-model execution is claimed; reviews use distinct available Codex contexts. |
+| Resume point | Jabran Final Approval of this independently reviewed artifact and the three scoped local commits below. No commit/push until authorized. Jabran owns device picker/live-upload, real SIE samples and live cross-repo acceptance. |
+
+The entries below retain the earlier Phase 2 checkpoint history; the closeout table above is current.
 
 ## Discovery assignments
 
@@ -131,3 +133,104 @@ Disposition: resolved by ACC-89 (2015-01-01 supported floor) and ACC-91 (full ap
 - Jabran owns push after ERP lead one-line OK on seed and architecture-test file (ACC-104). Codex has no push order and did not push. No migration ran on user databases.
 - All owned checkpoint paths committed; only other owners' ADR/plan/design/operations changes were dirty at pickup. Recoverystashes retained but obsolete; never apply over final commits. Workspace generator remains outsideGit and deterministic.
 - Next authorized work: ACC-107 ORG-FACTS-2, backend only, owning planNeoERP-BackEnd/docs/agents/org-facts-2/plan.md. Separate first approved contract-docs commit9e98d97; no Appscreens, no A3 until anotherbrief.
+
+
+## Phase 2 closeout takeover — 2026-10-16
+
+| Field | Checkpoint |
+| --- | --- |
+| Owner / approval | Jabran requested this chat handle all three Accounts lead/backend/App handoffs on 2026-10-16. Codex now integrates the bounded Phase 2 closeout; worker scopes are assigned below. This resumes Accounts closeout only, not other paused sessions. |
+| Stage | Discovery in progress; backend and App workers inspect remaining gaps read-only before the implementation plan and Advisor 1. |
+| Baseline | Backend dev 2f7ddbd7; App dev-app 5d07c575. Both equal local origin tracking refs; no fetch performed. Preserve all pre-existing dirty paths, including backend cp-p2fix checkpoint and other owners' contracts/ADR/operations, App hrp-des-2 plan and untracked audit, workspace inbox/progress edits. |
+| Scope | Reconcile ACC-A-34 and backend ACC-B-37; finish outstanding App docs/copy, default export year and per-year warning/read-model gaps if supported by the approved spec; verify sampleNames integration and safe export fallback copy; update existing checkpoints and lead progress. |
+| Write ownership | Root: this plan, Accounts lead progress/decisions and integration. Backend worker: accounts-service code/tests and Accounts API/module docs only after file plan approved. App worker: Accounts feature code/tests/resources and Accounts module/user guide docs only after file plan approved. Shared glossary/decisions edits append-only. No workers touch root-owned checkpoints or each other's repo. |
+| Limits | No auth/security/shared-shell/file-store changes, migrations, live DB/service/container startup, listeners, commits or pushes. Phase 3 and pack 2026.4 remain separate work. Device/native-picker/live-upload and real SIE samples require Jabran. Final Approval will present the concrete reviewed artifact. |
+| Evidence / next | Existing reports checked against local branches. Lead progress predates ACC-A-34; App sampleNames claim predates backend 2f7ddbd. Next: exact contract/code discovery, minimal plan and independent challenge before editing runtime. |
+
+
+### Discovery complete / Plan / Advisor 1 — 2026-10-16
+Discovery checked calendar API -> App DTO/domain -> export selection, parser -> import preview -> per-year badges, and current chart -> preflight copy. No new writes, permissions or financial calculations. sampleNames and export-detail consumption already exist; no duplicate implementation.
+Plan: Backend worker owns FiscalCalendarRepository/JdbcAdapter, FiscalYearService/Controller, SieParser, SiePreflight and affected tests plus Accounts API/module docs (a0/a3/h-se relevant tables; fiscal-calendar/sie-import/sie-export). App worker owns CalendarYearDto/domain/mapper, ReportYearOption/ReportBooks, SieImportModels/Mapper/FlowState and affected tests; Accounts module/guide reports/year-end/SIE pages, screenshot tests/manifests/images. Root owns h-se amendment above, Accounts decision record, shared guide glossary/decisions append, this plan, both owning task plans and lead progress. Workers may append their own module doc clauses after re-read, but must preserve root amendment.
+Advisor 1 (independent closeout_review): Proceed with constraints. One scoped POSTED batch, zero-net/OB/YE/reversal included; draft/submitted/history-only false. yearIndex means #RAR index; keep global 20 warning cap and per-index overflow summaries, test >20 year0 followed by year-1 and balanced-year isolation. Nullable App metadata supports older server; known false differs from unknown. Existing explicit year choices survive updates. Role details omitted if chart role absent. No shared security/shell edits, migrations or infrastructure startup.
+Engineer authorized within this plan by Jabran's request. Backend checks: parser/preflight unit tests + compile; fiscal API tenant/status cases require disposable DB and will run only if startup separately authorized. App checks: affected JVM tests, Android/iOS compiles, headless in-memory screenshots. Only one Gradle invocation at a time across workers. Final independent review after integrated diff; no commits/push before Final Approval.
+
+Runtime verification permission: Jabran explicitly answered “Allow disposable test containers” in this chat. Backend may use disposable PostgreSQL Testcontainers; no existing services/databases or Compose changes. Independent reviewer inspected the previously committed critical ACC-A-34 conflict/repreview/acknowledgement fixes and their tests: no remaining blocker/major in that inspected scope; prior full2179/compile results remain reported evidence, not rerun evidence.
+
+
+### Integration / Advisor 2 / Reviewer / Advisor 3 / Improver — 2026-10-16
+Backend37 affected tests and architecture25 pass; App100 affected tests pass and the revised flow-screenshot suite4 pass (a rerun, not 104 unique tests). All zero failures/errors/skips. Android compileDebugKotlinAndroid and iOS compileKotlinIosSimulatorArm64 passed. XML retained in backend build/cp-p2-closeout/{accounts,architecture} and App build/closeout-evidence/{jvm-focused,jvm-year-shot}. No full-suite rerun is claimed: scope was impact-based, no shared runtime library changed. Disposable PostgreSQL containers auto-stopped; no live stack/database touched.
+Advisor 2 (root structured self-challenge): tenant binding, constant query count, POSTED/zero-net/OB/YE/reversal semantics, parser bounded storage/cap, older-server/stored-preview compatibility, explicit picks, auth and failure lifecycles retained. Proceed. Independent reviewer inspected backend/App diff, prior critical ACC-A-34 recoveries, tests/docs and retained XML: no blocking code finding. Improver corrected the year-end guide's unconditional-reread claim to conflict/retry recovery; reviewer accepted the correction. Root image QA passed saved/refused/year-warning at 1440/390 and refreshed blocking/journal-source guide assets. Advisor 3 (root structured challenge): critique covers changed trust/data/consumer boundaries and important negative cases; no new scope or silent security exception. Proceed to final checkpoint skim/Final Approval.
+Prior generation-guard test genuinely suspends a repreview, changes route, releases the stale request and checks it cannot navigate back; its final assertion uses a scheduling delay. No mutation-test proof is claimed. Existing device/native-picker/live multipart and real-program SIE samples remain manual acceptance (Jabran), not evidence from these fixtures. Shared shell signals/NeoFailureMapper, file rescan/multi-instance quota, pack2026.4 and Phase3 remain separate owners/scopes.
+
+### Proposed local delivery (after Final Approval; no push)
+Only the explicit files below belong to this closeout. Preserve all other existing dirty paths and inbox edits. Use the configured Jabran author identity and no AI/co-author trailers. Re-read/check artifact and stage explicit paths only before committing. Delivery branches: Backend `dev`, App `dev-app`, existing workspace `master` at `0b4bf92` (already 4 commits ahead of local origin/master; those pre-existing commits are outside this closeout). Local commits only; no push or inclusion/review claim for those older workspace commits. No repository is created.
+
+**NeoERP-BackEnd** — `fix(accounts): close Phase 2 calendar and SIE review gaps`
+
+- `docs/agents/cp-p2fix/plan.md`
+- `docs/api/accounts-a0.md`
+- `docs/api/accounts-a3.md`
+- `docs/api/accounts-decisions-for-jabran.md`
+- `docs/api/accounts-h-se.md`
+- `docs/modules/accounts/fiscal-calendar.md`
+- `docs/modules/accounts/sie-export.md`
+- `docs/modules/accounts/sie-import.md`
+- `services/accounts-service/src/main/kotlin/com/neovatus/accounts/application/port/outbound/calendar/FiscalCalendarRepository.kt`
+- `services/accounts-service/src/main/kotlin/com/neovatus/accounts/application/service/fiscalyear/FiscalYearService.kt`
+- `services/accounts-service/src/main/kotlin/com/neovatus/accounts/application/service/statutory/sie/SiePreflight.kt`
+- `services/accounts-service/src/main/kotlin/com/neovatus/accounts/delivery/http/fiscalyear/FiscalYearController.kt`
+- `services/accounts-service/src/main/kotlin/com/neovatus/accounts/domain/sie/parse/SieParser.kt`
+- `services/accounts-service/src/main/kotlin/com/neovatus/accounts/infrastructure/persistence/jdbc/FiscalCalendarJdbcAdapter.kt`
+- `services/accounts-service/src/test/kotlin/com/neovatus/accounts/application/service/statutory/sie/SiePreflightDetailsTest.kt`
+- `services/accounts-service/src/test/kotlin/com/neovatus/accounts/application/service/statutory/sie/SiePreflightTest.kt`
+- `services/accounts-service/src/test/kotlin/com/neovatus/accounts/delivery/http/fiscalyear/FiscalYearReadA2Test.kt`
+- `services/accounts-service/src/test/kotlin/com/neovatus/accounts/domain/sie/parse/SieParserTest.kt`
+
+**NeoERP-App** — `fix(accounts): complete Phase 2 SIE defaults and guide`
+
+- `composeApp/src/commonMain/composeResources/values/strings_accounts_sie_import_flow.xml`
+- `composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/features/accounts/data/mapper/AccountsSetupMapper.kt`
+- `composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/features/accounts/data/mapper/SieImportMapper.kt`
+- `composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/features/accounts/data/remote/dto/AccountsA0Dtos.kt`
+- `composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/features/accounts/domain/model/AccountsSetupModels.kt`
+- `composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/features/accounts/domain/model/SieImportModels.kt`
+- `composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/features/accounts/presentation/reports/parts/ReportBooks.kt`
+- `composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/features/accounts/presentation/sie/imports/wizard/SieImportFlowState.kt`
+- `composeApp/src/commonTest/kotlin/com/neovatus/neoerp/app/features/accounts/AccountsDtoTest.kt`
+- `composeApp/src/commonTest/kotlin/com/neovatus/neoerp/app/features/accounts/sie/SieExportDialogStateTest.kt`
+- `composeApp/src/commonTest/kotlin/com/neovatus/neoerp/app/features/accounts/sie/imports/SieImportCheckStepFixesTest.kt`
+- `composeApp/src/jvmTest/kotlin/com/neovatus/neoerp/app/design/SieExportScreenshotTest.kt`
+- `composeApp/src/jvmTest/kotlin/com/neovatus/neoerp/app/design/SieImportFlowScreenshotTest.kt`
+- `docs/agents/cp-p2-fix-app/plan.md`
+- `docs/modules/accounts/reports.md`
+- `docs/modules/accounts/sie-export.md`
+- `docs/modules/accounts/sie-import.md`
+- `docs/modules/accounts/year-end.md`
+- `docs/user-guide/accounts/reports.md`
+- `docs/user-guide/accounts/sie-file.md`
+- `docs/user-guide/accounts/sie-import.md`
+- `docs/user-guide/accounts/year-end.md`
+- `docs/user-guide/decisions.md`
+- `docs/user-guide/glossary.md`
+- `docs/user-guide/images/accounts/app/sie-file-dialog-blocking.png`
+- `docs/user-guide/images/accounts/app/sie-file-dialog.png`
+- `docs/user-guide/images/accounts/app/sie-file-refused-queue.png`
+- `docs/user-guide/images/accounts/app/sie-file-saved.png`
+- `docs/user-guide/images/accounts/app/sie-import-check-history.png`
+- `docs/user-guide/images/accounts/app/sie-import-file.png`
+- `docs/user-guide/images/accounts/app/sie-import-journal-source.png`
+- `docs/user-guide/images/accounts/app/sie-import-uploading.png`
+- `docs/user-guide/images/accounts/app/sie-import-year-warning.png`
+- `docs/user-guide/tools/app-shots.json`
+
+**Workspace** — `docs(accounts): reconcile Phase 2 lead closeout`
+
+- `docs/agents/accounts-phase2/plan.md`
+- `docs/drafts/accounts/accounts-lead-progress.md`
+- `docs/inbox/accounts-lead.done.md`
+- `docs/inbox/accounts-lead-app.done.md`
+- `docs/inbox/accounts-lead-backend.done.md`
+
+
+### Final Approval pause — 2026-10-16
+Independent closeout_review final verdict: **Proceed to Final Approval; no blocking findings.** Reviewer skimmed current checkpoints, scope/approval, retained backend37+architecture25 and App100+4 repeated screenshot evidence, corrected docs and explicit delivery list; root supplied independent visual QA. Implementation/docs/screenshots are the reviewed artifact. No runtime/product changes after review; this note records the verdict only. Await Jabran approval of the closeout and proposed scoped local commits; no push. Manual native-picker/live-upload/real-SIE/live-integration acceptance and separately owned backlog remain explicitly open. Global listeners remain paused.

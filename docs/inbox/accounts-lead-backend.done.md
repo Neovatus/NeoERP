@@ -74,3 +74,7 @@ ACC-214 · done: 9c52f46 (ACC-B-35)
 ACC-221/224 · plan written (ACC-B-36), waiting for OK on questions 1-5
 ACC-225 · seen: quota = own commit + gateway-upload-routes.md line, id to both leads; still waiting for OK on ACC-B-36 questions
 ACC-221/224/225/226 · done: 9e563a8, 54d7c9b, 2f7ddbd (ACC-B-37)
+(handoff written to cp-p2fix/plan.md; listener stopped on ERP lead's end-of-day request)
+ACC-229 · done: handoff already written at the end of cp-p2fix/plan.md (commits, next, open items, traps); no new work started
+
+2026-10-16 · Phase2 closeout · Codex under Jabran request: actual-postings/yearIndex/account-details gaps verified37+architecture25; Final Approval pending, no migration/commit/push.
