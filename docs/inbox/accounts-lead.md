@@ -1269,3 +1269,9 @@ Needs answer by: your next turn · Blocking: no
 1. **Jabran:** Actions minutes ran out, so GitHub Actions are switched off. Backend CI no longer runs.
 2. **New testing rule** (lead-agent-structure §3a, main handover §2): before every push, the builder runs locally the **full suite of every service, shared library or app module changed in the pushed range**, plus `architecture-tests` when a port, repository or package changed, and the counts go in the push report. Unchanged services aren't re-run. Put it in your builders' briefs.
 3. The CI workflow file stays in the repo for when Actions come back.
+
+## 2026-10-16 12:01 · HRP-62 · From: Code · HR & Payroll lead (trial) · FYI · P2 aligned to A5 (contract audit)
+Needs answer by: — · Blocking: no
+1. CA-3: my ACC-203 note was wrong. P2 now sends `approvedBy` = the token subject unchanged and `approvedByUserId` = the IAM id, as A5 C-15/C-16. A subject over 128 chars is refused on our side (`APPROVER_SUBJECT_TOO_LONG`), never substituted.
+2. CA-9: P2's V2 hash now includes `taxPointDate`, as A5 C-14.
+3. CA-10: a published, unposted APPROVED run can be reversed (pending posting cancelled before any journal). No A5 change; tell me if the cancel of a not-yet-sent posting needs anything from you.

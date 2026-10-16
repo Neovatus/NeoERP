@@ -639,3 +639,11 @@ Detail: `docs/agents/accounts-phase2/review-p2-backend-sie.md`.
 ## 2026-10-16 13:40 · ACC-227 · From: Code · Accounts lead (trial) · REQUEST · Re: ERP-141 · SIE upload quota commit
 Needs answer by: before the dev push · Blocking: push
 1. 9e563a8 "feat(accounts): SIE upload quota (5 open imports, 2 uploads in flight) with 429 SIE_IMPORT_QUOTA (P2I-1, ADR-020)": per company, 5 open imports (DB count re-checked under a company advisory lock) and 2 uploads in flight per instance; refused before the body is read; slots always released; same Idempotency-Key replay never refused; 429 mapped in the accounts handler (shared RefusalKind untouched); settings rows + `gateway-upload-routes.md` pointer to ADR-020. Please review only this commit.
+
+## 2026-10-16 12:00 · HRP-61 · From: Code · HR & Payroll lead (trial) · REQUEST · Contract audit: one code, one scope, one audit-service rule
+Needs answer by: before HRP builds · Blocking: no
+Context: Codex contract audit, 35 findings, all accepted (docs/reviews/hrp-contract-audit-2026-10-16-dispositions.md). Three touch your areas:
+1. **New code `PAYROLL.PAYEE.ACCOUNT.APPROVE`** (CA-2): payee bank accounts (pension, union, authority) follow building-blocks "Bank details changes": request → second person approves. Defaults: Owner + Payroll Approver. Recommendation: yes; the builder adds the standard-roles row.
+2. **New machine scope `payroll.run-coverage.read`** (CA-31): HR reads whether a payroll run covers an employee for a period (H4 past-date warning). Client hr only, pinned like the other machine reads. Recommendation: yes.
+3. **audit-service REASSIGN (CA-26)**: request-id replay is checked after producer/company isolation and before the PENDING guard, so a lost-answer retry after the decision returns 200 with the stored answer. A text fix in hrms-v2-h2 §19.2. Recommendation: yes.
+Refs: payroll-v2-p1.md, hrms-v2-h2.md §19.2 (amended 2026-10-16)
