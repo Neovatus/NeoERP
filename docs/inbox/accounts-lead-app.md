@@ -308,3 +308,112 @@ Jabran: the `NeoERP-Design` folder is removed; all design lives in the app, the 
 ## 2026-10-15 18:29 · ACC-164 · From: Code · Accounts lead (trial) · ANSWER · → Accounts · App — Re: ACC-A-21 · CP-A3.2c accepted
 1. Scope check passed (9064c9c7, b0ae17d6, 1ea046da, b72b87ce). AuditWording: added to my ERP OK request.
 2. `ACCOUNT_YEAR_RESULT_ONLY`: the backend sends **no details today**; it will send `details.account` (string) in CP-A3.1d (A3-A17). Keep reading `details.account` only; drop the `details.accounts` / {number} variants; fallback wording until then.
+
+## 2026-10-15 18:33 · ACC-167 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · App — ERP-125 next-touch fixes (Haiku)
+1. ACC-A-22 accepted (7f3f402d). At your next touch, one docs commit: Responsive Showcase → `../screen-rig/tweaks-panel.jsx`; drop the Component Library link to the missing "NeoERP Super Admin.html"; write domain references in the qualified form `NeoERP/docs/domain/RULES.md` (and FLOWS.md). Don't push.
+
+## 2026-10-15 18:37 · ACC-169 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · App — Sonnet 5.5 — Checkpoint id CP-HSE.2/3a (SIE export screens), then import screens after the backend
+Needs answer by: — · Blocking: no
+Repeat the id back. ACC-A-23/24 accepted (4d7a0c62, 5b48af2b).
+1. **Now (backend CP-HSE.1a is pushed):** the SIE **export** part of NeoERP-BackEnd/docs/api/accounts-h-se.md CP-HSE.2/3 and spec NeoERP-App/docs/design/specs/accounts-h-se.md: data (sie-settings, preflight `GET /exports/sie4/preflight`, export job kind SIE4 with CHECKING/warnings/counts, download through your streaming path, `.se` via NeoFileSaver), export dialog with the preflight check panel, SIE settings card, SIE fields on accounts (`PATCH /accounts/{id}`), Reports "SIE file" entry (SE companies only). Read the backend's `docs/modules/accounts/sie-export.md` for the shapes as built.
+2. **Later:** the import wizard, import list and result pages (CP-HSE.1b's shapes) get an Amends when the backend reports 1b.
+3. String resources (C3). Sonnet; no Opus review unless a money figure is computed in the app (it mustn't be). Impact-based tests. Commit, don't push; report ACC-A-n.
+
+## 2026-10-15 18:41 · ACC-170 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · App — next touch (ERP-126)
+1. Point the Responsive Showcase iframe (`const PROTO`, ~line 260) at `../screen-rig/app.html`. One-line docs change in your next commit; no hurry.
+
+## 2026-10-15 18:50 · ACC-171 · From: Code · Accounts lead (trial) · ANSWER · → Accounts · App — Re: ACC-A-25 (CP-HSE.2/3a)
+Needs answer by: — · Blocking: no
+1. Item 2: **no octet-stream.** The backend will send SIE files as `text/plain; charset=IBM437` with a `.se` name (CP-HSE.1c, accounts-h-se.md lead rulings 2026-10-16). In the Accounts allow-list, accept `text/plain` **only** on the SIE download path, force the `.se` extension, keep the name sanitising, cap 256 MB; reports keep their list. Until 1c lands, the SIE download shows "Not available yet"; build and test against the new type.
+2. Item 3: **yes** to all three (SIE sub-tab with `reports|sie?export=1`, Sweden-only from the books' country, SRU + SIE type editable, the rest read-only).
+3. Item 4: (a) `kind` filter, (c) object name, (d) INFO code `OB_WRITTEN_AS_IB` / `OB_WRITTEN_AS_VOUCHERS`: all in CP-HSE.1c; keep your interim filter; (b) fine.
+4. Item 5: draft the copy; I approve it from your report. Android `.se` save goes on Jabran's device click-through.
+
+## 2026-10-15 20:09 · ACC-175 · From: Code · Accounts lead (trial) · ANSWER · → Accounts · App — Re: ACC-A-26 · CP-HSE.2/3a accepted
+1. Scope check passed. Copy (item 5) approved as drafted, incl. the dimension limit with the number as an argument. 4(d): keep the server's field error, no UI disable. 4(a)(b): sent to the ERP lead (ACC-174).
+2. Push waits for the ERP lead's one line and the HR & Payroll lead's acceptance of a09fc826. Import screens: Amends after the backend's 1b.
+
+## 2026-10-15 20:14 · ACC-176 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · App — two small items at your next touch (ERP-127, approved by the ERP lead)
+1. Core `NetworkHeaders` returns all values of a header (keep the single-value accessor); the SIE/report download policy refuses a response with more than one `Content-Type`; test. Shared core: send the commit id to me and the ERP lead.
+2. Org mocks: add `company-sweden` (SE, SEK, FINANCE on), matching the backend demo seed's Stockholm company (name, org number format), so the SIE screens can be clicked in mock mode. Commit id to me and the ERP lead.
+Sonnet for 1, Haiku for 2. Don't push.
+
+## 2026-10-15 20:40 · ACC-178 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · App — next touch (ERP-128)
+1. The Swedish mock org number `900000-0003` fails the Luhn check: use `900000-0001`. Haiku, one line, next commit.
+
+## 2026-10-15 21:33 · ACC-181 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · App — Amends: ACC-169 · Checkpoint id CP-HSE.2/3b (SIE import screens)
+Needs answer by: — · Blocking: no
+Repeat the id back. The backend SIE import is built (CP-HSE.1b, 25a8562; push after the ERP lead's OK).
+1. **Scope:** the import part of accounts-h-se.md CP-HSE.2/3 and spec accounts-h-se.md §3–§4: upload (streamed multipart: send the `purpose` part **before** the `file` part), the four-step wizard (file, check, account mapping with NeoSearchSelect, confirm), import list and result page (OB journals waiting for a second person; history approval card, Owner's own with reason), statement compare "From imported history" (HS-A2), journal detail source line (HS-A1), every page state and refusal copy. Shapes as built: NeoERP-BackEnd/docs/modules/accounts/sie-import.md. A scan-PENDING kept file answers 409 `SIE_FILE_NOT_KEPT` with `details.scanState`: show "Checking the file".
+2. Sonnet; **Opus review** for the OB confirm and history approve flows (they create journals). String resources; impact-based tests. Commit, don't push; report ACC-A-n.
+
+## 2026-10-15 21:39 · ACC-184 · From: Code · Accounts lead (trial) · FYI · → Accounts · App — CP-HSE.1c landed (710510e)
+1. SIE downloads now answer `text/plain; charset=IBM437` with a `.se` name: switch "Not available yet" to the real download; `GET /exports?kind=` filter (drop your interim filter); preflight object problems carry `objectName` (a branch shows its code until Org adds names); INFO `OB_WRITTEN_AS_IB` / `OB_WRITTEN_AS_VOUCHERS`: add their copy. Do it inside CP-HSE.2/3b (Amends: ACC-181).
+
+## 2026-10-15 21:44 · ACC-186 · From: Code · Accounts lead (trial) · FYI · → Accounts · App — A3-A17 fields are built (d72a3ae)
+1. `closedById`/`lockedById` on GET /fiscal-years, `currency` in year-end RUN/REOPEN audit payloads, `details.account` on ACCOUNT_YEAR_RESULT_ONLY: your CP-A3.2c code already reads them when present; check once in CP-HSE.2/3b that they light up, no new work.
+
+## 2026-10-15 21:47 · ACC-188 · From: Code · Accounts lead (trial) · ANSWER · → Accounts · App — Re: ACC-A-29 (CP-HSE.2/3b)
+Needs answer by: — · Blocking: no
+1. Item 2(a) CP-NET-2 (multipart upload in KMM-Network 0.4.0 + `NeoErpNetworkRuntime.upload`, one refresh path) and 2(b) the file picker: **yes from me**; both are shared, so I'm asking the ERP lead (ACC-189), recommending that the picker is built **per the approved neo-file-picker.md** (the parts SIE needs first: one file, size check, desktop drop, private temp copy, native pickers), not a SIE-only variant, since A4 and attachments need it next. Build behind fakes until it answers.
+2. Item 3: the backend fixes the conflicts (CP-HSE.1d, accounts-h-se.md lead rulings 2026-10-16): original file as text/plain IBM437 (no third policy: reuse the SIE one); multi-status + search on the list; "not needed" mapping filter; debit/credit and per-year totals from the server; `sieImport {id, fileName, importedAt}` on journal detail; `likeAccountId` dropped. Filter loaded rows until then. "50 MB" wording is fine. Parser codes: map each code to the spec's copy; draft the ~30 lines; I approve from your report.
+3. Item 4: **yes**: re-read, never auto-replay; the version check stops a second journal set.
+
+## 2026-10-15 21:51 · ACC-190 · From: Code · Accounts lead (trial) · DECISION · → Accounts · App — Amends: ACC-188 · CP-NET-2 and NeoFilePicker approved (ERP-131)
+Needs answer by: — · Blocking: no
+1. The ERP lead approved both, built by you under its review. **Read ERP-131 in docs/inbox/accounts-lead.md and follow its conditions exactly:** CP-NET-2 1a–1f (one auth path re-opening the file, streamed chunks with a pre-send size check, safe multipart headers, no logging, additive KMM-Network 0.4.0 on main with its own tests, the four named tests) and NeoFilePicker 2a–2f (app-private cache swept at startup, check order count → kind → prepare → size, PHPicker/HEIC rules, dragAndDropTarget only where supported, no new library, MainActivity only for activity-result registration, all page states).
+2. Models: CP-NET-2 Sonnet + a fresh Opus security review; picker Sonnet. Report the shared commits (KMM, core/network, core/platform, designsystem) separately so I forward them; KMM-Network goes before the app commits that need 0.4.0. Don't push.
+
+## 2026-10-15 22:12 · ACC-195 · From: Code · Accounts lead (trial) · FYI · → Accounts · App — CP-HSE.1d landed (58d68f2)
+1. Original file as text/plain IBM437 + `.se` (reuse the SIE policy); `GET /sie-imports` multi `status` + `q`; mapping filter `mapping=UNMAPPED|MATCHED|CREATE|MAPPED|NOT_NEEDED`; OB preview `summary.plan.totals {debit, credit}`; history `summary.historyYears[].totals {debit, credit, vouchers}`; journal detail `sieImport {id, fileName, importedAt}`. Shapes in NeoERP-BackEnd/docs/modules/accounts/sie-import.md. Drop your interim row filters and show the server totals.
+
+## 2026-10-16 05:00 · ACC-208 · From: Code · Accounts lead (trial) · ANSWER · → Accounts · App — Re: ACC-A-30 · accepted on scope; push waits on ERP lead + HRP
+Needs answer by: — · Blocking: no
+1. Accepted on scope (Accounts commits as listed). Shared commits are with the ERP lead (ACC-205); your HR-range neighbours with HRP (ACC-206). Push order to Jabran after both: KMM-Network, then dev-app.
+2. Open items: (a)/(b) asked of the ERP lead; (c) `discardedBy` briefed to Accounts · Backend (CP-HSE.1e); wire it when it lands; (d) noted for Jabran's click-through; (e) accepted for now, reviewed in my Phase 2 review.
+3. Copy: I'm checking the drafted lines; findings follow as one list. Until then stay idle.
+
+## 2026-10-16 09:45 · ACC-209 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · App — SIE deep links in AppShellState (ERP-139.3a)
+Needs answer by: — · Blocking: no
+1. ERP lead says yes: add the `accounts:{c}|sie-imports|…` deep links in `AppShellState`, same pattern as the reports and period-close links (one-shot route, consumed once). Its own commit; send the id to the ERP lead and me.
+2. Shared done: CP-NET-2 + NeoFilePicker accepted (ERP-139); HRP OK'd its commits. Jabran is pushing KMM-Network then dev-app now; don't add commits until he confirms the push.
+
+## 2026-10-16 09:55 · ACC-210 · From: Code · Accounts lead (trial) · DECISION · → Accounts · App — SIE copy approved with these changes
+Needs answer by: — · Blocking: no
+1. Copy approved except the lines below. Do them in their own commit after the deep links (after Jabran confirms the push).
+2. **Account numbers/names as arguments, not in the text** (they come from the chart): `accounts_sx_code_year_end_not_as_vouchers`, `accounts_sir_fact_difference_year_result`, `accounts_sim_result_equity`, `accounts_sir_fact_difference_equity`, `accounts_sir_held_card_subtitle`.
+3. **"an SIE file"** everywhere (`accounts_sx_code_books_not_live`, `accounts_jsie_source_plain`, any other "a SIE"). Say "SIE file" throughout; "(.se)" once, in the picker hint (`accounts_sic_file_unreadable`, `accounts_sic_type_unsupported`).
+4. **Plain words:**
+   - `accounts_sic_lenient_brace`: "Some lines had a stray character. They were read anyway."
+   - `accounts_sic_checksum`: "The file looks damaged or cut short. Export it again."
+   - `accounts_sic_charset_suspect`: "Some letters may look wrong. If å, ä or ö look odd, export the file again with a different text encoding."
+   - `accounts_sic_history_totals_differ` (+ `_unknown`): "For some accounts, the opening balance plus the vouchers doesn't match the closing balance in the file. Balances are imported as the file states them."
+5. **Whole sentences:**
+   - `neo_picker_refusal_size` and `accounts_sic_msg_file_too_large`: "This file is too large. The limit is %1$s."
+   - `accounts_sif_purpose_ob_sentence`: "This becomes opening-balance journals for a second person to post."
+   - `accounts_sx_code_company_facts` / `_other`: "…in Org before exporting."
+   - `accounts_sx_code_orgnr_missing`: "No org number is set, so the file won't carry one. Add it in Org."
+6. Keep as is: "control account", "booked", "Something went wrong on our side", "You imported this file." No nb/sv files yet: none exist in the app; translations come in one pass later.
+
+## 2026-10-16 10:05 · ACC-211 · From: Code · Accounts lead (trial) · FYI · → Accounts · App — pushed; go
+1. Jabran pushed KMM-Network, dev-app and dev (all at origin). Start ACC-209 (deep links), then ACC-210 (copy), separate commits.
+
+## 2026-10-16 10:40 · ACC-215 · From: Code · Accounts lead (trial) · ANSWER · → Accounts · App — Re: ACC-A-31 · accepted on scope
+1. d403ad33 and fdc99292 accepted. d403ad33 is shared: sent to the ERP lead (ACC-216).
+2. Item 3: yes, both 2099 lines take the account as an argument; do it now as one small commit.
+3. Item 2: backend briefed (ACC-214) to send accountNumber/accountName on YEAR_END_NOT_AS_VOUCHERS; your fallback stays until then.
+
+## 2026-10-16 11:00 · ACC-219 · From: Code · Accounts lead (trial) · FYI · → Accounts · App — YEAR_END_NOT_AS_VOUCHERS details live
+1. Backend 9c52f46 sends `details.accountNumber` / `accountName` on that INFO (absent when the chart has no year-result account). Your fallback stays for the absent case. Nothing else to do.
+
+## 2026-10-16 11:20 · ACC-220 · From: Code · Accounts lead (trial) · ANSWER · → Accounts · App — Re: ACC-A-32 · accepted; Phase 2 review started
+1. bb8cff65 accepted. The export line "closed to 2099" goes into the Phase 2 fix round.
+2. My Phase 2 review is running; findings come as one list for one fix round. Idle until then.
+
+## 2026-10-16 12:30 · ACC-223 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · App — Phase 2 fix round (app)
+Needs answer by: plan before code · Blocking: Phase 2 sign-off
+Findings: `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/accounts-phase2/review-p2-app.md` (P2A-1…25).
+1. **Fix all** except P2A-12 and P2A-17 (shell connectivity/visibility signal: ERP lead backlog, ERP-139.3b). P2A-11: default to the latest year with postings (spec §2). P2A-22: show `details.sampleNames` when present (backend adds it in its round; keep the generic warning when absent).
+2. Add the export copy "closed to 2099" (`accounts_sx_code_previous_year_not_closed`) as an argument, as before.
+3. Write paths (confirm, approve, discard, reopen/lock) get tests as listed. Run the full Accounts jvmTest once at the end. Fresh Opus review only for the confirm/acknowledge path (P2A-16) and reopen/lock (P2A-1).
+4. One plan (≤ 1 screen), then build, then report with commit ids. One round only.

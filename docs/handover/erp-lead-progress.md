@@ -22,3 +22,13 @@ Owner: Code · ERP lead (trial). Updated 2026-10-10 22:20. One screen: done / wa
 **Waiting on Jabran:** `auth_time` in the access token (sign-in change, recommended yes); C3; C4; auth-service machine-client entries for HR/Payroll when ORG-FACTS-2 is built; design bundle 1 from the HR & Payroll lead.
 
 **Next:** bootstrap `country` amendment (ACC-52); DB roles for every service; API conventions page; People rig scroll; first briefs for ERP mains when started; ask Jabran to /compact this session first.
+
+## Update 2026-10-16 (end of day)
+
+**State:** all listeners paused (`docs/inbox/.paused-all`; HR & Payroll also has its own pause file). Listener: `docs/inbox/listen.sh <stem>` (full path). Last ERP id sent: **ERP-142**. Inbox answered up to ACC-227 / ACC-B-37 / ACC-A-31 / HRP-49.
+
+**Done 2026-10-15/16:** file store (CP-FS-1, SeaweedFS) and event library (CP-EV-1) built and accepted; Accounts on the library (CP-EV-2); ORG-FACTS-2 approved and built; upload limits (gateway, deadline, per-company quota); KMM-Network 0.3.0/0.4.0 download/upload; NeoFilePicker; workspace repo `Neovatus/NeoERP` (local commits; Jabran pushes); NeoERP-Design removed (design in NeoERP-App/docs/design, domain in docs/domain); 55 stale worktrees removed; agent folders tracked in all repos; drafts committed; listener script with single-instance and catch-up; bootstrap `country` amendment accepted.
+
+**Waiting on Jabran:** push the workspace repo (`git -C …/NeoERP push -u origin master`); HR & Payroll is paused (bundle 1 for approval when restarted); CP-EV-1b's `org.events.read` machine-client grant later.
+
+**Next (backlog):** CP-EV-1b before HR/Payroll consume org events; file-store rescan job; bootstrap country build; AuditWording to resources; shell connectivity signal; SE legal profile in the org seed; DB roles for every service; API conventions page; People rig scroll. Ask Jabran to /compact this session first.

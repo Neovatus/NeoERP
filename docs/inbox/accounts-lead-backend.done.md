@@ -39,3 +39,38 @@ ACC-149/ACC-153 · docs commit 848d487, reported
 ACC-157 · seen (848d487 accepted; listener started with the full path)
 ERP-116 · .gitignore re-includes + org-sec-1 plan tracked, 714c886, reported ACC-B-18 to erp-lead.md
 ACC-161 · seen; ERP-122 to be done at the next checkpoint boundary (after CP-HSE.1b)
+ACC-163 · queued: added to CP-A3.1d (ACCOUNT_YEAR_RESULT_ONLY details.account), after CP-HSE.1b
+ACC-172 · queued: CP-HSE.1c (small) after CP-HSE.1b, then CP-A3.1d
+ACC-147 · seen late (my miss): Q9 multipart via commons-fileupload2 and HS-A3b are being built now as tasks T9/T10 of CP-HSE.1b; the commons-fileupload2 dependency is listed for the ERP lead in the report
+ACC-149 · done earlier in 848d487 (opening-items import, a3, h-se contract edits); the design drafts went in with ACC-153
+ERP-107 · queued: one docs-only commit of accepted ADRs and operations registers at the checkpoint boundary after CP-HSE.1b
+CP-HSE.1b · committed 25a8562 + f2afb87, reported ACC-B-20
+ERP-107 · docs commit 34958e9, reported ACC-B-21 to erp-lead.md
+ERP-122 / ACC-161 · path sweep 73788c5, reported ACC-B-22 to erp-lead.md and accounts-lead.md
+ACC-172 · CP-HSE.1c committed 710510e, reported ACC-B-23
+ACC-142 / ACC-163 · CP-A3.1d committed d72a3ae, reported ACC-B-24
+ACC-180 · seen (CP-HSE.1b accepted on scope; metrics + Postman go into this fix round)
+ACC-182 · in progress: multipart part-count limit, §9 SIE metrics, Postman update (one fix commit; Sonnet + short Opus check)
+ACC-185 · seen (ACC-182 before CP-EV-1)
+ACC-182 / ACC-185 · fix round 178235f, reported ACC-B-25
+ACC-187 · in progress as CP-HSE.1d (plan section appended to docs/agents/cp-hse.1d/plan.md; that folder also holds the ACC-182 fix-round plan)
+ACC-191 · seen (178235f accepted; CP-HSE.1d before EV-1)
+ACC-187 / ACC-191 · CP-HSE.1d committed 58d68f2, reported ACC-B-26
+ACC-193 · CFG-UPL-1 id repeated back; in progress (docs/agents/cfg-upl-1/plan.md)
+ACC-194 · seen (58d68f2 accepted; CFG-UPL-1 before EV-1)
+ACC-193 / ACC-194 / ERP-132 · CFG-UPL-1 committed 82259b8 (+ e610d1b arch fix), reported ACC-B-27 to accounts-lead.md and erp-lead.md
+ERP-133 · seen (CFG-UPL-1 accepted)
+ACC-197 · seen (accepted on scope; EV-1 may start)
+ERP-133 · done: gateway-upload-routes.md chunked note + application-local.properties.example (c1b0d46); EV-1 starting with an Opus plan
+ERP-100 · CP-EV-1 plan saved, questions to the ERP lead in ACC-B-28; T1 (baseline) starting
+ERP-135 · seen: Q12 yes (+ architecture rule in T5), org move decisions (Q5 fixed in EV-1 via V35 company_id), scan = whole D3 list; EV-1b follow-up recorded in the plan
+ERP-100 · done: CP-EV-1 (4f844c8, 6090667, 3b6291d), reported as ACC-B-30
+ERP-136 · seen: CP-EV-1 accepted; push order comes from the Accounts lead; D13.2 awaits the Accounts lead
+ACC-198 · plan written (ACC-B-31), waiting for Q1–Q8 answers before code
+ACC-198/199 · done: CP-EV-2 (72bb8fe, cc2b851), reported as ACC-B-32
+ACC-204 · done: 5441596
+ACC-207 · done: 55b24b3 (ACC-B-34)
+ACC-214 · done: 9c52f46 (ACC-B-35)
+ACC-221/224 · plan written (ACC-B-36), waiting for OK on questions 1-5
+ACC-225 · seen: quota = own commit + gateway-upload-routes.md line, id to both leads; still waiting for OK on ACC-B-36 questions
+ACC-221/224/225/226 · done: 9e563a8, 54d7c9b, 2f7ddbd (ACC-B-37)

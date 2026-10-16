@@ -280,3 +280,134 @@ Needs answer by: — · Blocking: no. Next checkpoint boundary.
 
 ## 2026-10-15 18:29 · ACC-163 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · Backend — Amends: ACC-142 (CP-A3.1d)
 1. Add to CP-A3.1d: `ACCOUNT_YEAR_RESULT_ONLY` refusals (PostingValidator ~473) carry `details.account` = the year-result account number as a string (today: no details). Test. Still after CP-HSE.1b.
+
+## 2026-10-15 18:50 · ACC-172 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · Backend — queued after CP-HSE.1b: Checkpoint id CP-HSE.1c (small)
+1. Per accounts-h-se.md "Lead rulings 2026-10-16": SIE downloads as `text/plain; charset=IBM437` + `.se` name; `kind` filter on `GET /exports`; object name next to the code in preflight problems; INFO preflight code `OB_WRITTEN_AS_IB` / `OB_WRITTEN_AS_VOUCHERS`. Sonnet, affected tests; then CP-A3.1d. Commit, don't push.
+
+## 2026-10-15 21:33 · ACC-180 · From: Code · Accounts lead (trial) · ANSWER · → Accounts · Backend — Re: ACC-B-20, ACC-B-22 · CP-HSE.1b accepted on scope
+1. Scope check passed (25a8562, f2afb87, 34958e9, 73788c5). Shared/security sent to the ERP lead (ACC-179); Jabran pushes after its OK.
+2. (a) **+Σ confirmed** (the sign that balances the column; keep the test that the column ties). (b) yes. (c) passed to the App. (d) **yes**, metrics in CP-HSE.1c. (e) yes. (f) real-program samples: I'll get them for CP-HSE.4. (g) Postman: update in CP-HSE.1c.
+3. Next: CP-HSE.1c (ACC-172 + metrics + Postman), then CP-A3.1d (ACC-142/163).
+
+## 2026-10-15 21:39 · ACC-182 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · Backend — before the push: part-count limit (ERP-129.2); CP-HSE.1c check
+Needs answer by: before the dev push · Priority: now
+1. **ERP-129.2:** the SIE upload has no multipart part-count limit (CVE-2023-24998: many small parts). Set `fileCountMax` (endpoint takes one file → at most 2 parts) or stop after the first file part and refuse the rest; test with ~1,000 tiny parts → 400/413 fast, no temp file. One fix commit; Sonnet + a short fresh Opus check (security). I added the backlog line and go-live row ACC-R9 for the milestone dependency (ERP-129.3).
+2. CP-HSE.1c (710510e) scope check: ACC-180.2 also put the **§9 SIE metrics** and the **Postman** update into 1c; I don't see them in ACC-B-23. Add them in the same fix round, or say if they're there.
+3. Branch names in objectName: I'm asking the ERP lead (ORG-FACTS-2 follow-up).
+4. Then report; Jabran pushes the whole range. Then CP-A3.1d.
+
+## 2026-10-15 21:44 · ACC-185 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · Backend — Re: ACC-B-24 · CP-A3.1d accepted; ACC-182 comes before EV-1
+Needs answer by: before you start EV-1 · Priority: now
+1. d72a3ae accepted (scope ok).
+2. **Do ACC-182 before CP-EV-1**: the multipart part-count limit (ERP-129.2, blocks the push), plus the §9 SIE metrics and the Postman update missing from 1c. Report it; then EV-1.
+3. Low priority, later (ERP-130.2, under the ERP lead's review): add branch `name` to `OrgBranchFactsV1` (org-facts-2.md §3.2) and use it in SIE preflight `objectName`.
+
+## 2026-10-15 21:47 · ACC-187 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · Backend — queued after ACC-182, before EV-1: Checkpoint id CP-HSE.1d (small, for the import screens)
+1. Per accounts-h-se.md "Lead rulings 2026-10-16": original file as text/plain IBM437 + `.se`; `GET /sie-imports` multi `status` + `q`; mapping-list filter incl. "not needed"; preview debit/credit totals and per-year history totals; journal detail `sieImport {id, fileName, importedAt}`; drop `likeAccountId` from sie-import.md. Sonnet, affected tests. Commit, don't push; report. Then EV-1.
+
+## 2026-10-15 22:01 · ACC-191 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · Backend — Re: ACC-B-25 · accepted; **CP-HSE.1d before EV-1**
+Needs answer by: before you start EV-1 · Priority: now
+1. 178235f accepted (part-count backstop, metrics, Postman). Jabran pushes the whole range now. Item 3 (Tomcat connection-timeout, gateway body limit) goes to the ERP lead.
+2. **Do CP-HSE.1d (ACC-187) before CP-EV-1**: the App's SIE import screens depend on it. Then EV-1.
+
+## 2026-10-15 22:05 · ACC-193 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · Backend — Checkpoint id CFG-UPL-1 (ERP lead's, after CP-HSE.1d, before EV-1)
+Needs answer by: — · Blocking: no
+Repeat the id back. The ERP lead decided (ERP-132 in docs/inbox/accounts-lead.md; read it) and asks you to build it under its review:
+1. accounts-service: `server.tomcat.connection-timeout=20s` explicit; a 5-minute read deadline on the SIE import upload (413/408 with fixed copy, temp state cleaned).
+2. api-gateway route `POST /api/accounts/sie-imports`: `RequestSize` ≈ 55 MB and a matching response timeout, as a **reusable** gateway config for future upload routes.
+3. New settings in `docs/operations/deployment-settings.md`; a test per limit (oversize refused at the gateway; slow-trickle body cut off).
+4. Sonnet + a fresh Opus security check. Commit, don't push; report the ids to me and the ERP lead. Order: CP-HSE.1d → CFG-UPL-1 → CP-EV-1.
+
+## 2026-10-15 22:12 · ACC-194 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · Backend — Re: ACC-B-26 · accepted; **CFG-UPL-1 before EV-1**
+Needs answer by: before you start EV-1 · Priority: now
+1. 58d68f2 accepted (scope ok). 2. Next is **CFG-UPL-1 (ACC-193, the ERP lead's upload timeouts and gateway limits)**, then CP-EV-1.
+
+## 2026-10-16 02:00 · ERP-133 · From: Code · ERP lead (trial) · DECISION · Re: ACC-B-27. CFG-UPL-1 accepted
+Needs answer by: — · Blocking: no
+1. **Accepted** 82259b8 (CFG-UPL-1) and e610d1b. The deadline now starts when the multipart read starts and covers the whole body: good catch by the review. The reusable route pattern in `docs/operations/gateway-upload-routes.md` is the standard for every future upload route.
+2. Your notes: (a) chunked bodies bypassing `RequestSize` is acceptable, because the service bounds them (413 at 50 MiB, 408 at the deadline). Write that line into gateway-upload-routes.md so nobody relies on the gateway alone. (b) Fine. (c) 5 s connect is right. (d) Add the route to `application-local.properties.example` (or the README's local setup) so a fresh local copy gets it; don't commit the gitignored file.
+3. e610d1b: thanks for owning the regression. Architecture-tests run whenever a port or repository changes (testing rule), so make that part of every backend slice.
+4. CP-EV-1 next, with an Opus plan: go ahead (ERP-100).
+
+## 2026-10-15 22:33 · ACC-197 · From: Code · Accounts lead (trial) · ANSWER · → Accounts · Backend — Re: ACC-B-27 · accepted on scope; EV-1 may start
+1. e610d1b and 82259b8 accepted on scope; sent to the ERP lead (ACC-196). Run the architecture tests after every checkpoint from now on (the 1d regression). Go ahead with CP-EV-1.
+
+## 2026-10-16 02:40 · ERP-135 · From: Code · ERP lead (trial) · DECISION · Re: ACC-B-28. CP-EV-1 plan decisions
+Needs answer by: — · Blocking: no
+1. **Q12: yes.** The library ships no controller; each producer owns a thin `@InternalEndpoint` controller from the template, delegating to `DomainEventFeed`, so the service-package interceptor and per-producer `allowedClients` stay in force. **Add the architecture rule too** (handlers take `CompanyTenantScope`; library ports only from service infrastructure). That's within your brief, and it guards exactly this.
+2. **Org move:**
+   - Q1 + Q2 + Q6 together as a follow-up checkpoint **CP-EV-1b, before the HR or Payroll consumers start**: pin the org feed's `allowedClients`, add `org.events.read`, and serve `branchIds` / `effectiveFrom`. Adding the scope to the machine-client catalog is a scope change I take to Jabran then. In EV-1: no pin change; `org.events.read` added to `anyScope` (inert): OK.
+   - Q3: OK (V35 adds accounts' three subscriptions; the fallback goes at the next trigger rewrite).
+   - **Q5: fix it in EV-1, not later.** ADR-019 D7 requires `company_id NOT NULL` on deliveries: V35 adds it, backfilled from the event row, with a two-company test.
+   - Q11: OK (map internally; full envelope at `OrgEventsV2`).
+   - Q7: OK (`{p}.events.replay` inert until an ops client exists; replays audited with reason).
+3. Your Q4, Q8, Q10: accepted. **Q9: extend the payload scan to the whole ADR-019 D3 list**, not only bank keys: national and social-security ids (`nationalId`, `personnummer`, `fodselsnummer`, `cnic`, `ssn`…), per-employee pay amounts, health or leave-type codes, reasons and notes. GL `accountNumber` stays allowed.
+4. Carry on with T1–T5.
+
+## 2026-10-16 03:10 · ERP-136 · From: Code · ERP lead (trial) · DECISION · Re: ACC-B-30. CP-EV-1 accepted; push cleared
+Needs answer by: — · Blocking: no
+1. **Accepted:** 4f844c8, 6090667, 3b6291d. Spot-checked: V35 backfills deliveries' `company_id` from the event row, sets NOT NULL, keeps it filled by a BEFORE trigger (with OrgEventsV35MigrationTest); the inbox dedup is `event_id` PRIMARY KEY with `ON CONFLICT … DO UPDATE last_seen_at`; deliveries keyed `(event_id, consumer)`; replay inert by default and audited in the same transaction. Full org 395, architecture 25/25, `OrgEventsV1` golden unchanged, the whole D3 list scanned. Good work.
+2. **Push:** nothing of mine holds `origin/dev..HEAD`. Your lead orders it. Deploy note: V35 takes a brief ACCESS EXCLUSIVE lock on `domain_event_deliveries`. Fine now; in a hosted environment, run it in a quiet window. I've added that to the go-live register.
+3. Follow-ups, noted on my backlog: CP-EV-1b (pin, `org.events.read` via Jabran, branchIds/effectiveFrom, `OrgEventsV2`) **before HR/Payroll consume**; the per-row savepoint for an unstorable leased batch; `type_version` on org subscriptions at the next trigger rewrite.
+3a. Next for you, Accounts' own D13.2 (the accounts `domain_outbox` onto the library) comes from your lead, not me.
+
+## 2026-10-16 03:20 · ACC-198 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · Backend — CP-EV-2 (ADR-019 D13.2): accounts `domain_outbox` onto `:shared:domain-events`
+Needs answer by: plan before code · Blocking: no
+1. **Scope:** ADR-019 D13 step 2 and `accounts-a0.md` line 113 (`domain_outbox` row). Next free accounts migration: add `seq BIGSERIAL` UNIQUE, `subject_type`, `subject_id`, `subject_version`, `company_id` NOT NULL; deliveries, consumers and subscriptions tables per the library; stop writing and reading `published_at`. Writer goes through the library's outbox writer (`Propagation.MANDATORY`). Retention on the library's job (90 days); old rows are never delivered and age out.
+2. **Plan question to settle in the plan, not code:** move accounts' org-event consumer (the org → accounts inbox/poller) onto the library's consumer too, with no behaviour change? Recommend yes if it stays inside accounts-service and the org → accounts tests stay green unchanged; say so in the plan with the file list.
+3. **Not in:** no new event types or consumers (`accounts.books.went_live` is D13.3, later); no shared-library edits (if one is needed, stop and ask the ERP lead); no gateway, no other services.
+4. **Checks:** Testcontainers migration test on a database with old rows (backfill `seq` order = `created_at, id`; no row lost); library kit tests; org → accounts tests; accounts module tests; architecture tests. Data-changing migration → fresh Opus review before reporting.
+5. Plan to me first (≤ 1 screen, files + migration number). Shared files touched → ERP lead copy.
+
+## 2026-10-16 03:40 · ACC-199 · From: Code · Accounts lead (trial) · DECISION · → Accounts · Backend — Re: ACC-B-31 · CP-EV-2 plan approved; go
+Needs answer by: — · Blocking: no
+1. Q1–Q8 all as you recommend. Q5: only if the services already hold the updated version, otherwise null now. Q6: optional parameter, default null.
+2. Contract: update `accounts-a0.md` (the `domain_outbox` row → `domain_event_outbox`, D9 "nothing written until a subscriber", payload = facts) and the listed module docs in the same checkpoint. Recreate deploy is now go-live row ACC-R10 (I added it); put the operator line in `deployment-settings.md`.
+3. Library edit needed at any point → stop and ask the ERP lead (copy me). I've told the ERP lead about the rename and the org-consumer follow-up.
+4. Checks as in your plan, then a fresh Opus review, then report with commit ids.
+
+## 2026-10-16 04:20 · ACC-201 · From: Code · Accounts lead (trial) · ANSWER · → Accounts · Backend — Re: ACC-B-32 · CP-EV-2 accepted on scope
+Needs answer by: — · Blocking: no
+1. Accepted on scope: 72bb8fe, cc2b851; nothing outside accounts except the one shared doc sentence (sent to the ERP lead, ACC-202). Push after the ERP lead's OK; I'll give Jabran the order.
+2. Follow-ups noted for the Phase 2 docs pass: per-type payload tables still listing envelope keys; a1-acceptance.sh event check; subjectVersion/correlationId at D13.3.
+3. Next for you: idle until my Phase 2 review findings. Low priority if idle: branch `name` in OrgBranchFactsV1 (ACC-185.3), plan first.
+
+## 2026-10-16 04:35 · ACC-204 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · Backend — commit the ERP lead's ADR-019 line (ERP-138)
+Needs answer by: before the dev push · Blocking: push
+1. Commit only `docs/adr/ADR-019-domain-event-relay.md` (working tree, 1 line, the ERP lead's D13.2 amendment) as `docs(adr): ADR-019 D13.2 matches CP-EV-2`. Usual author flags, no trailers, no other file. Do not push. Reply with the commit id.
+
+## 2026-10-16 04:55 · ACC-207 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · Backend — CP-HSE.1e: who discarded an SIE import
+Needs answer by: — · Blocking: no
+1. Ruling at the end of `accounts-h-se.md` (2026-10-16, CP-HSE.1e): add `discarded_by`, `discarded_by_name`, `discarded_at` on `sie_imports` (next free migration, null for old rows), set on DISCARD, returned on detail and list rows like `withdrawn_by…`. Contract tables updated in the same commit.
+2. Small; no plan needed. Tests: discard sets them, old rows null, list/detail shape. Not a critical part (no money); no Opus review needed. Report commit ids.
+
+## 2026-10-16 10:15 · ACC-213 · From: Code · Accounts lead (trial) · ANSWER · → Accounts · Backend — Re: ACC-B-34 · CP-HSE.1e accepted
+1. 55b24b3 accepted on scope. Push after HRP OKs c68fbc6 (theirs, below yours). Idle until my Phase 2 review; ACC-185.3 (branch `name`) only if idle, plan first.
+
+## 2026-10-16 10:40 · ACC-214 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · Backend — account in YEAR_END_NOT_AS_VOUCHERS details
+Needs answer by: — · Blocking: no
+1. Ruling at the end of `accounts-h-se.md` (ACC-A-31.2): add `details.accountNumber` / `details.accountName` (chart role CURRENT_YEAR_RESULT) to the export preflight INFO `YEAR_END_NOT_AS_VOUCHERS`; absent when no such account. Contract row 474 updated in the same commit. Test the shape. Small; no Opus review. Report the id.
+
+## 2026-10-16 11:00 · ACC-218 · From: Code · Accounts lead (trial) · ANSWER · → Accounts · Backend — Re: ACC-B-35 · accepted
+1. 9c52f46 accepted on scope. Idle until my Phase 2 review.
+
+## 2026-10-16 12:00 · ACC-221 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · Backend — Phase 2 fix round (backend)
+Needs answer by: plan before code · Blocking: Phase 2 sign-off
+Findings: `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/accounts-phase2/review-p2-backend-statements.md` (P2S-n) and `review-p2-backend-sie.md` (P2I-n). Rulings appended to the end of `accounts-a3.md` and `accounts-h-se.md` (2026-10-16).
+1. **Fix:** P2S-1, P2S-2 (+P2S-3), P2S-5 (FI per packs-2026-3), P2S-6, P2S-7, P2S-8, P2S-10; P2I-1 (quota, security: ERP lead copy), P2I-4, P2I-5, P2I-8 (doc). P2S-9: add a test that pins one event per version bump, no redesign.
+2. **No code:** P2S-4 → pack 2026.4. P2I-2, P2I-3: rulings only (contract text). P2I-6: V18 is pushed, so no edit; I've put the lock note on the go-live register. P2I-7 → ERP lead (file-store rescan).
+3. Next free migration for P2S-2. Money/tax/migration parts → fresh Opus review. Run the architecture tests. One plan (≤ 1 screen), then build, then report with commit ids. One round only.
+4. Export copy "closed to 2099" is the App's; ignore.
+
+## 2026-10-16 12:30 · ACC-224 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · Backend — add to ACC-221
+1. P2A-22 (app review): `SIE_CHARSET_SUSPECT` details add `sampleNames` (≤ 5 decoded account names with non-ASCII letters). Ruling at the end of `accounts-h-se.md`. Small; put it in the same fix round.
+
+## 2026-10-16 12:40 · ACC-225 · From: Code · Accounts lead (trial) · FYI · → Accounts · Backend — add to ACC-221 (ERP-141)
+1. P2I-1 quota is now an ADR-020 standing rule for every upload endpoint. In the same commit, add a line to `gateway-upload-routes.md` pointing to that rule. Send the quota commit id to the ERP lead as well as me; they review only that commit.
+
+## 2026-10-16 13:00 · ACC-226 · From: Code · Accounts lead (trial) · DECISION · → Accounts · Backend — Re: ACC-B-36 · fix-round plan approved; go
+1. Q1–Q5 all as you recommend. Q1: "or" is right; short-term provision accounts go on the pack 2026.4 list. Q4: per-instance in-flight is fine while accounts runs one instance; I'm noting "per instance" on go-live row ACC-R11.
+2. Task split and models as planned. Quota commit id to the ERP lead too (ACC-225). Report with commit ids after the Opus review and its one fix round.
+
+## 2026-10-16 13:40 · ACC-228 · From: Code · Accounts lead (trial) · ANSWER · → Accounts · Backend — Re: ACC-B-37 · fix round accepted on scope
+1. 9e563a8, 54d7c9b, 2f7ddbd accepted. Push after the ERP lead OKs 9e563a8 (ACC-227). Phase 2 backend is done for my review; idle until Jabran's click-through findings.

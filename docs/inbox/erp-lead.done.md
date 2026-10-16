@@ -113,3 +113,30 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-15 22:36 · NeoERP-Design removal: domain docs moved to docs/domain; CLAUDE.md/CODEX rewritten; ERP-121 (App), ERP-122 (Backend), ERP-123 (ACC), ERP-124 (HRP)
 2026-10-15 · Jabran paused the HR & Payroll lead; .paused-hr-payroll-lead set
 2026-10-15 23:10 · ACC-156/158/162/165, ACC-A-20/22, ACC-B-18, HRP-49 handled; NeoERP-Design removed (ERP-125)
+2026-10-15 18:37 · ACC-168 · accepted 5b48af2b; showcase iframe → ../screen-rig/app.html (ERP-126)
+2026-10-15 18:50 · ACC-173 · noted: SIE download as text/plain;charset=IBM437 on the SIE path only, .se forced, 256 MB cap; fits ERP-69.2
+2026-10-15 20:09 · ACC-174 · OK to push; duplicate Content-Type refusal + SE mock company approved (ERP-127)
+2026-10-15 · ACC-A-27 · accepted 83aa2c4c, 688882ee; Luhn-valid placeholder; SE legal profile on backlog (ERP-128)
+2026-10-15 20:37 · ACC-177 · covered by ERP-128 (same commits 83aa2c4c, 688882ee)
+2026-10-15 · ACC-B-21 · noted: ERP-107 docs commit 34958e9 (ADR-016/020, both registers incl. neoerp.files.* and neoerp.accounts.sie.* rows)
+2026-10-15 · ACC-B-22 · accepted 73788c5 (path sweep clean)
+2026-10-15 21:33 · ACC-179 · deny carry + SIE import OK; part-count limit required before push; milestone dep accepted + tracked (ERP-129, go-live P-12)
+2026-10-15 21:39 · ACC-183 · branch code+name added to org-facts-2 §3.2 (my gap); build at next org touch (ERP-130)
+2026-10-15 21:47 · ACC-189 · yes CP-NET-2 + NeoFilePicker build, with conditions (ERP-131)
+2026-10-15 22:01 · ACC-192 · 178235f accepted; tomcat timeout + upload deadline + gateway RequestSize/timeout decided, Accounts · Backend builds (ERP-132)
+2026-10-16 · ACC-B-27 · CFG-UPL-1 accepted; doc notes; EV-1 go (ERP-133)
+2026-10-15 22:33 · ACC-196 · OK, same as ERP-133 (ERP-134)
+2026-10-16 · ACC-B-28 · EV-1 decisions: Q12 yes + arch rule; Q1/2/6 → CP-EV-1b before HR/Payroll; Q5 fix now; Q9 full D3 list (ERP-135)
+2026-10-16 · ACC-B-30 · CP-EV-1 accepted, push cleared (ERP-136); FYI ACC (ERP-137); go-live P-13; follow-ups on backlog
+2026-10-16 · ACC-B-31 · noted: CP-EV-2 plan (accounts outbox onto library), no shared code; org→accounts on the library waits for OrgEventsV2 (CP-EV-1b)
+2026-10-16 03:40 · ACC-200 · noted; ADR-019 D13.2 amended (rename to domain_event_outbox; org consumer waits for OrgEventsV2)
+2026-10-16 · ACC-B-32 · noted: CP-EV-2 done (72bb8fe, cc2b851), no shared code; one doc sentence in domain-events.md (fine)
+2026-10-16 04:20 · ACC-202 · shared doc line OK, push may go; ADR-019 amendment to be committed first (ERP-138)
+2026-10-16 04:55 · ACC-205 · CP-NET-2 + NeoFilePicker accepted; design commits go; deep links by Accounts · App; connectivity signal → backlog (ERP-139)
+2026-10-16 · ACC-A-31 · OK d403ad33 SIE deep links (ERP-140)
+2026-10-16 · ACC-216 · covered by ERP-140 (d403ad33 OK); told the lead directly
+2026-10-16 12:00 · ACC-222 · upload quota made a standing rule + rescan job amended into ADR-020; backlog (ERP-141)
+2026-10-16 · ACC-B-36 · noted: upload quota in the Phase 2 fix round (T5); I review the commit when it lands
+2026-10-16 · ACC-B-37 · upload quota 9e563a8 accepted; go-live P-14 for multi-instance (ERP-142)
+2026-10-16 · ACC-227 · covered by ERP-142 (9e563a8 accepted); told the lead directly
+2026-10-16 · end of day: all paused; handoff updated

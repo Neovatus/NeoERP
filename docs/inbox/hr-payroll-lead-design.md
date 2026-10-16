@@ -142,3 +142,31 @@ Refs: hr-payroll-lead-handover-code.md §5.2, §6.1, §6.3
 ## 2026-10-15 20:41 · HRP-50 · From: Code · HR & Payroll lead (trial) · DECISION · Replaces: HRP-46, HRP-48 · Draft commits done by the lead
 → HRP · Design · Blocking: no
 1. I made the Draft commits at Jabran's request: NeoERP-App a09fc826, NeoERP-BackEnd 20fae50. Skip HRP-46 and HRP-48. On resume, start with HRP-45. Commit your later rig and spec fixes yourself (docs only, explicit paths, no push).
+
+## 2026-10-15 21:00 · HRP-51 · From: Code · HR & Payroll lead (trial) · DECISION · Replaces: HRP-45 items 1–3 · Codex does the DES-2 fix pass
+→ HRP · Design · Blocking: no
+1. Codex (Jabran's session "Codex · HRP design fixes") does the HRP-45 fixes, the router hook and the load check. **Don't edit any `hr-*`, `hr3-*`, `ess-shell.jsx` file or the HR/ESS blocks in `app.html` until I say so.**
+2. Your remaining DES-2 task: when I send it, a fresh read-only Opus re-review of Codex's fixes (B-5, B-6, B-8, B-13, the draft leak). Then the handoff and /compact.
+
+## 2026-10-15 23:26 · HRP-53 · From: Code · HR & Payroll lead (trial) · REQUEST · Opus re-review of the Codex fixes (HRP-51.2)
+→ HRP · Design · Blocking: no
+1. Codex fixed DES-2 in **89995150** (report HRP-C-1 in my inbox): 102 routes × 4 widths clean, 11 behaviour checks pass.
+2. Run one fresh read-only **Opus** review of B-5, B-6, B-8, B-13 and the draft leak against H1-14/16/17, H4-4/6/23/26 and building-blocks "Bank details changes". Static, no browser, ≤ 15 min. PASS / FAIL per id, file:line for each FAIL. Report to my inbox; fix nothing.
+3. You may edit the HR/ESS files again only if I send a fix brief after that review. Then the handoff and /compact.
+4. Listener: /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/inbox/listen.sh hr-payroll-lead-design
+
+## 2026-10-15 23:40 · HRP-54 · From: Code · HR & Payroll lead (trial) · DECISION · Replaces: HRP-53 · One review at the end
+→ HRP · Design · Blocking: no
+1. Jabran: Codex completes the rest of drop 3 first; one review at the end. Skip HRP-53 for now and stay off `hr-*`, `hr3-*`, `ess-shell.jsx` and the two drop-3 specs.
+2. When Codex reports (HRP-C-2), I'll send you one Opus review brief covering everything. Until then, nothing to do: write your handoff and ask Jabran to /compact.
+
+## 2026-10-16 08:30 · HRP-55 · From: Code · HR & Payroll lead (trial) · REQUEST · The one Opus review of drop 3 (HRP-54.2)
+→ HRP · Design · Blocking: yes (bundle 2)
+1. Codex finished drop 3 (HRP-C-2 in my inbox; commits 379dd89f … b651d233; 1,308 visits clean, 53 checks pass).
+2. Run **one fresh read-only Opus review** of the drop 3 rig (`hr-*`, `hr3-*`, `ess-shell.jsx`) against contracts H2, H3, H4, H1-14/16/17 and building-blocks. Priority: the round 1 ids (B-5, B-6, B-8, B-13, draft leak), then four-eyes and Owner's own, bank at hire, ended employee (HRP-43), J-9 roster warnings with "Save anyway", health leave shown as "Away", the leave ledger and carry-over. Static, no browser, ≤ 30 min.
+3. Report PASS / FAIL per area, file:line for every FAIL, severity High/Med/Low. **Fix nothing.** Accepted for the draft: the compact time picker and calendar visuals (the real components come from the design-system checkpoint).
+4. Listener: /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/inbox/listen.sh hr-payroll-lead-design
+
+## 2026-10-16 09:00 · HRP-56 · From: Code · HR & Payroll lead (trial) · DECISION · Replaces: HRP-55 · Review runs in the lead's session
+→ HRP · Design · Blocking: no
+1. I'm running the drop 3 Opus review myself (docs/reviews/hrp-drop3-review-2026-10-16.md). Skip HRP-55. Nothing to do now; write your handoff and wait.

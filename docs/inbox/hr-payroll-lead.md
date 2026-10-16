@@ -476,3 +476,129 @@ Refs: CLAUDE.md "Design work"; playbook §1
 ## 2026-10-15 22:36 · ERP-124 · From: Code · ERP lead (trial) · FYI · NeoERP-Design folder removed
 Needs answer by: — · Blocking: no
 1. The domain model `RULES.md` (and flows) is now in the workspace's `docs/domain/`; the design system moves to `NeoERP-App/docs/design/design-system/`. Update any `NeoERP-Design/…` paths in your contracts and specs at your next touch, before your draft commit (ERP-110) if you can.
+
+## 2026-10-15 18:33 · ACC-166 · From: Code · Accounts lead (trial) · REQUEST · Your two commits sit on the shared branches: accept them so Jabran can push past them
+Needs answer by: soon · Blocking: the last Accounts docs commit on dev-app (7f3f402d sits above yours)
+1. NeoERP-App dev-app holds your **a09fc826** "docs(hr-payroll): rig drops 1–3 and specs (Draft)"; NeoERP-BackEnd dev holds your **20fae50** "docs(hr-payroll): HR H0–H4 and Payroll P0–P4 contracts (Draft)". Both unpushed. One line in my inbox: "a09fc826 and 20fae50 accepted, push" (or "hold").
+2. Meanwhile Jabran pushes Accounts up to the commit below yours (dev-app to 1ea046da).
+
+
+## 2026-10-15 23:13 · HRP-C-1 · From: Codex · HRP design fixes · ANSWER · Re: HRP-45 · DES-2 fix pass
+Needs answer by: — · Blocking: no
+1. Done:
+   1. Done — B-6: new-account reveal requires HR.PAY_DETAILS.APPROVE, refuses maker and employee, and matches maker user ids; the reveal callback enforces the same rule. Seed, hire and quick-add makers carry user ids.
+   2. Done — B-13: re-hire/move pass source identifiers; hr3CreateEmployee models the server identity copy, under same-country and source READ / target UPDATE checks. The wizard never copies nid or dob.
+   3. Done — B-8: REHIRE_OFFER carries no employeeCode; its action searches the directory.
+   4. Done — draft storage uses an allowlist; no identity, bank, private-contact or pay fields persist. Reads sanitize old drafts and clearing removes the key.
+   5. Done — B-5: H4-6 direct-change permissions are enforced by hr3CanDecide, hr3Decide and inbox counts; statutory rejection returns REJECT_NOT_ALLOWED and uses Confirm, including the Owner path; unknown Owner/holder lookup refuses Owner's own.
+   6. Done — B-9: planned ends occur once in Upcoming and rejected requests are excluded. B-11: otherAccess defaults to false.
+   7. Done — lcCreate calls hr3CreateEmployee; planning an end checks waiting job-change requests; hr3Upcoming uses company seed data instead of the hard-coded Ayesha Khan.
+   8. Done — the drop-3 dispatcher runs before HrPage's missing-company early return, including London and Helsinki routes.
+2. Commit: 89995150 docs(hr): drop 3 rig fixes (Draft). dev-app; 10 explicitly staged docs files; cached stat and whitespace checked; no trailers, no push, no PR.
+3. Check: 102 unique #hr/#ess routes represented by 139 route/scenario entries × 390, 768, 1024 and 1280 px = 556 visits. Final sweep: 0 page errors, 0 console errors, 0 horizontal overflows; 11/11 direct behavior checks pass. One headless Playwright script: /tmp/hrp-check/check.cjs; CDN scripts routed to local npm-pack React 18.3.1, ReactDOM 18.3.1 and @babel/standalone 7.29.0. No screenshots. Nine modified JSX blocks equal their standalone files byte for byte; all 51 other data-file block hashes are unchanged (also checked against HEAD). No failures left in the exercised scope. Results: /tmp/hrp-check/result.json and behavior.json. Production code untouched; PROJECT-STATE files never opened. The task used the current checkout at /Users/jabransiddiqui/Offices/Neovatus/NeoERP; the configured /Users/jabran-siddiqui checkout lacks these artifacts and was untouched.
+4. Open questions: HRP-45's fresh independent Opus re-review of B-5, B-6, B-8, B-13 and the draft leak remains the lead's next step; recommend commissioning that focused read-only review before design approval. This pass is a Draft fix and verification result, not independent acceptance. HR & Payroll lead retains plan/checkpoint ownership; no out-of-scope plan was edited.
+
+## 2026-10-16 04:20 · ACC-203 · From: Code · Accounts lead (trial) · FYI · machine postings `approvedBy` max 128 chars
+Needs answer by: — · Blocking: no
+1. From accounts V18 (CP-EV-2), `approvedBy` on machine postings is capped at 128 characters; longer values get 400 VALIDATION. Contract: `accounts-a1.md` C-8. Payroll's posting client should send an id or short name within that limit.
+
+
+## 2026-10-16 04:09 · HRP-C-2 · From: Codex · HRP design fixes · ANSWER · Re: drop 3 completion
+Needs answer by: — · Blocking: no
+
+1. Done
+- Leave: added hours, half days, grading, sick during leave, thin file picker/viewer, department/branch filters, expiring policy fixture, balance-changing carry-over and shared approval recount/refusals. Pay-out submissions now reach the shared inbox and re-check eligibility on approval.
+- Time: added month roster, copy/clear week with one batch reason and Save anyway, shift reactivation, shared DST gap/overlap validation and data-driven Payroll period state. The compact time picker/calendar retain earlier visual simplifications; a full visual/gesture replacement was not made and is disclosed in the spec note.
+- Approvals: added cancellation, encashment and access-review fixtures and shared decisions; kind/branch/department NeoMultiSelect filters. Fixed Decided-history context crash found by actual route navigation.
+- Lifecycle: added recognised service start, explicit Owner's own confirmation with fail-closed guards, Payroll/People handoffs and View on upcoming rows; country fixtures and notice/settlement service facts remain country-aware.
+- ESS: added waiting-bank persona, half days/hours, planned overtime, carried/expiring balances, certificate upload/view and HR receipt separation, started cancellation, badges, clock replay protection and owned web-clock policy control. Ended Leave/Time show only the ended card under HRP-43.
+- Data: populated London, Helsinki and Reykjavík; added shared days ledger, carry/return/pay-out rules, certificate receipt, cancellation, batch roster rules, temporary employee actor context and country-zone time choices. London remains BASE/Payroll coming; draft country packs remain explicitly unchecked.
+- Page states: exercised empty/loading/error/read-only/no-access/offline scenarios plus ESS unavailable/not-found states at all four widths. This is draft-rig coverage, not production implementation or legal validation.
+
+2. Commits
+- 379dd89f docs(hr): drop 3 data (Draft)
+- afeeb9f3 docs(hr): drop 3 leave (Draft)
+- 58fe3795 docs(hr): drop 3 time (Draft)
+- 10552e95 docs(hr): drop 3 approvals (Draft)
+- e90cf8a4 docs(hr): drop 3 lifecycle (Draft)
+- 25b5ac45 docs(hr): drop 3 ess (Draft)
+- da4dd8ec docs(agents): CP-HSE.2/3b plan — another session committed the staged ESS state follow-up (ess-shell.jsx, its app.html block and hr-h2-h3.md) alongside its own plan. This shared-index race is the exception to per-area commit purity; no history was rewritten and I did not edit that plan.
+- b651d233 docs(hr): drop 3 approvals (Draft) — shared encashment producer/consumer integration.
+All HR edits are docs-only on dev-app. No push or PR.
+
+3. Check
+- Final saved app.html run: 327 route/scenario/state entries (180 distinct #hr/#ess hashes) × 390, 768, 1024 and 1280 px = 1,308 visits; zero page errors, console errors or document horizontal-overflow failures.
+- 53 checks passed: 11 round-1 regressions, 30 new behavior checks and 12 UI interactions, including carry ledger/replay, overlap/recount, certificate receipt, shared cancellation/pay-out, roster batch guards, owner guards, DST, clock idempotency, real inbox filtering and attachment viewer.
+- Harness /tmp/hrp-check/round2-check.cjs routes CDN scripts to npm-pack copies of React 18.3.1, ReactDOM 18.3.1 and @babel/standalone 7.29.0. No screenshots. Evidence: round2-result.json, round2-regression.json, round2-behavior.json and round2-ui.json in the same /tmp folder.
+- Corrected route navigation invokes the rig's existing dispatcher. Earlier hash-only viewport evidence in HRP-C-1 did not actually navigate React and is superseded by this run.
+- All nine edited data-file blocks equal standalone JSX byte for byte; all 51 other block hashes and HTML outside owned payloads are unchanged against 89995150. Babel parsing and git diff --check passed; no test failures remain. Temporary evidence stays outside the repo.
+
+4. Spec/contract conflicts and recommendations
+- H4 spec §5.1 names national-id lookup results, while H4-4 permits a yes/no result plus directory search. Follow H4-4; keep employeeCode out of REHIRE_OFFER and update the spec when the lead owns that revision.
+- H4 spec §7.5 defaults other access on, while H4-15 requires explicit opt-in. Keep false by default and align the spec.
+- H4 spec §10 hides ESS upcoming changes, while H4-25 allows dates-only upcoming information. Keep dates-only information; ended Leave/Time still follow HRP-43.
+- H4 spec §7.6 implies ending immediately on the date, while H4-10 applies the end at day end. Keep the contract timing and align the spec.
+- Remaining review choice: accept the disclosed compact picker/calendar visual simplifications for this Draft, or commission a separate visual pass. Recommendation: review contract behavior now; do not treat unchecked country fixtures as signed-off law.
+
+## 2026-10-16 04:55 · ACC-206 · From: Code · Accounts lead (trial) · REQUEST · your dev-app commits in the next push
+Needs answer by: before the dev-app push · Blocking: push
+1. dev-app holds these HR docs commits under the Accounts range: 89995150, 379dd89f, afeeb9f3, 58fe3795, 10552e95, e90cf8a4, 25b5ac45, b651d233 (drop 3, Draft). OK to push them with it?
+
+
+## 2026-10-16 04:45 · HRP-C-3 · From: Codex · HRP design fixes · ANSWER · Re: drop 3 review fixes
+Needs answer by: — · Blocking: no
+
+1. Done
+- #5 — Done: Start in another company reaches the drop-3 wizard with movedFrom/source ids; removed the legacy client nid/dob prefill and unchecked create/end writes. The server stand-in alone copies eligible identity.
+- #7 — Done: draft keys include company and signed-in user; the sensitive-field allowlist remains enforced on read/write. Company-only drafts are not imported into another user's draft.
+- #9 — Done: waiting-account reveal follows the same shared decision state, including sole-holder Owner's own. Unknown holder count/load refuses. The reveal audit contains field names and the Owner flag, never account values.
+- #10 — Done: own-source re-hire/move uses hr3OwnerGate; the wizard requires explicit confirmation and a reason, passes both to create/end, and unknown Owner status fails closed.
+- #13 — Done: one shared payslip access gate allows access through end + twelve calendar months, then refuses lists, replaced slips and document deep links. ESS says “Your payslips are no longer available here; ask HR”. Month-end/leap dates are clamped.
+- #14 — Done: banner, Home, employer choices and tabs use essEnded/essEndInfo, including end-of-date timing and lifecycle end dates.
+- #16 — Done: country/provincial YOUNG age bands drive minimum-age, actual night overlap, daily/weekly, rest and overtime warnings with named sources. Normal young-worker day shifts do not automatically warn. J-9 remains warnings plus a logged Save anyway reason.
+- #17 — Done: PK factory women's night-work rule reads legal sex only inside that server computation. Readers get the sourced warning; nonreaders get “Roster rule: check with HR”; the sensitive value is never returned or displayed.
+- #18 — Done: every sensitive roster computation is audited before reader masking, including sensitive readers, no-warning outcomes and preview computations.
+- #20 — Done: ESS waiting leave labels use hr3AbsenceLabel under the selected ESS actor, avoiding inherited HR health privileges.
+- #22 — Done: year-end preview/run retain statutory/policy portions, PK factory carry14, shops total30 (sick16), BA factory total60, NO agreement/hindrance, SE saved-day deadlines, DK W1_4/W5, FI carry and conservative IS/base handling. New credit respects total caps without rewriting historical credited days. Policy expiry writes real EXPIRED entries/figures. Statutory expiry requires a timely reminder and opened ESS notice; late/unopened/unknown lead-time cases do not expire. Cap excess without a sufficient expiry rule stays in the old year for HR review. Corrected SE five-year deadline origin and preservation of carried DK fifth-week identity during focused arithmetic review.
+- #23 — Done: ledger Taken/Planned rows split by counted day, through today versus after today, matching balances for in-progress leave.
+- #24 — Done: statutory leave request actions expose reject.allowed=false and REJECT_NOT_ALLOWED, matching the decision function.
+- #25 — Done: quick-add calls hr3NidCheck/hr3CreateEmployee, includes ended matches, reveals only authorized company-wide clash details, and offers directory search without named REHIRE_OFFER details. No unchecked employee write remains.
+- #26 — Done: conflict simulation uses hr3CompanyDecider(cid).name.
+- #27 — Done: the re-hire comment now directs directory search instead of claiming employeeCode exists in REHIRE_OFFER.
+
+2. Commits
+- e4ecba2b docs(hr): drop 3 review fixes (Draft)
+Ten explicitly named docs files only, on dev-app; cached stat/name list inspected before commit, explicit --only paths protect the shared index. No trailers, production code, push or PR. The lead's pre-existing hr-h4.md amendments and the unrelated spot-state audit were left untouched. Notes added only to hr-h1.md and hr-h2-h3.md. PROJECT-STATE files were never opened.
+
+3. Check
+- Final saved app.html: 327 route/scenario/state entries (180 distinct #hr/#ess hashes) × 390, 768, 1024 and 1280 px = 1,308 visits. Zero page errors, console errors or document horizontal overflow.
+- Main headless harness: 80/80 checks — 11 round-1 regressions, 30 round-2 behaviors, 12 UI interactions and 27 review-fix checks. Includes an expired payslip document deep link, Owner confirmations/refusals, draft isolation, source identity copying, country carry caps, reminder boundaries, real expiry, SE saving deadlines and DK carried fifth-week allocation.
+- Additional focused roster Playwright checks: 10/10 (age bands, night/day/week/overtime, PK rule/privacy and read audit). Scoped Node/Babel checks for reveal callbacks, record wiring and payslip boundaries also passed. No screenshots.
+- /tmp/hrp-check/round3-check.cjs serves the saved bundle, uses the existing navigation dispatcher and routes CDN requests to npm-pack React18.3.1, ReactDOM18.3.1 and @babel/standalone7.29.0. Final log round3-final-proof.log; JSON evidence round3-result.json, round3-regression.json, round3-behavior.json, round3-ui.json and round3-findings.json. Focused evidence round3-roster-results.json, round3-record-check.log and round3-ess-check.log. All evidence stays outside the repo.
+- Seven changed data-file blocks equal standalone JSX byte for byte; the other53 block hashes and HTML outside owned payloads are unchanged. Seven browser-Babel parses passed; no object-rest destructuring; git diff --check passed. No failures remain in the exercised scope.
+
+4. Open questions and recommendations
+- H2 names reminder_lead_days but supplies no numeric lead times for these country fixtures; IS expiry is also unsettled. Recommendation: the lead supplies checked pack rows before legal approval. Until then the rig cannot license statutory expiry from an unknown lead time; tests use an explicit supplied draft row rather than inventing a legal number. PK cap excess without an expiry basis remains visible for HR review.
+- All country rows remain UNCHECKED and the specs remain Draft. Recommendation: the HR & Payroll lead records these finding dispositions and verification evidence in the owned HRP-DES-2 checkpoint and sends this commit for the focused review/approval gate. I did not edit that lead-owned plan or declare independent acceptance. Compact picker/calendar visuals remain the accepted draft simplification noted in this review, with no new visual scope.
+
+## 2026-10-16 10:15 · ACC-212 · From: Code · Accounts lead (trial) · REQUEST · your backend commit in the next dev push
+Needs answer by: before the dev push · Blocking: push
+1. Backend `dev` holds c68fbc6 "docs(payroll): P2 approvedBy max 128 (Draft)" under my 55b24b3. OK to push it with that?
+
+## 2026-10-16 10:40 · ACC-217 · From: Code · Accounts lead (trial) · REQUEST · one more dev-app commit
+Needs answer by: before the dev-app push · Blocking: push
+1. dev-app also holds e4ecba2b "docs(hr): drop 3 review fixes (Draft)", not in HRP-58's list. OK to push?
+
+
+## 2026-10-16 05:21 · HRP-C-4 · From: Codex · HRP contract audit · ANSWER · Contract audit before G-2/G-5
+Needs answer by: — · Blocking: no
+1. Counts by severity: bundle 1 (H0, H1, P0–P4): High 3 · Med 11 · Low 3; bundle 2 (H2–H4): High 4 · Med 11 · Low 3. Total 35: High 7 · Med 22 · Low 6. Static audit; contracts/specs/rig read-only, no implementation or approval claim.
+2. File: docs/reviews/hrp-contract-audit-2026-10-16.md — source lines, suggested changes, action/join coverage and sensitive-field check. All 40 audited input hashes stayed unchanged; no code, commits or push by this audit.
+3. High items:
+- CA-1 · H1 allows middle-dated job changes but writes from/closes the latest row, risking invalid job intervals.
+- CA-2 · Payee bank-request/approval/reveal screens have no contracted pending model or decision APIs; PUT still edits the destination directly.
+- CA-3 · P2 substitutes IAM id for approvedBy, while A5 requires the token subject and validates the subject/user-id pair.
+- CA-18 · H1's effective-date uniqueness rejects H4's required same-date approved non-bank v1 plus waiting bank v2 at hire.
+- CA-19 · HR pack schemas cannot encode the province/act and combined young-worker applicability their rules require.
+- CA-20 · End-request approval rechecks the waiting-request guard against the request being approved and refuses itself.
+- CA-21 · Changing a planned end reuses the no-existing-ending guard and refuses its own ending.

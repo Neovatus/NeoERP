@@ -225,3 +225,9 @@ Open questions collected from NeoERP-BackEnd/docs/modules/** (pages and module R
 - ERP · App: `AppSession.onCleared()` doesn't cancel its coroutine scope (harmless outside tests; found by Accounts · App, ACC-104).
 - ERP · App: move `AuditWording` (shared; Platform audit log, Org activity, Accounts) to string resources, keeping a synchronous path for CSV export and search; decide the export language (ACC-141).
 - ERP · Backend + ERP · App: build `docs/api/bootstrap-company-country.md` (accepted 2026-10-15): `country` on bootstrap `memberships[]` and `selectedContext` from `OrgScopeAccessPort.companyFacts`, non-null values cached; the app drops its Org-overview country fetch.
+- ERP · Backend: add a legal profile for Stockholm Handel AB (SE, synthetic Luhn-valid org number, address) to the ORG-FACTS-2 demo seed; keep it in line with the app's Org mock (ERP-128).
+- Accounts — commons-fileupload2 2.0.0-M5 (milestone, SIE upload): switch to the GA release when it ships; re-check the part-count and header limits (ERP-129) — NeoERP-BackEnd/services/accounts-service/build.gradle.kts
+- ERP: CP-EV-1b before HR/Payroll consume org events: pin org feed allowedClients, `org.events.read` scope (machine-client catalog change → Jabran), serve branchIds/effectiveFrom (ERP-135).
+- ERP: domain-events follow-ups: per-row savepoint when a leased batch can't be stored; `type_version` on org subscriptions at the next trigger rewrite (ACC-B-30).
+- ERP · App: shell connectivity + app-visibility signal so controllers' setOffline/setVisible are called (polling drops when hidden or offline) (ACC-205).
+- ERP · Backend: `:shared:file-store` rescan job for PENDING files (and on scanner signature change), per ADR-020 D10 amendment (ACC-222 P2I-7).

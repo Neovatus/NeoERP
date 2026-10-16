@@ -34,3 +34,30 @@ Owner (the main) only. One line per handled brief.
 - ACC-160 (do ERP-120/121, relayed): in progress (Haiku, one docs commit).
 - ACC-160 / ERP-120 / ERP-121: done (7f3f402d), reported as ACC-A-22 (and to erp-lead.md).
 - ACC-164 (CP-A3.2c accepted; read details.account string only): in progress (Haiku, one tiny commit).
+- ACC-164: done (4d7a0c62), reported as ACC-A-23. Idle.
+- ACC-167 (ERP-125 next-touch fixes): done 5b48af2b, reported as ACC-A-24.
+- ACC-169 (CP-HSE.2/3a SIE export screens): plan being written (Opus). ACC-A-23/24 accepted noted.
+- ACC-170 (ERP-126): done, Responsive Showcase PROTO -> ../screen-rig/app.html (ab270020).
+- ACC-170 done ab270020. ACC-169: plan done, questions ACC-A-25; D1 starting.
+- ACC-171 (answers to ACC-A-25): noted: SIE download = text/plain; charset=IBM437 on the SIE path only (no octet-stream), '.se' forced, 256 MB cap, 'Not available yet' until backend CP-HSE.1c; Q3 yes; backend asks in CP-HSE.1c; I draft copy.
+- ACC-169 / ACC-171 (CP-HSE.2/3a): done, reported as ACC-A-26. Import screens wait for an Amends after backend CP-HSE.1b.
+- ACC-175 (CP-HSE.2/3a accepted; copy approved, 4(d) keep the field error; push waits for the ERP lead's line and HR/Payroll's acceptance of a09fc826): noted. Import screens: wait for the Amends after backend 1b.
+- ACC-176 (ERP-127): item 1 (refuse duplicate Content-Type, core) in progress; item 2 (company-sweden Org mock) next.
+- ACC-176 (ERP-127): done (83aa2c4c, 688882ee), reported as ACC-A-27 (and to erp-lead.md).
+- ACC-178 (ERP-128): done (961ce3e2): mock org number 900000-0001. No report needed (one line); will be listed in the next report.
+- ACC-181 (CP-HSE.2/3b SIE import screens, Amends ACC-169): plan being written (Opus); id repeated to the user.
+- ACC-184 (CP-HSE.1c landed; Amends ACC-181): to be done inside CP-HSE.2/3b: real SIE download (drop 'Not available yet'), GET /exports?kind= filter (drop interim filter), preflight objectName, INFO OB_WRITTEN_AS_IB / OB_WRITTEN_AS_VOUCHERS copy.
+- ACC-181: plan done, questions ACC-A-29; waves 1-2 starting; ACC-184 folded in as slice E1.
+- ACC-186 (A3-A17 fields built, d72a3ae): noted; one verification in CP-HSE.2/3b: closedById/lockedById, audit currency and details.account light up against the backend shapes (mock fixtures match the as-built JSON).
+- ACC-188 (answers to ACC-A-29): noted: CP-NET-2 + picker yes from the lead (ERP lead decides, ACC-189; picker per neo-file-picker.md, build behind fakes until answered); backend CP-HSE.1d fixes the conflicts (text/plain for the original file, no third policy); never auto-replay OB confirm/approve.
+- ACC-190 (CP-NET-2 and NeoFilePicker approved, ERP-131): noted; conditions copied into cp-hse.2-3b/plan.md; build after wave 1/2.
+- ACC-195 (backend CP-HSE.1d landed): noted + folded into cp-hse.2-3b/plan.md (as-built shapes; no interim filters; server totals).
+- ACC-181/184/186/188/190/195 (CP-HSE.2/3b + CP-NET-2 + NeoFilePicker): done, reported as ACC-A-30.
+- ACC-208 (ACC-A-30 accepted on scope; push waits on ERP lead + HRP): noted. ACC-209 (SIE deep links in AppShellState, ERP-139.3a): queued; I add NO commits to dev-app until Jabran confirms the push (KMM-Network then dev-app).
+- ACC-210 (SIE copy approved with changes: args not baked account numbers, 'SIE file' wording, plain words, whole sentences): queued as its own commit after ACC-209; no commits until Jabran confirms the push.
+- ACC-211 (pushed; go): noted. ACC-209 (deep links) in progress; ACC-210 (copy) next.
+- ACC-209 (d403ad33), ACC-210 (fdc99292): done, reported as ACC-A-31 (209 also to erp-lead.md).
+- ACC-215 (d403ad33, fdc99292 accepted; yes to the two 2099 lines as arguments; backend briefed ACC-214): small commit in progress.
+- ACC-215 item 2 (two 2099 lines as arguments): done (bb8cff65), reported as ACC-A-32.
+- ACC-219 (YEAR_END_NOT_AS_VOUCHERS details live, backend 9c52f46): noted, nothing to do; fallback stays for the absent case. ACC-220 (bb8cff65 accepted; export 'closed to 2099' goes into the Phase 2 fix round; Phase 2 review running; idle until the findings list): noted.
+- ACC-223 (Phase 2 fix round app): plan written (cp-p2-fix-app), ACC-A-33; wave 1 starting.

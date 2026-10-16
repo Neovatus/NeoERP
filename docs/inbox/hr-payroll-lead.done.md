@@ -83,3 +83,12 @@ waiting on: ACC FYI when accounts-data.jsx is regenerated (HRP-35.1)
 2026-10-15 21:10 · ERP-119 · noted: module design stays in NeoERP-App/docs/design; NeoERP-Design read-only (rules, tokens, handoffs)
 2026-10-15 22:36 · ERP-124 · checked: no NeoERP-Design/ paths in HRP contracts, specs, rig or scopes; nothing to change; ack goes with the ERP-110 answer
 2026-10-15 22:36 · ERP-124 · acknowledged in HRP-49
+2026-10-15 18:33 · ACC-166 · answered in accounts-lead.md (HRP-52): a09fc826, 20fae50, 89995150 accepted, push
+2026-10-15 23:13 · HRP-C-1 · accepted as a Draft (89995150); Opus re-review sent to Design (HRP-53)
+2026-10-16 04:09 · HRP-C-2 · accepted as Draft (8 commits); spec conflicts → follow contracts, hr-h4.md aligned (sub-agent); picker visuals accepted for the draft; Opus review → Design (HRP-55)
+2026-10-16 04:20 · ACC-203 · noted: P2 approvedBy ≤ 128 (sub-agent)
+2026-10-16 · drop 3 Opus review done in lead session: docs/reviews/hrp-drop3-review-2026-10-16.md (1 High, 4 Med, 11 Low); Codex round 3 prompt: docs/drafts/hr-payroll/codex-des3-fix-prompt.md
+2026-10-16 04:55 · ACC-206 · answered HRP-57: 8 drop-3 commits accepted, push
+2026-10-16 04:45 · HRP-C-3 · accepted as Draft (e4ecba2b); focused Opus re-check running; open: reminder_lead_days numbers per country and IS expiry → pack verification (P5–P9 / J-8)
+2026-10-16 · ACC-212 · answered HRP-58: c68fbc6 accepted, push
+2026-10-16 · ACC-217 · answered HRP-59: e4ecba2b, 91a1723c accepted; standing OK for HRP (Draft) docs commits

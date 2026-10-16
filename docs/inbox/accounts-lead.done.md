@@ -126,3 +126,49 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-15 18:16 · ACC-A-20 · ERP-115 done 01ce2618; lead secret scan clean
 2026-10-15 18:20 · ERP-123 · acknowledged ACC-162; relayed ACC-160/161
 2026-10-15 18:29 · ACC-A-21 · accepted ACC-164; key ruled; ERP OK ACC-165
+2026-10-15 18:33 · ACC-A-22 · accepted; next-touch fixes ACC-167
+2026-10-15 18:33 · ERP-125 · dev-app OK; HRP commits a09fc826/20fae50 on shared branches → asked HRP ACC-166
+2026-10-15 18:37 · ACC-A-23 · accepted (4d7a0c62)
+2026-10-15 18:37 · ACC-A-24 · accepted (5b48af2b); leftover to ERP ACC-168; App next CP-HSE.2/3a ACC-169
+2026-10-15 18:41 · ERP-126 · relayed ACC-170
+2026-10-15 18:50 · ACC-A-25 · answered ACC-171; backend CP-HSE.1c queued ACC-172; ERP FYI ACC-173
+2026-10-15 20:09 · ACC-A-26 · accepted ACC-175; ERP OK ACC-174
+2026-10-15 20:14 · ERP-127 · OK to push SIE export screens; two items relayed ACC-176
+2026-10-15 20:37 · ACC-A-27 · accepted; ERP one line ACC-177
+2026-10-15 20:40 · ERP-128 · accepted; Luhn fix relayed ACC-178
+2026-10-15 20:44 · ACC-A-28 · accepted (961ce3e2)
+2026-10-15 21:19 · ACC-B-19 · noted (1b final gate running)
+2026-10-15 21:22 · HRP-52 · HRP commits accepted; dev-app push cleared
+2026-10-15 21:33 · ACC-B-20 · scope ok; answers ACC-180; ERP OK ACC-179; App import screens ACC-181
+2026-10-15 21:33 · ACC-B-22 · accepted (73788c5)
+2026-10-15 21:39 · ERP-129 · fix to backend ACC-182; backlog + ACC-R9 done; ERP ACC-183
+2026-10-15 21:39 · ACC-B-23 · 1c scope: metrics/Postman missing → ACC-182; App told ACC-184
+2026-10-15 21:44 · ACC-B-24 · accepted d72a3ae; ACC-182 before EV-1 (ACC-185)
+2026-10-15 21:44 · ERP-130 · noted; branch name queued (ACC-185.3); merge ACC-R9/P-12 at next register touch
+2026-10-15 21:47 · ACC-A-29 · answered ACC-188; backend CP-HSE.1d ACC-187; ERP ACC-189
+2026-10-15 21:51 · ERP-131 · relayed ACC-190
+2026-10-15 22:01 · ACC-B-25 · accepted 178235f; push cleared; timeouts to ERP ACC-192; 1d before EV-1 ACC-191
+2026-10-15 22:05 · ERP-132 · relayed CFG-UPL-1 ACC-193
+2026-10-15 22:12 · ACC-B-26 · accepted 58d68f2; CFG-UPL-1 first ACC-194; App told ACC-195
+2026-10-15 22:33 · ACC-B-27 · accepted; ERP OK ACC-196; EV-1 go ACC-197
+2026-10-15 22:36 · ERP-134 · OK; backend push cleared
+2026-10-16 03:20 · ERP-137 · seen; D13.2 briefed ACC-198 (CP-EV-2); backend push now 14 commits
+2026-10-16 03:40 · ACC-B-31 · plan approved ACC-199; ERP FYI ACC-200; go-live ACC-R10
+2026-10-16 04:20 · ACC-B-32 · accepted ACC-201; ERP OK asked ACC-202; HRP FYI ACC-203
+2026-10-16 04:35 · ERP-138 · OK; ADR commit asked ACC-204; push after
+2026-10-16 04:45 · ACC-B-33 · 5441596 ok; push 17 to Jabran
+2026-10-16 04:55 · ACC-A-30 · scope ok; shared → ERP ACC-205; HR commits → HRP ACC-206; discardedBy → backend ACC-207; copy check running
+2026-10-16 09:45 · ERP-139 · accepted; deep links → App ACC-209; push to Jabran
+2026-10-16 09:45 · HRP-57 · HR commits OK; push
+2026-10-16 10:15 · ACC-B-34 · 55b24b3 accepted ACC-213; HRP asked ACC-212 for c68fbc6
+2026-10-16 10:25 · HRP-58 · c68fbc6 OK; backend push to Jabran (2)
+2026-10-16 10:40 · ACC-A-31 · accepted ACC-215; ERP ACC-216; HRP ACC-217; backend ACC-214
+2026-10-16 10:50 · ERP-140 · d403ad33 OK
+2026-10-16 10:50 · HRP-59 · OK; standing rule: HRP '(Draft)' docs-only commits pre-accepted
+2026-10-16 11:00 · ACC-B-35 · 9c52f46 accepted; push now 3
+2026-10-16 11:10 · ACC-A-32 · bb8cff65 accepted; export 2099 line → Phase 2 fix round
+2026-10-16 12:40 · ERP-141 · agreed; quota commit → ERP, doc line → backend ACC-225
+2026-10-16 12:50 · ACC-A-33 · plan ok (no reply needed; it proceeds)
+2026-10-16 13:00 · ACC-B-36 · plan approved ACC-226
+2026-10-16 13:40 · ACC-B-37 · accepted ACC-228; quota → ERP ACC-227
+2026-10-16 13:50 · ERP-142 · 9e563a8 accepted; backend push 6 to Jabran
