@@ -92,3 +92,5 @@ waiting on: ACC FYI when accounts-data.jsx is regenerated (HRP-35.1)
 2026-10-16 04:45 · HRP-C-3 · accepted as Draft (e4ecba2b); focused Opus re-check running; open: reminder_lead_days numbers per country and IS expiry → pack verification (P5–P9 / J-8)
 2026-10-16 · ACC-212 · answered HRP-58: c68fbc6 accepted, push
 2026-10-16 · ACC-217 · answered HRP-59: e4ecba2b, 91a1723c accepted; standing OK for HRP (Draft) docs commits
+2026-10-16 · HRP-C-4 · dispositions: docs/reviews/hrp-contract-audit-2026-10-16-dispositions.md (35 accepted); contract fixes by lead sub-agents; ERP HRP-61, ACC HRP-62
+waiting on: HRP-61 from ERP
