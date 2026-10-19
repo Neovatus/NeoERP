@@ -6,6 +6,10 @@ Owning checkpoint: [P8–P9 plan](../../agents/hrp-p8-p9/plan.md).
 Official sources, legal uncertainty and approval gates are in contract §2/§11.
 All country rules UNCHECKED, readiness PARALLEL_ONLY; no production capability claimed.
 
+**Batch A · 2026-10-19 — current shared import coverage.** The draft rig uses synthetic source fixtures only in the shared **Upload → Mapping → Preview → Apply → Done** journey. Mapping and apply each require reselecting the matching synthetic source; this demonstrates source binding without a physical file, parser, HR matcher or engine. IS is a personal credit-allocation instruction profile, never an authority tax-card feed. P9-A1 inherits the single [P1-43 amendment](../../../NeoERP-BackEnd/docs/api/payroll-v2-p1.md) (§2 and §8.2); it no longer proposes a separate country transport or approval. P1-43 remains Draft with ERP sensitive-data review and Jabran approval open.
+
+The shared scenarios cover expiry (410 `IMPORT_PREVIEW_EXPIRED`, clear stored preview rows), changed source (409 `IMPORT_SOURCE_CHANGED`, no preview/mapping/card mutation), stale card, HR unavailable, own-row rejection/counts, confidential refusal before any write, permission lost after preview, partial applied/skipped counts, file-free JSON discard and retry. Production mapping/apply inherit multipart `command` plus same `sourceFile`; missing file/command → 400. TTL is configurable with recommended `PT30M`. Profiles specify non-ID row fingerprints/order; raw files/IDs are request-only, cleared on every outcome and never persisted/logged/returned. Apply freshly checks HR pairs, company/pay-group/year eligibility, confidentiality and own association; newly forbidden confidential candidates refuse atomically, ineligible/unmatched rows skip/count and own rows reject/count under P1-29. Replay reauthorizes currently without a second HR call or write. Synthetic coverage proves no real file/parser/engine behavior and grants no country readiness.
+
 ## 1. Entry and scope
 
 Payroll → Setup → Country workbench, route `#pay:reyk|setup|country`.
@@ -55,9 +59,9 @@ Wrong pair remains unmatched. Duplicate employee mapping refuses. Own-pay row is
 Owner's own follows inherited single-holder reason path only if the server explicitly permits it.
 
 Production Save mapping AND Apply require reselecting the exact same original source file.
-Proposed multipart `command` JSON with current version plus `sourceFile` binds exact bytes,
+Inherited P1-43 multipart `command` JSON with current version plus `sourceFile` binds exact bytes,
 employer, year, parser profile and row order. Server transiently reparses and freshly validates
-employee-id/national-id pairs with HR. JSON-only mapping/apply is insufficient until P9-A1 approved.
+employee-id/national-id pairs with HR. P9-A1 inherits P1-43; shared sensitive-data review and Jabran approval remain open.
 Copy intent: “Select the same source again to verify identities. Payroll does not save this file.”
 Raw source/national IDs are cleared after every outcome and never go to localStorage,
 telemetry, error text, retained matching proofs or audit. Rig bindings remain synthetic.
@@ -67,8 +71,7 @@ current authorization still controls whether its non-sensitive result can be dis
 Before Apply, display eligible and skipped counts plus row reasons. Apply confirmation never
 says all rows imported if some cannot match. Success shows actual applied/skipped counts and
 links to affected CALCULATED runs. Conflict requests refresh, HR unavailable applies nothing.
-If permissions/confidential grant/own-employee link change after preview, fresh apply checks
-refuse before any card mutation. Approved/paid runs remain frozen; next-run and correction
+If operation permission is lost or a candidate becomes confidential without the grant, refuse before any card mutation. Fresh eligibility/own-employee checks skip or reject affected rows with explicit counts under P1-29/P1-43. Approved/paid runs remain frozen; next-run and correction
 implications are explicit rather than silently refunding earlier tax.
 
 ## 4. Credit detail and manual input proposal

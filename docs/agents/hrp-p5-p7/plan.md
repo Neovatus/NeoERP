@@ -41,3 +41,16 @@ were made by this handoff. Historical browser checks were not rerun today and th
 /tmp artifacts are unavailable on this pickup; recreate them for the next changed batch.
 F-09 is a newly noticed P5 salary/payee-file wording mismatch pending owner disposition;
 previous independent PASS results apply to their reviewed findings, not this new one.
+
+## HRP-63/65 batch 0 + A — 2026-10-19
+
+The lead accepted F-09 and authorized Draft commits and shared import batch A.
+0a clarifies SALARY locks versus PAID-only PAYEE files. Existing country package
+committed Backend 01d7b85 / App 20162615 / workspace a397564; CA-14 is separate
+App 503cf517. All five country proposals now inherit Draft P1-43 rather than
+separately approving transport A-ids. Current active checkpoint/evidence is
+[batch 0/A](../hrp-p8-p9/plan.md#active-brief--hrp-63--hrp-65-batch-0--a-2026-10-19).
+Final checks: 264 browser/helper + 21 CA-14 exact-source, 744 route visits clean.
+Lead-session formal review and acceptance pending; Codex stops after HRP-C-7,
+before B. Prior no-commit boundaries above describe the earlier draft request;
+HRP-63/65 now supersede those for the explicit batch paths only.

@@ -3,13 +3,13 @@
 | Field | Checkpoint |
 |---|---|
 | Identity and ownership | HRP-P8-P9; Finland and Iceland Payroll design/spec/proposed contracts, requested by Jabran 2026-10-18. Codex leads draft integration. HRP lead retains approval and existing plans. |
-| Stage and status | Engineer draft authoring/integration complete; Advisor 2 structured self-challenge passed within draft scope; Draft authoring/integration/verification complete; independent fix-only re-review PASS. Awaiting required formal Opus review and Final Approval; no approved delivery or production implementation. |
-| Approval | Design drafts, researched proposed contracts and browser fixture rig only. No production code, migrations, credentials, live filing, commit, push or PR. Existing P0–P7/H contracts and P5–P7 drafts remain read-only except additive common rig/spec integration. Task restriction: never open PROJECT-STATE*.md; workspace integration lead owns any index update. |
+| Stage and status | HRP-63/65 batches 0 and A complete as verified Draft delivery. Awaiting HRP lead acceptance and lead-session Opus review; B not started. |
+| Approval | HRP-63/65 explicitly authorize batch 0 and A Draft work and explicit-path docs commits. No production, migrations, live submissions, push, PR or PROJECT-STATE access. B–E wait for lead acceptance. Formal review remains lead-owned. |
 | Write scopes | Finland worker: new Backend docs/api/payroll-v2-p8.md and workspace docs/drafts/hr-payroll/payroll-p8-finland.md. Iceland worker: corresponding p9.md/payroll-p9-iceland.md. Codex: App docs/design/screen-rig/payroll-data.jsx, payroll-setup.jsx, payroll-rig.jsx, matching app.html payloads only; App docs/design/specs/payroll-p.md; this checkpoint. No shell/routes/Tweaks/Org/People/Roles/Activity changes. |
 | Progress | Recorded scope confirms P8 FI: income-limit card, TyEL, unemployment/health, holiday/lomaraha, per-payment Incomes Register and employer report. P9 IS: brackets/credit, social charge, pension/séreign, orlof, tax/fund/union files. Reuse the country workbench, P1 import, P2 role mapping, P3 files and P4 immutable filing model. |
 | Evidence | App dev-app 574ffe1c914b54bb66c29469ec1bf15ad270ba13; Backend dev c521bd3509c3752d2d15969167c1335c3a101084. Pickup dirty App: five existing P5–P7 files (three JSX/app/spec) plus unrelated untracked spot-state audit. Backend: three untracked P5–P7 contracts. They are preserved. At pickup, prior /tmp artifacts were unavailable; the exact-version local-CDN harness was recreated for the recorded final run. Its /tmp artifacts are again unavailable at the 2026-10-19 handoff; final evidence is recorded below. |
 | Findings | P8/P9 contracts were absent at pickup; both are now drafted. Material gates recorded: FI per-payer income ceiling and revised-card opening facts, per-payment versus monthly no-wages/cancellation reporting and unemployment payee mapping; IS annual/monthly credit discrepancy, child applicability wording, social base/rounding and recipient-specific formats. HR Helsinki/Reykjavík seeds are reused; the missing Helsinki Payroll wrapper/profile was added in the draft, and Reykjavík retains its rig wrapper. Country source research, 2026 rule/schema checks and practitioner/pilot gates required. Do not invent country rules or let simulated acceptance mark READY. |
-| Resume point | HRP lead/Jabran: review the linked Draft package; arrange required formal Opus review and resolve shared P1/P2/P4/HR amendments plus country practitioner/parser/schema/pilot evidence before readiness or implementation approval. Codex has completed the authorized draft preparation and paused before Final Approval/approved delivery. No commit/push/PR. |
+| Resume point | Wait for lead acceptance of HRP-C-7 and the fresh lead-session Opus review before any batch B work. |
 
 ## Discovery and plan
 
@@ -126,3 +126,59 @@ all inventoried pay routes at four widths plus touched HR/ESS scenarios and prio
 regressions. Formal reviewer remains lead-owned; root may use independent source
 review to catch defects before handoff. No new statutory decisions or batch B–E.
 Next: complete 0a/0b, integrate/test/commit 0c, build/test/commit A, append HRP-C-7.
+
+### Batch 0 delivery / batch A integration checkpoint
+
+0a corrected P5 SALARY/PAYEE wording; no identical overbroad sentence found P6–P9.
+0b committed existing country Draft package: Backend 01d7b85, App 20162615,
+workspace a397564. Exact Draft status in all five contracts. 0c App 503cf517 is
+separate with specified subject; four HR/ESS sources + helper-name fix + app blocks.
+Its four Babel parses and 21 exact-source behaviors pass; unified browser checks
+pending. Unrelated Accounts source/spot-state audit excluded.
+
+Batch A implemented in shared helpers/PySuTaxImport, and ten country docs aligned
+by a file-disjoint worker to P1-43. Three Payroll/HR/ESS bundle integration sets
+preserved all other payloads on each fresh write; current owned set seven blocks.
+Country doc QA: eleven JSON examples, twenty-six local links, whitespace pass.
+All five stages and required source/failure/row/count/replay/privacy states are
+in the current draft. Root owns final parse/browser/source-hash checks and commits.
+
+### Batch A final verification / review checkpoint
+
+Independent source review PASS, then focused fingerprint-hardening re-review PASS:
+source binding accepts only registered ID-free string fixture tokens, rejects nested
+identity-bearing metadata without writes, copies arrays defensively, and detects
+valid reordered fingerprints as IMPORT_SOURCE_CHANGED. Reporting functions unchanged.
+Formal read-only Opus review remains the lead's task after this report.
+
+Final /tmp/hrp-c7-check/check.cjs: seven full JSX Babel parses; 264 browser/helper
+assertions plus 21 exact-source CA-14 behaviors; 186 Payroll design/manual route
+scenarios × 390/768/1024/1280 = 744 visits, zero page/console errors, blank roots
+or document overflow. Includes all required A failure states across five countries,
+five-stage source reselection/mapping/apply/retry UI, ESS NID no-action/contact-HR,
+ESS populated correction render/withdraw, PAID/duplicate payee files and FI report
+parent-context regression. Fingerprint injection checks pass without persistence.
+No screenshots. npm-packed React/DOM 18.3.1 and Babel 7.29.0 used for CDN routes.
+
+Seven owned blocks equal JSX; 53 other payload hashes and wrapper equal the first
+fresh integration snapshot. Source/script test files stay in /tmp. Ten country docs
+inherit Draft P1-43, eleven JSON examples and twenty-six local links pass; exact
+five backend Draft statuses preserved. Final diff whitespace clean.
+One automation run scrolled the shared picker while open (documented close behavior);
+the final harness centers before opening. Tightened binding validation required
+using a valid different digest fixture in the changed-source test. Both harness
+issues were corrected; no product failure remains in the exercised scope.
+
+Remaining approvals: lead acceptance of 0/A, fresh lead-session Opus review,
+ERP review of Draft P1-43 sensitive-data handling and Jabran's design gates.
+Source/practitioner/pilot gates remain UNCHECKED/PARALLEL_ONLY. None blocks safely
+showing unverified design states, but B must not start until the lead accepts A.
+
+### Draft delivery closeout
+
+Backend batch A 8ba3a05 inherits shared P1-43; App batch A is the inspected
+`docs(payroll): shared tax-card import workflow (Draft)` commit. The workspace
+batch A flow/checkpoint commit contains the reviewed country notes and final
+verification record. HRP-C-7 carries all exact hashes/subjects, including this
+workspace commit. All commits use the required author/email, explicit --only
+paths and no trailers. No push, PR or production code. Batch B not started.

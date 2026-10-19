@@ -15,6 +15,10 @@ parser or production HR pair validation.
 The complete flow below proposes future provider/API/file-writer/calculation behavior;
 those production capabilities are not implemented by this prototype.
 
+**Batch A · 2026-10-19 — current shared import coverage.** The draft rig uses synthetic source fixtures only in the shared **Upload → Mapping → Preview → Apply → Done** journey. Mapping and apply each require reselecting the matching synthetic source; this demonstrates source binding without a physical file, parser, HR matcher or engine. The country profile is a tax-card file profile; verified parser/source support remains pending. P6-A1 inherits the single [P1-43 amendment](../../../NeoERP-BackEnd/docs/api/payroll-v2-p1.md) (§2 and §8.2); it no longer proposes a separate country transport or approval. P1-43 remains Draft with ERP sensitive-data review and Jabran approval open.
+
+The shared scenarios cover expiry (410 `IMPORT_PREVIEW_EXPIRED`, clear stored preview rows), changed source (409 `IMPORT_SOURCE_CHANGED`, no preview/mapping/card mutation), stale card, HR unavailable, own-row rejection/counts, confidential refusal before any write, permission lost after preview, partial applied/skipped counts, file-free JSON discard and retry. Production mapping/apply inherit multipart `command` plus same `sourceFile`; missing file/command → 400. TTL is configurable with recommended `PT30M`. Profiles specify non-ID row fingerprints/order; raw files/IDs are request-only, cleared on every outcome and never persisted/logged/returned. Apply freshly checks HR pairs, company/pay-group/year eligibility, confidentiality and own association; newly forbidden confidential candidates refuse atomically, ineligible/unmatched rows skip/count and own rows reject/count under P1-29. Replay reauthorizes currently without a second HR call or write. Synthetic coverage proves no real file/parser/engine behavior and grants no country readiness.
+
 ## 1. Entry and status
 
 Route `#pay:sthlm|setup|country` (Setup → Country workbench) opens the Sweden fixture.
@@ -62,7 +66,7 @@ Saving replacement preserves history; affected CALCULATED run shows “Inputs ch
 Approved run remains immutable; explain next-run/correction handling without an automatic refund.
 Own-pay change uses P1 guard; no imported file circumvents it.
 
-## 5. File preview → employee mapping → apply
+## 5. Upload → Mapping → Preview → Apply → Done
 
 Choose supported draft exchange profile and year; authority export support is not yet claimed.
 Upload opens preview only: no TaxCard has changed.
@@ -71,13 +75,13 @@ Each row: employee code/name if authorized, masked identity, table/column/method
 proposed effectivity, current card version and field-specific problem text.
 No employee-id column => UNMAPPED. Pick employee with existing HR-directory search picker.
 Never offer “find by national id”. Saving a mapping requires reselecting the same
-original source file. Proposed P6-A1 multipart `command` JSON carries version and
+original source file. Inherited P1-43 (local P6-A1) multipart `command` JSON carries version and
 rowIndex/employeeId mappings; `sourceFile` carries that source. Server parses it afresh
 and verifies chosen employee/national-ID pairs through HR.
 Wrong pair => UNMATCHED, not a successful mapping; duplicate employee mapping blocks.
 Unmapped/unmatched/rejected rows are skipped and counted, consistent with P1.
 Apply summary explicitly says which eligible matched rows change and which rows skip.
-P6-A1 requires reselecting the same source for BOTH Save mapping and Apply. Apply
+P1-43 (local P6-A1) requires reselecting the same source for BOTH Save mapping and Apply. Apply
 sends multipart `command` JSON inherited apply body plus `sourceFile`; compare exact
 preview byte digest, employer, tax year, parser profile and row order before either
 operation, then transiently parse and freshly validate HR pairs.
@@ -85,7 +89,7 @@ Copy at both actions: “Select the same file again to confirm identities. The f
 not saved in Payroll.” A source mismatch changes neither mappings nor cards.
 Source bytes and parsed IDs stay in request memory and clear on every outcome;
 no IDs in storage, logs, errors, browser persistence or retained proof stores.
-JSON-only mapping/apply is insufficient until P1/HRP approves P6-A1. Discard remains
+P6-A1 inherits P1-43; shared sensitive-data review and Jabran approval remain open. Discard remains
 JSON without a file. No new shared API or identity lookup is proposed.
 Require fresh permission, own-pay, source hash and active-card versions on apply.
 Stale card/employee => refresh preview, preserve safe user mapping where revalidated.
@@ -155,7 +159,7 @@ F/FA/A-tax evidence/dates, FA written invocation, yearly expected/prior remunera
 Do not infer deductions, employee rights, age relief or payroll entry from “contractor”.
 Corporate payer never inherits private-household SEK10,000 thresholds.
 Supplier/AP payment stays Accounts-owned; unsupported case routes to practitioner review.
-Acceptance requires P6-A1 approval, mapping AND apply same-source mismatch/fresh-pair
+Acceptance requires inherited P1-43 approval, mapping AND apply same-source mismatch/fresh-pair
 and no-ID persistence fixtures, paired-identity/stale/own-pay/cross-company fixtures, date/cap cases,
 liability/sick facts, paid-only AGI, first-declaration absence and correction history.
 Practitioner source checks, independent review and employer pilot remain pending.

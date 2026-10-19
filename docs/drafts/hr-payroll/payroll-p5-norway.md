@@ -8,6 +8,10 @@ Evidence: current P0–P4 contracts and [payroll screen spec](../../../NeoERP-Ap
 `NeoERP-Design/README.md` is absent in the inspected workspace; visual integration follows existing Payroll rig components.
 All examples are synthetic; no real national ID, bank account, tax card or authority credential appears.
 
+**Batch A · 2026-10-19 — current shared import coverage.** The draft rig uses synthetic source fixtures only in the shared **Upload → Mapping → Preview → Apply → Done** journey. Mapping and apply each require reselecting the matching synthetic source; this demonstrates source binding without a physical file, parser, HR matcher or engine. The country profile is a tax-card file profile; verified parser/source support remains pending. P5-A3 inherits the single [P1-43 amendment](../../../NeoERP-BackEnd/docs/api/payroll-v2-p1.md) (§2 and §8.2); it no longer proposes a separate country transport or approval. P1-43 remains Draft with ERP sensitive-data review and Jabran approval open.
+
+The shared scenarios cover expiry (410 `IMPORT_PREVIEW_EXPIRED`, clear stored preview rows), changed source (409 `IMPORT_SOURCE_CHANGED`, no preview/mapping/card mutation), stale card, HR unavailable, own-row rejection/counts, confidential refusal before any write, permission lost after preview, partial applied/skipped counts, file-free JSON discard and retry. Production mapping/apply inherit multipart `command` plus same `sourceFile`; missing file/command → 400. TTL is configurable with recommended `PT30M`. Profiles specify non-ID row fingerprints/order; raw files/IDs are request-only, cleared on every outcome and never persisted/logged/returned. Apply freshly checks HR pairs, company/pay-group/year eligibility, confidentiality and own association; newly forbidden confidential candidates refuse atomically, ineligible/unmatched rows skip/count and own rows reject/count under P1-29. Replay reauthorizes currently without a second HR call or write. Synthetic coverage proves no real file/parser/engine behavior and grants no country readiness.
+
 ## 1. Rig coverage versus proposed workflow
 
 Current integration route: `#pay:kyst|setup|country` (Payroll Setup → Country workbench).
@@ -39,7 +43,7 @@ Upload accepts only the supported checked Norwegian XML edition; unsupported edi
 File contains national IDs; upload processing remains server-side. Do not echo IDs or raw XML in the preview.
 Preview table columns: Row; Employee; Card type; Rate or table; Match; Outcome.
 Unmapped row reads `Choose employee`; picker uses existing company-scoped employee search.
-Saving a selection requires reselecting the same source XML; proposed multipart `command` JSON carries version/row/Employee ID mappings and `sourceFile` carries XML. The server parses it afresh and sends Employee ID + source national ID pairs to HR.
+Saving a selection requires reselecting the same source XML; inherited P1-43 multipart `command` JSON carries version/row/Employee ID mappings and `sourceFile` carries XML. The server parses it afresh and sends Employee ID + source national ID pairs to HR.
 UI never offers `Find by national ID`, a free-text national-ID search or a local matching algorithm.
 Matched row reads `Identity matched`; unmatched reads `Identity does not match this employee`.
 A wrong pick remains visible for correction; no other matching employee is suggested from national ID.
@@ -47,8 +51,8 @@ Duplicate employee mapping is rejected at save and row error points to both row 
 Own-pay row reads `Ask another payroll person to apply this card` unless the server offers the established Owner path.
 Unmatched/unmapped rows are skipped, with counts shown before apply; they never silently become cards.
 Apply control says `Apply 1 card` and adjacent text says `2 rows will be skipped` in the fixture.
-P5-A3 requires reselecting the same source file for BOTH Save mapping and Apply. Each sends multipart `command` JSON plus `sourceFile`; the server compares exact preview digest, employer, tax year, parser profile and row order, parses afresh and HR-pair-revalidates.
-Mapping command contains version and rows; apply command contains the inherited versioned apply body. JSON-only mapping/apply cannot support NO until P1/HRP approves P5-A3. Discard stays JSON without a file.
+P1-43 (local P5-A3) requires reselecting the same source file for BOTH Save mapping and Apply. Each sends multipart `command` JSON plus `sourceFile`; the server compares exact preview digest, employer, tax year, parser profile and row order, parses afresh and HR-pair-revalidates.
+Mapping command contains version and rows; apply command contains the inherited versioned apply body. P5-A3 inherits P1-43; shared sensitive-data review and Jabran approval remain open. Discard stays JSON without a file.
 Copy at mapping and apply: `Select the same file again to confirm identities. The file is not saved in Payroll.`
 Changing any source binding rejects the request and leaves mappings/cards unchanged; source bytes and parsed IDs live only in request memory and clear on every outcome. No storage, logs, error echoes or retained proof store may contain IDs.
 Changing the file requires a new preview; expired preview says `Preview expired. Import the file again.`
@@ -146,4 +150,4 @@ Use translation keys `payroll_no_<area>_<name>`, existing search pickers and exi
 Keyboard users can map rows, inspect errors, cancel and restore focus; announce progress/errors via existing live regions.
 Tables adapt to cards or existing horizontal-container pattern at 390px; page itself must not overflow.
 No screenshot/test result is claimed by this document; the integration lead verifies the shared rig.
-Approval requires contract+screen review, P5-A1/A2/A3 owner decisions, practitioner fixtures and pilot evidence before READY.
+Approval requires contract+screen review, P5-A1/A2 owner decisions and inherited P1-43 approval (P5-A3), practitioner fixtures and pilot evidence before READY.
