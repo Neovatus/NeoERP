@@ -164,3 +164,51 @@ and no-ID persistence fixtures, paired-identity/stale/own-pay/cross-company fixt
 liability/sick facts, paid-only AGI, first-declaration absence and correction history.
 Practitioner source checks, independent review and employer pilot remain pending.
 Rig is illustrative only; no country READY, checked law, bank acceptance or authority filing claimed.
+
+## 11. B1 interactive illustration — HRP-67, 2026-10-19
+
+**DRAFT / UNCHECKED / PARALLEL_ONLY.** Company settings and selected-employee
+views share five topics: tax/one-off, contributions, holiday, sick/karens and
+pension. Each shows applicability, P6 source/version, unverified payee,
+owner-labelled facts, sample Payroll inputs and pending money-to-payslip trace.
+There is no production calculator, policy save, posting or filing capability.
+
+- Tax changes taxable pay, sample table result, secondary-income case, bonus,
+  annual-income estimate and sample card one-off rate. No table algorithm or
+  official one-off band is invented; a table number is never a percentage.
+- Contributions use synthetic server HR cohort and March/April 2026 response
+  cases; change the base and Payroll prior monthly capacity usage. The April
+  youth illustration prices available SEK25,000 capacity at 20.81%, excess at
+  31.42%. No ledger reservation or automatic 2027 rule rollover is claimed.
+- Holiday changes the sample agreement method, salary/eligible wages, paid
+  days, liability opening and release. Separate salary-retained supplement or
+  percentage-method payment from closing liability and additional net pay.
+- Sick reads synthetic `HrAbsencesV1` spell/day/link/degree/schedule/payer/karens
+  facts; change Payroll lost-pay, average-week and prior-karens money. Default
+  exemption `UNKNOWN` blocks. An alternate day-4/day-15 response shows the
+  employer-period boundary; day 15 has zero statutory employer sick pay.
+- Pension changes sample agreement rate/base. Agreement/version, insurer,
+  coverage and approved payee remain unverified; payee stays a placeholder.
+  A sample rate is neither universal ITP nor an employee deduction. Pension
+  legal rows and SLP remain open verification gates.
+
+F-04 Lead decisions remain visible. O-1 is not served, so contributions show a
+missing-Org blocker naming company settings. HR's high-risk exemption input is
+not yet available, so normal sick pay shows `SE_SICK_FACTS_INCOMPLETE` naming
+`HrAbsencesV1.karens.exemption`. A labelled alternate FIXTURE response can show
+pending arithmetic only while preserving real missing-fact warnings; it does
+not replace `UNKNOWN` or save any HR/Org fact. Cohort/day selectors are FIXTURE
+response cases, never HR editors. No raw birth date, diagnosis, certificate or
+national ID is returned; HR owns the source facts and Payroll prices them.
+
+Exercise each topic's complete/sample, missing HR, missing Org, missing Payroll
+and unsupported-profile states. `SE_PROFILE_UNSUPPORTED` names Payroll and the
+profile/treatment field and suppresses money. Missing states name the owner and
+field and suppress computed amounts; invalid numbers/choices do the same. Actual
+actor denial precedes facts. Pension shows a plain pending-source row naming the
+company agreement, insurer terms and SLP authority source to check, with no
+unrelated official source link. Both views
+use the same guard/model and clear transient inputs on context changes. All rows
+stay Pending verification; existing P6 sources alone supply statutory constants.
+Root integration owns UI/bundle tests and checkpoint evidence. B2/C/D and new HR
+write UI are excluded; this clarification grants no production approval.

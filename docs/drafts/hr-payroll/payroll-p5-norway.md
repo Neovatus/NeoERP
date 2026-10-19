@@ -151,3 +151,39 @@ Keyboard users can map rows, inspect errors, cancel and restore focus; announce 
 Tables adapt to cards or existing horizontal-container pattern at 390px; page itself must not overflow.
 No screenshot/test result is claimed by this document; the integration lead verifies the shared rig.
 Approval requires contract+screen review, P5-A1/A2 owner decisions and inherited P1-43 approval (P5-A3), practitioner fixtures and pilot evidence before READY.
+
+## 9. Batch B1 click-through clarification — HRP-67, 2026-10-19
+
+Status remains **DRAFT — Pending verification**, UNCHECKED / PARALLEL_ONLY.
+Company-settings and employee scopes in the country workbench share a model showing
+applicability, official source/version, payee reference, owner-labelled facts and
+sample basis to candidate payslip/employer line. No account details or account
+approval is inferred. All controls are transient illustrations, never policy saves.
+
+Withholding selects a labelled synthetic percentage/table/no-card response.
+Sample salary/percentage changes update the candidate money trace; recorded card
+type/year remains a separate Payroll fact. Table mode identifies the missing
+official table/period algorithm and shows no guessed result. No-card uses the
+existing proposed 50% salary illustration. The selected response never replaces
+or certifies a real card.
+
+AGA uses current HR job branch and Org zone, explicitly limited to the current
+job date; it does not prove historical coverage. Ordinary-zone sample basis
+changes AGA; Ia/unknown profile or missing zone blocks. Holiday selects ordinary
+10.2% or five-week 12% accrual; age supplement names missing HR entitlement facts
+without guessing G or age. OTP reads the HR pension-provider reference and a
+labelled synthetic eligible-below-cap response; its 2% sample has no 1G deduction.
+Unknown coverage/below-cap assessment blocks rather than showing zero cost.
+
+Every topic offers complete, missing HR, missing Org, missing Payroll and refusal
+examples. The owner/destination is visible: HR employee record, company settings
+for effective Org facts, or the named Payroll input/policy field. Blockers remove
+the candidate result amount while labelled sample inputs can remain. HR/Org facts
+are read-only; no raw DOB, national ID, diagnosis or bank detail is returned.
+Fixture responses create no HR fields, provider, mappings or approvals.
+
+Named checks: recompute basis/percentage, table-without-result, all four topics ×
+five scenarios, explicit zone-V zero versus missing zone, absent provider naming
+HR, numeric/select validation, authorization and foreign-country refusal before
+facts. Browser verification and formal lead-session money review belong to the
+integrator; this document does not claim they ran. B2/C/D remain excluded.
