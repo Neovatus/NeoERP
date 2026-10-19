@@ -1,0 +1,149 @@
+# P5 Norway — country workbench and screen-flow draft
+
+Status: **DRAFT — not approved, not implemented, not production-ready.** Written 2026-10-17.
+Companion: [P5 API contract](../../../NeoERP-BackEnd/docs/api/payroll-v2-p5.md).
+The existing Payroll Setup/employee/run/filing flows remain the entry points; no new navigation shell.
+This file supplies Norway detail for the shared draft rig; it does not change existing P0–P4 contracts.
+Evidence: current P0–P4 contracts and [payroll screen spec](../../../NeoERP-App/docs/design/specs/payroll-p.md).
+`NeoERP-Design/README.md` is absent in the inspected workspace; visual integration follows existing Payroll rig components.
+All examples are synthetic; no real national ID, bank account, tax card or authority credential appears.
+
+## 1. Rig coverage versus proposed workflow
+
+Current integration route: `#pay:kyst|setup|country` (Payroll Setup → Country workbench).
+Rig release label: `NO-2026-P5-DRAFT`; this is a simulation identifier, not a published pack release.
+The workbench is session-only: preview/mapping/apply/conflict/replay stand-ins, pre-authored stale-run facts, source/pilot gates, sourced arithmetic, filing-version preview and correlated simulated feedback/corrections.
+Controls must say `Simulate` or `Demo` where they resemble upload, application, acceptance or correction.
+There is no actual import, physical source-file selection, identity validation, file writer, API, accounting mutation, payment, authority submission or credential handling. Synthetic source bindings stand in for file identity in the prototype.
+The detailed sections below describe the **full proposed future country workflow**, beyond current rig coverage.
+The production pack name `NO 2026.1` below is a proposed future release and remains UNCHECKED/PARALLEL_ONLY.
+
+## 2. Entry and information order
+
+Open Payroll → Setup → Country rules → Norway, selected from the company's Org country.
+Header: `Norway · 2026 · NO 2026.1`, then `Draft — country rules not checked`.
+Below: separate `Source review`, `Practitioner check`, `Parallel pilot` and `Country readiness` facts.
+Source research completed never turns the practitioner or pilot rows green.
+Main sections: Tax cards; Employer and AGA; Holiday pay and pension; A-melding.
+At narrow widths use one section at a time with existing segmented/tab patterns; retain a stable page heading.
+Setup is read-only for `PAYROLL.SETUP.READ`; write buttons follow exact server `actions[]`.
+A user without employee access sees counts and setup rules only; no employee-tax-card rows.
+Country READY is release-derived and has no toggle, button, client-set flag or fake completion action.
+
+## 3. Tax-card first-time flow
+
+Tax-card section leads with `Import tax cards`, tax year, source format and last import result.
+Helper: `Get the file from Skatteetaten, then import it here. API retrieval comes later.`
+No Connect Maskinporten button, credential box, token field or simulated successful connection.
+Upload accepts only the supported checked Norwegian XML edition; unsupported edition gives a concrete blocker.
+File contains national IDs; upload processing remains server-side. Do not echo IDs or raw XML in the preview.
+Preview table columns: Row; Employee; Card type; Rate or table; Match; Outcome.
+Unmapped row reads `Choose employee`; picker uses existing company-scoped employee search.
+Saving a selection requires reselecting the same source XML; proposed multipart `command` JSON carries version/row/Employee ID mappings and `sourceFile` carries XML. The server parses it afresh and sends Employee ID + source national ID pairs to HR.
+UI never offers `Find by national ID`, a free-text national-ID search or a local matching algorithm.
+Matched row reads `Identity matched`; unmatched reads `Identity does not match this employee`.
+A wrong pick remains visible for correction; no other matching employee is suggested from national ID.
+Duplicate employee mapping is rejected at save and row error points to both row numbers without sensitive values.
+Own-pay row reads `Ask another payroll person to apply this card` unless the server offers the established Owner path.
+Unmatched/unmapped rows are skipped, with counts shown before apply; they never silently become cards.
+Apply control says `Apply 1 card` and adjacent text says `2 rows will be skipped` in the fixture.
+P5-A3 requires reselecting the same source file for BOTH Save mapping and Apply. Each sends multipart `command` JSON plus `sourceFile`; the server compares exact preview digest, employer, tax year, parser profile and row order, parses afresh and HR-pair-revalidates.
+Mapping command contains version and rows; apply command contains the inherited versioned apply body. JSON-only mapping/apply cannot support NO until P1/HRP approves P5-A3. Discard stays JSON without a file.
+Copy at mapping and apply: `Select the same file again to confirm identities. The file is not saved in Payroll.`
+Changing any source binding rejects the request and leaves mappings/cards unchanged; source bytes and parsed IDs live only in request memory and clear on every outcome. No storage, logs, error echoes or retained proof store may contain IDs.
+Changing the file requires a new preview; expired preview says `Preview expired. Import the file again.`
+Cancellation clears active file reference and selection; discard asks only the existing reason rules where applicable.
+Do not persist file, national IDs or preview contents in local storage, session storage, offline cache or analytics.
+After apply, show applied/skipped counts and replaced-card history; do not toast success for every source row.
+
+## 4. Employee card detail and stale runs
+
+Employee Pay → Tax card shows year, method, source, effective date, active version, table/percent, employer role and PAYE badge.
+Show `MAIN`, `SECONDARY` or `Confirm employer role` with clear percentage fallback behavior.
+Frikort shows employer allocation and remaining allocation; no assumed total national allowance.
+Missing card says `50% withholding on salary until a valid card is available`, alongside the country-rule source/check state.
+PERCENT example uses synthetic 30.00%; it is not a Norwegian default rate.
+Manual edit requires existing `PAYROLL.EMPLOYEE.UPDATE`, source reason and own-pay enforcement.
+Manual data is labelled `Entered manually`; it must not appear `Retrieved from Skatteetaten`.
+History shows old card as Replaced; source/version/effective dates remain inspectable without IDs.
+When card v4 replaces v3 used in a calculated unpaid run, banner: `Tax card changed. Recalculate before submitting.`
+Submit/approve controls are derived from server actions; UI cannot dismiss staleness into approval.
+Approved run points to existing withdrawal/reopen path; paid run points to correction run flow.
+A paid historical payslip continues showing its pinned calculation; new card cannot change its figures.
+
+## 5. Employer and AGA section
+
+Show legal employer and organisation number from Org; branches show effective sub-unit number and AGA zone history.
+These are linked facts with `Open organisation details`, not Payroll copies editable in a side form.
+A mid-period transfer shows two dated segments and respective zone/base/rate traces.
+Missing zone, Ia aid opening or unsupported mobile-work/sector facts shows a blocker with owner and corrective destination.
+Zone V zero contribution is supported only by complete checked facts; a missing zone is never displayed as 0%.
+Ia display explains `Allowance measures the saving compared with zone I`, not a tax-free salary amount.
+Employer payment card distinguishes `Withholding — next working day after payment` from `AGA — every two months`.
+2026 note: `Withholding is paid directly to Skatteetaten. A blocked tax-deduction account is no longer required.`
+Do not require a skattetrekkskonto or bank guarantee before a Norway setup can progress.
+Authority bank/KID details are entered and approved through existing payee controls; no number is embedded in demo copy.
+The account requester cannot use their own pending change; show P3 maker bar and approved account status.
+Legal due dates need complete Norwegian working-day calendar coverage; missing coverage reads `Due date cannot be confirmed`.
+
+## 6. Holiday pay and pension section
+
+Holiday card shows qualifying year, payout year, eligible basis, statutory/agreement rate, age supplement and remaining accrual.
+Separate ordinary 10.2% and agreed five-week 12% choices; pack minimum guard is server-enforced.
+Show 2.3 percentage-point age supplement separately with its 6G cap and selected G effective date.
+Explain the cap belongs to the supplement, not the whole holiday-pay basis.
+June is the fixture's company payout schedule; copy must not call it a universal statutory deadline.
+Salary reduction for holiday and holiday-pay payout are separate run lines; show prior accrual release separately from current accrual.
+Use qualifying-year December G for relevant supplement calculations, or the applicable resignation-date G for a qualifying-year leaver.
+Pension card shows scheme coverage assessment, employee eligibility, provider, rate and base/cap.
+Copy: `Minimum defined-contribution pension is assessed from the first eligible krone; no 1G deduction floor.`
+Missing membership/provider/coverage facts say `Needs review`; they cannot create an exempt employee or zero-cost result.
+Provider premium reconciliation remains visible; no claim that the indicative accrual is an insurer invoice.
+Posting preview uses role labels from A5. Account numbers are never hardcoded in the Norway screen.
+
+## 7. A-melding flow
+
+Payroll → Filings filters Norway and month; the country section links here using the existing filing route.
+List has period, due date, monetary status, employment coverage, generation/submission state and separate authority feedback.
+A no-pay month with active employment still shows an obligation; explain `Employment details are still required this month`.
+This relies on proposed P5-A1 and must remain visibly blocked until its contract is approved and implemented.
+Preview shows frozen PAID monetary events plus the month-specific HR employment snapshot; no invented zero-value payment.
+Planned pay is a warning outside file totals; parallel run figures never join a real filing.
+2026 withholding records group by payment date within the month; the preview labels that date explicitly.
+Missing income-code mappings, employment facts, original message IDs or pinned schema produce a blocked Generate action.
+Production draft release cannot generate a usable official file; local rig can preview only synthetic `UNCHECKED` output.
+After Generate: `Generated — not submitted`; Download is never renamed `Send` or `Accepted`.
+Helper links the official manual XML upload service in a browser; credentials stay entirely outside NeoERP.
+Mark as submitted uses existing P4 date/reference/receipt behavior; then `Submitted · authority feedback pending`.
+Receipt attachment follows scan states; pending/rejected documents never become evidence of acceptance.
+Proposed P5-A2 Record feedback captures specific version, authority message reference, timestamp and clean evidence attachment.
+Rejection reads `Authority reported errors — correction needed`; individual error details need filing-content permission.
+Accepted feedback reads `Acceptance recorded from authority feedback`; never imply NeoERP submitted it directly.
+Correction creates a new immutable version for the same month and targeted message; original file and feedback stay in History.
+New correction initially shows pending feedback even if its original was accepted.
+Financial correction links to a correction pay run; employment-only fix links to revised facts, not a duplicate salary payment.
+2027 access-package cutover is a future service-access note; no 2027 tax assumptions contaminate 2026 rules.
+
+## 8. Fixture matrix and acceptance
+
+| Fixture | Expected visible outcome |
+|---|---|
+| `no-card-import-pair` | e-NO-101 matched; e-NO-102 mismatch; row 3 unmapped; Save mapping and Apply each reselect source and freshly validate HR pairs; one card applies. |
+| `no-card-source-mismatch` | Different digest/employer/year/parser profile/row order at mapping or apply → refusal, no mapping/card mutation. Prototype uses synthetic bindings only. |
+| `no-card-replay` | Repeated apply returns original result, no extra card version or input-contributor record. |
+| `no-card-stale` | v3 run + v4 card → stale banner and blocked submit; recalculate uses v4. |
+| `no-own-pay` | Ordinary own-pay import row refused; permitted Owner path needs explicit reason and fresh evidence. |
+| `no-aga-zone-i` | Eligible NOK 50000.00 × 14.1% = 7050.00; trace shows ordinary zone I assumption. |
+| `no-holiday-basis` | NOK 100000.00 × 10.2% = 10200.00; agreement alternative 12% = 12000.00. |
+| `no-otp-first-krone` | Proven eligible below-cap NOK 50000.00 × 2% = 1000.00; no 1G subtraction. |
+| `no-no-pay-month` | Employment obligation, no salary payment event, no monetary figures invented. |
+| `no-filing-rejected` | Generated → manual submitted → rejected feedback → correction v2 pending; original immutable. |
+| `no-tenant-switch` | Switching company clears previews/drawers; server refuses old-company import/file identifiers. |
+| `no-dependency-outage` | HR/IAM/Org unavailable → retry/error, no cards applied or file falsely accepted. |
+
+Arithmetic sources and assumptions are [NO-G1–G8 and official register in P5](../../../NeoERP-BackEnd/docs/api/payroll-v2-p5.md); none is a certified full-payslip example.
+Use translation keys `payroll_no_<area>_<name>`, existing search pickers and existing accessible dialog/stepper patterns.
+Keyboard users can map rows, inspect errors, cancel and restore focus; announce progress/errors via existing live regions.
+Tables adapt to cards or existing horizontal-container pattern at 390px; page itself must not overflow.
+No screenshot/test result is claimed by this document; the integration lead verifies the shared rig.
+Approval requires contract+screen review, P5-A1/A2/A3 owner decisions, practitioner fixtures and pilot evidence before READY.
