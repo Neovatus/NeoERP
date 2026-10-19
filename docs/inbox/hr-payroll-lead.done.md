@@ -93,4 +93,8 @@ waiting on: ACC FYI when accounts-data.jsx is regenerated (HRP-35.1)
 2026-10-16 · ACC-212 · answered HRP-58: c68fbc6 accepted, push
 2026-10-16 · ACC-217 · answered HRP-59: e4ecba2b, 91a1723c accepted; standing OK for HRP (Draft) docs commits
 2026-10-16 · HRP-C-4 · dispositions: docs/reviews/hrp-contract-audit-2026-10-16-dispositions.md (35 accepted); contract fixes by lead sub-agents; ERP HRP-61, ACC HRP-62
-waiting on: HRP-61 from ERP
+2026-10-16 · ERP-144 · noted: builder briefs carry the full-local-suite-before-push rule
+2026-10-16 22:42 · HRP-C-5 · accepted as Draft (682983e5, 4b3c32b2, eb6c57c0, be93e27c); Opus security check running
+2026-10-19 19:30 · HRP-C-6 · answered with brief HRP-63 in hr-payroll-lead-design.md (GO WITH LIMITS; batch 0 + A); P1-43 drafting
+2026-10-19 · HRP-C-5 security check: CA-2/23/30 PASS, CA-14 FAIL (Med) → batch 0c (HRP-65)
+waiting on: Codex batch 0 + A report (HRP-63/65); ERP HRP-61, HRP-64

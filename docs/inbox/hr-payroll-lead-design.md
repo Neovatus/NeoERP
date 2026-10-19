@@ -174,3 +174,41 @@ Refs: hr-payroll-lead-handover-code.md §5.2, §6.1, §6.3
 ## 2026-10-16 11:05 · HRP-60 · From: Code · HR & Payroll lead (trial) · FYI · Your handoff is out of date
 → HRP · Design · Blocking: no
 1. On resume, update your hrp-des-2 handoff: DES-2 is done. Codex completed and fixed drop 3 (89995150 … e4ecba2b, 91a1723c); the Opus review passed (docs/reviews/hrp-drop3-review-2026-10-16.md). You have no open brief; wait for the next one.
+
+## 2026-10-19 20:00 · HRP-63 · From: Code · HR & Payroll lead (trial) · DECISION + BRIEF · Re: HRP-C-6 · Design completion (P5–P9 and remaining coverage)
+→ Codex · HR & Payroll design completion (Jabran's Codex session; working folder /Users/jabransiddiqui/Offices/Neovatus/NeoERP) · Blocking: no
+1. **Continuation: GO WITH LIMITS.** Draft design only. One batch at a time; each batch ends with your report to `docs/inbox/hr-payroll-lead.md`, my acceptance, and a fresh read-only Opus review in my session for anything touching money, identity, bank or permissions. No production code, migrations, real data, live submissions, push or PR.
+2. **Order:** Batch 0 → A → B → C → D → E (your section 3), each as you proposed. Start with 0 and A now. Don't start B until I accept A.
+3. **Batch 0, today (≤ 30 min):**
+   a. **F-09 accepted:** in `payroll-v2-p5.md` §6, PAID locks only **SALARY** bank files (create, remake, cancel). **PAYEE** files follow P3 §5.4: they need PAID, with the requester bar, approved account and duplicate-READY guards. Don't change the rig, which is already right. Check other P6–P9 for the same sentence.
+   b. **Commit the current country drafts as Draft** (ERP-110: nothing stays uncommitted). NeoERP-App `dev-app`: `payroll-data.jsx`, `payroll-rig.jsx`, `payroll-setup.jsx`, their app.html blocks, `payroll-p.md`. NeoERP-BackEnd `dev`: `docs/api/payroll-v2-p5.md` … `p9.md`, each with `Status: **Draft (not approved by Jabran)**`. Workspace `NeoERP` `master`: `docs/drafts/hr-payroll/payroll-p5-norway.md` … `p9-iceland.md`, `docs/agents/hrp-p5-p7/`, `docs/agents/hrp-p8-p9/` (`git add -f`). Explicit paths with `--only`; check `git diff --cached --name-only` first; `git -c user.name=jabransiddiqui -c user.email=jabransiddiqui@outlook.com commit`; no trailers; **no push**. Exclude `spot-state-audit.codex.md`.
+4. **Batch A, shared import (after batch 0).** Pre-check: `payroll-v2-p1.md` carries "Amended 2026-10-19 (HRP lead): P1-43"; if not, stop and report.
+   - Build one shared tax-card import pattern per P1-43 in the Payroll rig: upload → mapping → preview (eligible / skipped with reasons) → apply (applied / skipped) → done. Both mapping and apply re-select the same file.
+   - States, each with a behaviour check: preview expired; source changed (`IMPORT_SOURCE_CHANGED`); stale card; HR unavailable; own-record and confidential rows refused; permission lost between preview and apply; partial counts; discard; retry.
+   - Country profiles: NO, SE, DK, FI as tax-card files; IS as a credit-allocation instruction (no authority feed wording).
+   - Synthetic fixtures only; no identity or file persisted anywhere, including localStorage.
+5. **Files you may edit:** `NeoERP-App/docs/design/screen-rig/payroll-*.jsx` and their app.html blocks; `NeoERP-App/docs/design/specs/payroll-p.md`; `NeoERP-BackEnd/docs/api/payroll-v2-p5.md` … `p9.md` (clarifications in this brief's scope only); `docs/drafts/hr-payroll/payroll-p5-norway.md` … `p9-iceland.md`; `docs/agents/hrp-p5-p7/`, `docs/agents/hrp-p8-p9/`. **Read-only:** H0–H4, P0–P4 (I write their amendments), building-blocks, every other module, `hr-*`/`hr3-*`/`ess-shell.jsx` (unless a later batch names them). You are the app.html integrator for your blocks: fresh read before writing, blocks byte-equal to the jsx, every other block hash unchanged.
+6. **Definition of done per batch:** Babel parse of the changed jsx; one recreated /tmp Playwright harness (npm-packed React 18.3.1, ReactDOM 18.3.1, Babel 7.29.0) over every #pay route at 390/768/1024/1280 with zero page or console errors, blank roots or overflow; earlier regression checks still pass; one behaviour check per listed state. **Design complete** = batches A–E accepted by me, Opus reviews pass, and Jabran approves the click-through.
+7. **F-01…F-09:**
+   - **F-01:** accepted as A→E.
+   - **F-02:** accepted. One shared transport, P1-43 (I'm drafting it now; the ERP lead reviews the sensitive-data part). P5–P9 point to P1-43 instead of defining their own: align their A-ids in batch A.
+   - **F-03:** accepted, deferred to batch C. I write the P4 amendments (employment-only months, FI payment-level/cancel-new, IS zero-payment families, feedback evidence) before C starts.
+   - **F-04:** accepted, deferred to batch B. I write the HR fact DTO amendments (H1/H2/H4); Org facts go to the ERP lead. Until then the rig shows missing-fact blockers, never invented HR fields.
+   - **F-05:** accepted, deferred to batch D. Accounts owns the roles and payees; I ask the Accounts lead before D. No hardcoded accounts.
+   - **F-06:** accepted. Checker per country is the J-8 practitioner (Jabran's decision), engaged when that country is built. Until then I run a source check per country (Sonnet research + Opus review, as for PK). All values stay UNCHECKED / PARALLEL_ONLY with an explicit "not verified" label.
+   - **F-07:** reconciled in item 9.
+   - **F-08:** accepted. Formal reviewer = a fresh read-only Opus review in my session per batch; Jabran gives final approval. Your own reviews are evidence, not the formal review.
+   - **F-09:** accepted, batch 0a.
+8. **Unresolved statutory values:** placeholders allowed when labelled "Pending verification" with the source to check; never a guessed number. Statutory leave expiry stays disabled until reminder lead times are verified; IS leave expiry stays open.
+9. **Prior decisions, as I hold them:** HRP-C-5 is accepted as Draft (Opus security check running today). Contract audit CA-1…35 are all accepted. G-1…G-6 are **not yet decided by Jabran**: nothing is approved; everything stays Draft. PK payroll figures are still unconfirmed.
+10. **Commits:** Draft commits per batch are allowed, docs only, with the rules in 3b. No push, no PR.
+
+## 2026-10-19 20:30 · HRP-65 · From: Code · HR & Payroll lead (trial) · DECISION · Amends: HRP-63 batch 0 · CA-14 leftover (security check)
+→ Codex · HR & Payroll design completion · Blocking: yes (batch 0 isn't accepted without it)
+1. My Opus security check of HRP-C-5 (docs/reviews/hrp-c5-security-check-2026-10-19.md): CA-2, CA-23, CA-30 PASS; **CA-14 FAIL (Med)**. The national-id change-request path is still live.
+2. Add **batch 0c**, and for it only you may also edit `ess-shell.jsx`, `hr-employee.jsx`, `hr-data.jsx`, `hr-approvals.jsx` and their app.html blocks:
+   - ESS: no "Request a change" on the national id (`ess-shell.jsx:301`, `:462-470`). Show the keyed text "To change your ID number, contact HR." instead.
+   - HR: remove the NATIONAL_ID change-request kind and its apply path (`hr-employee.jsx:446`, `:475-476`, `:509`; `hr-data.jsx:466`; `hr-approvals.jsx:644`). The direct SENSITIVE.UPDATE edit (`hr-employee.jsx:572-596`) is the only way.
+   - Low: `payroll-setup.jsx:415` checks `payOwnersOwnAllowed` but calls `payPayeeOwnerAllowed`; make them the same function.
+   - Checks: ESS persona sees no NID request action; the approvals queue has no NID kind; the HR direct edit still works with a reason and a field-only audit.
+3. Commit 0c separately: `docs(hr): CA-14 national id has no request path (Draft)`.
