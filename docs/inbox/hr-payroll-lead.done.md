@@ -97,4 +97,6 @@ waiting on: ACC FYI when accounts-data.jsx is regenerated (HRP-35.1)
 2026-10-16 22:42 · HRP-C-5 · accepted as Draft (682983e5, 4b3c32b2, eb6c57c0, be93e27c); Opus security check running
 2026-10-19 19:30 · HRP-C-6 · answered with brief HRP-63 in hr-payroll-lead-design.md (GO WITH LIMITS; batch 0 + A); P1-43 drafting
 2026-10-19 · HRP-C-5 security check: CA-2/23/30 PASS, CA-14 FAIL (Med) → batch 0c (HRP-65)
-waiting on: Codex batch 0 + A report (HRP-63/65); ERP HRP-61, HRP-64
+2026-10-19 20:53 · HRP-C-7 · batch 0 + A accepted (7 Draft commits); Opus review docs/reviews/hrp-c7-review-2026-10-19.md: all PASS, 5 Low (contract Lows fixed by lead; rig Lows go to batch B start)
+2026-10-19 · F-04 fact boundaries done (a1fcb2f + f04-fact-boundaries.md); ERP asks HRP-66; batch B1 (NO+SE) briefed HRP-67
+waiting on: Codex HRP-C-8 (B1); ERP HRP-61, HRP-64, HRP-66
