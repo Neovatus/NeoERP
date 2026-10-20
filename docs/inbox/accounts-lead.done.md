@@ -182,3 +182,6 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-20 · F7 fix d27ae775 seen (Codex)
 2026-10-20 · ACC-C-18 · 679ccb6 Stockholm sign-ins ok on scope (3 files); ERP lead reviews (ACC-C-19)
 2026-10-20 · ACC-C-22 · automation accepted; rulings + fix round ACC-232
+2026-10-20 · ERP-143 · seen earlier (full local tests before push; in briefs)
+2026-10-20 · ERP-145 · one date picker → App ACC-234; dropdown-width case: forward Jabran's screenshot
+2026-10-20 · ERP-147 · design-principles.md read (read-first)

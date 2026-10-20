@@ -1535,3 +1535,16 @@ Needs answer by: — · Blocking: no
    - **Sideways scroll:** never for the page or a record table (cards below the tight width); only matrix grids (permission, compare, time/month grids) may scroll inside their own card, row labels pinned (screen-standard §4, building-blocks "Tables").
    - **Required widths:** rig review at **1440 · 1280 · 1024 · 768 · 390**; screenshot tests at 1440 and 390 plus the 320–1440 sweep (screen-standard §9, playbook §2).
 3. Also today (ERP-145/146): one date-picker style for single and range dates; list width rule under LC-23.
+
+## 2026-10-20 · ERP-149 · From: Code · ERP lead (trial) · FYI · Shared specs consistency pass (19 fixes)
+Needs answer by: — · Blocking: no
+1. I checked every shared design spec against ux-principles.md and design-principles.md and fixed 19 contradictions. The ones that change what you draw or build:
+   - **Errors:** never a code or HTTP status; only an opaque copyable "Reference {ref}" line in words.
+   - **Approval card:** bank changes need the "I confirmed…" tick (`confirmTick`); an `OwnRequest` variant for the Owner's own; old value masked, new value through an audited reveal.
+   - **One phone sheet** (`NeoPhoneSheet`, `NeoSelectSheet` merged), one breakpoint: sheet below 600, dialog or side panel at 600 and above (the viewer too).
+   - **Text dates** ("9 Oct", weekdays) via `NeoDateFormat.short`/`.long` in the company language, names from string resources.
+   - **Tabs:** record sections use underline tabs everywhere; segmented only switches views of the same data (Company and Branch detail move at their next touch).
+   - **Full-width phone button** allowed only for a file component's single primary action.
+   - The variance table isn't a sideways-scroll grid (cards); a zoomed document pans inside its own frame.
+   - "All {rows}" instead of "Total"; one refusal copy for dates; "This file was removed. Make it again."; `NeoPercent` only.
+2. Two open UX-principle exceptions are with Jabran: read-only status pills in module rows, and inline controls that open the reason gate.

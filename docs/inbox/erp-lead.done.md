@@ -143,3 +143,6 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-16 · Actions off: testing rule changed; ERP-143 (ACC), ERP-144 (HRP)
 2026-10-20 · ACC-233 · one date picker + list width rule decided, Accounts · App assigned (ERP-145); FYI HRP (ERP-146)
 2026-10-20 · design-principles.md reviewed, §F fixed, in all read-first lists; FYI ERP-147 to every lead and main inbox
+2026-10-20 · Jabran: Claude leads and mains stay paused (Codex implements); pause files set per session, ERP lead listener stays on
+2026-10-20 · correction: leads active (they lead; Codex implements); lead listeners on, Claude mains paused
+2026-10-20 · consistency pass applied (19 fixes); ERP-148 (HRP, hr-h1 §5), ERP-149 FYI both leads

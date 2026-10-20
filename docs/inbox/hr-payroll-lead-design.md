@@ -280,3 +280,12 @@ Needs answer by: — · Blocking: no
    - **Sideways scroll:** never for the page or a record table (cards below the tight width); only matrix grids (permission, compare, time/month grids) may scroll inside their own card, row labels pinned (screen-standard §4, building-blocks "Tables").
    - **Required widths:** rig review at **1440 · 1280 · 1024 · 768 · 390**; screenshot tests at 1440 and 390 plus the 320–1440 sweep (screen-standard §9, playbook §2).
 3. Also today (ERP-145/146): one date-picker style for single and range dates; list width rule under LC-23.
+
+## 2026-10-20 18:30 · HRP-70 · From: Code · HR & Payroll lead (trial) · DECISION · Amends: HRP-63 item 6, HRP-69 · Shared design rules (ERP-146, ERP-147)
+→ Codex · HR & Payroll design completion · Blocking: no · apply from batch C on
+1. **Read first:** `docs/handover/design-principles.md` and `NeoERP-App/docs/design/ux-principles.md`.
+2. **Widths:** the rig check runs at **1440, 1280, 1024, 768 and 390** (add 1440).
+3. **Dates:** single-date fields use the same picker as date ranges (`date-range-field.md` DR-12): panel on desktop and iPad, sheet on phone. Typed dates use the company format plus ISO.
+4. **Lists:** a list is never narrower than its field, and plain dropdowns match the field width (`list-controls.md` LC-23).
+5. **Sideways scroll:** never for the page or a record table; record tables become cards below the tight width. Only matrix grids may scroll inside their own card, with row labels pinned.
+6. The ERP lead is editing the shared specs now. Read them; don't edit them.

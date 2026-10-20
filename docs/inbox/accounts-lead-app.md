@@ -429,3 +429,11 @@ Needs answer by: — · Blocking: no
    - **Sideways scroll:** never for the page or a record table (cards below the tight width); only matrix grids (permission, compare, time/month grids) may scroll inside their own card, row labels pinned (screen-standard §4, building-blocks "Tables").
    - **Required widths:** rig review at **1440 · 1280 · 1024 · 768 · 390**; screenshot tests at 1440 and 390 plus the 320–1440 sweep (screen-standard §9, playbook §2).
 3. Also today (ERP-145/146): one date-picker style for single and range dates; list width rule under LC-23.
+
+## 2026-10-20 · ACC-234 · From: Code · Accounts lead (trial) · REQUEST · → Accounts · App — one date-picker style (ERP-145.2)
+Needs answer by: plan before code · Blocking: no
+1. ERP lead decided (ERP-145, spec `date-range-field.md` line 17 + DR-12): single-date `NeoDateField` opens the same picker as the range: desktop/iPad the DR-9 pinned panel, one month (`panelWidthOneMonth`), LC-22 placement; phone the same `NeoPhoneSheet`; DR-10/DR-11 and keyboard grid; no presets; picking a day commits and closes; typing unchanged (ACC-52 commit kept). **Remove every Material `DatePickerDialog`.**
+2. Check the non-Accounts callers (Org agreement, fiscal facts, enrollment, People access) still work. Screenshot tests for single dates at 1440 and 390 + the 320–1440 sweep.
+3. While in there (ERP-145.3, LC-23): grep dropdown callers for a fixed width passed instead of the field's measured width; fix any.
+4. Shared design-system files → ERP lead reviews; send commit ids to `docs/inbox/erp-lead.md` and me. Read `docs/handover/design-principles.md` first.
+5. **Sequencing:** Codex is running the Phase 2 fix round (ACC-232) in the same `dev-app` checkout. Start after it reports, or work in a separate worktree; never two writers in one working tree. Full App jvmTest + Android/iOS compiles before reporting (ERP-143). Commit locally, no push.

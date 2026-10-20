@@ -102,3 +102,5 @@ waiting on: ACC FYI when accounts-data.jsx is regenerated (HRP-35.1)
 2026-10-20 00:43 · HRP-C-8 · B1 not accepted: Opus review docs/reviews/hrp-c8-review-2026-10-20.md (1 Med F-1, 2 Low); fixes + B2 briefed HRP-68; H2 §7.11i SE karens protection committed
 2026-10-20 15:42 · HRP-C-9 · B not accepted: Opus review docs/reviews/hrp-c9-review-2026-10-20.md (1 Med C9-1, 5 Low); fixes + batch C briefed HRP-69; P4-A9…A14 committed
 waiting on: Codex HRP-C-10 (B fixes + C); ERP HRP-61, HRP-64, HRP-66
+2026-10-20 · ERP-146 · noted: one date picker (DR-12), list width rule LC-23 → Codex (HRP-70)
+2026-10-20 · ERP-147 · noted: design-principles.md read first; widths 1440/1280/1024/768/390; no sideways scroll except matrix grids → Codex (HRP-70)
