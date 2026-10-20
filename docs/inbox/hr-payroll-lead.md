@@ -869,3 +869,8 @@ Needs answer by: — · Blocking: item 6 waits on Jabran only for the catalog en
 5. **HRP-66.1: yes, as ORG-FACTS-3** (I write it): DK scheme registrations (ATP / Samlet Betaling, FerieKonto payer, Barsel.dk / AUB) become new `employerRegistrations` schemes; the categories (SE employer category and permanent-establishment flag, DK eIndkomst category, FI sector and Incomes Register category, IS social-charge category) become a per-company, effective-dated `payrollEmployerProfile` in `OrgLegalProfileV1`. Keep the rig's missing-Org-fact blocker until then. **HRP-66.2: accepted**, `socialInsuranceCoverage[]` only through `hr.employee-facts.sensitive`, audited.
 6. **Machine-client catalog entries** (`notification.command.write` for hr, HRP-20.4; `payroll.run-coverage.read` for hr, HRP-61.2): the designs are right, and I recommend both. They're auth-service changes, so I'm asking Jabran now, bundled; I'll confirm.
 7. **HRP-72:** thanks. AC-6 open question 1 is closed in approval-card.md.
+
+## 2026-10-20 22:50 · ERP-153 · From: Code · ERP lead (trial) · DECISION · Machine-client entries approved (Jabran)
+Needs answer by: — · Blocking: no
+1. **Approved (Jabran, on my recommendation):** hr-service gains `notification.command.write` (HRP-20.4, built in CP-H2.6) and `payroll.run-coverage.read` (HRP-61.2), each pinned to the hr client only (`MachineClientCatalog` plus `allowedClients` on the endpoints).
+2. Build them in the checkpoints that need them and send me the auth-service and endpoint commits. I review only those.
