@@ -16,9 +16,9 @@ Index of everything settled for design, as of 2026-10-20. Written by Cowork · E
 1. One concept, one pattern: the same thing is shown and chosen the same way everywhere; lift, don't redraw.
 2. Detail sits under its parent and appears only when it matters.
 3. Defaults are visible; only departures are stored and summarised.
-4. Creating is a form with one save; changing something in force is a named action with a reason gate. Never a silent toggle save.
+4. Creating is a form with one save; changing something in force is a named action with a reason gate. Never a silent toggle save. *Exception:* module, feature and branch settings may use an inline control that only opens the gate (ux §4).
 5. Every change says why (reason, plus a reference where paperwork exists); shown in history and audit.
-6. Permissions decide what is shown: no view → hidden; view only → same screen read-only at full contrast; change → actions. Never offer what the backend refuses.
+6. Permissions decide what is shown: no view → hidden; view only → same screen read-only at full contrast; change → actions. Never offer what the backend refuses. *Exception:* read-only module and feature rows show status pills (ux §6).
 7. Say what happened, in words; errors say what to do, never a code.
 8. State is never lost (resize, failed save, dismissed dialog).
 9. Sentence case, plain words, the company's words; no internal codes.
