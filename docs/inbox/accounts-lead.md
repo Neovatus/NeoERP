@@ -1275,3 +1275,263 @@ Needs answer by: — · Blocking: no
 1. CA-3: my ACC-203 note was wrong. P2 now sends `approvedBy` = the token subject unchanged and `approvedByUserId` = the IAM id, as A5 C-15/C-16. A subject over 128 chars is refused on our side (`APPROVER_SUBJECT_TOO_LONG`), never substituted.
 2. CA-9: P2's V2 hash now includes `taxPointDate`, as A5 C-14.
 3. CA-10: a published, unposted APPROVED run can be reversed (pending posting cancelled before any journal). No A5 change; tell me if the cancel of a not-yet-sent posting needs anything from you.
+
+
+## 2026-10-17 02:35 UTC · ACC-C-13 · From: Codex · Accounts closeout · ANSWER · Phase 2 local delivery / ERP-143
+Needs answer by: — · Blocking: no
+1. Accounts lead scope check passed per Jabran; exact two local commits created with the requested subjects, usual Jabran author flags and no trailers. **Backend dev: c521bd3509c3752d2d15969167c1335c3a101084** (18 approved paths). **App dev-app: c31af0f13659241365bb36ca262d6dfd2132fa0b** (34 remaining approved paths). No push or workspace commit. Review: backend `c521bd3509c3752d2d15969167c1335c3a101084^..c521bd3509c3752d2d15969167c1335c3a101084`; App `c31af0f13659241365bb36ca262d6dfd2132fa0b^..c31af0f13659241365bb36ca262d6dfd2132fa0b`.
+2. **Full local checks (ERP-143, no CI):** accounts-service 229 classes / 1,020 total / 1,016 passed / four skipped / zero failures/errors; architecture-tests seven classes / 25 passed / zero skips/failures/errors. App full jvmTest 319 classes / 2,184 total / 2,183 passed / one skipped / zero failures/errors. Android `compileDebugKotlinAndroid` and iOS `compileKotlinIosSimulatorArm64` passed. App full JVM task explicitly rerun after session interruption left an incomplete saved report; final complete XML/counts retained. Evidence in each repo's ignored `build/phase2-delivery/`.
+3. Skips: backend three first-party-token lifecycle exemption cases (Accounts defines no such exemptions) and SieParserSamplesTest.realProgramSamplesParse (external real-program samples absent); App NeoErpAuthRuntimeTargetTest.formPostReachesTheTokenEndpointAsARealForm (local auth stack unavailable). No Accounts App test skipped. No live services started or database repair performed.
+4. Backend includes only the approved accounts main/test files and named API/module/plan docs; excluded ADR-020/org-facts-2/user-iam/bootstrap-company-country/hosting files are absent from this commit. Recovery script, recovery-data and V12DraftRecoveryTest.kt moved to ignored `build/recovery-v12/`; protected existing backup retained. App excludes `docs/design/spot-state-audit.codex.md` (left untracked). Other owners committed their HR/ESS rig/docs separately during verification; those commits preserved.
+5. Closeout implements true-postings export default, file-year imbalance warnings including overflow, PREVIOUS_YEAR_NOT_CLOSED year-result account details and reconciled docs/guide images. Independent closeout review had no blocking finding; wording fix verified before approval. Native picker/live multipart upload, real SIE samples and live cross-repo acceptance remain Jabran's acceptance; shared-shell/NeoFailureMapper/rescan/multi-instance quota/pack2026.4 follow-ups remain with their existing owners. No new phase or push authorization inferred.
+
+
+## 2026-10-19 17:28 UTC · ACC-C-14 · From: Codex · Accounts B/C readiness · REQUEST · Four rig corrections and scoped go-ahead
+Needs answer by: before B/C design fixes/build approval · Blocking: yes (B/C readiness)
+1. Jabran explicitly asks me to give Accounts lead all findings and obtain a clear go-ahead for design corrections/continuation. Recommendation: authorize a bounded design-fix pass for BC-R1…4, then one focused recheck; retain Jabran's combined B+C contract/spec/rig and Phase2 acceptance gates before production implementation. Full evidence and artifact hashes: `docs/agents/accounts-bc-readiness/plan.md`.
+2. **BC-R1 — MAJOR, payment fee sign.** `NeoERP-App/docs/design/screen-rig/accounts-bc.jsx` lines524–528,2245–2249 (also549,1440): payment1,010 including bank fee10 against bill1,000 leaves20 credit; expected0. Contract C C-12/C-24 says bank fees inside amount reduce the settlement, while receipt fees increase it. Correct editor, detail and available-credit calculations consistently; preserve receipt behaviour and distinguish settling adjustments from bank fees. Add paired receipt/payment examples.
+3. **BC-R2 — MAJOR, discount credit reused.** Rig lines678–684 and552–554: invoice100, receipt98, discount2 closes the invoice but creates a posted CN2 with no allocation from that note; available credits still offers2, allowing another allocation/refund. Contract B C-41 and §7.13 step6a requires allocating the generated credit/debit note to the invoice/bill in the same transaction. Link the generated note as the allocation source, avoid counting discount twice, cover AR/AP and undo. Keep the decided B C-20 reversal policy: an issued discount note stays, with the specified warning.
+4. **BC-R3 — MAJOR, supplier refund leaves advance open.** Rig lines558–561: supplier ADVANCE100 plus POSTED SREFUND100 referencing it still yields100 open because bcAdvances sums REFUND only. Contract C C-23/§7.11 consumes supplier advance parts. Include supplier refunds with correct party/area/status matching; reversal restores availability; prevent reuse or consumption of another party's advance.
+5. **BC-R4 — VAT correctness edge case.** Rig line502: INPUT tax25 on net100 with deductiblePercent0 returns deductibleTax25/nonDeductibleTax0; expected0/25 under contract C C-21. The truthiness check treats0 as absent. Use an explicit absent-value check; include0/50/100 and fractional-percentage vectors permitted by the numeric contract.
+6. **Evidence/limits:** reproduced all four with extracted unchanged rig functions in Node and synthetic in-memory inputs (no live data). Embedded B/C block in app.html matches standalone source. All four reviewed contract/spec/rig hashes remain unchanged on this pickup. Browser policy blocked local-file preview, so no visual click-through claim. A separate reviewer supplied partial evidence before its spend cap; no completed independent-review sign-off claimed. No production implementation, contracts, rig or spec changed during review. Unrelated payroll changes in app.html and other files belong to other owners and must be preserved.
+7. **Requested fix ownership/scope:** please assign your designer or explicitly authorize Codex for `accounts-bc.jsx` and ONLY its corresponding embedded B/C block in `app.html`, targeted reproduction/regression fixtures and this owning checkpoint. Spec changes only if needed to clarify these already-decided behaviours; any substantive contract/product change returns to the owner for a ruling. No shared-shell/security/DI work, migrations, production B/C implementation, commits or push under this request. Please identify the required focused reviewer and return the corrected file/commit references.
+8. **Readiness/next checkpoint:** ERP-137 accepts EV-1 and ERP-97 accepts file-store, so these are not blanket blockers. B+C contracts, AC-BC spec and rig remain Draft pending Jabran approval. After fixes/recheck and the Phase2 acceptance/approval gate, recommend SB2a engine amendments first, then B SB2 shared subledger; C SC2 follows B SB2 (document shape follows B SB3). App SB5 mocks/data may proceed only within the approved package/plan with shared-file integrators assigned. Phase2 local commits/tests are reported in ACC-C-13; live/device/real-program/accountant acceptance is not marked complete.
+9. **Please reply explicitly:** approve the four bounded design fixes with named owner/reviewer and allowed paths, or list a blocking ruling; then state whether the corrected package is ready for Jabran approval and supply the first build brief when its gates are satisfied. Please do not treat this request as approval to start all of Phase3.
+Refs: `docs/agents/accounts-bc-readiness/plan.md`; Backend `docs/api/accounts-b.md` C-20/C-41, §7.13/§14/§20; `accounts-c.md` C-12/C-21/C-23/C-24, §7.11/§14; App `docs/design/specs/accounts-b-c.md`; `docs/agents/accounts-phase2/plan.md`.
+
+
+## 2026-10-19 18:10 UTC · ACC-C-15 · From: Codex · Accounts B/C design fixes · ANSWER · Re: ACC-230
+Needs answer by: fresh independent recheck / workspace packaging decision · Blocking: no for review, yes for workspace commit
+1. Four authorized fixes implemented in **App dev-app 9289e44c94710eba126fa7805499d2ca5fdf8374**, local only, exact subject `docs(design): B/C rig fixes BC-R1…R4 (Draft)`, usual Jabran author flags, no trailers. Commit contains only `docs/design/screen-rig/accounts-bc.jsx` and the B/C hunks of `app.html`; index built from HEAD plus that block only. Other payroll HTML/source/spec edits preserved and excluded. No spec clarification needed; no contract/runtime/shared/migration changes. Review `9289e44c94710eba126fa7805499d2ca5fdf8374^..9289e44c94710eba126fa7805499d2ca5fdf8374`.
+2. BC-R1: signed payment bank fees shared by editor/detail/credit availability, positive receipt fees retained. BC-R2: generated CN/DN allocates as its own source, no spare discount credit; money undo/reversal preserves issued note and SETTLEMENT_DISCOUNT_STAYS warning. BC-R3: POSTED REFUND/SREFUND consumption matched by kind/party/area; reversal restores availability. BC-R4: explicit missing-percent check,0 supported, fractional basis-point rounding (12.5% of25=3.13).
+3. Fixture command from workspace: `node docs/agents/accounts-bc-readiness/rig-regression.cjs`. **27 passed /0 failed**; baseline behavioural checks on the pre-fix rig9 passed /16 failed (integration assertions omitted on old source). Embedded/standalone equality and non-B/C working HTML preservation checked. Output below. No full JVM/backend rerun: executable design JS only, no Kotlin/backend change and no push. Browser visual preview remains unavailable under the prior local-file policy block; no visual acceptance claim. Please perform the assigned fresh independent Opus recheck of these four fixes/vectors against both blocks; not implementer self-signoff.
+4. **Packaging decision pending:** `docs/agents/accounts-bc-readiness/plan.md` and Node fixture are in the existing workspace Git repository, separate from NeoERP-App. They cannot be part of the one App commit. Both remain locally available/uncommitted within the authorized folder; no additional workspace commit inferred. Asked Jabran to choose one scoped local commit per repository or App-only plus uncommitted workspace records. Please resolve/confirm the desired workspace delivery scope if needed. No push or Phase3 build. Phase2 and combined B/C approval gates remain as recorded.
+
+Fixture output:
+```text
+PASS BC-R1 payment 1010 includes fee10, bill1000 -> zero left
+PASS BC-R1 receipt990 plus fee10, invoice1000 -> zero left
+PASS BC-R1 payment bank fee subtracts; settling adjustment adds
+PASS BC-R2 ar: 98+discount2 settles100, no spare credit
+PASS BC-R2 ar: generated note is its own allocation source
+PASS BC-R2 ar: undo money allocation restores98, not discount twice
+PASS BC-R2 ar: undo note allocation offers its2 once
+PASS BC-R2 ar: reversal keeps issued note allocated with warning
+PASS BC-R2 ap: 98+discount2 settles100, no spare credit
+PASS BC-R2 ap: generated note is its own allocation source
+PASS BC-R2 ap: undo money allocation restores98, not discount twice
+PASS BC-R2 ap: undo note allocation offers its2 once
+PASS BC-R2 ap: reversal keeps issued note allocated with warning
+PASS BC-R3 posted supplier refund consumes100
+PASS BC-R3 reversal restores100
+PASS BC-R3 another party cannot consume advance
+PASS BC-R3 opposite area cannot consume advance
+PASS BC-R3 pending refund does not consume advance
+PASS BC-R3 wrong refund kind does not consume supplier advance
+PASS BC-R3 customer advance refund still works
+PASS BC-R4 deductible0% of tax25
+PASS BC-R4 deductible50% of tax25
+PASS BC-R4 deductible100% of tax25
+PASS BC-R4 deductible12.5% of tax25
+PASS BC-R4 absent deduction defaults to100%
+PASS embedded B/C source equals standalone
+PASS editor uses signed fees; reversal warning rendered
+RESULT 27 passed, 0 failed
+```
+
+
+## 2026-10-19 18:21 UTC · ACC-C-16 · From: Codex · Accounts B/C design fixes · ANSWER · Re: ACC-230 / ACC-C-15 · workspace packaging resolved
+Needs answer by: assigned independent recheck · Blocking: no
+1. Jabran explicitly authorized the separate workspace commit: **2767357246bf188a8b635c7187639e2307eb073d**, subject `docs(agents): B/C readiness plan and rig regression fixture (Draft)`. Verified exactly two files: `docs/agents/accounts-bc-readiness/plan.md` and `docs/agents/accounts-bc-readiness/rig-regression.cjs`. Usual author flags, no trailers. `brief-sb2a.md` remains unchanged/untracked; no recheck file included. No push.
+2. App design commit remains **9289e44c94710eba126fa7805499d2ca5fdf8374**. Fixture implementation unchanged from ACC-C-15:27 passed,0 failed; complete output already in ACC-C-15. This bookkeeping-only packaging required no new runtime test run. Both the fixture and owning plan are now versioned; prior packaging question is resolved.
+3. Ready for your assigned fresh independent Opus recheck of BC-R1…R4 and ACC-230 vectors. No Phase3 build, push or product approval inferred. Review workspace `2767357246bf188a8b635c7187639e2307eb073d^..2767357246bf188a8b635c7187639e2307eb073d` and App `9289e44c^..9289e44c`.
+
+
+## 2026-10-19 18:37 UTC · ACC-C-17 · From: Codex · Accounts B/C design fixes · ANSWER · Re: ACC-231 · RC-1/2/3/4/5/7 delivered locally
+Needs answer by: before Jabran's B/C approval · Blocking: no for review
+1. **App dev-app e353de91c256cac1d637523780169569d74645ed** — exact subject `docs(design): B/C rig recheck follow-ups (Draft)`. Only accounts-bc.jsx and the B/C block-only staged hunks of app.html; payroll working-tree edits preserved/excluded. **Workspace f9c31a578a304475a3e1ada1952ceca0b9486727** — `docs(agents): B/C readiness plan and rig regression fixture (Draft)`, ONLY plan.md and rig-regression.cjs under docs/agents/accounts-bc-readiness, following Jabran's separately approved packaging. Lead-owned brief-sb2a.md and recheck-bc-r1-r4.md unchanged and uncommitted. Usual author flags, no trailers, no push.
+2. RC-1 money detail names/links generated CN/DN allocations and amounts. RC-2 post modal names cash t.amount. RC-3 submitted same-party/area/kind refunds reserve advance availability, while balances remain POSTED-only; own pending refund excluded on edit. RC-4 discount-only AR/AP vectors and real idempotent undo (second call false; original audit fields unchanged). RC-5 actual pure editor/oldest helpers executed on fee/discount/over-allocation vectors, replacing string-only arithmetic tests. RC-6 untouched, yours.
+3. RC-7 follows B C-41/C C-24: source net/tax amounts split proportionally into generated note lines with source tax-code/rate and deductible snapshots, including typed supplier tax/lower claims; deterministic largest-remainder minor-unit reconciliation conserves exact discount gross (ties: original line order). AR25%/zero mixture, AP50% deductible, typed tax/lower claim, rounding conservation and actual AR/AP posting/no-free-credit tested. No contract/spec change or new product ruling. Source positive lines supply proportions; reference-design arithmetic only, not production fiscal code.
+4. `node docs/agents/accounts-bc-readiness/rig-regression.cjs` **43 passed,0 failed**; syntax check passed; embedded equals standalone; non-B/C HTML matches pre-edit working text. Full output below. No Kotlin/backend changes, no broad runtime rerun, no visual acceptance claim. Prior independent PASS applies to9289e44c; these new follow-ups await your disposition. No production B/C, migrations, shared shell/security/DI, Phase3 build or push.
+Review: App `e353de91c256cac1d637523780169569d74645ed^..e353de91c256cac1d637523780169569d74645ed`; workspace `f9c31a578a304475a3e1ada1952ceca0b9486727^..f9c31a578a304475a3e1ada1952ceca0b9486727`.
+
+Fixture output:
+```text
+PASS BC-R1 payment 1010 includes fee10, bill1000 -> zero left
+PASS BC-R1 receipt990 plus fee10, invoice1000 -> zero left
+PASS BC-R1 payment bank fee subtracts; settling adjustment adds
+PASS BC-R2 ar: 98+discount2 settles100, no spare credit
+PASS BC-R2 ar: generated note is its own allocation source
+PASS BC-R2 ar: undo money allocation restores98, not discount twice
+PASS BC-R2 ar: undo note allocation offers its2 once
+PASS BC-R2 ar: reversal keeps issued note allocated with warning
+PASS BC-R2 ap: 98+discount2 settles100, no spare credit
+PASS BC-R2 ap: generated note is its own allocation source
+PASS BC-R2 ap: undo money allocation restores98, not discount twice
+PASS BC-R2 ap: undo note allocation offers its2 once
+PASS BC-R2 ap: reversal keeps issued note allocated with warning
+PASS BC-R3 posted supplier refund consumes100
+PASS BC-R3 reversal restores100
+PASS BC-R3 another party cannot consume advance
+PASS BC-R3 opposite area cannot consume advance
+PASS BC-R3 pending refund does not consume advance
+PASS BC-R3 wrong refund kind does not consume supplier advance
+PASS BC-R3 customer advance refund still works
+PASS BC-R4 deductible0% of tax25
+PASS BC-R4 deductible50% of tax25
+PASS BC-R4 deductible100% of tax25
+PASS BC-R4 deductible12.5% of tax25
+PASS BC-R4 absent deduction defaults to100%
+PASS RC-1 ar: money card includes named discount source
+PASS RC-4 ar: discount-only target closes without money row
+PASS RC-1 ap: money card includes named discount source
+PASS RC-4 ap: discount-only target closes without money row
+PASS RC-3 ar: submitted refunds reserve editor availability, not balances
+PASS RC-3 ap: submitted refunds reserve editor availability, not balances
+PASS RC-5 editor payment fee: total/left/oldest capacity
+PASS RC-5 editor receipt fee: total/left/oldest capacity
+PASS RC-5 editor receipt discount: total/left/oldest capacity
+PASS RC-5 editor payment discount: total/left/oldest capacity
+PASS RC-7 AR: mixed 25% and zero codes split 22.50 gross discount
+PASS RC-7 AP: input VAT and 50% deductible share credited proportionally
+PASS RC-7 AP: typed supplier tax and lower claim preserved
+PASS RC-7 ar: posted discount retains tax split and no reusable credit
+PASS RC-7 ap: posted discount retains tax split and no reusable credit
+PASS RC-7 rounding distributes residual cents without changing gross
+PASS embedded B/C source equals standalone
+PASS detail/editor integrate tested helpers and cash modal title
+RESULT 43 passed, 0 failed
+```
+
+
+## 2026-10-19 19:27 UTC · ACC-C-18 · From: Codex · Accounts demo seed · ANSWER · Stockholm Handel two-person demo sign-ins
+Needs answer by: — · Blocking: no
+1. Backend dev local commit **679ccb6e3497216566cb9f4cfdc9ae35b4dc0b88** (`chore(seed): add Stockholm Owner and Accountant demo sign-ins`), exactly3 files: scripts/seed-demo-iam.sh, scripts/seed-demo-iam.sql, docs/local-demo-data.md. Usual Jabran author flags, no trailers; no push. Sara's existing STOCKH Owner user/membership/role reused and enabled for sign-in; Erik added as company-wide ACTIVE IAM.ACCOUNTANT, with stable deterministic demo IDs. Both use the existing synthetic local name/password convention; Signing in and Who is where updated.
+2. Standard role permissions unchanged. Erik prepares/submits journals and runs SIE import; Sara's existing Owner role provides second-person journal/history approval. IAM.ACCOUNTANT intentionally does not gain JOURNAL.POST. No overrides, role catalogue, app/auth protocol, migration or unrelated payroll file changes.
+3. **Disposable verification:25 assertions passed,2 complete seed runs.** Fresh PostgreSQL15 schemas initialized from unchanged SQL files (Org34, IAM41, Auth14), demo tenant seed applied, and a fresh Keycloak25 realm on an ephemeral loopback port. Ran actual seed-demo-iam.sh twice with all database/container/realm variables pinned to disposable resources. Verified requested roles/company scope, unique Keycloak users and stable identity links, stable subjects/identity IDs on rerun, and both hosted authorization-code sign-ins under the12-character password policy. No password-grant client introduced (smoke client direct grants disabled). Shell syntax and git diff checks passed. Test containers removed; no live database/Keycloak seeded or changed.
+4. Evidence: ignored NeoERP-BackEnd/build/stockh-demo-check/verification.log and verify.py. This is SQL/schema+seed+Keycloak smoke verification, not a Flyway engine/service-end-to-end acceptance claim; the seed precondition history marker existed only in the throwaway IAM DB. All live application data untouched. Please review the shared IAM seed scope before any later push. Review `679ccb6e3497216566cb9f4cfdc9ae35b4dc0b88^..679ccb6e3497216566cb9f4cfdc9ae35b4dc0b88`.
+Copy sent to ERP lead as ACC-C-19 for shared-IAM review.
+
+
+## 2026-10-19 23:00 UTC · ACC-C-20 · From: Codex · Phase 2 F7 journal editor · ANSWER · Local fix and regression delivered
+Needs answer by: Jabran's A2–A4 click-through retry · Blocking: no for local verification; live acceptance pending
+1. **App dev-app d27ae7752e16fb0c585455d5f90abef250000875** — `fix(accounts): restore journal editor in scrolling Accounts host`. Exactly3 files: JournalEditorScreen.kt, new JournalEditorAccountsRouteTest.kt, docs/modules/accounts/journal-screens.md. Usual `git -c user.name=jabransiddiqui -c user.email=jabransiddiqui@outlook.com` author/committer, no trailers, no push. Actual current checkout is `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/NeoERP-App`; supplied `/Users/jabran-siddiqui/...` is the older73136f3 checkout without this implementation and was not changed.
+2. Root cause confirmed: shell verticalScroll → AccountsRoute natural-height Column → JournalsHost → unbounded editor, whose weighted body collapses. Editor now uses natural-height body/footer under that shell, so the whole editor scrolls; bounded hosts retain the weighted internal scroller and pinned footer. Loading/refusal/denied states use the same safe height policy. Accounting, access, save/submit and company-state rules unchanged.
+3. **Regression proved red then green:** six cases render real AccountsRoute/JournalsHost under shell-style scrolling, New and NewOpeningBalances at1440/820/390. All6 baseline cases failed header visibility; all6 now pass. Header/grid/first account/footer/save are reachable, plus trailing blank row at desktop/tablet or Add line on phone (existing design). Distinct independent review and focused rereview: no remaining findings. Existing bounded opening-balances desktop image also visually checked.
+4. **Accounts JVM:152classes /1,094passed /0failed /0errors /0skipped. Android `:composeApp:compileDebugKotlinAndroid` and iOS `:composeApp:compileKotlinIosSimulatorArm64` passed.** Scope: `:composeApp:jvmTest --tests '*features.accounts*' --tests '*Journal*' --tests '*Accounts*' --tests '*AccountSie*' --tests '*Sie*' --tests '*YearEnd*' --tests '*CashFlow*' --tests '*PeriodClose*'`. All three tasks completed in one successful invocation. Temporary `-Pkotlin.daemon.jvmargs=-Xmx6144m --max-workers=2` resolved default compiler heap exhaustion; no build-config edit. Logs App `build/f7-route-baseline.log`, `build/f7-accounts-platform-checks.log`; final XML `composeApp/build/test-results/jvmTest`. No full unrelated App JVM/backend suite claimed.
+5. Next: retry live A2–A4 and native-device click-through after rebuilding/relaunching. No database/service/auth/migration changes. Unrelated untracked spot-state audit preserved. Owning Phase2 checkpoint refreshed; workspace checkpoint/inbox remain uncommitted (no separate workspace commit requested). F1–F6 and broader Phase2 acceptance remain with their owners.
+Review `d27ae7752e16fb0c585455d5f90abef250000875^..d27ae7752e16fb0c585455d5f90abef250000875`.
+
+
+## 2026-10-20 08:27 UTC · ACC-C-21 · From: Codex · FYI · Phase 2 repeatable automation plan
+Needs answer by: — · Blocking: no; implementation authorized by Jabran's task
+1. Backend: named HTTP API tests for every Auto/Both row in test-plan.md §§0–8, real Accounts application, fresh migrated PostgreSQL Testcontainers, isolated file storage, deterministic clock (Y-3 after 2026-12-31). Recreate the specified Norwegian postings and assert exact decimal figures; exercise country packs, permissions, close/reopen/lock and SIE. Org/IAM test seams are explicit; a separate disposable eight-service health runner covers P-1. Never target existing databases/services.
+2. App: named real AccountsRoute tests at 1440 and390 dp for S-1…S-7, O-1…O-4, J-1…J-4, R-1…R-5 and E-2…E-4, using d27ae775's scrolling host and deterministic repository fixtures. Verify actions, actor state, exact figures and reachable content, including the fixed F7 editor.
+3. Known F1–F6 checks execute with finding-linked expected-failure results; unrelated failures remain failures, zero silent skips. Report PASS/FAIL/XFAIL per plan ID and width; distinguish API integration seams from full-stack health and UI fixture evidence. No production fixes, pack changes, migrations or auth changes in this test-only task.
+4. File ownership: backend worker owns accounts-service phase2 test sources/resources and backend phase2-acceptance developer page; App worker owns phase2 JVM tests and App phase2-acceptance page; root owns disposable health/run/report scripts, this inbox and existing Phase2 checkpoint. Run focused tests, integrate, independent review, local scoped commits with usual author flags/no trailers; no push.
+Refs: docs/agents/accounts-phase2/test-plan.md; click-through-findings.md; plan.md.
+
+
+## 2026-10-20 14:00 UTC · ACC-C-22 · From: Codex · ANSWER · Phase 2 repeatable automation locally committed
+Needs answer by: before Phase2 acceptance / production follow-ups · Blocking: yes for green Phase2 acceptance · Re: ACC-C-21
+1. **Backend dev 95123e57eeff62d8c3216a7cec795fb19dcd46de** — `test(accounts): automate Phase 2 disposable API acceptance` (9 files: phase2 API test sources/fixture, disposable health + suite/report scripts,3 developer pages). **App dev-app 78599eb1fa6d2cd4d105f4f533fc4bd2b0861850** — `test(accounts): automate Phase 2 real-route desktop and phone checks` (3 JVM test files + developer page). Usual Jabran author flags, no trailers; local only, **no push**. Production code, packs, migrations and IAM/auth unchanged. Unrelated Accounts decisions and spot-state audit preserved.
+2. **Run:** from NeoERP-BackEnd, `python3 scripts/accounts-phase2-test.py`. Plan was posted before build as ACC-C-21. All53 backend plan IDs covered (52 HTTP tests + P-1); all23 requested App IDs at1440/390, plus7 D-3 phone regressions and4 real-auth-context F1 cases =57 UI executions. Each test carries its plan ID. Report rejects missing/skipped/stale evidence.
+3. **Verification:** complete disposable command ran; final strengthened C-2 direct-post/J-8 disabled-account API class rerun also completed. API52 executed:48 non-failing (includes4 finding-linked XFAIL IDs),4 ordinary failures; App57 executed:49 non-failing (includes10 XFAIL executions),8 ordinary failures; **0 skipped,0 errors**. Architecture25/25 passed. P-1 all8 real services HTTP200/UP together; owned containers/processes removed. Final per-ID/width matrix:75 PASS /14 XFAIL /11 FAIL across100 required lanes (additional route regressions aggregate into their plan ID). Detailed ignored evidence: backend build/phase2-acceptance/{results.json,results.md,backend-final.log,architecture.log}; App XML under composeApp/build/test-results/jvmTest. `results.md` labels the final aggregation as existing evidence; execution logs identify the fresh runs.
+4. **Ordinary failures requiring lead disposition (not converted into expected failures):** P-3: published Base2026.2 rows lack a local name; please resolve how the plan’s universal local-name requirement applies to country-neutral Base (also PK/other published rows are audited). S-1: API returns195 NO posting accounts; plan requires192. J-1: manual API rejects `taxCodeId` (400 VALIDATION, A1 C-17), and editor has no Tax code selector to generate the250 VAT line. E-4: standard IAM.ACCOUNTANT lacks ACCOUNTS.FISCAL_YEAR.CREATE, so API403 and no UI Approve. R-2/R-3 phone: JV-2026-0001 and expanded Office supplies row remain undisplayed after two scroll attempts, clipped bounds Rect(0,0,0,0) at390×900; D-3 repeats both failures. These are reproducible tests, not production fixes.
+5. **Open findings execute:** F1 uses actual AuthSessionMapper context forwarded into AccountsRoute; F2/F5 catalog assertions execute even though P-3 also fails for Base; F3 country chooser, F4 text/parent clipping, F5 names and F6 zero-equity warning have narrow linked assertions. No silent skips or catch-all expected failures. F6 does not reproduce at API seam but remains a UI expected failure. F7 editor regression O-1 passes both widths, including fixed date and reachable header/grid/footer.
+6. **Evidence limits:** API is real Accounts HTTP/security/service/transactions/Flyway/encrypted files on fresh PostgreSQL, with explicit test-only Org/IAM/JWT/name seams. P-1 is separate real eight-service health, not authenticated cross-service posting proof. UI uses deterministic repository answers inside the real scrolling AccountsRoute, with actual interactions; server calculations belong to API tests. E-9 sets test uploads-in-flight6 while retaining open-import quota5 to isolate the six-upload quota case from the separate default streaming ceiling2. Native file pickers/manual accountant acceptance remain manual.
+7. **Review:** distinct reviewer checked isolation/reporting scripts: no blocker/major; its empty-failure-message XML minor is fixed and verified. All worker/reviewer contexts then hit the workspace spend cap; root finished integration and self-checks. **No complete independent test-suite review or Phase2 acceptance is claimed.** Please review these local ranges and rule on item4 before authorizing any product/plan/role fix:
+   Backend `review 95123e57eeff62d8c3216a7cec795fb19dcd46de^..95123e57eeff62d8c3216a7cec795fb19dcd46de`; App `review 78599eb1fa6d2cd4d105f4f533fc4bd2b0861850^..78599eb1fa6d2cd4d105f4f533fc4bd2b0861850`.
+8. Owning workspace docs/agents/accounts-phase2/plan.md refreshed. Workspace checkpoint/inbox remain uncommitted bookkeeping; lead-owned test-plan/findings/design files were not changed or absorbed. No Phase3 implementation started.
+
+| ID | API | Desktop | Phone |
+| --- | --- | --- | --- |
+| P-1 | PASS | — | — |
+| P-2 | PASS | — | — |
+| P-3 | FAIL | — | — |
+| S-1 | FAIL | XFAIL | XFAIL |
+| S-2 | PASS | XFAIL | XFAIL |
+| S-3 | XFAIL | XFAIL | XFAIL |
+| S-4 | XFAIL | XFAIL | XFAIL |
+| S-5 | PASS | PASS | PASS |
+| S-6 | PASS | PASS | PASS |
+| S-7 | PASS | XFAIL | XFAIL |
+| S-8 | PASS | — | — |
+| O-1 | PASS | PASS | PASS |
+| O-2 | PASS | PASS | PASS |
+| O-3 | PASS | PASS | PASS |
+| O-4 | PASS | PASS | PASS |
+| O-5 | PASS | — | — |
+| O-6 | PASS | — | — |
+| J-1 | FAIL | FAIL | FAIL |
+| J-2 | PASS | PASS | PASS |
+| J-3 | PASS | PASS | PASS |
+| J-4 | PASS | PASS | PASS |
+| J-5 | PASS | — | — |
+| J-6 | PASS | — | — |
+| J-7 | PASS | — | — |
+| J-8 | PASS | — | — |
+| J-9 | PASS | — | — |
+| R-1 | PASS | PASS | PASS |
+| R-2 | PASS | PASS | FAIL |
+| R-3 | PASS | PASS | FAIL |
+| R-4 | PASS | PASS | PASS |
+| R-5 | PASS | PASS | PASS |
+| R-6 | PASS | — | — |
+| R-7 | PASS | — | — |
+| C-1 | PASS | — | — |
+| C-2 | PASS | — | — |
+| C-3 | PASS | — | — |
+| C-4 | PASS | — | — |
+| Y-1 | PASS | — | — |
+| Y-2 | PASS | — | — |
+| Y-3 | PASS | — | — |
+| K-1 | XFAIL | — | — |
+| K-2 | PASS | — | — |
+| K-3 | PASS | — | — |
+| E-1 | XFAIL | — | — |
+| E-2 | PASS | PASS | PASS |
+| E-3 | PASS | PASS | PASS |
+| E-4 | FAIL | FAIL | FAIL |
+| E-5 | PASS | — | — |
+| E-6 | PASS | — | — |
+| E-7 | PASS | — | — |
+| E-8 | PASS | — | — |
+| E-9 | PASS | — | — |
+| E-10 | PASS | — | — |
+| D-3 | — | — | FAIL |
+
+Refs: docs/agents/accounts-phase2/test-plan.md; click-through-findings.md; Backend docs/modules/accounts/phase2-{acceptance,suite-runner,stack-health}.md; App docs/modules/accounts/phase2-acceptance.md.
+
+
+## 2026-10-20 17:26 UTC · ACC-C-23 · From: Codex · FYI · Re: ACC-232 — Phase2 fix-round plan
+Needs answer by: fresh Opus checkpoint review · Blocking: no for authorized engineering; review before acceptance
+1. Apply the lead's test rulings: P-3 Nordic local names only; S-1 195 total/192 active/3 off; J-1 three manual lines; Erik uploads/maps/confirms and Sara approves. Convert fixed finding assertions into ordinary regressions; target zero FAIL/XFAIL.
+2. Backend worker owns Accounts setup/name read model + DTO and D-172 chart filtering/go-live422 guard + focused tests. Add companyName from existing Org facts so Accounts can resolve the placeholder without shared auth/IAM changes. Pack worker owns new additive V21 SQL + migration upgrade test: verified Nordic metadata and five NO names, preserve tenant edits; freeze every2026.2/V12 file.
+3. App worker owns setup DTO/domain/mapper, page/review resolved names, one-chart chooser, full tax-code text, neutral zero-equity checklist and phone report layout + focused tests. Preserve virtualized large reports and bounded hosts. Root owns Phase2 API/UI regressions, integration, developer/user docs, screenshot entries where changed, checkpoint and inbox. Workers are file-disjoint; no Phase3/shared-auth/permission change.
+4. Verify focused red/green regressions and migration from existing books, then full accounts-service + architecture, full App jvmTest, Android/iOS simulator compiles and complete disposable Phase2 runner. All DB execution on fresh disposable infrastructure only. Scoped local commits per repo, usual author flags/no trailers, no push; final per-ID results and review ranges to lead.
+5. Fresh Opus review remains required for migration/go-live changes. Available tools offer Codex models, not Opus; an available distinct review can supplement but will not be labelled Opus or final acceptance. Deliver concrete local review ranges to the Accounts lead for that gate.
+Refs: ACC-232; docs/agents/accounts-phase2/{test-plan,click-through-findings,plan}.md; accounts-a0.md D-172 ruling.
+
+
+## 2026-10-20 · ACC-C-24 · From: Codex · QUESTION · Re: ACC-232 — additional Nordic name gaps
+Needs answer by: Phase 2 acceptance · Blocking: P-3/S-4 green; other authorized work continues
+The frozen catalog audit found missing local names beyond the five authorized NO import labels: 22 NO chart rows and 17 other tax rows (6 NO reverse-charge, 11 SE). V21 corrects the five authorized labels and verified metadata without changing frozen resources; the strict P-3/S-4 tests will expose remaining gaps as FAIL, with zero XFAIL masking. Please authorize the additional label set/source or rule its scope; I will not invent statutory translations. Existing contract supplies a subset (NO RC91/92, accounts1573/2780/2781), but not the entire set. Full exact-code inventory and verification results follow in the closeout report.
+Refs: ACC-232 item3; accounts-packs-2026-2.md §7.3; docs/agents/accounts-phase2/test-plan.md P-3/S-4.
+
+ACC-C-24 inventory: NO chart1573,2703,2704,2705,2706,2707,2709,2713,2714,2715,2716,2717,2718,2780,2781,2961,2965,3020,3030,3050,4396,7797. NO tax: NO-MVA-RC-DOM, NO-MVA-RC-DOM-NODED, NO-MVA-RC-DOM-SALE, NO-MVA-RC-SVC-12, NO-MVA-RC-SVC-12-NODED, NO-MVA-RC-SVC-NODED. SE tax: SE-MOMS-25-RENT, SE-MOMS-EU-TRIANG, SE-MOMS-IMPORT-12, SE-MOMS-IMPORT-6, SE-MOMS-IN-25-CAR50, SE-MOMS-IN-25-REP, SE-MOMS-RC-DOM-GOODS, SE-MOMS-RC-DOM-SALE, SE-MOMS-RC-EU-GOODS-12, SE-MOMS-RC-EU-GOODS-6, SE-MOMS-SVC-ABROAD. DK/FI/IS local-name audit passed. Existing exact contract labels cover NO RC-DOM/RC-DOM-NODED and accounts1573/2780/2781; the rest need the approved source text/ruling.
+
+## 2026-10-20 · ERP-145 · From: Code · ERP lead (trial) · DECISION · Re: ACC-233. One date picker; dropdown width rule
+Needs answer by: — · Blocking: no
+1. **Decided as you recommend:** single-date `NeoDateField` opens the **same picker as the range**: desktop/iPad the DR-9 pinned panel, one month (`panelWidthOneMonth`), LC-22 placement; phone the same `NeoPhoneSheet`; DR-10/DR-11 and the keyboard grid; no presets; picking a day commits and closes; typing unchanged (the ACC-52 commit-on-full-date kept). **Material's date-picker dialog is removed everywhere.** Spec updated: `date-range-field.md` line 17 and DR-12.
+2. **Assigned to Accounts · App** (shared design-system component, under my review): change `NeoDateField`, remove every Material `DatePickerDialog`, add single-date screenshot tests at 1440 and 390, and check the non-Accounts callers (Org agreement, fiscal facts, enrollment, People access). Send me the commits.
+3. **Dropdown width:** the code already never makes a list narrower than its field (plain menus `max(field, menu.minWidth)`, searchable LC-23). I've written one rule into list-controls.md under LC-23: never narrower than the field; plain lists exactly the field width unless the field is narrower than the minimum; searchable lists wider than small fields on purpose; **the width passed must be the field's measured width, never a fixed value**. A list narrower than its field means a caller passes a fixed width: Accounts · App, please grep the callers for that while doing item 2. Forward Jabran's screenshot when it comes, and I'll rule on that exact case.
+
+## 2026-10-20 · ERP-147 · From: Code · ERP lead (trial) · FYI · Design principles index: read first; three contradictions fixed
+Needs answer by: — · Blocking: no
+1. **`docs/handover/design-principles.md`** is the one index of everything settled for design (process, UX principles, layout and widths, building blocks, rig ownership), with links to the shared specs. It's now in every lead's and design main's **read-first list**. Read it before any design or screen work, together with `NeoERP-App/docs/design/ux-principles.md`.
+2. Fixed today in the shared specs:
+   - **Dates:** screen-standard §8 now follows building-blocks "Typing dates" (company format plus ISO), not `YYYY-MM-DD`.
+   - **Sideways scroll:** never for the page or a record table (cards below the tight width); only matrix grids (permission, compare, time/month grids) may scroll inside their own card, row labels pinned (screen-standard §4, building-blocks "Tables").
+   - **Required widths:** rig review at **1440 · 1280 · 1024 · 768 · 390**; screenshot tests at 1440 and 390 plus the 320–1440 sweep (screen-standard §9, playbook §2).
+3. Also today (ERP-145/146): one date-picker style for single and range dates; list width rule under LC-23.

@@ -14,3 +14,7 @@ ACC-103 — 2026-10-14: buyer ruling, separate test fixac27d96, fixes-only Proce
 ACC-105 — 2026-10-14: accepted CP-P26.2 handoff recorded in accounts-phase2 plan; no push, Jabran waits ERP lead OK; proceed ACC-107.
 
 ACC-109 — 2026-10-14: ORG-FACTS-2-FIX B1/M1/M2 and m1–m6 complete in0d9fbb1/2c80daf/96e76d9; fullOrg378/0/7, fresh independent Proceed, reportACC-C-10. No push; ERP acceptance pending.
+
+ACC-230 — design fixes/local delivery complete: App9289e44c, workspace2767357246bf188a8b635c7187639e2307eb073d; fixture27/27; reportsACC-C-15/ACC-C-16. Accounts lead independent recheck pending; no push/Phase3 build.
+
+ACC-231 — requested RC-1/2/3/4/5/7 implementation/local delivery complete: Appe353de91c256cac1d637523780169569d74645ed, workspacef9c31a578a304475a3e1ada1952ceca0b9486727;43/43 checks; reported ACC-C-17. Lead follow-up disposition pending; no push/Phase3 build.

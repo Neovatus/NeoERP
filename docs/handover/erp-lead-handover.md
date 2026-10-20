@@ -9,6 +9,7 @@ This is a **trial**. While it runs, the Code session *is* the ERP lead. Cowork �
 
 1. `docs/handover/communication-protocol.md`: how leads talk. It wins on message format, ids and decisions.
 2. `docs/handover/module-lead-playbook.md`: chain of command (§2a), hard rules (§3), what the ERP lead owns (§4), shared standards (§5).
+2a. `docs/handover/design-principles.md`: **everything settled for design**, one index with links to the shared specs (process, interaction, layout and the required widths, building blocks, rig ownership). Read it before any design or screen work. (you own every spec it links)
 3. `docs/handover/erp-lead-decisions.md`: every decision so far. **Your decisions log**; you append to it.
 4. `docs/handover/target-countries.md`, `docs/handover/next-modules-plan.md`.
 5. `docs/inbox/README.md`, `docs/inbox/erp-lead.md` and `erp-lead.done.md`.

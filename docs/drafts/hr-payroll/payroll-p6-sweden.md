@@ -137,12 +137,12 @@ Only frozen PAID money events feed AGI; parallel/draft/planned examples remain e
 
 Use existing Filings filtered SE_AGI and month/company, with pinned XML profile status.
 Preview shows paid-event membership, money reconciliation and HR absence-fact supplement status.
-Required VAB/parental absence may exist with no PAID money: show shared-model gap as blocker.
+Required VAB/parental absence may exist with no PAID money: use P4-A11 ABSENCE_FACTS with missing actual HR source blocked.
 Generate creates immutable version/hash. Copy: “Upload, review and sign in Skatteverket.”
 Generated, uploaded, manually submitted and reception receipt are visibly different facts.
 Mark submitted needs period/version/hash, submitted date, kvittens reference and receipt.
 Receipt scan pending is uploader-only; rejected scan never changes the filing's money.
-Show authority outcome “Unconfirmed” unless manually evidenced under approved shared amendment.
+Use Draft P4-A13 separate evidence states, correlated manual evidence and visible synthetic labels.
 “Received” means reception, not final legal tax acceptance. Rejected outcome retains evidence/version.
 Correction opens a new version tied to prior submitted version/period and stable recipient keys.
 Money changes require PAID correction runs; identity corrections require reason/evidence.
@@ -212,3 +212,16 @@ use the same guard/model and clear transient inputs on context changes. All rows
 stay Pending verification; existing P6 sources alone supply statutory constants.
 Root integration owns UI/bundle tests and checkpoint evidence. B2/C/D and new HR
 write UI are excluded; this clarification grants no production approval.
+
+
+## Batch C reporting/correction — HRP-69 (Draft)
+
+Shared P4-A9…A14 is the only generic reporting model. Workbench preflight separates
+PAID monetary sources and first-declaration absence facts, with no fabricated zero
+payment. CORRECT_PERIOD keeps earlier versions/bytes/evidence and stable original
+period/record keys. Absence fields are final after first manual submission; changed
+absence blocks with the external route. Identity/records/feedback diagnostics need
+FILING.CONTENT.READ, totals only do not. Every file is Sample — not an official
+format and feedback outcomes are explicitly synthetic; no official acceptance,
+XML validity, live submission or country readiness is claimed. Missing source and
+practitioner/schema gates remain explicit. P4 owns evidence limits/scan/lineage.

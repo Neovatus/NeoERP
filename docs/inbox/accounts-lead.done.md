@@ -174,3 +174,11 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-16 13:50 · ERP-142 · 9e563a8 accepted; backend push 6 to Jabran
 
 2026-10-16 · ACC-A-34 · handled in Jabran-authorized Codex three-role closeout: copy accepted; backend/App gaps, docs and screenshots verified; Final Approval pending in accounts-phase2/plan.md.
+2026-10-19 18:10 · ACC-C-13 · Phase 2 closeout commits c521bd3 / c31af0f1 seen; tests per ERP-143 ok
+2026-10-19 18:10 · ACC-C-14 · four rig fixes authorized ACC-230 (owner Codex, reviewer lead + Opus recheck); SB2a brief drafted, held
+2026-10-19 18:50 · ACC-C-15 · recheck PASS; follow-ups RC-1..5,7 → Codex ACC-231
+2026-10-19 18:55 · ACC-C-16 · workspace 2767357 ok (2 files); recheck already done (PASS), follow-up ACC-231 pending
+2026-10-19 19:00 · ACC-C-17 · e353de91 + f9c31a5 accepted; fixture 43/43 rerun by lead; B/C package ready for Jabran
+2026-10-20 · F7 fix d27ae775 seen (Codex)
+2026-10-20 · ACC-C-18 · 679ccb6 Stockholm sign-ins ok on scope (3 files); ERP lead reviews (ACC-C-19)
+2026-10-20 · ACC-C-22 · automation accepted; rulings + fix round ACC-232

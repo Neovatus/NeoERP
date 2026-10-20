@@ -19,7 +19,7 @@ A lead does not write production code. Builder sessions (Claude Code or Codex) d
 
 0. **Step 0, independent review** of what exists: code, contracts, design and plan. Present a verdict before anything is designed or built.
 1. **Scope.** Write `docs/agents/<module>/scope.md`: what's in, what's out, domain rules, open decisions. Jabran signs it off.
-2. **Design.** Screen Rig with every state (empty, loading, error, read-only, no access, offline) at desktop, iPad and phone widths. Jabran reviews it.
+2. **Design.** Screen Rig with every state (empty, loading, error, read-only, no access, offline) at the required widths **1440 · 1280 · 1024 · 768 · 390** (screen-standard §9). Jabran reviews it. Settled rules: `docs/handover/design-principles.md`.
 3. **Contract.** Endpoints, shapes, permission codes with default roles (`docs/security/permission-actions.md`, `standard-roles.md`), audit events, migrations, and checkpoints with slices and tests. Jabran approves it.
 4. **Build** in checkpoints: backend → app data (mocks allowed) → app screens → acceptance. Review per checkpoint, not per wave.
 5. **Verify:** demo seed data covers the states, Jabran clicks through at three widths, and sync anything that changed back into the rig.

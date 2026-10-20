@@ -10,6 +10,7 @@ The original handover (`docs/handover/hr-payroll-lead-handover.md`) stays as it 
 ## 0. Read first, in order
 
 1. `docs/handover/communication-protocol.md`: how leads talk (ids, types, inboxes, §7 shared files, §9 turn checklist, §12 sub-agents, §13 waking). It wins on communication.
+2a. `docs/handover/design-principles.md`: **everything settled for design**, one index with links to the shared specs (process, interaction, layout and the required widths, building blocks, rig ownership). Read it before any design or screen work.
 2. `docs/handover/module-lead-playbook.md`: the loop (§2), running builders (§2a), hard rules (§3), what the ERP lead owns (§4), shared standards (§5).
 3. `docs/handover/erp-lead-decisions.md`: the decisions that bind every lead.
 4. `docs/handover/target-countries.md`: six full countries (PK, NO, SE, DK, FI, IS); base pack elsewhere.

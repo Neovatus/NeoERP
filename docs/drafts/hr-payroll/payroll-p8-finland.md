@@ -121,50 +121,60 @@ PAID is one-way, corrected only through existing correction run. No country undo
 
 ## 8. Two reporting families
 
-Use existing Filings, with explicit family selector:
+HRP-69 Batch C (Draft): reuse Backend P4 §2b, P4-A9…A14. Start with a
+preflight showing family/recipient, period or PAID event, source snapshot references,
+content access, profile/year check and blockers. Identity/content is opt-in under
+FILING.CONTENT.READ; accountant FILING.READ sees totals/outcome counts only.
+Money comes only from linked PAID frozen snapshots and recorded deposits. Facts-only
+and CANCEL previews have no totals/money/deposits and create no payment/run/line.
+Unpaid, PARALLEL and PERIOD_MOVED events cannot supply monetary content.
 
-| Family | Inputs / visible distinction |
+Use P4's shared correction and evidence journeys: GENERATED → UPLOADED → ACCEPTED /
+ACCEPTED_WITH_WARNINGS / PARTIAL / REJECTED, with NOT_RECORDED for unknown feedback.
+Upload never implies acceptance. Manual feedback checks company/family/recipient/
+period/reference/version hash; same message/content replays, conflict refuses, partial
+requires affected record diagnostics. File evidence is ≤10 MB, byte-type checked and
+scanned; PENDING is uploader-only, rejected bytes removed. Diagnostics/files need
+CONTENT.READ and audit. Warnings remain visible; rejected/partial feedback prompts
+correction. History retains every prior version and its bytes/evidence unchanged.
+Feedback changes no money, posting, deposit or payee payment. D7 still forbids live
+calls. All rig outcomes say Simulation, every sample download/preview says
+“Sample — not an official format”; UNCHECKED / PARALLEL_ONLY remain visible.
+Country formats, calendars, practitioner verification and pilots stay open gates.
+
+| Family | Required distinction |
 |---|---|
-| Earnings payment (`FI_IR_EARNINGS_PAYMENT`) | Payment event/date, employee report reference, pay-period dates, paid eligible income/deductions, insurance facts; ordinary 5 calendar day deadline after pay date. |
-| Employer separate (`FI_IR_EMPLOYER_SEPARATE`) | Payment month, regular/occasional employer, health total/deductions, no-wages where required; nominal 5th next month. |
+| Earnings payment (`FI_IR_EARNINGS_PAYMENT`) | P4-A10 PAYMENT, one filing per PAID event/scope, stable report_ref. Actual payment date differs from earnings period; ordinary 5 calendar days after payment with checked nonbusiness-day/exception rules. Generate before month end. |
+| Employer separate (`FI_IR_EMPLOYER_SEPARATE`) | MONTH, payment month and employer-register category. PAID employer-health totals/deductions; regular-employer no-wages declaration when applicable, candidate 5th following month with checked calendar. |
 
-Payment date differs from pay period/earnings period. Payment June 15 for May is June payment
-report; do not wait for June close. Show legal calendar adjustment rather than claiming
-Saturday June 20 or Sunday July 5 is the final deadline. Filing deadline and tax payment due
-are separate. Regular-employer no-wages and noncash-benefit obligations need P8-A2
-noncash immutable facts; no fake zero PAID events. Missing shared model remains blocked.
-Prototype earnings simulation requires a valid 2026 paymentDate matching the selected
-month and a bounded sample paymentEventRef. Employer separate uses month only.
-Correction retains family, payment date and sample reference; changing these keys
-requires future cancel/new flow. These references are synthetic, not actual PAID
-event selections. Prototype does not generate actual statutory data.
+Payment June 15 for May belongs to the June payment event, independent of the
+May earnings period. Two PAID events in one month remain distinct reports/deadlines.
+A corrected pay date never moves the original stored deadline. Filing and tax-payment
+due dates differ. No-wages uses P4-A11 NO_WAGES_DECLARATION from immutable obligation
+facts, with no monetary fields. Missing facts block. Noncash-benefit-only reporting
+without a real PAID event remains blocked under P4-A14; never invent a zero event.
+Sample payment references are explicitly synthetic and establish no real PAID event.
 
-Preview lists record count, source paid references, family/scope, totals, blocking problems
-and exact 2026 profile status. Generate actual file blocked until schema CHECKED and
-source facts ready. Future writer rereads own bytes and reconciles immutable facts.
-Official manual XML upload exists; exact delivery schemas mandatory, no 2027/FromIR substitution.
-Display “Upload in the Incomes Register” and preserve manual operator responsibility.
-No authority credentials or direct submission controls; D7 later.
+Exact 2026 delivery schemas for earnings/employer/cancellation and code lists are
+required. FromIR distribution schemas are not submission schemas. Manual external
+XML upload is the future channel; no credentials or direct authority-submit controls.
 
 ## 9. Evidence and corrections
 
-Generated, uploaded, received and accepted are visibly separate. Simulated upload gives
-PENDING, not accepted. Feedback must match current company/family/file version/reference;
-wrong reference refuses. Idempotent same receipt causes no extra history; conflict refuses.
-Future genuine evidence uses existing P4 receipt flow with proposed P8-A3 fields; scans
-pending uploader only, clean available, rejected bytes removed without changing money.
-FILING.READ totals only; employee/file/receipt content requires CONTENT.READ and audit.
+P4-A12 owns FI's Draft CANCEL_AND_NEW flow. Select original reference/version and
+reason, generate a references-only CANCEL, record manual cancellation transmission
+and the ACCEPTED/RECEIVED outcome required by the checked kind's cancel_requires.
+NEW_AFTER_CANCEL is refused until that evidence exists. It gets a new report_ref;
+cancelOnly ends the lineage. Every earlier original/cancel/new version remains linked,
+readable and unchanged. Cancellation cannot undo PAID, journals or external payment.
 
-Correction opens new immutable version referencing prior company/family/scope with reason.
-Replacement resends complete contents including unchanged data, keeping register reference.
-Cancellation is a distinct irreversible authority operation; certain key changes need cancel
-and new report. No generic replacement claim covers every correction. Verify 2026 matrix.
-Retain original, cancellation, new report and feedback in history. Money changes use PAID
-correction runs; cancellation never undoes PAID/journal/payment. Partial batch feedback
-keeps accepted reports intact and targets failed report references only. Recovery/unjust
-enrichment needs sourced specific treatment before production.
-Current rig supports correction history simulation only; cancellation/export details
-remain contract/screen proposal and a gate, not an implemented authority workflow.
+The precise 2026 field/action/cancellation-evidence matrix remains a verification gate;
+no generic replacement substitutes for cancel-and-new. Partial feedback retains
+accepted reports and targets rejected report keys only. Money changes need a PAID
+correction run; identity/fact changes need a new fact snapshot. Recovery/unjust
+enrichment needs sourced specific treatment. No real cancellation or official file
+is performed by a simulation. P4 §2b replaces the earlier separate P8-A2/A3 request,
+metadata and evidence proposals.
 
 ## 10. Acceptance and next approval
 
@@ -172,7 +182,7 @@ Require exact source mapping/apply fresh pairing/no ID persistence, wrong pair/d
 replay/confidential revocation/own link change/cross-company/stale versions; residual same-
 employer concurrency/revised-card cases; insurance/age/month threshold boundaries;
 holiday methods/no double health/balanced postings; two-family date validation, paid-only/
-no-wages/benefits-only, replacement/cancel/new, partial feedback and correlated receipts.
+no-wages, blocked noncash-only, cancel/new, partial feedback and correlated receipts.
 All source/format rows UNCHECKED, pilot NOT_RUN, PARALLEL_ONLY until formal review,
 practitioner/source approval and real employer pilot. P1/HR/P2/P3/P4 owners must approve
 shared amendments. Jabran then approves screen+contract before production implementation.

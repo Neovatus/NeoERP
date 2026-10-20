@@ -280,3 +280,33 @@ Final Approval boundary: all values Pending verification / UNCHECKED /
 PARALLEL_ONLY, no ready country, actual declaration/policy save or legal/practitioner
 approval. Lead must review/accept B1 fixes+B2 and supply the next approved brief.
 Append one HRP-C-9 then stop; no push/PR, C–E or HR protection screen inferred.
+
+
+## Active HRP-69 — 2026-10-20: B review fixes then reporting C
+
+Discovery/Plan: App dev-app78599eb1, Backend deve562419, workspace masterf0c99fd;
+large unrelated Accounts dirty scopes preserved. HRP69 authorizes C9-1..6 first,
+separate Draft fix commit, then generic reporting C for all5 countries on P4-A9..14.
+P4 amendment marker and §2b read, read-only. User no PROJECT-STATE access overrides
+shared state pickup. Root owns shared Payroll JSX/app/spec and this checkpoint;
+catalogworker owns P7/P8/P9 first then countryalignments only after fixcommit.
+Root alone integratesapp with fresh reads and unownedhash protection. No production,
+push, PR, shell/routes/Tweaks/HR edits; previous path allowlist remainsbinding.
+
+Advisor1 structured self-challenge: existing B model permission/lifecycle retained;
+DK everyblockerexceptOrg suppressesmoney, FUND releaseintermediate, boundedliability,
+neutralFIHRcodes, amountonlytags/catalogs. Fix/test/commit before C. C reuses existing
+countryroute and reportstate boundary, no second public API, no liveauthority/file
+validityclaim. Preflight gates contentidentity separately fromtotals; paymentreports
+only frozen synthetic PAID snapshotfixtures, nevercreatedby facts-only/cancel flows.
+Facts/cancel have nulltotals/nomoney. Immutableversions and linkedcorrections,
+cutoff/finality/cancel-evidence, independentlycorrelated manualfeedback filesize/type/
+scan constraints. UI outcomes explicitlysynthetic evidence, neverauthorityacceptance.
+Country profiles keep specifics only and pointsharedrules toP4. Needed actualHR/Org/
+format/checker services remainblocked inCURRENT and explicitrigfixtures arelabelled.
+
+Verificationplan: exactnpmCDN headlessallpayroutes×4widths + Bfixstatechecks and
+allCshared/countrystates; guards/contentvstotals, immutablehistory, no fakeevents,
+feedbackcorrelation/replay/conflict, scansize/type, correctioncutoff/finality,
+PAIDsource, no storage/sensitives. Distinctreview thenfocusedfix re-review;
+formalOpus/leadacceptance stillrequired. ReportC10thenstopbeforeD/E.

@@ -138,43 +138,60 @@ Unknown policy, source facts or tax timing shows blocked calculation/settlement 
 
 ## 8. Reporting family workbench
 
-Current synthetic family selector:
+HRP-69 Batch C (Draft): reuse Backend P4 §2b, P4-A9…A14. Start with a
+preflight showing family/recipient, period or PAID event, source snapshot references,
+content access, profile/year check and blockers. Identity/content is opt-in under
+FILING.CONTENT.READ; accountant FILING.READ sees totals/outcome counts only.
+Money comes only from linked PAID frozen snapshots and recorded deposits. Facts-only
+and CANCEL previews have no totals/money/deposits and create no payment/run/line.
+Unpaid, PARALLEL and PERIOD_MOVED events cannot supply monetary content.
 
-| Fixture family | Required controls |
+Use P4's shared correction and evidence journeys: GENERATED → UPLOADED → ACCEPTED /
+ACCEPTED_WITH_WARNINGS / PARTIAL / REJECTED, with NOT_RECORDED for unknown feedback.
+Upload never implies acceptance. Manual feedback checks company/family/recipient/
+period/reference/version hash; same message/content replays, conflict refuses, partial
+requires affected record diagnostics. File evidence is ≤10 MB, byte-type checked and
+scanned; PENDING is uploader-only, rejected bytes removed. Diagnostics/files need
+CONTENT.READ and audit. Warnings remain visible; rejected/partial feedback prompts
+correction. History retains every prior version and its bytes/evidence unchanged.
+Feedback changes no money, posting, deposit or payee payment. D7 still forbids live
+calls. All rig outcomes say Simulation, every sample download/preview says
+“Sample — not an official format”; UNCHECKED / PARALLEL_ONLY remain visible.
+Country formats, calendars, practitioner verification and pilots stay open gates.
+
+| Synthetic selector | Period/profile and production proposal |
 |---|---|
-| `IS_WITHHOLDING_MONTHLY` |2026 month. |
-| `IS_PENSION_FUND` |2026 month + predefined `IS-PENSION-DEMO` synthetic recipientProfileId. |
-| `IS_UNION` |2026 month + predefined `IS-UNION-DEMO` synthetic recipientProfileId. |
+| `IS_WITHHOLDING_MONTHLY` | 2026 month; tax production kind proposal `IS_STADGREIDSLA`, registered employer. |
+| `IS_PENSION_FUND` | 2026 month + predefined synthetic `IS-PENSION-DEMO`; production `IS_PENSION` requires approved fund/payee profile. |
+| `IS_UNION` | 2026 month + predefined synthetic `IS-UNION-DEMO`; production kind requires approved union/payee profile. |
 
-The demonstration recipient is not a real institution, certified format or configured connection.
-Production proposal kinds in contract §7 resolve an approved recipient registration/profile.
-Profile-year mismatch, missing required profile and wrong-family/profile input block generation.
-No arbitrary fund name input implying all funds support one file. Actual files remain future work.
+Demo recipients are not actual institutions, CHECKED formats or connections. P4-A9
+materializes an independent filing/version/evidence/lineage per approved recipient.
+Missing, wrong-family/year or registration/payee-mismatched profiles block. Do not
+allow arbitrary fund strings or suggest every recipient accepts the same file.
+Tax day-15/next-working-day and Gildi's example fund dates remain country-profile
+verification gates (P9 IS-S12/S7), not a universal tax/fund/union calendar.
 
-Preview explains period/family/recipient and shows diagnostic readiness, no real identity or file.
-Generated preview is not sent. “Record upload simulation” requires a bounded external reference;
-status stays PENDING until correlated synthetic feedback. Explicit label “Simulation” persists.
-Accept/reject simulation binds company, month, family, recipient, version/reference and receipt id.
-Wrong correlation refuses; replay is idempotent; conflict cannot overwrite immutable prior feedback.
-Acceptance simulation never means authority acceptance, contribution payment, or country Ready.
+Tax no-payment reporting uses P4-A11 ZERO_PAYMENT_OBLIGATION only with verified
+registered-employer obligation facts and a frozen facts-only snapshot. Fund/union
+no-activity duties are separate recipient-profile rules; tax's rule supplies no default.
+No fabricated employee or zero-paid event. Every family displays its own content basis.
 
-Correction requires reason and inherits same company/family/recipient/month; parent remains visible
-and immutable. Detail shows parent→child history and separate generated/upload/feedback states.
-Production cancellation/replacement/delta/original-month rules remain recipient-profile gates.
-Changing a month or family cannot turn a correction into an unrelated return silently.
-
-Production future file flow uses P4 preflight, immutable records, exact writer readback/totals,
-manual external upload, scan-controlled receipt and authorized reference. Source year/format
-must be pinned. File acceptance, external payment and P3 statutory deposit are distinct facts.
-Tax zero report may be obligatory even without PAID events; P4 no-event obligation amendment
-is required, never manufacture a zero-paid employee. Fund/union no-activity is recipient-specific.
+Corrections choose the targeted family/recipient/period version and original reference,
+with reason. P4-A12 requires the profile's checked model/action/cutoff; Iceland has no
+universal replacement/delta/cancellation default. Parent→child history preserves all
+earlier versions and evidence, and a new child starts without inherited acceptance.
+Changing a month, fund or family cannot silently retarget the correction. Rejection
+or correction in one recipient never changes another. Money changes first require a
+PAID correction run; facts use a new snapshot. P9-A4's earlier standalone shared
+proposal is superseded by P4 §2b; exact recipient action/evidence mappings stay gated.
 
 ## 9. Source/readiness and final review
 
 Show official source title/link/year, applicability, check state, missing schema/rounding evidence
 and pilot status separately. Research-complete never equals checked. No writable READY toggle.
 Required production gates: HR/P1 input/eligibility amendment; Accounts role/payee approval;
-P4 no-event/family/profile/feedback/correction amendment; Iceland practitioner confirms annual
+P4 §2b Draft approval and checked country family/profile/feedback/correction mapping; Iceland practitioner confirms annual
 credit precision, social base, agreement applicability and scale0 rounding; current tax and
 selected fund/union schemas pinned and recipient pilots accepted; parallel payslip/filing/ledger
 comparison; formal independent review, then Jabran approves spec and contract before building.

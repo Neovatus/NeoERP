@@ -141,3 +141,5 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-16 · ACC-227 · covered by ERP-142 (9e563a8 accepted); told the lead directly
 2026-10-16 · end of day: all paused; handoff updated
 2026-10-16 · Actions off: testing rule changed; ERP-143 (ACC), ERP-144 (HRP)
+2026-10-20 · ACC-233 · one date picker + list width rule decided, Accounts · App assigned (ERP-145); FYI HRP (ERP-146)
+2026-10-20 · design-principles.md reviewed, §F fixed, in all read-first lists; FYI ERP-147 to every lead and main inbox

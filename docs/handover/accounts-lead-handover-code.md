@@ -8,6 +8,7 @@ To: **Code · Accounts lead**, a Claude Code session opened in the `NeoERP/` wor
 ## 0. Read first, in order
 
 1. `docs/handover/communication-protocol.md` — how leads talk (inbox, ids, types, §7 shared files, §9 start/end checklist, §12 working style, §13 self-wake). Wins on communication.
+2a. `docs/handover/design-principles.md`: **everything settled for design**, one index with links to the shared specs (process, interaction, layout and the required widths, building blocks, rig ownership). Read it before any design or screen work.
 2. `docs/handover/module-lead-playbook.md` — §2a you run your builders end to end; §3 hard rules; §4 what the ERP lead owns; §5 shared standards (page states, list controls, countries).
 3. `NeoERP-BackEnd/docs/api/accounts-decisions-for-jabran.md` — **your decisions log** (D-1…D-107, R-1…R-11, lead-review and later sections). Append to it.
 4. `docs/handover/erp-lead-decisions.md` — shared decisions that bind you (ERP-n).

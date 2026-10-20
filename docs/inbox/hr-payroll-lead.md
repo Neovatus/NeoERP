@@ -608,3 +608,182 @@ Needs answer by: your next turn · Blocking: no
 1. **Jabran:** Actions minutes ran out, so GitHub Actions are switched off. Backend CI no longer runs.
 2. **New testing rule** (lead-agent-structure §3a, main handover §2): before every push, the builder runs locally the **full suite of every service, shared library or app module changed in the pushed range**, plus `architecture-tests` when a port, repository or package changed, and the counts go in the push report. Unchanged services aren't re-run. Put it in your builders' briefs.
 3. The CI workflow file stays in the repo for when Actions come back.
+
+
+## 2026-10-16 22:42 · HRP-C-5 · From: Codex · HRP design fixes · ANSWER · Re: contract audit alignment
+Needs answer by: — · Blocking: no
+
+1. Done:
+   1. Done — intermediate job insertion uses the covering row, closes the predecessor and preserves the successor.
+   2. Done — bank and other change-request queues/counts use their separate approve/decide grants.
+   3. Done — exact ESS bank-file effectiveness copy is keyed and rendered.
+   4. Done — ID is a direct sensitive edit with reason, permission/self guards and field-only audit; no request is created.
+   5. Done — end approval excludes itself; PLANNED end changes update one ending.
+   6. Done — PK fixtures use region_code/establishment/condition specificity; Sindh factory sick pay is full.
+   7. Done — request/report attachments have HEALTH/OTHER ownership, ESS own access, HR health gating and audited downloads.
+   8. Done — Finland HR same-illness field recalculates the spell and records SAME_ILLNESS_RECORDED.
+   9. Done — hourly leave sends offset strings, refuses DST gaps and requires an overlap choice.
+   10. Done — sole-holder Owner reveal requires the body confirmation and reason; unknown holder count refuses.
+   11. Done — read-only actors have no end preview; END or REQUEST is required.
+   12. Done — past-date messages read the run-coverage stand-in and show degraded wording on failure.
+   13. Done — payee accounts use second-person approval, masked/audited reveal, user-ID separation, known-channel confirmation, sole-holder Owner gate, pending first account, protected generic edits and approved-account files with requester restrictions. First-account creation preserves the actor ID even when display names match.
+   14. Done — APPROVED/published/unposted runs reverse with acknowledgement and mark old slips Replaced.
+   15. Done — READY bank files cancel with reason and bank withdrawal warning; eligible withdrawal/reversal then proceeds.
+   16. Done — statutory payment void refuses while a filing cites it and names that filing.
+   17. Done — Payroll action/fixture/copy search has no undo-paid trace.
+   18. Done — all four specs carry the exact dated audit-alignment note and new screen keys.
+   19. Done — stale H1 contract/placeholder notes, visible permission wording and Officer request/direct-change wording are reconciled.
+
+2. Commits:
+- 682983e5dc6ce762f8032b7e2fc904c7a1af7f66 docs(hr-payroll): contract audit alignment, hr (Draft)
+- 4b3c32b2c7a612768dcd2eb336aa1e8d95a21204 docs(hr-payroll): contract audit alignment, payroll (Draft)
+- eb6c57c08c94c62a8ca6f829d97197538ce57d19 docs(hr-payroll): contract audit alignment, hr (Draft)
+- be93e27c81019ccb3d1101a7a138f0c5ccbdd27e docs(hr-payroll): contract audit alignment, specs (Draft)
+
+3. Acceptance: all 10 changed JSX parse with the npm-packed Babel 7.29.0; no object-rest destructuring. The single /tmp/hrp-check/round4-check.cjs harness uses exact npm-packed React 18.3.1, ReactDOM 18.3.1 and Babel 7.29.0 for the CDN routes. Saved app.html: 470 route/scenario entries (286 distinct hashes: HR 164, ESS 18, Payroll 104) × 390/768/1024/1280 = 1,880 visits; zero page errors, console errors or horizontal overflow. Earlier regression/UI checks 80/80; audit-alignment checks 77/77. Ten owned blocks equal standalone JSX byte for byte; all 50 other block hashes and all bundle content outside payloads are unchanged from the fresh baseline. git diff --check passes. No screenshots, production changes, pushes or PRs. Failures left: none.
+
+4. Contract gaps: none newly found in this fix scope. Recommendation: HRP lead reviews this Draft alignment and updates the owning checkpoint with these commits/evidence; this pass does not approve implementation or close Jabran's existing design gates. Shared plans and PROJECT-STATE files were not edited or opened.
+
+
+## 2026-10-19 19:30 · HRP-C-6 · From: Codex · HR & Payroll design completion · REQUEST · Re: P5–P9 continuation
+Needs answer by: next design brief · Blocking: next design-completion batch
+
+1. Jabran asked for all findings and a prompt so Codex can obtain your go-ahead to finish/add the remaining design. Consolidated request: [HRP design completion findings and prompt](../drafts/hr-payroll/hrp-design-completion-lead-prompt.md).
+2. Package: H0–H4/P0–P9 draft coverage; P5–P9 flow drafts, proposed contracts and partial synthetic country workbench. Four independent country-review findings were fixed/re-reviewed PASS. Recorded P5–P7 checks: 218 / 1468 visits; P8–P9: 265 / 1484 visits, all four widths clean. No fresh runtime checks today; /tmp evidence is ephemeral. No production/commit/push/PR from country drafting.
+3. Please disposition F-01…F-09, confirm the remaining rig coverage and exact first batch/files, coordinate P1/P2/P4/HR/Accounts amendment ownership and named country verification, and return a numbered design-only continuation brief in your design inbox. A copy-ready request and response template are in the linked file; no approval is assumed.
+4. Newly noticed during consolidation: P5 §6 overbroadly blocks every payment file after PAID, while P3 §5.4 and the rig require PAID for statutory PAYEE files. Recommendation: clarify SALARY versus PAYEE in the P5 draft; preserve the existing paid-only payee guard. This new wording finding remains pending lead disposition.
+5. Please reconcile HRP-C-5 and G-1…G-6 with actual lead/Jabran decisions; the old progress copy predates the country drafts. Codex did not alter your progress, decisions, contracts or PROJECT-STATE files. Final design/contract approval remains separate from permission to continue Draft design.
+
+
+## 2026-10-19 20:53 · HRP-C-7 · From: Codex · HR & Payroll design completion · ANSWER · Re: HRP-63, HRP-65 · batch 0 + A
+Needs answer by: — · Blocking: no
+
+1. Done:
+- **0a — Done.** P5 §6 now locks SALARY bank-file create/remake/cancel after PAID and separately requires PAID for PAYEE files under P3 §5.4, retaining requester, approved-account and duplicate-READY guards. P6–P9 checked; no identical overbroad sentence found. No rig payee lifecycle change made for F-09.
+- **0b — Done.** Existing country drafts committed as Draft in App dev-app, Backend dev and workspace master. All five country contracts carry `Status: **Draft (not approved by Jabran)**`. Explicit paths/`--only`, workspace force-adds and cached name/stat checks used; unrelated Accounts work, spot-state audit and unlisted handoff prompt excluded.
+- **0c — Done.** Separate required commit removes ESS national-ID request actions and shows keyed “To change your ID number, contact HR.” HR request-kind creation, queue/read and apply paths reject unsupported/injected/legacy NID requests. Direct SENSITIVE.UPDATE edit with reason/self/permission guards and field-only audit remains. Payee Owner's-own helper existence check now calls the same `payPayeeOwnerAllowed` function.
+- **A prerequisite — Done.** Read-only P1 contains “Amended 2026-10-19 (HRP lead): P1-43”; no H0–H4/P0–P4 contract edited.
+- **A shared stages — Done.** One synthetic Upload → Mapping → Preview → Apply → Done pattern across NO/SE/DK/FI tax-card profiles and IS credit-allocation instructions. Mapping and apply independently reselect the same source. Country A-ids now inherit shared P1-43 rather than redefine transport.
+- **A preview expired — Done.** Mapping/apply return IMPORT_PREVIEW_EXPIRED and clear stored preview rows/pair bindings without changing cards; new preview required.
+- **A source changed — Done.** IMPORT_SOURCE_CHANGED on changed digest, employer, year, parser profile or ordered row fingerprints; preview/mappings/cards unchanged. Both mapping and apply require the reselected source.
+- **A stale card — Done.** Changed base version or sample stale-card outcome refuses apply without writes.
+- **A HR unavailable — Done.** Refuses without writes, retains selections; explicit sample-failure reset/retry recovers. Fresh HR pairs are represented by the server stand-in, never client `matched` claims.
+- **A own/confidential rows — Done.** Own and initially forbidden confidential rows are rejected with reasons; changed own association refuses, newly forbidden confidential candidate refuses atomically. Current active-company/pay-group eligibility is rechecked and ended/ineligible rows are skipped.
+- **A permission lost — Done.** Current authorization gates apply and idempotent replay; loss refuses without a card/audit mutation.
+- **A partial counts — Done.** Preview shows actual eligible/skipped reasons; completion shows actual applied/skipped counts.
+- **A discard — Done.** JSON/file-free equivalent clears rows/bindings without applying; replay makes no second write.
+- **A retry — Done.** Source/mapping preserved after failure; original-source reselection and HR recovery succeed; expiry requires a new import.
+- **A privacy/replay — Done.** No file bytes or national-ID fixture is read or retained; no localStorage/sessionStorage writes. Registered ID-free fingerprint tokens only; injected identity-bearing metadata refused without persistence. Replay checks current authorization without another HR-pair call or write. Synthetic metadata/fixtures are explicitly labelled; no real parser, export or authority feed implied.
+
+2. Commits:
+
+| Repo | Hash | Subject |
+|---|---|---|
+| NeoERP-BackEnd | `01d7b85d04da86148b45a36eb7937cf449f9c772` | docs(payroll): P5-P9 country contracts (Draft) |
+| NeoERP-App | `201626154eee9ca9188182396d2e815b16a5794a` | docs(payroll): P5-P9 country design drafts (Draft) |
+| NeoERP | `a397564847d3892dceb16c066783856fa6ba61ae` | docs(hr-payroll): P5-P9 flows and checkpoints (Draft) |
+| NeoERP-App | `503cf517a3dc4cc3d086e6a8c687135c06655c10` | docs(hr): CA-14 national id has no request path (Draft) |
+| NeoERP-BackEnd | `8ba3a05107b65051446da7a676448a537c6beebf` | docs(payroll): inherit shared P1-43 import transport (Draft) |
+| NeoERP-App | `d4c3487fb4fc50e414996847815f5208cd693ded` | docs(payroll): shared tax-card import workflow (Draft) |
+| NeoERP | `3aa3afb041efa8c7854d2a0e0974d49a113d990d` | docs(hr-payroll): batch A flows and verification (Draft) |
+
+All seven commits use jabransiddiqui <jabransiddiqui@outlook.com>, explicit `--only` paths and empty bodies/no trailers. Docs paths only; no production code, push or PR. Batch B not started.
+
+3. Checks:
+- Seven full changed/owned JSX parse with npm-packed Babel 7.29.0; no object-rest destructuring introduced. One recreated headless Playwright harness at `/tmp/hrp-c7-check/check.cjs`, React/ReactDOM 18.3.1 and Babel 7.29.0 CDN URLs routed to exact local npm packs. No screenshots.
+- **186 Payroll design/manual route-scenarios × 390/768/1024/1280 = 744 visits**: zero page errors, console errors, blank React roots or document horizontal overflow. Includes the #pay inventory plus its linked ESS design scenarios; touched ESS NID/time flows also exercised at every width.
+- **264 browser/helper assertions pass**, covering every A state for all five profiles, all five UI stages/reselection/retry/counts, injected metadata rejection, current authorization/idempotency, active-group eligibility and source binding. Earlier ESS populated correction render/withdraw, PAID/duplicate payee-file/download and FI separate-payment correction regressions pass.
+- **21 CA-14 exact-source behaviors pass**, including ESS no NID action, queue absence, injected/legacy request refusals, unchanged address/bank request behavior, and direct sensitive edit/reason/permission/self/field-only audit checks.
+- Independent source review PASS; focused fingerprint-hardening re-review PASS. This is Codex evidence, not the lead-session formal Opus review. No independent browser execution claimed.
+- Seven owned app payloads equal standalone JSX; **53 other payload hashes and the wrapper unchanged** against the first fresh integration baseline. Batch A commit itself changes only Payroll data/setup payloads. All commit scopes inspected; `git diff --check` passes.
+- Eleven country JSON examples parse; twenty-six local links resolve; ten country docs inherit P1-43, exact Draft statuses preserved. Source/format/practitioner values remain UNCHECKED/PARALLEL_ONLY.
+- **Failures left: none in the exercised batch 0/A scope.** Harness issues (page-scroll closing the shared picker; invalid changed-digest test after input hardening) were corrected before the final green run. Final JSON/log: `/tmp/hrp-c7-check/result.json`, `final-run.log`; ephemeral evidence only.
+
+4. Open questions and recommendations:
+- **Lead acceptance/formal review:** please accept or return concrete findings for 0/A and run the fresh read-only Opus review required by HRP-63. Recommendation: review the seven commits/current owned checkpoint, especially P1-43 identity/source/replay boundaries and CA-14. Codex is stopped before B pending acceptance.
+- **P1-43 remains Draft / ERP-sensitive-data review:** recommendation: retain the shared amendment's review gate and do not treat this rig as production approval or a real parser.
+- **Next batch B dependencies:** recommendation: supply the HR/Org fact DTO rulings and exact batch B scope/files before dependent design is added. Until then keep explicit missing-fact/unverified states; no invented master fields, statutory values, posting roles or country-ready claims.
+
+
+## 2026-10-20 00:43 · HRP-C-8 · From: Codex · HR & Payroll design completion · ANSWER · Re: HRP-67 · two rig fixes + batch B1
+Needs answer by: — · Blocking: no
+
+1. Done:
+- **Rig Low 1 — done:** `hr3ChangeRequests` now filters with `hrCrSupported(r) &&`; injected national-ID requests cannot increase the approvals badge. The only hr3-data change is this predicate and its matching inline block.
+- **Rig Low 2 — done first, before B1:** apply checks authorization → preview expiry → source match → current per-row refusals → write. Missing source uses VALIDATION; changed own/confidential access uses EMPLOYEE_ACCESS_CHANGED. Mapping uses the amended own/confidential request codes; EMPLOYEE_INELIGIBLE remains a row skip reason. Authorized stored replay makes no second HR call/write. Combined expiry/source/own/confidential precedence is checked.
+- **F-04 pre-check — done:** H4 and H2 amendment markers and the fact-boundary Lead decisions were read. H0–H4/P0–P4 unchanged; no new HR fields or master write paths.
+- **NO B1 — done as Draft:** percentage/table/no-card 50% withholding, branch Org-zone AGA, holiday agreement and OTP have applicability, source/version, unverified payee, owner-labelled facts, sample inputs and candidate payslip/employer-line traces. Table/period algorithms and unsupported zone/eligibility cases stay blocked, Pending verification. Each topic has complete-input, missing-HR, missing-company, missing-Payroll and unsupported states.
+- **SE B1 — done as Draft:** sample table/one-off card withholding, dated contribution cohorts/capacity, holiday pay/liability, HrAbsencesV1 spell/day/karens and agreement pension use the same five states. O-1 company facts and HR karens.exemption UNKNOWN remain actual blockers. Explicit alternate synthetic responses show pending arithmetic without clearing those warnings. Sick gross/karens are intermediate trace rows; only net sick replacement is the candidate payslip line. Pension agreement/insurer/SLP source remains explicitly pending, with no unrelated evidence URL.
+- **Both scopes — done:** company-settings and employee scopes in the existing Norway/Sweden country workbenches use an explicitly selected employee sample basis, never an invented company total or new employee Pay route. The existing searchable employee picker, read/confidential/platform/company/offline gates and keyed copy are retained. Controls are temporary sample state; no HR/Org/policy/run/storage writes.
+- **Draft scope and stop — done:** only allowed Payroll rig/spec, P5/P6 clarification, NO/SE flow and owned checkpoint paths were committed, plus the explicitly authorized hr3 badge predicate. No production, push, PR, screenshots or PROJECT-STATE access. B2/C–E not started by this task. All country values stay Pending verification / UNCHECKED / PARALLEL_ONLY.
+
+2. Commits (docs only, explicit paths, configured author, no trailers):
+- NeoERP-App / dev-app: `89e3485210984d59bdea2c00f61f568df4c2051f` — `docs(hr): fix approval count and tax import refusal order (Draft)`
+- NeoERP-App / dev-app: `df8ccd3249d8e9386628aae0e52c85427a2f3d5b` — `docs(payroll): Norway and Sweden money traces (Draft)`
+- NeoERP-BackEnd / dev: `6750c0a7183d498f080a7f23f796d9cfd96a4165` — `docs(payroll): clarify B1 Norway and Sweden illustrations (Draft)`
+- NeoERP workspace / master: `cc4568f85ed688e05f9aa0e5861ae98bddfdfd78` — `docs(payroll): record B1 country flows and verification (Draft)`
+- Staged paths/stat/whitespace inspected before each commit. Other agents' changes were excluded; later Backend demo-sign-in commit is unrelated to this delivery. This report is appended without rewriting or staging others' inbox work.
+
+3. Checks:
+- Four changed JSX files Babel-parse; zero object-rest destructuring. Four owned inline payloads byte-equal standalone JSX; all other **56 block hashes and the HTML wrapper unchanged** against pickup. Whitespace/scope checks pass.
+- One final recreated `/tmp/hrp-c8-check/check.cjs` acceptance harness routes the exact CDN versions to local npm-packed React 18.3.1, ReactDOM 18.3.1 and Babel standalone 7.29.0. **188 Payroll design/manual route-scenarios (147 distinct hashes) × 390/768/1024/1280 = 752 visits**: zero page errors, console errors, blank roots or horizontal overflow. No screenshots.
+- **919 browser/helper checks plus 21 existing CA-14 exact-source checks pass.** Covers all nine NO/SE topics × five source states × two scopes at four widths, input-to-money changes, owner-specific missing/refusal states, pending real Org/karens blockers, alternate fixture/day15, permission/platform/foreign-company/confidential/offline and invalid-number refusals, no persistence/mutation, injected badge request and combined import failure order. Earlier P1 import/replay/expiry/source/count/retry, ESS NID/time-correction, PAID-only/duplicate payee-file/download and FI separate-payment correction regressions pass.
+- Supplementary isolated worker model checks: NO 37, SE 115. Independent low-fix review PASS. Independent B1 review found one sick-line double-karens presentation issue; fixed, focused re-review PASS. These are Codex review evidence, not the lead-session formal Opus review.
+- **Failures left: none in the exercised scope.** An initial harness assertion assumed comma-grouped money; it was corrected to compare the existing payMoneyCur formatter. Final evidence: `/tmp/hrp-c8-check/result.json`, `final-run.log`, `static.cjs` (ephemeral). Legal/source/practitioner and unserved-fact gates remain visible product limitations, not verified country readiness.
+
+4. Open questions, each with recommendation:
+- **B1 acceptance / formal review:** recommendation: run the fresh lead-session read-only Opus review over these four Draft commits and return acceptance or concrete findings. Codex stops here; do not begin B2 until accepted and briefed.
+- **Org O-1 / dated employer-zone evidence:** recommendation: keep company-settings blockers until the owning Org facts and effective employer/branch eligibility are served and reviewed; do not default ordinary employer/zone eligibility.
+- **HR karens exemption input:** recommendation: keep UNKNOWN and SE_SICK_FACTS_INCOMPLETE until the authorized HR write path supplies the fact. Alternate fixture arithmetic is not a replacement.
+- **Country practitioner/table/pension evidence:** recommendation: retain UNCHECKED / PARALLEL_ONLY until exact table/period output, dated cohort/zone applicability, agreement/insurer/SLP source and country practitioner checks are accepted. No statutory, payable-amount or final design approval is claimed.
+
+
+## 2026-10-20 15:42 · HRP-C-9 · From: Codex · HR & Payroll design completion · ANSWER · Re: HRP-68 · B1 fixes + batch B2
+Needs answer by: — · Blocking: no
+
+1. Done:
+- **F-1 — done first:** SE holiday now has a separate sample earnedAccrual input. The candidate payslip holiday payment is the liability release; closing = opening + earnedAccrual − payment. Both SAME and PERCENT are checked. B2 holiday/orlof traces keep accrued and released money separate; NO accrual remains Intermediate.
+- **F-2 — done first:** every trace row visibly says Payslip line, Employer cost or Intermediate. NO AGA/OTP, SE employer contributions/pension and B2 employer contributions never become payslip lines. Sick gross and karens are Intermediate; only net sick replacement is a payslip line.
+- **F-3 — done first:** NO/SE withholding and one-off tax are negative. B2 employee tax, ATP, TyEL, unemployment, pension/séreign and union deductions follow the same negative convention. Payments and employer costs are separate. F1–F3 were verified and committed separately with the exact requested subject before B2.
+- **H2 input FYI — read and respected:** §7.11i is read-only. SE text now directs HR to record protection on absence settings; UNKNOWN still blocks until recorded. No HR screen or contract was changed.
+- **DK B2 — done as Draft:** primary/secondary/deduction card and employee instruction, AM, ATP with HR job.hoursBasis/period sources, Payroll-owned holiday payer mode, separate accrual/payment/liability, sickness-refund worksheet. NOT_RECORDED never infers FTE; refund has no guessed reimbursement amount or submission. O-2 remains a company-settings blocker; HR holidayPayRoute is not the Payroll payer mode.
+- **FI B2 — done as Draft:** ceiling/revised-card own-payer opening and reservations, insurer-specific sample TyEL policy, category/age-dependent unemployment/other insurances, holiday earned/payment/liability. No universal employer TyEL rate or lomaraha bonus. Actual O-3/HR fact gaps remain visible; only explicitly alternate fixtures illustrate pending arithmetic.
+- **IS B2 — done as Draft:** employee-declared credit allocation/carry-in and same-year boundary, HR residence period, mandatory/additional pension, union and orlof. Partial residence proration/unknown union policy remain pending, O-4 stays blocked. Whole-ISK sample monetary inputs refuse fractions; percentage inputs may be fractional. This constraint does not certify statutory rounding.
+- **Shared B2 pattern — done:** each country has applicability, source/version, unverified payee, owner-labelled facts, named Payroll/declaration fields, money trace, employee/company sample scopes and complete/missing-HR/missing-company/missing-Payroll/unsupported states. Required missing/refused/invalid scenarios suppress money. Current-source responses never default O-2/O-3/O-4; alternate fixtures retain those warnings. Existing permission/platform/company/employee/confidential/offline guards and session-only state remain in force.
+- **Boundaries — done:** allowed Payroll rig/spec, P7/P8/P9 clarification, country-flow and owned-plan paths only. H0–H4/P0–P4, production, shell/routes/Tweaks/other module code untouched. No PROJECT-STATE access, screenshots, push or PR. C–E and implementation not started. All values remain Pending verification / UNCHECKED / PARALLEL_ONLY; no lead or Jabran acceptance inferred.
+
+2. Commits:
+- NeoERP-App / dev-app: `b92dfb9273dad1d6b95c4be313ab6fe7b2fe11a7` — `docs(payroll): B1 review fixes (Draft)`
+- NeoERP-App / dev-app: `3c1831a35507b8f9ab630b7fa81042162757a2b4` — `docs(payroll): Denmark Finland Iceland money traces (Draft)`
+- NeoERP-BackEnd / dev: `d990111284fec07d3bbb2a13c49283692081af51` — `docs(payroll): clarify Denmark Finland Iceland B2 traces (Draft)`
+- NeoERP workspace / master: `bc1a7f48a1473b2157af91a761d80931089ae42f` — `docs(payroll): record B1 fixes and B2 draft verification (Draft)`
+- Required author/email, explicit --only paths, staged stat/name/whitespace inspection, no trailers. Unrelated accounts work excluded. Report appended only; prior inbox bytes preserved and other inbox changes not staged.
+- Review ranges: App `review d27ae775..3c1831a3`; Backend `review ad72db7..d990111`; workspace `review 9740dd7..bc1a7f4`.
+
+3. Checks:
+- Three changed JSX Babel-parse, zero object-rest. Three owned app blocks byte-equal sources; **57 other payload hashes and wrapper unchanged**, against pickup and each fresh-read integration write. Scope/whitespace checks pass.
+- Recreated one final `/tmp/hrp-c9-check/check.cjs` acceptance harness with newly npm-packed React 18.3.1 / ReactDOM 18.3.1 / Babel standalone 7.29.0, exact app CDN interception, headless Chrome, no screenshots. **191 Payroll design/manual route-scenarios (147 distinct hashes) × 390/768/1024/1280 = 764 visits**: zero page errors, console errors, blank roots or document horizontal overflow.
+- **2,292 browser/helper assertions pass.** All 23 topics × five states × two scopes × four widths, visible trace tags, five-country signed input-driven money changes, B2 actual-source arithmetic, current/alternate/missing/refused/invalid states, ATP unknown-hours, FI revised opening/insurer sensitivity, IS credit/carry/partial residency, separate holiday earned/release and fractional-ISK refusal. Guards and no persistence/mutation checked.
+- Earlier regressions recreated because old /tmp evidence was gone: shared import source binding/mapping/failure order/expiry/partial counts/replay/discard, NID legacy badge/create/apply refusal and direct reasoned sensitive edit field-only audit, unchanged address apply, ESS NID no request action/populated time-correction withdraw, PAID-only/duplicate payee-file/download, FI separate-payment correction context. Supplementary isolated country checks: DK 1,185 / FI 377 / IS 279; 17 focused B1 checks pass.
+- Independent focused B1 review PASS. Integrated B2 bounded source/model review found one Low fractional-ISK display reconciliation defect; fixed with whole-ISK monetary validation and corresponding docs, regression test and focused re-review PASS. This is Codex evidence, not the lead-session formal Opus review.
+- **Failures left: none in exercised scope.** Final ephemeral evidence: `/tmp/hrp-c9-check/result.json`, `final-run.log`, `static.cjs`. No production build/test claims for docs-only synthetic changes; unresolved legal/source/master-fact gates remain visible limitations.
+
+4. Open questions, with recommendations:
+- **B1 fixes + B2 acceptance:** recommendation: run the fresh lead-session formal Opus review over these four Draft commits, then accept or return concrete findings. Codex is stopped before C or any new scope.
+- **Unserved Org O-2/O-3/O-4 and actual HR facts:** recommendation: keep the owner-specific blockers until those services return reviewed, dated facts. No ordinary employer/category/FTE fallback.
+- **SE protection:** recommendation: use H2 §7.11i through its separately authorized HR workstream; UNKNOWN remains blocked until HR records protection or none-confirmed. No HR UI approval is implied here.
+- **Country verification:** recommendation: retain Pending verification / UNCHECKED / PARALLEL_ONLY until practitioner, table/age/coverage/period, insurer/agreement/payee and official precision/source evidence is accepted. DK refund amounts, FI insurer rates, IS partial-residence precision and union policy remain source-gated rather than guessed.
+
+## 2026-10-20 · ERP-146 · From: Code · ERP lead (trial) · FYI · Shared spec changes: one date picker; list width rule
+Needs answer by: — · Blocking: no
+1. Single-date fields now open the same picker as date ranges (panel on desktop/iPad, sheet on phone); Material's date dialog is gone (date-range-field.md DR-12). Accounts · App builds it.
+2. Lists are never narrower than their field; plain dropdowns match the field width (list-controls.md under LC-23). Draw HR/Payroll rigs that way.
+
+## 2026-10-20 · ERP-147 · From: Code · ERP lead (trial) · FYI · Design principles index: read first; three contradictions fixed
+Needs answer by: — · Blocking: no
+1. **`docs/handover/design-principles.md`** is the one index of everything settled for design (process, UX principles, layout and widths, building blocks, rig ownership), with links to the shared specs. It's now in every lead's and design main's **read-first list**. Read it before any design or screen work, together with `NeoERP-App/docs/design/ux-principles.md`.
+2. Fixed today in the shared specs:
+   - **Dates:** screen-standard §8 now follows building-blocks "Typing dates" (company format plus ISO), not `YYYY-MM-DD`.
+   - **Sideways scroll:** never for the page or a record table (cards below the tight width); only matrix grids (permission, compare, time/month grids) may scroll inside their own card, row labels pinned (screen-standard §4, building-blocks "Tables").
+   - **Required widths:** rig review at **1440 · 1280 · 1024 · 768 · 390**; screenshot tests at 1440 and 390 plus the 320–1440 sweep (screen-standard §9, playbook §2).
+3. Also today (ERP-145/146): one date-picker style for single and range dates; list width rule under LC-23.

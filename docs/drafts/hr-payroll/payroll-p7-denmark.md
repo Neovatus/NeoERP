@@ -147,19 +147,46 @@ No artificial “Claim accepted” toast; timeout/unknown stays “Check externa
 
 ## 8. eIndkomst and correction journey
 
-Open Filings → eIndkomst; display paid events with payment and income-period dates.
-PARALLEL/unpaid events show excluded reason; no downloadable live authority file.
-Generation with unverified schema shows explicit draft-preview-only status.
-Generated badge says “File generated”; external submission is a distinct recorded action.
-Authority result panel starts Unknown; receipt is not automatically an acceptance.
-Partial rejection fixture shows accepted records retained and one rejected record to correct.
-Correction opens a new version with original record/payment/period references.
-Never offer “Reverse whole file” after partial rejection or “Add to next month”.
-Historical A-skat/AM cutoff shows authority/practitioner action after15February next year.
-PAID cannot be undone; period-moved event points to correction run before filing.
-Receipt upload uses existing type/size/scanning states; pending visible only to uploader.
-Content rights are rechecked on every download; purged file shows Expired.
-Read-only accountant view omits all records, file links, receipts and employee names.
+HRP-69 Batch C (Draft): reuse Backend P4 §2b, P4-A9…A14. Start with a
+preflight showing family/recipient, period or PAID event, source snapshot references,
+content access, profile/year check and blockers. Identity/content is opt-in under
+FILING.CONTENT.READ; accountant FILING.READ sees totals/outcome counts only.
+Money comes only from linked PAID frozen snapshots and recorded deposits. Facts-only
+and CANCEL previews have no totals/money/deposits and create no payment/run/line.
+Unpaid, PARALLEL and PERIOD_MOVED events cannot supply monetary content.
+
+Use P4's shared correction and evidence journeys: GENERATED → UPLOADED → ACCEPTED /
+ACCEPTED_WITH_WARNINGS / PARTIAL / REJECTED, with NOT_RECORDED for unknown feedback.
+Upload never implies acceptance. Manual feedback checks company/family/recipient/
+period/reference/version hash; same message/content replays, conflict refuses, partial
+requires affected record diagnostics. File evidence is ≤10 MB, byte-type checked and
+scanned; PENDING is uploader-only, rejected bytes removed. Diagnostics/files need
+CONTENT.READ and audit. Warnings remain visible; rejected/partial feedback prompts
+correction. History retains every prior version and its bytes/evidence unchanged.
+Feedback changes no money, posting, deposit or payee payment. D7 still forbids live
+calls. All rig outcomes say Simulation, every sample download/preview says
+“Sample — not an official format”; UNCHECKED / PARALLEL_ONLY remain visible.
+Country formats, calendars, practitioner verification and pilots stay open gates.
+
+Select eIndkomst (`DK_EINDKOMST`). Show employee-payment records with actual
+payment/disposition date and separate income-period dates. Exact 2026 schema,
+employer category and deadline calendar remain unchecked; no universal monthly
+deadline. The simulation does not establish an official filing period/format.
+
+Correction uses CORRECT_PERIOD: choose the targeted original version/reference,
+retain its period/payment references, supply reason and affected/rejected record keys.
+Partial rejection leaves accepted employees unchanged; no “Reverse whole file” or
+“Add to next month”. Money correction first needs a PAID correction run. The source
+candidate A-skat/AM cutoff is 15 February following the income year (P7 DK-S15);
+show Pending verification for exact boundary/calendar/field applicability. A disallowed
+historical tax correction shows CORRECTION_CUTOFF_PASSED and the authority/practitioner
+route, without generating forbidden tax fields. Other fields need their checked profile.
+A new child begins without acceptance evidence and links to the unchanged parent.
+
+Country checks: rejected keys only; accepted originals preserved; unknown/cutoff-passed
+profile blocks; missing external reference refuses; no correction money from unpaid
+runs; preflight and actual format generation remain separate. Purged evidence shows
+Expired. Read-only accountant view has no employee names, diagnostics or file links.
 
 ## 9. Responsive and acceptance notes
 

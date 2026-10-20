@@ -110,7 +110,7 @@ Posting preview uses role labels from A5. Account numbers are never hardcoded in
 Payroll → Filings filters Norway and month; the country section links here using the existing filing route.
 List has period, due date, monetary status, employment coverage, generation/submission state and separate authority feedback.
 A no-pay month with active employment still shows an obligation; explain `Employment details are still required this month`.
-This relies on proposed P5-A1 and must remain visibly blocked until its contract is approved and implemented.
+This inherits Draft P4-A11 EMPLOYMENT_ACTIVE; actual missing HR period paging remains blocked.
 Preview shows frozen PAID monetary events plus the month-specific HR employment snapshot; no invented zero-value payment.
 Planned pay is a warning outside file totals; parallel run figures never join a real filing.
 2026 withholding records group by payment date within the month; the preview labels that date explicitly.
@@ -120,7 +120,7 @@ After Generate: `Generated — not submitted`; Download is never renamed `Send` 
 Helper links the official manual XML upload service in a browser; credentials stay entirely outside NeoERP.
 Mark as submitted uses existing P4 date/reference/receipt behavior; then `Submitted · authority feedback pending`.
 Receipt attachment follows scan states; pending/rejected documents never become evidence of acceptance.
-Proposed P5-A2 Record feedback captures specific version, authority message reference, timestamp and clean evidence attachment.
+Shared Draft P4-A13 captures correlated version/hash/family/period/reference and clean evidence or explanation.
 Rejection reads `Authority reported errors — correction needed`; individual error details need filing-content permission.
 Accepted feedback reads `Acceptance recorded from authority feedback`; never imply NeoERP submitted it directly.
 Correction creates a new immutable version for the same month and targeted message; original file and feedback stay in History.
@@ -150,7 +150,7 @@ Use translation keys `payroll_no_<area>_<name>`, existing search pickers and exi
 Keyboard users can map rows, inspect errors, cancel and restore focus; announce progress/errors via existing live regions.
 Tables adapt to cards or existing horizontal-container pattern at 390px; page itself must not overflow.
 No screenshot/test result is claimed by this document; the integration lead verifies the shared rig.
-Approval requires contract+screen review, P5-A1/A2 owner decisions and inherited P1-43 approval (P5-A3), practitioner fixtures and pilot evidence before READY.
+Approval requires contract+screen review, P4-A9…A14 owner approvals and inherited P1-43 approval (P5-A3), practitioner fixtures and pilot evidence before READY.
 
 ## 9. Batch B1 click-through clarification — HRP-67, 2026-10-19
 
@@ -187,3 +187,16 @@ five scenarios, explicit zone-V zero versus missing zone, absent provider naming
 HR, numeric/select validation, authorization and foreign-country refusal before
 facts. Browser verification and formal lead-session money review belong to the
 integrator; this document does not claim they ran. B2/C/D remain excluded.
+
+
+## Batch C reporting/correction — HRP-69 (Draft)
+
+Existing country workbench: preflight before generation, registered PAID snapshot
+source vs explicit employment-only fact fixture, REPLACE targeting one same-month
+message, immutable earlier history. Current HR paging/registration/format gaps
+stay blocked. No facts-only flow creates a zero payment event. Identity/content
+need the filing-content code; totals-only roles see status/counts only. Shared P4
+§2b owns families, source invariants, manual evidence and corrections; this flow
+adds only NO employment-month/payment-date/message specifics. Synthetic outputs
+are labelled Sample — not an official format. Upload never implies acceptance;
+manual correlated evidence is explicitly a simulation, not an authority response.

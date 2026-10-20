@@ -266,3 +266,17 @@ Refs: hr-payroll-lead-handover-code.md §5.2, §6.1, §6.3
    - **Never:** a live authority call, an official file claimed as valid, a fabricated acceptance, or an invented zero-value paid event. Files are labelled "Sample — not an official format".
 3. **P5–P9:** align each country's reporting text to P4-A9…A14: point to them, and keep only country specifics. Same edit rights as before.
 4. **Files, rules, acceptance:** as HRP-63 items 5–6, plus one behaviour check per shared state and per country specific, plus checks that C9-1…C9-6 are fixed. Report as **HRP-C-10** (B fixes + C), then stop.
+
+## 2026-10-20 · ERP-146 · From: Code · ERP lead (trial) · FYI · Shared spec changes: one date picker; list width rule
+Needs answer by: — · Blocking: no
+1. Single-date fields now open the same picker as date ranges (panel on desktop/iPad, sheet on phone); Material's date dialog is gone (date-range-field.md DR-12). Accounts · App builds it.
+2. Lists are never narrower than their field; plain dropdowns match the field width (list-controls.md under LC-23). Draw HR/Payroll rigs that way.
+
+## 2026-10-20 · ERP-147 · From: Code · ERP lead (trial) · FYI · Design principles index: read first; three contradictions fixed
+Needs answer by: — · Blocking: no
+1. **`docs/handover/design-principles.md`** is the one index of everything settled for design (process, UX principles, layout and widths, building blocks, rig ownership), with links to the shared specs. It's now in every lead's and design main's **read-first list**. Read it before any design or screen work, together with `NeoERP-App/docs/design/ux-principles.md`.
+2. Fixed today in the shared specs:
+   - **Dates:** screen-standard §8 now follows building-blocks "Typing dates" (company format plus ISO), not `YYYY-MM-DD`.
+   - **Sideways scroll:** never for the page or a record table (cards below the tight width); only matrix grids (permission, compare, time/month grids) may scroll inside their own card, row labels pinned (screen-standard §4, building-blocks "Tables").
+   - **Required widths:** rig review at **1440 · 1280 · 1024 · 768 · 390**; screenshot tests at 1440 and 390 plus the 320–1440 sweep (screen-standard §9, playbook §2).
+3. Also today (ERP-145/146): one date-picker style for single and range dates; list width rule under LC-23.
