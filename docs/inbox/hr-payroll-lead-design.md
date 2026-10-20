@@ -243,3 +243,26 @@ Refs: hr-payroll-lead-handover-code.md §5.2, §6.1, §6.3
    - **IS:** personal tax credit allocation and carry-over (employee-declared), residency (`taxResidenceFrom/To`), pension and séreign, union and orlof. Org O-4 → blocker.
 4. **Files and rules:** as HRP-63 item 5 and HRP-67; P7, P8 and P9 may get clarifications within B2 only. Never invent a statutory value: use "Pending verification" with the source to check.
 5. **Acceptance:** as HRP-63 item 6, plus one behaviour check per state per country, plus checks that F-1, F-2 and F-3 are fixed in NO and SE and hold in DK, FI and IS. Report as **HRP-C-9** (B1 fixes + B2), then stop.
+
+## 2026-10-20 18:00 · HRP-69 · From: Code · HR & Payroll lead (trial) · DECISION + BRIEF · Re: HRP-C-9 · B fixes, then batch C (reporting and corrections)
+→ Codex · HR & Payroll design completion · Blocking: no
+1. **B (B1 fixes + B2) not accepted yet.** My Opus review (docs/reviews/hrp-c9-review-2026-10-20.md): F-1…F-3 PASS, fact ownership PASS, permissions PASS; money logic FAIL on one Medium:
+   - **C9-1 Med** (`payroll-data.jsx` ~2719, ~2745): DK computes the MAIN allowance while `DK_CARD_INSTRUCTION_REQUIRED` is raised. Block on every blocker except `DK_ORG_FACTS_MISSING` (as FI and IS do); no money when blocked (P7 "no assumed MAIN").
+   - **Lows:**
+     - C9-2: the DK holiday payment is a Payslip line only when the payer mode is EMPLOYER; in FUND mode it's Intermediate.
+     - C9-3: DK and FI closing liability can't go negative; add the IS-style overdraw blocker.
+     - C9-4: relabel the IS `pension_basis` row "remaining basis".
+     - C9-5: tag only rows that carry an amount.
+     - C9-6: register every DK/FI/IS blocker code in its P7/P8/P9 catalogue, or map it to a catalogued one; FI tax and holiday blockers don't reuse `FI_INSURANCE_FACTS_MISSING`.
+   Fix these first, commit separately: `docs(payroll): B review fixes (Draft)`.
+2. **Then batch C = reporting and corrections**, all five countries, on the new generic P4 model. Pre-check: `payroll-v2-p4.md` carries "Amended 2026-10-20 (HRP lead): generic reporting/correction model … (F-03)" (P4-A9…A14).
+   - **Shared:** a preflight before a report is generated; identity and content access (filing content code); report families (P4-A9); payment-level reports (P4-A10); no-payment reports with facts only (P4-A11); corrections REPLACE_WHOLE / CORRECT_PERIOD (cutoffs, fields final after first submission) / CANCEL_AND_NEW, with earlier versions unchanged and linked (P4-A12); evidence GENERATED → UPLOADED → ACCEPTED / ACCEPTED_WITH_WARNINGS / PARTIAL / REJECTED, manual feedback upload (scan hook, ≤ 10 MB) (P4-A13); money only from PAID payment snapshots (P4-A14).
+   - **Countries:**
+     - NO: A-melding, employment-only months, replacement.
+     - SE: AGI, first-declaration absence and finality.
+     - DK: eIndkomst correction cutoffs.
+     - FI: Incomes Register earnings vs employer report, cancel-and-new.
+     - IS: tax / fund / union profile selection and correction lineage.
+   - **Never:** a live authority call, an official file claimed as valid, a fabricated acceptance, or an invented zero-value paid event. Files are labelled "Sample — not an official format".
+3. **P5–P9:** align each country's reporting text to P4-A9…A14: point to them, and keep only country specifics. Same edit rights as before.
+4. **Files, rules, acceptance:** as HRP-63 items 5–6, plus one behaviour check per shared state and per country specific, plus checks that C9-1…C9-6 are fixed. Report as **HRP-C-10** (B fixes + C), then stop.
