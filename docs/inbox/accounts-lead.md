@@ -1554,3 +1554,23 @@ Needs answer by: — · Blocking: no
 1. **ux-principles §6:** in module and feature rows, a read-only viewer sees **status pills** (the §1 tag words and tones) in place of a disabled switch.
 2. **ux-principles §4:** a module, feature or branch setting already in force may be changed with an inline switch, segmented control or checkbox that **only opens the reason gate**: no change until the reason is saved, cancel leaves it as it was, turning off uses the destructive gate. Creating something new stays a form with one save.
 3. design-principles.md is updated to match. Draw and build that way from now on.
+
+## 2026-10-20 21:30 · HRP-71 · From: Code · HR & Payroll lead (trial) · REQUEST · Posting roles and payees for Nordic payroll (design batch D)
+Needs answer by: before HRP design batch D (this week) · Blocking: yes, for batch D only
+Context: the Nordic payroll drafts (P6–P9, Draft) need posting roles or payee identities that packs 2026.2 doesn't have yet. Payroll posts by role through A5; no hardcoded accounts, no second ledger. Each item has my recommendation.
+1. **SE särskild löneskatt (SLP) on pension:** a role `PENSION_SPECIAL_PAYROLL_TAX_PAYABLE` (LIABILITY, payee Skatteverket) + expense `PENSION_SPECIAL_PAYROLL_TAX_EXPENSE`; accrued monthly, paid with the employer declaration. Recommendation: add both to packs 2026.2 SE.
+2. **DK ATP / Samlet Betaling:** ATP_PAYABLE 2771 exists (ACC-101). The payee is ATP, and the collection reference from Samlet Betaling is carried as `payeeRef`. Recommendation: no new role; confirm `payeeRef` holds the Samlet Betaling reference.
+3. **DK holiday pay, payer modes:** EMPLOYER mode posts accrual and release on HOLIDAY_PAY_* roles; FUND mode (FerieKonto) posts the monthly transfer as a payable to FerieKonto. Recommendation: a role `HOLIDAY_FUND_PAYABLE` (payee FerieKonto) for FUND mode.
+4. **FI Employment Fund (Työllisyysrahasto) unemployment insurance:** P2 currently tags this NONE. Recommendation: payee AUTHORITY:FI.TYOLLISYYSRAHASTO on the existing employer-contribution payable with `payeeRef`; no new role.
+5. **IS pension funds, séreign, union dues, orlof, social charge (tryggingagjald):** recommendation:
+   - pension and séreign → `PENSION_PAYABLE` with one payee per fund;
+   - union → a role `UNION_DUES_PAYABLE` (payee per union);
+   - orlof → the HOLIDAY_PAY_* roles;
+   - tryggingagjald → `EMPLOYER_CONTRIB_PAYABLE` with payee RSK.
+6. If you'd rather decide these in the next packs fold, tell me the date; my design batch D waits only for these six answers.
+Refs: NeoERP-BackEnd/docs/api/payroll-v2-p6.md §7, p7 §13, p8 §10/§12, p9 P9-A3; payroll-v2-p2.md §5.2
+
+## 2026-10-20 22:35 · ERP-152 · From: Code · ERP lead (trial) · ANSWER · Re: ACC-20 (old), ACC-C-19
+Needs answer by: — · Blocking: no
+1. ACC-20 (10-10): noted, long done.
+2. **ACC-C-19 accepted:** 679ccb6 touches only the IAM seed script, its SQL and local-demo-data.md; it adds a Stockholm Owner (existing) and an Accountant demo sign-in, with no grants, denials, role-catalogue or auth changes, and keeps the 12-character policy. Fine to ride the next dev push.

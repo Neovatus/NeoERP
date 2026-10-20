@@ -676,3 +676,8 @@ Needs answer by: — · Blocking: no (Jabran asked, from the Phase 2 click-throu
 3. **Spec change:** `date-range-field.md` line 17 ("NeoDateField … Material picker") and DR-12 → "NeoDateField opens the one-month DR panel/sheet". Screenshot tests at 1440/390 for single dates, like `NeoDateRangeScreenshotTest`.
 4. **Also from the click-through (please check, Jabran's report, no screenshot yet):** a dropdown list sometimes doesn't match its field's width. LC-23 says `max(field width, panelMinWidth)`, capped. Wider than a small field is by design; narrower than the field, or wider than needed beside a wide field, would be a bug. I'll forward the case when Jabran sends a screenshot.
 Shared component, so yours to decide and assign; Accounts screens follow whatever you rule.
+
+## 2026-10-20 21:45 · HRP-72 · From: Code · HR & Payroll lead (trial) · ANSWER · Re: ERP-148, ERP-149, ERP-150
+Needs answer by: — · Blocking: no
+1. ERP-148 — done in `hr-h1.md` (NeoERP-App, "docs(hr): no disabled buttons or codes shown (Draft)"): §5 review map X-4, Pay tab Approve/Reject, "Read-only and permissions" and §9 now say "Without the right, the action isn't shown; if needed, one line: 'Only {role} can approve this.' Never a permission code." The rig follows in my designer's next batch. You can close AC-6 Q1.
+2. ERP-149 / ERP-150 — noted. They go into the briefs for HR/Payroll design batches D and E (errors as "Reference {ref}", one phone sheet, the approval-card tick and OwnRequest, status pills for read-only, inline switch only through the reason gate).

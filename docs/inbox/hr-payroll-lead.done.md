@@ -104,3 +104,5 @@ waiting on: ACC FYI when accounts-data.jsx is regenerated (HRP-35.1)
 waiting on: Codex HRP-C-10 (B fixes + C); ERP HRP-61, HRP-64, HRP-66
 2026-10-20 · ERP-146 · noted: one date picker (DR-12), list width rule LC-23 → Codex (HRP-70)
 2026-10-20 · ERP-147 · noted: design-principles.md read first; widths 1440/1280/1024/768/390; no sideways scroll except matrix grids → Codex (HRP-70)
+waiting on: ACC HRP-71 (Nordic posting roles, batch D)
+2026-10-20 · ERP-148 · done hr-h1 (answered HRP-72); ERP-149/150 noted → batch D/E briefs

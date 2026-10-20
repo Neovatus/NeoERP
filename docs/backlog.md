@@ -231,3 +231,4 @@ Open questions collected from NeoERP-BackEnd/docs/modules/** (pages and module R
 - ERP: domain-events follow-ups: per-row savepoint when a leased batch can't be stored; `type_version` on org subscriptions at the next trigger rewrite (ACC-B-30).
 - ERP · App: shell connectivity + app-visibility signal so controllers' setOffline/setVisible are called (polling drops when hidden or offline) (ACC-205).
 - ERP · Backend: `:shared:file-store` rescan job for PENDING files (and on scanner signature change), per ADR-020 D10 amendment (ACC-222 P2I-7).
+- ERP: ORG-FACTS-3 contract: DK employer scheme registrations as employerRegistrations schemes; per-company effective-dated payrollEmployerProfile (SE category + permanent establishment, DK eIndkomst category, FI sector + Incomes Register category, IS social-charge category) (HRP-66).

@@ -185,3 +185,8 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-20 · ERP-143 · seen earlier (full local tests before push; in briefs)
 2026-10-20 · ERP-145 · one date picker → App ACC-234; dropdown-width case: forward Jabran's screenshot
 2026-10-20 · ERP-147 · design-principles.md read (read-first)
+2026-10-20 · ACC-C-23 · fix-round plan seen
+2026-10-20 · ACC-C-24 · names drafted by lead (ACC-235)
+2026-10-20 · ERP-149 · seen (19 spec fixes; errors never show codes; one phone sheet <600)
+2026-10-20 · ERP-150 · seen (two UX exceptions)
+2026-10-20 · names approved → Codex ACC-236
