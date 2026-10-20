@@ -148,3 +148,12 @@ integrated with FI/IS under the canonical
 [HRP-C-9 checkpoint](../hrp-p8-p9/plan.md#active-hrp-68--2026-10-20-b1-review-fixes-then-b2).
 Latest complete batch evidence and next action are there; B1 acceptance is still
 the lead's formal gate. HRP-C-9 reports B1 fixes+B2 then Codex stops. No C–E.
+
+
+## HRP-69 / HRP-C-10 — 2026-10-20
+
+B review fixes completed first, then generic reporting/corrections for all five
+countries. The canonical [HRP-C-10 checkpoint](../hrp-p8-p9/plan.md#hrp-c-10-final-verified-handoff--2026-10-20)
+records exact scope, findings, 686 browser/helper checks and 784 clean route visits.
+NO/SE/DK country specifics are aligned to Draft P4-A9…A14. Formal lead review and
+acceptance remain open; Codex stops before D/E. No production or readiness claim.

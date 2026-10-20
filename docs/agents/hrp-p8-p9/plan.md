@@ -3,13 +3,13 @@
 | Field | Checkpoint |
 |---|---|
 | Identity and ownership | HRP-P8-P9; Finland and Iceland Payroll design/spec/proposed contracts, requested by Jabran 2026-10-18. Codex leads draft integration. HRP lead retains approval and existing plans. |
-| Stage and status | HRP-68 B1 F1–F3 and B2 DK/FI/IS Draft work, integration, verification and focused independent re-review complete. Await lead-session formal Opus review/acceptance of HRP-C-9. Stop before C or new scope. |
-| Approval | HRP-68 explicitly authorizes B1 review fixes first with separate commit, then B2 DK/FI/IS Drafts and explicit-path docs commits. No production, migrations, HR screens, live submissions, push, PR or PROJECT-STATE access. Formal acceptance remains lead-owned. |
-| Write scopes | Finland worker: new Backend docs/api/payroll-v2-p8.md and workspace docs/drafts/hr-payroll/payroll-p8-finland.md. Iceland worker: corresponding p9.md/payroll-p9-iceland.md. Codex: App docs/design/screen-rig/payroll-data.jsx, payroll-setup.jsx, payroll-rig.jsx, matching app.html payloads only; App docs/design/specs/payroll-p.md; this checkpoint. No shell/routes/Tweaks/Org/People/Roles/Activity changes. |
-| Progress | B1 F1 separates accrual/payment; F2 visible row kinds; F3 negative deductions. Five-country trace panel now includes DK card/AM/ATP/holiday/refund, FI card/TyEL/category insurances/holiday, IS declared credit/residency/pension/union/orlof. Current unserved Org/HR facts remain blockers; only explicit alternate fixtures demonstrate pending arithmetic. |
-| Evidence | Pickup App dev-app d27ae775, Backend dev ad72db7, workspace master 9740dd7; unrelated dirty paths preserved. Final 2292 browser/helper checks, 191 route/scenarios × four widths = 764 visits, zero errors/blank/overflow. Three JSX parse/no-rest, three equal app blocks/57 others plus wrapper unchanged. See HRP-C-9 closeout below for limits. |
-| Findings | Formal C8 F1 Medium/F2/F3 Lows fixed separately in b92dfb92. Independent B2 review found one Low: fractional ISK input could break displayed orlof reconciliation; whole-ISK monetary sample inputs now refuse fractions before calculation, focused re-review PASS. No unresolved actionable findings; legal/practitioner/Org/HR/provider evidence remains unverified. |
-| Resume point | HRP lead: run fresh formal Opus review and accept or return concrete HRP-C-9 findings. Codex stops. Batches C–E and further implementation need their owning brief and approvals. |
+| Stage and status | HRP-69 B review fixes and batch C reporting/corrections verified and committed as Draft. Independent review findings fixed; focused re-review PASS. Await lead-session formal review/acceptance of HRP-C-10, then stop. |
+| Approval | HRP-69 permits C9-1…C9-6 first in separate Draft fix commits, then C for NO/SE/DK/FI/IS on Draft P4-A9…A14, explicit-path docs commits. No production, HR screen, push, PR or PROJECT-STATE access. D/E and approval remain lead-owned. |
+| Write scopes | Root integrates allowed Payroll JSX/app payloads/spec, P5/P6 and NO/SE flows, owned plans. Catalog worker owns P7/P8/P9 + DK/FI/IS flows; model worker /tmp only; UI worker only payroll-setup.jsx. No overlapping writes; root alone syncs app.html. |
+| Progress | C9 fixes committed first (App29f8cf37, Backend52128cf). One generic workbench now separates preflight/content access, payment/fact sources, correction lineage and transmission/feedback. Five country profiles aligned to P4. All output remains synthetic and source/format/calendar readiness unchecked. |
+| Evidence | Pickup App78599eb1, Backende562419, workspacef0c99fd; unrelated Accounts dirty work preserved. Final 686 browser/helper checks, 196 route/scenarios × four widths = 784 visits, zero errors/blank/overflow. Three JSX parse/no-rest; three equal blocks/57 unchanged others and wrapper; 25 catalog codes registered. |
+| Findings | Formal C9 Medium/Lows fixed. Independent C10 review found monthly FI NEW crossing periods (Medium) and inherited source-name crash (Low). Both corrected and focused actual-source re-review PASS. No unresolved actionable findings; formal lead/practitioner and actual source/format readiness still open. |
+| Resume point | HRP lead reviews HRP-C-10 five Draft commits and accepts or returns concrete findings. Codex stops before D/E, real providers, official formats, live submission or any implementation. |
 
 ## Discovery and plan
 
@@ -310,3 +310,78 @@ allCshared/countrystates; guards/contentvstotals, immutablehistory, no fakeevent
 feedbackcorrelation/replay/conflict, scansize/type, correctioncutoff/finality,
 PAIDsource, no storage/sensitives. Distinctreview thenfocusedfix re-review;
 formalOpus/leadacceptance stillrequired. ReportC10thenstopbeforeD/E.
+
+
+## HRP-C-10 final verified handoff — 2026-10-20
+
+B fixes landed before C: C9-1 all DK blockers except Org suppress money (MAIN
+instruction cannot be bypassed by a fixture); C9-2 FUND release Intermediate;
+C9-3 DK/FI overdraw refuses; C9-4 IS remaining-basis label; C9-5 amount-only tags;
+C9-6 all 25 emitted country diagnostic codes catalogued, FI neutral missing-HR
+code for tax/holiday. Ten focused actual-source checks and JSX parsing pass.
+App29f8cf37 and Backend52128cf carry the exact requested separate fix subject.
+
+Engineer/Advisor2: one generic P4 sample model and UI integrated into existing
+country routes. Source registry contains labelled frozen nonzero PAID fixtures and
+separate fact fixtures; report generation never inserts payment/run/zero-money
+facts. CURRENT remains blocked by unchecked format and named facts/registrations;
+explicit fixture mode demonstrates only sample JSON. PAID monetary figures,
+facts-only null totals, immutable old bytes/SHA-256, separate append-only evidence,
+content-only identity/diagnostics and totals-only summaries are enforced. Old
+payNordic reporting helpers delegate to this model rather than retain a bypass.
+
+NO employment-only/MIXED and replacement; SE initial absence supplement/finality
+and no later absence replay; DK rejected-record scope and unverified cutoff;
+FI PAYMENT vs MONTH, payment-date deadline sample, cancel evidence and new report
+reference/context; IS family/profile-separated lineage are covered. IS replacement
+is an explicitly synthetic profile example, not a universal real recipient rule.
+Country contracts point shared mechanics to P4§2b; obsolete country feedback routes/
+DTOs/outcome schemas and generic error proposals are reconciled. All P4 changes
+remain read-only. No official-file validity, real transmission or acceptance claim.
+
+Independent Reviewer round1: two concrete findings, monthly FI NEW could cross
+periods and inherited sourceId '__proto__'/'constructor' could crash preflight.
+Improver fixed own-property lookup and limited changed-period renewal to PAYMENT.
+Focused independent round2 PASS: all 16 inherited-source/profile probes refuse,
+monthly October renewal writes nothing, same-month renewal succeeds, and PAYMENT
+renewal keeps its allowed new context. No other review findings. This evidence
+does not replace the HRP lead's formal Opus review or Jabran's acceptance.
+
+Verification: recreated /tmp/hrp-c10-check/check.cjs with freshly npm-packed React
+18.3.1, ReactDOM18.3.1, Babel7.29.0 exact CDN interception and headless Chrome.
+686 actual browser/helper assertions; 196 design/manual route-scenarios (147
+distinct hashes) × 390/768/1024/1280 = 784 visits, zero page/console errors, blank
+roots or document overflow. Includes all eight report profiles/current and source
+faults, all evidence outcomes/correlation/replay/conflict, file size/detected-type/
+scan constraints, correction models/finality/cutoffs/periods, immutable history,
+registered PAID sources and fact/cancel no-money, read/content/platform/offline/
+company gates, C9 fixes, all B topic/state helpers, earlier import source/expiry/
+own/replay/partial counts, legacy NID badge/apply, ESS NID and populated correction
+withdraw, PAID-only/duplicate payee file/download. Prior standalone /tmp evidence
+was unavailable; none was silently reused. Model worker additionally ran 13
+scenario groups and 3 SHA-256 parity cases; independent re-review used actual
+integrated source. No screenshots, production builds or tests claimed.
+
+Static final gate: 3 JSX Babel parses, zero object-rest destructuring; all 3 owned
+app payloads equal sources, 57 other hashes and wrapper unchanged against pickup
+and each fresh-read sync. Country catalogs cover all 25 emitted B2 country codes;
+docs scopes and whitespace pass. Five Backend country contracts preserve Draft.
+App C64f614df; Backend Ce954034; workspace country-flow/checkpoint commit and this
+report carry final hashes. Other agents' Accounts files remain untouched/staged out.
+
+Limits/acceptance: manual feedback file input is a metadata fixture exercising the
+P3 scan hook, not a real parser or retained byte upload. Nominal FI payment-day
+calendar examples and IS correction formats remain unchecked. Actual HR period
+paging, Org registrations, official schemas, calendars, practitioner and sensitive-
+data approvals remain required. No persistence, live authority call or fabricated
+acceptance. Report HRP-C-10 then stop pending lead acceptance before D/E.
+
+
+Concurrent versioning note at closeout: workspace ERP-lead commit b44259f captured
+all five country flow edits while this task was active; it was not created by
+Codex. The owned workspace closeout commit contains the two task checkpoints.
+Do not attribute the ERP lead's broad commit or its unrelated changes to this
+batch. Later App shared-design commits leave the four owned runtime payload/source
+files and payroll-p spec unchanged from App64f614df (verified by explicit paths).
+Final report lists the five Codex commits individually and the concurrent flow
+container separately; do not use a broad cross-agent review range.
