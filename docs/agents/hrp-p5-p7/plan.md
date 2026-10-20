@@ -138,3 +138,13 @@ Keep Pending verification / UNCHECKED / PARALLEL_ONLY. Missing owners/fields are
 named; no new HR field, legal approval, real payable amount or ready country is
 inferred. B2 and C–E remain unstarted by this task. Append one HRP-C-8 report, then
 stop pending lead acceptance and Jabran's eventual click-through approval.
+
+
+## HRP-68 follow-up — 2026-10-20
+
+B1 review F1/F2/F3 fixed first in App b92dfb92, separate exact requested Draft
+subject; 17 focused assertions and independent review PASS. B2 Denmark is now
+integrated with FI/IS under the canonical
+[HRP-C-9 checkpoint](../hrp-p8-p9/plan.md#active-hrp-68--2026-10-20-b1-review-fixes-then-b2).
+Latest complete batch evidence and next action are there; B1 acceptance is still
+the lead's formal gate. HRP-C-9 reports B1 fixes+B2 then Codex stops. No C–E.

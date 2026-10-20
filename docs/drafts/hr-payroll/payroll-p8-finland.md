@@ -176,3 +176,43 @@ no-wages/benefits-only, replacement/cancel/new, partial feedback and correlated 
 All source/format rows UNCHECKED, pilot NOT_RUN, PARALLEL_ONLY until formal review,
 practitioner/source approval and real employer pilot. P1/HR/P2/P3/P4 owners must approve
 shared amendments. Jabran then approves screen+contract before production implementation.
+
+## 11. HRP-68 B2 · money-trace design clarification (Draft)
+
+Finland employee and company-setting scopes provide **Tax card / TyEL / Insurance /
+Holiday pay**, all five sample source states, source/version, applicability,
+unverified payee and owner action. Company scope uses a selected employee as the
+sample basis, never a company total. Org O-3 sector and employer-register category
+remain visibly blocked everywhere, with no ordinary-employer default. Required HR
+coverage, derived age, employment and leave facts are read-only missing-fact
+blockers; no raw DOB, national ID, bank or health data is exposed.
+
+Default **Current response** produces no money. Explicit **Illustrative complete
+response** demonstrates synthetic pending arithmetic while retaining real HR/Org
+blockers. Missing HR / company / Payroll, refusal and invalid input suppress every
+monetary trace in either mode. These controls simulate responses, never source
+edits; state is component-only with no save, persistence or readiness change.
+
+- Tax: original/revised card scopes, own-payer opening and other-run reservations
+  determine ceiling split. Revised opening is employee-declared and needs future
+  Payroll reason/evidence recording. No automatic reset; other employers' pay stays
+  unknown. Hypothetical card 20%/40% demonstrates the split only.
+- TyEL: sourced unchecked 7.30% employee candidate, and adjustable **fabricated
+  sample insurer-agreement 16.2%** employer share. No universal employer premium.
+  Actual insurer policy/payee, month/cohort and coverage remain verification gates.
+- Insurance: synthetic HR `job.insuranceCategory` ORDINARY / PART_OWNER and derived
+  eligible age/coverage demonstrate different unemployment deductions, annual
+  employer bands and separate employer health. Unknown annual liability blocks.
+  Employee health is already in withholding. Accident 0.5% and group-life 0.06%
+  are fabricated sample insurer-agreement inputs only; actual policies/payees
+  remain unverified.
+- Holiday: eligible percentage 9%/11.5% examples keep independent earned accrual,
+  payment/release and liability distinct. Opening 2000 + earned 300 − payment 900
+  = closing 1400. Changing earned does not change payment. Lomaraha and employer
+  contribution accrual/release remain pending separate agreement verification.
+
+Deductions are negative. **Payslip / Employer cost / Intermediate** tags distinguish
+each row; employer costs never affect payslip net pay, and liability is not extra
+payment. This is not a full payslip or a statutory calculation. The [P8 B2
+clarification](../../../NeoERP-BackEnd/docs/api/payroll-v2-p8.md#13-hrp-68-b2--finland-money-trace-clarification-draft)
+retains every existing policy, source, practitioner, pilot and approval gate.

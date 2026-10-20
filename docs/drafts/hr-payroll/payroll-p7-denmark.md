@@ -174,3 +174,45 @@ stale card/run, age-year boundary, ATP threshold, holiday payer unresolved,
 refund conditional deadline, generated-vs-accepted, partial rejection and tenant switch.
 Rig integration/test evidence belongs to root checkpoint; this file claims none completed.
 Approval requested only after concrete contract+screens and open-rule disposition are reviewed.
+
+## B2 setup illustration — 2026-10-20 (HRP-68, Draft)
+
+The country workbench has employee/company scopes and five topics: MAIN/SECONDARY
+card and deduction, AM, ATP, holiday payer mode and sickness refund. Each shows
+applicability, linked source/edition, unverified payee, owner-named read-only facts,
+sample controls, tagged trace and owner blockers. No save, persistence, readiness,
+payment or filing action is provided.
+
+Actual Org O-2 is unavailable in every topic, with the company-settings blocker
+visible. CURRENT is the default and has no money. Explicit ILLUSTRATIVE is a
+FIXTURE response, retaining the real blocker and Pending verification warning.
+Missing HR / missing Org / missing Payroll / refused / invalid states suppress
+monetary candidates. Source-response choices never edit HR or Org.
+
+Tax illustrates sample authority-card rate and period deduction for MAIN, none for
+SECONDARY, or proposed 55% without allowance for no card. The basis is already
+resolved A-tax-only income. Primary-card payer instruction/date/evidence belongs
+to the employee, recorded in Payroll, with its missing-evidence blocker visible.
+AM is separate proposed 8% after eligible ATP/pension deductions: turning 18 in
+2026 applies from January; turning 18 after 2026 is exempt in 2026. ATP uses
+independent age/coverage evidence and proposed monthly thresholds 39/78/117 hours.
+HR `job.hoursBasis` is read-only. NOT_RECORDED blocks rather than implying FTE;
+unknown-hours conversion needs verification.
+
+Payroll owns holiday payer mode; HR `holidayPayRoute` is not read. Controls
+separate earned basis, opening liability and sample payment/release. Accrual is
+proposed 12.5% allowance OR conditional 1% supplement, and closing = opening +
+earned − payment. Earned/closing are Intermediate, payment is Payslip. Fund net
+withholding attribution remains pending with a visible payer-mode timing note.
+Tax, AM and employee ATP are negative Payslip deductions. Employer ATP is Employer
+cost and never Payslip.
+
+Refund has no monetary candidate: conditional source-based deadlines, HR
+absence/revision/eligibility requirements, Payroll evidence blocker and Not sent
+worksheet are visible. No salary netting, receivable, claim or authority receipt.
+
+Worker standalone checks cover both scopes × five topics × five source states,
+negative deductions, ATP fractional thresholds, employer/payslip separation,
+holiday earned/payment/liability arithmetic, CURRENT/no-money, invalid/refused
+suppression and guard-first denial. Root owns integrated Babel/browser checks;
+this document claims no integrated check result.

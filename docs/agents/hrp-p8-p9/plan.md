@@ -3,13 +3,13 @@
 | Field | Checkpoint |
 |---|---|
 | Identity and ownership | HRP-P8-P9; Finland and Iceland Payroll design/spec/proposed contracts, requested by Jabran 2026-10-18. Codex leads draft integration. HRP lead retains approval and existing plans. |
-| Stage and status | HRP-63/65 batches 0 and A complete as verified Draft delivery. Awaiting HRP lead acceptance and lead-session Opus review; B not started. |
-| Approval | HRP-63/65 explicitly authorize batch 0 and A Draft work and explicit-path docs commits. No production, migrations, live submissions, push, PR or PROJECT-STATE access. B–E wait for lead acceptance. Formal review remains lead-owned. |
+| Stage and status | HRP-68 B1 F1–F3 and B2 DK/FI/IS Draft work, integration, verification and focused independent re-review complete. Await lead-session formal Opus review/acceptance of HRP-C-9. Stop before C or new scope. |
+| Approval | HRP-68 explicitly authorizes B1 review fixes first with separate commit, then B2 DK/FI/IS Drafts and explicit-path docs commits. No production, migrations, HR screens, live submissions, push, PR or PROJECT-STATE access. Formal acceptance remains lead-owned. |
 | Write scopes | Finland worker: new Backend docs/api/payroll-v2-p8.md and workspace docs/drafts/hr-payroll/payroll-p8-finland.md. Iceland worker: corresponding p9.md/payroll-p9-iceland.md. Codex: App docs/design/screen-rig/payroll-data.jsx, payroll-setup.jsx, payroll-rig.jsx, matching app.html payloads only; App docs/design/specs/payroll-p.md; this checkpoint. No shell/routes/Tweaks/Org/People/Roles/Activity changes. |
-| Progress | Recorded scope confirms P8 FI: income-limit card, TyEL, unemployment/health, holiday/lomaraha, per-payment Incomes Register and employer report. P9 IS: brackets/credit, social charge, pension/séreign, orlof, tax/fund/union files. Reuse the country workbench, P1 import, P2 role mapping, P3 files and P4 immutable filing model. |
-| Evidence | App dev-app 574ffe1c914b54bb66c29469ec1bf15ad270ba13; Backend dev c521bd3509c3752d2d15969167c1335c3a101084. Pickup dirty App: five existing P5–P7 files (three JSX/app/spec) plus unrelated untracked spot-state audit. Backend: three untracked P5–P7 contracts. They are preserved. At pickup, prior /tmp artifacts were unavailable; the exact-version local-CDN harness was recreated for the recorded final run. Its /tmp artifacts are again unavailable at the 2026-10-19 handoff; final evidence is recorded below. |
-| Findings | P8/P9 contracts were absent at pickup; both are now drafted. Material gates recorded: FI per-payer income ceiling and revised-card opening facts, per-payment versus monthly no-wages/cancellation reporting and unemployment payee mapping; IS annual/monthly credit discrepancy, child applicability wording, social base/rounding and recipient-specific formats. HR Helsinki/Reykjavík seeds are reused; the missing Helsinki Payroll wrapper/profile was added in the draft, and Reykjavík retains its rig wrapper. Country source research, 2026 rule/schema checks and practitioner/pilot gates required. Do not invent country rules or let simulated acceptance mark READY. |
-| Resume point | Wait for lead acceptance of HRP-C-7 and the fresh lead-session Opus review before any batch B work. |
+| Progress | B1 F1 separates accrual/payment; F2 visible row kinds; F3 negative deductions. Five-country trace panel now includes DK card/AM/ATP/holiday/refund, FI card/TyEL/category insurances/holiday, IS declared credit/residency/pension/union/orlof. Current unserved Org/HR facts remain blockers; only explicit alternate fixtures demonstrate pending arithmetic. |
+| Evidence | Pickup App dev-app d27ae775, Backend dev ad72db7, workspace master 9740dd7; unrelated dirty paths preserved. Final 2292 browser/helper checks, 191 route/scenarios × four widths = 764 visits, zero errors/blank/overflow. Three JSX parse/no-rest, three equal app blocks/57 others plus wrapper unchanged. See HRP-C-9 closeout below for limits. |
+| Findings | Formal C8 F1 Medium/F2/F3 Lows fixed separately in b92dfb92. Independent B2 review found one Low: fractional ISK input could break displayed orlof reconciliation; whole-ISK monetary sample inputs now refuse fractions before calculation, focused re-review PASS. No unresolved actionable findings; legal/practitioner/Org/HR/provider evidence remains unverified. |
+| Resume point | HRP lead: run fresh formal Opus review and accept or return concrete HRP-C-9 findings. Codex stops. Batches C–E and further implementation need their owning brief and approvals. |
 
 ## Discovery and plan
 
@@ -182,3 +182,101 @@ batch A flow/checkpoint commit contains the reviewed country notes and final
 verification record. HRP-C-7 carries all exact hashes/subjects, including this
 workspace commit. All commits use the required author/email, explicit --only
 paths and no trailers. No push, PR or production code. Batch B not started.
+
+
+## Active HRP-68 — 2026-10-20: B1 review fixes then B2
+
+Discovery: App dev-app d27ae775 (clean except unrelated untracked spot-state audit),
+Backend dev ad72db7 (unrelated accounts-decisions dirty), workspace master 9740dd7
+with unrelated accounts/inbox work. Root owns the shared Payroll JSX/app/spec and
+this canonical checkpoint. HRP-68 permits explicit-path docs-only Draft commits,
+B1 fixes first with exact subject; P7/P8/P9 clarifications and existing country
+flows only for B2. No production, push, PR, PROJECT-STATE access, HR screens or
+core H/P0–P4 contract edits. Missing NeoERP-Design/README noted; actual design
+reference is App screen-rig README and payroll-p spec. H2 §7.11i read-only input
+now exists; UNKNOWN remains blocked until recorded. F-04 owners remain binding.
+
+Plan/Advisor 1 structured self-challenge: retain one session-only guarded model
+and country workbench. F-1 separates earned accrual from released holiday payment;
+F-2 every trace row has an explicit Payslip/Employer cost/Intermediate kind;
+F-3 employee deductions are negative. No ledger or second calculation engine.
+Verify/freeze/commit B1 first. Then file-disjoint DK/FI/IS workers own only their
+P7/P8/P9 clarification plus existing flow and /tmp snippet; root integrates shared
+files, no worker writes shared JSX/app/checkpoints or commits. Every topic uses
+complete/missing HR/Org/Payroll/refused scenarios, employee/company sample scopes,
+source/version/applicability/payee/provenance. Missing O2/O3/O4 stays a company
+settings blocker; alternate response fixtures never establish recorded facts.
+No invented statutory rates: missing evidence becomes Pending verification.
+
+Security/lifecycle scan: existing read/platform/company/confidential/offline guards
+precede projections. Synthetic HR facts contain no NID, raw DOB, health narrative
+or bank details; Payroll sample inputs stay component state. Credit instructions
+are employee-declared, pension/holiday payer modes Payroll-owned. No master writes,
+real payslip, authority export, posting, run snapshot, or local/session persistence.
+Acceptance: F1/F2/F3 assertions across all five countries, all B2 topics × five
+states/scopes; changed JSX Babel/no-object-rest; fresh exact npm CDN Playwright
+all pay routes at 390/768/1024/1280, zero errors/blank/overflow; earlier regressions;
+byte-equal owned payloads, every unowned hash/wrapper unchanged. Distinct independent
+review + one focused fix re-review, formal Opus review remains lead's. B1 not yet
+accepted, B2 preparation specifically authorized; no later scope inferred.
+
+
+B1 correction stage: App b92dfb92 exact requested subject; 17 actual-source VM
+assertions and three JSX parses pass, independent focused static review no
+findings. No separate P5/P6 amendments needed; allowed spec documents changed
+trace semantics. Three country workers now assigned only their contract/flow and
+/tmp snippet; root owns app HTML integration. Recreated exact-version npm packs
+in /tmp/hrp-c9-check because prior C8 /tmp evidence was gone. Root new acceptance
+harness includes earlier actual-source import, NID, ESS/time, payee and FI context
+regressions rather than assuming unavailable old scripts still ran.
+
+
+## HRP-C-9 verified Draft closeout — 2026-10-20
+
+Engineer/Advisor 2: integrated the three disjoint country snippets into the
+existing guarded country workbench and dispatcher, not a new route/provider or
+financial state store. Employee-declared facts/controls have explicit provenance.
+All 23 money topics across five countries use visible row kinds and consistent
+negative employee deductions. DK refund remains a nonmonetary worksheet; FI has
+no universal insurer rate; IS unknown union policy/partial residence remains
+pending. Actual O2/O3/O4 (and missing HR) blockers are never silently cleared by
+an illustrative fixture. No raw DOB/NID/health narrative/account in projections.
+
+Independent Reviewer: B1 focused review PASS; integrated B2 bounded source/model
+review found only fractional-ISK display mismatch. Reproduction open0/base10/
+release0.5 displayed earned1/released1/closing1. Improver: whole-ISK monetary input
+constraint + keyed validation and input step1 (percentages keep step any), not a
+statutory rounding ruling. Focused independent re-review PASS; no remaining
+finding. Root browser checks confirm fraction suppresses money and integer
+open0/base10/release1 closes0. This is Codex evidence, not the formal lead review.
+
+Final actual-source harness /tmp/hrp-c9-check/check.cjs, recreated because C8 tmp
+was gone, uses newly npm-packed React18.3.1 / ReactDOM18.3.1 / Babel7.29.0 with
+exact CDN URL interception and headless Chrome; no screenshots. 2292 helper/UI
+checks and 191 inventoried design/manual route-scenarios × 390/768/1024/1280 =
+764 visits; zero page/console errors, blank roots or document horizontal overflow.
+147 distinct hashes; duplicate index entries intentionally exercise scenarios.
+Includes 23 topics × five states × two scopes × four widths, all trace tags,
+negative input-driven payslip changes for five countries, B2 actual arithmetic,
+required-owner/refusal/current/alternate/invalid states, card ceiling/revised
+opening, ATP hours, insurer sensitivity, credit/carry/residence, holiday earned/
+release, and explicit Org/source gates. Earlier regressions recreated: P1 map/
+apply source binding/failure precedence/expiry/partial counts/replay/discard,
+legacy NID badge/apply/creation refusal, direct reasoned sensitive edit field-only
+audit, address apply, ESS NID no-action/time-correction withdraw, PAID-only and
+duplicate payee file/download, FI separate-payment correction context. No local/
+session persistence. Supplementary isolated worker checks: DK1185/FI377/IS279;
+17 focused B1 actual-source checks also pass. Final JSON/log stay only in /tmp.
+
+Three changed JSX parse and no object-rest; every owned payload equals its JSX.
+All 57 other payload hashes and wrapper unchanged against fresh pickup and every
+integration write. Whitespace/scope checks green. P7/P8/P9 changes are B2 Draft
+clarifications only; H0–H4/P0–P4 untouched. No production tests/builds required for
+these docs-only synthetic files. App B1 fix b92dfb92; Backend B2 d990111; App B2
+subject docs(payroll): Denmark Finland Iceland money traces (Draft). Workspace
+country-flow/checkpoint commit carries this final evidence; report has exacthashes.
+
+Final Approval boundary: all values Pending verification / UNCHECKED /
+PARALLEL_ONLY, no ready country, actual declaration/policy save or legal/practitioner
+approval. Lead must review/accept B1 fixes+B2 and supply the next approved brief.
+Append one HRP-C-9 then stop; no push/PR, C–E or HR protection screen inferred.

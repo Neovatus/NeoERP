@@ -182,3 +182,141 @@ comparison; formal independent review, then Jabran approves spec and contract be
 New screen copy must use `payroll_<area>_<name>` keys in the shared spec catalog; existing
 pickers and pay- CSS remain. These English copy intents do not authorize unkeyed literals.
 No production implementation, commit, push, PR or live filing is part of this draft delivery.
+
+
+## 10. HRP-68 B2 interactive draft — 2026-10-20
+
+The existing country workbench adds credit, residency, pension/séreign, union and
+orlof topics, with employee/company sample context and five source states:
+complete, missing HR, missing Org, missing Payroll and refused. Inputs remain in
+component memory. Existing read/company/confidential/platform/offline guards run
+before projection. No Save, live calculation, credit consumption, master edit,
+identity parsing, persistence or country Ready transition is delivered.
+
+Every topic shows source/version, applicability, owner-named facts, an unverified
+payee and a trace. Org O-4 is unknown and always remains a real company-settings
+blocker. CURRENT response shows Pending verification without money. The explicit
+ILLUSTRATIVE alternate server response may show sample arithmetic in complete
+state while retaining O-4; selecting it does not record a missing fact. Missing or
+refused states and invalid inputs suppress all monetary rows, including intermediate
+balances. Unknown union agreement rate has no statutory default and also blocks.
+
+Credit instructions and carry/other-payer usage controls identify the employee as
+the declaration source; Payroll owns their recording and evidence. HR facts use
+existing taxResidenceFrom/To and opaque factsRevision, never replacement residency
+fields or raw identity. A full eligible month illustrates only the P9 first-bracket
+example: 400000 × 31.49% − 72492 = 53468 ISK withheld. Allocation 50% gives 89714.
+Verified same-year opening and already-used credit affect the available balance;
+prior-year carry is zero and applied credit cannot refund prior tax. Partial
+residency is blocked pending verified day-proration; foreign unsupported profiles
+are refused. Annual/cumulative precision, year-end treatment and actual credit
+consumption remain outside this example.
+
+Pension defaults to the existing Gildi example profile, labelled unverified:
+employee 4% deduction, employer 11.5% expense. Additional savings requires an
+explicit sample election (none, employee 2% + employer 2%, or employee 4% + employer
+2%); no double charging of mandatory specified-private allocation. Union needs an
+entered sample agreement rate and pending recipient evidence; no national 1% is
+asserted. Social charge and full employer cost remain unresolved with O-4.
+
+Orlof uses an eligible earning basis, a separate opening liability and a separate
+released-pay input. Default sample: 30000 opening + 10170 earned − 5000 released =
+35170 closing ISK. Released pay is the single Payslip row; earned/closing rows are
+Intermediate, so payment is never counted again as earned accrual. Release beyond
+available sample liability is invalid. Salary continuation does not automatically
+add a second cash supplement.
+
+Every row is tagged Payslip / Employer cost / Intermediate. Withholding, employee
+pension, employee séreign and union deductions show negative amounts. Employer
+pension and matching contributions are positive cost rows with no payslip flag.
+Sample ISK display rounds to whole units before the shared ×100 trace transport;
+legal rounding and named practitioner verification remain pending.
+
+### B2 keyed copy catalog
+
+All added Iceland copy uses `payroll_b2_is_*` keys below. English values are draft
+copy, not approved statutory claims. Common source-state/scope/trace-kind controls
+continue to use the existing shared catalog.
+
+| Key | English text |
+|---|---|
+| `payroll_b2_is_credit` | Iceland · personal credit allocation and carry-over |
+| `payroll_b2_is_residency` | Iceland · residency and credit eligibility |
+| `payroll_b2_is_pension` | Iceland · pension and séreign |
+| `payroll_b2_is_union` | Iceland · agreement union deduction |
+| `payroll_b2_is_orlof` | Iceland · orlof accrual and release |
+| `payroll_b2_is_applicability` | IS-2026-P9-DRAFT · Illustrative only · Pending verification |
+| `payroll_b2_is_source_credit` | IS-S1–S4 · Skatturinn 2026 rates and personal credit instructions |
+| `payroll_b2_is_source_residency` | IS-S2 · Personal credit residency and same-year eligibility; exact proration pending |
+| `payroll_b2_is_source_pension` | IS-S6–S9 · Pension Act and Gildi example; agreement and election required |
+| `payroll_b2_is_source_union` | IS-S14 · Salary guidance; selected union agreement and rate still required |
+| `payroll_b2_is_source_orlof` | IS-S13 · Holiday Allowance Act; current law and agreement pending verification |
+| `payroll_b2_is_source_org` | F-04 O-4 · Org employer social-charge category not yet served |
+| `payroll_b2_is_employee_payee` | Selected employee · sample payee, unverified |
+| `payroll_b2_is_tax_payee` | Skatturinn · sample liability payee, unverified |
+| `payroll_b2_is_fund_payee` | Sample pension institution · approved payee pending verification |
+| `payroll_b2_is_union_payee` | Selected union · agreement and approved payee pending verification |
+| `payroll_b2_is_response` | Alternate server response fixture; does not record facts |
+| `payroll_b2_is_current` | Current response · required Org fact missing |
+| `payroll_b2_is_illustrative` | Illustrative complete response · Pending verification |
+| `payroll_b2_is_warning` | Alternate response arithmetic only; missing Org fact remains unresolved |
+| `payroll_b2_is_hr` | HR · required eligibility facts |
+| `payroll_b2_is_payroll` | Payroll · financial policy and evidence |
+| `payroll_b2_is_employee` | Employee-declared · instruction and usage evidence in Payroll |
+| `payroll_b2_is_org` | Org · O-4 employer social-charge category |
+| `payroll_b2_is_scope` | Sample scope |
+| `payroll_b2_is_employee_scope` | Selected employee sample |
+| `payroll_b2_is_company_scope` | Company policy sample using selected employee facts |
+| `payroll_b2_is_unavailable` | Not recorded · owner action required |
+| `payroll_b2_is_hr_missing` | HR must supply the named facts; Payroll cannot edit the HR master. |
+| `payroll_b2_is_org_missing` | Company settings: Org O-4 category is not yet served. No ordinary-employer default. |
+| `payroll_b2_is_payroll_missing` | Payroll or the employee must supply the named policy, instruction or evidence. |
+| `payroll_b2_is_refused` | Unsupported profile refused; no ordinary resident or contribution fallback. |
+| `payroll_b2_is_invalid` | Sample input is invalid; no monetary result. |
+| `payroll_b2_is_pending` | Pending verification · calculation withheld until required facts are available |
+| `payroll_b2_is_taxable` | Sample taxable pay (ISK) |
+| `payroll_b2_is_share` | Employee-declared allocation (%) |
+| `payroll_b2_is_carry` | Verified same-year opening credit (ISK) |
+| `payroll_b2_is_used` | Credit already used elsewhere / earlier this month (ISK) |
+| `payroll_b2_is_year_case` | Synthetic credit year relationship |
+| `payroll_b2_is_same_year` | Same tax year · verified opening sample |
+| `payroll_b2_is_prior_year` | Prior tax year · carry disallowed |
+| `payroll_b2_is_credit_available` | Allocated available credit · Intermediate |
+| `payroll_b2_is_credit_used` | Credit applied · Intermediate |
+| `payroll_b2_is_withholding` | Withholding deduction · Payslip |
+| `payroll_b2_is_credit_limit` | Only first-bracket sample supported here; annual cap and cumulative precision need verification. |
+| `payroll_b2_is_residence_case` | Synthetic HR residency response |
+| `payroll_b2_is_full` | Full eligible month · synthetic HR response |
+| `payroll_b2_is_partial` | Partial residency · exact proration pending verification |
+| `payroll_b2_is_foreign` | Foreign / unsupported profile |
+| `payroll_b2_is_residence_facts` | IS / 2026-01-01 / open / factsRevision 1 [SYNTHETIC] |
+| `payroll_b2_is_eligibility` | Eligible age and domestic coverage [SYNTHETIC] |
+| `payroll_b2_is_instruction` | Employee-declared monthly instruction / usage evidence [SYNTHETIC] |
+| `payroll_b2_is_policy` | Dated sample agreement / election / recipient evidence · unverified |
+| `payroll_b2_is_partial_pending` | Partial residency requires verified day-proration and credit precision; no estimated amount. |
+| `payroll_b2_is_base` | Sample eligible contribution base (ISK) |
+| `payroll_b2_is_savings` | Sample additional-savings election |
+| `payroll_b2_is_none` | No additional savings election |
+| `payroll_b2_is_two` | Employee 2% + employer 2% · Gildi example |
+| `payroll_b2_is_four` | Employee 4% + employer 2% · Gildi example |
+| `payroll_b2_is_employee_pension` | Mandatory employee pension deduction · Payslip |
+| `payroll_b2_is_employer_pension` | Mandatory employer pension expense · Employer cost |
+| `payroll_b2_is_employee_savings` | Additional employee savings deduction · Payslip |
+| `payroll_b2_is_employer_savings` | Additional employer savings expense · Employer cost |
+| `payroll_b2_is_pension_basis` | Eligible employee deductions from withholding basis · Intermediate |
+| `payroll_b2_is_union_rate` | Illustrative selected-agreement rate (%); no national rate |
+| `payroll_b2_is_union_deduction` | Union deduction · Payslip |
+| `payroll_b2_is_union_pending` | No universal union rate or recipient format. Enter a sample agreement rate to illustrate; verification remains open. |
+| `payroll_b2_is_opening` | Opening holiday liability (ISK) |
+| `payroll_b2_is_earning_base` | Current eligible earning base (ISK) |
+| `payroll_b2_is_released` | Sample holiday pay released (ISK); distinct from earning |
+| `payroll_b2_is_earned` | Holiday accrual earned · Intermediate |
+| `payroll_b2_is_holiday_paid` | Holiday payment released · Payslip |
+| `payroll_b2_is_closing` | Closing holiday liability · Intermediate |
+| `payroll_b2_is_holiday_overdraw` | Released holiday pay exceeds opening plus earned sample liability. |
+
+B2 review clarification: Iceland sample monetary inputs require whole ISK;
+fractional money is refused before candidate rows are calculated. Percentage
+inputs may be fractional. This is a draft display-consistency constraint, not
+verification of official statutory rounding. The keyed whole-ISK message is
+`payroll_b2_is_whole_isk`.
