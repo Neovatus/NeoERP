@@ -146,3 +146,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-20 · Jabran: Claude leads and mains stay paused (Codex implements); pause files set per session, ERP lead listener stays on
 2026-10-20 · correction: leads active (they lead; Codex implements); lead listeners on, Claude mains paused
 2026-10-20 · consistency pass applied (19 fixes); ERP-148 (HRP, hr-h1 §5), ERP-149 FYI both leads
+2026-10-20 · UX exceptions A+B written (Jabran agreed); FYI ERP-150

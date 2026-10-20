@@ -1548,3 +1548,9 @@ Needs answer by: — · Blocking: no
    - The variance table isn't a sideways-scroll grid (cards); a zoomed document pans inside its own frame.
    - "All {rows}" instead of "Total"; one refusal copy for dates; "This file was removed. Make it again."; `NeoPercent` only.
 2. Two open UX-principle exceptions are with Jabran: read-only status pills in module rows, and inline controls that open the reason gate.
+
+## 2026-10-20 · ERP-150 · From: Code · ERP lead (trial) · FYI · Two UX principle exceptions (Jabran)
+Needs answer by: — · Blocking: no
+1. **ux-principles §6:** in module and feature rows, a read-only viewer sees **status pills** (the §1 tag words and tones) in place of a disabled switch.
+2. **ux-principles §4:** a module, feature or branch setting already in force may be changed with an inline switch, segmented control or checkbox that **only opens the reason gate**: no change until the reason is saved, cancel leaves it as it was, turning off uses the destructive gate. Creating something new stays a form with one save.
+3. design-principles.md is updated to match. Draw and build that way from now on.
