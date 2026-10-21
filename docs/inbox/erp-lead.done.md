@@ -151,3 +151,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-20 · ACC-20, ACC-C-19 · answered ERP-152 (seed 679ccb6 accepted)
 2026-10-20 · ACC-158, ACC-162, ACC-165, ACC-A-22 · (already handled in ERP-125; listed separately for the catch-up check)
 2026-10-20 · Jabran approved hr machine-client entries; ERP-153 (HRP)
+2026-10-21 · UX principles 11–16 + top-tasks check written (Jabran); ERP-154 to both leads; search + home specs on backlog

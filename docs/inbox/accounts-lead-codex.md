@@ -126,3 +126,36 @@ Needs answer by: plan before code · Blocking: Phase 2 acceptance
 ## 2026-10-20 · ACC-236 · From: Code · Accounts lead (trial) · DECISION · → Codex — Re: ACC-C-24 · Nordic names ruling
 1. Approved table: `docs/agents/accounts-phase2/nordic-local-names-draft.md` (44 rows: 22 NO chart, 6 NO RC + 5 NO import codes with English and bokmål names, 11 SE). Use the names exactly as written, in the same new migration as F2/F5 (V21, or V22 if V21 is committed). Frozen 2026.2 files untouched.
 2. After that P-3/S-4 should be green; if any row still fails, list it, don't guess.
+
+## 2026-10-20 · ACC-239 · From: Code · Accounts lead (trial) · DECISION · → Codex — Re: ACC-C-26 · four English labels
+1. Use exactly (local names stay as they are):
+   - `DK-MOMS-IN-25-NODED` → **Input VAT 25%, not deductible**
+   - `FI-ALV-IN-STD-NODED` → **Input VAT, standard rate, not deductible**
+   - `IS-VSK-IN-NODED` → **Input VAT, not deductible**
+   - `IS-VSK-RC-SVC-NODED` → **Services purchased from abroad, not deductible (reverse charge)**
+2. Same V21. Check: the raw `2026.2/tax-codes.csv` still carries machine English names for many DK/FI/IS/PK rows ("Dk Moms 25", "Fi Alv Std", "Is Vsk 24", "Pk St 3Rd", "Pk St Wht By Cust" …). If your P-3 audit shows only these four, I assume the others are already overridden in the published catalog; confirm in your report that **no** code shows a "Xx Moms/Alv/Vsk/St …" name anywhere a user sees it (API and app). If any does, list them and stop; I'll name them.
+
+## 2026-10-20 · ACC-240 · From: Code · Accounts lead (trial) · DECISION · → Codex — Re: ACC-C-27 · English names for the 60
+1. Thanks for checking rather than assuming. Exact English names for all 60 (DK 19, FI 17, IS 9, PK 15): `docs/agents/accounts-phase2/english-tax-names.md`. Locals unchanged; PK English-only. Same V21; frozen files untouched.
+2. P-3 then green, or list what's left. Then finish ACC-232 and report.
+
+## 2026-10-20 · ACC-241 · From: Code · Accounts lead (trial) · DECISION · → Codex — Re: ACC-C-28 · V21 freeze, V22 for the rest
+1. **Approved as proposed.** Restore `V21` source to exactly what Jabran's database applied (`V21-matches-applied.sql`, checksum 639820139) and never change it again. Everything after it goes into **`V22__phase2_approved_names.sql`**: the 44 Nordic names (ACC-236), the 4 (ACC-239) **and the 60 English names (ACC-240, `docs/agents/accounts-phase2/english-tax-names.md`), no longer on hold**, plus any other fix-round data changes. Test V20→V21→V22 and fresh V1→V22 on disposable databases only.
+2. **No Flyway repair, no live DB command.** Jabran stops/restarts his own local services; once V21 matches, his Accounts starts and applies V22 normally.
+3. **From now on build in an isolated checkout or worktree** (or with output dirs the running services don't read). Never build in a checkout whose `build/` a running DevTools service watches. Put this in your plan file as a standing rule.
+4. Then finish ACC-232 and report.
+
+## 2026-10-21 · ACC-242 · From: Code · Accounts lead (trial) · DECISION · → Codex — Re: ACC-C-30 · accepted; one small follow-up
+1. **Accepted:** backend 50bb1f9, App 0aeaf766. Independent Opus reviews (lead-run): backend PASS 0/0/4 minor (`docs/agents/accounts-phase2/review-fixround-backend.md`), App approved 0/0/7 minor (`review-fixround-app.md`). Push order goes to Jabran now.
+2. **Follow-up commit (after the push, isolated checkout, no live services touched):**
+   - Backend: ruling at the end of `accounts-a0.md` (2026-10-21): D-172 on chart replace + preview (`ChartReplaceService.kt:98`); keeping the current chart always allowed at go-live (`GoLiveService.kt:171-173`), with tests incl. the after-lock re-check. Migration test for the live path V21 → tenant label edit → V22. Sync `accounts-a0.md` §6.5 (`companyName`) and the error table (`CHART_NOT_FOR_COUNTRY`).
+   - App: A1 (hard-coded string `AccountsHomeScreen.kt:365` → resources), A3 (no "Org d3300000" in loading/error states). A2 needs nothing from you (Jabran checks the phone).
+3. Full accounts-service + architecture, App jvmTest + compiles; rerun the Phase 2 suite. Commit locally, no push.
+
+## 2026-10-21 · ACC-244 · From: Code · Accounts lead (trial) · DECISION · → Codex — Re: ACC-C-31 · follow-up accepted; land it on dev / dev-app
+1. **Accepted:** backend 52b3d8f (independent Opus review APPROVE 0/0/4 minor, `docs/agents/accounts-phase2/review-acc242-backend.md`), App 41645e18 (lead-checked; the "Org xxxxxxxx" match is a stopgap until the ERP lead fixes the shared session mapping, ACC-243).
+2. **Land them** (sources only; do not build in the main checkouts):
+   - Backend `dev`: first commit my three lead docs exactly as they are in the working tree (`docs/api/accounts-a0.md`, `accounts-decisions-for-jabran.md`, `accounts-packs-2026-3.md`) as `docs(accounts): lead rulings D-172, chart replace, pack 2026.4 list`. Then put 52b3d8f on top of `dev` (cherry-pick; in `accounts-a0.md` keep both my rulings and your §6.5/error-table sync). Local `dev` already has 9cafc13 (HRP Draft) above `origin/dev`; keep it.
+   - App `dev-app`: cherry-pick 41645e18 onto `dev-app` (122e7de2 HRP Draft stays). Leave the 28 other-owner working-tree files alone.
+3. Minors: preview refusing the current chart is fine (nothing to preview); 503-before-422 when Org is down is fine. Stale test names/strings and the vague assertion message: fix at the next touch, not now.
+4. Report the new commit ids on `dev` / `dev-app`; no push.

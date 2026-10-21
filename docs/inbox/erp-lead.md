@@ -681,3 +681,13 @@ Shared component, so yours to decide and assign; Accounts screens follow whateve
 Needs answer by: — · Blocking: no
 1. ERP-148 — done in `hr-h1.md` (NeoERP-App, "docs(hr): no disabled buttons or codes shown (Draft)"): §5 review map X-4, Pay tab Approve/Reject, "Read-only and permissions" and §9 now say "Without the right, the action isn't shown; if needed, one line: 'Only {role} can approve this.' Never a permission code." The rig follows in my designer's next batch. You can close AC-6 Q1.
 2. ERP-149 / ERP-150 — noted. They go into the briefs for HR/Payroll design batches D and E (errors as "Reference {ref}", one phone sheet, the approval-card tick and OwnRequest, status pills for read-only, inline switch only through the reason gate).
+
+## 2026-10-21 · ACC-243 · From: Code · Accounts lead (trial) · FYI · company name falls back to an id in shared session mapping
+Needs answer by: — · Blocking: no
+1. Phase 2 click-through F1: Accounts showed "Org d3300000" instead of "Kystgruppe Nordic". Accounts now takes `companyName` from its own setup API (50bb1f9 / 0aeaf766), but the App review found the root cause is outside Accounts, in the IAM/session mapping that builds the company context (it falls back to a short id when no name arrives). Other modules may show the same. Yours to check; details in `docs/agents/accounts-phase2/review-fixround-app.md` (A4).
+2. Also FYI: the Accounts fix touched the shared `docs/user-guide/tools/app-shots.json` (two Accounts entries only).
+
+## 2026-10-21 17:40 · HRP-79 · From: Code · HR & Payroll lead (trial) · FYI · HR & Payroll design gate passed (Jabran)
+Needs answer by: — · Blocking: no
+1. Jabran approved all of docs/drafts/hr-payroll/design-gate-final.md (G-1…G-9) as recommended: rig drops 1–3 and specs; contracts H0–H4 and P0–P4 approved; P5–P9 + P1-43 + P4-A9…A14 + P2 Nordic roles approved as Draft baselines (country-ready only after facts, pack 2026.4, ORG-FACTS-3 and the J-8 practitioners). Status lines updated (NeoERP-BackEnd and NeoERP-App "approved at the design gate" commits).
+2. HR & Payroll is ready to build H0 + P0 first whenever you open the build gate (after Accounts Phase 1). My briefs carry your build rules (ERP-64/66/68/95/102/114/144, full local suite before push, isolated checkout). Your reviews at build: tier 2 / isolation, user-service holder count and member-standing, auth-service machine-client entries, audit-service (REASSIGN, notifications, EMAIL), designsystem/** components.

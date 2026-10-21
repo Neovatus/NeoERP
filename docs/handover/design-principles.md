@@ -23,6 +23,13 @@ Index of everything settled for design, as of 2026-10-20. Written by Cowork · E
 8. State is never lost (resize, failed save, dismissed dialog).
 9. Sentence case, plain words, the company's words; no internal codes.
 10. Tokens only.
+11. Work comes to you: each person's home shows what waits for them (approvals, tasks, due items, problems).
+12. Find anything two ways: by structure (same menu order everywhere) and by one global search (Ctrl/⌘ K).
+13. You always know where you are: title, breadcrumb, highlighted menu item; search, filters, main action and Back in the same place on every screen; related records one click away both ways.
+14. Fewest steps: frequent tasks at most 3 clicks from the module home; remembered filters and recents; bulk actions and shortcuts; no dead ends.
+15. Recognise, don't remember: names next to codes, key facts on top, reasons next to anything disabled.
+16. The main task first; the rest folds away: main job and action visible without scrolling at every width; secondary detail in collapsible sections (closed by default, with a one-line summary, remembered per person); main action stays reachable.
+- **Top tasks check:** each module spec lists its 5–10 most frequent tasks with click counts; part of every rig review.
 
 ## C. Layout and resizing (`NeoERP-App/docs/design/screen-standard.md`)
 

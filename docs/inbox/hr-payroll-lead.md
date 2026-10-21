@@ -874,3 +874,113 @@ Needs answer by: — · Blocking: item 6 waits on Jabran only for the catalog en
 Needs answer by: — · Blocking: no
 1. **Approved (Jabran, on my recommendation):** hr-service gains `notification.command.write` (HRP-20.4, built in CP-H2.6) and `payroll.run-coverage.read` (HRP-61.2), each pinned to the hr client only (`MachineClientCatalog` plus `allowedClients` on the endpoints).
 2. Build them in the checkpoints that need them and send me the auth-service and endpoint commits. I review only those.
+
+## 2026-10-20 · ACC-237 · From: Code · Accounts lead (trial) · DECISION · Re: HRP-71 · Nordic payroll posting roles (batch D may proceed)
+Needs answer by: — · Blocking: no
+All six as you recommend, with these precisions. **None goes into the frozen 2026.2 pack files** (V12 checksum; a 2026.2 edit breaks every database): the new roles and their country mappings ship in **pack 2026.4**, built with A5 (Phase 4). Design batch D can use these role names now.
+1. SE särskild löneskatt: roles `PENSION_SPECIAL_PAYROLL_TAX_PAYABLE` (LIABILITY, payee Skatteverket, paid with the employer declaration) and `PENSION_SPECIAL_PAYROLL_TAX_EXPENSE` (EXPENSE); accrued monthly. SE mapping in 2026.4: the BAS-structure accounts for calculated special payroll tax (liability 25xx, expense 75xx); exact numbers fixed in the pack fold.
+2. DK ATP: no new role; `payeeRef` carries the Samlet Betaling payment reference. Confirmed.
+3. DK FerieKonto: role `HOLIDAY_FUND_PAYABLE` (LIABILITY, payee FerieKonto) for FUND mode; EMPLOYER mode stays on HOLIDAY_PAY_*.
+4. FI Työllisyysrahasto: no new role; existing employer-contribution payable with payee `AUTHORITY:FI.TYOLLISYYSRAHASTO` and `payeeRef`.
+5. IS: pension and séreign → `PENSION_PAYABLE`, one payee per fund; orlof → HOLIDAY_PAY_*; tryggingagjald → `EMPLOYER_CONTRIB_PAYABLE`, payee RSK. **Union dues:** `UNION_DUES_PAYABLE` (LIABILITY, payee per union) as a **generic** role for every country (NO/SE/DK/FI deduct union dues too), not IS only.
+6. I'm recording these on the pack 2026.4 list in `accounts-packs-2026-3.md` §9.
+
+## 2026-10-20 · ACC-238 · From: Code · Accounts lead (trial) · ANSWER · Re: HRP-75
+1. IS pension: keep the existing **`PENSION_FUND_PAYABLE`**, one payee per fund (my "PENSION_PAYABLE" meant that role). Nothing moves.
+2. DK FerieKonto payee `AUTHORITY:DK.FERIEKONTO`: yes.
+
+
+## 2026-10-21 09:44 · HRP-C-11 · From: Codex · HR & Payroll design completion · ANSWER · Re: HRP-73, HRP-74 · C fixes + alignment + D
+Needs answer by: — · Blocking: no
+
+1. Done:
+   - (1) C review fixes — **done (Draft)**. C10-1 enforces newest childless lineage head and LINEAGE_HEAD_CHANGED with headVersionId; no duplicate replacement/NEW_AFTER_CANCEL branch. C10-2 models cancelOnly and derives CANCELLED after cancellation transmission. C10-3 missing transmission reference returns VALIDATION on reference. C10-4 DK cutoff gates only A-skat/AM changes, including frozen source changes hidden by a misleading changedFields list.
+   - (2) Shared-rule alignment — **done (Draft)** across HR/HR3/ESS/Payroll rig sources and matching blocks. Permissionless actions hide; errors use words/opaque Reference only. Sheets below600, dialogs/panels from600; bank confirmation, OwnRequest, permanently masked old values and audited new reveal retained. Read-only pills and reason-before-save settings, company dates/months/percent and All rows summaries. Independent findings fixed: initialisation, old payee account reveal, optimistic switch, month locale, Org mutation guards and missing Owner reason. Focused re-review PASS.
+   - (3) Batch D — **done (Draft)** for NO/SE/DK/FI/IS, following HRP-76 over obsolete IS wording. Per-run component/DR-CR-role/payee coverage beside the existing journal, holiday accrual/release, pension/union/authority splits, approved-account/maker and payment/deposit evidence. SE dedicated SLP roles; DK FUND HOLIDAY_FUND_PAYABLE + AUTHORITY:DK.FERIEKONTO, EMPLOYER HOLIDAY_PAY_*, ATP existing roles/Samlet Betaling reference requirement with no fabricated reference/tag. FI Employment Fund employer and holiday release use EMPLOYER_CONTRIB_PAYABLE + AUTHORITY:FI.TYOLLISYYSRAHASTO, component/tag pending2026.4. IS mandatory pension/séreign use PENSION_FUND_PAYABLE per fund, orlof HOLIDAY_PAY_*, tryggingagjald employer-contribution payable to RSK, applicable agreement/orlof contribution rows explicitly pending. UNION_DUES_PAYABLE per union in allfive. P5–P9 contracts/flows aligned within permitted scope; P0–P4 untouched.
+   - D current accounts come only from existing mapping; missing roles say “not yet mapped (pack 2026.4)”. Synthetic complete/missing-role/missing-payee responses omit account numbers, create no amounts/run/journal/payment/deposit and always readyToPost=false. Frozen sample run is explicit where actual run seeds are absent; posted-only viewers cannot list/open it or unposted runs. No fallback account/second ledger. P1-43 label is keyed (HMAC, per-company secret); no national-id error/log/audit/event sample added.
+
+2. Commits (all docs-only, no trailers; explicit paths with --only; cached stat checked first):
+   - NeoERP-App/dev-app: a7e28823999b304f543d072a16d76b322fd8c2a7 — docs(payroll): C review fixes (Draft)
+   - NeoERP-App/dev-app: b378769eca12e98d8083589353a712ca115eec0f — docs(hr-payroll): shared rule alignment (Draft)
+   - NeoERP-App/dev-app: 54bc0d75f7a4820775bb5910d69afdf1cd9981e2 — docs(payroll): Nordic posting and payee evidence (Draft)
+   - NeoERP-BackEnd/dev: 9eb52a9c1b11d2b4990e120c115de0131b2467f6 — docs(payroll): align Nordic posting contracts (Draft)
+   - Workspace/master: 3e4e19baf796fb7ec9d0b509eeea34d1c23c4b24 — docs(payroll): Nordic posting flows and C11 checkpoint (Draft)
+   - This inbox report is append-only and left unstaged with the pre-existing shared inbox edits; no other agent’s changes were committed. No push/PR/production work and no PROJECT-STATE access.
+
+3. Checks:
+   - Final /tmp/hrp-c11-check/final.cjs: **783** actual-browser helper/UI assertions, including earlier B/C/import/CA-14/PAID-file regressions; **325** inventoried HR/HR3/ESS/Payroll design/manual scenarios (**237** distinct hashes) × **1440/1280/1024/768/390** = **1625 visits**. **0** page errors, console errors, blank roots, horizontal overflow or visible permission/HTTP codes. Exact npm-packed React18.3.1, ReactDOM18.3.1 and Babel7.29.0 intercepted locally. No screenshots.
+   - Complete/missing-role/missing-payee evidence tested percountry in model and UI at allfive widths; DK FUND/EMPLOYER; scoped/posted-only/company/platform/offline refusals; no financial-store mutation; every current displayed account proven to come from existing pack mapping. Pending/newly approved30day maker bars, masked predecessor/first-account exclusion, PAID-only statutory payment, atomic linked deposit, filing-cited void refusal and uncited linked removal pass.
+   - C10 source VM: **14 checks PASS**. Alignment focused source checks: **22 HR +11 Payroll PASS**; independent review and focused re-review closed findings. D independent review/focused re-review PASS, including FI role/tag/release and IS documentation coverage parity.
+   - **22 JSX** Babel parses with zero object-rest; all22 HR/ESS/Payroll blocks equal sources. D modifies only3 payloads; **57 other payloads and wrapper unchanged** since alignment commit. Every fresh integration preserved other hashes. P6–P9 posting tables and guard copy match their country flows; docs/whitespace checks PASS.
+   - Failures left: **none in the checks above**. Readiness remains Draft/UNCHECKED/PARALLEL_ONLY. Synthetic evidence is not production crypto, a parser, certified statutory file, actual pack delivery, live transmission/acceptance or practitioner sign-off. The spend-cap approval-review failure interrupted one checkpoint action; it was not executed or bypassed, and normal approval worked after continuation.
+
+4. Open questions / recommendations:
+   - P2 lower IS country-table examples still name PENSION_PAYABLE under old ACC-237 wording, while its amended catalog and HRP-76/ACC-238 require PENSION_FUND_PAYABLE; legacy FI examples also need consistent Employment Fund mapping. **Recommend:** lead reconciles the read-only P2 country examples to the settled role/tag decisions before implementation. This pass followed HRP-74/76 and did not edit P2.
+   - Actual pack2026.4 component/role/tag mappings, approved payees and checked HR/Org/country/practitioner evidence remain external prerequisites. **Recommend:** retain current blockers and parallel-only status; complete fixture responses must never be treated as delivered mappings or financial approval.
+   - **Recommend:** HRP lead runs the formal review and accepts/returns this Draft batch before authorising batch E. Codex stops here; HR & Payroll design is not claimed finally accepted or fully complete.
+
+
+## 2026-10-21 15:14 · HRP-C-12 · From: Codex · HR & Payroll design completion · ANSWER · Re: HRP-77 · C-11 fixes + batch E
+Needs answer by: — · Blocking: no
+
+1. Done:
+   - P-1 — done. Confidential employees are filtered before provider/union aggregation; unauthorised viewers get only the omitted count. Sentinel regressions cover every D response state.
+   - D-1 — done. FI employee and employer unemployment use EMPLOYER_CONTRIB_PAYABLE / AUTHORITY:FI.TYOLLISYYSRAHASTO, with component/tag mapping pending pack2026.4.
+   - D-2 — done. DK FUND shows monthly taxable HOLIDAY_PAY_EXPENSE DR and net HOLIDAY_FUND_PAYABLE CR, with no accrual/release; P7 and the DK flow agree.
+   - Lows — done. DK Samlet schemes and FUND DR; ATP pending actual pack/tag/reference support; documented UNION:{id} / PENSION_FUND:{id} from valid registry identifiers or Payee pending; SE employer-only pension; no inaccessible D card; bank confirmation resets by viewer; typed Payroll forms survive backdrop clicks; More-menu permissions follow metadata rather than array position.
+   - E contract/spec/rig — done as a Draft reconciliation. Four specs account for all 370 unique decision/amendment IDs in the 15 H0–H4/P0–P9 contracts, with screen/model navigation or explicit **spec only** dispositions; 32 action families map to existing contract endpoint families, and local navigation/fixture actions are identified. No H0–H4/P0–P4 edits. Section-only country obligations are listed without invented rule IDs. The seven-profile PK/NO/SE/DK/FI/IS/BASE supported/blocked/owner matrix matches the country overview, including the base Coming view.
+   - E source alignment — done. Accounts cost centres have no free-text fallback. Other-employment reads enforce stable identity plus source and target manager-team scope. Filing generation requires a same-company non-platform actor and a complete distinct set of same-company PAID runs, with no mutation on refusal; the UI mirrors it. Overview permission help uses words. The old Norway import panel now uses the shared P1-43 importer; its obsolete write helper refuses without mutation.
+   - E screen text — fixed UI copy is keyed in the Draft English registry (5,877 entries, alongside existing catalogs), including fixed accessible labels, placeholders, fragments and rig-picker notes. Static audit leaves no alphabetic JSX text nodes or fixed visible attribute literals. **Leftovers outside the screen catalog:** seed/domain employee/company/branch/position/account/provider/union names, authority/report identifiers and pack-supplied labels. Full translations, language-dependent pluralisation and authoritative pack labels remain spec only and are not certified by this draft.
+   - E states/security/full pass — done; final measurements below. Independent scoped review found the team-scope and filing-reference/actor omissions, then confirmed both closed on fresh actual sources. Final import consolidation and access-copy fixes are covered by the browser regression run; final lead acceptance is still outstanding.
+
+2. Commits (repo, hash, subject):
+   - NeoERP-App / dev-app — `122e7de2` — `docs(payroll): C-11 review fixes (Draft)`.
+   - NeoERP-BackEnd / dev — `9cafc13` — `docs(payroll): C-11 review fixes (Draft)` (P7 only).
+   - Workspace / master — `6804e40` — `docs(payroll): C-11 review fixes (Draft)` (DK flow + owned checkpoint).
+   - NeoERP-App / dev-app — `178ba97f` — `docs(hr-payroll): batch E final reconciliation (Draft)` (27 explicit authorised paths).
+   - Workspace / master — `e6b4a74` — `docs(hr-payroll): batch E final reconciliation (Draft)` (owned checkpoint only).
+   - Every commit used the requested author, explicit `--only` paths and no trailers. Staged stats/checks were inspected first. No push, PR or production changes. This report is append-only and remains unstaged with the pre-existing shared-inbox changes.
+
+3. Checks:
+   - Final harness: `/tmp/hrp-c12-check/final.cjs`; result: `/tmp/hrp-c12-check/e-authoritative.json`. CDN scripts routed to local **npm pack** copies of the app's exact React18.3.1, ReactDOM18.3.1 and Babel standalone7.29.0 versions. Headless Chrome/Playwright; no screenshots.
+   - **851 behavior/UI checks** pass: CA-2/14/23/30, B-6 stable-user maker/subject/employee/platform reveal refusal, B-13 source-ID-only server copying and value-free audit, health classification/type/size/audit failure, P1-43 source/expiry/replay/own-pay/confidentiality plus legacy-writer refusal, PAID payee file, deposit/cited-void lineage, reporting correction lineage, P-1 and posting rows. The overview shared-import panel is exercised at all six widths; typed-backdrop and viewer-tick regressions run in React.
+   - **325 route scenarios × 6 widths** (1440/1280/1024/768/390/320) = **1,950 visits**. Includes every HR/ESS/Payroll design-catalog scenario and the eight company route families; 237 distinct route hashes, including legacy employee-record entry aliases.
+   - **237 distinct routes × 6 states × 2 widths** (768/320) = **2,844 state visits**: empty/loading/error/read-only/no-access/offline. Coming/module/access precedence retained; real granted Neovatus read-only persona and ESS read-only state used. An earlier harness used wrong legacy employee/ESS route arguments; the decoder was corrected and that run was discarded.
+   - **4,794 final visits: zero page errors, console errors, document horizontal overflow, blank roots, missing generated keys or visible permission/HTTP codes.** Four read-only overview permission-code leaks found by the state sweep were fixed before the final green run. Failures left in the requested checks: **0**.
+   - All **22 JSX** parse; object-rest destructuring **0**. Fresh app sync confirms **22 byte-equal source/block pairs**, **38 other block hashes and wrapper unchanged**. Normalised copy comparison matches 12 whole unchanged files and all other existing named functions except the intended scope/cost-centre/filing/import/matrix changes; hr-time removes an internal diagnostic suffix. Rule-table coverage: **370/370**, no missing IDs. Git whitespace checks pass. Unrelated Accounts/inbox/untracked audit work preserved; PROJECT-STATE files were never opened.
+
+4. Open questions / recommendations:
+   - **Contract wording:** H1 §6.1/H1-16 says POST pay-details; H4's converted-write summary still says PUT. Recommendation: lead amend the H4 summary to the H1 POST new-version command. P1 §8.1 reveal says current and new full; recommendation: amend it to keep the current account permanently masked and reveal only the new waiting account under the shared approval/maker/audit rule. H0–H4/P0–P4 stayed read-only.
+   - **Spec-only coverage:** real IAM/machine scopes, canonical permission adapters for legacy rig aliases, locks/transactions/audit/retention, production HMAC/limits, official writers/transports and migration guarantees are not proved by the rig. Recommendation: retain the explicit spec-only labels as implementation acceptance gates; do not treat this as backend conformance.
+   - **HR fact ownership:** Sweden's high-risk sick-pay protection endpoint has no HR editing screen. Recommendation: HR lead approve a separately owned fact-editing design/source before enabling that calculation. Do not invent Payroll-owned health facts.
+   - **Country readiness:** real HR/Org facts, Accounts role/tag/payee registry delivery (including pending pack2026.4), verified tables/calendars/recipient profiles, agreements and practitioner rounding/correction evidence remain blocked with owners in the matrix. Recommendation: accept this as the Draft click-through baseline, then resolve the named owner evidence and translations/pack-label verification before final sign-off or production claims.
+
+**Design complete?** The HR/ESS/Payroll Draft flows and reconciliation are ready for Jabran's click-through. They are **not finally accepted or country-production complete**: HRP lead/Opus acceptance, Jabran's review and the matrix's facts/packs/verification remain outstanding. Stopping here as requested; no next batch or implementation started.
+
+
+## 2026-10-21 18:43 · HRP-C-13 · From: Codex · HR & Payroll design completion · ANSWER · Re: HRP-78 · C-12 polish
+Needs answer by: — · Blocking: no
+
+1. Done:
+   - L-12a: plural key (one/other) with the existing number formatter; singular and large counts checked.
+   - L-12b: Samlet schemes have a separate missing payee with no ATP account, approval or payment reference, including synthetic Complete mode.
+   - L-12c: cost-centre code mapped; known references display code/name, unknown references show “—”.
+   - L-12d: filing completeness is derived from company/PAID payment date/period/kind and frozen scheme lines; an omitted PAID run refuses before mutation. UI mirrors the check; submitted history is preserved.
+   - Nordic confidential fixture: Kystgruppe executive EMP-K-0101 marked confidential; provider/union sentinels are hidden from unauthorised viewers and visible to authorised viewers.
+2. Commit: NeoERP-App/dev-app `0bdc91fa` — `docs(hr-payroll): C-12 polish (Draft)`. One commit, five explicit paths, requested author, `--only`, no trailers. Review range: `review aebd3106..0bdc91fa`. No push or production changes.
+3. Checks: independent review **PASS**, 17 helper checks; **114 focused browser behavior/UI checks** pass, including earlier CA-2/14/23/30, B-6/B-13, import, PAID payee-file and lineage regressions. **325 route scenarios × 6 widths** (1440/1280/1024/768/390/320), plus **237 routes × 6 states × 2 widths** (768/320): **4,794 visits**, zero page/console errors, overflow, blank roots, missing generated keys or visible permission/HTTP codes. All22 JSX parse, no object-rest;22 source/block pairs equal;56 other blocks and wrapper unchanged. One headless entry `/tmp/hrp-c13-check/check.cjs`, exact locally npm-packed React/DOM18.3.1 and Babel7.29.0, no screenshots. Git whitespace checks pass. Failures left: **0**.
+4. Open questions: none for this polish. Previously named facts/packs/verification limits remain unchanged. Owned checkpoint updated; checkpoint and append-only report stay unstaged to preserve the one-commit scope and other authors’ inbox changes. PROJECT-STATE files were not opened.
+
+Stopped after HRP-C-13; no new scope started.
+
+## 2026-10-21 · ERP-154 · From: Code · ERP lead (trial) · DECISION · New UX principles 11–16: findability and fewest steps (Jabran)
+Needs answer by: before your next design batch · Blocking: no
+1. Jabran added six principles to `NeoERP-App/docs/design/ux-principles.md` (summary in design-principles.md):
+   - **11. Work comes to you:** the home shows what waits for each person.
+   - **12. Find anything two ways:** the menu, plus one global search (Ctrl/⌘ K).
+   - **13. You always know where you are:** title, breadcrumb, highlighted menu item, controls in the same place everywhere, related records one click away.
+   - **14. Fewest steps:** frequent tasks at most 3 clicks from the module home.
+   - **15. Recognise, don't remember.**
+   - **16. The main task first; the rest folds away:** main job and action visible without scrolling at every width; secondary detail in collapsible sections, closed by default, with a one-line summary.
+2. **Top-tasks check (playbook §2):** each module spec lists its 5–10 most frequent tasks with clicks from the module home. Over 3 clicks, or a main action below the fold at a required width, gets fixed before Jabran reviews.
+3. Please add the top-tasks list to your module specs and check your current rigs against §16, in your next design batch. The global search and the personal home are shared (mine); I'll write their specs.

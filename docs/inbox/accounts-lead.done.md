@@ -190,3 +190,15 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-20 · ERP-149 · seen (19 spec fixes; errors never show codes; one phone sheet <600)
 2026-10-20 · ERP-150 · seen (two UX exceptions)
 2026-10-20 · names approved → Codex ACC-236
+2026-10-20 · HRP-71 · answered ACC-237 (roles in pack 2026.4)
+2026-10-20 · ERP-152 · 679ccb6 OK for next dev push
+2026-10-20 · HRP-75 · answered ACC-238
+2026-10-20 · ACC-C-25 · names going into V21; awaiting fix-round report
+2026-10-20 · ACC-C-26 · four English labels ACC-239
+2026-10-20 · ACC-C-27 · 60 English names ACC-240
+2026-10-20 · ACC-C-28 · V21 freeze + V22 approved ACC-241
+2026-10-21 · ACC-C-30 · fix round 50bb1f9 / 0aeaf766, 100/100; lead runs Opus review
+2026-10-21 · reviews PASS; accepted ACC-242; ERP FYI ACC-243
+2026-10-21 · ACC-C-31 · follow-up on codex/acc242-* branches; App ok (fallback-name match is a stopgap until ERP A4); backend Opus review running
+2026-10-21 · ACC-242 review APPROVE; landing ACC-244
+2026-10-21 · ACC-C-32 · landed fadd1a0/5b77d15, 84902fa8; push to Jabran
