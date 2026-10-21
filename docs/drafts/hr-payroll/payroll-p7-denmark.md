@@ -124,32 +124,38 @@ Company agreement above minimum requires policy evidence and effective date.
 Holiday payer picker uses existing company payee registry with approved account status.
 FerieKonto/fund mode explains net reporting after tax; employer/admin mode gross-at-payment.
 Unverified collective guarantee/payer registration shows blocking message.
-Calculation preview separates eligible basis, earning/accrual, withheld tax, transfer and net.
+Calculation preview separates eligible basis, FUND gross taxable expense earning,
+attributed AM/A-skat and monthly net fund transfer from EMPLOYER-mode accrual/release.
+FUND mode shows no `HOLIDAY_PAY_ACCRUED` line and no accrual/release action.
 Do not show simultaneous12.5% and salary+1% for the same entitlement segment.
 Leave entitlement/days link to HR; payroll cannot edit HR leave balance here.
 Settlement links HR-approved unused days, source version and evidence; no cash override.
 Any scheme change shows affected future dates and immutable prior payments.
 
-### Posting and payee evidence — HRP-74/76 (Draft)
+### Posting and payee evidence — HRP-74/76, amended HRP-77 (Draft)
 
 | Component | Expense / debit | Liability / credit | Payee and evidence |
 |---|---|---|---|
 | Salary / net pay | `PAYROLL_EXPENSE` | `PAYROLL_PAYABLE` for net | Employee payment follows P3; no payable payee tag on net. |
 | A-skat / AM-bidrag | No employer expense for withheld amounts | `PAYROLL_TAX_PAYABLE` / `AM_CONTRIBUTION_PAYABLE` | Tax-authority split stays separate from ATP and holiday transfers. |
-| ATP employee / employer shares | Employer share only: `ATP_EXPENSE` | Existing `ATP_PAYABLE` | Samlet Betaling payment reference; pack 2026.4 carries it as `payeeRef`, no new ATP role. Until that tag is supported, retain the reference on P3 payment evidence and block an unsupported tagged posting. |
-| Other Samlet Betaling employer schemes | `EMPLOYER_CONTRIB_EXPENSE` | Existing `EMPLOYER_CONTRIB_PAYABLE` | Scheme-specific amount and Samlet Betaling payment reference, never an invented recipient or second invoice. |
+| ATP employee / employer shares | Employer share only: `ATP_EXPENSE` | Existing `ATP_PAYABLE` | Required Samlet Betaling payment reference, never fabricated. Show “not yet mapped (pack 2026.4)” until the actual pack maps the component/tag and the real payment reference is supplied; an existing account alone is insufficient. No new ATP role. Keep the reference on P3 payment evidence. |
+| Other Samlet Betaling employer schemes | `EMPLOYER_CONTRIB_EXPENSE` | Existing `EMPLOYER_CONTRIB_PAYABLE` | Separate AUB, AES, Barsel.dk and financing-contribution evidence. Component/recipient/reference mapping stays pending until supported by the actual pack and verified scheme/payment reference; no invented authority, reference or second invoice. Unsupported pack 2026.4 mapping shows “not yet mapped (pack 2026.4)”. |
 | Contracted pension | Employer only: `PENSION_EXPENSE` | `PENSION_PAYABLE` | Approved fund/insurer payee under the agreement; no universal rate. |
 | Holiday accrual / employer route release | Accrual: `HOLIDAY_PAY_EXPENSE`; release debits `HOLIDAY_PAY_ACCRUED` | `HOLIDAY_PAY_ACCRUED` in EMPLOYER mode | Keep `HOLIDAY_PAY_*` in EMPLOYER mode; salary/supplement and allowance routes cannot duplicate entitlement or expense. |
-| FUND-mode net holiday transfer | Release the source holiday liability; no second expense | `HOLIDAY_FUND_PAYABLE` | Required `AUTHORITY:DK.FERIEKONTO`; net after the distinct AM/A-skat split, only in FUND mode. Mapping awaits pack 2026.4. |
+| FUND-mode monthly holiday earning (part 1) | DR `HOLIDAY_PAY_EXPENSE`, taxable earning at gross | No holiday-accrual credit | Included in the AM-bidrag and A-skat bases. FUND mode is an expense transfer, with no `HOLIDAY_PAY_ACCRUED` line and no accrual/release. |
+| FUND-mode monthly net holiday transfer (part 2) | No liability-release debit | CR `HOLIDAY_FUND_PAYABLE`, net only | Required `AUTHORITY:DK.FERIEKONTO`; gross minus the attributed AM-bidrag and A-skat, kept out of employee net pay. Never credit the gross. Mapping awaits pack 2026.4. |
 | Union dues | No employer expense for an employee deduction | `UNION_DUES_PAYABLE` | `UNION:{registry number}`, one payee per union; pack 2026.4. |
 
 The new FUND-mode role is `HOLIDAY_FUND_PAYABLE`, not a newly proposed
 `FERIEKONTO_PAYABLE`. The legacy pack 2026.2 role is no fallback for a missing
-2026.4 map. Preserve gross earning, tax, net transfer and holiday release evidence
-separately; neither salary payment nor a Samlet Betaling invoice settles another fact.
+2026.4 map. Preserve FUND gross earning, attributed tax and net transfer as the
+two-part monthly posting in P2 §5.6/§5.7; it has no accrual and no release. Keep
+EMPLOYER-mode accrual/release separate. Neither salary payment nor a Samlet
+Betaling invoice settles another fact. DK has no holiday-pay contribution accrual;
+AM-bidrag and ATP are not accrued against a holiday liability (P2 §5.7).
 
-The per-run posting preview shows component → role → payee and separate accrual,
-release and payment evidence. Accounts resolves accounts from its versioned pack;
+The per-run posting preview shows component → role → payee, EMPLOYER-mode
+accrual/release, FUND-mode expense/net transfer, and separate payment evidence. Accounts resolves accounts from its versioned pack;
 Payroll sends no account numbers or fallback account and keeps no second ledger.
 A missing pack 2026.4 component/role/tag mapping reads “not yet mapped (pack 2026.4)”
 and blocks the affected posting; an existing role alone does not prove that its

@@ -2,14 +2,14 @@
 
 | Field | Checkpoint |
 |---|---|
-| Identity and ownership | HRP-C-11; Codex leads the approved HR/ESS/Payroll Draft pass across App/Backend/workspace; root integrates app.html. HRP lead owns formal acceptance. |
-| Stage and status | C fixes, shared alignment and batch D implemented, verified and committed as Draft. Independent review and focused re-review PASS. Ready for HRP-C-11, then stop awaiting lead acceptance before E. |
-| Approval | Jabran requested HRP-73/74 in order; HRP-76 corrects IS pension. Explicit docs-only Draft commits authorised; no production, push, PR or PROJECT-STATE access. Formal Opus/practitioner/Jabran click-through acceptance remains separate. |
-| Write scopes | App HR/HR3/ESS/Payroll JSX + matching app blocks/spec; Backend P5-P9 clarifications; workspace five country flows and owned plan. Root sole shared-block integrator. Workers edited disjoint source/doc scopes and returned evidence; independent reviewer read only. |
-| Progress | App a7e28823 C review fixes; b378769e shared alignment; 54bc0d75 D evidence. Backend 9eb52a9 country posting alignment. Workspace flow/checkpoint Draft commit follows; append-only HRP-C-11 reports hashes. All output remains Draft. |
-| Evidence | Final /tmp/hrp-c11-check/final.cjs: 783 browser/helper/UI checks; 325 design/manual scenarios (237 distinct hashes) ×1440/1280/1024/768/390 =1625 visits; zero page/console errors, blank roots, overflow or visible permission/HTTP codes. 14 C fixes separately rechecked. All22 JSX parse/no-rest; 3 D blocks equal sources, 57 other payloads+wrapper unchanged since alignment; all22 HR/ESS/Pay source/payload pairs equal. Exact npm React18.3.1/ReactDOM18.3.1/Babel7.29.0 routed locally; no screenshots. |
-| Findings | C10-1…4 fixed. Independent alignment and D findings fixed/re-reviewed: bootstrap/date locale, masked old account, saved-only switch, Org/Owner mutation guards, actor-specific posted-only filtering/selection, FI Employment Fund release and IS pending agreement/holiday coverage. No remaining actionable review findings. Current pack/payee/HR/Org facts remain missing where actual source lacks them; synthetic fixtures never authorise posting. |
-| Resume point | Append HRP-C-11 after workspace commit, then stop. HRP lead performs formal review/acceptance before batch E. Recommend reconcile stale lower P2 IS/legacy FI country rows against HRP-74/76; no P0-P4 write performed. |
+| Identity and ownership | HRP-C-12; Codex leads Draft C-11 review fixes then batch E reconciliation across HR/ESS/Payroll. Root alone integrates app.html. |
+| Stage and status | Discovery/Plan/Advisor1: HRP-77 read with formal C11 review and amended P2. C10/shared alignment accepted; D needs P-1/D-1/D-2 and all Lows first. E starts after the fix commit. |
+| Approval | Jabran’s HRP-77 request authorises ordered docs-only Draft commits, no push/PR/production/PROJECT-STATE. H0-H4/P0-P4 stay read-only; report drift. Final design acceptance remains HRP lead/Opus/Jabran. |
+| Write scopes | Root: payroll-data/setup/ui/runs, hr3-ui, matching blocks/specs/checkpoint/report. Fix docs worker: P7 + DK flow only. Reviewer: read-only. E workers later receive disjoint HR source/spec and Payroll audit scopes; no shared app writes. |
+| Progress | Pickup App54bc0d75/dev-app and workspace3e4e19b/master, owned files clean. Backend d902615/dev already carries lead’s FI/DK P2 amendment; unrelated Accounts and inbox dirt preserved. |
+| Evidence | Prior C11 evidence remains historical. New fix regressions will exercise confidential membership exclusion, FI tag/mapping, DK expense/two-part/fund/schemes, registry tags, SE employer-only, no inaccessible card, persona tick reset and input retention. Final E exact-CDN headless pass adds320 to five required widths and a systematic state sweep. |
+| Findings | Formal P-1/D-1/D-2 and Lows accepted for correction. E must inventory contract rule coverage/actions/endpoints, supported/blocked profiles and string-key leftovers without silently claiming production/statutory readiness. |
+| Resume point | Implement/review/verify C11 fixes; explicit Draft fix commits first. Then E traceability/matrix/string/state reconciliation, independent review and final harness, separate Draft commits, append HRP-C-12 with honest design-complete statement and stop. |
 
 ## Discovery and plan
 
@@ -480,3 +480,34 @@ Lead-session formal Opus and Jabran acceptance still required. Spend-cap review
 failure interrupted one checkpoint write; it was not executed and was not bypassed.
 After user continuation normal approval succeeded. Unrelated Accounts work and
 pre-existing inbox edits remain unstaged. Report HRP-C-11 then stop before E.
+
+
+## Active HRP-77 — 2026-10-21: C11 fixes then E
+
+Discovery: formal review identifies a privacy leak from confidential membership
+records; provider/union coverage must filter records before aggregation and return
+only a count. Amended P2 now settles FI both shares and DK FUND expense transfer;
+no contract invention required. ATP depends on actual pack/tag support; raw payee
+ids cannot masquerade as registry tags. Preserve existing maker/deposit/lineage
+and sensitive-data boundaries. Backdrop must retain forms; persona tick never
+crosses identity. Plan: root source fixes; disjoint P7/DK doc worker; read-only
+review. No E file changes until the fix commit. Advisor1 self-challenge: privacy
+filter before provider/union extraction, explicit per-component pending mapping,
+no extra financial writers, no broad permission changes or DOM text rewriting.
+E then audits all rule IDs/actions and records spec-only/unfixable contract drift,
+provides country/base capability matrix and source-side string keys. Its supported
+states are checked across all routes with existing exact npm CDN harness plus320.
+
+Stage boundary HRP-77 fixes: App122e7de2 committed; Backend P7 correction committed
+in this same fix step. Independent reviewer accepted all fixes and closed the
+normalized-empty registry edge through actual-source malformed/valid cases.
+Exact-CDN browser smoke:797 helper/UI checks +14 focused390/600 visits, zero errors,
+overflow, blank roots or visible permission/HTTP codes. Includes confidential
+sentinel exclusion, FIbothshares, DK FUND/Samlet/ATP, SEemployeronly, typed-backdrop
+retention and cross-viewer tick reset. Five changed JSX parse; matching blocks fresh-synced with22 source pairs equal,
+38 other block hashes and the wrapper preserved.
+No E changes before this boundary. E now authorised: root owns resource extraction,
+Payroll matrix/integration and final harness; HR worker three HR specs only; Payroll
+trace worker read-only contracts/source -> /tmp report only; independent reviewer
+read-only. Full key and action/rule inventories must disclose any spec-only or
+unresolved items. No production strings XML, actual packs/providers or approvals.
