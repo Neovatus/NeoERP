@@ -29,6 +29,11 @@ Index of everything settled for design, as of 2026-10-20. Written by Cowork · E
 14. Fewest steps: frequent tasks at most 3 clicks from the module home; remembered filters and recents; bulk actions and shortcuts; no dead ends.
 15. Recognise, don't remember: names next to codes, key facts on top, reasons next to anything disabled.
 16. The main task first; the rest folds away: main job and action visible without scrolling at every width; secondary detail in collapsible sections (closed by default, with a one-line summary, remembered per person); main action stays reachable.
+17. The context is always visible: company, branch, period and currency shown; switching is deliberate; writes show the target company by the main action.
+18. Caution in proportion to risk: reversible → Undo, no dialog; risky → confirm once; irreversible → designed out (posted money is reversed with a reason, never deleted).
+19. Keyboard-first data entry: tab order, Enter to advance and save, shortcuts, paste rows from a spreadsheet.
+20. Accessible by default: keyboard-only and screen-reader use, WCAG 2.2 AA contrast, never colour alone, text to 200 %.
+(Fast feedback with background jobs is part of 14; help in place from the glossary is part of 15.)
 - **Top tasks check:** each module spec lists its 5–10 most frequent tasks with click counts; part of every rig review.
 
 ## C. Layout and resizing (`NeoERP-App/docs/design/screen-standard.md`)

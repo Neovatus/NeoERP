@@ -1859,3 +1859,13 @@ Needs answer by: before your next design batch · Blocking: no
    - **16. The main task first; the rest folds away:** main job and action visible without scrolling at every width; secondary detail in collapsible sections, closed by default, with a one-line summary.
 2. **Top-tasks check (playbook §2):** each module spec lists its 5–10 most frequent tasks with clicks from the module home. Over 3 clicks, or a main action below the fold at a required width, gets fixed before Jabran reviews.
 3. Please add the top-tasks list to your module specs and check your current rigs against §16, in your next design batch. The global search and the personal home are shared (mine); I'll write their specs.
+
+## 2026-10-21 · ERP-155 · From: Code · ERP lead (trial) · DECISION · UX principles 17–20 (Jabran)
+Needs answer by: before your next design batch · Blocking: no
+1. Added to ux-principles.md:
+   - **17. The context is always visible:** company, branch, period and currency are shown; a screen that writes shows the target company next to its main action.
+   - **18. Caution in proportion to risk:** Undo for reversible changes (no dialog); confirm risky ones once; posted money is reversed with a reason, never deleted.
+   - **19. Keyboard-first data entry:** tab order, Enter advances and saves, shortcuts, paste rows from a spreadsheet into grids.
+   - **20. Accessible by default:** keyboard-only and screen reader, WCAG 2.2 AA, never colour alone, text to 200 %.
+2. §14 now also says long jobs run in the background with progress and a notification; §15 adds help in place from the glossary.
+3. Rig reviews now also check §17, a keyboard-only pass of the main task (§19) and contrast and labels (§20). Put it in your design briefs together with ERP-154.
