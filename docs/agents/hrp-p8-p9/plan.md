@@ -2,14 +2,14 @@
 
 | Field | Checkpoint |
 |---|---|
-| Identity and ownership | HRP-P8-P9; Finland and Iceland Payroll design/spec/proposed contracts, requested by Jabran 2026-10-18. Codex leads draft integration. HRP lead retains approval and existing plans. |
-| Stage and status | HRP-69 B review fixes and batch C reporting/corrections verified and committed as Draft. Independent review findings fixed; focused re-review PASS. Await lead-session formal review/acceptance of HRP-C-10, then stop. |
-| Approval | HRP-69 permits C9-1…C9-6 first in separate Draft fix commits, then C for NO/SE/DK/FI/IS on Draft P4-A9…A14, explicit-path docs commits. No production, HR screen, push, PR or PROJECT-STATE access. D/E and approval remain lead-owned. |
-| Write scopes | Root integrates allowed Payroll JSX/app payloads/spec, P5/P6 and NO/SE flows, owned plans. Catalog worker owns P7/P8/P9 + DK/FI/IS flows; model worker /tmp only; UI worker only payroll-setup.jsx. No overlapping writes; root alone syncs app.html. |
-| Progress | C9 fixes committed first (App29f8cf37, Backend52128cf). One generic workbench now separates preflight/content access, payment/fact sources, correction lineage and transmission/feedback. Five country profiles aligned to P4. All output remains synthetic and source/format/calendar readiness unchecked. |
-| Evidence | Pickup App78599eb1, Backende562419, workspacef0c99fd; unrelated Accounts dirty work preserved. Final 686 browser/helper checks, 196 route/scenarios × four widths = 784 visits, zero errors/blank/overflow. Three JSX parse/no-rest; three equal blocks/57 unchanged others and wrapper; 25 catalog codes registered. |
-| Findings | Formal C9 Medium/Lows fixed. Independent C10 review found monthly FI NEW crossing periods (Medium) and inherited source-name crash (Low). Both corrected and focused actual-source re-review PASS. No unresolved actionable findings; formal lead/practitioner and actual source/format readiness still open. |
-| Resume point | HRP lead reviews HRP-C-10 five Draft commits and accepts or returns concrete findings. Codex stops before D/E, real providers, official formats, live submission or any implementation. |
+| Identity and ownership | HRP-C-11; Codex leads the approved HR/ESS/Payroll Draft pass across App/Backend/workspace; root integrates app.html. HRP lead owns formal acceptance. |
+| Stage and status | C fixes, shared alignment and batch D implemented, verified and committed as Draft. Independent review and focused re-review PASS. Ready for HRP-C-11, then stop awaiting lead acceptance before E. |
+| Approval | Jabran requested HRP-73/74 in order; HRP-76 corrects IS pension. Explicit docs-only Draft commits authorised; no production, push, PR or PROJECT-STATE access. Formal Opus/practitioner/Jabran click-through acceptance remains separate. |
+| Write scopes | App HR/HR3/ESS/Payroll JSX + matching app blocks/spec; Backend P5-P9 clarifications; workspace five country flows and owned plan. Root sole shared-block integrator. Workers edited disjoint source/doc scopes and returned evidence; independent reviewer read only. |
+| Progress | App a7e28823 C review fixes; b378769e shared alignment; 54bc0d75 D evidence. Backend 9eb52a9 country posting alignment. Workspace flow/checkpoint Draft commit follows; append-only HRP-C-11 reports hashes. All output remains Draft. |
+| Evidence | Final /tmp/hrp-c11-check/final.cjs: 783 browser/helper/UI checks; 325 design/manual scenarios (237 distinct hashes) ×1440/1280/1024/768/390 =1625 visits; zero page/console errors, blank roots, overflow or visible permission/HTTP codes. 14 C fixes separately rechecked. All22 JSX parse/no-rest; 3 D blocks equal sources, 57 other payloads+wrapper unchanged since alignment; all22 HR/ESS/Pay source/payload pairs equal. Exact npm React18.3.1/ReactDOM18.3.1/Babel7.29.0 routed locally; no screenshots. |
+| Findings | C10-1…4 fixed. Independent alignment and D findings fixed/re-reviewed: bootstrap/date locale, masked old account, saved-only switch, Org/Owner mutation guards, actor-specific posted-only filtering/selection, FI Employment Fund release and IS pending agreement/holiday coverage. No remaining actionable review findings. Current pack/payee/HR/Org facts remain missing where actual source lacks them; synthetic fixtures never authorise posting. |
+| Resume point | Append HRP-C-11 after workspace commit, then stop. HRP lead performs formal review/acceptance before batch E. Recommend reconcile stale lower P2 IS/legacy FI country rows against HRP-74/76; no P0-P4 write performed. |
 
 ## Discovery and plan
 
@@ -385,3 +385,98 @@ batch. Later App shared-design commits leave the four owned runtime payload/sour
 files and payroll-p spec unchanged from App64f614df (verified by explicit paths).
 Final report lists the five Codex commits individually and the concurrent flow
 container separately; do not use a broad cross-agent review range.
+
+
+## Active HRP-73/74/76 — 2026-10-21: C fixes, shared alignment, D
+
+Discovery/Plan: App dev-app b9e799e2, workspace master52fe255; unrelated Accounts
+production/doc edits preserved. HRP73 Bfixes accepted, C review C10-1..4 fixes first;
+HRP74 overrides D-waits and permits D after alignment. HRP76 corrects IS role to
+PENSION_FUND_PAYABLE and DK fund tag AUTHORITY:DK.FERIEKONTO; apply newest ruling.
+P4 lineage-head amendment, P2§5.2 roles, P1-43 conditions and shared standards read.
+No PROJECT-STATE access, production, push or PR. All work remains Draft.
+
+Root owns Cfix payroll-data/setup + shared app integration/spec/plans. After fix
+commit, file-disjoint alignment workers own (a) hr-*.jsx (b) hr3-*.jsx/ess-shell
+(c) payroll-*.jsx. Root pauses all shared JSX edits until workers finish; root alone
+fresh-syncs owned blocks, preserves every other hash/wrapper. Alignment commit
+precedes any D authoring. D root integrates new Payroll-only model/workbench; docs
+worker owns P6-P9 posting sections, root spec/flow/checkpoint. Every action still
+has server stand-in authorization, hiding is not enforcement. No second ledger,
+fallback account, invented account number or actual settlement; frozen evidence
+and existing approved-account/maker/deposit guards retained. Missing pack2026.4
+roles show not yet mapped. P1 row samples labelled keyed HMAC per-company secret,
+no NID outside request memory, row-number errors only.
+
+Advisor1 structured self-challenge: linear head checks prevent duplicate correction
+children; cancelOnly derives CANCELLED without mutating frozen history; validation
+reference error and field-specific DK cutoff. Shared visible-rule pass uses existing
+HR/Pay act/spot-state/reason/approval helpers, shared date/percent formatters and
+phone600 threshold; no global DOM sanitizing workaround. D projections read P2
+roles/pack mapping and existing P1/P3/P4 payment evidence, never write Accounts.
+Acceptance: Cfix positive/negative VM tests; Babel allchanged sources/no-rest;
+one /tmp exactnpmCDN headless harness inventories every HR/ESS/Pay route at
+1440/1280/1024/768/390, errors/blank/overflow and visible permission/HTTP-code sweep;
+role/no-role/no-payee percountry, account/maker/deposit/P143 checks and regressions.
+Distinct review plus one focused re-review; formal lead review still outstanding.
+Three separately ordered Draft steps, one HRP-C-11 report, then stop before E.
+
+Stage boundary — C review fixes complete: App a7e28823 docs(payroll): C review
+fixes (Draft). Four findings fixed; 14 actual-source model checks PASS, two JSX
+parses and owned block/source parity PASS; other block/wrapper bytes preserved.
+Alignment implementation now complete in 22 inspected HR/ESS/Payroll sources;
+Babel/no-rest PASS. Browser pickup found early HR_VIEW initialization in date
+helper: corrected to exported-window lookup. Independent Pay review requested
+three corrections before alignment commit: old bank account must remain masked,
+publish switch must await successful reason save, and company month names must
+replace English PAY_MONTH. Corrections in progress; no D authoring started.
+
+
+Resume checkpoint — 2026-10-21, HRP-C-11: C fixes committed App a7e28823;
+shared alignment committed App b378769e after independent review/focused re-review.
+Alignment full check 325 scenarios ×5 widths =1625 visits, zero errors/blank/
+overflow/visible permission codes. Final focused 390/600 smoke14 visits passed.
+Batch D draft implementation exists uncommitted in payroll-data/setup/runs;
+app.html still at alignment, not yet synchronized with D. P5-P9 country docs/flows
+are edited but uncommitted. Model/UI integration, actual-source behavior tests,
+independent review, final full browser sweep and D commits/report remain pending.
+The previous run was interrupted by workspace spend-cap approval-review failure;
+no blocked checkpoint write or other rejected action was executed. Resume by
+checking D model completeness and UI/model shape, then authorized verification.
+No production/push/PR/PROJECT-STATE. Stop after HRP-C-11 before batch E.
+
+
+Final stage boundary — HRP-73/74/76 Draft delivery, 2026-10-21.
+C10 fixes enforce single lineage head, cancelOnly/CANCELLED, missing-reference
+VALIDATION and DK tax-field-only cutoff. Shared alignment covers all HR/ESS/Pay
+files and preserves server stand-in enforcement. Distinct reviews found and
+closed old-account exposure, optimistic setting display, company date/bootstrap,
+Org mutation and Owner-reason holes; final focused re-review passed.
+
+D reads the existing pack mapping and approved account/maker/payment/deposit
+stores. Component rows have no amounts, extra journal or settlement writer.
+Actual and explicitly frozen synthetic sources are separate; full-viewer sample
+responses omit account numbers, remain readyToPost=false and cannot repair actual
+missing mappings. All five complete/missing-role/missing-payee UI/model states
+pass. Posted-only actors cannot enumerate/open unposted or synthetic runs, and
+stale forbidden selections recover to permitted runs. FI Employment Fund employer
+and holiday release use the settled role/tag; IS mandatory/additional pension
+uses PENSION_FUND_PAYABLE, with pending applicable agreement-fund/orlof contribution
+coverage. Separate employee/employer/provider/union/authority splits are preserved.
+
+Final independent D review and focused actual-source re-review PASS, including
+permission/company/platform/offline, no store mutation, synthetic role provenance,
+posted-only selection, FI/IS parity. Existing maker waiting/approved30day bars,
+approved predecessor/first-account exclusion, PAID-only payment, linked deposit,
+filing-cited void refusal and uncited atomic removal pass actual-source browser
+checks. Four P6-P9 contract/flow posting tables and guard text match; Norway P5
+adds only settled roles/evidence and no new statutory figures. No account numbers
+invented; current missing facts remain Pending verification / PARALLEL_ONLY.
+
+Verification limits: UI simulation and synthetic metadata are not production
+crypto, a statutory parser/official file, live authority acceptance, pack delivery
+or practitioner approval. Frozen sample sources do not create actual runs or money.
+Lead-session formal Opus and Jabran acceptance still required. Spend-cap review
+failure interrupted one checkpoint write; it was not executed and was not bypassed.
+After user continuation normal approval succeeded. Unrelated Accounts work and
+pre-existing inbox edits remain unstaged. Report HRP-C-11 then stop before E.

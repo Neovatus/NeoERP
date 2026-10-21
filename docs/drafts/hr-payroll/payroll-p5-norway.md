@@ -200,3 +200,29 @@ need the filing-content code; totals-only roles see status/counts only. Shared P
 adds only NO employment-month/payment-date/message specifics. Synthetic outputs
 are labelled Sample — not an official format. Upload never implies acceptance;
 manual correlated evidence is explicitly a simulation, not an authority response.
+
+
+## Batch D posting and payee evidence — Draft, HRP-74/76
+
+The country workbench and each run’s Post step show read-only component → Accounts
+role → payee coverage beside the existing P2 journal. Select the run and inspect
+current mappings or clearly synthetic complete/missing-role/missing-payee responses.
+Complete fixture responses omit accounts and cannot post. Actual account numbers
+come only from the existing pack mapping; unavailable roles say “not yet mapped
+(pack 2026.4)”. No fallback account or separate ledger is created.
+
+Holiday accrual DR HOLIDAY_PAY_EXPENSE / CR HOLIDAY_PAY_ACCRUED; release debits the
+liability without repeating expense. AGA on accrual credits
+HOLIDAY_PAY_EMPLOYER_CONTRIB_ACCRUED; release debits it and credits
+EMPLOYER_CONTRIB_PAYABLE with the same authority. OTP splits employer expense and
+employee deduction per approved pension insurer, using PENSION_PAYABLE. Withholding
+and AGA remain separate Skatteetaten liabilities/payment references. Union dues use
+UNION_DUES_PAYABLE (pack 2026.4), one approved UNION payee per union.
+
+Waiting first accounts stay excluded; approved predecessors stay masked and a
+waiting change never becomes approved through this view. The stable-user requester
+bar applies while waiting and for 30 days after approval. Owner’s own retains the
+reason and known-holder guard. Payment evidence reads the existing PAID-run
+payment/deposit linkage; cited deposits cannot be voided and uncited void removes
+the same linked fact. No preview action pays money or submits a filing. All
+statutory readiness remains Pending verification / PARALLEL_ONLY.

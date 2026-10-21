@@ -113,11 +113,44 @@ Termination, absences and incomplete agreement send user to practitioner/source 
 
 Existing Calculate/Approve owns contribution/tax sequence and stale fingerprints.
 Country/policy/card changes require recalculation; contributors cannot approve themselves.
-Journal uses P2 roles, not hardcoded chart numbers; show TYEL insurer and Employment Fund
-mapping gate (P2 currently drops unemployment payeeRef). Accounts must resolve before build.
+Journal uses P2 roles, not hardcoded chart numbers. Show the verified TyEL insurer
+and Employment Fund `EMPLOYER_CONTRIB_PAYABLE` / `AUTHORITY:FI.TYOLLISYYSRAHASTO`
+with its required `payeeRef`. ACC-237 settles that choice; pack 2026.4 component/tag
+mapping and actual recipient evidence remain gates before build.
 Paid amounts feed reports, not speculative calculation. P3 requires approved employee/payee
 account version and bank requester separation. Generated bank file does not mark PAID;
 PAID is one-way, corrected only through existing correction run. No country undo-pay.
+
+### Posting and payee evidence — HRP-74 / ACC-237 (Draft)
+
+| Component | Expense / debit | Liability / credit | Payee and evidence |
+|---|---|---|---|
+| Salary / net pay | `PAYROLL_EXPENSE` | `PAYROLL_PAYABLE` for net | Employee payment follows P3; no payable payee tag on net. |
+| Withholding / employer health contribution | Employer health only: `EMPLOYER_CONTRIB_EXPENSE` | `PAYROLL_TAX_PAYABLE` / `EMPLOYER_CONTRIB_PAYABLE` | Verified Vero recipient/bank reference; preserve separate component amounts and bases. |
+| TyEL employee / employer shares | Employer share only: `PENSION_EXPENSE` | `TYEL_PAYABLE` | Required verified insurer payee; employee deductions create no employer expense. |
+| Employment Fund contribution split | Employer share only: `EMPLOYER_CONTRIB_EXPENSE` | Existing `EMPLOYER_CONTRIB_PAYABLE` | Required `AUTHORITY:FI.TYOLLISYYSRAHASTO` plus `payeeRef`; component/tag mapping awaits pack 2026.4 although the role already exists. |
+| Holiday accrual / release | Accrual: `HOLIDAY_PAY_EXPENSE`; release debits `HOLIDAY_PAY_ACCRUED` | Accrual: `HOLIDAY_PAY_ACCRUED`; release to the payment obligation | Keep opening + earned/remeasured − released = closing and do not expense the release twice. |
+| Contributions accrued on holiday pay / released | `EMPLOYER_CONTRIB_EXPENSE`; release debits `HOLIDAY_PAY_EMPLOYER_CONTRIB_ACCRUED` | `HOLIDAY_PAY_EMPLOYER_CONTRIB_ACCRUED`, then the component payable on release | Preserve Vero, TyEL insurer and Employment Fund splits; the Employment Fund release uses the amended `EMPLOYER_CONTRIB_PAYABLE` mapping/tag. |
+| Union dues | No employer expense for an employee deduction | `UNION_DUES_PAYABLE` | `UNION:{registry number}`, one payee per union; pack 2026.4. |
+
+The Employment Fund role/payee decision is answered by ACC-237/P2 §5.2; a
+NONE-tag unemployment role that drops `payeeRef` is not a fallback. No new role,
+TyEL rerouting or hardcoded chart account repairs a missing component/tag map.
+Actual insurer premiums, accident/group-life applicability and checked holiday
+valuation remain country verification gates rather than invented payable amounts.
+
+The per-run posting preview shows component → role → payee and separate accrual,
+release and payment evidence. Accounts resolves accounts from its versioned pack;
+Payroll sends no account numbers or fallback account and keeps no second ledger.
+A missing pack 2026.4 component/role/tag mapping reads “not yet mapped (pack 2026.4)”
+and blocks the affected posting; an existing role alone does not prove that its
+country component or payee tag is mapped. A missing payee blocks the affected
+posting/file. No ready badge or zero amount substitutes for missing evidence.
+P1-39/P3-28 retain the approved account version and requester/maker restrictions;
+a waiting change never pays to its unapproved successor. P3-34/P4-14 retain links
+to the same frozen PAID payment fact and recorded statutory deposit, with no duplicate
+settlement or new payment from a filing. File generation/upload is not payment.
+All previews remain Draft/UNCHECKED and parallel examples cannot post or settle.
 
 ## 8. Two reporting families
 

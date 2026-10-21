@@ -136,6 +136,36 @@ separate events; paid settlement clears liability rather than accruing the same 
 No invented universal holiday fund/format or automatic collective service-rate ladder.
 Unknown policy, source facts or tax timing shows blocked calculation/settlement with evidence action.
 
+### Posting and payee evidence — HRP-76 / ACC-238 (Draft)
+
+| Component | Expense / debit | Liability / credit | Payee and evidence |
+|---|---|---|---|
+| Salary / net pay | `PAYROLL_EXPENSE` | `PAYROLL_PAYABLE` for net | Employee payment follows P3; no payable payee tag on net. |
+| Staðgreiðsla | No employer expense for withholding | `PAYROLL_TAX_PAYABLE` | RSK/Skatturinn, `AUTHORITY:IS.SKATTURINN`. |
+| Tryggingagjald | `EMPLOYER_CONTRIB_EXPENSE` | `EMPLOYER_CONTRIB_PAYABLE` | RSK/Skatturinn, `AUTHORITY:IS.SKATTURINN`; keep the verified pension-inclusive base trace. |
+| Mandatory pension / séreign, employee and employer shares | Employer share only: `PENSION_EXPENSE` | Existing `PENSION_FUND_PAYABLE` | Required `PENSION_FUND:{kennitala}`, one approved payee per fund; keep mandatory/additional shares distinct. |
+| Employee union dues / employer agreement funds | Employee dues have no employer expense; employer funds: `EMPLOYER_CONTRIB_EXPENSE` | `UNION_DUES_PAYABLE` | Required `UNION:{registry number}`, one payee per union; rates/bases remain agreement-specific; pack 2026.4 mapping required. |
+| Orlof accrual / release | Accrual: `HOLIDAY_PAY_EXPENSE`; release debits `HOLIDAY_PAY_ACCRUED` | Accrual: `HOLIDAY_PAY_ACCRUED` | Keep `HOLIDAY_PAY_*`, opening + earned/valuation − released = closing; approved account/provider route only, no universal fund. |
+| Contributions accrued on orlof / released, where applicable | `EMPLOYER_CONTRIB_EXPENSE`; release debits `HOLIDAY_PAY_EMPLOYER_CONTRIB_ACCRUED` | `HOLIDAY_PAY_EMPLOYER_CONTRIB_ACCRUED`, then the same component/payee payable | Only under the checked applicable profile; no second employer expense at release. |
+
+HRP-76 supersedes older P2 country-table wording: mandatory pension and séreign
+stay on `PENSION_FUND_PAYABLE`, not `PENSION_PAYABLE`. The generic union role
+changes with pack 2026.4; this does not rename the existing pension role or invent
+an institution, bank account or contribution percentage.
+
+The per-run posting preview shows component → role → payee and separate accrual,
+release and payment evidence. Accounts resolves accounts from its versioned pack;
+Payroll sends no account numbers or fallback account and keeps no second ledger.
+A missing pack 2026.4 component/role/tag mapping reads “not yet mapped (pack 2026.4)”
+and blocks the affected posting; an existing role alone does not prove that its
+country component or payee tag is mapped. A missing payee blocks the affected
+posting/file. No ready badge or zero amount substitutes for missing evidence.
+P1-39/P3-28 retain the approved account version and requester/maker restrictions;
+a waiting change never pays to its unapproved successor. P3-34/P4-14 retain links
+to the same frozen PAID payment fact and recorded statutory deposit, with no duplicate
+settlement or new payment from a filing. File generation/upload is not payment.
+All previews remain Draft/UNCHECKED and parallel examples cannot post or settle.
+
 ## 8. Reporting family workbench
 
 HRP-69 Batch C (Draft): reuse Backend P4 §2b, P4-A9…A14. Start with a
@@ -190,7 +220,8 @@ proposal is superseded by P4 §2b; exact recipient action/evidence mappings stay
 
 Show official source title/link/year, applicability, check state, missing schema/rounding evidence
 and pilot status separately. Research-complete never equals checked. No writable READY toggle.
-Required production gates: HR/P1 input/eligibility amendment; Accounts role/payee approval;
+Required production gates: HR/P1 input/eligibility amendment; delivery of the settled
+Accounts role/payee mappings and verification of actual recipients;
 P4 §2b Draft approval and checked country family/profile/feedback/correction mapping; Iceland practitioner confirms annual
 credit precision, social base, agreement applicability and scale0 rounding; current tax and
 selected fund/union schemas pinned and recipient pilots accepted; parallel payslip/filing/ledger

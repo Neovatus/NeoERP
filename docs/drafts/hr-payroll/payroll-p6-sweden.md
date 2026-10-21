@@ -116,7 +116,8 @@ basis, paid days from HR and payment timing; no invented editable HR leave balan
 Show opening + earned + valuation - paid/released = closing monetary liability.
 Same-pay method retains salary plus supplement; percentage method uses eligible basis.
 Statutory SEK30,000 × 0.43% × 5 = SEK645 supplement is a sourced UNCHECKED fixture.
-Pension panel shows agreement/insurer/payee/coverage and unresolved SLP posting-role gate.
+Pension panel shows agreement/insurer/payee/coverage and the settled SLP roles,
+with pack 2026.4 mapping and legal verification shown separately.
 Sick-pay panel displays HR spell id/day, degree, scheduled hours, relapse linkage,
 average-week basis, prior karens and exemption evidence; never diagnosis.
 SEK5,000 eligible average weekly lost pay => SEK4,000 sick pay and SEK800 karens fixture.
@@ -128,10 +129,39 @@ No automatic statutory employer sick pay from day15; agreement top-ups remain se
 Existing Calculate/Approve workflow remains P0/P1 with contributors and own-pay checks.
 Country changes stale a calculated run. Recalculate before submit/approve.
 Journal preview displays existing P2 roles resolved by Accounts, never Swedish account numbers.
-Accrued holiday employer contributions use P2 role; SLP unresolved is visible as scope gate.
+Accrued holiday employer contributions use P2 roles; missing SLP pack 2026.4
+mapping or checked legal evidence stays visible as a blocker.
 Bank/payee panels retain maker exclusion and approved account version checks.
 File generation does not make pay PAID. Existing explicit payment action owns PAID events.
 Only frozen PAID money events feed AGI; parallel/draft/planned examples remain excluded.
+
+### Posting and payee evidence — HRP-74 / ACC-237 (Draft)
+
+| Component | Expense / debit | Liability / credit | Payee and evidence |
+|---|---|---|---|
+| Salary / net pay | `PAYROLL_EXPENSE` | `PAYROLL_PAYABLE` for net | Employee payment follows P3; net liability carries no payee tag. |
+| Withholding / employer contributions | Employer portion: `EMPLOYER_CONTRIB_EXPENSE` | `PAYROLL_TAX_PAYABLE` / `EMPLOYER_CONTRIB_PAYABLE` | Skatteverket, `AUTHORITY:SE.SKATTEVERKET`; keep tax and employer amounts distinct. |
+| Contracted pension | Employer only: `PENSION_EXPENSE` | `PENSION_PAYABLE` | One approved pension institution payee per agreement/recipient; employee deductions create no employer expense. |
+| Pension special payroll tax (SLP) | `PENSION_SPECIAL_PAYROLL_TAX_EXPENSE` | `PENSION_SPECIAL_PAYROLL_TAX_PAYABLE` | `AUTHORITY:SE.SKATTEVERKET`, required; both roles await pack 2026.4 mapping. |
+| Holiday accrual / release | Accrual: `HOLIDAY_PAY_EXPENSE`; release debits `HOLIDAY_PAY_ACCRUED` | Accrual: `HOLIDAY_PAY_ACCRUED`; payment releases the same liability | Keep opening + earned/valuation − released = closing; no second expense or extra net payment. |
+| Contributions accrued on holiday pay / released | `EMPLOYER_CONTRIB_EXPENSE`; release debits `HOLIDAY_PAY_EMPLOYER_CONTRIB_ACCRUED` | Accrual: `HOLIDAY_PAY_EMPLOYER_CONTRIB_ACCRUED`; release to the applicable payable | Same contribution/payee split as the source accrual; do not expense the release twice. |
+| Union dues | No employer expense for an employee deduction | `UNION_DUES_PAYABLE` | `UNION:{registry number}`, one payee per union; pack 2026.4 mapping required. |
+
+The SLP role decision is settled by P2 §5.2/ACC-237; pack delivery, checked
+legal calculation, insurer/coverage and account mapping remain separate gates.
+
+The per-run posting preview shows component → role → payee and separate accrual,
+release and payment evidence. Accounts resolves accounts from its versioned pack;
+Payroll sends no account numbers or fallback account and keeps no second ledger.
+A missing pack 2026.4 component/role/tag mapping reads “not yet mapped (pack 2026.4)”
+and blocks the affected posting; an existing role alone does not prove that its
+country component or payee tag is mapped. A missing payee blocks the affected
+posting/file. No ready badge or zero amount substitutes for missing evidence.
+P1-39/P3-28 retain the approved account version and requester/maker restrictions;
+a waiting change never pays to its unapproved successor. P3-34/P4-14 retain links
+to the same frozen PAID payment fact and recorded statutory deposit, with no duplicate
+settlement or new payment from a filing. File generation/upload is not payment.
+All previews remain Draft/UNCHECKED and parallel examples cannot post or settle.
 
 ## 9. AGI file, evidence and correction timeline
 
