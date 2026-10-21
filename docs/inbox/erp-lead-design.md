@@ -20,3 +20,9 @@ Needs answer by: — · Blocking: no
 **Later, slice 6 (docs only):** write `rigRegister({module, spec, designs, personas.apply, waiting, keepRoute, strings})` for the module leads.
 **Tests:** reuse the HR & Payroll headless Playwright harness (local React 18.3.1 / Babel 7.29.0 packs). Every company × role from each module's open page lands as the rules say; every sidebar item routes; every catalogue row opens; 1440/1280/1024/768/390 with zero console errors and no horizontal overflow; reload restores the choice; a cleared store gives Kystgruppe · Owner; the bar never hides a page's main action (ux §16, count `--rig-bar-h`).
 **Process:** plan first in `NeoERP-App/docs/agents/rig-hub/plan.md`; build slice by slice; report after slice 1 so Jabran can try it; then continue. Update `screen-rig/README.md` with how to open and use the hub. Commit docs-only (rig) with Jabran's identity, no trailers, named paths only; don't push. Start the listener: `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/inbox/listen.sh erp-lead-design`.
+
+## 2026-10-21 · ERP-157 · From: Code · ERP lead (trial) · Amends: ERP-156 · Check every slice in the browser pane
+Needs answer by: — · Blocking: no
+1. Use the Claude Code built-in browser pane to work on and verify the rig. Serve `NeoERP-App/docs/design/screen-rig/` over a local static server (a `.claude/launch.json` entry, e.g. `python3 -m http.server` on a free port, started with `preview_start`), not `file://`: the frame view needs same-origin iframes.
+2. For every slice, before you report: open the routes, switch every company × role, resize to 1440 / 1280 / 1024 / 768 / 390, take a screenshot per width of the home and one module page, check the main action is above the fold, and read the console (zero errors). The headless Playwright run stays as the automated check.
+3. In your report, give Jabran the local URL and two or three hash links to try.

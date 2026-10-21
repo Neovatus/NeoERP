@@ -154,3 +154,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-21 · UX principles 11–16 + top-tasks check written (Jabran); ERP-154 to both leads; search + home specs on backlog
 2026-10-21 · UX principles 17-20 written (Jabran); ERP-155 to both leads
 2026-10-21 · ERP · Design brief 1 written (ERP-156): rig hub slices 1-5 + shared demo data alignment
+2026-10-21 · ERP-157 amends ERP-156: browser-pane verification
