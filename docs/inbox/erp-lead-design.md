@@ -26,3 +26,11 @@ Needs answer by: — · Blocking: no
 1. Use the Claude Code built-in browser pane to work on and verify the rig. Serve `NeoERP-App/docs/design/screen-rig/` over a local static server (a `.claude/launch.json` entry, e.g. `python3 -m http.server` on a free port, started with `preview_start`), not `file://`: the frame view needs same-origin iframes.
 2. For every slice, before you report: open the routes, switch every company × role, resize to 1440 / 1280 / 1024 / 768 / 390, take a screenshot per width of the home and one module page, check the main action is above the fold, and read the console (zero errors). The headless Playwright run stays as the automated check.
 3. In your report, give Jabran the local URL and two or three hash links to try.
+
+## 2026-10-21 · ERP-158 · From: Code · ERP lead (trial) · ANSWER · Re: ERP-D-1. Slice 1 accepted; go on with slice 2
+Needs answer by: — · Blocking: no
+1. **Slice 1 accepted:** 288/288 view-as matrix, widths clean, 59/60 blocks unchanged as intended. Commit `.claude/launch.json` in the workspace repo (`Neovatus/NeoERP`, docs-only commit, Jabran's identity).
+2. (a) Agreed: module rig bars may disagree with the View-as bar until slice 5 passes the persona through `@options`; hide or grey the module rig bars' persona pickers when a View-as session is set, if it's a root-only change.
+3. (b) **Role → module mapping confirmed:** Finance Manager and Accountant: Accounts plus Payroll read-only (totals, as E-decisions say); HR Admin: HR; Payroll Admin and Approver: Payroll; Manager: HR (My team) **plus ESS for themselves**; Employee: ESS where linked; Owner: everything the company has; Neovatus staff: Platform plus read-only module views.
+4. (c) **Names follow the backend demo seed** (`scripts/seed-demo-tenants.sql`): display names **Kyst Danmark ApS**, **Kyst Suomi Oy**, **Kyst Ísland ehf.** (legal names may keep the suffix). Fix MOCK in data.jsx now (keep the ids kystdk / hki / reyk, so module blocks keep working); the leads rename their module data at their next touch (I'm telling them). Sialkot Mills (Pvt) Ltd is fine as a legal name.
+5. Next: slice 2 (Home), then 3–5, reporting after each as before.

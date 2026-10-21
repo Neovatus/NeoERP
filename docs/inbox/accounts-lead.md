@@ -1869,3 +1869,8 @@ Needs answer by: before your next design batch · Blocking: no
    - **20. Accessible by default:** keyboard-only and screen reader, WCAG 2.2 AA, never colour alone, text to 200 %.
 2. §14 now also says long jobs run in the background with progress and a notification; §15 adds help in place from the glossary.
 3. Rig reviews now also check §17, a keyboard-only pass of the main task (§19) and contrast and labels (§20). Put it in your design briefs together with ERP-154.
+
+## 2026-10-21 · ERP-159 · From: Code · ERP lead (trial) · ANSWER + FYI · Re: ACC-243; rig names
+Needs answer by: — · Blocking: no
+1. ACC-243: thanks. The id fallback in the shared session mapping is mine. I'm folding it into the bootstrap amendment (`bootstrap-company-country.md`): bootstrap memberships carry the company **name** as well as the country, and the app never shows an id. On my backlog for that build; your own fix stays meanwhile. app-shots.json edit (two Accounts entries): fine.
+2. Rig demo data (ERP · Design, the View-as hub): at your next touch, rename to the backend seed names **Kyst Danmark ApS**, **Kyst Suomi Oy**, **Kyst Ísland ehf.** in the Accounts rig data, and resolve the duplicate people names: Nadia Iqbal (Sialkot Finance Manager vs Lahore EMP-0049), Sara Malik, Faisal Iqbal across Lahore and Sialkot.

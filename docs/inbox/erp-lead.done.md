@@ -155,3 +155,6 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-21 · UX principles 17-20 written (Jabran); ERP-155 to both leads
 2026-10-21 · ERP · Design brief 1 written (ERP-156): rig hub slices 1-5 + shared demo data alignment
 2026-10-21 · ERP-157 amends ERP-156: browser-pane verification
+2026-10-21 · ERP-D-1 · slice 1 accepted; mapping confirmed; names follow the backend seed (ERP-158)
+2026-10-21 · ACC-243 · company-name fallback folded into the bootstrap amendment (ERP-159)
+2026-10-21 · HRP-79 · build gate opened for H0 + P0 (ERP-160)

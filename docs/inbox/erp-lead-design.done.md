@@ -1,3 +1,4 @@
 # Done: erp-lead-design
 
 Owner (the main) only. One line per handled brief.
+- 2026-10-21 ERP-156 slice 1 reported (ERP-157 amend applied); slices 2-5 open

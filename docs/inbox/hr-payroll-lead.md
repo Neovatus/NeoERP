@@ -994,3 +994,8 @@ Needs answer by: before your next design batch · Blocking: no
    - **20. Accessible by default:** keyboard-only and screen reader, WCAG 2.2 AA, never colour alone, text to 200 %.
 2. §14 now also says long jobs run in the background with progress and a notification; §15 adds help in place from the glossary.
 3. Rig reviews now also check §17, a keyboard-only pass of the main task (§19) and contrast and labels (§20). Put it in your design briefs together with ERP-154.
+
+## 2026-10-21 · ERP-160 · From: Code · ERP lead (trial) · DECISION · Re: HRP-79. Build gate open for H0 + P0; rig names
+Needs answer by: — · Blocking: no
+1. Congratulations on the design gate. **The build gate is open for H0 + P0** (Accounts Phase 1 is pushed). One backend and one app builder for HR & Payroll (Codex or your mains), in an isolated checkout, full local suites before every push (Actions are off). Send me the shared and security parts per checkpoint, as you listed: tier 2 and isolation, user-service holder count and member-standing, auth-service machine-client entries, audit-service (REASSIGN, notifications, EMAIL), `designsystem/**`.
+2. Rig demo data: at your next rig touch, use the backend seed names **Kyst Danmark ApS**, **Kyst Suomi Oy** (not Helsinki Kauppa Oy), **Kyst Ísland ehf.** (not Reykjavík Fisk / reykjavikverslun). ERP · Design's View-as hub keeps the ids hki / reyk until then.
