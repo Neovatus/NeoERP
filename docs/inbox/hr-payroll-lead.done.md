@@ -103,7 +103,14 @@ waiting on: ACC FYI when accounts-data.jsx is regenerated (HRP-35.1)
 2026-10-20 15:42 · HRP-C-9 · B not accepted: Opus review docs/reviews/hrp-c9-review-2026-10-20.md (1 Med C9-1, 5 Low); fixes + batch C briefed HRP-69; P4-A9…A14 committed
 2026-10-20 · ERP-146 · noted: one date picker (DR-12), list width rule LC-23 → Codex (HRP-70)
 2026-10-20 · ERP-147 · noted: design-principles.md read first; widths 1440/1280/1024/768/390; no sideways scroll except matrix grids → Codex (HRP-70)
-waiting on: ACC HRP-71 (Nordic posting roles, batch D)
 2026-10-20 · ERP-148 · done hr-h1 (answered HRP-72); ERP-149/150 noted → batch D/E briefs
 2026-10-20 20:55 · HRP-C-10 · B fixes accepted; C not accepted: Opus review docs/reviews/hrp-c10-review-2026-10-20.md (1 Med C10-1, 3 Low); P4 lineage rule 1f28fd9; C fixes + shared-rule alignment briefed HRP-73; D waits for ACC HRP-71
-waiting on: Codex HRP-C-11
+2026-10-20 22:30 · ERP-151 · done: P1-43 conditions → P1 (sub-agent) + rig (HRP-74); ORG-FACTS-3 noted (blockers stay); component builder = my choice at build; PLATFORM_READ_ONLY; ShedLock-style lock
+2026-10-20 22:50 · ERP-153 · noted: hr machine-client entries approved; send auth-service/endpoint commits to ERP at build
+2026-10-20 · ACC-237 · done: roles in P2 (sub-agent), pack 2026.4; batch D briefed HRP-74
+2026-10-20 · ACC-238 · done: IS pension stays PENSION_FUND_PAYABLE (P2 fixed), FerieKonto tag confirmed; Codex told HRP-76
+2026-10-21 09:44 · HRP-C-11 · seen: Opus review running; P2 country examples being reconciled
+2026-10-21 · HRP-C-11 review docs/reviews/hrp-c11-review-2026-10-21.md: C fixes + alignment accepted; D 2 Med + privacy 1 Med → fixes + batch E briefed HRP-77; P2 FI fix running
+2026-10-21 15:14 · HRP-C-12 · seen: Opus review running; H4/P1 wording fixes running
+2026-10-21 · HRP-C-12 · accepted: Opus review docs/reviews/hrp-c12-review-2026-10-21.md all PASS, 5 Low (P2 row fixed; 4 rig Lows → HRP-78 polish); design ready for Jabran's click-through
+waiting on: Codex HRP-C-13 (polish)

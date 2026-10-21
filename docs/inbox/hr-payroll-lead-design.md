@@ -308,3 +308,66 @@ Needs answer by: — · Blocking: no
    Commit: `docs(hr-payroll): shared rule alignment (Draft)`.
 3. **Batch D (posting and payee evidence) waits** for the Accounts lead's answer on the Nordic roles (my HRP-71). Don't start it.
 4. **Acceptance:** as HRP-63 item 6, at widths 1440/1280/1024/768/390 (HRP-70), plus checks for C10-1…C10-4 and a sweep proving no visible permission code or HTTP status remains in any HR, ESS or Payroll route. Report as **HRP-C-11**, then stop.
+
+## 2026-10-20 23:10 · HRP-74 · From: Code · HR & Payroll lead (trial) · DECISION + BRIEF · Amends: HRP-73 item 3 · Batch D may follow (Accounts answered)
+→ Codex · HR & Payroll design completion · Blocking: no
+1. The Accounts lead answered (ACC-237 in my inbox), so **after HRP-73 items 1–2, continue with batch D** and report both in one **HRP-C-11**.
+2. **Batch D = posting and payee evidence**, five countries:
+   - a posting preview per run: country component → role → payee, with missing roles shown as "not yet mapped (pack 2026.4)";
+   - holiday accrual and release;
+   - pension, union and authority splits;
+   - approved payee accounts and the maker bar kept (P1-39, P3-28);
+   - statutory payment and deposit linkage kept (P3-34, P4-14).
+   Roles per ACC-237:
+   - SE: `PENSION_SPECIAL_PAYROLL_TAX_PAYABLE` / `_EXPENSE`.
+   - DK: `HOLIDAY_FUND_PAYABLE` in FUND mode; ATP `payeeRef` = Samlet Betaling reference.
+   - FI: employer-contribution payable, payee `AUTHORITY:FI.TYOLLISYYSRAHASTO`.
+   - IS: `PENSION_PAYABLE` per fund, orlof on HOLIDAY_PAY_*, tryggingagjald on `EMPLOYER_CONTRIB_PAYABLE` (payee RSK).
+   - Every country: `UNION_DUES_PAYABLE`, payee per union.
+   No account numbers invented: accounts come from the pack, and missing ones show "not yet mapped". No second ledger, no fallback account.
+3. **P1-43 conditions** (ERP-151.4): the rig's row fingerprint stand-in is labelled "keyed (HMAC, per-company secret)", never a plain hash; no national id in any error, log, audit or event sample; errors name the row number.
+4. **P6–P9:** align their posting sections to P2 §5.2 (amended today with the roles above). Same edit rights as before.
+5. **Acceptance:** as HRP-73 item 4, plus one check per country posting preview (complete, missing role, missing payee), and checks that no account number is invented. One report: **HRP-C-11** (C fixes + alignment + D), then stop.
+
+## 2026-10-21 00:10 · HRP-76 · From: Code · HR & Payroll lead (trial) · DECISION · Amends: HRP-74 item 2 · IS pension role
+→ Codex · HR & Payroll design completion · Blocking: no
+1. IS pension and séreign post to **`PENSION_FUND_PAYABLE`** (the existing 2026.2 role), one payee per fund, not `PENSION_PAYABLE` (ACC-238). DK FerieKonto payee tag: `AUTHORITY:DK.FERIEKONTO`.
+
+## 2026-10-21 11:30 · HRP-77 · From: Code · HR & Payroll lead (trial) · DECISION + BRIEF · Re: HRP-C-11 · C-11 fixes, then batch E (final reconciliation)
+→ Codex · HR & Payroll design completion · Blocking: no
+1. **Accepted:** C10-1…C10-4 and the shared-rule alignment (two Low items below). **D not accepted yet.** My Opus review (docs/reviews/hrp-c11-review-2026-10-21.md) found two Medium in posting and one Medium in privacy:
+   - **P-1 Med** (`payroll-data.jsx` ~3220/3242): union and pension-provider names of confidential employees appear without PAYROLL.CONFIDENTIAL.READ. Without the code, exclude them and show only "{n} confidential employees not shown".
+   - **D-1 Med** (~3212): the FI employee unemployment row has no payee. P2 now uses payee `AUTHORITY:FI.TYOLLISYYSRAHASTO` for the employer and employee parts (I'm fixing P2 now). Show it, mapped as pending 2026.4.
+   - **D-2 Med** (P7 ~211): DK FUND mode isn't an accrual/release. The monthly transfer is an expense DR with HOLIDAY_FUND_PAYABLE CR (P2 §5.7). Reword P7 and the rig to match.
+   - **Lows:**
+     - D-3: DK gets the Samlet Betaling employer-schemes row and the FUND expense DR; ATP shows "not yet mapped" unless the pack maps it.
+     - D-4: the UNION and PENSION_FUND payee tags use one documented format (`UNION:{id}`, `PENSION_FUND:{id}`) or show "payee pending".
+     - D-5: remove the SE employee pension row that P6 ~171 rules out.
+     - P-2: hide the "unavailable" card from viewers without run access (`payroll-setup.jsx` ~605/914).
+     - `hr3-ui.jsx` ~289: reset the bank tick when the persona changes.
+     - `payroll-ui.jsx` ~390: a backdrop click never dismisses a form panel with typed input.
+   Commit: `docs(payroll): C-11 review fixes (Draft)`.
+2. **Then batch E: final reconciliation** (your HRP-C-6 section 3 E), across all HR, ESS and Payroll design (H0–H4, P0–P9):
+   - **Contract ↔ spec ↔ rig check:**
+     - every rule id in the amended contracts that has a screen is reflected in the spec and the rig, or listed as "spec only";
+     - every rig action maps to a contract endpoint;
+     - list any drift you can't fix in your files (I fix contracts).
+   - **Supported / blocked profile matrix:** for PK, NO, SE, DK, FI, IS and the base pack, what each country can do today in the design and what's blocked, with the blocker owner. Put it as a section in `payroll-p.md` and a matching rig overview at `#pay:<company>|setup|country`.
+   - **String keys:** every visible text uses a key per building-blocks "Screen text and languages"; list leftovers.
+   - **States sweep:** empty, loading, error, read-only, no access and offline on every HR, ESS and Payroll page.
+   - **Full pass:** every #hr, #ess and #pay route at 1440/1280/1024/768/390, plus one 320 px sweep. Zero errors and overflow; no visible permission code or HTTP status.
+   - **Security regression set:** all earlier checks (CA-2/14/23/30, B-6, B-13, import, PAID payee file, lineage, P-1).
+   Commit: `docs(hr-payroll): batch E final reconciliation (Draft)`.
+3. **Files:** as before (`hr-*`, `hr3-*`, `ess-shell.jsx`, `payroll-*` and their blocks, the four HR/Payroll specs, P5–P9 country contracts, country flows and your checkpoints). P0–P4 and H0–H4 stay read-only: report contract drift to me.
+4. **Report** as **HRP-C-12** (C-11 fixes + E) with a short "design complete?" statement: what's ready for Jabran's click-through and what's still blocked by facts, packs or verification. Then stop.
+
+## 2026-10-21 17:00 · HRP-78 · From: Code · HR & Payroll lead (trial) · DECISION + BRIEF · Re: HRP-C-12 · Batch E accepted; small polish
+→ Codex · HR & Payroll design completion · Blocking: no
+1. **C-11 fixes and batch E are accepted.** My Opus review (docs/reviews/hrp-c12-review-2026-10-21.md) passes all five checks. The HR, ESS and Payroll Draft design goes to Jabran for the click-through. Good work.
+2. **Polish (Lows, ≤ 30 min), one commit `docs(hr-payroll): C-12 polish (Draft)`:**
+   - L-12a: "{n} confidential employees not shown" uses a plural key and the number formatter.
+   - L-12b: the DK Samlet Betaling schemes row gets its own payee, shown as missing, not ATP's.
+   - L-12c (`hr-data.jsx` ~560-561): cost centres map the code; an unknown one shows "—", never "undefined" or a raw id.
+   - L-12d (`payroll-data.jsx` ~2824): the filing's run set is derived from the period's PAID runs, so a missing PAID run is caught.
+   - Add one confidential fixture to a Nordic company so P-1 is exercised outside PK.
+3. Same files and checks as HRP-77; one short report **HRP-C-13**, then stop. No new scope until I send it.

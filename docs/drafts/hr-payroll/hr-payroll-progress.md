@@ -1,25 +1,21 @@
 # HR & Payroll — progress (workspace copy)
 
-Owner: Code · HR & Payroll lead (trial). Workspace copy; the reviewer mirrors it to the project. Updated 2026-10-19 20:40.
+Owner: Code · HR & Payroll lead (trial). Workspace copy; the reviewer mirrors it to the project. Updated 2026-10-21 17:10.
 
-## State (2026-10-19) — design and contracts only, everything Draft, no push by me
+## State (2026-10-21) — design complete as Draft; waiting for Jabran's design gate
 Resume: start `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/inbox/listen.sh hr-payroll-lead`; read inbox vs done file.
 
 ### Done
-- Core design (drops 1–3, H0–H4, P0–P4) Draft and committed. Contract audit CA-1…35 accepted and fixed (8d07e36); Codex rig/spec alignment HRP-C-5 accepted (682983e5, 4b3c32b2, eb6c57c0, be93e27c).
-- HRP-C-5 Opus security check (docs/reviews/hrp-c5-security-check-2026-10-19.md): CA-2/23/30 PASS; CA-14 FAIL (Med) → Codex batch 0c (HRP-65).
-- Codex drafted P5–P9 (NO, SE, DK, FI, IS) flows, proposed contracts and a country workbench (HRP-C-6; uncommitted until batch 0b).
-- P1-43 shared tax-card import transport (F-02), 8b5cd8e; ERP review asked (HRP-64).
-- Continuation brief HRP-63 (GO WITH LIMITS): batch 0 (F-09 P5 wording, commit country drafts, CA-14 fix) then A (shared import); B–E later, each accepted by me + Opus review.
+- Core HR/ESS/Payroll (H0–H4, P0–P4) and Nordic payroll (P5–P9) designed, Draft and committed. Codex batches 0, A, B1, B2, C, D, E all accepted after Opus reviews (docs/reviews/hrp-c7…c12-review-*.md).
+- Lead contract work: P1-43 import (+ ERP-151.4 conditions), F-04 HR facts (H2/H4), SE karens protection (H2 §7.11i), P4-A9…A14 reporting, P4 linear lineage, P2 Nordic roles (ACC-237/238), many review fixes.
+- Cross-lead: ERP accepted HRP-61/64/66 (ERP-151, ERP-153; ORG-FACTS-3 coming); ACC accepted Nordic roles (pack 2026.4).
+- Final approval list: docs/drafts/hr-payroll/design-gate-final.md (G-1…G-9).
 
 ### Waiting
-- **Codex:** batch 0 + A report (HRP-C-7).
-- **ERP:** HRP-61 (payee approve code, run-coverage scope, REASSIGN order), HRP-64 (P1-43 review).
-- **Jabran:** G-1…G-6 (none decided; bundles 1 and 2 files); PK payroll figures via in-app browser.
+- **Jabran:** G-1…G-9; PK payroll figures (in-app browser check).
+- **Codex:** HRP-C-13 polish (Lows only).
 
-### Next (lead-owned, before the matching batch)
-- Batch B: HR fact DTO amendments (H1/H2/H4) for SE/DK/FI/IS (F-04); Org facts asks to ERP.
-- Batch C: P4 amendments (F-03).
-- Batch D: ask Accounts for SE SLP, DK ATP/Samlet Betaling, FI Employment Fund, IS fund/union roles (F-05).
-- Country source checks per country (Sonnet + Opus), practitioner (J-8) when built; reminder lead days; IS expiry.
-- Builds only on the ERP lead's word; briefs carry ERP-64/66/68/95/102/114/144 rules.
+### Next
+1. Jabran's answers → decisions file; status lines Draft → Approved; tell ERP lead.
+2. Builds when the ERP lead allows (after Accounts Phase 1): HRP · Backend H0+P0 plan (BE-1), components checkpoint (APP-1); briefs carry ERP-64/66/68/95/102/114/144 rules and the full-local-suite rule.
+3. SE high-risk protection HR screen (small design item); country verification per country; J-8 practitioners.
