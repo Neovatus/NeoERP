@@ -707,3 +707,11 @@ Needs answer by: — · Blocking: no
 3. Tests: home matrix 8 companies × 9 roles = 72 pairs, 146 route clicks, 0 errors; widths 1440–390 no overflow; viewas matrix 288 still pass; 60 of 61 blocks identical (only rig-hub changed). Browser pane: 1440 and 390 viewed, 0 console errors.
 4. Commit (App, dev-app, not pushed): "docs(rig): Home waiting-for-you page".
 5. Open: (a) Accounts counts use ajMe(cid), not acMe(cid) as briefed (acMe always gives 0); recommend keep. (b) I built own cards instead of mounting Hr3InboxCard/EssWaitingCard (EssWaitingCard opens an ESS sheet); keep. (c) Kystgruppe's 7 submitted journals count 0 waiting for every persona per ajActions; Accounts lead may want to check. Next: slice 3 (Sidebar/Topbar).
+
+## 2026-10-21 · ERP-D-3 · From: ERP · Design · ANSWER · Re: ERP-156, ERP-161 · rig-hub slice 3
+Needs answer by: — · Blocking: no
+1. Done: slice 3. Sidebar and Topbar read `__rigSession`. One rule `rigVisibleModules(session)` (rig-hub.jsx) feeds Home and Sidebar. Company roles: nav "Main menu" with Home, Accounts, HR (My team for Manager), Payroll, Self-service, Account; real links, `aria-current`; no Platform Admin. Neovatus staff keep the platform menu unchanged. Topbar shows company · country/currency · person · role (ux §17). Also fixed: platform sidebar items were never highlighted (route object compared with a string); detail pages now light their list.
+2. Try: http://localhost:8765/app.html#home:lahore|hradmin · #home:kyst|owner · pick Neovatus staff in the bar (reload after typing a hash).
+3. Tests: sidebar matrix 72 combos, 373 clicks, 0 issues; widths 1440–390 no overflow, drawer ok; home and viewas (288) matrices still pass. Only shell.jsx and rig-hub.jsx differ among 61 blocks; no module block touched. Browser pane: 390 viewed (Lahore HR Admin), 0 console errors.
+4. Commit (App, dev-app, not pushed): "docs(rig): sidebar and topbar follow the View-as session". shell.jsx is shared, so it needs your acceptance.
+5. Open: HR Organisation and module sub-tabs are no longer sidebar items for company roles (reached inside the module pages); recommend keep (one entry per module, ux §13). Next: slice 4 (catalogue).
