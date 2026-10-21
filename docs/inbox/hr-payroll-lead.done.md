@@ -114,3 +114,4 @@ waiting on: ACC FYI when accounts-data.jsx is regenerated (HRP-35.1)
 2026-10-21 15:14 · HRP-C-12 · seen: Opus review running; H4/P1 wording fixes running
 2026-10-21 · HRP-C-12 · accepted: Opus review docs/reviews/hrp-c12-review-2026-10-21.md all PASS, 5 Low (P2 row fixed; 4 rig Lows → HRP-78 polish); design ready for Jabran's click-through
 waiting on: Codex HRP-C-13 (polish)
+2026-10-21 · Jabran: design gate G-1…G-9 approved as recommended; status lines updated; ERP told HRP-79

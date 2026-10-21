@@ -2,7 +2,7 @@
 
 Owner: Code · HR & Payroll lead (trial). Workspace copy; the reviewer mirrors it to the project. Updated 2026-10-21 17:10.
 
-## State (2026-10-21) — design complete as Draft; waiting for Jabran's design gate
+## State (2026-10-21) — design gate PASSED (Jabran, G-1…G-9); waiting for the build gate (ERP lead)
 Resume: start `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/inbox/listen.sh hr-payroll-lead`; read inbox vs done file.
 
 ### Done
@@ -12,7 +12,7 @@ Resume: start `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/inbox/listen.s
 - Final approval list: docs/drafts/hr-payroll/design-gate-final.md (G-1…G-9).
 
 ### Waiting
-- **Jabran:** G-1…G-9; PK payroll figures (in-app browser check).
+- **Jabran:** PK payroll figures (in-app browser check). **ERP lead:** build gate.
 - **Codex:** HRP-C-13 polish (Lows only).
 
 ### Next

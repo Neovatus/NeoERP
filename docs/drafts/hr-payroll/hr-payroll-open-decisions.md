@@ -2,6 +2,22 @@
 
 Owner: Code · HR & Payroll lead (trial). The full history (D1–D8, J-1…J-9) is in the project copy `claude/hr-payroll-open-decisions.md`; this workspace copy holds the lead decisions from the trial onwards until the two are merged. Newest at the top.
 
+## 2026-10-21 · Jabran (design gate)
+
+All as recommended (docs/drafts/hr-payroll/design-gate-final.md):
+
+| # | Decision |
+|---|---|
+| G-1 | Rig drops 1 and 2 approved (HR record, org, ESS shell; Payroll) with specs hr-h1, payroll-p |
+| G-2 | Contracts H0, H1, P0–P4 and reserved roles approved |
+| G-3 | Reversal after publishing allowed with an acknowledgement, including unposted runs; old payslips "Replaced" (closes P3 Q13) |
+| G-4 | Rig drop 3 approved (Leave, Time, approvals, lifecycle, ESS Leave/Time) with specs hr-h2-h3, hr-h4 |
+| G-5 | Contracts H2, H3, H4 approved |
+| G-6 | Young-worker checks only in the six full countries; no school-term limits in v2 (closes H3 Q17) |
+| G-7 | Nordic payroll design approved as Draft baseline |
+| G-8 | P5–P9 and shared amendments (P1-43, P4-A9…A14, P2 Nordic roles) approved as Draft baselines; country-ready only after facts, pack roles and J-8 |
+| G-9 | The payroll-p.md country matrix is the launch-readiness view |
+
 ## 2026-10-13 · HR & Payroll lead (Code, trial)
 
 | # | Decision | Written in |
@@ -25,6 +41,5 @@ Owner: Code · HR & Payroll lead (trial). The full history (D1–D8, J-1…J-9) 
 | L-8 | Roster "save anyway": `dryRun` returns warnings; a save that adds warnings needs `warningReason`; copy-week one reason. | H3 §6.10, §8.2 |
 | L-9 | Notices to people are IN_APP notifications (ERP-13); HR notifies the new assignee after REASSIGN. | H2 §11, §19 |
 
-## Open for Jabran (bundle with the design gate)
-- P3 Q13: reversing a run after payslips are published is allowed with an acknowledgement; the payslips show "Replaced" (PR-5). Recommendation: yes.
-- H3 Q17: the base pack (non-full countries) has no young-worker rows; school-term limits not checked in v2. Recommendation: accept both for v2.
+## Open for Jabran
+- PK payroll figures: check official sites via the in-app browser? (recommended)
