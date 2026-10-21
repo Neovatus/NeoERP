@@ -34,3 +34,32 @@ Needs answer by: — · Blocking: no
 3. (b) **Role → module mapping confirmed:** Finance Manager and Accountant: Accounts plus Payroll read-only (totals, as E-decisions say); HR Admin: HR; Payroll Admin and Approver: Payroll; Manager: HR (My team) **plus ESS for themselves**; Employee: ESS where linked; Owner: everything the company has; Neovatus staff: Platform plus read-only module views.
 4. (c) **Names follow the backend demo seed** (`scripts/seed-demo-tenants.sql`): display names **Kyst Danmark ApS**, **Kyst Suomi Oy**, **Kyst Ísland ehf.** (legal names may keep the suffix). Fix MOCK in data.jsx now (keep the ids kystdk / hki / reyk, so module blocks keep working); the leads rename their module data at their next touch (I'm telling them). Sialkot Mills (Pvt) Ltd is fine as a legal name.
 5. Next: slice 2 (Home), then 3–5, reporting after each as before.
+
+## 2026-10-21 · ERP-161 · From: Code · ERP lead (trial) · ANSWER · Re: ERP-D-2. Slice 2 accepted
+Needs answer by: — · Blocking: no
+1. **Accepted.** (a) Keep `ajMe(cid)`. (b) Keep your own cards (one look for every module's "waiting" card is right per ux §1). (c) Passed to the Accounts lead.
+2. Go on with slice 3 (Sidebar/Topbar), then 4–5.
+
+## 2026-10-21 · ERP-163 · From: Code · ERP lead (trial) · Amends: ERP-156 · Priority: next · Speed up: slices 3 and 4 in parallel, one report at the end
+Needs answer by: — · Blocking: no
+1. Jabran wants the hub sooner. Build **slice 3** (Sidebar/Topbar in `shell.jsx`) and **slice 4** (catalogue: put it in a **new root-owned block** `rig-catalogue.jsx`, so the two don't share files) **in parallel** with two sub-agents (Sonnet), each owning only its files. Then **slice 5** (frame, widths, states, the root `hashchange` listener) after both are in.
+2. **Don't stop for my acceptance between slices.** Run the combined test pass (view-as and home matrices, sidebar routes, catalogue rows, widths, zero console errors) after slice 5, take the browser-pane screenshots, then send **one** report covering 3–5.
+3. Quality rules unchanged: re-read app.html before writing, only your blocks, module block hashes unchanged, one Opus review of the finished hub before you report.
+
+## 2026-10-21 · ERP-164 · From: Code · ERP lead (trial) · Amends: ERP-163 · Priority: next · In order, not parallel
+Needs answer by: — · Blocking: no
+1. Jabran prefers **slices 3 → 4 → 5 in order**, without parallel sub-agents. Keep the rest of ERP-163: no stop for my acceptance between slices, the catalogue in its own block `rig-catalogue.jsx`, one combined test pass and one Opus review after slice 5, then **one** report.
+
+## 2026-10-21 · ERP-165 · From: Code · ERP lead (trial) · ANSWER · Re: ERP-D-3. Slice 3 accepted (shell.jsx too)
+Needs answer by: — · Blocking: no
+1. **Accepted**, including the shell.jsx change and the platform-highlight fix. One rule (`rigVisibleModules`) for Home and Sidebar is right.
+2. Point 5: keep one sidebar entry per module for now; areas live in the module's own tabs. When the catalogue is in, note in your report whether an expandable module entry (its main areas) would help ux §12; don't build it now.
+3. Continue per ERP-164: 4 → 5 in order, one report at the end.
+
+## 2026-10-21 · ERP-166 · From: Code · ERP lead (trial) · Amends: ERP-156 · Priority: next · Slice 4 adds a "Design system" section
+Needs answer by: — · Blocking: no
+1. Jabran: the catalogue's **first section is "Design system"**, so components and screens are reviewed in one place:
+   a. **Foundations:** tokens, colour, type, spacing, icons. Link the existing pages in `NeoERP-App/docs/design/design-system/` (Design System, Component Library, Responsive Showcase, Token Audit) and the rig's `#iconography`. The rig server only serves `screen-rig/`, so either serve the parent `docs/design/` folder (change `.claude/launch.json`; I added a `design-system` entry on port 8766 meanwhile) or copy nothing and link relatively once the root is `docs/design/`. Your choice; say which.
+   b. **Live components:** each shared component rendered from the rig's own code (not the old static pages), with its states and a link to its spec: buttons, NeoSearchSelect / NeoMultiSelect (LC), date and range picker (DR, one picker), file download, file picker, document viewer, approval card, phone sheet and tab bar, tabs, stepper, time field, time grid, month calendar, variance table, page states (NeoSpotState, skeleton, offline strip), reason gate, status pills and module rows.
+   c. **Gap list:** shared components in `specs/` with no live rendering yet, shown as "not in the rig yet" with the spec link.
+2. Order stays 4 → 5 with one report at the end. Old pages are from September: mark them "older reference" in the section.

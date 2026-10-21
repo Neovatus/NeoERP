@@ -158,3 +158,8 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-21 · ERP-D-1 · slice 1 accepted; mapping confirmed; names follow the backend seed (ERP-158)
 2026-10-21 · ACC-243 · company-name fallback folded into the bootstrap amendment (ERP-159)
 2026-10-21 · HRP-79 · build gate opened for H0 + P0 (ERP-160)
+2026-10-21 · ERP-D-2 · slice 2 accepted (ERP-161); Kyst journals finding → ACC (ERP-162)
+2026-10-21 · ERP-163: slices 3+4 in parallel, single report after 5
+2026-10-21 · ERP-164: in order, single report (Jabran)
+2026-10-21 · ERP-D-3 · slice 3 accepted (ERP-165)
+2026-10-21 · ERP-166: Design system section in the catalogue (Jabran)

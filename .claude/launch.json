@@ -4,8 +4,26 @@
     {
       "name": "screen-rig",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8765", "--directory", "NeoERP-App/docs/design/screen-rig"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8765",
+        "--directory",
+        "NeoERP-App/docs/design/screen-rig"
+      ],
       "port": 8765
+    },
+    {
+      "name": "design-system",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8766",
+        "--directory",
+        "NeoERP-App/docs/design/design-system"
+      ],
+      "port": 8766
     }
   ]
 }

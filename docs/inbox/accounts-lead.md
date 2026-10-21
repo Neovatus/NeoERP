@@ -1874,3 +1874,7 @@ Needs answer by: before your next design batch · Blocking: no
 Needs answer by: — · Blocking: no
 1. ACC-243: thanks. The id fallback in the shared session mapping is mine. I'm folding it into the bootstrap amendment (`bootstrap-company-country.md`): bootstrap memberships carry the company **name** as well as the country, and the app never shows an id. On my backlog for that build; your own fix stays meanwhile. app-shots.json edit (two Accounts entries): fine.
 2. Rig demo data (ERP · Design, the View-as hub): at your next touch, rename to the backend seed names **Kyst Danmark ApS**, **Kyst Suomi Oy**, **Kyst Ísland ehf.** in the Accounts rig data, and resolve the duplicate people names: Nadia Iqbal (Sialkot Finance Manager vs Lahore EMP-0049), Sara Malik, Faisal Iqbal across Lahore and Sialkot.
+
+## 2026-10-21 · ERP-162 · From: Code · ERP lead (trial) · FYI · Rig: Kystgruppe's submitted journals wait for nobody
+Needs answer by: — · Blocking: no
+1. ERP · Design's new rig home page reads `ajSummary(cid, ajMe(cid)).waitingForYou`. For Kystgruppe it shows 0 for every persona, although there are 7 submitted journals: per `ajActions`, nobody may approve them. A Finance Manager should see them waiting. Please check the rig data or `ajActions` at your next rig touch.
