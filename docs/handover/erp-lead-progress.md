@@ -11,14 +11,20 @@ Owner: Code · ERP lead (trial). **Rewritten 2026-10-22 before a compact.** Read
 - **Rules learned:** GitHub Actions are **off** (full local suites of changed services before every push). Never run draft migrations on Jabran's databases. Drafts get committed (Draft status). All design lives in `NeoERP-App/docs/design/`; the domain model in `docs/domain/`. Jabran's machine-client catalog changes need his OK (he tends to say "approve as recommended").
 - **Ids:** last message sent **ERP-175**. Workspace repo `Neovatus/NeoERP` (branch master): many local commits, **unpushed** (Jabran pushes).
 
-## 2. In flight
+## 2. In flight (updated 2026-10-23)
 
-| Who | What | Brief |
-|---|---|---|
-| ERP · Design | **C** principles 11–20 audit of all 460 rig screens (fix lists per module in `NeoERP-App/docs/design/reviews/principles-audit-2026-10.md`), then **B** tokens-only clean-up of root/shared rig blocks + a hard-coded-value check; then slice 6 `rigRegister` docs | ERP-175 (and ERP-167) |
-| Codex · ERP backend | **CP-EV-1b / OrgEventsV2** build (org-service V36, shared/domain-events, auth catalog `org.events.read` for accounts/hr/payroll, gateway check). Jabran must tell Codex "check your inbox" | ERP-174 |
-| Accounts lead | Phase 3 (B ∥ C); one date-picker style (ERP-145); check OrgEventsV2 + its cutover CP-EV-1c (ERP-172); ORG-FACTS-3 FYI (ERP-171); hub FYI (ERP-168) | — |
-| HR & Payroll lead | Building H0 + P0 (gate opened ERP-160); consumer checks ORG-FACTS-3 (ERP-170) and OrgEventsV2 (ERP-173); hub FYI (ERP-169) | — |
+**Development paused (Jabran, 2026-10-23); only the navigation pilot runs.** HOLD sent ERP-199..203.
+
+| Who | State |
+|---|---|
+| ERP · Design | Navigation pilot in Payroll (ERP-193) only; then stop (B, slice 6 wait) |
+| Codex · ERP backend | HOLD on CP-EV-1b (ERP-201); work in /private/tmp/neoerp-erp174-* |
+| Accounts lead / Codex | HOLD (ERP-199, ERP-202); SB2 dimension-set migration planned, not built |
+| HR & Payroll lead / HRP · Design | HOLD (ERP-200); design batches paused too |
+| Fix lists from the audit (ERP-D-7) | Held until Jabran decides the navigation rule after the pilot |
+| ADR-021/022/023 | Proposed, order approved; Accepted after scope approval |
+
+Large-customer roadmap: `docs/large-customer-roadmap.md` (gap lists from both leads merged).
 
 ## 3. Done recently (for context)
 
