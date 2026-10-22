@@ -20,3 +20,9 @@ docs/inbox/.paused-*
 !docs/agents/**
 !.codex/
 !.codex/**
+
+# Shared Claude settings (Stop hook: inbox listener check). Global ignore hides .claude/.
+!.claude/
+.claude/*
+!.claude/settings.json
+!.claude/launch.json
