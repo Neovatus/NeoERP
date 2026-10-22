@@ -187,3 +187,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-22 · Jabran: nav pilot in Payroll → ERP-193
 2026-10-22 · large-customer roadmap drafted; ERP-194 (ACC), ERP-195 (HRP) gap checks; ADR-021..023 drafting (Opus)
 2026-10-22 · Jabran: accounts-only + import supported → ADR-021/022 amendments (agents), ERP-196 (ACC)
+2026-10-22 · ACC-249 → ERP-197 (dimension-set id; gaps merged into roadmap)

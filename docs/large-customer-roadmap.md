@@ -26,7 +26,16 @@ Order matters: each one depends on the one before.
 | 1 | **Budget check on purchases and bills**, commitments | ADR-022 check / reserve |
 | 1 | **Fixed assets**: register, depreciation, disposal, capex budget | Not on the roadmap today (Accounts README) |
 | 2 | Group consolidation across legal entities, currency, eliminations | Later; ADR-023 level 6 |
-| — | *Lead to add* | ERP-194 |
+| 1 | **Dimensions on lines**: department, project and cost-centre maintenance (cost centres read-only today); department from HR | ADR-021; storage by dimension-set id (ERP-197) |
+| 1 | **Integration posting API**: outside systems post daily totals as balanced journals with dimensions, idempotency, source and batch; extends `AccountsPostingV2`, no second path; two-person rule per company | ADR-021 D10 |
+| 1 | **Import with dimensions**: journal CSV columns; SIE `#DIM`/`#OBJEKT`/object lists and `#PBUDGET`; SIE export writes objects; budget import | ADR-021 D10, ADR-022 D5 |
+| 1 | **Approval limits** per role and amount (journals, payments), shared approval model with HR | Links HR approval chains |
+| 2 | Recurring journals and **allocations** by key or % across cost centres and departments | |
+| 2 | **Multi-currency depth**: revaluation, realised and unrealised FX, currency per bank account | Single currency today |
+| 2 | **Bank integrations**: statement feeds (camt.053, Nordic bank APIs), payment files (pain.001) | Accounts D |
+| 2 | **Imported invoices and bills as documents** for Accounts-only companies (ageing and payment matching without Sales/Purchasing) | |
+| 2 | **Volume**: partitioning by company and year, report snapshots, archive and audit export, background report jobs | ADR-023 |
+| 3 | Intercompany matching, group chart (with consolidation) | |
 
 ## 3. HR
 
