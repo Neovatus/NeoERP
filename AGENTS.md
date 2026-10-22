@@ -5,7 +5,7 @@ reading shared state on pickup and maintaining the owned task checkpoint at ever
 stage boundary. Do not wait for the user to request progress recording.
 
 Choose the owning guide: [frontend](NeoERP-App/AGENTS.md) or
-[backend](NeoERP-BackEnd/AGENTS.md); read [design](NeoERP-Design/README.md) for UI work.
+[backend](NeoERP-BackEnd/AGENTS.md); for UI work read [the design principles](docs/handover/design-principles.md) and [ux-principles](NeoERP-App/docs/design/ux-principles.md).
 Repository skills retain their technical gates. Shared process and record ownership
 come from WORKFLOW.md, not duplicated tool-specific instructions.
 
