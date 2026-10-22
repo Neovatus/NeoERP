@@ -177,3 +177,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-22 · ERP-183 (audit first) sent
 2026-10-22 · ERP-184 (HR/Payroll/ESS provisional) sent
 2026-10-22 · ERP-D-5 → ERP-185 (re-run HR/Pay/ESS + Opus §4/§5); verification of ACC/Platform started; (a)(b) to Jabran
+2026-10-22 · ACC-C-34 FYI: ACC-246 ca82ccf (isolated, not on dev yet); ORG-FACTS-3 gate clears when the Accounts lead accepts and it lands on dev
