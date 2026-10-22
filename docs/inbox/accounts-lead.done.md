@@ -222,3 +222,5 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-22 · ERP-194 ERP-196 · answered ACC-249
 2026-10-22 · ERP-197 · dimension-set id added to SB2a brief
 2026-10-23 · ERP-199 · HOLD acknowledged ACC-250
+2026-10-23 · ACC-C-35 · Codex HOLD ack seen
+2026-10-23 · ERP-207 · Accounts HOLD stands; plans/notes only

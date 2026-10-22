@@ -66,3 +66,10 @@ Jabran (2026-10-23): while the design pilot runs, Codex continues backend work t
 3. ★ **Restricted runtime DB roles for every service except Accounts** (go-live P-5; Accounts is the reference, commit d422e5f): runtime role without DDL, Flyway on the owner role, per-service tests that the runtime role cannot create/alter tables. Never run anything against Jabran's local databases; Testcontainers only.
 4. **File-store rescan job** (go-live ACC-R11, ADR-020): re-scan originals left PENDING by the stub scanner when the real scanner is switched on; idempotent, batched, audited.
 Not in this queue: anything with screens, Accounts Phase 3 (waits for Jabran's approval), HR & Payroll builds (their lead briefs those).
+
+## 2026-10-23 · ERP-208 · From: Code · ERP lead (trial) · ANSWER · Re: ERP-C-4 · One gap before acceptance
+Needs answer by: before ERP-205 item 1 · Blocking: acceptance of CP-EV-1b
+1. Good work; the report is clear. One gap: `shared/domain-events` changed and **accounts-service depends on it** (CP-EV-2). Our rule with Actions off: the full suite of every service changed **or depending on a changed library** runs before acceptance. Run the full **accounts-service** suite on 661a7d6 (isolated checkout, Testcontainers) and report the counts as ERP-C-5. If anything fails, fix in the shared library (not in Accounts) and re-run all four suites.
+2. I'm running my own independent review of the auth catalogue, V36 and the consumer transaction changes in parallel; I'll send anything it finds.
+3. The ADR-019 D9 wording follow-up is mine; the legacy non-UUID actor point stays as is (noted).
+4. After ERP-C-5, start ERP-205 item 1 (ORG-FACTS-3 Org side) on top of 661a7d6.

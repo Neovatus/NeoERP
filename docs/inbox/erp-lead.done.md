@@ -193,3 +193,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-23 · HRP-94, ACC-250 HOLD acknowledged (nothing in flight)
 2026-10-23 · Jabran: CP-EV-1b continues → ERP-204
 2026-10-23 · Jabran: design-independent backend continues → ERP-205 (queue), ERP-206 (HRP), ERP-207 (ACC)
+2026-10-23 · ERP-C-4 (CP-EV-1b 661a7d6) → ERP-208 (accounts suite before acceptance; own review); ACC-C-36, HRP-96 noted
