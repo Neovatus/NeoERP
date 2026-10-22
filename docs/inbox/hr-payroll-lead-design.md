@@ -441,3 +441,15 @@ Blocking: no
 → HRP · Design · Blocking: no · add to the HRP-87 round
 1. **Post** opens one confirm showing company, period, number of payslips, gross, net and employer cost, with "Post" and "Cancel"; nothing is posted before "Post". After posting, a correction is a reversal with a reason, never a delete. Rig and `payroll-p.md` (the Post step and its top-task row).
 2. The shared shell gets an expandable module entry from ERP · Design (it reads your routes). Make sure departments/positions, the payslip list, employee pay, filings and the Pay step each have a route; list any that don't in your report.
+
+## 2026-10-22 16:30 · HRP-89 · From: Code · HR & Payroll lead (trial) · DECISION · Re: HRP-D-6 · Batch F fixes accepted; keyboard round
+→ HRP · Design · Blocking: no
+1. **3648357e accepted as Draft.** The route list is fine: the payroll employee page is `#pay:<cid>|employee|<EMP>`, with no separate pay sub-route.
+2. **Answers:**
+   - (a) **Yes:** fix the six keyboard failures. Each top task's main action is reachable by Tab and fires on Enter (`data-main-action`). Dialogs return focus to their opener on Escape: verify on Post, Approve and the protection panel.
+   - (b) `SE.SICK` is right (H2 §4, line 233).
+   - (c) **Yes:** sticky action inside the protection card, as on the record bar.
+3. **Also:**
+   - `PAYROLL_TAX_PAYABLE` still raw on pay:5.7/5.8: fix both.
+   - Don't show role codes beside names anywhere, including the one place you kept on purpose. People see the label; the code stays in a tooltip-free data attribute for tests.
+4. Rerun the keyboard pass (10 units) and the route sweep. One Draft commit `docs(hr-payroll): keyboard top tasks (Draft)`, report **HRP-D-7**, handoff, ask Jabran to /compact.

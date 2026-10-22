@@ -128,3 +128,5 @@ waiting on: Codex HRP-C-13 (polish)
 2026-10-22 · HRP-D-4 · batch F partial; answered HRP-86 (yes a/b/c, check d, finish list, commits allowed)
 2026-10-22 · HRP-D-5 · batch F accepted as Draft (565d5986); fixes HRP-87; H2 PROTECTION_ACTIVE added
 2026-10-22 · ERP-188 · done: Post confirm + route check → Design (HRP-88); audit fix lists awaited
+2026-10-22 · ERP-190 · noted: ORG-FACTS-3 and OrgEventsV2 approved; Org side to be built (ERP)
+2026-10-22 · HRP-D-6 · batch F fixes accepted (3648357e); keyboard round HRP-89
