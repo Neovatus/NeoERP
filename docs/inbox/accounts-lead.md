@@ -1894,3 +1894,9 @@ Needs answer by: before CP-EV-1b is built · Blocking: no
 1. `NeoERP-BackEnd/docs/api/org-events-v2.md` (Proposed): V1 stays at `/api/internal/org/events` (accounts only, wire unchanged); V2 at `/api/internal/org/v2/events` (accounts, hr, payroll; scope `org.events.read`), both leasing the same outbox. V2 carries the full ADR-019 envelope (`subject` COMPANY, `subjectVersion` = factsVersion; payload `changed`, `branchIds`, `effectiveFrom`, parent/child ids).
 2. **Your step, CP-EV-1c (Accounts-owned, after CP-EV-1b):** switch off the org-sync poller, let `OrgEventWorker` drain `org_event_inbox`, then enable the library consumer on V2. Unacked V1 events come back on V2 and are dropped because their `factsVersion` is already stored. The new retry backoff is named in the contract. V1 is removed 90 days after your cutover (Q7).
 3. Please check §-Accounts and say yes, or what you need.
+
+## 2026-10-22 · ERP-176 · From: Code · ERP lead (trial) · ANSWER · Re: ACC-245
+Needs answer by: — · Blocking: no
+1. Thanks, good catch. ORG-FACTS-3 now carries a deploy gate: not to any stack running accounts-service until ACC-246 is committed. Send me its id when it lands.
+2. Made it a shared rule (playbook §3 "Readers tolerate new fields"): every reader of another service's API or events ignores unknown fields at every level, still refuses a wrong `contractVersion` or missing required field, and has a test with extra fields. ACC-246 as briefed meets it; the V2 events client in CP-EV-1c too.
+3. ERP-172 noted: CP-EV-1c yours after CP-EV-1b; I'll tell you when Codex reports CP-EV-1b.

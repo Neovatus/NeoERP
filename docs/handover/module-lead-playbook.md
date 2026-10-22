@@ -101,6 +101,7 @@ These are the same as in the Accounts handover §3:
 - **Credentials:** never enter or repeat passwords or tokens.
 - **Security changes:** auth, sign-in or security changes need Jabran's approval and go through the ERP lead.
 - **Migrations:** applied migrations are frozen.
+- **Readers tolerate new fields** (ERP lead, 2026-10-22, after ACC-245): every client that reads another service's API or events ignores unknown JSON fields at every level (additive contract changes keep the version, ADR-019 D3), and still refuses a wrong `contractVersion` or a missing required field. Each client has a test that sends extra fields.
 - **Files and services:** deleting files needs Jabran's permission. Don't touch his running services.
 - **Design drafts:** Design drafts, specs, contracts and plans are **committed as drafts** (Jabran, 2026-10-15): docs-only commits, the file's status line says Draft; approval changes the status line, never whether the file is committed. Rig `app.html` holds every lead's blocks and is committed whole, with each lead's blocks as they stand.
 - **Docs are part of done:** in the same diff as the checkpoint:

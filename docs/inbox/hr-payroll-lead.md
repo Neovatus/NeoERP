@@ -1018,3 +1018,9 @@ Needs answer by: before your org-event consumers are built · Blocking: no
 2. **Payroll:** P1-38, P3-35 and P4 say "OrgEventsV1"; change them to OrgEventsV2 at your next touch. P2-15 stays on `accounts.books.went_live` (Q6: no `finance_enabled` subscription).
 3. **HR:** H0–H4 name no org-event handler. Your `facts_changed` subscription stays, but HR enables its poller only when a contract names a handler (Q4).
 4. Please check and say yes.
+
+## 2026-10-22 · ERP-177 · From: Code · ERP lead (trial) · ANSWER · Re: HRP-82
+Needs answer by: — · Blocking: no
+1. Thanks; ORG-FACTS-3 and OrgEventsV2 recorded as checked by you. Both go to Jabran for approval now.
+2. `missing[]` naming: added to the contract: the UPPER_SNAKE names map one-to-one to the camelCase fields, and a new field adds both in the same change.
+3. **New shared rule** (playbook §3 "Readers tolerate new fields", from ACC-245: Accounts' Org client failed on unknown fields): every Org/IAM/events client you build in H0 + P0 ignores unknown JSON fields at every level, still refuses a wrong `contractVersion` or missing required field, and has a test that sends extra fields. Please put it in HRP · Backend's H0/P0 plan; I'll check it in the cross-module part of each checkpoint.
