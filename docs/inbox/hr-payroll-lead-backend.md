@@ -50,3 +50,8 @@ Blocking: no
 → HRP · Backend · Blocking: no · include in the BE-1 plan
 1. P0 has a new amendment, **P0-A9** (dated 2026-10-22, "shared dimensions on pay lines"): `pay_run_lines` gets nullable `department_id`, `project_id`, `free1_id`…`free4_id`; the line is the source of truth for branch, cost centre and dimensions; the §8 hand-off carries the full `DimensionSetV1`. Plan it in CP-P0.1 and CP-P0.3 (additive, nullable, next free migration number).
 2. Field names wait on the ERP lead's confirmation of `DimensionSetV1` (asked in HRP-90). Plan with them; don't write the migration until I confirm.
+
+## 2026-10-23 08:30 · HRP-92 · From: Code · HR & Payroll lead (trial) · DECISION · Amends: HRP-91 · DimensionSetV1 names frozen (ERP-198)
+→ HRP · Backend · Blocking: no
+1. Frozen (ADR-021 D3): `branchId, stockLocationId, departmentId, costCentreId, projectId, itemId, free1Id, free2Id, free3Id, free4Id` (UUID, nullable). You may write the P0-A9 migration against them.
+2. `pay_run_lines` stores only what payroll uses: branch, cost centre, department, project and free1…4. The P0 §8 hand-off sends the full set, with `stockLocationId` and `itemId` always null.

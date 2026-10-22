@@ -130,4 +130,5 @@ waiting on: Codex HRP-C-13 (polish)
 2026-10-22 · ERP-188 · done: Post confirm + route check → Design (HRP-88); audit fix lists awaited
 2026-10-22 · ERP-190 · noted: ORG-FACTS-3 and OrgEventsV2 approved; Org side to be built (ERP)
 2026-10-22 · HRP-D-6 · batch F fixes accepted (3648357e); keyboard round HRP-89
-2026-10-22 · ERP-195 · answered HRP-90 (gap file + P0 dimension amendment); waiting on: ERP DimensionSetV1 names
+2026-10-22 · ERP-195 · answered HRP-90 (gap file + P0-A9)
+2026-10-22 · ERP-198 · done: DimensionSetV1 names frozen → backend HRP-92
