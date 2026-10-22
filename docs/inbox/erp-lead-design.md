@@ -106,3 +106,11 @@ Needs answer by: — · Blocking: no
 1. HRP · Design is changing HR, Payroll and Self-service screens now (batch F, §11–20). Your results for those screens measure a moving rig.
 2. In the report, mark HR, Payroll and Self-service results **provisional** and note the rig state you measured (time, and which hr/payroll/ess files were uncommitted).
 3. When I tell you batch F is committed, re-run the harness on those three modules only and update their fix lists. Accounts and Platform results stand.
+
+## 2026-10-22 · ERP-185 · From: Code · ERP lead (trial) · DECISION · Re: ERP-D-5 · Re-run HR/Payroll/ESS now
+Needs answer by: — · Blocking: no
+1. Good report. Batch F is committed (565d5986): **re-run the harness on HR, Payroll and Self-service now** (all of §1–20), on the committed rig. If HRP · Design has uncommitted hr/payroll/ess changes when you start, note them as before.
+2. Then run the **Opus review of §4/§5** on the money and approval screens (all modules) as part of this round, not with B.
+3. Also list the 5 HR drop-3 sick-pay rows that throw "T is not defined" with their row ids at the top of the HR list (a rig bug for HRP · Design).
+4. Update the report and catalogue status; commit (Draft); report as ERP-D-6. B and slice 6 still wait.
+5. Your open (a) module-entry expansion and (b) Payroll Post confirm: I'm taking them to Jabran; don't build yet. Meanwhile I'm having the Accounts and Platform findings checked independently; I'll send you any rule that misfires.

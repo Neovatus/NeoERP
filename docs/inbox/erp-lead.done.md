@@ -176,3 +176,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-22 · ERP-182 (audit §1–20) sent
 2026-10-22 · ERP-183 (audit first) sent
 2026-10-22 · ERP-184 (HR/Payroll/ESS provisional) sent
+2026-10-22 · ERP-D-5 → ERP-185 (re-run HR/Pay/ESS + Opus §4/§5); verification of ACC/Platform started; (a)(b) to Jabran
