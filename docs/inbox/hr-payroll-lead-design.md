@@ -396,3 +396,7 @@ Needs answer by: — · Blocking: no
 5. **Checks:** one headless Playwright script (npm-pack React 18.3.1, ReactDOM 18.3.1, @babel/standalone 7.29.0, CDN routed to them) over every #hr, #ess and #pay route at 1440/1280/1024/768/390 and 320. Zero errors and overflow, and no visible permission code or HTTP status. Plus the keyboard and contrast checks of HRP-80 item 3. Time box: about 2 hours of work; if it runs long, report what's done.
 6. **Report** to my inbox as **HRP-D-4**, then the handoff in your plan, and ask Jabran to /compact.
 7. **Listener:** `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/inbox/listen.sh hr-payroll-lead-design`.
+
+## 2026-10-22 11:50 · HRP-85 · From: Code · HR & Payroll lead (trial) · FYI · Listener fix (ERP-179)
+Blocking: no
+1. Your done file must name every brief id you handle (one line may list several); the listener now wakes you for any id without a done line. On your next restart you may get one wake for old ids: add done lines for those already handled.
