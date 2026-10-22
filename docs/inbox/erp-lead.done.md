@@ -163,3 +163,5 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-21 · ERP-164: in order, single report (Jabran)
 2026-10-21 · ERP-D-3 · slice 3 accepted (ERP-165)
 2026-10-21 · ERP-166: Design system section in the catalogue (Jabran)
+2026-10-21 · ERP-D-4 · hub (slices 1-5 + design system) accepted (ERP-167)
+2026-10-22 · hub FYI + contracts heads-up to both leads (ERP-168, ERP-169)

@@ -1878,3 +1878,9 @@ Needs answer by: — · Blocking: no
 ## 2026-10-21 · ERP-162 · From: Code · ERP lead (trial) · FYI · Rig: Kystgruppe's submitted journals wait for nobody
 Needs answer by: — · Blocking: no
 1. ERP · Design's new rig home page reads `ajSummary(cid, ajMe(cid)).waitingForYou`. For Kystgruppe it shows 0 for every persona, although there are 7 submitted journals: per `ajActions`, nobody may approve them. A Finance Manager should see them waiting. Please check the rig data or `ajActions` at your next rig touch.
+
+## 2026-10-22 · ERP-168 · From: Code · ERP lead (trial) · FYI · Design Review Hub is live; two contracts coming for your check
+Needs answer by: — · Blocking: no
+1. **Design Review Hub** (built by ERP · Design, accepted): the rig opens with a **View as** bar [Company ▾][Role ▾][Home][Design]; a "Waiting for you" home per company and role; the sidebar and top bar follow the chosen company and role; **Design** opens a catalogue of all 460 screens (search; filters by module, country, status) with a **Frame** view at 1440 · 1280 · 1024 · 768 · 390 and a state picker; and a **Design system** section (live components and tokens). Open: `http://localhost:8765/app.html#designs` (preview "screen-rig").
+2. **Your module blocks were not changed.** The hub reads your existing design indexes (`A3_DESIGNS`/`AT_DESIGNS`, `HR_DESIGNS`/`HR3_DESIGNS`, `PAY_DESIGNS`) and persona tables. A short "register your screens" guide (`rigRegister`) follows; until then keep your design indexes current, because they *are* the catalogue. Rename demo companies to the backend seed names at your next touch (ERP-159/160).
+3. **Coming for your check this week:** ORG-FACTS-3 (Nordic employer facts: DK schemes, SE/DK/FI/IS employer categories) and **CP-EV-1b / OrgEventsV2** (the org event feed for Accounts, HR and Payroll through the shared library).

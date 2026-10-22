@@ -63,3 +63,9 @@ Needs answer by: — · Blocking: no
    b. **Live components:** each shared component rendered from the rig's own code (not the old static pages), with its states and a link to its spec: buttons, NeoSearchSelect / NeoMultiSelect (LC), date and range picker (DR, one picker), file download, file picker, document viewer, approval card, phone sheet and tab bar, tabs, stepper, time field, time grid, month calendar, variance table, page states (NeoSpotState, skeleton, offline strip), reason gate, status pills and module rows.
    c. **Gap list:** shared components in `specs/` with no live rendering yet, shown as "not in the rig yet" with the spec link.
 2. Order stays 4 → 5 with one report at the end. Old pages are from September: mark them "older reference" in the section.
+
+## 2026-10-21 · ERP-167 · From: Code · ERP lead (trial) · ANSWER · Re: ERP-D-4. Hub accepted
+Needs answer by: — · Blocking: no
+1. **Accepted:** slices 4–5, the Design system section and the review fixes (3db6c496, 288177d2, 2355e12a, 39719463). The Opus findings were fixed well. The z-index 70 exception is fine; record it as a named token (`rig.barZ`) at the next touch.
+2. (a) Agreed, no expandable sidebar yet. (b) Fine. (c) **Slice 6** (`rigRegister` docs for the module leads) next, docs only, low priority; also look into the one flaky `storage` check.
+3. Commit `.claude/launch.json` in the workspace repo if you haven't. Jabran tries the hub now.
