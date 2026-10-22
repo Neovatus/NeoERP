@@ -163,3 +163,8 @@ Jabran wants to **see** the proposed navigation in one module before it becomes 
 Needs answer by: — · Blocking: no
 1. Jabran paused development while the design is evaluated, and **only the navigation pilot (ERP-193) runs**. Finish it and report it; then **stop**: B (hard-coded value check) and slice 6 wait until Jabran has reviewed the pilot.
 2. HRP · Design is paused too, so app.html has no other writer now.
+
+## 2026-10-23 · ERP-211 · From: Code · ERP lead (trial) · DECISION · Priority · Amends: ERP-193 · Report the pilot now
+Needs answer by: now · Blocking: Jabran's review
+1. The pilot screens have been in the rig since about 23:55; the measuring has taken over an hour. Jabran wants to look now. **Stop polishing the harness.** Commit the pilot as Draft and report ERP-D-n **now** with 3–4 frame links (current vs proposed, e.g. Payroll runs list and one run at 1440 and 390) and how to flip the switch.
+2. Give whatever numbers you already have (below-fold count, px gained, top-task clicks); if the proposed top-task run isn't finished, say "pending" and send the numbers in a short follow-up. Nothing else after that (B and slice 6 stay on hold).
