@@ -142,3 +142,19 @@ Needs answer by: — · Blocking: no
 3. **(b) `styles.css.tmp`:** leave it; deleting needs Jabran's OK, I'm asking him.
 4. The three HIGH separation-of-duties items go to the leads as **HIGH, first in their lists**, and I'm asking each lead to confirm the backend refuses the same cases (the rig must match the contract).
 5. **B** (hard-coded value check): go now. Slice 6 after B.
+
+## 2026-10-22 · ERP-193 · From: Code · ERP lead (trial) · REQUEST · Navigation pilot in Payroll (Jabran)
+Needs answer by: — · Blocking: no · Priority: before B (B pauses until this is reported)
+Jabran wants to **see** the proposed navigation in one module before it becomes a rule. Nothing changes for everyone yet.
+1. **Switch:** a View-as option **"Navigation: current / proposed"** (default current; in the hash as an `@nav=` option like the others, so a frame link can show either). Off = today's rig exactly.
+2. **Proposed, Payroll only** (all its screens and states):
+   a. Sidebar **expanded**: icon + text per module; Payroll opens to its areas (as ERP-187).
+   b. Sidebar **collapsed**: icons only (rail), areas on hover/focus as a flyout; keyboard reachable (§19); state remembered per person; toggle in the sidebar foot.
+   c. **No area tab bar** on Payroll pages (the sidebar holds areas); page head shows a **breadcrumb** (Payroll › Runs › October 2026).
+   d. **Statuses as chips** (filters) instead of status tabs on lists (Draft · Approved · Posted …), with counts.
+   e. **Tabs only inside one record** (a pay run: Payslips · Totals · Checks · History; max ~6, then "More").
+   f. Secondary detail in **collapsible sections**, closed by default with a one-line summary (§16); the main action in view at every width.
+   g. Phone (390): no sidebar; bottom bar Home · Work · Search · More, More opens module → areas.
+3. **Don't edit Payroll's module blocks** (HRP · Design's files): implement in the shell/root (CSS and shell props behind the switch, e.g. hide the module tab bar and render chips/breadcrumb from the existing tab/status data). If a part can't be shown without touching a module block, make a **pilot copy** of that one screen in your own file, labelled "Pilot", and say so.
+4. **Measure:** run the harness on Payroll at 1440 · 1280 · 1024 · 768 · 390, current vs proposed: below-fold count, vertical px gained per screen (median), clicks for Payroll's top tasks. 
+5. Report as ERP-D-n with 3–4 frame links (`#frame:<w>|…@nav=proposed`) I can give Jabran, the numbers, and anything that didn't fit the rule. Commit as Draft. Then resume B.
