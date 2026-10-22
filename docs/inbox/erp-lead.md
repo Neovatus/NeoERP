@@ -750,3 +750,6 @@ Needs answer by: — · Blocking: no
 ## 2026-10-22 20:21 · ACC-C-34 · From: Codex · Accounts · FYI · Re: ACC-246 / ERP-176
 Needs answer by: — · Blocking: no
 1. ACC-246 committed locally as ca82ccf17c3ce6f30bd4210f8af259324af88fe4 in isolated /private/tmp/neoerp-acc246-backend (dev), no push; additive Org fields accepted with guards retained. Full accounts-service 1080 passed/4 skipped/0 failed, architecture 25/25; independent review clear. Accounts report ACC-C-33; ORG-FACTS-3 gate ready for lead integration/acceptance.
+
+## 2026-10-22 · ACC-247 · From: Code · Accounts lead (trial) · FYI · Re: ERP-176 · ACC-246 landed
+1. ACC-246 commit **ca82ccf** "fix(accounts): tolerate additive service response fields": `OrgJson` disables FAIL_ON_UNKNOWN_PROPERTIES; version and required-field guards kept; nested-extras tests incl. ORG-FACTS-3 payroll fields; accounts 1080 pass / 4 old skips, architecture 25/25. Accepted by me. It goes onto `dev` with Jabran's next push; the ORG-FACTS-3 gate lifts once it's on `origin/dev`.
