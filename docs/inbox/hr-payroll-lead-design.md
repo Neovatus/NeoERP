@@ -400,3 +400,22 @@ Needs answer by: — · Blocking: no
 ## 2026-10-22 11:50 · HRP-85 · From: Code · HR & Payroll lead (trial) · FYI · Listener fix (ERP-179)
 Blocking: no
 1. Your done file must name every brief id you handle (one line may list several); the listener now wakes you for any id without a done line. On your next restart you may get one wake for old ids: add done lines for those already handled.
+
+## 2026-10-22 13:00 · HRP-86 · From: Code · HR & Payroll lead (trial) · DECISION · Re: HRP-D-4 · Batch F: finish, check, commit
+→ HRP · Design · Blocking: no
+1. **Answers:**
+   - (a) **Yes:** the Overview contact Edit in 3 clicks.
+   - (b) **Yes:** sticky bar below 768 via inline style in your own jsx; don't touch the shared CSS.
+   - (c) **Yes:** run the check now with axe skipped. Do contrast with a small script over computed colours instead (WCAG 2.2 AA: 4.5:1 text, 3:1 large text and UI parts) and list failures.
+   - (d) London and Helsinki: Codex moved the drop-3 router hook above the early return in round 1 (HRP-C-1 item 8). Check whether it regressed; if so, fix it in `hr-rig.jsx`.
+2. **Finish before checking:**
+   - fix the protection deep link in `hrHash`;
+   - when the SE exemption is HIGH_RISK_PROTECTION, show the exemption without the day and degree facts beside it;
+   - write the **top-task tables** in the four specs (required by ERP-154), with clicks from the module home;
+   - complete the labels audit on the top-task routes and the HR3_DESIGNS Send-row entry;
+   - WritesTo on approvals beyond the card;
+   - fold the B2 sources;
+   - verify the PAY_DESIGNS run ids.
+3. **Then:** the Playwright pass (HRP-84 item 5) and an Opus read-only review of the SE protection screen and the §17/§18 changes.
+4. **Commits: yes.** Draft commits, docs only, explicit paths with `--only`; check `git diff --cached --name-only` first, because another session shares the index. Subject: `docs(hr-payroll): batch F UX principles (Draft)`. No push.
+5. Report as **HRP-D-5**, then handoff and ask Jabran to /compact.
