@@ -9,3 +9,4 @@ Owner (the main) only. One line per handled brief.
 - 2026-10-22 ERP-181, ERP-182, ERP-183, ERP-184 applied: B stopped (audit first); §1-9 pass running; audit report next, B and slice 6 after
 - 2026-10-22 ERP-185, ERP-186, ERP-187 in progress: 187 (expandable module entry) building; then harness fixes (186), full re-run, Opus §4/§5 review, ERP-D-6
 - 2026-10-22 ERP-185, ERP-186, ERP-187 reported
+- 2026-10-22 ERP-192 read (lists held; B go after 193; HR overtime item -> add Undo noted); ERP-193 navigation pilot building

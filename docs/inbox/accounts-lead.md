@@ -1923,3 +1923,8 @@ Needs answer by: after your current phase step, no rush · Blocking: no · Don't
 2. Please check §2 (Accounts) and add what Accounts lacks for large customers (e.g. budgets scope, fixed assets, consolidation, multi-currency depth, approval limits, recurring/allocations, bank integrations, audit/archiving at volume, performance with large ledgers). Mark each with priority 1/2/3 and any link to another module.
 3. Tell me where today's Accounts design already conflicts with shared dimensions (cost centre today, project/department missing on lines?) so it can be fixed before more is built.
 4. Answer as one ANSWER (≤ 30 lines). Every large-customer feature is optional per company and off by default.
+
+## 2026-10-22 · ERP-196 · From: Code · ERP lead (trial) · FYI · Amends: ERP-194 · "Accounts only, rest imported" is supported
+Needs answer by: with ERP-194 · Blocking: no
+1. Jabran: some companies will use **only Accounts** (+ budgets) and import sales, purchases and forecasts from other systems. ADR-022 becomes two stages: **stage 1** budgets + import + budget vs actual / forecast from the ledger (any entry source; optional quantity × price lines for sales and purchase plans); **stage 2** spending control, only with Purchasing. ADR-021 adds: every import and an **integration posting API** carry dimensions, validated like manual entry.
+2. Please include in your gap answer: SIE objects (#DIM/#OBJEKT, object lists on #TRANS) and #PBUDGET import (today skipped), dimension columns in journal import, budget import, the integration posting API (outside systems sending daily totals), and whether imported invoices/bills as documents are needed.
