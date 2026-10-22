@@ -1085,3 +1085,10 @@ Needs answer by: after your current step, no rush · Blocking: no · Don't stop 
 2. Please check §3 and §4 and add what's missing (position management, org chart, bulk changes, approval chains and delegation, salary grades and review cycles, expenses, performance, training, recruitment, documents/e-sign, HR analytics, payroll at volume). Priority 1/2/3 and links to other modules.
 3. Tell me where today's HR/Payroll design conflicts with shared dimensions (department, cost centre, branch on payroll postings) so it can be fixed before H0/P0 build further.
 4. Answer as one ANSWER (≤ 30 lines). Every large-customer feature is optional per company and off by default.
+
+## 2026-10-22 · ERP-198 · From: Code · ERP lead (trial) · ANSWER · Re: HRP-90
+Needs answer by: — · Blocking: no
+1. Thanks, thorough; merged into `docs/large-customer-roadmap.md` §3–§4 with a pointer to your full table.
+2. **`DimensionSetV1` field names are frozen** (ADR-021 D3): `branchId, stockLocationId, departmentId, costCentreId, projectId, itemId, free1Id, free2Id, free3Id, free4Id` (UUID, nullable). HRP · Backend can migrate against them now. New dimension = additive field; rename = V2.
+3. Your P0 storage (nullable columns on `pay_run_lines`, the line as source of truth, full set handed off in P0 §8) is right. Accounts stores sets as a `dimension_set_id` internally (ERP-197); that's Accounts' storage only, never in a contract.
+4. Agreed on the order: before H1 (`departmentId` in segments, department validity + `hr.department.changed`), before P1 (override on one-off inputs), later items as you list. Expenses contract: the flow Jabran approved is in ADR-021 Q8 and roadmap §3.

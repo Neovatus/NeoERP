@@ -50,7 +50,7 @@ Order matters: each one depends on the one before.
 | 2 | **Expense claims** (Jabran, 2026-10-22): employee submits in self-service (receipt photo per line, category → account, mileage and per-diem rates from the country rules, checks for missing receipt, over-limit and duplicates) → **line manager approves** (from HR reports-to; always first) → **second approval only when needed** (above a company amount or on a policy exception, to the cost-centre or budget owner; HR only if the company adds it for exceptions) → **Accounts checks, releases and posts** (receipts, VAT, accounts, dimensions; can return a line with a reason) → **payment split by tax:** tax-free parts paid by Accounts in the next payment batch; taxable parts (above legal rates, taxable allowances) go to **Payroll** in the next run and its filings. Rules: nobody approves their own claim; the approving manager can't also release the payment; delegation while away; reminders and escalation; lines carry the employee's department, cost centre and project; receipts kept per country retention. Later: company cards, receipt reading, cash advances. | Spans HR (ESS, approvals), Accounts (release, post, pay), Payroll (taxable parts); budget check (ADR-022 stage 2) |
 | 2 | Performance and goals; training and certifications (expiry reminders); recruitment (vacancy → applicant → offer → onboarding) | |
 | 3 | Surveys, succession planning, learning | |
-| — | *Lead to add* | ERP-195 |
+| 1 | Approval chains with delegation and escalation; bulk changes and employee import; HR analytics; GDPR export and erasure; group-wide person view | HRP-90; full table `docs/drafts/hr-payroll/large-customer-gap-check.md` |
 
 ## 4. Payroll
 
@@ -60,7 +60,8 @@ Order matters: each one depends on the one before.
 | 1 | **Salary review cycle**: proposals, budget, approval, effective date | Budget check (ADR-022) |
 | 1 | **Employee list in Payroll** (Employee pay has no list today) | Already in the principles audit |
 | 1 | Personnel-cost budget: positions × headcount × grade midpoint | Feeds Accounts budget |
-| — | *Lead to add* | ERP-195 |
+| 1 | Runs at volume (5,000+, parallel chunks, retro recalculation with diff); mass import of variable pay; multi-level approval for large runs (Payroll → Finance above an amount); cost allocation splits per dimension | HRP-90 |
+| 2 | Collective-agreement tables, workforce planning, bank-file splitting, multi-company group runs | HRP-90 |
 
 ## 5. Future modules (not started)
 

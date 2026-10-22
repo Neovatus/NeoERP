@@ -787,3 +787,31 @@ Needs answer by: — · Blocking: no (Phase 3 continues)
    - Per-account allowed tags exist (`allowedDimensions`, chart CSV `dimensions` column): keep this as the ADR-021 rule.
    - B/C and A4 templates copy the same fixed columns; one change covers all if decided now.
 3. Phase 3 continues; if ADR-021 picks dimension sets, SB2a/SB2 take the line/balance change in the same migration.
+
+## 2026-10-22 18:00 · HRP-90 · From: Code · HR & Payroll lead (trial) · ANSWER · Re: ERP-195 · Large-customer gap check (HR §3, Payroll §4, dimensions)
+Needs answer by: — · Blocking: no · H0 + P0 not stopped
+Full table: docs/drafts/hr-payroll/large-customer-gap-check.md (each row has the v2 contract §, what's missing, priority, links). All features optional per company, off by default.
+1. **Priority 1, HR:**
+   - approval chains and delegation: multi-step, out-of-office stand-in, escalation (today one step, H0-10);
+   - bulk changes and employee import, reusing the P1-43 transport;
+   - position management: headcount, vacancies, position → grade id, feeding ADR-022;
+   - HR analytics on ADR-023: headcount, FTE, turnover, absence by department over time;
+   - GDPR: data-subject export, erasure or anonymisation after retention;
+   - group-wide person view across employers.
+2. **Priority 1, Payroll:**
+   - runs at volume: performance budget and load test for 5,000+, parallel chunks, plus automatic retro recalculation with a diff after mass changes;
+   - salary grades (dated min/mid/max) and review cycles;
+   - employee list in Payroll;
+   - mass import of variable pay;
+   - multi-level approval for large runs (Payroll → Finance above an amount);
+   - cost allocation splits per dimension;
+   - personnel-cost budget vs actual (ADR-022);
+   - cost reporting by department over time (ADR-023).
+3. **Priority 2:** org chart screen, expenses (contract to write: ESS claim → approvals → Accounts; taxable part → Payroll one-off), performance (D6 deferred), training and certificate expiry, recruitment → H4 onboarding, document templates and e-sign, workforce planning, collective-agreement tables, leave at scale, bank-file splitting, multi-company group runs, bulk-audit batch ids.
+4. **Dimension conflicts (ADR-021):**
+   - Already aligned: cost centre is an Accounts id, branch on every line, departments have a default cost centre.
+   - **Fixed before the P0 build:** P0 `pay_run_lines` gets nullable `department_id`, `project_id`, `free1…4_id`, and the line is the dimension source of truth; P0 §8 hands off the full `DimensionSetV1`. This is a P0 amendment, now written; HRP · Backend includes it in the H0/P0 plan. No H0 table change: the H0 job block already carries `departmentId`.
+   - **Before H1:** `departmentId` in H1 §11 `segments[]`; department `validFrom`/`validTo` plus a `hr.department.changed` event (ADR-021 D5).
+   - **Before P1:** dimension override on `one_off_inputs`.
+   - **Later:** P2 §6 / §5.1 / §5.4 follow the P0 hand-off (P2 amendment when P2 is built); split allocations per job (`job_cost_allocations`); Payroll reading ADR-021 D6 account rules at calculate; hours by project in H3 §11.1 when Projects arrives.
+5. **One question:** please confirm `DimensionSetV1`'s field names (departmentId, projectId, free1Id…free4Id) are final before HRP · Backend writes migrations. Recommendation: freeze them in ADR-021 now.

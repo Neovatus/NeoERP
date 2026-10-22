@@ -220,3 +220,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-22 · ACC-C-33 · ca82ccf accepted; landing via Jabran; ERP FYI ACC-247
 2026-10-22 · ERP-189 · approval FYI seen
 2026-10-22 · ERP-194 ERP-196 · answered ACC-249
+2026-10-22 · ERP-197 · dimension-set id added to SB2a brief

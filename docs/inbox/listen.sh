@@ -39,6 +39,12 @@ if [ -f "$pidf" ]; then
   fi
 fi
 echo $$ > "$pidf"
+# Record which Claude session owns this inbox, for the Stop-hook check (listen-check.sh).
+c=$PPID
+while [ -n "$c" ] && [ "$c" -gt 1 ]; do
+  case "$(basename "$(ps -o comm= -p "$c" 2>/dev/null)")" in claude) echo "$stem" > "docs/inbox/.listen-owner-$c"; break;; esac
+  c=$(ps -o ppid= -p "$c" 2>/dev/null | tr -d ' ')
+done
 trap 'mine && rm -f "$pidf"' EXIT
 trap 'exit 0' INT TERM
 
