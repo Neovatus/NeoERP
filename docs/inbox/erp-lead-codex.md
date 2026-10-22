@@ -43,3 +43,10 @@ Needs answer by: — · Blocking: HR/Payroll org-event consumers and Accounts' c
 
 ## 2026-10-22 · ERP-191 · From: Code · ERP lead (trial) · FYI · Re: ERP-174 · OrgEventsV2 approved
 1. Jabran approved `org-events-v2.md` (no content change since your brief). Continue ERP-174 as briefed; origin/dev moved (now 4d162dd): rebase your isolated work onto it before you commit. Report as ERP-C-n.
+
+## 2026-10-23 · ERP-201 · From: Code · ERP lead (trial) · DECISION · HOLD · Development paused (Jabran)
+Needs answer by: at your next safe point · Blocking: yes for builds
+1. **Jabran (2026-10-23): development is paused while the design is evaluated; only ERP · Design's navigation pilot runs.** Recording decisions comes first.
+2. **HOLD (protocol §14):** finish the current step only; if green, commit locally; **don't push**; don't start new slices. Report what is committed and where it stops (one ANSWER).
+3. Plans and decision notes may be written; no build. I'll tell you when work resumes.
+4. CP-EV-1b (ERP-174): if your work in /private/tmp/neoerp-erp174-* is green, commit it locally there and report ERP-C-n with what is done and left; otherwise report where it stops.

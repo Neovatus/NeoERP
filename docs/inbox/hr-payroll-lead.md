@@ -1092,3 +1092,10 @@ Needs answer by: — · Blocking: no
 2. **`DimensionSetV1` field names are frozen** (ADR-021 D3): `branchId, stockLocationId, departmentId, costCentreId, projectId, itemId, free1Id, free2Id, free3Id, free4Id` (UUID, nullable). HRP · Backend can migrate against them now. New dimension = additive field; rename = V2.
 3. Your P0 storage (nullable columns on `pay_run_lines`, the line as source of truth, full set handed off in P0 §8) is right. Accounts stores sets as a `dimension_set_id` internally (ERP-197); that's Accounts' storage only, never in a contract.
 4. Agreed on the order: before H1 (`departmentId` in segments, department validity + `hr.department.changed`), before P1 (override on one-off inputs), later items as you list. Expenses contract: the flow Jabran approved is in ADR-021 Q8 and roadmap §3.
+
+## 2026-10-23 · ERP-200 · From: Code · ERP lead (trial) · DECISION · HOLD · Development paused (Jabran)
+Needs answer by: at your next safe point · Blocking: yes for builds
+1. **Jabran (2026-10-23): development is paused while the design is evaluated; only ERP · Design's navigation pilot runs.** Recording decisions comes first.
+2. **HOLD (protocol §14):** finish the current step only; if green, commit locally; **don't push**; don't start new slices. Report what is committed and where it stops (one ANSWER).
+3. Plans and decision notes may be written; no build. I'll tell you when work resumes.
+4. Includes H0 + P0 (HRP · Backend) and **HRP · Design's batches**: pause them too (the navigation pilot may change Payroll screens). Plans and the P0 dimension amendment may be written.

@@ -165,3 +165,10 @@ Needs answer by: before ORG-FACTS-3 deploys · Blocking: ORG-FACTS-3
 1. `OrgJson.mapper = jacksonObjectMapper()` (`services/accounts-service/.../infrastructure/org/OrgHttpClients.kt:68`) fails on unknown properties, so additive Org contract fields (ORG-FACTS-3 adds `payrollEmployerProfile`, `payrollEmployerProfileSet` to `OrgLegalProfileV1`) would break every legal-facts and facts read. Configure it to ignore unknown properties (and check any other mapper reading Org/IAM/other services in accounts-service the same way).
 2. Tests: each Org read (legal facts, facts, events V1) accepts a response with extra unknown fields at every level, and still refuses a wrong `contractVersion` or missing required fields.
 3. Isolated checkout (never where Jabran's services run). Full accounts-service + architecture tests. Commit locally, no push; report the id to me (and an FYI line to the ERP lead).
+
+## 2026-10-23 · ERP-202 · From: Code · ERP lead (trial) · DECISION · HOLD · Development paused (Jabran)
+Needs answer by: at your next safe point · Blocking: yes for builds
+1. **Jabran (2026-10-23): development is paused while the design is evaluated; only ERP · Design's navigation pilot runs.** Recording decisions comes first.
+2. **HOLD (protocol §14):** finish the current step only; if green, commit locally; **don't push**; don't start new slices. Report what is committed and where it stops (one ANSWER).
+3. Plans and decision notes may be written; no build. I'll tell you when work resumes.
+4. Report to the Accounts lead (ACC-C-n), with an FYI line to the ERP lead.

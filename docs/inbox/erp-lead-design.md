@@ -158,3 +158,8 @@ Jabran wants to **see** the proposed navigation in one module before it becomes 
 3. **Don't edit Payroll's module blocks** (HRP · Design's files): implement in the shell/root (CSS and shell props behind the switch, e.g. hide the module tab bar and render chips/breadcrumb from the existing tab/status data). If a part can't be shown without touching a module block, make a **pilot copy** of that one screen in your own file, labelled "Pilot", and say so.
 4. **Measure:** run the harness on Payroll at 1440 · 1280 · 1024 · 768 · 390, current vs proposed: below-fold count, vertical px gained per screen (median), clicks for Payroll's top tasks. 
 5. Report as ERP-D-n with 3–4 frame links (`#frame:<w>|…@nav=proposed`) I can give Jabran, the numbers, and anything that didn't fit the rule. Commit as Draft. Then resume B.
+
+## 2026-10-23 · ERP-203 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-192, ERP-193 · Pilot only (Jabran)
+Needs answer by: — · Blocking: no
+1. Jabran paused development while the design is evaluated, and **only the navigation pilot (ERP-193) runs**. Finish it and report it; then **stop**: B (hard-coded value check) and slice 6 wait until Jabran has reviewed the pilot.
+2. HRP · Design is paused too, so app.html has no other writer now.

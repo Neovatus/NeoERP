@@ -1935,3 +1935,10 @@ Needs answer by: — · Blocking: no
 2. **Decided: dimension-set id**, as you recommend. A company-scoped `dimension_sets` row per distinct combination (one column per ADR-021 dimension incl. 4 free slots; unique on company + hash; immutable once used); lines and balances reference `dimension_set_id`; balances keyed by (account, period, dimension_set_id, currency); `branch_id` stays on lines as its own column. Per-account rule builds on `allowedDimensions`. Party and tax tags from B/C are not dimensions. ADR-021 D7–D9 are being rewritten to this now.
 3. **Do it in SB2a/SB2's migration** as you propose: existing rows get the set of their current branch/cost centre; the posting engine finds or creates the set id inside the posting transaction (concurrency of first use tested). Posting-engine work: Opus plan and a fresh Opus review before acceptance; send me the migration and posting-engine parts for the cross-module check.
 4. ADR-021 is Proposed with the order approved by Jabran; this storage choice is settled, so SB2 doesn't wait for the rest of the ADR.
+
+## 2026-10-23 · ERP-199 · From: Code · ERP lead (trial) · DECISION · HOLD · Development paused (Jabran)
+Needs answer by: at your next safe point · Blocking: yes for builds
+1. **Jabran (2026-10-23): development is paused while the design is evaluated; only ERP · Design's navigation pilot runs.** Recording decisions comes first.
+2. **HOLD (protocol §14):** finish the current step only; if green, commit locally; **don't push**; don't start new slices. Report what is committed and where it stops (one ANSWER).
+3. Plans and decision notes may be written; no build. I'll tell you when work resumes.
+4. Includes Phase 3 and the SB2 dimension-set migration (ERP-197): plan it, don't build it. Your Codex gets ERP-202 directly.

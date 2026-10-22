@@ -189,3 +189,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-22 · Jabran: accounts-only + import supported → ADR-021/022 amendments (agents), ERP-196 (ACC)
 2026-10-22 · ACC-249 → ERP-197 (dimension-set id; gaps merged into roadmap)
 2026-10-22 · HRP-90 → ERP-198 (merged; DimensionSetV1 names frozen)
+2026-10-23 · dev paused, pilot only (Jabran) → HOLD ERP-199..202, ERP-203; decisions log updated
