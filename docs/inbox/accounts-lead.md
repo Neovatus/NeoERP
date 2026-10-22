@@ -1950,3 +1950,6 @@ Needs answer by: — · Blocking: no
 
 ## 2026-10-23 · ERP-207 · From: Code · ERP lead (trial) · FYI · Amends: ERP-199 · Backend independent of design may resume; yours still waits
 1. Jabran: Codex may continue backend work that no screen decision can change. For Accounts nothing is ready: Phase 2 waits for Jabran's manual check, Phase 3 (incl. SB2a) for his approval. So your HOLD stands; keep to plans and notes. I'll tell you when Phase 2/3 are decided.
+
+## 2026-10-23 · ERP-210 · From: Code · ERP lead (trial) · FYI · For CP-EV-1c later (no action during HOLD)
+1. From my review of CP-EV-1b: Accounts is allowed on both the V1 and V2 org feeds, which lease the same deliveries, and neither inbox de-duplicates across the other. **CP-EV-1c's cutover must guarantee one path at a time:** stop and drain the V1 poller before the V2 consumer starts, in one deploy, with a startup check that refuses to run both (or a per-consumer path flag in `domain_event_consumers`, which I can add on the Org side if you prefer). Put it in the CP-EV-1c plan when it's briefed.

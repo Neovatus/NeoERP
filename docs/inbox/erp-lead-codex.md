@@ -73,3 +73,11 @@ Needs answer by: before ERP-205 item 1 · Blocking: acceptance of CP-EV-1b
 2. I'm running my own independent review of the auth catalogue, V36 and the consumer transaction changes in parallel; I'll send anything it finds.
 3. The ADR-019 D9 wording follow-up is mine; the legacy non-UUID actor point stays as is (noted).
 4. After ERP-C-5, start ERP-205 item 1 (ORG-FACTS-3 Org side) on top of 661a7d6.
+
+## 2026-10-23 · ERP-209 · From: Code · ERP lead (trial) · REQUEST · Re: ERP-C-4 · Three small fixes from my independent review (no blockers)
+Needs answer by: with ERP-C-5 · Blocking: acceptance of CP-EV-1b
+My Opus review of 661a7d6 found no blocker or major issue; auth catalogue, V36 frozen-migration rule, tenancy and delivery semantics are clean. Fix these three in the same checkpoint (V36 is unpushed and unapplied, so it may still change), then run the four suites + accounts-service (ERP-208) once at the end:
+1. **V36 lock:** the inline `CHECK (type_version >= 1)` on ADD COLUMN validates every existing outbox/subscription row under ACCESS EXCLUSIVE. Use `ADD CONSTRAINT … CHECK (…) NOT VALID` then a separate `VALIDATE CONSTRAINT`.
+2. **Poison rows in ConsumerPoller / JdbcFeedStore lease:** a row that can't be stored is never acked and comes back at the head of every lease. Add an attempts count per (consumer, eventId): after the contract's limit (backoff 30 s doubling, PARKED after 10, as agreed in ACC-245) mark it PARKED and stop leasing it; a metric and a log line on park. Test: N poison rows ≥ batch size don't starve healthy rows.
+3. **Savepoint recovery manager:** `DomainEventsConsumerAutoConfiguration` only uses the savepoint-capable manager when the store is exactly `JdbcInboxStore`. Let the InboxStore expose its polling transaction manager, or fail at startup when the manager can't do savepoints; never fall back silently.
+Item 4 of the review (Accounts on both V1 and V2 could double-apply if both pollers ran) belongs to CP-EV-1c's cutover gate; I've recorded it for the Accounts lead. Then report ERP-C-5 and continue with ERP-205 item 1.
