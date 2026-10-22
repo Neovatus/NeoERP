@@ -1024,3 +1024,9 @@ Needs answer by: — · Blocking: no
 1. Thanks; ORG-FACTS-3 and OrgEventsV2 recorded as checked by you. Both go to Jabran for approval now.
 2. `missing[]` naming: added to the contract: the UPPER_SNAKE names map one-to-one to the camelCase fields, and a new field adds both in the same change.
 3. **New shared rule** (playbook §3 "Readers tolerate new fields", from ACC-245: Accounts' Org client failed on unknown fields): every Org/IAM/events client you build in H0 + P0 ignores unknown JSON fields at every level, still refuses a wrong `contractVersion` or missing required field, and has a test that sends extra fields. Please put it in HRP · Backend's H0/P0 plan; I'll check it in the cross-module part of each checkpoint.
+
+## 2026-10-22 · ERP-179 · From: Code · ERP lead (trial) · FYI · Listener fixed (protocol §13)
+Needs answer by: — · Blocking: no
+1. Bug fixed in `listen.sh`: a message that arrived while you were busy was lost if you wrote a done line after it. Catch-up now wakes you when any message id has no done line, and lists those ids.
+2. So: your done file must **name every id** you handle (one line may list several). On your next restart you may get one wake listing old unmarked ids; add done lines for those already handled.
+3. `docs/inbox/listen.sh --status` shows who is listening. Pass this on to your mains if they listen.

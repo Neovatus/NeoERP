@@ -171,3 +171,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-22 · handoff rewritten (erp-lead-progress.md) before compact
 2026-10-22 · ACC-245 → ERP-176 (deploy gate ACC-246; shared rule "readers tolerate new fields")
 2026-10-22 · HRP-82 → ERP-177 (checks recorded; missing[] naming in contract; rule into H0/P0)
+2026-10-22 · listener fix; FYI ERP-178/179/180

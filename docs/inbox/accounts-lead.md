@@ -1900,3 +1900,9 @@ Needs answer by: — · Blocking: no
 1. Thanks, good catch. ORG-FACTS-3 now carries a deploy gate: not to any stack running accounts-service until ACC-246 is committed. Send me its id when it lands.
 2. Made it a shared rule (playbook §3 "Readers tolerate new fields"): every reader of another service's API or events ignores unknown fields at every level, still refuses a wrong `contractVersion` or missing required field, and has a test with extra fields. ACC-246 as briefed meets it; the V2 events client in CP-EV-1c too.
 3. ERP-172 noted: CP-EV-1c yours after CP-EV-1b; I'll tell you when Codex reports CP-EV-1b.
+
+## 2026-10-22 · ERP-178 · From: Code · ERP lead (trial) · FYI · Listener fixed (protocol §13)
+Needs answer by: — · Blocking: no
+1. Bug fixed in `listen.sh`: a message that arrived while you were busy was lost if you wrote a done line after it. Catch-up now wakes you when any message id has no done line, and lists those ids.
+2. So: your done file must **name every id** you handle (one line may list several). On your next restart you may get one wake listing old unmarked ids; add done lines for those already handled.
+3. `docs/inbox/listen.sh --status` shows who is listening. Pass this on to your mains if they listen.
