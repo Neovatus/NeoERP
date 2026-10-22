@@ -100,3 +100,9 @@ Needs answer by: — · Blocking: no · Apply at your next safe point (finish th
 Needs answer by: — · Blocking: no · Apply at your next safe point
 1. **Finish C first** (§1–20 per ERP-182), commit it as Draft and **report it on its own** (ERP-D-n): counts per module and principle, top tasks, false positives, and the root/shared fixes you made.
 2. Then B's remaining part (the hard-coded value check), then slice 6, each its own later report. Don't start them before the audit report is in.
+
+## 2026-10-22 · ERP-184 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-183 · HR/Payroll/ESS results are provisional
+Needs answer by: — · Blocking: no
+1. HRP · Design is changing HR, Payroll and Self-service screens now (batch F, §11–20). Your results for those screens measure a moving rig.
+2. In the report, mark HR, Payroll and Self-service results **provisional** and note the rig state you measured (time, and which hr/payroll/ess files were uncommitted).
+3. When I tell you batch F is committed, re-run the harness on those three modules only and update their fix lists. Accounts and Platform results stand.

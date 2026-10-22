@@ -175,3 +175,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-22 · ERP-181 (app.html shared with HRP · Design) sent
 2026-10-22 · ERP-182 (audit §1–20) sent
 2026-10-22 · ERP-183 (audit first) sent
+2026-10-22 · ERP-184 (HR/Payroll/ESS provisional) sent
