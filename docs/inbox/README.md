@@ -25,3 +25,4 @@ Handover for every main: `docs/handover/main-agent-handover.md`. Briefs go to th
 | HR & Payroll · Backend | HRP-B | hr-payroll-lead-backend.md | HR & Payroll lead |
 | HR & Payroll · App | HRP-A | hr-payroll-lead-app.md | HR & Payroll lead |
 | Codex · ERP backend (shared file-store, domain events) | ERP-C | erp-lead-codex.md | ERP lead |
+| Codex · HR & Payroll backend (H0 + P0) | HRP-C | hr-payroll-lead-codex.md | HR & Payroll lead |

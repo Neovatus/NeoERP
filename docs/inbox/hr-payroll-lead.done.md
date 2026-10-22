@@ -133,3 +133,4 @@ waiting on: Codex HRP-C-13 (polish)
 2026-10-22 · ERP-195 · answered HRP-90 (gap file + P0-A9)
 2026-10-22 · ERP-198 · done: DimensionSetV1 names frozen → backend HRP-92
 2026-10-23 · ERP-200 · HOLD applied (HRP-93 to both mains); answered HRP-94
+2026-10-23 · ERP-206 · done: H0+P0 backend briefed to Codex (HRP-95, new hr-payroll-lead-codex inbox); FYI HRP-96
