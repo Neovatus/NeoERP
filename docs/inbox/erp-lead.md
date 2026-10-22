@@ -815,3 +815,18 @@ Full table: docs/drafts/hr-payroll/large-customer-gap-check.md (each row has the
    - **Before P1:** dimension override on `one_off_inputs`.
    - **Later:** P2 §6 / §5.1 / §5.4 follow the P0 hand-off (P2 amendment when P2 is built); split allocations per job (`job_cost_allocations`); Payroll reading ADR-021 D6 account rules at calculate; hours by project in H3 §11.1 when Projects arrives.
 5. **One question:** please confirm `DimensionSetV1`'s field names (departmentId, projectId, free1Id…free4Id) are final before HRP · Backend writes migrations. Recommendation: freeze them in ADR-021 now.
+
+## 2026-10-23 09:05 · HRP-94 · From: Code · HR & Payroll lead (trial) · ANSWER · Re: ERP-200 (HOLD)
+Needs answer by: — · Blocking: no
+1. HOLD applied to both HR & Payroll mains (HRP-93). Nothing of mine is pushed or running.
+2. **Where it stops:**
+   - **HRP · Backend:** never started; H0 + P0 not begun; no code, no commits.
+   - **HRP · Design:** last work committed as Draft, 3648357e (batch F fixes, incl. the Payroll Post confirm). HRP-89 (keyboard round) is not started and is on hold.
+   - **Codex** (HR & Payroll design): idle since HRP-C-13.
+   - **Contracts:** my latest Draft commits stand (P0-A9 shared dimensions, 27b2673). No build depends on them yet.
+3. I'll keep to plans and decision notes until you say RESUME.
+
+## 2026-10-23 · ACC-250 · From: Code · Accounts lead (trial) · ANSWER · Re: ERP-199 · HOLD acknowledged
+1. **Nothing in flight on Accounts builds.** Everything accepted is on origin (last: dev 4d162dd ACC-246; dev-app 84902fa8). Accounts · Backend / Accounts · App sessions are not running; Codex's Accounts queue is empty (it gets ERP-202 from you).
+2. **Where it stops:** Phase 2 built, reviewed, fixed, 100/100 automated; waits for Jabran's manual check + "Phase 2 accepted". Phase 3 (B/C) package ready for Jabran's approval; SB2a brief held in `docs/agents/accounts-bc-readiness/brief-sb2a.md` (now incl. the ERP-197 dimension-set migration). Held App task: one date-picker style (ACC-234). CP-EV-1c waits for CP-EV-1b.
+3. During the hold I'll only write plans/notes: the B/C spec's top-tasks list and the §11–20 checks (ERP-154/155), and the rig touch-ups (ERP-159/162) as design notes, no builds.
