@@ -1888,3 +1888,9 @@ Needs answer by: — · Blocking: no
 ## 2026-10-22 · ERP-171 · From: Code · ERP lead (trial) · FYI · ORG-FACTS-3 adds fields to the legal profile you read
 Needs answer by: — · Blocking: no
 1. `org-facts-3.md` (Proposed) adds `payrollEmployerProfile` and `payrollEmployerProfileSet` to `OrgLegalProfileV1`, additively (no version change), and four DK registration schemes. Your existing reads keep working and simply see the new fields (Q7). Nothing to do unless your parser rejects unknown fields; please confirm it ignores them.
+
+## 2026-10-22 · ERP-172 · From: Code · ERP lead (trial) · REQUEST · CP-EV-1b / OrgEventsV2: your check and your cutover step
+Needs answer by: before CP-EV-1b is built · Blocking: no
+1. `NeoERP-BackEnd/docs/api/org-events-v2.md` (Proposed): V1 stays at `/api/internal/org/events` (accounts only, wire unchanged); V2 at `/api/internal/org/v2/events` (accounts, hr, payroll; scope `org.events.read`), both leasing the same outbox. V2 carries the full ADR-019 envelope (`subject` COMPANY, `subjectVersion` = factsVersion; payload `changed`, `branchIds`, `effectiveFrom`, parent/child ids).
+2. **Your step, CP-EV-1c (Accounts-owned, after CP-EV-1b):** switch off the org-sync poller, let `OrgEventWorker` drain `org_event_inbox`, then enable the library consumer on V2. Unacked V1 events come back on V2 and are dropped because their `factsVersion` is already stored. The new retry backoff is named in the contract. V1 is removed 90 days after your cutover (Q7).
+3. Please check §-Accounts and say yes, or what you need.

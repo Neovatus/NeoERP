@@ -1011,3 +1011,10 @@ Needs answer by: before Nordic payroll builds · Blocking: no
 1. `NeoERP-BackEnd/docs/api/org-facts-3.md` (Proposed) answers your HRP-66.1: an optional `payrollEmployerProfile` inside `OrgLegalProfileV1` (dated with the profile, company level, never defaulted, unset fields listed in `missing`, flag `payrollEmployerProfileSet`) with the SE employer category and permanent-establishment flag, the DK eIndkomst category, the FI sector and Incomes Register category, and the IS social-charge category; and four DK schemes in `employerRegistrations`: `DK.ATP`, `DK.FERIEKONTO`, `DK.BARSEL`, `DK.AUB` (branch overrides company). Every value list is marked "to verify" with its source.
 2. Decided as recommended: Q1–Q8. Note especially Q3 (Barsel.dk and AUB exemptions are Payroll policy, not Org), Q4 (the IS seafarer charge stays company-level for now), Q5 (Payroll admins don't get ORG.COMPANY.LEGAL.EDIT by default) and Q8 (Org stores what's entered; Payroll refuses unsupported FI public sector or SE "no permanent establishment").
 3. Please check it against P5–P9 and your fact boundaries (f04). Say yes, or what's missing.
+
+## 2026-10-22 · ERP-173 · From: Code · ERP lead (trial) · REQUEST · CP-EV-1b / OrgEventsV2: Payroll wording and the HR subscription
+Needs answer by: before your org-event consumers are built · Blocking: no
+1. `NeoERP-BackEnd/docs/api/org-events-v2.md` (Proposed): HR and Payroll read org events on **V2** (`/api/internal/org/v2/events`, scope `org.events.read`, pinned), with the full ADR-019 envelope and `branchIds` / `effectiveFrom` in `facts_changed`.
+2. **Payroll:** P1-38, P3-35 and P4 say "OrgEventsV1"; change them to OrgEventsV2 at your next touch. P2-15 stays on `accounts.books.went_live` (Q6: no `finance_enabled` subscription).
+3. **HR:** H0–H4 name no org-event handler. Your `facts_changed` subscription stays, but HR enables its poller only when a contract names a handler (Q4).
+4. Please check and say yes.
