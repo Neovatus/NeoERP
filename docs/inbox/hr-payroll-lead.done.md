@@ -127,3 +127,4 @@ waiting on: Codex HRP-C-13 (polish)
 2026-10-20 · ERP-150 · noted: read-only status pills; inline settings only via the reason gate → batch D/E briefs (HRP-73)
 2026-10-22 · HRP-D-4 · batch F partial; answered HRP-86 (yes a/b/c, check d, finish list, commits allowed)
 2026-10-22 · HRP-D-5 · batch F accepted as Draft (565d5986); fixes HRP-87; H2 PROTECTION_ACTIVE added
+2026-10-22 · ERP-188 · done: Post confirm + route check → Design (HRP-88); audit fix lists awaited

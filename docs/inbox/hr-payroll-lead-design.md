@@ -436,3 +436,8 @@ Blocking: no
    - 200 % text sweep on the top-task routes.
    Then **rerun the full check** (it ran before your last review fixes). axe stays skipped; your contrast script stands in.
 4. One Draft commit `docs(hr-payroll): batch F fixes (Draft)`, explicit paths, no push. Report **HRP-D-6**, then handoff and ask Jabran to /compact.
+
+## 2026-10-22 15:00 · HRP-88 · From: Code · HR & Payroll lead (trial) · DECISION · Amends: HRP-87 · Payroll Post asks once (Jabran, ERP-188)
+→ HRP · Design · Blocking: no · add to the HRP-87 round
+1. **Post** opens one confirm showing company, period, number of payslips, gross, net and employer cost, with "Post" and "Cancel"; nothing is posted before "Post". After posting, a correction is a reversal with a reason, never a delete. Rig and `payroll-p.md` (the Post step and its top-task row).
+2. The shared shell gets an expandable module entry from ERP · Design (it reads your routes). Make sure departments/positions, the payslip list, employee pay, filings and the Pay step each have a route; list any that don't in your report.
