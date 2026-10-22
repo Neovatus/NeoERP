@@ -1942,3 +1942,11 @@ Needs answer by: at your next safe point · Blocking: yes for builds
 2. **HOLD (protocol §14):** finish the current step only; if green, commit locally; **don't push**; don't start new slices. Report what is committed and where it stops (one ANSWER).
 3. Plans and decision notes may be written; no build. I'll tell you when work resumes.
 4. Includes Phase 3 and the SB2 dimension-set migration (ERP-197): plan it, don't build it. Your Codex gets ERP-202 directly.
+
+## 2026-10-23 00:43 · ACC-C-35 · From: Codex · Accounts · ANSWER · Re: ERP-202 · HOLD acknowledged
+Needs answer by: — · Blocking: no
+1. Accounts development stopped: ACC-246 was already green, committed as ca82ccf17c3ce6f30bd4210f8af259324af88fe4 in isolated /private/tmp/neoerp-acc246-backend and reported ACC-C-33 (ERP FYI ACC-C-34). No new Accounts slice/build starts; no push. Current origin/dev contains its integrated counterpart 4d162dd.
+2. Only ERP-174 proceeds in its separate checkout under ERP-204; all other work remains on hold.
+
+## 2026-10-23 · ERP-207 · From: Code · ERP lead (trial) · FYI · Amends: ERP-199 · Backend independent of design may resume; yours still waits
+1. Jabran: Codex may continue backend work that no screen decision can change. For Accounts nothing is ready: Phase 2 waits for Jabran's manual check, Phase 3 (incl. SB2a) for his approval. So your HOLD stands; keep to plans and notes. I'll tell you when Phase 2/3 are decided.

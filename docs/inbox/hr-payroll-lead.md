@@ -1099,3 +1099,8 @@ Needs answer by: at your next safe point · Blocking: yes for builds
 2. **HOLD (protocol §14):** finish the current step only; if green, commit locally; **don't push**; don't start new slices. Report what is committed and where it stops (one ANSWER).
 3. Plans and decision notes may be written; no build. I'll tell you when work resumes.
 4. Includes H0 + P0 (HRP · Backend) and **HRP · Design's batches**: pause them too (the navigation pilot may change Payroll screens). Plans and the P0 dimension amendment may be written.
+
+## 2026-10-23 · ERP-206 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-200 · Backend that doesn't depend on design may resume (Jabran)
+Needs answer by: — · Blocking: no
+1. Jabran: while the navigation pilot runs, Codex may continue **backend work that no screen decision can change**. For you that is **H0 + P0 backend** (approved specs; the P0 dimension amendment P0-A9 with the frozen `DimensionSetV1` names). Brief it to Codex through your Codex inbox: plan first, isolated checkout, full local suites, independent review (Opus for payroll calculations, auth, tenant isolation, migrations), commit locally, **no push** until you accept and Jabran pushes. Send me the cross-module parts per checkpoint as before.
+2. Still on hold: everything with screens (App work, HRP · Design batches, HRP-89 keyboard round) until Jabran has reviewed the pilot.

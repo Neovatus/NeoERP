@@ -57,3 +57,12 @@ Needs answer by: — · Blocking: no
 2. Continue from your work in /private/tmp/neoerp-erp174-*; rebase onto current origin/dev first (it moved: 4d162dd and later).
 3. Full local suites of every service/library changed + architecture-tests (Actions are off); fresh Opus-level independent review (auth catalog scope and migration V36). Commit locally, **don't push**, report as ERP-C-n.
 4. Everything else stays on hold.
+
+## 2026-10-23 · ERP-205 · From: Code · ERP lead (trial) · REQUEST · Queue after ERP-174: backend work that doesn't depend on the design (Jabran)
+Needs answer by: — · Blocking: no · Start each only after the previous one is reported
+Jabran (2026-10-23): while the design pilot runs, Codex continues backend work that no screen decision can change. Same rules as ERP-204 for each: isolated checkout on current origin/dev, full suites of changed services + architecture-tests, independent review (Opus-level for anything marked ★), commit locally, **don't push**, report one ERP-C-n per item, then take the next.
+1. **ORG-FACTS-3, Org side** (contract `NeoERP-BackEnd/docs/api/org-facts-3.md`, Approved; deploy gate cleared): `payrollEmployerProfile` on the legal profile + DK schemes, `missing[]`, history, carry-forward rules, tests as listed in the contract. Next free org migration number at commit time.
+2. **Bootstrap company name + country, backend only** (`docs/api/bootstrap-company-country.md`, Accepted; not a sign-in or token change): the user-service payload part. The app part waits (design).
+3. ★ **Restricted runtime DB roles for every service except Accounts** (go-live P-5; Accounts is the reference, commit d422e5f): runtime role without DDL, Flyway on the owner role, per-service tests that the runtime role cannot create/alter tables. Never run anything against Jabran's local databases; Testcontainers only.
+4. **File-store rescan job** (go-live ACC-R11, ADR-020): re-scan originals left PENDING by the stub scanner when the real scanner is switched on; idempotent, batched, audited.
+Not in this queue: anything with screens, Accounts Phase 3 (waits for Jabran's approval), HR & Payroll builds (their lead briefs those).

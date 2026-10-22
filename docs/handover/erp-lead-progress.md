@@ -18,9 +18,9 @@ Owner: Code · ERP lead (trial). **Rewritten 2026-10-22 before a compact.** Read
 | Who | State |
 |---|---|
 | ERP · Design | Navigation pilot in Payroll (ERP-193) only; then stop (B, slice 6 wait) |
-| Codex · ERP backend | **Continues** CP-EV-1b (exception, ERP-204); work in /private/tmp/neoerp-erp174-*; local commits only |
+| Codex · ERP backend | **Continues** CP-EV-1b (exception, ERP-204); work in /private/tmp/neoerp-erp174-*; local commits only; then queue ERP-205 (ORG-FACTS-3 Org, bootstrap backend, DB roles, rescan job) |
 | Accounts lead / Codex | HOLD (ERP-199, ERP-202); SB2 dimension-set migration planned, not built |
-| HR & Payroll lead / HRP · Design | HOLD (ERP-200); design batches paused too |
+| HR & Payroll lead / HRP · Design | H0 + P0 **backend** may resume via Codex (ERP-206); design and App on hold |
 | Fix lists from the audit (ERP-D-7) | Held until Jabran decides the navigation rule after the pilot |
 | ADR-021/022/023 | Proposed, order approved; Accepted after scope approval |
 

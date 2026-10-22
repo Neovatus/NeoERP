@@ -192,3 +192,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-23 · dev paused, pilot only (Jabran) → HOLD ERP-199..202, ERP-203; decisions log updated
 2026-10-23 · HRP-94, ACC-250 HOLD acknowledged (nothing in flight)
 2026-10-23 · Jabran: CP-EV-1b continues → ERP-204
+2026-10-23 · Jabran: design-independent backend continues → ERP-205 (queue), ERP-206 (HRP), ERP-207 (ACC)

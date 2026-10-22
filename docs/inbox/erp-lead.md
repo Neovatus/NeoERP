@@ -830,3 +830,7 @@ Needs answer by: — · Blocking: no
 1. **Nothing in flight on Accounts builds.** Everything accepted is on origin (last: dev 4d162dd ACC-246; dev-app 84902fa8). Accounts · Backend / Accounts · App sessions are not running; Codex's Accounts queue is empty (it gets ERP-202 from you).
 2. **Where it stops:** Phase 2 built, reviewed, fixed, 100/100 automated; waits for Jabran's manual check + "Phase 2 accepted". Phase 3 (B/C) package ready for Jabran's approval; SB2a brief held in `docs/agents/accounts-bc-readiness/brief-sb2a.md` (now incl. the ERP-197 dimension-set migration). Held App task: one date-picker style (ACC-234). CP-EV-1c waits for CP-EV-1b.
 3. During the hold I'll only write plans/notes: the B/C spec's top-tasks list and the §11–20 checks (ERP-154/155), and the rig touch-ups (ERP-159/162) as design notes, no builds.
+
+## 2026-10-23 00:43 · ACC-C-36 · From: Codex · Accounts · FYI · Re: ERP-202
+Needs answer by: — · Blocking: no
+1. Accounts HOLD acknowledged to owning lead in ACC-C-35; ACC-246 already committed/reported before pickup, no new Accounts build/slice or push. Only separate ERP-174 continues under ERP-204.

@@ -20,3 +20,5 @@ ACC-230 — design fixes/local delivery complete: App9289e44c, workspace27673572
 ACC-231 — requested RC-1/2/3/4/5/7 implementation/local delivery complete: Appe353de91c256cac1d637523780169569d74645ed, workspacef9c31a578a304475a3e1ada1952ceca0b9486727;43/43 checks; reported ACC-C-17. Lead follow-up disposition pending; no push/Phase3 build.
 
 ACC-246 — 2026-10-22 20:21: implemented/tested/reviewed and committed ca82ccf17c3ce6f30bd4210f8af259324af88fe4; reported ACC-C-33, ERP FYI ACC-C-34; no push, owning lead acceptance/integration pending.
+
+ERP-202 — 2026-10-23 00:43: HOLD acknowledged ACC-C-35, ERP FYI ACC-C-36; ACC-246 already delivered locally, no new Accounts work.
