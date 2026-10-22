@@ -183,3 +183,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-22 · Jabran: expandable module entry + Payroll Post confirm → ERP-187 (ERP · Design), ERP-188 (HRP)
 2026-10-22 · Jabran approved ORG-FACTS-3 + OrgEventsV2; backend pushed (4d162dd) → ERP-189/190/191
 2026-10-22 · ACC-248 FYI noted (gate lifted)
+2026-10-22 · ERP-D-7 → ERP-192 (AC-4 + Undo; lists held for nav rule; B go)

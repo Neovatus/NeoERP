@@ -51,3 +51,8 @@ HRP-86 · fixed protection card T-error and danger-bar contrast; re-integrated; 
 HRP-86 · Opus review: fixes first (gate, Writes-to, Undo onDone); fix workers A and B running
 HRP-86 · commit prep ready (HEAD-based app.html blob); waiting for check rerun
 HRP-86 · batch F committed as Draft (565d5986, 24 files; app.html via index blob); HRP-D-5 sent; stopped
+HRP-87 · started (fix workers P payroll, H HR, S specs); HRP-88 Post confirm in P; check rerun and Draft commit to follow; HRP-D-6 after
+HRP-87 · H done (409 wording, protection card to top, route list); P and S still running
+HRP-87 · S done (Sweden section, Post and Find employee notes); P still running
+HRP-87 · P, H, S done; integrated; full check started (route sweep, keyboard, 200%, contrast); then Keyboard column, Draft commit, HRP-D-6
+HRP-87/88 · HRP-D-6 sent; batch F fixes committed as Draft 3648357e; stopped

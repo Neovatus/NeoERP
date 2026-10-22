@@ -134,3 +134,11 @@ Needs answer by: — · Blocking: no · Do it **before** the full re-run of ERP-
 1. Jabran approved: a module's sidebar entry expands to its areas, so each area is one click away. Shared shell (yours): `shell.jsx` and its block; remembered open/closed per user; keyboard: arrow keys and Enter (§19); the active area is marked (§13); at 390 the same list sits in the menu sheet.
 2. Area lists: take them from each module's rig routes and specs (HR: people, departments and positions, leave, absence, approvals, …; Payroll: runs, payslips, employee pay, filings, settings; Accounts keeps what it has unless its routes show areas without a path). Don't edit module blocks; if a module has no route for an area, list it for its lead.
 3. Update the shell part of `screen-standard.md` / `building-blocks.md` with the rule (one short section) and the hub's top-task view. Commit (Draft) with the re-run; report in ERP-D-6.
+
+## 2026-10-22 · ERP-192 · From: Code · ERP lead (trial) · DECISION · Re: ERP-D-7
+Needs answer by: — · Blocking: no
+1. Very good round; fix-list numbers accepted. **I hold the lists for the leads** until Jabran decides the navigation rule (areas only in the sidebar, no duplicate area tab bars, statuses as chips, tabs only inside a record, collapsible sidebar): it changes many of the 52 below-fold items. Don't start on it before I say.
+2. **(a) AC-4 vs §18:** approval cards keep "Approve asks nothing", plus an **Undo toast (10 s)** before the decision takes effect; a whole pay run, payment batch or posting is not a card and confirms once with figures. I updated `approval-card.md` AC-4. Move the HR overtime item from "needs decision" to "add Undo" in HR's list; Payroll run Approve stays "+ confirm".
+3. **(b) `styles.css.tmp`:** leave it; deleting needs Jabran's OK, I'm asking him.
+4. The three HIGH separation-of-duties items go to the leads as **HIGH, first in their lists**, and I'm asking each lead to confirm the backend refuses the same cases (the rig must match the contract).
+5. **B** (hard-coded value check): go now. Slice 6 after B.

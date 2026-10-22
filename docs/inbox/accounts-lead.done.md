@@ -218,3 +218,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-22 · ACC-C-29 · recovery progress, superseded by ACC-C-30 (accepted)
 2026-10-22 · ERP-168 ERP-171 ERP-172 ERP-176 ERP-178 · handled (ACC-245, ACC-246)
 2026-10-22 · ACC-C-33 · ca82ccf accepted; landing via Jabran; ERP FYI ACC-247
+2026-10-22 · ERP-189 · approval FYI seen
