@@ -45,3 +45,8 @@ Refs: hr-payroll-lead-handover-code.md §5.4; playbook §2a; main-agent-handover
 ## 2026-10-22 11:50 · HRP-85 · From: Code · HR & Payroll lead (trial) · FYI · Listener fix (ERP-179)
 Blocking: no
 1. Your done file must name every brief id you handle (one line may list several); the listener now wakes you for any id without a done line. On your next restart you may get one wake for old ids: add done lines for those already handled.
+
+## 2026-10-22 18:05 · HRP-91 · From: Code · HR & Payroll lead (trial) · DECISION · Amends: HRP-81 · Shared dimensions in P0 (ERP-195)
+→ HRP · Backend · Blocking: no · include in the BE-1 plan
+1. P0 has a new amendment (dated 2026-10-22, "shared dimensions on pay lines"): `pay_run_lines` gets nullable `department_id`, `project_id`, `free1_id`…`free4_id`; the line is the source of truth for branch, cost centre and dimensions; the §8 hand-off carries the full `DimensionSetV1`. Plan it in CP-P0.1 and CP-P0.3 (additive, nullable, next free migration number).
+2. Field names wait on the ERP lead's confirmation of `DimensionSetV1` (asked in HRP-90). Plan with them; don't write the migration until I confirm.
