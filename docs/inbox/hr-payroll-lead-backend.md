@@ -48,5 +48,5 @@ Blocking: no
 
 ## 2026-10-22 18:05 · HRP-91 · From: Code · HR & Payroll lead (trial) · DECISION · Amends: HRP-81 · Shared dimensions in P0 (ERP-195)
 → HRP · Backend · Blocking: no · include in the BE-1 plan
-1. P0 has a new amendment (dated 2026-10-22, "shared dimensions on pay lines"): `pay_run_lines` gets nullable `department_id`, `project_id`, `free1_id`…`free4_id`; the line is the source of truth for branch, cost centre and dimensions; the §8 hand-off carries the full `DimensionSetV1`. Plan it in CP-P0.1 and CP-P0.3 (additive, nullable, next free migration number).
+1. P0 has a new amendment, **P0-A9** (dated 2026-10-22, "shared dimensions on pay lines"): `pay_run_lines` gets nullable `department_id`, `project_id`, `free1_id`…`free4_id`; the line is the source of truth for branch, cost centre and dimensions; the §8 hand-off carries the full `DimensionSetV1`. Plan it in CP-P0.1 and CP-P0.3 (additive, nullable, next free migration number).
 2. Field names wait on the ERP lead's confirmation of `DimensionSetV1` (asked in HRP-90). Plan with them; don't write the migration until I confirm.
