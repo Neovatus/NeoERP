@@ -88,3 +88,10 @@ Needs answer by: — · Blocking: no · Apply at your next safe point
 1. HRP · Design is editing the `hr-*`, `payroll-*` and `ess-shell` blocks in the same checkout (batch F), uncommitted. Don't touch those files or their blocks.
 2. **Fresh read of `app.html` right before every write**, edit by exact replacement of your own blocks only (never write the whole file from an older copy). Before your commit: every block you don't own is byte-equal to its `.jsx` as it stands on disk then.
 3. Commit only your own `.jsx`/spec/review files, plus `app.html` whole (playbook §3); list in your report which other-owner blocks were in it uncommitted.
+
+## 2026-10-22 · ERP-182 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-175 C · Audit every principle, 1–20 (Jabran)
+Needs answer by: — · Blocking: no · Apply at your next safe point (finish the running top-task runs first)
+1. **Scope:** each screen is checked against **all** of `ux-principles.md` §1–20, not only §11–20, in the same pass per screen. Screens you already checked get the §1–9 checks added; don't redo their §11–20 results.
+2. **Automate in the harness:** §9 sentence case and plain words (labels, buttons, headings); §7 no HTTP status, exception text or permission code visible; §6 no-access and read-only states present where the spec has them; §8 no lost input on back/cancel where a draft exists; §10 already in B.
+3. **Judgement pass** (sample the main screens of each module, Sonnet; the Opus review covers §4/§5 on money and approval screens): §1 one pattern per concept (same control for the same job across modules), §2 detail where it matters, §3 defaults visible, §4 new = form / agreed = action, §5 every change asks why where it must.
+4. **Output** as before: one fix list per module (item = screen id, principle §, fix) in `reviews/principles-audit-2026-10.md`, and the catalogue's principles status per screen covers §1–20. Module blocks: list only, don't change. Root and shared screens: fix yourself.
