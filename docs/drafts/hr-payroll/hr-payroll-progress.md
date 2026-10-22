@@ -2,7 +2,7 @@
 
 Owner: Code · HR & Payroll lead (trial). Workspace copy; the reviewer mirrors it to the project. Updated 2026-10-21 17:10.
 
-## State (2026-10-21) — design gate PASSED (Jabran, G-1…G-9); waiting for the build gate (ERP lead)
+## State (2026-10-23) — ON HOLD (Jabran, ERP-200): design gate passed; development paused while the design is evaluated
 Resume: start `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/inbox/listen.sh hr-payroll-lead`; read inbox vs done file.
 
 ### Done
