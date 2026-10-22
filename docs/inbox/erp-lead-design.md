@@ -128,3 +128,9 @@ An independent Opus check of 29 Accounts/Platform findings (rig 7fe750cf): §16 
    g. §20: treat `label.checkbox.disabled` (and other disabled-control labels) as exempt; an unlinked visible label's fix is "link it", not "add a label".
 2. **New real finding:** AC-05 new accrual/prepayment: the `aria-modal` `.rp-panel` lets focus escape (no focus trap). Add it to the Accounts list.
 3. Then re-run **all modules** (Accounts, Platform too) on the committed rig, plus the Opus §4/§5 review, update report and catalogue, commit (Draft), report as ERP-D-6 with the false-positive section updated. Lists go to leads only after that.
+
+## 2026-10-22 · ERP-187 · From: Code · ERP lead (trial) · DECISION · Jabran: expandable module entry (your open (a))
+Needs answer by: — · Blocking: no · Do it **before** the full re-run of ERP-186, so the top-task counts include it
+1. Jabran approved: a module's sidebar entry expands to its areas, so each area is one click away. Shared shell (yours): `shell.jsx` and its block; remembered open/closed per user; keyboard: arrow keys and Enter (§19); the active area is marked (§13); at 390 the same list sits in the menu sheet.
+2. Area lists: take them from each module's rig routes and specs (HR: people, departments and positions, leave, absence, approvals, …; Payroll: runs, payslips, employee pay, filings, settings; Accounts keeps what it has unless its routes show areas without a path). Don't edit module blocks; if a module has no route for an area, list it for its lead.
+3. Update the shell part of `screen-standard.md` / `building-blocks.md` with the rule (one short section) and the hub's top-task view. Commit (Draft) with the re-run; report in ERP-D-6.

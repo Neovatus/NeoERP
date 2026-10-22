@@ -180,3 +180,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-22 · ACC-C-34 FYI: ACC-246 ca82ccf (isolated, not on dev yet); ORG-FACTS-3 gate clears when the Accounts lead accepts and it lands on dev
 2026-10-22 · ACC-247 FYI: ACC-246 accepted; gate lifts when ca82ccf is on origin/dev
 2026-10-22 · verification of ACC/Platform done → ERP-186 (harness fixes, re-run all)
+2026-10-22 · Jabran: expandable module entry + Payroll Post confirm → ERP-187 (ERP · Design), ERP-188 (HRP)
