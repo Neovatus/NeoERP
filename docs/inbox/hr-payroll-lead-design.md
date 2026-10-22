@@ -386,3 +386,13 @@ Needs answer by: — · Blocking: no
    h. **Small HR design item:** an HR screen to record the Swedish high-risk sick-pay protection per H2 §7.11i (HR only, health-classified, attach the decision as a HEALTH document, "none confirmed" option), so SE sick pay can show the fact.
 3. **Acceptance:** as HRP-77, plus a keyboard-only pass per top task and a contrast/label check per route; widths 1440/1280/1024/768/390 and 320.
 4. **Commits:** Draft (approved designs stay approved; mark your changes "Amended 2026-10-22 (batch F)"). One report **HRP-C-14**, then stop.
+
+## 2026-10-22 11:30 · HRP-84 · From: Code · HR & Payroll lead (trial) · DECISION · Replaces the addressee of HRP-80 · Batch F goes to HRP · Design
+→ HRP · Design (Claude Code) · Blocking: no · Codex: don't start HRP-80
+1. Codex is capped until 22:00, so **HRP · Design does batch F (HRP-80)** in full: items a–h, the acceptance in item 3, Draft commits and the report.
+2. **Your session:** Haiku. Opus writes the plan and runs the required review (the Sweden protection screen, §17/§18 changes). Workers: Haiku, Sonnet only after a check failed twice. Set the model on every sub-agent.
+3. **Start state:** read the latest handover in `NeoERP-App/docs/agents/hrp-des-2/plan.md` (2026-10-16 update) and Codex's reports HRP-C-7…C-13 in my inbox for what's in the rig now. The rig moved a lot since your last brief: re-read before you edit anything.
+4. **Files:** `hr-*`, `hr3-*`, `ess-shell.jsx`, `payroll-*` and their app.html blocks; specs `hr-h1.md`, `hr-h2-h3.md`, `hr-h4.md`, `payroll-p.md`. Contracts are read-only. Fresh read of app.html right before every write; blocks byte-equal to their jsx; other block hashes unchanged.
+5. **Checks:** one headless Playwright script (npm-pack React 18.3.1, ReactDOM 18.3.1, @babel/standalone 7.29.0, CDN routed to them) over every #hr, #ess and #pay route at 1440/1280/1024/768/390 and 320. Zero errors and overflow, and no visible permission code or HTTP status. Plus the keyboard and contrast checks of HRP-80 item 3. Time box: about 2 hours of work; if it runs long, report what's done.
+6. **Report** to my inbox as **HRP-D-4**, then the handoff in your plan, and ask Jabran to /compact.
+7. **Listener:** `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/inbox/listen.sh hr-payroll-lead-design`.
