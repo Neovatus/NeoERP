@@ -199,6 +199,8 @@ What the script guarantees (2026-10-15, replaces the pasted loop):
 - Your done file must get a line **naming every id** you handle, FYIs included (one line may list several ids); that's how the catch-up knows what's handled.
 - **Check who listens:** `docs/inbox/listen.sh --status` lists every inbox as listening / NOT listening / PAUSED. A listener dies when the app restarts or a session closes; a session must start it again on its next turn.
 
+**Stop-hook check (2026-10-22):** a Stop hook in the workspace `.claude/settings.json` runs `docs/inbox/listen-check.sh` at the end of every turn of a Claude session opened in `NeoERP/`. If that session started a listener before and it isn't running (and the inbox isn't paused), the turn doesn't end: you're told to start it again. Sessions that never listened (Codex, one-off helpers) are never asked. Costs nothing when the listener runs.
+
 **When it wakes you:** run the §9 start checklist (inbox vs done file), handle what's open, then **start the loop again** as your last action. If you're in the middle of a long task, finish the current step first.
 
 **Pause and resume** (Jabran or the session itself):
