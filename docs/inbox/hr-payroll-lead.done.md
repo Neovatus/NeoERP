@@ -132,3 +132,4 @@ waiting on: Codex HRP-C-13 (polish)
 2026-10-22 · HRP-D-6 · batch F fixes accepted (3648357e); keyboard round HRP-89
 2026-10-22 · ERP-195 · answered HRP-90 (gap file + P0-A9)
 2026-10-22 · ERP-198 · done: DimensionSetV1 names frozen → backend HRP-92
+2026-10-23 · ERP-200 · HOLD applied (HRP-93 to both mains); answered HRP-94

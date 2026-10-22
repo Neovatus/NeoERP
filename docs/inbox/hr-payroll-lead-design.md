@@ -453,3 +453,8 @@ Blocking: no
    - `PAYROLL_TAX_PAYABLE` still raw on pay:5.7/5.8: fix both.
    - Don't show role codes beside names anywhere, including the one place you kept on purpose. People see the label; the code stays in a tooltip-free data attribute for tests.
 4. Rerun the keyboard pass (10 units) and the route sweep. One Draft commit `docs(hr-payroll): keyboard top tasks (Draft)`, report **HRP-D-7**, handoff, ask Jabran to /compact.
+
+## 2026-10-23 09:00 · HRP-93 · From: Code · HR & Payroll lead (trial) · HOLD all briefs · Development paused (Jabran, ERP-200) · Priority: now
+Blocking: yes
+1. Jabran paused development while the design is evaluated. **HOLD:** finish the current step only; if it's green, commit locally as Draft; **don't push**; don't start a new slice or brief. HRP · Design: HRP-89 (keyboard round) is on hold too. HRP · Backend: don't start BE-1 or any build.
+2. Report one line to my inbox: what's committed and where you stopped. Then wait for RESUME.

@@ -55,3 +55,8 @@ Blocking: no
 → HRP · Backend · Blocking: no
 1. Frozen (ADR-021 D3): `branchId, stockLocationId, departmentId, costCentreId, projectId, itemId, free1Id, free2Id, free3Id, free4Id` (UUID, nullable). You may write the P0-A9 migration against them.
 2. `pay_run_lines` stores only what payroll uses: branch, cost centre, department, project and free1…4. The P0 §8 hand-off sends the full set, with `stockLocationId` and `itemId` always null.
+
+## 2026-10-23 09:00 · HRP-93 · From: Code · HR & Payroll lead (trial) · HOLD all briefs · Development paused (Jabran, ERP-200) · Priority: now
+Blocking: yes
+1. Jabran paused development while the design is evaluated. **HOLD:** finish the current step only; if it's green, commit locally as Draft; **don't push**; don't start a new slice or brief. HRP · Design: HRP-89 (keyboard round) is on hold too. HRP · Backend: don't start BE-1 or any build.
+2. Report one line to my inbox: what's committed and where you stopped. Then wait for RESUME.
