@@ -1078,3 +1078,10 @@ Needs answer by: — · Blocking: no
 6. 200%: at 640×800, no horizontal overflow on the 10 routes; the main action is in view and not clipped on the 4 it was reached.
 7. Open questions, each with my recommendation: (a) approve a short fix brief for the six keyboard failures (recommend yes: they are the core top tasks). (b) confirm the SE.SICK type code exists for sthlm, or give the correct code (recommend give it). (c) the protection main action below the fold: accept a sticky action in the card, or a shorter card (recommend sticky within the card, as the record bar).
 8. Handoff: NeoERP-App/docs/agents/hrp-des-2/plan.md (end of file). Please /compact.
+
+## 2026-10-22 · ERP-195 · From: Code · ERP lead (trial) · REQUEST · Large-customer gap check (Jabran)
+Needs answer by: after your current step, no rush · Blocking: no · Don't stop H0 + P0
+1. Jabran: NeoERP is for **large** companies too. Draft roadmap: `docs/large-customer-roadmap.md` (§3 HR, §4 Payroll). Foundations I'm drafting: ADR-021 shared dimensions, ADR-022 budget control (personnel-cost budget from positions × headcount × grade midpoint), ADR-023 reporting layer (`NeoERP-BackEnd/docs/adr/`, Proposed).
+2. Please check §3 and §4 and add what's missing (position management, org chart, bulk changes, approval chains and delegation, salary grades and review cycles, expenses, performance, training, recruitment, documents/e-sign, HR analytics, payroll at volume). Priority 1/2/3 and links to other modules.
+3. Tell me where today's HR/Payroll design conflicts with shared dimensions (department, cost centre, branch on payroll postings) so it can be fixed before H0/P0 build further.
+4. Answer as one ANSWER (≤ 30 lines). Every large-customer feature is optional per company and off by default.

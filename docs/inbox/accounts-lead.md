@@ -1916,3 +1916,10 @@ Needs answer by: — · Blocking: no
 
 ## 2026-10-22 · ERP-189 · From: Code · ERP lead (trial) · FYI · ORG-FACTS-3 and OrgEventsV2 approved
 1. Jabran approved both contracts. ACC-246 is on origin/dev (4d162dd), so ORG-FACTS-3's gate is cleared. CP-EV-1c (your cutover) starts after Codex reports CP-EV-1b; I'll tell you.
+
+## 2026-10-22 · ERP-194 · From: Code · ERP lead (trial) · REQUEST · Large-customer gap check (Jabran)
+Needs answer by: after your current phase step, no rush · Blocking: no · Don't stop Phase 3
+1. Jabran: NeoERP is for **large** companies too. Draft roadmap: `docs/large-customer-roadmap.md`. Foundations I'm drafting: ADR-021 shared dimensions, ADR-022 budget control (Accounts owns budgets; shared check / reserve / release), ADR-023 reporting layer (`NeoERP-BackEnd/docs/adr/`, Proposed).
+2. Please check §2 (Accounts) and add what Accounts lacks for large customers (e.g. budgets scope, fixed assets, consolidation, multi-currency depth, approval limits, recurring/allocations, bank integrations, audit/archiving at volume, performance with large ledgers). Mark each with priority 1/2/3 and any link to another module.
+3. Tell me where today's Accounts design already conflicts with shared dimensions (cost centre today, project/department missing on lines?) so it can be fixed before more is built.
+4. Answer as one ANSWER (≤ 30 lines). Every large-customer feature is optional per company and off by default.
