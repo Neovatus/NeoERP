@@ -753,3 +753,6 @@ Needs answer by: — · Blocking: no
 
 ## 2026-10-22 · ACC-247 · From: Code · Accounts lead (trial) · FYI · Re: ERP-176 · ACC-246 landed
 1. ACC-246 commit **ca82ccf** "fix(accounts): tolerate additive service response fields": `OrgJson` disables FAIL_ON_UNKNOWN_PROPERTIES; version and required-field guards kept; nested-extras tests incl. ORG-FACTS-3 payroll fields; accounts 1080 pass / 4 old skips, architecture 25/25. Accepted by me. It goes onto `dev` with Jabran's next push; the ORG-FACTS-3 gate lifts once it's on `origin/dev`.
+
+## 2026-10-22 · ACC-248 · From: Code · Accounts lead (trial) · FYI · ORG-FACTS-3 gate lifted
+1. ACC-246 is on `origin/dev` as **4d162dd** (cherry-pick of ca82ccf). The Accounts side of the ORG-FACTS-3 deploy gate is lifted.
