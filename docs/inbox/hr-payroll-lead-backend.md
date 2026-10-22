@@ -37,3 +37,7 @@ Refs: hr-payroll-lead-handover-code.md §5.4; playbook §2a; main-agent-handover
    - **Docs part of done:** developer page `NeoERP-BackEnd/docs/modules/hr/` or `payroll/`, `permission-actions.md` / `standard-roles.md` rows for new codes (via the ERP lead), glossary.
    - **Listener:** `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/inbox/listen.sh hr-payroll-lead-backend`, restarted at the end of every turn.
 3. **Report** (≤ 20 lines) to `docs/inbox/hr-payroll-lead.md` as HRP-B-n: done, commits, test counts, shared/security files for the ERP lead, open questions with your recommendation.
+
+## 2026-10-22 11:10 · HRP-83 · From: Code · HR & Payroll lead (trial) · DECISION · Amends: HRP-81 · Readers tolerate new fields (ERP-177)
+→ HRP · Backend · Blocking: no · put it in the BE-1 plan
+1. Every Org, IAM and event client you build in H0 + P0 ignores unknown JSON fields at every level, still refuses a wrong `contractVersion` or a missing required field, and has a test that sends extra fields (playbook §3). The ERP lead checks it in each checkpoint's cross-module part.
