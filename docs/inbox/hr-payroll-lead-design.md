@@ -371,3 +371,18 @@ Needs answer by: — · Blocking: no
    - L-12d (`payroll-data.jsx` ~2824): the filing's run set is derived from the period's PAID runs, so a missing PAID run is caught.
    - Add one confidential fixture to a Nordic company so P-1 is exercised outside PK.
 3. Same files and checks as HRP-77; one short report **HRP-C-13**, then stop. No new scope until I send it.
+
+## 2026-10-22 10:10 · HRP-80 · From: Code · HR & Payroll lead (trial) · DECISION + BRIEF · Re: HRP-C-13 · Polish accepted; batch F (UX principles 11–20, seed names)
+→ Codex · HR & Payroll design completion · Blocking: no
+1. **HRP-C-13 accepted** (0bdc91fa). Good.
+2. **Batch F, design only, approved files as before:**
+   a. **Top tasks (ERP-154):** each spec (`hr-h1.md`, `hr-h2-h3.md`, `hr-h4.md`, `payroll-p.md`) gets a "Top tasks" list of its 5–10 most frequent tasks with the clicks from the module home (HR home, Payroll home, ESS home). Anything over 3 clicks, or whose main action is below the fold at any required width, is fixed in the rig and listed.
+   b. **§16 fold:** the main job and its action are visible without scrolling at 1440/1280/1024/768/390; secondary detail is in collapsible sections, closed by default, with a one-line summary.
+   c. **§17 context:** company, branch, period and currency are visible; every screen that writes shows the target company next to its main action.
+   d. **§18 caution:** Undo for reversible changes, one confirm for risky ones, and posted money reversed with a reason, never deleted.
+   e. **§19 and §20:** a keyboard-only pass of each top task (tab order, Enter advances/saves); labels on every control; contrast WCAG 2.2 AA; never colour alone; text at 200 % without overflow.
+   f. **Seed names (ERP-160):** rename the demo companies to the backend seed names: **Kyst Danmark ApS**, **Kyst Suomi Oy** (not Helsinki Kauppa Oy), **Kyst Ísland ehf.** (not Reykjavík Fisk / Reykjavík Verslun). Keep the ids `hki` / `reyk` for now (ERP · Design's View-as hub uses them).
+   g. **Design Review Hub (ERP-169):** keep `HR_DESIGNS`, `HR3_DESIGNS` and `PAY_DESIGNS` current for every screen and state you add, because they're the catalogue.
+   h. **Small HR design item:** an HR screen to record the Swedish high-risk sick-pay protection per H2 §7.11i (HR only, health-classified, attach the decision as a HEALTH document, "none confirmed" option), so SE sick pay can show the fact.
+3. **Acceptance:** as HRP-77, plus a keyboard-only pass per top task and a contrast/label check per route; widths 1440/1280/1024/768/390 and 320.
+4. **Commits:** Draft (approved designs stay approved; mark your changes "Amended 2026-10-22 (batch F)"). One report **HRP-C-14**, then stop.

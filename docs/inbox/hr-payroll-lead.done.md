@@ -115,3 +115,10 @@ waiting on: ACC FYI when accounts-data.jsx is regenerated (HRP-35.1)
 2026-10-21 · HRP-C-12 · accepted: Opus review docs/reviews/hrp-c12-review-2026-10-21.md all PASS, 5 Low (P2 row fixed; 4 rig Lows → HRP-78 polish); design ready for Jabran's click-through
 waiting on: Codex HRP-C-13 (polish)
 2026-10-21 · Jabran: design gate G-1…G-9 approved as recommended; status lines updated; ERP told HRP-79
+2026-10-21 18:43 · HRP-C-13 · accepted (0bdc91fa)
+2026-10-21 · ERP-154 · done: top tasks + §16 → Codex batch F (HRP-80)
+2026-10-21 · ERP-155 · done: §17–§20 → Codex batch F (HRP-80)
+2026-10-21 · ERP-160 · done: build gate open → HRP · Backend brief HRP-81 (plan first); seed names → HRP-80
+2026-10-22 · ERP-169 · noted: Design Review Hub; design indexes kept current (HRP-80)
+2026-10-22 · ERP-170 · answered HRP-82: yes; P6–P9 alignment (sub-agent)
+2026-10-22 · ERP-173 · answered HRP-82: yes; P1/P3/P4 → OrgEventsV2 (sub-agent)
