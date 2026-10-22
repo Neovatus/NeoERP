@@ -114,3 +114,17 @@ Needs answer by: — · Blocking: no
 3. Also list the 5 HR drop-3 sick-pay rows that throw "T is not defined" with their row ids at the top of the HR list (a rig bug for HRP · Design).
 4. Update the report and catalogue status; commit (Draft); report as ERP-D-6. B and slice 6 still wait.
 5. Your open (a) module-entry expansion and (b) Payroll Post confirm: I'm taking them to Jabran; don't build yet. Meanwhile I'm having the Accounts and Platform findings checked independently; I'll send you any rule that misfires.
+
+## 2026-10-22 · ERP-186 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-185 · Fix the harness first, then re-run all modules
+Needs answer by: — · Blocking: no · Apply at your next safe point
+An independent Opus check of 29 Accounts/Platform findings (rig 7fe750cf): §16 at 390 mostly false (17 of 20 AC-01 screens pass without the rig panel), §18 5/5 false, §14 2/2, §17 1/1, §19 1/1, §1 2/3, §9 1/2; §20 mostly real (1/8 false). Scripts and shots: /private/tmp/claude-501/-Users-jabransiddiqui-Offices-Neovatus-NeoERP/fe966f25-7261-4d33-af0b-3f8dddc67e0c/scratchpad/verify/
+1. **Harness fixes before any further run:**
+   a. Fold: hide `.pa-rig` (and the floating "… designs" pill) before measuring; a button ≥ 75 % visible is in view; report widths **per screen**, never the union of a group.
+   b. Main action: prefer the primary in the page footer or record head; skip disabled primaries; ignore buttons inside an open sheet unless the screen is that sheet; date/period filters are filters, not editable fields.
+   c. §18: only `btn-danger` or a destructive verb + named object; exclude chips and tabs ("End of month", "Reverse charge"); judge the response by the button's own row/state, not a 40-character text delta.
+   d. §19: keep tabbing past `<body>` until the first control repeats.
+   e. §17: match the legal name as well as the display name.
+   f. §1: skip classes inside the shared `.modal` / `.pill` (e.g. `bc-sheet`, `hs-badge`).
+   g. §20: treat `label.checkbox.disabled` (and other disabled-control labels) as exempt; an unlinked visible label's fix is "link it", not "add a label".
+2. **New real finding:** AC-05 new accrual/prepayment: the `aria-modal` `.rp-panel` lets focus escape (no focus trap). Add it to the Accounts list.
+3. Then re-run **all modules** (Accounts, Platform too) on the committed rig, plus the Opus §4/§5 review, update report and catalogue, commit (Draft), report as ERP-D-6 with the false-positive section updated. Lists go to leads only after that.
