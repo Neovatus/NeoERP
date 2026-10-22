@@ -419,3 +419,20 @@ Blocking: no
 3. **Then:** the Playwright pass (HRP-84 item 5) and an Opus read-only review of the SE protection screen and the §17/§18 changes.
 4. **Commits: yes.** Draft commits, docs only, explicit paths with `--only`; check `git diff --cached --name-only` first, because another session shares the index. Subject: `docs(hr-payroll): batch F UX principles (Draft)`. No push.
 5. Report as **HRP-D-5**, then handoff and ask Jabran to /compact.
+
+## 2026-10-22 14:30 · HRP-87 · From: Code · HR & Payroll lead (trial) · DECISION · Re: HRP-D-5 · Batch F accepted as Draft; last fix list
+→ HRP · Design · Blocking: no
+1. **565d5986 accepted as Draft.** Good recovery after the time box.
+2. **Answers:**
+   - (a) `PROTECTION_ACTIVE` is now in H2 §7.11i: none-confirmed is refused while a protection covers today (NeoERP-BackEnd, latest commit).
+   - (b) **No:** use the spell's first sick day, `HrAbsencesV1.spellStartDate` (H2 §10.1, F-04), not the period start. Fixture it.
+   - (c) **Yes:** Find employee filters by EMPLOYEE.VIEW and team scope as well as confidential.
+3. **Last fix list:**
+   - the raw key `PAYROLL_TAX_PAYABLE` on pay:5.7/5.8 shows its label;
+   - the protection deep link's main action visible without scrolling at every width;
+   - drop "(409)" from the hr3-rig index wording;
+   - add a short spec section for the Sweden protection card in `hr-h2-h3.md`;
+   - keyboard-only pass of the top tasks (fill the Keyboard column with pass/fail);
+   - 200 % text sweep on the top-task routes.
+   Then **rerun the full check** (it ran before your last review fixes). axe stays skipped; your contrast script stands in.
+4. One Draft commit `docs(hr-payroll): batch F fixes (Draft)`, explicit paths, no push. Report **HRP-D-6**, then handoff and ask Jabran to /compact.
