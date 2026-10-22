@@ -4,12 +4,25 @@
 # Local shell only: no tokens while waiting. It exits (and so wakes its session) when the inbox
 # has something new. Run it in the background and start it again as the last action of every turn.
 # - One listener per inbox: a new start stops the previous one for the same inbox.
-# - Catch-up: if the inbox changed after its done file (messages that came while nobody listened),
-#   it wakes at once, but only once per inbox version.
+# - Catch-up: on start it wakes at once if the inbox holds a message id with no line in the done
+#   file, once per set of open ids (so a message that came while the session was busy is never lost,
+#   even when the done file was written after it).
 # - Pause: docs/inbox/.paused-all or docs/inbox/.paused-<stem>.
+# - Status: docs/inbox/listen.sh --status  lists every inbox, its listener (live or not) and pauses.
 set -u
-stem=${1:?usage: listen.sh <inbox-stem>}
+stem=${1:?usage: listen.sh <inbox-stem> | --status}
 cd "$(dirname "$0")/../.." || exit 1
+if [ "$stem" = "--status" ]; then
+  for i in docs/inbox/*.md; do
+    case "$i" in *.done.md) continue;; esac
+    s=$(basename "$i" .md); p=$(cat "docs/inbox/.listen-$s.pid" 2>/dev/null)
+    if [ -n "$p" ] && ps -p "$p" -o command= 2>/dev/null | grep -q "listen.sh $s"; then st="listening"; else st="NOT listening"; fi
+    [ -e "docs/inbox/.paused-$s" ] && st="$st, PAUSED"
+    echo "$s: $st"
+  done
+  [ -e docs/inbox/.paused-all ] && echo "ALL PAUSED (.paused-all)"
+  exit 0
+fi
 f="docs/inbox/$stem.md"; d="docs/inbox/$stem.done.md"
 pidf="docs/inbox/.listen-$stem.pid"; seen="docs/inbox/.listen-$stem.seen"
 [ -f "$f" ] || { echo "no inbox $f"; exit 1; }
@@ -29,13 +42,24 @@ echo $$ > "$pidf"
 trap 'mine && rm -f "$pidf"' EXIT
 trap 'exit 0' INT TERM
 
-report() { echo "$1 in $f"; grep "^## " "$f" | tail -5; mtime "$f" > "$seen"; exit 0; }
+# Ids in "## <date> · <ID> · From: …" headers that have no line in the done file.
+open_ids() {
+  grep "^## " "$f" | awk -F' · ' 'NF>2{print $2}' | while read -r id; do
+    case "$id" in *[!A-Za-z0-9-]*|"") continue;; esac
+    grep -qE "(^|[^A-Za-z0-9-])$id([^0-9]|$)" "$d" 2>/dev/null || echo "$id"
+  done | tr '\n' ' '
+}
+report() {
+  o=$(open_ids); echo "$1 in $f"; grep "^## " "$f" | tail -5
+  [ -n "$o" ] && echo "Open (no done line): $o"
+  printf '%s' "$o" > "$seen"; exit 0
+}
 
 while paused; do sleep 30; mine || exit 0; done
 
-# Catch-up: inbox newer than the done file, and not already reported for this version.
-now=$(mtime "$f")
-if [ -f "$d" ] && [ "$now" -gt "$(mtime "$d")" ] && [ "$now" != "$(cat "$seen" 2>/dev/null)" ]; then
+# Catch-up: open ids exist and this set was not reported already.
+now=$(mtime "$f"); o=$(open_ids)
+if [ -n "$o" ] && [ "$o" != "$(cat "$seen" 2>/dev/null)" ]; then
   report "UNHANDLED (arrived while not listening)"
 fi
 

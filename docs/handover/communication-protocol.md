@@ -193,10 +193,11 @@ Owner: ERP lead, 2026-10-10. Every lead and main that is open in a Claude Code s
 
 What the script guarantees (2026-10-15, replaces the pasted loop):
 - **One listener per inbox.** Starting it again stops the previous one for that inbox, so restarting is always safe.
-- **Nothing missed.** On start, if your inbox changed after your done file (messages that came while you weren't listening, after a restart or a lost connection), it wakes you at once, once per inbox version.
+- **Nothing missed** (fixed 2026-10-22). On start it wakes you at once if any message id in your inbox has no line in your done file, and lists those ids. It used to compare file times, so a message that came while you were busy was lost when you wrote a done line after it. It wakes once per set of open ids.
 - **One wake per burst.** It waits for 90 s of quiet after a change.
 - **No tokens while waiting.** It's a local shell loop; only a wake costs a turn.
-- Your done file must get a line for everything you handle, FYIs included; that's how the catch-up knows what's handled.
+- Your done file must get a line **naming every id** you handle, FYIs included (one line may list several ids); that's how the catch-up knows what's handled.
+- **Check who listens:** `docs/inbox/listen.sh --status` lists every inbox as listening / NOT listening / PAUSED. A listener dies when the app restarts or a session closes; a session must start it again on its next turn.
 
 **When it wakes you:** run the §9 start checklist (inbox vs done file), handle what's open, then **start the loop again** as your last action. If you're in the middle of a long task, finish the current step first.
 
