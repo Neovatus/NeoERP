@@ -95,3 +95,8 @@ Needs answer by: — · Blocking: no · Apply at your next safe point (finish th
 2. **Automate in the harness:** §9 sentence case and plain words (labels, buttons, headings); §7 no HTTP status, exception text or permission code visible; §6 no-access and read-only states present where the spec has them; §8 no lost input on back/cancel where a draft exists; §10 already in B.
 3. **Judgement pass** (sample the main screens of each module, Sonnet; the Opus review covers §4/§5 on money and approval screens): §1 one pattern per concept (same control for the same job across modules), §2 detail where it matters, §3 defaults visible, §4 new = form / agreed = action, §5 every change asks why where it must.
 4. **Output** as before: one fix list per module (item = screen id, principle §, fix) in `reviews/principles-audit-2026-10.md`, and the catalogue's principles status per screen covers §1–20. Module blocks: list only, don't change. Root and shared screens: fix yourself.
+
+## 2026-10-22 · ERP-183 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-175 order · Audit first (Jabran)
+Needs answer by: — · Blocking: no · Apply at your next safe point
+1. **Finish C first** (§1–20 per ERP-182), commit it as Draft and **report it on its own** (ERP-D-n): counts per module and principle, top tasks, false positives, and the root/shared fixes you made.
+2. Then B's remaining part (the hard-coded value check), then slice 6, each its own later report. Don't start them before the audit report is in.
