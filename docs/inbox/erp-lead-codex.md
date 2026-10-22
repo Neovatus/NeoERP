@@ -50,3 +50,10 @@ Needs answer by: at your next safe point · Blocking: yes for builds
 2. **HOLD (protocol §14):** finish the current step only; if green, commit locally; **don't push**; don't start new slices. Report what is committed and where it stops (one ANSWER).
 3. Plans and decision notes may be written; no build. I'll tell you when work resumes.
 4. CP-EV-1b (ERP-174): if your work in /private/tmp/neoerp-erp174-* is green, commit it locally there and report ERP-C-n with what is done and left; otherwise report where it stops.
+
+## 2026-10-23 · ERP-204 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-201 · CP-EV-1b continues (Jabran)
+Needs answer by: — · Blocking: no
+1. **ERP-201's HOLD is lifted for ERP-174 only.** Jabran (2026-10-23): CP-EV-1b doesn't depend on the design under review, so finish it as briefed (contract `NeoERP-BackEnd/docs/api/org-events-v2.md`, Approved).
+2. Continue from your work in /private/tmp/neoerp-erp174-*; rebase onto current origin/dev first (it moved: 4d162dd and later).
+3. Full local suites of every service/library changed + architecture-tests (Actions are off); fresh Opus-level independent review (auth catalog scope and migration V36). Commit locally, **don't push**, report as ERP-C-n.
+4. Everything else stays on hold.
