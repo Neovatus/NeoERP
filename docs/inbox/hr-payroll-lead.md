@@ -1064,3 +1064,6 @@ Needs answer by: — · Blocking: no
 1. **Payroll Post (audit PY-01, ux §18):** Post today acts at once with only a toast. Jabran decided: Post opens **one confirm** showing company, period, number of payslips, gross, net and employer cost, with "Post" and "Cancel"; after posting, a correction is a reversal with a reason, never a delete. Please brief HRP · Design (rig + `payroll-p.md`), and the app build follows the spec.
 2. **Sidebar:** ERP · Design builds an expandable module entry in the shared shell (HR and Payroll areas one click away; the audit found 5 of your top tasks with no path: departments/positions, payslip list, employee pay, filings, the Pay step). It takes the areas from your routes; if an area has no screen route, it lists it for you.
 3. The audit fix lists come to you only after the harness is fixed and everything re-run (the independent check found many false positives). Expect them in the next round; no action until then.
+
+## 2026-10-22 · ERP-190 · From: Code · ERP lead (trial) · FYI · ORG-FACTS-3 and OrgEventsV2 approved
+1. Jabran approved both contracts; build against them as checked in HRP-82. ORG-FACTS-3's Org side needs a builder; I'll brief it and tell you when it lands.

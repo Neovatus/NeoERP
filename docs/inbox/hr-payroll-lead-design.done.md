@@ -30,3 +30,24 @@ HRP-44 · started: W9a and W9b (Haiku, 20 min each); no DES-2 file changed since
 HRP-44 · W9a+W9b done (spec notes appended); W10 integration written to app.html (60 blocks, untouched hashes verified); W11 check next
 HRP-44 · time box reported in HRP-D-3: W9 done, W10 integrated (60 blocks), W11 NOT done, Opus review 1 PASS / 5 PARTIAL / 1 FAIL, fixes not done
 HRP-44 · handoff written; stop requested by Jabran (ERP lead) — DES-2 paused at W11 / review fixes
+HRP-84 · batch F (HRP-80) started: Opus plan running (read-only); no rig file edited yet
+HRP-80 · seen; batch F plan in progress (Opus); HRP-84 addressee confirmed
+HRP-84 · batch F: plan done (Opus); workers W1–W5 running on Haiku; integration and review to follow
+HRP-84 · axe-core not in npm cache; axe pass marked not run; rest of check continues
+HRP-84 · W1 wave 0 + renames done; rest of W1 continuing
+HRP-84 · W3 partial: time/approvals/lifecycle items done except HR3_DESIGNS Send-row entry (needs W2) and labels audit
+HRP-84 · W4 payroll partial: most items done; SE karens still shows day/degree facts (open); PAY_DESIGNS run ids to verify
+HRP-84 · W2 partial: Sweden protection done; router deep link needs a W1 fix (segment 6 dropped by hrHash)
+HRP-84 · W5 check stopped (not run); W1 report requested again
+HRP-84 · integrated into app.html (20 blocks); not done list in plan; check and review not run; no commits
+HRP-84 · HRP-D-4 written (partial batch F; check and review not run; no commits)
+HRP-86 · started: F-A (hr-rig router, contact edit, sticky bar), F-B (payroll SE karens, B2 folds, run ids, labels), F-C (HR3 send row, approvals WritesTo, labels, Esc), F-D (top-task tables in four specs). Check run and Opus review after they report; contrast via small script (HRP-86 1c); commit Draft after checks.
+HRP-86 · F-D top-task tables written in four specs
+HRP-86 · F-A done: deep link, contact Edit (3 clicks), sticky bar (within head card); hook already above early return
+HRP-86 · F-C done (partial on keyboard pass: roster editor and End-step Enter not audited)
+HRP-86 · F-B done; integrated; next check + review + commit
+HRP-86 · check started (no axe)
+HRP-86 · fixed protection card T-error and danger-bar contrast; re-integrated; check rerun started
+HRP-86 · Opus review: fixes first (gate, Writes-to, Undo onDone); fix workers A and B running
+HRP-86 · commit prep ready (HEAD-based app.html blob); waiting for check rerun
+HRP-86 · batch F committed as Draft (565d5986, 24 files; app.html via index blob); HRP-D-5 sent; stopped

@@ -202,3 +202,19 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-21 · ACC-C-31 · follow-up on codex/acc242-* branches; App ok (fallback-name match is a stopgap until ERP A4); backend Opus review running
 2026-10-21 · ACC-242 review APPROVE; landing ACC-244
 2026-10-21 · ACC-C-32 · landed fadd1a0/5b77d15, 84902fa8; push to Jabran
+2026-10-22 · ERP-154 · top-tasks + §16 into B/C spec/rig before approval
+2026-10-22 · ERP-155 · §17–20 checks into briefs
+2026-10-22 · ERP-159 · rig names/duplicates next rig touch
+2026-10-22 · ERP-162 · rig approver bug next rig touch
+2026-10-22 · ERP-168 · hub FYI
+2026-10-22 · ERP-171 · NO: accounts rejects unknown fields → fix ACC-246; answered ACC-245
+2026-10-22 · ERP-172 · yes to §7; CP-EV-1c mine; ACC-245
+2026-10-22 · ERP-176 · deploy gate set; send ACC-246 id when it lands
+2026-10-22 · ERP-178 · listener fix noted; done lines name every id
+2026-10-22 · ACC-C-4 ACC-C-5 ACC-C-6 ACC-C-7 · old Codex reports, handled at the time (Phase 1/2)
+2026-10-22 · ERP-108 · old, handled at the time
+2026-10-22 · HRP-62 · FYI seen; CA-10 cancel before any journal needs nothing from Accounts (no journal exists yet)
+2026-10-22 · ACC-C-20 ACC-C-21 · automation plans, superseded by ACC-C-22 (accepted)
+2026-10-22 · ACC-C-29 · recovery progress, superseded by ACC-C-30 (accepted)
+2026-10-22 · ERP-168 ERP-171 ERP-172 ERP-176 ERP-178 · handled (ACC-245, ACC-246)
+2026-10-22 · ACC-C-33 · ca82ccf accepted; landing via Jabran; ERP FYI ACC-247

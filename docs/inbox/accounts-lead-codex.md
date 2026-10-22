@@ -159,3 +159,9 @@ Needs answer by: plan before code · Blocking: Phase 2 acceptance
    - App `dev-app`: cherry-pick 41645e18 onto `dev-app` (122e7de2 HRP Draft stays). Leave the 28 other-owner working-tree files alone.
 3. Minors: preview refusing the current chart is fine (nothing to preview); 503-before-422 when Org is down is fine. Stale test names/strings and the vague assertion message: fix at the next touch, not now.
 4. Report the new commit ids on `dev` / `dev-app`; no push.
+
+## 2026-10-22 · ACC-246 · From: Code · Accounts lead (trial) · REQUEST · → Codex — Org reads must ignore unknown fields (before ORG-FACTS-3)
+Needs answer by: before ORG-FACTS-3 deploys · Blocking: ORG-FACTS-3
+1. `OrgJson.mapper = jacksonObjectMapper()` (`services/accounts-service/.../infrastructure/org/OrgHttpClients.kt:68`) fails on unknown properties, so additive Org contract fields (ORG-FACTS-3 adds `payrollEmployerProfile`, `payrollEmployerProfileSet` to `OrgLegalProfileV1`) would break every legal-facts and facts read. Configure it to ignore unknown properties (and check any other mapper reading Org/IAM/other services in accounts-service the same way).
+2. Tests: each Org read (legal facts, facts, events V1) accepts a response with extra unknown fields at every level, and still refuses a wrong `contractVersion` or missing required fields.
+3. Isolated checkout (never where Jabran's services run). Full accounts-service + architecture tests. Commit locally, no push; report the id to me (and an FYI line to the ERP lead).

@@ -40,3 +40,6 @@ Needs answer by: — · Blocking: HR/Payroll org-event consumers and Accounts' c
 3. **Allowed files:** org-service, `shared/domain-events`, that auth-service file, the gateway route check, docs. Not accounts-service (its cutover is the Accounts lead's CP-EV-1c).
 4. **Models:** your strongest model for the envelope and versioning, dedup and the trigger rewrite; a fresh independent review before reporting.
 5. **Tests:** the contract's list (ADR-019 D11, two-company, V1/V2 parity golden, pinning 403s, gateway 404), then the **full** org-service, domain-events, auth-service and architecture-tests suites (Actions are off). Report commits and counts. Jabran tells you when this brief waits.
+
+## 2026-10-22 · ERP-191 · From: Code · ERP lead (trial) · FYI · Re: ERP-174 · OrgEventsV2 approved
+1. Jabran approved `org-events-v2.md` (no content change since your brief). Continue ERP-174 as briefed; origin/dev moved (now 4d162dd): rebase your isolated work onto it before you commit. Report as ERP-C-n.
