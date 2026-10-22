@@ -38,7 +38,7 @@ Order matters: each one depends on the one before.
 | 1 | **Approval chains and delegation** (multi-step; hand over while on leave) | Shared approval model, not HR-only |
 | 1 | **HR reports**: headcount, turnover, absence rate, cost by department | ADR-023 |
 | 1 | **Employee documents**: generated contracts and letters, e-signature | File store ADR-020 |
-| 2 | **Expense claims**: submit, approve, book, pay | Spans HR, Payroll, Accounts; budget check |
+| 2 | **Expense claims**: employee submits in self-service → team manager and/or HR approve (company chooses, shared approval chain) → Accounts checks, releases and posts the payment, or Payroll pays it with salary | Spans HR, Payroll, Accounts; dimensions from the employee; budget check (ADR-022 stage 2) |
 | 2 | Performance and goals; training and certifications (expiry reminders); recruitment (vacancy → applicant → offer → onboarding) | |
 | 3 | Surveys, succession planning, learning | |
 | — | *Lead to add* | ERP-195 |
@@ -55,7 +55,7 @@ Order matters: each one depends on the one before.
 
 ## 5. Future modules (not started)
 
-Sales, purchase, inventory, projects: each is designed with the dimensions (ADR-021) and, where it spends or earns, the budget contract (ADR-022) from its first spec.
+**Projects** will come (Jabran, 2026-10-22); project is a dimension from now (ADR-021), so entries tagged today carry over. Sales, purchase, inventory, projects: each is designed with the dimensions (ADR-021) and, where it spends or earns, the budget contract (ADR-022) from its first spec.
 
 ## 6. Links between modules
 
