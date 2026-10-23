@@ -214,3 +214,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-23 · HRP-102 → ERP-232 (ERP · Design: pointer:coarse), ERP-233 (HRP)
 2026-10-23 · HRP-107 noted → ERP-234 (one shared overlap filter)
 2026-10-23 · HRP-110 → ERP-235 (shared icon-only buttons), ERP-236 (HRP)
+2026-10-23 · Jabran's group-card review → ERP-237 (HRP)

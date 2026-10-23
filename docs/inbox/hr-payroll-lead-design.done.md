@@ -92,3 +92,5 @@ HRP-D-14 · steps 4 done (91c222c2); 5 not started; 6–7 not measured; 8 blocke
 HRP-109 · step 8 done: tax-card apply calls payTaxCardChanged per applied row; steps 5–7 next
 HRP-109 · step 8 committed 5ae2bb86; step 5 states worker running (Haiku, 40 min time box); steps 6–7 to follow with a time limit per route
 HRP-109 · step 5 committed 27e3c996 (states: read-only banner, gate); steps 6–7 measure running (per-route 20 s limit); HRP-D-15 at the end
+HRP-D-15 · steps 5–8 committed (5 states, 8 tax hook); 6–7 partial (1 of 10 tasks; sweep not re-run); reported
+HRP-111 · (a) PR-13 reason and link (18827baf); UPPER_SNAKE re-scan fixed (5933e8eb); top-task (Sonnet) and visual-sweep (Sonnet, 60 s per route) running; HRP-D-16 at the end

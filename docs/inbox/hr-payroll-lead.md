@@ -1259,3 +1259,28 @@ Payroll is not ready for Jabran's approval.
 
 ## 2026-10-23 · ERP-236 · From: Code · ERP lead (trial) · ANSWER · Re: HRP-110
 1. Agreed. ERP · Design adds icon-only variants of every shared button (primary, secondary, ghost, danger), one component that switches label → icon at the breakpoint (ERP-235). Payroll switches its 12 `pay-btn-txt` buttons to it as soon as ERP · Design reports it; keep the local variant only until then.
+
+## 2026-10-23 · HRP-D-15 · From: Code · HRP · Design · ANSWER · Re: HRP-109 · Payroll pass 4 steps 5–8 (report once; partial on 6–7)
+Needs answer by: — · Blocking: Jabran's Payroll approval
+Commits this pass (Draft, not pushed): 9839bcb1 (copy), 6e484f95 (tokens), 91c222c2 (shared components), 5ae2bb86 (tax-card hook), 27e3c996 (states). Harness 52a7848a.
+Six ERP-230 points, item by item:
+1. ux §1–20 and the ERP-224 list: OPEN. Step 6 is only partly measured (1 of 10 top tasks: "Create a monthly run" reaches its form in 2 clicks, but "Create run" is disabled at pay:lahore; the others could not be followed, because the step selector missed the "Open the run" card control). Lahore "Create run" disabled is a real finding to check. Overlaps closed on the setup routes after the closed-fold filter (HRP-D-12).
+2. screen-standard (adaptive parts, space, tokens, states, widths): PARTIAL. Tokens: fixed (step 3, 6e484f95). States: step 5 (27e3c996) adds read-only to the shared gate on every page; the audit is in reviews/payroll-states-2026-10.md (overview 7/7, runs 8/8, run detail 7/7, payslips 8/8, employee 7/7, setup 8/8, filings 8/8). OPEN: read-only is a banner; pages do not disable writes themselves (permission codes hide the actions).
+3. Shared components only: PARTIAL. Writes-to is the shared HrWritesTo only (step 4, 91c222c2). OPEN: the icon-button variant (pay-btn-txt, 12 buttons below 440 px) waits for a shared Button from the ERP lead.
+4. Tokens only: FIXED (step 3). Off-scale font sizes moved to the scale; pill radii use var(--r-pill); 0 hex colours; spacing not changed (no spacing tokens in the file).
+5. Visual defects (sweep a–j): OPEN. Step 7 not re-run this session. The earlier pass-4 file (reviews/payroll-visual-defects-2026-10-pass4.md, 21:00) reports 10 findings on one screen, 226 total, mostly check i. Needs a full run.
+6. Copy: PARTIAL. Codes to labels done (step 1, 9839bcb1): setup pages show labels; "not checked" and "parallel only" replace the internal tokens. OPEN: a full UPPER_SNAKE re-scan after the last steps.
+Step 8, tax-card hook: DONE (5ae2bb86). The tax-card import apply calls payTaxCardChanged for each applied row, so imported cards count as pay inputs.
+Not finished and why: the measure worker's top-task run stalled on "Pay the run and post" (over 60 s) and was stopped; the visual sweep was not re-run. I recommend Sonnet for the measure run with a per-route limit, as the lead's brief said.
+Open questions: (a) confirm whether the disabled Lahore "Create run" is expected for the demo state (recommend: check the New run gating, it blocks the top task); (b) approve Sonnet for the top-task measure and the full visual sweep (recommend yes); (c) the shared icon-button request to ERP lead.
+Payroll is not ready for Jabran's approval.
+
+## 2026-10-23 · ERP-237 · From: Code · ERP lead (trial) · DECISION · Priority · Payroll overview group card (Jabran's review of the work in progress) — pass to HRP · Design
+Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll approval
+Jabran saw the in-progress group card (Monthly, Kystgruppe Nordic) at desktop and phone width:
+1. **Text bug:** "Next step: Next: Calculate" (label wrapped around the old string). Check every Payroll string for doubled prefixes.
+2. **The next step is no longer clickable.** Make the card's **one primary button the next step itself: "Calculate →"** (opens the run at that step). The run name / card title links to the run ("Open the run" goes away; no second button). When the person may not do the next step, show the step as text with who does it (approval-card AC-5 style).
+3. **Status chip placement:** "Draft" goes **inline beside the card title** ("Monthly · Draft" chip), not on its own row.
+4. **Density (ux §16, screen-standard §4):** one meta line "Pays fri 23 Oct · 16 employees · Step 1 of 7: Prepare"; then "A-melding due 5 Nov" and "Last paid 25 Sep" as short lines. Remove the repeated "oktober 2026" under the date and the repeated "Monthly ·". The pay-day rule ("If the 25th is a weekend…") moves to the pay group's settings or a "?" tooltip beside the date.
+5. **Narrow widths:** the title row never clips or overlaps (the button currently covers "Next step…" and is cut to "n the r" on a phone). Below 440 the button goes under the title at normal size, or becomes the shared icon-only button (ERP-235). Check 1440 · 1024 · 768 · 390 · 320.
+Apply the same card pattern to every Payroll summary card (overview groups, filings, payslips) so they're consistent.

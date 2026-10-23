@@ -21,3 +21,4 @@ Owner (the main) only. One line per handled brief.
 - 2026-10-23 ERP-232 forwarded to the running Payroll sweep agent (shared CSS pointer:coarse)
 - 2026-10-23 ERP-225, ERP-226, ERP-229, ERP-231, ERP-232 in progress: sweep committed 6e3f253b; focus token + rig chrome + Payroll proof harness building; report to follow
 - 2026-10-23 ERP-234 forwarded to the running harness agent (merge HRP overlap filter into the one shared check)
+- 2026-10-23 ERP-235 read and queued (icon-only button variants; next agent after the current harness/focus agent, same styles.css)
