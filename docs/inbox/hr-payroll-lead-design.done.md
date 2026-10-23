@@ -94,3 +94,5 @@ HRP-109 · step 8 committed 5ae2bb86; step 5 states worker running (Haiku, 40 mi
 HRP-109 · step 5 committed 27e3c996 (states: read-only banner, gate); steps 6–7 measure running (per-route 20 s limit); HRP-D-15 at the end
 HRP-D-15 · steps 5–8 committed (5 states, 8 tax hook); 6–7 partial (1 of 10 tasks; sweep not re-run); reported
 HRP-111 · (a) PR-13 reason and link (18827baf); UPPER_SNAKE re-scan fixed (5933e8eb); top-task (Sonnet) and visual-sweep (Sonnet, 60 s per route) running; HRP-D-16 at the end
+HRP-112 · overview group card pattern committed 6086ba86 (filings and payslips have no next-step card; n/a). Visual sweep pass5 done (defects listed in reviews/payroll-visual-defects-2026-10-pass5.md). Top-task measure (abdcd41c) pending; HRP-D-16 after it reports.
+HRP-D-16 · pass 4 final report sent: points 4 and parts of 2, 3, 6 done; 1, 5 open; reported

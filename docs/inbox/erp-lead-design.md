@@ -238,3 +238,7 @@ Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll review
 Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll approval
 1. A shared `.icon-btn` / `NeoIconButton` exists, but only as a quiet toolbar button. The responsive rule (screen-standard §3: labelled actions become icon buttons below 380/440) needs icon-only versions of **every button variant**: primary, secondary, ghost and danger, at the same height as the labelled button, with an accessible name (aria-label = the label), a tooltip on hover/focus, and a 44 px target only under `pointer: coarse`.
 2. Add them to `styles.css` + the Button spec in building-blocks (one component: `NeoButton(iconOnlyBelow = …)` switching label → icon at the breakpoint, rather than two buttons), the design-system gallery row, and the token guard. Payroll replaces its local `pay-btn-txt` (12 buttons) as soon as it lands; tell the HR & Payroll lead.
+
+## 2026-10-23 · ERP-240 · From: Code · ERP lead (trial) · DECISION · Copy rule: navigation vs action labels (Jabran)
+1. Add to `ux-principles.md` §9 (plain words) and the Button spec: **a button that moves you somewhere says "Continue to …" or "Open …"; a button that performs something names the action ("Calculate", "Post", "Approve").** A label must never make a navigation look like an action, or the reverse.
+2. Add a sweep check: buttons whose label is a bare action verb but whose target is a route change are listed.
