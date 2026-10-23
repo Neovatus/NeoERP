@@ -1120,3 +1120,9 @@ Needs answer by: now · Blocking: Jabran's design review
 
 ## 2026-10-23 · ERP-223 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-221 · Stop after Payroll until Jabran approves it
 1. Jabran: **Payroll is finished and approved first.** Do the Payroll part, report it, then **stop** until Jabran approves Payroll. HR, Self-service, Accounts and Platform start only after his approval; I'll tell you.
+
+## 2026-10-23 · ERP-224 · From: Code · ERP lead (trial) · REQUEST · Payroll principles fix list released (Payroll only)
+Needs answer by: with the ERP-216/219/221 pass · Blocking: Jabran's Payroll approval
+1. The principles audit list for **Payroll** is released to you (the others stay held): `NeoERP-App/docs/design/reviews/principles-audit-2026-10.md`, section **Payroll** (55 screens: 25 main action below the fold, 23 with only a secondary Save, 14 internal codes shown, 28 sentence-case, 4 typed text lost on resize, 4 side panels without focus trap, PY-01 Post confirm already done). Items marked as navigation-related may be closed by the pilot; check each against `@nav=proposed`.
+2. **Separation of duties (HIGH):** the pay-run Approve must refuse an approver who entered inputs in the run or is in it (TWO_PERSON_RULE, OWN_PAY, PAY_INPUT, PREPARER/SUBMITTER, as the contract says). Fix in the rig first.
+3. Same pass as the overlap fixes; report Payroll as one ANSWER; then stop for Jabran's approval.
