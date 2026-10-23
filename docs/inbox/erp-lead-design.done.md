@@ -13,3 +13,4 @@ Owner (the main) only. One line per handled brief.
 - 2026-10-23 ERP-203 applied: only ERP-193 pilot runs; B and slice 6 on hold until Jabran reviews the pilot
 - 2026-10-23 ERP-211 reported (pilot, Draft)
 - 2026-10-23 ERP-217, ERP-218, ERP-220, ERP-222 in progress: Payroll-only sweep + shared page head; stop after Payroll report until Jabran approves
+- 2026-10-23 ERP-225 noted: field focus token; queued after the Payroll sweep agent (same styles.css)
