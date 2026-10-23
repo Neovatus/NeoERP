@@ -74,3 +74,15 @@ HRP-99/100 · all Payroll blocks parse and integrate; Opus re-review running; HR
 HRP-D-9 · Payroll pass 2 committed as Draft 964f6080; report sent; stopped
 HRP-101 · pass 3 started: Sonnet (runs card action, send-back, tax pay inputs, reopen) and Haiku (icon variant, header at 390); then integrate, overlap + route sweep, definition-of-done report HRP-D-10
 HRP-101 · runs card: no matching element in payroll-runs (the card lives in overview, already top-right)
+HRP-101 · icon variant (12 buttons) and header wrap at 390 done; integrating next
+HRP-101 · integrated; overlap and route sweep running; token guard open (160 px font-size literals)
+HRP-98 · pass-2 overlap measure done (pre-fix): 1440 29 routes / 857 pairs; 390 59 routes / 1109 pairs; pass-3 check still running
+HRP-103 · Payroll touch height now (pointer: coarse) only; no width-based height bumps in Payroll blocks; integrated
+HRP-D-10 · Payroll pass 3 committed as Draft 3caeba96; ERP-230 items: hard checks pass; 1,2,3,4,5,6 open with reasons; stopped
+HRP-104 · pass 4 started: step 1 codes to labels (9 routes) first
+HRP-104 · step 1 (labels not codes) committed as Draft 9839bcb1; step 2 (country setup overlaps) in progress (Haiku, payroll-setup.jsx); steps 3–8 to follow in order; HRP-D-11 at the end
+HRP-104 · step 2 CSS applied in payroll-setup (unconfirmed); measuring country routes
+HRP-D-11 · pass 4 progress: step 1 done (9839bcb1); step 2 open (measured); steps 3–8 not started; reported
+HRP-105 · filtered re-measure and screenshot started (measure only); markup fix waits for it
+HRP-D-12 · step 2 measured: closed-fold false positives removed; no real visible overlap on setup routes; steps 3-8 next
+HRP-106 · undo done (payroll-setup clean); harness committed 52a7848a (reviews/tools); step 3 tokens running (Haiku); steps 4–8 next; HRP-D-13 at the end

@@ -18,3 +18,5 @@ Owner (the main) only. One line per handled brief.
 - 2026-10-23 ERP-225, ERP-226 read and queued (after the Payroll sweep agent: same styles.css); ERP-227 relayed
 - 2026-10-23 ERP-229 forwarded to the running Payroll sweep (checks f-j)
 - 2026-10-23 ERP-231 read: my part = shared items + proof harness for items 1-6 on Payroll (token guard for Payroll, states, adaptive parts, shared-component use); queued after the sweep agent
+- 2026-10-23 ERP-232 forwarded to the running Payroll sweep agent (shared CSS pointer:coarse)
+- 2026-10-23 ERP-225, ERP-226, ERP-229, ERP-231, ERP-232 in progress: sweep committed 6e3f253b; focus token + rig chrome + Payroll proof harness building; report to follow

@@ -896,3 +896,8 @@ Needs answer by: before ERP-205 resumes · Blocking: yes (lead re-acceptance of 
 Needs answer by: before Jabran's Payroll review · Blocking: no
 1. HRP · Design found a global 44 px touch height for `.btn-sm` at ≤ 720 px in the shared `styles.css`. It makes small buttons tall on narrow screens, which conflicts with screen-standard §4 "no oversized controls; 44 px only on touch platforms" and Jabran's ERP-228 point 1. Recommendation: limit it to `(pointer: coarse)` instead of a width query. It's your file.
 2. ERP-230: passed on (HRP-101). Payroll pass 3 reports against your six items one by one.
+
+## 2026-10-23 19:20 · HRP-107 · From: Code · HR & Payroll lead (trial) · FYI · Overlap checks: closed folds count as false positives
+Needs answer by: — · Blocking: no
+1. HRP · Design found that 3,445 of 4,445 "overlapping text" pairs on Payroll came from content inside closed `<details>` folds; their boxes still exist. Filtering with `checkVisibility()` and clipping by `overflow:hidden` ancestors left 0 real overlaps at 1440–768. At 390 only touching boxes remain, confirmed by screenshot.
+2. If your visual-defect sweep (ERP-217/229, check for overlaps) doesn't filter closed folds the same way, its counts for every module may be inflated. The filter will be in `NeoERP-App/docs/design/reviews/tools/payroll-sweep.js`.

@@ -1187,3 +1187,43 @@ Needs answer by: — · Blocking: Jabran's Payroll approval
 
 ## 2026-10-23 · ERP-233 · From: Code · ERP lead (trial) · ANSWER · Re: HRP-102
 1. Agreed: touch height only under `(pointer: coarse)`, never by width. ERP · Design changes the shared rule now (ERP-232). HRP · Design: don't override it in Payroll CSS; remove any local width-based height bumps you find.
+
+## 2026-10-23 · HRP-D-10 · From: Code · HRP · Design · ANSWER · Re: HRP-101, HRP-103 · Payroll pass 3 vs ERP-230 (Draft, not pushed)
+Needs answer by: — · Blocking: Jabran's Payroll approval
+1. Done: commit 3caeba96 "docs(hr-payroll): payroll pass 3 (Draft)", 8 Payroll rig files, app.html via index blob from HEAD, pass-3 overlap JSON and sweep summary in reviews/. Not pushed. Other authors' uncommitted files left unstaged.
+2. Fixed in this pass: icon-only primary buttons below 440 px (employee, setup, payslips, filings; 12 buttons); page-head actions wrap at 390; send back hidden from blocked contributors and refused by the engine (PREPARER/SUBMITTER/CALCULATOR/PAY_INPUT/OWN_PAY, Owner's own unchanged); "Back to prepare" records REOPENED; touch height only under pointer: coarse (HRP-103; the one fixed 44 px rule is now coarse-only; no width-based height bumps in Payroll blocks).
+3. ERP-230 six points, item by item (routes 80 × widths 1440, 1280, 1024, 768, 390 = 400 visits):
+   1. ux §1–20 and ERP-224 list: OPEN. Overlaps: 4,445 pairs on 58 routes (worst pay:reyk, pay:hki, pay:kyst, pay:sthlm, pay:kystdk |setup|country, up to 176 pairs each). Run card action top-right: no element on the runs screen (the card lives in the overview, already top-right). Top tasks ≤ 3 clicks: not re-measured in pass 3.
+   2. screen-standard: OPEN. No page errors, overflow or off-screen main actions in the sweep, so the basic widths hold; spacing and clipping need the overlap fixes; states (empty, loading, error, no access, read-only, module off, offline, filters-found-nothing) not verified in pass 3.
+   3. Shared components only: OPEN. Not audited. Local additions this pass: pay-btn-txt icon variant, .pay-writes-to caption chip (shared pattern elsewhere is HrWritesTo).
+   4. Tokens only: OPEN. 0 hard-coded hex colours; 160 px font-size literals in the Payroll blocks.
+   5. Visual defects (ERP-217/229 checks a–j): OPEN. Not run as a separate sweep; the overlap pairs above are the main class of defect.
+   6. Copy: OPEN. 42 visits across 9 country and setup routes show raw ledger codes (EOBI_EE, PF_ER, FERIE_SETTLE) and diagnostic text (CANCEL_AND_NEW); a visual-defect review task is open for these.
+   Hard checks: PASS (no page or console errors, blank root, overflow, permission codes, HTTP status text, or off-screen main actions in 400 visits).
+4. Not done: the tax-card hook is in but the shared import does not call it yet (payTaxCardChanged, payroll-data), so tax-card changes do not count as pay inputs until that import applies cards; the shared 44 px touch rule in styles.css is ERP Design's; the principles-audit list beyond the overlaps was not re-worked.
+5. Open questions: (a) decide whether the ledger codes on the country and setup routes are meant to show (recommend: show labels, not codes, which is a copy fix); (b) approve a fix brief for the overlaps on the setup country route (recommend yes, most pairs are there); (c) approve the token pass (160 literals) as its own brief (recommend yes).
+6. Stopped after Payroll pass 3 (HRP-101). HR and Self-service not started.
+
+## 2026-10-23 · HRP-D-11 · From: Code · HRP · Design · ANSWER · Re: HRP-104 · Payroll pass 4, progress (report in order; not green yet)
+Needs answer by: — · Blocking: Jabran's Payroll approval
+1. Step 1, copy (point 6, codes to labels): DONE, committed as Draft 9839bcb1. Setup pages show role and element labels, not codes (EOBI_EE, PF_ER, FERIE_SETTLE, PAYROLL_PAYABLE, and the element code spans); the English display strings say "not checked" and "parallel only" instead of UNCHECKED, PARALLEL_ONLY and CANCEL_AND_NEW. Static scan clean. The route sweep that confirms zero missing-key hits is part of the overlap step's re-run, not yet done.
+2. Step 2, overlaps (points 1, 2, 5): OPEN. CSS-only wrapping fixes were applied to payroll-setup.jsx (min-width and overflow-wrap rules, the posting row collapses below 1100 px) but NOT committed, because they did not reduce the overlaps. Measured on the country setup and rules routes (35 visits, no page errors, no overflow, no pairs behind a scrim): kyst country 106–123 pairs, reyk 157–176, hki 129–170, sthlm 102–108, kystdk 90–103, kyst rules 11–55, lahore rules 12–41. The main pattern is a block overlapping the next card or footer ("Payee reference · Pending verification" over the source or applicability text; "2026 research candidates" over the payee footer), not text wrapping. A CSS-only cause is not found; the likely cause is the fold or footer markup in payroll-setup.jsx (absolute or negative-margin footers), which needs a markup change. Results: NeoERP-App/docs/design/reviews/payroll-setup-country-pass4.json and .md.
+3. Step 3, tokens (point 4): NOT STARTED. 160 px font-size literals remain in the Payroll blocks; spacing and radius literals not counted yet.
+4. Step 4, shared components (point 3): NOT STARTED. The .pay-writes-to chip and the icon-button variant (pay-btn-txt) are local; HrWritesTo and the shared Button are the targets.
+5. Step 5, page states (point 2): NOT STARTED. Empty, loading, error, no access, read-only, module off, offline and filters-found-nothing not verified on every Payroll page.
+6. Step 6, top tasks ≤ 3 clicks (point 1): NOT STARTED. Not re-measured in pass 4.
+7. Step 7, visual sweep a–j (point 5): NOT STARTED as a separate sweep.
+8. Step 8, tax-card hook: NOT STARTED. payTaxCardChanged exists but the shared import does not call it.
+9. Commits: one Draft commit so far (9839bcb1). Nothing is committed for step 2.
+10. Open question: the overlap pattern is markup-level (footers or folds in the setup country page). Recommend a short fix brief on payroll-setup.jsx markup for step 2, with a re-measure, before the remaining steps.
+11. Stopped here as the pass-4 order requires; Payroll is not ready for Jabran's approval.
+
+## 2026-10-23 · HRP-D-12 · From: Code · HRP · Design · ANSWER · Re: HRP-105 · Step 2 measured and checked
+Needs answer by: — · Blocking: Jabran's Payroll approval
+1. Harness check first (HRP-105 item 2): the big count was false positives. Closed <details> content (collapsed folds) accounted for 3,445 pairs; clipping removed 1; display, visibility, zero-size and aria-expanded removed none. Closed-fold content fails checkVisibility() (0 of 183 leaves visible), so the filter holds.
+2. Re-measure (35 setup visits, filtered): 1440, 1280, 1024 and 768 go from 11–170 pairs per route to 0. At 390, pay:reyk, pay:hki, pay:sthlm and the Lahore rules keep 8 pairs each; Kyst and Kyst Danmark go to 0.
+3. Screenshots (in NeoERP-App/docs/design/reviews/): the worst remaining route (reyk country, 390) and its top pair. Verdict: not visible. The breadcrumb reads cleanly; the pair is text boxes that touch, not text on text.
+4. So step 2 has no real overlap to fix in payroll-setup.jsx markup. No markup change made. The earlier CSS-only edits in payroll-setup.jsx (a76c17df) are uncommitted and not integrated; they were not measured as helping, so I have not committed them.
+5. Open: the 8 remaining 390 pairs are touching boxes, not visible overlaps; recommend leaving them unless the design review says otherwise.
+6. Steps 3–8 of HRP-104 are next, in order: tokens, shared components, page states, top tasks, the visual sweep, and the tax-card hook. Not started yet.
+7. Evidence: reviews/payroll-setup-country-pass4-filtered.json and .md, the two PNGs above. Harness: scratchpad ov/sweep5.js.

@@ -230,3 +230,6 @@ Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll review
 1. `styles.css` gives `.btn-sm` (and possibly other controls) a 44 px height at `max-width: 720px`. That made "Open the run" tall on narrow screens (Jabran's ERP-228 point 1) and breaks screen-standard §4 ("44 px only on touch platforms, never with a mouse, at any width").
 2. **Decision:** every touch-size rule moves from width queries to **`@media (pointer: coarse)`** (the rig's touch emulation sets it); no control changes height because the window is narrow. Search styles.css and module CSS for other width-based height/padding bumps and fix the shared ones; list module ones.
 3. Add to the sweep: with a mouse (`pointer: fine`) at 390, no button taller than the control token.
+
+## 2026-10-23 · ERP-234 · From: Code · ERP lead (trial) · FYI · Overlap check: filter closed folds (HRP-107)
+1. HRP · Design found 3,445 of 4,445 Payroll "overlapping text" pairs came from content inside closed `<details>` folds. Filter with `checkVisibility()` and clip by `overflow:hidden` ancestors (their filter: `NeoERP-App/docs/design/reviews/tools/payroll-sweep.js`). Use the same filter in your sweep for every module, and keep **one** shared overlap check (not two diverging scripts): merge theirs into your harness.
