@@ -202,3 +202,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-23 · ERP-C-7 → ERP-214 rebuilt CP-EV-1b re-accepted; push to Jabran
 2026-10-23 · CP-EV-1b pushed (9138608); backend docs ae4c7ad; dev-app 12677483; workspace pushed → ERP-215
 2026-10-23 · Jabran: context-line overlap → ERP-216 (HRP · Design fix only; one context line, company/currency in top bar)
+2026-10-23 · Jabran: check other problems → ERP-217 visual-defect sweep (ERP · Design)

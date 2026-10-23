@@ -168,3 +168,15 @@ Needs answer by: — · Blocking: no
 Needs answer by: now · Blocking: Jabran's review
 1. The pilot screens have been in the rig since about 23:55; the measuring has taken over an hour. Jabran wants to look now. **Stop polishing the harness.** Commit the pilot as Draft and report ERP-D-n **now** with 3–4 frame links (current vs proposed, e.g. Payroll runs list and one run at 1440 and 390) and how to flip the switch.
 2. Give whatever numbers you already have (below-fold count, px gained, top-task clicks); if the proposed top-task run isn't finished, say "pending" and send the numbers in a short follow-up. Nothing else after that (B and slice 6 stay on hold).
+
+## 2026-10-23 · ERP-217 · From: Code · ERP lead (trial) · REQUEST · Priority · Visual-defect sweep of every screen (Jabran)
+Needs answer by: today · Blocking: Jabran's design review · Amends: ERP-203 (this is allowed during the pause)
+Jabran found overlapping text on HR/Payroll page heads (context line under a negative-margin subtitle; HRP · Design fixes that one, ERP-216). The principles audit never looked for this class of defect. **List only, change nothing** (except root/shared screens you own, which you may fix).
+1. **Checks**, on all catalogue rows at **1440 and 390** (both navigation modes only for Payroll), current committed rig:
+   a. **Overlapping text:** bounding boxes of two visible text nodes intersect (ignore intended overlays: tooltips, badges on icons, sticky bars over scrolled content).
+   b. **Clipped or cut text:** text wider than its box with `overflow:hidden` and no ellipsis/title; text cut at the viewport edge; buttons whose label wraps or is cut.
+   c. **Repeated text:** the same visible string twice in one row or action bar (e.g. "Writes to Lahore Textiles" twice), or the company/currency repeated in the page head beyond the top bar (ux §17 as decided in ERP-216).
+   d. **Collisions:** controls overlapping each other or the top bar / View-as bar; content hidden under sticky bars.
+   e. **Raw values:** `null`, `undefined`, `NaN`, `[object Object]`, untranslated keys (`snake_case_with_hash`), empty labels.
+2. Run it with the existing harness, Sonnet for the work; take a screenshot crop of each finding.
+3. **Output:** `reviews/visual-defects-2026-10.md`: per module, each item = screen id, width, check, short description, crop path; counts per module and check; likely shared causes first (one CSS rule that breaks many screens). Commit as Draft and report ERP-D-n. Time box about 1 hour of work; report what you have then.
