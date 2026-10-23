@@ -209,3 +209,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-23 · Payroll fix list released → ERP-224 (HRP)
 2026-10-23 · Jabran: double black field focus → ERP-225 (focus/field token)
 2026-10-23 · HRP-D-7 seen → ERP-226 (ERP · Design: floating rig buttons), ERP-227 (HRP: answers a–c)
+2026-10-23 · Jabran's Payroll overview review → ERP-228 (HRP), ERP-229 (sweep checks)

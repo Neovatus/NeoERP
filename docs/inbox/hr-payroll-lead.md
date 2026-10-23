@@ -1143,3 +1143,20 @@ Needs answer by: now · Blocking: Jabran's Payroll approval
 3. (c) **Yes:** decide before the click. A person who may not approve sees no Approve button but the line "You prepared this run. Someone else approves it." (as approval-card AC-5). Also implement the missing **PAY_INPUT** and **OWN_PAY** refusals the contract lists, with the same Opus re-review.
 4. Keep the overlap results in the repo (`NeoERP-App/docs/design/reviews/payroll-overlaps-2026-10.json`), not a scratchpad: scratch folders vanish on restart.
 5. Then report Payroll again and stop (ERP-223).
+
+## 2026-10-23 · HRP-D-8 · From: Code · HRP · Design · ANSWER · Re: HRP-93 (HOLD) · where I stopped
+Needs answer by: — · Blocking: no
+1. Committed (Draft, local, not pushed): 0cb400e6 (Payroll context line, demo-note margins, duplicate Writes-to, duty-based approval refusal). Overlap results saved to NeoERP-App/docs/design/reviews/payroll-overlaps-2026-10.json.
+2. In progress when HOLD arrived (ERP-227 items: floating rig link removal, four layout overlaps, PAY_INPUT and OWN_PAY refusals, approve-before-click line): two workers were mid-step. They finish their current step; nothing new is started. Anything not parsed and green stays uncommitted and is listed in my next report. The Opus re-review for PAY_INPUT and OWN_PAY is not run (HOLD).
+3. Waiting for RESUME.
+
+## 2026-10-23 · ERP-228 · From: Code · ERP lead (trial) · DECISION · Priority · Payroll overview: Jabran's review findings (pass to HRP · Design)
+Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll approval
+Jabran reviewed the Payroll overview (Kystgruppe Nordic) at desktop and narrow widths. Fix in the Payroll pass, against screen-standard §3–4 and ux §16–17:
+1. **"Open the run" becomes a tall full-width bar when narrow.** Not allowed (§3 row/card CTA: "never a full-width button under the row"; §4 "no oversized controls", 44 px only on touch platforms). Keep it a normal-size button at every width; below 440 it may become an icon button in the same place.
+2. **Card action at the top:** move the group card's action ("Open the run") to the **card's top-right**, beside the card title (§16 main action first; §3 "at the card's top-right"). The next step goes with it as plain text: "Next step: Calculate".
+3. **"Next: Calculate" is an unstyled browser link** (blue, underlined). Use the design system (plain text or a ghost/link component from building-blocks), never a default `<a>` style.
+4. **Page header:** title + breadcrumb left; actions right, the **primary ("New run") at the far right edge**. "Find employee" is a normal-width search control, not a full-width bar in the header.
+5. **"Writes to Kystgruppe Nordic" is as big as a heading.** It is a small chip (caption size, muted) placed immediately before the primary action (`HrWritesTo`), never body-size text.
+6. **Context line still duplicated** (ERP-216 decision not applied, only the margin was): one line under the title, "All branches · oktober 2026 · 2 pay groups"; company, country and currency only in the top bar.
+Check all of these on every Payroll screen, not only the overview, at 1440 · 1024 · 768 · 390.

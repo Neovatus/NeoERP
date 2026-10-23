@@ -209,3 +209,7 @@ Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll approval
 1. HRP · Design's overlap check (HRP-D-7): the fixed bottom-right rig buttons "Payroll designs" (`button.pay-dlink`) and "HR designs" sit over page text on most routes (56 Payroll routes at 1440, 74 at 390). They are rig chrome, so yours.
 2. **Decision:** no rig control floats over product content. Move the module "… designs" links into the View-as bar (or the hub's Design menu); hidden in frame view and in screenshots. If a module block renders its own floating link, list it and HRP/Accounts remove it in their pass.
 3. Re-run the Payroll overlap check after it; report with the Payroll pass.
+
+## 2026-10-23 · ERP-229 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-217 · Add checks to the visual-defect sweep
+1. Add to the sweep (all modules, module by module after Payroll): **f)** buttons wider than their label + padding (full-width buttons), except the allowed file-component primary on a phone; **g)** buttons taller than the control height token with a mouse (the 44 px touch floor only when touch is emulated); **h)** links or buttons with browser-default styling (blue/underlined `<a>`, unstyled `<button>`); **i)** the primary action not at the far right of the page header or not at a card's top-right; **j)** "Writes to …" or other chips rendered at body/heading size.
+2. Same report format; group by cause.

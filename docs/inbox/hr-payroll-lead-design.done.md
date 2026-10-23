@@ -62,3 +62,7 @@ ERP-221 · Payroll first: started; overlap check (ov/) and Opus review of separa
 ERP-224 · item 2 (separation of duties): payRunApprove refuses an approver who created the run or entered a one-off line (oneOff rows now carry by); Opus review pending
 Hold lifted for Payroll: pause file for hr-payroll-lead-design removed on Jabran's instruction (2026-10-23)
 ERP-216/219/221/224 · Payroll part reported in HRP-D-7; commit 0cb400e6 (Draft); overlap acceptance not met; stopped
+HRP-93 · HOLD received; finishing current step only; HRP-D-8 one-line status sent; waiting for RESUME
+HRP-97 · received (Finish Payroll pass, ERP-227 answers); workers A and S were already running; continuing the Payroll pass as briefed
+HRP-97 · A layout worker partial: floating link removed; country-rules wrap; setup overlaps and ESS tab overlap not done; approval worker S still running
+HRP-98 · RESUME received; integrated; overlap re-measure and Opus re-review running; report will be HRP-D-9
