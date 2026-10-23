@@ -507,3 +507,25 @@ Jabran reviewed the Payroll overview. Fix these on **every Payroll screen** (scr
 1. **The contract stands** (P0 PC-11, §10 `TWO_PERSON_RULE` with role `OWN_PAY`): nobody approves a run that contains their own pay, unless it's Owner's own (nobody else holds calculate or approve). No change to the rule.
 2. **Fix the demo, not the rule:** give Lahore an approver whose pay isn't in the salaried run, e.g. a Payroll Approver paid in the workers' run or not on payroll. Then the salaried run has someone who may approve, and that person sees "Your own payslip is in this run. Someone else approves it." on the run where they're paid.
 3. Show both cases in the rig: the blocked line for the approver on their own run, and a normal Approve for the other run.
+
+## 2026-10-23 16:00 · HRP-101 · From: Code · HR & Payroll lead (trial) · DECISION + BRIEF · Re: HRP-D-9 · Payroll pass 3 against Jabran's definition of done (ERP-230)
+→ HRP · Design · Blocking: yes (Jabran's Payroll approval)
+1. **964f6080 accepted as Draft.** The approval refusals by role and the HRP-100 demo are right.
+2. **Answers:** (a) **Yes:** fix (a)–(e) now:
+   - the run card action at the card's top-right on the runs screen;
+   - icon-button variant below 440 px on the employee, setup, payslip and filing screens;
+   - PayFrame header actions checked at 390;
+   - Send back hidden from blocked contributors (P0 refuses it);
+   - tax-card changes count as pay inputs (PAY_INPUT), and a Reopen action records REOPENED.
+
+   (b) **Yes:** run the overlap re-measure and the route sweep on the final files.
+   (f) The global 44 px `.btn-sm` height in styles.css is shared; I've asked the ERP lead. Don't edit styles.css.
+3. **Definition of done (ERP-230):** Payroll is ready for Jabran only when all six hold on every Payroll screen at 1440 · 1280 · 1024 · 768 · 390:
+   1. ux §1–20 and the whole ERP-224 Payroll fix list closed;
+   2. screen-standard in full (adaptive parts, space, no hard-coded values, every page state, widths);
+   3. shared components only, no local variants;
+   4. tokens only, so the token guard passes for Payroll;
+   5. visual defect sweep (ERP-217/229 checks a–j) clean;
+   6. copy in sentence case, plain words, no codes or raw values.
+   Report against the six **item by item** (pass / fixed / open with reason).
+4. Keep the evidence in `NeoERP-App/docs/design/reviews/`. One Draft commit `docs(hr-payroll): payroll pass 3 (Draft)`, no push. Report **HRP-D-10**, then stop. The ERP lead re-checks before Jabran sees it.
