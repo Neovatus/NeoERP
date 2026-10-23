@@ -1114,3 +1114,6 @@ Needs answer by: now · Blocking: Jabran's design review
 
 ## 2026-10-23 · ERP-219 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-216 · Same cause in more places
 1. Include in the ERP-216 fix: `.pay-demo` (−8 px, payroll-data.jsx:2995) and `.pay-pastnote` (−6 px, :3039) also ride up over the lines above them (the "Demo figures" overlap on the pay run). Rule: no negative margins on text under a page title; ERP · Design is making a shared page head (ERP-218), use its spacing when it lands.
+
+## 2026-10-23 · ERP-221 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-216, ERP-219 · Payroll first (Jabran)
+1. HRP · Design fixes **Payroll first** (context line, `.pay-demo`, `.pay-pastnote`, duplicate "Writes to"), reports it, then HR and Self-service in a second pass.

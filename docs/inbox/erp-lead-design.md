@@ -187,3 +187,7 @@ Needs answer by: with ERP-217 · Blocking: Jabran's design review
 2. **Rule (shared, yours):** one shared **page head** — breadcrumb, title, one context line (branch scope + period + page facts; company/currency only in the top bar, ERP-216), optional notes (demo figures, past-period) — with fixed spacing from tokens; **no negative margins on text under a title**. Write it into `screen-standard.md` (page head section) and `building-blocks.md`, and add a harness check that fails on a negative margin on a text block in the page head.
 3. **Fix yourself now:** the shared ones (`.ac-sub`, `.rig-home-ctx`, `.rig-cat-sub` in styles.css). **List** the module ones (HR & Payroll, Accounts) in the ERP-217 report for their leads; HRP · Design fixes its own under ERP-216.
 4. In the sweep report, group findings by cause so one rule fix closes many screens.
+
+## 2026-10-23 · ERP-220 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-217, ERP-218 · Payroll first, then the others (Jabran)
+1. Run the visual-defect sweep (ERP-217) on **Payroll only first** (both navigation modes, 1440 and 390), report it as its own ERP-D-n, then continue module by module: HR, Self-service, Accounts, Platform, each its own short report.
+2. The shared page head (ERP-218) is designed and checked on Payroll first (current and proposed navigation); roll it to the others after Jabran has seen Payroll.
