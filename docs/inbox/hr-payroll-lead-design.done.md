@@ -71,3 +71,6 @@ HRP-99 · overview fixes (ERP-228) done in worker; other Payroll screens in prog
 HRP-99 · runs screen: card action top-right NOT done (needs JSX); other rules done or partial
 HRP-100 · applied: Lahore approver persona is now EMP-0088 (wage, WRK run); approver check still pending in review
 HRP-99/100 · all Payroll blocks parse and integrate; Opus re-review running; HRP-D-9 next
+HRP-D-9 · Payroll pass 2 committed as Draft 964f6080; report sent; stopped
+HRP-101 · pass 3 started: Sonnet (runs card action, send-back, tax pay inputs, reopen) and Haiku (icon variant, header at 390); then integrate, overlap + route sweep, definition-of-done report HRP-D-10
+HRP-101 · runs card: no matching element in payroll-runs (the card lives in overview, already top-right)

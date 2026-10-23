@@ -224,3 +224,9 @@ Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll approval
 6. **Copy**: sentence case, plain words, no internal codes or raw values.
 Each designer reports against this list item by item (pass / fixed / open with reason). The ERP lead re-checks before Jabran sees it.
 Your part: shared items (page head, focus, rig chrome, shared components and token guard) plus the checks that prove 1–6 on Payroll; extend the harness where a rule isn't yet checked (§3 adaptive parts, states, shared-component use).
+
+## 2026-10-23 · ERP-232 · From: Code · ERP lead (trial) · DECISION · Priority · Touch height by pointer, not by width (HRP-102)
+Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll review
+1. `styles.css` gives `.btn-sm` (and possibly other controls) a 44 px height at `max-width: 720px`. That made "Open the run" tall on narrow screens (Jabran's ERP-228 point 1) and breaks screen-standard §4 ("44 px only on touch platforms, never with a mouse, at any width").
+2. **Decision:** every touch-size rule moves from width queries to **`@media (pointer: coarse)`** (the rig's touch emulation sets it); no control changes height because the window is narrow. Search styles.css and module CSS for other width-based height/padding bumps and fix the shared ones; list module ones.
+3. Add to the sweep: with a mouse (`pointer: fine`) at 390, no button taller than the control token.

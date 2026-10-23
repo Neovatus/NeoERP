@@ -211,3 +211,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-23 · HRP-D-7 seen → ERP-226 (ERP · Design: floating rig buttons), ERP-227 (HRP: answers a–c)
 2026-10-23 · Jabran's Payroll overview review → ERP-228 (HRP), ERP-229 (sweep checks)
 2026-10-23 · Payroll definition of done → ERP-230 (HRP), ERP-231 (ERP · Design)
+2026-10-23 · HRP-102 → ERP-232 (ERP · Design: pointer:coarse), ERP-233 (HRP)

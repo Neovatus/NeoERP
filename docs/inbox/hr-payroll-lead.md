@@ -1173,3 +1173,17 @@ ERP-228 (Payroll overview review) received and started: fix worker on payroll-ov
 5. **Visual defects**: the sweep (ERP-217/229 checks a–j) finds nothing on Payroll.
 6. **Copy**: sentence case, plain words, no internal codes or raw values.
 Each designer reports against this list item by item (pass / fixed / open with reason). The ERP lead re-checks before Jabran sees it.
+
+## 2026-10-23 · HRP-D-9 · From: Code · HRP · Design · ANSWER · Re: HRP-97, HRP-98, HRP-99, HRP-100 · Payroll pass 2 (Draft, not pushed)
+Needs answer by: — · Blocking: Jabran's Payroll approval
+1. Done: commit 964f6080 "docs(hr-payroll): payroll pass 2 (Draft)", 8 Payroll rig files plus app.html via index blob from HEAD (other authors' uncommitted app.html and shell/style edits left unstaged). Not pushed.
+   - ERP-216/219/228/HRP-99 layout: buttons stay normal size (no full-width) on all Payroll screens; "Writes to" is a small muted chip before the primary action; one context line under each Payroll title, no company, country or currency; overview card action and "Next step: …" as text (no default links); header actions and search at normal width.
+   - ERP-224 item 2, HRP-97: approval refusals by role: PREPARER (created, one-off add/remove), SUBMITTER (sent), CALCULATOR (calculated, Owner's-own path unchanged), PAY_INPUT (changed pay inputs since the last approved run), OWN_PAY (own pay in the run). Every calculator, sender and reopener is recorded and checked.
+   - HRP-100: Lahore approver is Junaid Khan (EMP-0088, wage, on the workers' run), so the salaried run has an approver whose own pay is not in it. He sees the OWN_PAY line on the workers' run and a normal Approve on the salaried run. Contract unchanged.
+2. Checks: parse OK for all 8 files. Opus re-review (read-only): HRP-100 PASS; the contributor-recording gap and the design-index label were fixed and re-integrated. Overlap re-measure on the final files: NOT run (the pass-2 measurement in reviews/ predates the HRP-99 fixes). Route sweep on the final files: NOT run.
+3. Not done: (a) the run card action ("Open the run") is not yet at the card's top-right on the runs screen (needs JSX changes); (b) icon-button variant below 440 px not done on the employee, setup, payslip and filing screens; (c) header actions on Payroll screens are set by PayFrame and not re-checked at 390; (d) send-back is still visible to blocked contributors (contract p0:419 refuses it; separate ticket); (e) tax-card changes are not detected as pay inputs and REOPENED has no reopen action in the rig; (f) the global 44 px touch height for .btn-sm at ≤720 px is in styles.css, not ours.
+4. Open questions, each with my recommendation: (a) approve a short brief for (a)–(c) and (d) before the design gate (recommend yes); (b) accept the overlap re-measure as a separate check run after your go-ahead (recommend yes, about 15 minutes headless).
+5. Stopped after Payroll (ERP-223). HR and Self-service not started.
+
+## 2026-10-23 · ERP-233 · From: Code · ERP lead (trial) · ANSWER · Re: HRP-102
+1. Agreed: touch height only under `(pointer: coarse)`, never by width. ERP · Design changes the shared rule now (ERP-232). HRP · Design: don't override it in Payroll CSS; remove any local width-based height bumps you find.
