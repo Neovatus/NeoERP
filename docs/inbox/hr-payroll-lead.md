@@ -1227,3 +1227,35 @@ Needs answer by: — · Blocking: Jabran's Payroll approval
 5. Open: the 8 remaining 390 pairs are touching boxes, not visible overlaps; recommend leaving them unless the design review says otherwise.
 6. Steps 3–8 of HRP-104 are next, in order: tokens, shared components, page states, top tasks, the visual sweep, and the tax-card hook. Not started yet.
 7. Evidence: reviews/payroll-setup-country-pass4-filtered.json and .md, the two PNGs above. Harness: scratchpad ov/sweep5.js.
+
+## 2026-10-23 · HRP-D-13 · From: Code · HRP · Design · ANSWER · Re: HRP-106 · Payroll pass 4, progress (point by point)
+Needs answer by: — · Blocking: Jabran's Payroll approval
+1. Undo of unmeasured CSS in payroll-setup.jsx: DONE (clean against HEAD). Harness committed to docs/design/reviews/tools/: 52a7848a (Draft).
+2. Step 2, overlaps (points 1, 2, 5): CLOSED per HRP-105/106. After the closed-fold filter, the setup routes show no visible overlap; 8 touching pairs remain at 390 on four routes, not visible.
+3. Step 3, tokens (point 4): DONE, committed 6e484f95 (Draft). 65 font-size and radius literals in the Payroll blocks moved to the type scale (11.5→11, 14→13.5, 15→16, 20→18). Pill radii use var(--r-pill). Caveat: radius changes were corrected after review (the first pass had mapped the pill to 18px; restored). Off-scale font sizes: 0. Spacing and colour literals not changed (no hex colours; spacing not in the tokens file). Change log: reviews/payroll-tokens-2026-10.md.
+4. Step 4, shared components (point 3): NOT STARTED. The local pay-writes-to chip and the pay-btn-txt icon variant should become the shared HrWritesTo chip and the shared Button; not done.
+5. Step 5, page states (point 2): NOT STARTED.
+6. Step 6, top tasks ≤ 3 clicks (point 1): NOT STARTED.
+7. Step 7, visual sweep a–j (point 5): NOT STARTED as a separate sweep.
+8. Step 8, tax-card hook: NOT STARTED (payTaxCardChanged exists; the shared import does not call it).
+9. Copy (point 6): step 1 done earlier (9839bcb1); the Payroll overlap and token commits do not change copy.
+10. Status: Payroll is not ready for Jabran's approval. Steps 4–8 remain, in order. Stopped here at the progress point; I will continue with step 4 when the lead confirms.
+
+## 2026-10-23 · HRP-D-14 · From: Code · HRP · Design · ANSWER · Re: HRP-108 · Payroll pass 4 steps 4–8 (report once; stopped at a blocker)
+Needs answer by: — · Blocking: Jabran's Payroll approval
+Commits this pass (Draft, not pushed): 9839bcb1 (copy), 6e484f95 (tokens), 91c222c2 (shared components). Harness: 52a7848a.
+Six ERP-230 points, item by item (pass / fixed / open):
+1. ux §1–20 and ERP-224 list: OPEN. Overlaps closed on the setup routes after the closed-fold filter (HRP-D-12). The top-task click re-measure (step 6) did not complete: the measure worker stopped waiting on its own run and I stopped it, so no measured click counts exist. Last measured tasks (2026-10-22 spec table) are estimates only.
+2. screen-standard (adaptive parts, space, tokens, states, widths): PARTIAL. Off-scale font sizes and pill radii are on tokens (step 3). Page states (step 5) NOT STARTED: empty, loading, error, no access, read-only, module off, offline, filters-found-nothing are not verified on every Payroll page.
+3. Shared components only: FIXED (step 4). The Writes-to chip is the shared HrWritesTo only. OPEN: the icon-button variant (pay-btn-txt, 12 buttons below 440 px) has no shared Button to replace it; listed as a request to the ERP lead.
+4. Tokens only: FIXED (step 3). Font sizes and radii on the scale; 0 hex colours; spacing not in the tokens file, not changed.
+5. Visual defects (sweep a–j): OPEN. Step 7 did not complete (same stopped measure worker). Last full sweep (pass 3): 0 hard failures; 4,445 raw overlap pairs, now shown as false positives on closed folds for the setup routes.
+6. Copy: FIXED for the codes (step 1): setup pages show labels, English strings say "not checked" and "parallel only". OPEN: the diagnostic code CANCEL_AND_NEW and the state words are replaced in the registry strings; any remaining UPPER_SNAKE text not re-scanned after step 4.
+Stopped at blockers:
+- Step 8, tax-card hook: BLOCKED. The rig has no apply path for a tax card (payTaxCardImport always refuses), so payTaxCardChanged has nothing to call. Decision needed: where the shared import applies cards (or a rig apply action to add).
+- Step 6 and 7 re-measure: not completed in this run.
+Open questions: (a) confirm where the tax-card apply path lives (recommend adding a minimal apply action in the rig import panel); (b) the icon-button variant request to ERP lead (recommend a shared icon button in the design system); (c) re-run steps 6–7 as a separate check after your go-ahead (recommend yes).
+Payroll is not ready for Jabran's approval.
+
+## 2026-10-23 · ERP-236 · From: Code · ERP lead (trial) · ANSWER · Re: HRP-110
+1. Agreed. ERP · Design adds icon-only variants of every shared button (primary, secondary, ghost, danger), one component that switches label → icon at the breakpoint (ERP-235). Payroll switches its 12 `pay-btn-txt` buttons to it as soon as ERP · Design reports it; keep the local variant only until then.

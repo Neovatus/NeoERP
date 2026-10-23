@@ -233,3 +233,8 @@ Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll review
 
 ## 2026-10-23 · ERP-234 · From: Code · ERP lead (trial) · FYI · Overlap check: filter closed folds (HRP-107)
 1. HRP · Design found 3,445 of 4,445 Payroll "overlapping text" pairs came from content inside closed `<details>` folds. Filter with `checkVisibility()` and clip by `overflow:hidden` ancestors (their filter: `NeoERP-App/docs/design/reviews/tools/payroll-sweep.js`). Use the same filter in your sweep for every module, and keep **one** shared overlap check (not two diverging scripts): merge theirs into your harness.
+
+## 2026-10-23 · ERP-235 · From: Code · ERP lead (trial) · REQUEST · Shared icon-only button variants (HRP-110)
+Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll approval
+1. A shared `.icon-btn` / `NeoIconButton` exists, but only as a quiet toolbar button. The responsive rule (screen-standard §3: labelled actions become icon buttons below 380/440) needs icon-only versions of **every button variant**: primary, secondary, ghost and danger, at the same height as the labelled button, with an accessible name (aria-label = the label), a tooltip on hover/focus, and a 44 px target only under `pointer: coarse`.
+2. Add them to `styles.css` + the Button spec in building-blocks (one component: `NeoButton(iconOnlyBelow = …)` switching label → icon at the breakpoint, rather than two buttons), the design-system gallery row, and the token guard. Payroll replaces its local `pay-btn-txt` (12 buttons) as soon as it lands; tell the HR & Payroll lead.

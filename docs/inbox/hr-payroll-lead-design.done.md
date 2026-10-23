@@ -86,3 +86,9 @@ HRP-D-11 · pass 4 progress: step 1 done (9839bcb1); step 2 open (measured); ste
 HRP-105 · filtered re-measure and screenshot started (measure only); markup fix waits for it
 HRP-D-12 · step 2 measured: closed-fold false positives removed; no real visible overlap on setup routes; steps 3-8 next
 HRP-106 · undo done (payroll-setup clean); harness committed 52a7848a (reviews/tools); step 3 tokens running (Haiku); steps 4–8 next; HRP-D-13 at the end
+HRP-D-13 · pass 4 progress: undo done; harness committed; step 2 closed; step 3 committed 6e484f95; steps 4–8 open
+HRP-108 · step 4 committed (91c222c2); steps 6–7 measure running (Haiku); step 5 states and step 8 tax-card hook pending (step 8 needs an apply path decision)
+HRP-D-14 · steps 4 done (91c222c2); 5 not started; 6–7 not measured; 8 blocked on the tax-card apply path; reported
+HRP-109 · step 8 done: tax-card apply calls payTaxCardChanged per applied row; steps 5–7 next
+HRP-109 · step 8 committed 5ae2bb86; step 5 states worker running (Haiku, 40 min time box); steps 6–7 to follow with a time limit per route
+HRP-109 · step 5 committed 27e3c996 (states: read-only banner, gate); steps 6–7 measure running (per-route 20 s limit); HRP-D-15 at the end

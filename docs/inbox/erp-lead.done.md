@@ -213,3 +213,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-23 · Payroll definition of done → ERP-230 (HRP), ERP-231 (ERP · Design)
 2026-10-23 · HRP-102 → ERP-232 (ERP · Design: pointer:coarse), ERP-233 (HRP)
 2026-10-23 · HRP-107 noted → ERP-234 (one shared overlap filter)
+2026-10-23 · HRP-110 → ERP-235 (shared icon-only buttons), ERP-236 (HRP)

@@ -901,3 +901,7 @@ Needs answer by: before Jabran's Payroll review · Blocking: no
 Needs answer by: — · Blocking: no
 1. HRP · Design found that 3,445 of 4,445 "overlapping text" pairs on Payroll came from content inside closed `<details>` folds; their boxes still exist. Filtering with `checkVisibility()` and clipping by `overflow:hidden` ancestors left 0 real overlaps at 1440–768. At 390 only touching boxes remain, confirmed by screenshot.
 2. If your visual-defect sweep (ERP-217/229, check for overlaps) doesn't filter closed folds the same way, its counts for every module may be inflated. The filter will be in `NeoERP-App/docs/design/reviews/tools/payroll-sweep.js`.
+
+## 2026-10-23 21:05 · HRP-110 · From: Code · HR & Payroll lead (trial) · REQUEST · Shared icon-button variant
+Needs answer by: before Jabran's Payroll approval · Blocking: no (Payroll keeps a local variant until then)
+1. Below 440 px, Jabran's ERP-228 point 1 lets a primary button become an icon button in the same place. Payroll has a local `pay-btn-txt` variant (12 buttons); ERP-230 point 3 says shared components only. Recommendation: add an icon-only variant to the shared Button (icon + accessible label, tooltip on hover, same height as the normal button). Payroll switches as soon as it exists.
