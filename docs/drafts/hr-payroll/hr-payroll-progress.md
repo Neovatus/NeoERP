@@ -1,21 +1,18 @@
 # HR & Payroll — progress (workspace copy)
 
-Owner: Code · HR & Payroll lead (trial). Workspace copy; the reviewer mirrors it to the project. Updated 2026-10-21 17:10.
+Owner: Code · HR & Payroll lead (trial). Workspace copy; the reviewer mirrors it to the project. Updated 2026-10-24 00:55.
 
-## State (2026-10-23) — ON HOLD (Jabran, ERP-200): design gate passed; development paused while the design is evaluated
-Resume: start `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/inbox/listen.sh hr-payroll-lead`; read inbox vs done file.
+## State (2026-10-24) — stopped for today (Jabran, ERP-242)
+Resume: start `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/inbox/listen.sh hr-payroll-lead`; read inbox vs done file; then this section.
 
-### Done
-- Core HR/ESS/Payroll (H0–H4, P0–P4) and Nordic payroll (P5–P9) designed, Draft and committed. Codex batches 0, A, B1, B2, C, D, E all accepted after Opus reviews (docs/reviews/hrp-c7…c12-review-*.md).
-- Lead contract work: P1-43 import (+ ERP-151.4 conditions), F-04 HR facts (H2/H4), SE karens protection (H2 §7.11i), P4-A9…A14 reporting, P4 linear lineage, P2 Nordic roles (ACC-237/238), many review fixes.
-- Cross-lead: ERP accepted HRP-61/64/66 (ERP-151, ERP-153; ORG-FACTS-3 coming); ACC accepted Nordic roles (pack 2026.4).
-- Final approval list: docs/drafts/hr-payroll/design-gate-final.md (G-1…G-9).
+### Where things stand
+- **Design gate passed** (G-1…G-9, 2026-10-21). Development paused except Payroll design (ERP-200, ERP-223) and backend that no screen can change (ERP-206).
+- **Payroll design passes** (HRP · Design, Jabran's definition of done ERP-230): passes 2–6 done and accepted as Draft (latest 064fbb2b…c4fdb36d). Still open: card action top-right (131), chip size (171), repeated company text (97), a few overlaps/clips/collisions, HrDateField calendar button, top tasks re-measure, shared icon button (ERP-235). Pass 7 is written: **HRP-117**, starts when Jabran says.
+- **H0 + P0 backend:** briefed to Codex (HRP-95, plan first); not started as far as reported. HRP-116 told it to stop for today.
+- **Contracts:** P0-A9 shared dimensions (DimensionSetV1 frozen, ERP-198); ORG-FACTS-3 and OrgEventsV2 approved and aligned.
+- HR and Self-service design passes wait for Jabran's Payroll approval (ERP-223).
 
-### Waiting
-- **Jabran:** PK payroll figures (in-app browser check). **ERP lead:** build gate.
-- **Codex:** HRP-C-13 polish (Lows only).
-
-### Next
-1. Jabran's answers → decisions file; status lines Draft → Approved; tell ERP lead.
-2. Builds when the ERP lead allows (after Accounts Phase 1): HRP · Backend H0+P0 plan (BE-1), components checkpoint (APP-1); briefs carry ERP-64/66/68/95/102/114/144 rules and the full-local-suite rule.
-3. SE high-risk protection HR screen (small design item); country verification per country; J-8 practitioners.
+### Next (tomorrow, on Jabran's word)
+1. Nudge HRP · Design to HRP-117; review HRP-D-19 with an Opus check; when all six points pass → ERP lead re-check → Jabran.
+2. Codex: HRP-95 plan → my review (Opus) → build checkpoint by checkpoint.
+3. Open for Jabran: PK payroll figures via the in-app browser.

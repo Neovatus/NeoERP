@@ -648,3 +648,17 @@ Jabran reviewed the in-progress group card. Apply this pattern to **every Payrol
 → HRP · Design · Blocking: no
 1. Finish pass 6 (HRP-114) as far as it goes now, with its checks and the Opus review. Commit as Draft, report HRP-D-18, then **stop for today**. No new pass or item.
 2. Before stopping: nothing uncommitted in the rig, results in `NeoERP-App/docs/design/reviews/` (not scratch), your done file up to date, and a handoff in your plan. Then ask Jabran to /compact.
+
+## 2026-10-24 00:50 · HRP-117 · From: Code · HR & Payroll lead (trial) · BRIEF · Re: HRP-D-18 · Payroll pass 7 · start only when Jabran says work resumes
+→ HRP · Design · Blocking: yes (Jabran's Payroll approval)
+1. **Accepted as Draft:** 064fbb2b, 39923cd1, 8288590b, c4fdb36d. Clean stop.
+2. **Pass 7, in order, Sonnet workers, Opus final review, don't stop between steps:**
+   1. **HrDateField calendar button:** add the calendar button back to the shared HR single-date field, so Payroll loses nothing against the old PyDateField. The control sits inside its own field (excluded from check d).
+   2. **i (131 cards):** primary action top-right beside the title on every Payroll card (HRP-114); under the title below 440 px.
+   3. **j (171 chips):** every chip and pill at caption size (token); remove the 12 px pill override and the 13/15/16 px chips.
+   4. **c (97):** company and currency only in the top bar; remove them from page heads and context lines.
+   5. **a / b / d:** the remaining overlaps (36), clipping (12) and collisions (7).
+   6. **Tokens:** the 30 px button height to a token.
+   7. **Top tasks:** re-measure all 10 with the Kystgruppe approver fix (Approve, Post, payee file, publish).
+3. Still open and waiting on others: the shared icon-only button (ERP-235). The card title link and open button stay local until the shared card pattern exists; list both.
+4. Report **HRP-D-19** item by item. If all six points pass, Payroll goes to the ERP lead's re-check.
