@@ -8,3 +8,5 @@ ERP-201 — 2026-10-23 00:45: HOLD applied at safe point, superseded for ERP-174
 ERP-204 — 2026-10-23 00:45: exception applied, rebased current origin/dev 4b6b6a2, full changed suites/review/local commit complete; reported ERP-C-4, no push.
 ERP-208 — 2026-10-23 07:40: exact661a7d6 full Accounts1080/1084 (4skips,0fail) plus final amended-stack five suites green; reported ERP-C-5, no Accounts edits, no push.
 ERP-209 — 2026-10-23 07:40: all3 fixes and independent replay-race/template-compatibility findings fixed/re-reviewed; final5 full suites1708passed/1718 (10skips,0fail), local b565668 in /private/tmp/neoerp-erp174-backend; reported ERP-C-5, no push. ERP-205.1 next.
+ERP-212 — 2026-10-23 19:31: original CP-EV-1b acceptance acknowledged; original commits lost after restart, recovered replacement stack reported ERP-C-7 for re-acceptance.
+ERP-213 — 2026-10-23 19:31: CP-EV-1b reconstructed from session patches in persistent builds/cp-ev-1b; local9dd5d84,c0a4d6f,9138608, full5suites1708/1718 (10existing skips,0fail), fresh review clear, all bundles verified; ERP-C-7, no push. ERP-205 waits for lead re-acceptance; ORG-FACTS-3 not done.
