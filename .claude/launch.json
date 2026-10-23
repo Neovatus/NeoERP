@@ -3,6 +3,7 @@
   "configurations": [
     {
       "name": "screen-rig",
+      "port": 8765,
       "runtimeExecutable": "python3",
       "runtimeArgs": [
         "-m",
@@ -10,8 +11,7 @@
         "8765",
         "--directory",
         "NeoERP-App/docs/design/screen-rig"
-      ],
-      "port": 8765
+      ]
     },
     {
       "name": "design-system",
