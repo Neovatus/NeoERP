@@ -23,3 +23,5 @@ Owner (the main) only. One line per handled brief.
 - 2026-10-23 ERP-234 forwarded to the running harness agent (merge HRP overlap filter into the one shared check)
 - 2026-10-23 ERP-235 read and queued (icon-only button variants; next agent after the current harness/focus agent, same styles.css)
 - 2026-10-23 ERP-240: rule added to ux-principles.md §9 (uncommitted); Button spec line and the sweep check (nav-vs-action labels) go with the ERP-235 agent
+- 2026-10-23 ERP-241 applied: finishing the current agent (focus token, rig chrome, Payroll proof, ERP-234 filter), commit, report, then stop; ERP-235 (icon-only buttons) and the ERP-240 sweep check/Button spec wait for tomorrow
+- 2026-10-23 reported (ERP-D) and stopped per ERP-241; open for tomorrow: ERP-235 icon-only buttons, ERP-240 sweep check + Button spec, genprin rerun, other-module sweeps (ERP-222), B on other modules, slice 6
