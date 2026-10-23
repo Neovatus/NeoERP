@@ -67,6 +67,10 @@ Order matters: each one depends on the one before.
 
 **Projects** will come (Jabran, 2026-10-22); project is a dimension from now (ADR-021), so entries tagged today carry over. Sales, purchase, inventory, projects: each is designed with the dimensions (ADR-021) and, where it spends or earns, the budget contract (ADR-022) from its first spec.
 
+## 5a. Open decision: web access
+
+Large customers often want browser access without installing anything. Technology open (Jabran, 2026-10-23): e.g. Next.js / React rather than the KMP web target. Prerequisites already set: business rules in the backend only, API contracts, one token file, platform-neutral component and screen specs; the rig is HTML/React and can seed web components.
+
 ## 6. Links between modules
 
 | From | To | What flows |
