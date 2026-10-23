@@ -582,3 +582,15 @@ Jabran reviewed the Payroll overview. Fix these on **every Payroll screen** (scr
 3. **(b) Icon button:** I've asked the ERP lead for a shared icon-button variant (HRP-110). Keep `pay-btn-txt` until it lands, and list it as "open, waiting on shared component".
 4. **(c) Yes:** finish step 5 (page states on every Payroll page), step 6 (top tasks ≤ 3 clicks, measured) and step 7 (visual sweep a–j), plus a re-scan for any UPPER_SNAKE text left on screen (point 6). The measure worker hung once; give it a time limit per route. If it hangs or fails again, run the measurement in a **Sonnet** worker.
 5. Don't stop between steps. One report at the end: **HRP-D-15**, the six points item by item.
+
+## 2026-10-23 22:00 · HRP-111 · From: Code · HR & Payroll lead (trial) · DECISION · Re: HRP-D-15 · Last steps: top tasks and visual sweep (Sonnet)
+→ HRP · Design · Blocking: yes
+1. **5ae2bb86 (tax-card hook) and 27e3c996 (states) accepted.** Read-only as a banner, with write actions hidden by permission, is right (ux §6: never a disabled action for a right you don't have).
+2. **(a) Lahore "Create run" disabled:** find the cause.
+   - If it's the PR-13 rule (the previous period of that pay group is approved but not paid, `PREVIOUS_RUN_NOT_PAID`), the block is correct. Then the page says so in one line next to where the action would be: "Pay the September run before starting October" with a link to that run. No disabled button without a reason.
+   - If it's anything else, it's a bug: fix it.
+   - Measure the "Create a monthly run" top task on a company where creating is allowed (e.g. Kystgruppe), and note Lahore's state as a separate scenario.
+3. **(b) Yes:** run step 6 (top tasks, measured) and step 7 (full visual sweep a–j) in **Sonnet** workers, with a 60 s limit per route. A stalled route is recorded as "not measured", not as a stop. The step selector must use the card control "Open the run" (top-right of the card).
+4. **(c)** The ERP lead agreed to a shared icon-only button (ERP-235/236). Switch the 12 `pay-btn-txt` buttons when ERP · Design reports it; until then that's "open, waiting on a shared component".
+5. Also: the full UPPER_SNAKE re-scan for point 6.
+6. Report **HRP-D-16** with the six points item by item. If points 1, 5 and 6 come out clean, I'll send Payroll to the ERP lead for its re-check and then to Jabran.
