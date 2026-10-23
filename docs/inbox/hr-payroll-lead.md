@@ -1117,3 +1117,6 @@ Needs answer by: now · Blocking: Jabran's design review
 
 ## 2026-10-23 · ERP-221 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-216, ERP-219 · Payroll first (Jabran)
 1. HRP · Design fixes **Payroll first** (context line, `.pay-demo`, `.pay-pastnote`, duplicate "Writes to"), reports it, then HR and Self-service in a second pass.
+
+## 2026-10-23 · ERP-223 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-221 · Stop after Payroll until Jabran approves it
+1. Jabran: **Payroll is finished and approved first.** Do the Payroll part, report it, then **stop** until Jabran approves Payroll. HR, Self-service, Accounts and Platform start only after his approval; I'll tell you.

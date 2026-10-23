@@ -191,3 +191,6 @@ Needs answer by: with ERP-217 · Blocking: Jabran's design review
 ## 2026-10-23 · ERP-220 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-217, ERP-218 · Payroll first, then the others (Jabran)
 1. Run the visual-defect sweep (ERP-217) on **Payroll only first** (both navigation modes, 1440 and 390), report it as its own ERP-D-n, then continue module by module: HR, Self-service, Accounts, Platform, each its own short report.
 2. The shared page head (ERP-218) is designed and checked on Payroll first (current and proposed navigation); roll it to the others after Jabran has seen Payroll.
+
+## 2026-10-23 · ERP-222 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-220 · Stop after Payroll until Jabran approves it
+1. Jabran: **Payroll is finished and approved first.** Do the Payroll part, report it, then **stop** until Jabran approves Payroll. HR, Self-service, Accounts and Platform start only after his approval; I'll tell you.

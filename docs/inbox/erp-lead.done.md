@@ -205,3 +205,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-23 · Jabran: check other problems → ERP-217 visual-defect sweep (ERP · Design)
 2026-10-23 · overlap root cause (negative margins) → ERP-218 (ERP · Design: shared page head + check), ERP-219 (HRP)
 2026-10-23 · Jabran: Payroll first, then others → ERP-220 (ERP · Design), ERP-221 (HRP)
+2026-10-23 · Jabran: approve Payroll first, then others → ERP-222, ERP-223
