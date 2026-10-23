@@ -96,3 +96,17 @@ HRP-D-15 · steps 5–8 committed (5 states, 8 tax hook); 6–7 partial (1 of 10
 HRP-111 · (a) PR-13 reason and link (18827baf); UPPER_SNAKE re-scan fixed (5933e8eb); top-task (Sonnet) and visual-sweep (Sonnet, 60 s per route) running; HRP-D-16 at the end
 HRP-112 · overview group card pattern committed 6086ba86 (filings and payslips have no next-step card; n/a). Visual sweep pass5 done (defects listed in reviews/payroll-visual-defects-2026-10-pass5.md). Top-task measure (abdcd41c) pending; HRP-D-16 after it reports.
 HRP-D-16 · pass 4 final report sent: points 4 and parts of 2, 3, 6 done; 1, 5 open; reported
+HRP-113 · pass 5 fix workers on Sonnet started: A overview (Continue cards, title, status, shared), B run step bar and disabled reasons, C period labels and null text, D checks c/d/f/g/j. Then integrate, commit, re-measure 10 top tasks and sweep, Opus review, HRP-D-17.
+HRP-113 · A (overview) done; B, C, D running
+HRP-113 · D done except j (Due chip is in payroll-runs, owned by B)
+HRP-113 · B done (step reasons visible; PayAct reasons); Due chip open; C running
+HRP-113 · pass 5 fix round committed 021ed5b2 (Draft); re-measure of 10 top tasks and re-run of the sweep started (Sonnet, 60 s per route); Opus review after; HRP-D-17
+HRP-113 · sweep pass 6 done: a 36, b 12, c 97, d 72, e 20, f 0, g 5, i 125, j 83 (open); top-task measure still running
+HRP-113 · top-task re-measure: 4 of 10 not reached on kyst; 3 disabled without reason text; Opus review running
+HRP-D-17 · pass 5 report sent: not ready; points 1, 2, 3, 5, 6 open; 4 partly fixed; Opus review ready on approval logic
+HRP-114 · four Sonnet fix workers started: W1 overview+runs (card action, cid, reasons, chips), W2 data (Kystgruppe approver and ESS person, DK codes, 30 px token), W3 setup/employee/payslips/filings (null, repeated company text, shared date field), W4 ess-shell (token heights, chips). Then integrate, measure, Opus review, HRP-D-18.
+HRP-114 · W4 ESS buttons and chips done (Download PDF class in payroll-rig open); W1–W3 running
+HRP-114 · W2 done (kyst approver EMP-K-0126 with caveat; ESS person Ola Haugen added); W1 and W3 running
+HRP-114 · W1 done (card, cid, reasons, chips); W3 running
+HRP-114 · fixes committed 064fbb2b (Draft); re-measure and sweep running; Opus review then HRP-D-18
+HRP-114 · sweep pass 7 done: e and g cleared; d 7; a/b/c/i/j still open (i 131, j 171 at >12.5 px); top-task measure running

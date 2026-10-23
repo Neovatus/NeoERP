@@ -242,3 +242,7 @@ Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll approval
 ## 2026-10-23 · ERP-240 · From: Code · ERP lead (trial) · DECISION · Copy rule: navigation vs action labels (Jabran)
 1. Add to `ux-principles.md` §9 (plain words) and the Button spec: **a button that moves you somewhere says "Continue to …" or "Open …"; a button that performs something names the action ("Calculate", "Post", "Approve").** A label must never make a navigation look like an action, or the reverse.
 2. Add a sweep check: buttons whose label is a bare action verb but whose target is a route change are listed.
+
+## 2026-10-23 · ERP-241 · From: Code · ERP lead (trial) · DECISION · Stop for today after the current work (Jabran)
+1. Jabran: finish the work in progress (current pass, its checks and review), **commit as Draft, report, then stop for today.** No new pass or new item after the report. Work continues tomorrow when Jabran says so.
+2. Before stopping: every change committed (nothing left uncommitted in the rig), results files in the repo (not a scratchpad), and your done file up to date, so tomorrow starts clean.
