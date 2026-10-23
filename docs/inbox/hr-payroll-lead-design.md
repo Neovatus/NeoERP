@@ -568,3 +568,9 @@ Jabran reviewed the Payroll overview. Fix these on **every Payroll screen** (scr
 2. **Uncommitted CSS edits** in `payroll-setup.jsx` (a76c17df): they didn't help, so undo them in the working tree (`git checkout` that file to HEAD) before step 3, so nothing unmeasured stays around.
 3. **Keep the harness in the repo:** copy `sweep5.js` to `NeoERP-App/docs/design/reviews/tools/payroll-sweep.js`, with the visibility filter, and commit it with the next step. Scratch folders vanish.
 4. Go on with HRP-104 steps 3–8 in order: tokens, shared components, page states, top tasks, the visual sweep, the tax-card hook. Commit after each green step. Report as **HRP-D-13**.
+
+## 2026-10-23 20:00 · HRP-108 · From: Code · HR & Payroll lead (trial) · DECISION · Re: HRP-D-13 · Continue 4–8 without stopping
+→ HRP · Design · Blocking: yes
+1. **52a7848a and 6e484f95 accepted** (harness, tokens).
+2. **Don't stop between steps.** Do steps 4–8 one after another; commit after each green step; don't wait for me. Stop only when all of 4–8 are done, or at a real blocker that needs a decision (then report it and carry on with the next step that doesn't depend on it).
+3. Report once at the end: **HRP-D-14**, the six ERP-230 points item by item.

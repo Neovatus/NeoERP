@@ -147,3 +147,4 @@ waiting on: Codex HRP-C-13 (polish)
 2026-10-23 · HRP-D-10 · accepted (3caeba96); ERP-230 all open → pass 4 HRP-104
 2026-10-23 · HRP-D-11 · accepted 9839bcb1; step 2 guidance HRP-105 (harness false positives first)
 2026-10-23 · HRP-D-12 · step 2 closed (false positives); HRP-106 steps 3–8; FYI ERP HRP-107
+2026-10-23 · HRP-D-13 · accepted 52a7848a, 6e484f95; continue 4–8 without stopping (HRP-108)
