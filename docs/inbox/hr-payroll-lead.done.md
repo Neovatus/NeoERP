@@ -151,3 +151,4 @@ waiting on: Codex HRP-C-13 (polish)
 2026-10-23 · HRP-D-14 · accepted 91c222c2; step 8 unblocked (payNordicImport apply), steps 5–7 → HRP-109; icon button asked of ERP (HRP-110)
 2026-10-23 · ERP-236 · noted: shared icon-only button coming (ERP-235); Payroll switches its 12 buttons when ERP · Design reports it
 2026-10-23 · HRP-D-15 · accepted 5ae2bb86, 27e3c996; last steps HRP-111 (Lahore create-run cause, Sonnet measure + sweep)
+2026-10-23 · ERP-237 · done: group card pattern → Design (HRP-112), same pass

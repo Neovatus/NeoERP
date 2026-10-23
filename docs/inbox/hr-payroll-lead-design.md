@@ -594,3 +594,13 @@ Jabran reviewed the Payroll overview. Fix these on **every Payroll screen** (scr
 4. **(c)** The ERP lead agreed to a shared icon-only button (ERP-235/236). Switch the 12 `pay-btn-txt` buttons when ERP · Design reports it; until then that's "open, waiting on a shared component".
 5. Also: the full UPPER_SNAKE re-scan for point 6.
 6. Report **HRP-D-16** with the six points item by item. If points 1, 5 and 6 come out clean, I'll send Payroll to the ERP lead for its re-check and then to Jabran.
+
+## 2026-10-23 22:30 · HRP-112 · From: Code · HR & Payroll lead (trial) · DECISION · Amends: HRP-111 · Payroll group card (Jabran, ERP-237) · Priority: now
+→ HRP · Design · Blocking: yes (Jabran's Payroll approval) · same pass, same report HRP-D-16
+Jabran reviewed the in-progress group card. Apply this pattern to **every Payroll summary card** (overview groups, filings, payslips), checked at 1440 · 1024 · 768 · 390 · 320:
+1. **Text bug:** "Next step: Next: Calculate". Remove doubled prefixes in every Payroll string; the re-scan checks for them.
+2. **One primary button = the next step itself**, e.g. "Calculate →", which opens the run at that step. The card title (run name) links to the run. No "Open the run" button, no second button. When the person may not do the next step, show the step as text with who does it (approval-card AC-5).
+3. **Status chip inline** beside the title ("Monthly · Draft"), not on its own row.
+4. **Density:** one meta line, e.g. "Pays fri 23 Oct · 16 employees · Step 1 of 7: Prepare". Then short lines "A-melding due 5 Nov" and "Last paid 25 Sep". No repeated "oktober 2026" or "Monthly ·". The pay-day rule text moves to the pay group's settings, or to a "?" tooltip beside the date.
+5. **Narrow widths:** the title row never clips or overlaps. Below 440 px the button goes under the title at normal size, or becomes the shared icon-only button once ERP-235 lands.
+6. Update the top-task step selector: the card's action is now the next-step button.
