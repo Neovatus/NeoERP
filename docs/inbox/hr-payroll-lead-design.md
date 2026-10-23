@@ -643,3 +643,8 @@ Jabran reviewed the in-progress group card. Apply this pattern to **every Payrol
 3. **Still open, fix:** "null" on `pay:kyst|setup|country` (find the print site in `payroll-setup.jsx`); repeated company or currency text in page heads (c, 97): company and currency are in the top bar only.
 4. Shared icon-only button: still waiting on ERP · Design; list as open.
 5. Sonnet workers, an Opus final review, no stopping between steps. Report **HRP-D-18**, the six points item by item.
+
+## 2026-10-24 00:30 · HRP-115 · From: Code · HR & Payroll lead (trial) · DECISION · Amends: HRP-114 · Stop for today after this pass (Jabran, ERP-242)
+→ HRP · Design · Blocking: no
+1. Finish pass 6 (HRP-114) as far as it goes now, with its checks and the Opus review. Commit as Draft, report HRP-D-18, then **stop for today**. No new pass or item.
+2. Before stopping: nothing uncommitted in the rig, results in `NeoERP-App/docs/design/reviews/` (not scratch), your done file up to date, and a handoff in your plan. Then ask Jabran to /compact.

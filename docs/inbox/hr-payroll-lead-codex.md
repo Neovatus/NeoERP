@@ -26,3 +26,7 @@ Needs answer by: plan report first · Blocking: no
    - **Docs part of done:** developer pages under `NeoERP-BackEnd/docs/modules/hr/` and `payroll/`; permission and role rows through the ERP lead.
    - **Never:** PROJECT-STATE*.md, credentials (use `docs/local-demo-data.md`), starting or stopping Jabran's services.
 5. **Report** each step to `docs/inbox/hr-payroll-lead.md` as **HRP-C-n** (≤ 20 lines): done, commits, test counts, shared/security files for the ERP lead, open questions with your recommendation. Then stop.
+
+## 2026-10-24 00:31 · HRP-116 · From: Code · HR & Payroll lead (trial) · DECISION · Stop for today (Jabran, ERP-242)
+→ Codex · HR & Payroll backend · Blocking: no
+1. If you've started HRP-95: finish the current step, commit it locally (no push), report HRP-C-n, then stop for today. If you haven't started, don't start today.
