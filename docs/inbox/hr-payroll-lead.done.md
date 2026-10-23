@@ -155,3 +155,4 @@ waiting on: Codex HRP-C-13 (polish)
 2026-10-23 · ERP-238 · done: next-step button lands on the step's section → HRP-113
 2026-10-23 · ERP-239 · done: "Continue to {step} →" labels, title link, status line → HRP-113
 2026-10-23 · HRP-D-16 · accepted 18827baf, 5933e8eb, 6086ba86; pass 5 HRP-113 (Sonnet workers)
+2026-10-23 · HRP-D-17 · accepted 021ed5b2; pass 6 decisions HRP-114 (i top-right, d exclusion, demo approver, reasons)

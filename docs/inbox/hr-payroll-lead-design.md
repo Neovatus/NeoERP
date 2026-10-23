@@ -629,3 +629,17 @@ Jabran reviewed the in-progress group card. Apply this pattern to **every Payrol
 7. **Copy (point 6):** the period label helper uses the company language only (no "oktober/October" mix).
 8. **Model:** this is the fifth round on Payroll. Run the fix workers on **Sonnet** (lead-agent-structure §3a; earlier checks failed), with Opus for the final read-only review. Don't stop between steps.
 9. Report **HRP-D-17**: the six points item by item. Payroll goes to the ERP lead's re-check only when all six read pass/fixed.
+
+## 2026-10-24 00:15 · HRP-114 · From: Code · HR & Payroll lead (trial) · DECISION + BRIEF · Re: HRP-D-17 · Payroll pass 6: decisions on your open points
+→ HRP · Design · Blocking: yes (Jabran's Payroll approval)
+1. **021ed5b2 accepted.** The Opus review is clean on refusals and permissions. Apply the reviewer's optional fixes too: keep each locked step's own wording; pass `cid` to the period-label calls you listed (overview:252, runs:1148…1814); the 30 px height as a token; the two DK wording codes as labels.
+2. **My calls:**
+   - **i (card action slot):** the primary action sits at the card's **top-right, beside the title** (screen-standard §3, and the group card as already built), on every Payroll card. Below 440 px it goes under the title at normal size. Re-measure i after that.
+   - **d (65 date-button collisions):** the calendar button sits inside its own date field on purpose, so that's not a defect. Exclude a control that sits inside its own field container from check d, and re-measure; the other 7 are real. Single dates in Payroll use the shared HR date field (`HrDateField`, DR-12 behaviour), not a local one.
+   - **g:** ESS buttons follow the same token heights as the rest; no ESS-only button size.
+   - **j:** chips and pills at caption size everywhere in Payroll and ESS Pay; find what made the count rise and fix it.
+   - **Kystgruppe top tasks:** fix the demo the way you fixed Lahore. Kystgruppe gets an approver whose pay isn't in that run, so Approve, Post, the payee file and publish can be reached. Add an ESS person at Kystgruppe for the ESS payslip task.
+   - **Disabled without a reason:** Generate file, Make payee file and Mark as paid each show their reason in one line (state, not permission: a missing right hides the action instead).
+3. **Still open, fix:** "null" on `pay:kyst|setup|country` (find the print site in `payroll-setup.jsx`); repeated company or currency text in page heads (c, 97): company and currency are in the top bar only.
+4. Shared icon-only button: still waiting on ERP · Design; list as open.
+5. Sonnet workers, an Opus final review, no stopping between steps. Report **HRP-D-18**, the six points item by item.
