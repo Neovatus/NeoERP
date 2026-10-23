@@ -19,8 +19,8 @@ Owner: Code · ERP lead (trial). **Rewritten 2026-10-22 before a compact.** Read
 |---|---|
 | HRP · Design | Payroll pass 6 (HRP-114) finishing → report HRP-D-18 → stop for today. Definition of done: ERP-230 |
 | ERP · Design | Focus token, rig chrome, Payroll proof harness → report → stop. Queued for tomorrow: icon-only buttons (ERP-235), label check (ERP-240) |
-| Codex · ERP backend | CP-EV-1b pushed (9138608). ORG-FACTS-3 (ERP-205.1) next in builds/org-facts-3; then bootstrap backend, DB roles, rescan job |
-| Codex · HR & Payroll backend | H0 + P0 plan (HRP-95), lead reviews |
+| Codex · ERP backend | Idle (not started by Jabran). CP-EV-1b pushed (9138608). Next when Jabran starts it: ORG-FACTS-3 (ERP-205.1, ERP-215) in builds/org-facts-3; then bootstrap backend, DB roles, rescan job |
+| Codex · HR & Payroll backend | Not started (needs a session from Jabran); brief HRP-95 waits |
 | Accounts | HOLD; Phase 2 needs Jabran's manual check; Phase 3 needs approval |
 
 **Tomorrow:** (1) my re-check of Payroll against ERP-230; (2) Jabran reviews Payroll; (3) Jabran decides the direction proposed 2026-10-23: rig settles patterns on ~15 core screens, then shared Compose components and Accounts screen by screen in the app (needs app-work pause lifted); (4) web access stays an open roadmap decision (Next.js/React possible).
