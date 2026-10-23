@@ -207,3 +207,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-23 · Jabran: Payroll first, then others → ERP-220 (ERP · Design), ERP-221 (HRP)
 2026-10-23 · Jabran: approve Payroll first, then others → ERP-222, ERP-223
 2026-10-23 · Payroll fix list released → ERP-224 (HRP)
+2026-10-23 · Jabran: double black field focus → ERP-225 (focus/field token)

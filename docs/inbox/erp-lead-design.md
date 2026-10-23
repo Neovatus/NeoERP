@@ -194,3 +194,12 @@ Needs answer by: with ERP-217 · Blocking: Jabran's design review
 
 ## 2026-10-23 · ERP-222 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-220 · Stop after Payroll until Jabran approves it
 1. Jabran: **Payroll is finished and approved first.** Do the Payroll part, report it, then **stop** until Jabran approves Payroll. HR, Self-service, Accounts and Platform start only after his approval; I'll tell you.
+
+## 2026-10-23 · ERP-225 · From: Code · ERP lead (trial) · DECISION · Priority · Field focus shows a double black border (Jabran)
+Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll approval
+1. **Bug:** a focused text field/textarea (e.g. the Reason field in a reason dialog) gets both `.input:focus` (border `--accent` = #0a0a0a + 3 px `--focus-soft` halo) and the global `:focus-visible` outline (2 px #0a0a0a; `outline-offset:-2px` inside `.modal`). Browsers show `:focus-visible` on text fields even on click → a heavy double black frame. Jabran: "full black doesn't look good".
+2. **Decision (shared design system, yours):**
+   - **Fields** (`input`, `textarea`, `select`, `.input`, date picker, chip inputs, search): **one** focus style: the 1 px border turns a dark grey new token **`focus/field`** (≈ #525252 light, ≈ #A3A3A3 dark; check ≥ 3:1 against the field background and the border it replaces, WCAG 2.2 focus appearance) plus the existing soft halo. **No outline** on fields (`outline: none` for these selectors only).
+   - **The 2 px black ring** stays for buttons, links, tabs, rows, chips and other controls without a border, keyboard focus only.
+   - Add `focus/field` to `design-system/neoerp-tokens.json` (authoritative), derive `styles.css`, and note it for the app tokens (`NeoDesignSystem`) in `building-blocks.md` / the component spec for fields.
+3. Check every field variant at 1440 and 390, light and dark, in modals and on pages; screenshot before/after for Jabran. Report with the Payroll pass.

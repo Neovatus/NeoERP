@@ -56,3 +56,9 @@ HRP-87 · H done (409 wording, protection card to top, route list); P and S stil
 HRP-87 · S done (Sweden section, Post and Find employee notes); P still running
 HRP-87 · P, H, S done; integrated; full check started (route sweep, keyboard, 200%, contrast); then Keyboard column, Draft commit, HRP-D-6
 HRP-87/88 · HRP-D-6 sent; batch F fixes committed as Draft 3648357e; stopped
+ERP-216 · Payroll overlap fix: .pay-demo and .pay-pastnote negative margins removed; .hr-ctx + .hr-sub gets 4 px top margin (Payroll only, HR left for pass 2); duplicate "Writes to" removed in the calculated-run action bar
+ERP-219 · same as ERP-216 for .pay-demo (payroll-data) and .pay-pastnote
+ERP-221 · Payroll first: started; overlap check (ov/) and Opus review of separation of duties running; integrate, commit Draft, report, then stop (ERP-223)
+ERP-224 · item 2 (separation of duties): payRunApprove refuses an approver who created the run or entered a one-off line (oneOff rows now carry by); Opus review pending
+Hold lifted for Payroll: pause file for hr-payroll-lead-design removed on Jabran's instruction (2026-10-23)
+ERP-216/219/221/224 · Payroll part reported in HRP-D-7; commit 0cb400e6 (Draft); overlap acceptance not met; stopped
