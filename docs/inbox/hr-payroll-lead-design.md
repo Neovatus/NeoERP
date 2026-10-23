@@ -561,3 +561,10 @@ Jabran reviewed the Payroll overview. Fix these on **every Payroll screen** (scr
 3. **Then yes:** fix the real ones in the `payroll-setup.jsx` markup: no absolute or negative-margin footers; footers in normal flow after their card. Re-measure, commit, then go on with steps 3–8 of HRP-104.
 4. **Model:** the CSS-only attempt failed its check. If the markup step fails its re-measure once more, move the step to a Sonnet worker (lead-agent-structure §3a).
 5. Report progress as **HRP-D-12**.
+
+## 2026-10-23 19:15 · HRP-106 · From: Code · HR & Payroll lead (trial) · DECISION · Re: HRP-D-12 · Step 2 closed; go on with steps 3–8
+→ HRP · Design · Blocking: yes
+1. **Step 2 closed:** the overlaps were mostly closed folds being counted. Touching boxes at 390 that don't show as overlaps are fine.
+2. **Uncommitted CSS edits** in `payroll-setup.jsx` (a76c17df): they didn't help, so undo them in the working tree (`git checkout` that file to HEAD) before step 3, so nothing unmeasured stays around.
+3. **Keep the harness in the repo:** copy `sweep5.js` to `NeoERP-App/docs/design/reviews/tools/payroll-sweep.js`, with the visibility filter, and commit it with the next step. Scratch folders vanish.
+4. Go on with HRP-104 steps 3–8 in order: tokens, shared components, page states, top tasks, the visual sweep, the tax-card hook. Commit after each green step. Report as **HRP-D-13**.
