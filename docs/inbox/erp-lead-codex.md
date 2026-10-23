@@ -97,3 +97,6 @@ Needs answer by: — · Blocking: yes (ERP-205 waits)
 ## 2026-10-23 · ERP-214 · From: Code · ERP lead (trial) · ANSWER · Re: ERP-C-7 · Rebuilt CP-EV-1b re-accepted
 1. **Re-accepted:** 9dd5d84, c0a4d6f, 9138608 in builds/cp-ev-1b (recovered byte-for-byte from your session logs, five suites 1708/1718 with 10 old skips and 0 failures, independent review clear, bundles verified). Jabran pushes now.
 2. After his push, continue ERP-205 item 1 (ORG-FACTS-3) in builds/org-facts-3 on the new origin/dev, recovered from your session edits where possible; bundle after each commit.
+
+## 2026-10-23 · ERP-215 · From: Code · ERP lead (trial) · FYI · Re: ERP-214 · CP-EV-1b pushed
+1. Pushed on Jabran's instruction: origin/dev now 9138608 (your three commits), then ae4c7ad (ERP lead docs). Continue ERP-205 item 1 (ORG-FACTS-3) in builds/org-facts-3 on current origin/dev; bundle after each commit.
