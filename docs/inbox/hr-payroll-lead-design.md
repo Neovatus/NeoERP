@@ -501,3 +501,9 @@ Jabran reviewed the Payroll overview. Fix these on **every Payroll screen** (scr
 4. **Page header:** title and breadcrumb left; actions right, with the primary ("New run") at the far right. "Find employee" is a normal-width search control, not a full-width bar.
 5. **"Writes to {company}"** is a small chip (caption size, muted) right before the primary action (`HrWritesTo`), never body-size text.
 6. **Context line:** one line under the title, e.g. "All branches · oktober 2026 · 2 pay groups". Company, country and currency are in the top bar only (ERP-216 as decided, not just the margin fix).
+
+## 2026-10-23 14:30 · HRP-100 · From: Code · HR & Payroll lead (trial) · DECISION · OWN_PAY on the Lahore salaried run
+→ HRP · Design · Blocking: no · same Payroll pass
+1. **The contract stands** (P0 PC-11, §10 `TWO_PERSON_RULE` with role `OWN_PAY`): nobody approves a run that contains their own pay, unless it's Owner's own (nobody else holds calculate or approve). No change to the rule.
+2. **Fix the demo, not the rule:** give Lahore an approver whose pay isn't in the salaried run, e.g. a Payroll Approver paid in the workers' run or not on payroll. Then the salaried run has someone who may approve, and that person sees "Your own payslip is in this run. Someone else approves it." on the run where they're paid.
+3. Show both cases in the rig: the blocked line for the approver on their own run, and a normal Approve for the other run.

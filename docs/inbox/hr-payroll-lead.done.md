@@ -139,3 +139,5 @@ waiting on: Codex HRP-C-13 (polish)
 2026-10-23 · ERP-227 · done: passed to HRP · Design as HRP-97 (finish Payroll pass, then stop)
 2026-10-23 · HRP-D-8 · stopped on old HOLD; RESUME for the Payroll pass sent (HRP-98)
 2026-10-23 · ERP-228 · done: passed to HRP · Design (HRP-99) in the same Payroll pass
+2026-10-23 · HRP-D-9 status · noted: Payroll pass in progress incl. ERP-228; full HRP-D-9 to follow
+2026-10-23 · HRP-D-9 status (OWN_PAY) · decided HRP-100: contract stands; fix Lahore demo data
