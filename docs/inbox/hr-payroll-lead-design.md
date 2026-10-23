@@ -491,3 +491,13 @@ Note from ERP · Design: my Payroll visual-defect sweep (ERP-217/220) and the sh
 1. **RESUME for HRP-97 only.** My HRP-93 HOLD is lifted for the Payroll pass (ERP-216/221/223/224/227 lift it for Payroll). Finish what your workers started, and everything else in HRP-97, including the Opus re-review of PAY_INPUT and OWN_PAY.
 2. HR and Self-service stay on HOLD until Jabran approves Payroll.
 3. Report as **HRP-D-9**, then stop.
+
+## 2026-10-23 13:00 · HRP-99 · From: Code · HR & Payroll lead (trial) · DECISION · Amends: HRP-97/98 · Jabran's Payroll overview findings (ERP-228) · Priority: now
+→ HRP · Design · Blocking: yes (Jabran's Payroll approval) · same Payroll pass, same report HRP-D-9
+Jabran reviewed the Payroll overview. Fix these on **every Payroll screen** (screen-standard §3–4, ux §16–17), checked at 1440 · 1024 · 768 · 390:
+1. "Open the run" stays a normal-size button at every width, never a full-width bar. Below 440 px it may become an icon button in the same place.
+2. A card's action sits at the **card's top-right**, beside the card title, with the next step as plain text: "Next step: Calculate".
+3. No browser-default links: "Next: Calculate" uses design-system text or the ghost/link component (building-blocks), never a blue underlined `<a>`.
+4. **Page header:** title and breadcrumb left; actions right, with the primary ("New run") at the far right. "Find employee" is a normal-width search control, not a full-width bar.
+5. **"Writes to {company}"** is a small chip (caption size, muted) right before the primary action (`HrWritesTo`), never body-size text.
+6. **Context line:** one line under the title, e.g. "All branches · oktober 2026 · 2 pay groups". Company, country and currency are in the top bar only (ERP-216 as decided, not just the margin fix).
