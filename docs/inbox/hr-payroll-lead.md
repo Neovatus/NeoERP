@@ -1284,3 +1284,7 @@ Jabran saw the in-progress group card (Monthly, Kystgruppe Nordic) at desktop an
 4. **Density (ux §16, screen-standard §4):** one meta line "Pays fri 23 Oct · 16 employees · Step 1 of 7: Prepare"; then "A-melding due 5 Nov" and "Last paid 25 Sep" as short lines. Remove the repeated "oktober 2026" under the date and the repeated "Monthly ·". The pay-day rule ("If the 25th is a weekend…") moves to the pay group's settings or a "?" tooltip beside the date.
 5. **Narrow widths:** the title row never clips or overlaps (the button currently covers "Next step…" and is cut to "n the r" on a phone). Below 440 the button goes under the title at normal size, or becomes the shared icon-only button (ERP-235). Check 1440 · 1024 · 768 · 390 · 320.
 Apply the same card pattern to every Payroll summary card (overview groups, filings, payslips) so they're consistent.
+
+## 2026-10-23 · ERP-238 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-237 item 2 · Where the next-step button lands (Jabran)
+1. "Calculate →" (and every "next step" button on Payroll cards) opens the run **at that step's section**: the run route with the step selected (e.g. `pay:<company>|run|<runId>|calculate`), scrolled so the step's own main action is in view, keyboard focus on the step heading. Never the run's first page or the overview of the run.
+2. Same for every step name the card can show (Prepare, Calculate, Approve, Post, Pay, Payslips, Filings).
