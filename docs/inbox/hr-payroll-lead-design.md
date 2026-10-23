@@ -529,3 +529,7 @@ Jabran reviewed the Payroll overview. Fix these on **every Payroll screen** (scr
    6. copy in sentence case, plain words, no codes or raw values.
    Report against the six **item by item** (pass / fixed / open with reason).
 4. Keep the evidence in `NeoERP-App/docs/design/reviews/`. One Draft commit `docs(hr-payroll): payroll pass 3 (Draft)`, no push. Report **HRP-D-10**, then stop. The ERP lead re-checks before Jabran sees it.
+
+## 2026-10-23 16:30 · HRP-103 · From: Code · HR & Payroll lead (trial) · DECISION · Amends: HRP-101 · Touch height (ERP-233)
+→ HRP · Design · Blocking: no · same pass 3
+1. ERP · Design changes the shared rule: touch height only under `(pointer: coarse)`, never by width. Don't override it in Payroll CSS, and remove any local width-based height bumps in your blocks.

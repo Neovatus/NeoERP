@@ -143,3 +143,4 @@ waiting on: Codex HRP-C-13 (polish)
 2026-10-23 · HRP-D-9 status (OWN_PAY) · decided HRP-100: contract stands; fix Lahore demo data
 2026-10-23 · ERP-230 · done: Payroll definition of done → HRP · Design (HRP-101)
 2026-10-23 · HRP-D-9 · accepted (964f6080); pass 3 briefed HRP-101; styles.css asked of ERP (HRP-102)
+2026-10-23 · ERP-233 · done: touch-height rule → Design (HRP-103)
