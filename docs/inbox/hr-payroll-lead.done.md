@@ -137,3 +137,4 @@ waiting on: Codex HRP-C-13 (polish)
 2026-10-23 · ERP-216, ERP-219, ERP-221, ERP-223, ERP-224 · handled by HRP · Design directly during my absence (HRP-D-7); now carried in HRP-97
 2026-10-23 · HRP-D-7 · accepted (0cb400e6); questions answered via ERP-227 → HRP-97
 2026-10-23 · ERP-227 · done: passed to HRP · Design as HRP-97 (finish Payroll pass, then stop)
+2026-10-23 · HRP-D-8 · stopped on old HOLD; RESUME for the Payroll pass sent (HRP-98)

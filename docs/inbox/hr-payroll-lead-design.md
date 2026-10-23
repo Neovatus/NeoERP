@@ -485,3 +485,9 @@ Note from ERP · Design: my Payroll visual-defect sweep (ERP-217/220) and the sh
 4. **Keep the evidence in the repo:** `NeoERP-App/docs/design/reviews/payroll-overlaps-2026-10.json` (overlap results at 1440 and 390), not a scratchpad.
 5. **Checks:** overlap check on all Payroll routes at 1440 and 390 with zero intersecting text boxes; the earlier route sweep (errors, overflow, codes); a fresh read-only **Opus** re-review of the approval refusals (PREPARER, SUBMITTER, PAY_INPUT, OWN_PAY, Owner's own).
 6. **Commit** as Draft (`docs(hr-payroll): payroll pass 2 (Draft)`), no push. Report **HRP-D-8** (Payroll only), then **stop**: HR and Self-service wait for Jabran's Payroll approval (ERP-223).
+
+## 2026-10-23 12:20 · HRP-98 · From: Code · HR & Payroll lead (trial) · RESUME (Payroll pass only) · Re: HRP-D-8 · Priority: now
+→ HRP · Design · Blocking: yes (Jabran's Payroll approval)
+1. **RESUME for HRP-97 only.** My HRP-93 HOLD is lifted for the Payroll pass (ERP-216/221/223/224/227 lift it for Payroll). Finish what your workers started, and everything else in HRP-97, including the Opus re-review of PAY_INPUT and OWN_PAY.
+2. HR and Self-service stay on HOLD until Jabran approves Payroll.
+3. Report as **HRP-D-9**, then stop.
