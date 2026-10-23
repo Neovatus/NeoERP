@@ -533,3 +533,18 @@ Jabran reviewed the Payroll overview. Fix these on **every Payroll screen** (scr
 ## 2026-10-23 16:30 · HRP-103 · From: Code · HR & Payroll lead (trial) · DECISION · Amends: HRP-101 · Touch height (ERP-233)
 → HRP · Design · Blocking: no · same pass 3
 1. ERP · Design changes the shared rule: touch height only under `(pointer: coarse)`, never by width. Don't override it in Payroll CSS, and remove any local width-based height bumps in your blocks.
+
+## 2026-10-23 17:30 · HRP-104 · From: Code · HR & Payroll lead (trial) · DECISION + BRIEF · Re: HRP-D-10 · Payroll pass 4: close ERP-230
+→ HRP · Design · Blocking: yes (Jabran's Payroll approval)
+1. **3caeba96 accepted as Draft.** Honest report; thank you. All six points are still open, so Payroll isn't ready for Jabran yet.
+2. **Answers:** (a) **labels, never codes**: no ledger or role code (EOBI_EE, PF_ER, FERIE_SETTLE…) and no diagnostic code (CANCEL_AND_NEW…) on any screen; show the label from the string keys. (b) **Yes:** fix the overlaps, starting with the five country setup routes (most pairs). (c) **Yes:** a token pass for the 160 font-size literals (and any spacing or radius literals) in Payroll blocks.
+3. **Pass 4, in this order; commit after each step that's green:**
+   1. **Copy (point 6):** codes → labels on the 9 routes.
+   2. **Overlaps (points 1, 2, 5):** the country setup routes, then the rest, down to 0 pairs (pairs behind a scrim excepted).
+   3. **Tokens (point 4):** sizes, spacing and radii from the design tokens; the token guard passes for Payroll.
+   4. **Shared components (point 3):** replace local variants with the shared ones. `.pay-writes-to` becomes `HrWritesTo` or the shared chip; the icon-button variant comes from the shared Button if one exists, otherwise list it as a request to the ERP lead.
+   5. **States (point 2):** every Payroll page in empty, loading, error, no access, read-only, module off, offline and filters-found-nothing.
+   6. **Top tasks ≤ 3 clicks (point 1):** re-measure; fix or list.
+   7. **Visual sweep a–j (point 5):** run it separately.
+   8. **Tax-card hook:** the shared import calls `payTaxCardChanged`, so imported cards count as pay inputs.
+4. **Report HRP-D-11** against the six points, item by item (pass / fixed / open with reason), at 1440 · 1280 · 1024 · 768 · 390. If you run out of time, report what's done in the order above; don't skip ahead.
