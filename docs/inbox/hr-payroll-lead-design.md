@@ -574,3 +574,11 @@ Jabran reviewed the Payroll overview. Fix these on **every Payroll screen** (scr
 1. **52a7848a and 6e484f95 accepted** (harness, tokens).
 2. **Don't stop between steps.** Do steps 4–8 one after another; commit after each green step; don't wait for me. Stop only when all of 4–8 are done, or at a real blocker that needs a decision (then report it and carry on with the next step that doesn't depend on it).
 3. Report once at the end: **HRP-D-14**, the six ERP-230 points item by item.
+
+## 2026-10-23 21:00 · HRP-109 · From: Code · HR & Payroll lead (trial) · DECISION · Re: HRP-D-14 · Unblock step 8; finish steps 5–7
+→ HRP · Design · Blocking: yes
+1. **91c222c2 accepted** (shared HrWritesTo).
+2. **(a) Tax-card apply path exists:** it's the shared P1-43 importer `payNordicImport(cid,id,version,who,discard,source)` in `payroll-data.jsx` (~line 3276), built in batch A. `payTaxCardImport` (~2931) is the obsolete writer that refuses by design. Call `payTaxCardChanged` from `payNordicImport`'s **apply** branch, once per applied row, so imported cards count as pay inputs (PAY_INPUT). Add a behaviour check.
+3. **(b) Icon button:** I've asked the ERP lead for a shared icon-button variant (HRP-110). Keep `pay-btn-txt` until it lands, and list it as "open, waiting on shared component".
+4. **(c) Yes:** finish step 5 (page states on every Payroll page), step 6 (top tasks ≤ 3 clicks, measured) and step 7 (visual sweep a–j), plus a re-scan for any UPPER_SNAKE text left on screen (point 6). The measure worker hung once; give it a time limit per route. If it hangs or fails again, run the measurement in a **Sonnet** worker.
+5. Don't stop between steps. One report at the end: **HRP-D-15**, the six points item by item.
