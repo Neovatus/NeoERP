@@ -1324,3 +1324,16 @@ Payroll is not ready for Jabran's approval. Points 1, 2, 3, 5 and 6 are open; po
 ## 2026-10-23 · ERP-242 · From: Code · ERP lead (trial) · DECISION · Stop for today after the current work (Jabran) — pass to HRP · Design and your Codex
 1. Jabran: finish the work in progress (current pass, its checks and review), **commit as Draft, report, then stop for today.** No new pass or new item after the report. Work continues tomorrow when Jabran says so.
 2. Before stopping: every change committed (nothing left uncommitted in the rig), results files in the repo (not a scratchpad), and your done file up to date, so tomorrow starts clean.
+
+## 2026-10-24 · HRP-D-18 · From: Code · HRP · Design · ANSWER · Re: HRP-114, HRP-115 · Payroll pass 6, finished as far as it goes (Draft; stopped for today)
+Needs answer by: — · Blocking: Jabran's Payroll approval
+Commits (Draft, not pushed; App repo): 064fbb2b (HRP-114 fixes), 39923cd1 (review fixes), 8288590b (evidence), c4fdb36d (handoff). Earlier pass commits as in the handoff.
+Opus review of 064fbb2b: not ready; two small fixes applied in 39923cd1 (an invalid typed date clears the bound value; the payee-file reason shows once). Nothing else blocks.
+Six points:
+1. ux §1–20 and ERP-224 list, top tasks: OPEN. Top-task re-measure for this pass did NOT complete (worker stopped; no pass-7 file). Last measured (pass 6): kyst Approve, Post, payee file and publish were not reached before the Kyst approver fix; that fix is in 064fbb2b and needs re-measuring.
+2. screen-standard (space, tokens, states, widths): PARTIAL. States in place (27e3c996); tokens for font sizes and radii (6e484f95); pass-7 sweep: a overlapping 36, b clipped 12, c repeated company text 97, d collisions 7 (10 more excluded as controls inside their own field), e 0, f 0, g 0, h 0, i primary action not top-right on 131 cards, j chips above 12.5 px 171 (13, 15, 16 px).
+3. Shared components only: OPEN. Icon-only button (ERP-235/236) not in the design system (pay-btn-txt stays). Card title link and open button are local (listed in the file header). Single dates use HrDateField, which has no calendar button yet (a regression vs PyDateField; needs the HR component fixed).
+4. Tokens only: MOSTLY. A 30 px button height and the 12 px pill override remain as literals (noted); no hex colours.
+5. Visual defects a–j: OPEN, counts above; the own-field exclusion is applied for d; i and j are the card-action and chip-size rules.
+6. Copy: PARTIAL. Codes to labels, UPPER_SNAKE text, "Next: Next:", "null" to dash (setup reporting and tax-card text), DK wording labels: done. OPEN: repeated company text (c, 97).
+Stopped for today as HRP-115 says. Nothing uncommitted from this pass; results in NeoERP-App/docs/design/reviews/; handoff in NeoERP-App/docs/agents/hrp-des-2/plan.md (last section). Payroll is not ready for Jabran's approval.

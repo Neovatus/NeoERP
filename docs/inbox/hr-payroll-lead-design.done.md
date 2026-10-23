@@ -110,3 +110,6 @@ HRP-114 · W2 done (kyst approver EMP-K-0126 with caveat; ESS person Ola Haugen 
 HRP-114 · W1 done (card, cid, reasons, chips); W3 running
 HRP-114 · fixes committed 064fbb2b (Draft); re-measure and sweep running; Opus review then HRP-D-18
 HRP-114 · sweep pass 7 done: e and g cleared; d 7; a/b/c/i/j still open (i 131, j 171 at >12.5 px); top-task measure running
+- HRP-115: finish pass 6 as far as it goes, Opus review (a7fc8930) running, commit Draft, HRP-D-18, handoff, stop. Top-task measure (abcea233) pending.
+HRP-D-18 · pass 6 finished as far as it goes; reviewed; committed (064fbb2b, 39923cd1, 8288590b, c4fdb36d); stopped for today
+HRP-117 · received: pass 7 starts only when Jabran says work resumes; not started; listener restarted

@@ -218,3 +218,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-23 · Jabran: next step lands on its section → ERP-238 (HRP)
 2026-10-23 · Jabran: proper labels → ERP-239 (HRP), ERP-240 (copy rule)
 2026-10-23 · Jabran: finish current work, report, stop for today → ERP-241, ERP-242
+2026-10-23 · ERP-D-9 Payroll pass (shared done; DoD 6/6 open) and HRP-D-18 (pass 6, stopped) → for Jabran tomorrow
