@@ -1111,3 +1111,6 @@ Needs answer by: now · Blocking: Jabran's design review
 2. **Decision (ux §17, context visible, not repeated):** company, country and currency live in the **top bar** only (already on every screen). Under the title, **one** line: branch scope + period (e.g. "All branches · October 2026") plus the page's own facts ("2 pay groups"); no company or currency repeated there. Give it its own style (no negative margins); remove `.hr-sub`'s negative top margin wherever it now follows another line.
 3. **Lift the HOLD for HRP · Design for this fix only**: all HR, Payroll and Self-service screens; check at 1440 and 390 with the harness that no text overlaps (bounding boxes of text lines must not intersect). Commit as Draft and report; then back on HOLD.
 4. Also fix in the same pass: "Writes to {company}" appears twice in the pay-run action bar (Calculate & review step); keep the one next to the primary action.
+
+## 2026-10-23 · ERP-219 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-216 · Same cause in more places
+1. Include in the ERP-216 fix: `.pay-demo` (−8 px, payroll-data.jsx:2995) and `.pay-pastnote` (−6 px, :3039) also ride up over the lines above them (the "Demo figures" overlap on the pay run). Rule: no negative margins on text under a page title; ERP · Design is making a shared page head (ERP-218), use its spacing when it lands.

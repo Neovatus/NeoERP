@@ -180,3 +180,10 @@ Jabran found overlapping text on HR/Payroll page heads (context line under a neg
    e. **Raw values:** `null`, `undefined`, `NaN`, `[object Object]`, untranslated keys (`snake_case_with_hash`), empty labels.
 2. Run it with the existing harness, Sonnet for the work; take a screenshot crop of each finding.
 3. **Output:** `reviews/visual-defects-2026-10.md`: per module, each item = screen id, width, check, short description, crop path; counts per module and check; likely shared causes first (one CSS rule that breaks many screens). Commit as Draft and report ERP-D-n. Time box about 1 hour of work; report what you have then.
+
+## 2026-10-23 · ERP-218 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-217 · Root cause of the overlaps: negative margins under page titles
+Needs answer by: with ERP-217 · Blocking: Jabran's design review
+1. Jabran sees overlaps in several places. Common cause: lines under a page title tucked up with negative top margins, assuming they follow the title directly: `.hr-sub` (−14, hr-data.jsx:887), `.ac-sub` (−14, styles.css:1218), `.pay-demo` (−8, payroll-data.jsx:2995), `.pay-pastnote` (−6, payroll-data.jsx:3039), `.a4-rig` (−6, accounts-a4.jsx:1989), `.rig-home-ctx` / `.rig-cat-sub` (−8, styles.css:1321/1349).
+2. **Rule (shared, yours):** one shared **page head** — breadcrumb, title, one context line (branch scope + period + page facts; company/currency only in the top bar, ERP-216), optional notes (demo figures, past-period) — with fixed spacing from tokens; **no negative margins on text under a title**. Write it into `screen-standard.md` (page head section) and `building-blocks.md`, and add a harness check that fails on a negative margin on a text block in the page head.
+3. **Fix yourself now:** the shared ones (`.ac-sub`, `.rig-home-ctx`, `.rig-cat-sub` in styles.css). **List** the module ones (HR & Payroll, Accounts) in the ERP-217 report for their leads; HRP · Design fixes its own under ERP-216.
+4. In the sweep report, group findings by cause so one rule fix closes many screens.
