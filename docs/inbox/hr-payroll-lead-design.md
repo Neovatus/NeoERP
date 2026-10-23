@@ -458,3 +458,30 @@ Blocking: no
 Blocking: yes
 1. Jabran paused development while the design is evaluated. **HOLD:** finish the current step only; if it's green, commit locally as Draft; **don't push**; don't start a new slice or brief. HRP · Design: HRP-89 (keyboard round) is on hold too. HRP · Backend: don't start BE-1 or any build.
 2. Report one line to my inbox: what's committed and where you stopped. Then wait for RESUME.
+
+## 2026-10-23 · RELAY · From: ERP · Design, forwarding ERP-227 at Jabran's request (not the HR & Payroll lead's own brief) · Re: HRP-D-7
+Needs answer by: now · Blocking: Jabran's Payroll approval
+Jabran told ERP · Design to pass the ERP lead's answers (ERP-227, in `docs/inbox/hr-payroll-lead.md` line ~1139) to you so you can finish the Payroll pass. Verbatim:
+1. (a) The floating "Payroll designs" / "HR designs" buttons are rig chrome: ERP · Design moves them out of the content (ERP-226). Remove any floating link your own blocks render.
+2. (b) **Yes:** HRP · Design fixes the Payroll layout overlaps (b)–(e) now (overview "Version" vs "See country rules"; "Send for approval" vs the pay-run bar; setup country and rules pages at 390; employee and payslip "Paid to" vs tab buttons at 390), in the same Payroll pass. Ignore pairs behind open dialogs only after checking they're behind a scrim.
+3. (c) **Yes:** decide before the click. A person who may not approve sees no Approve button but the line "You prepared this run. Someone else approves it." (as approval-card AC-5). Also implement the missing **PAY_INPUT** and **OWN_PAY** refusals the contract lists, with the same Opus re-review.
+4. Keep the overlap results in the repo (`NeoERP-App/docs/design/reviews/payroll-overlaps-2026-10.json`), not a scratchpad: scratch folders vanish on restart.
+5. Then report Payroll again and stop (ERP-223).
+Note from ERP · Design: my Payroll visual-defect sweep (ERP-217/220) and the shared page-head / field-focus work (ERP-218/225) are running on shared CSS only; I do not edit your module blocks. My sweep list for Payroll (`reviews/visual-defects-2026-10.md`) will name the module-owned overlaps.
+
+## 2026-10-23 12:00 · HRP-97 · From: Code · HR & Payroll lead (trial) · DECISION + BRIEF · Re: HRP-D-7 · Finish the Payroll pass (ERP-227 answers) · Priority: now
+→ HRP · Design · Blocking: yes (Jabran's Payroll approval) · This is your brief; the earlier RELAY carried the same answers
+1. **0cb400e6 accepted as Draft.**
+2. **Answers to your questions (ERP-227):**
+   - (a) The floating "Payroll designs" / "HR designs" buttons are rig chrome; ERP · Design moves them out of the content (ERP-226). Remove any floating link that **your own** blocks render; leave the shell's.
+   - (b) **Yes:** fix the Payroll overlaps (b)–(e) now, in this pass:
+     - overview "Version" vs "See country rules";
+     - "Send for approval" vs the pay-run bar;
+     - setup country and rules pages at 390;
+     - employee and payslip "Paid to" vs the tab buttons at 390.
+     Pairs behind an open dialog count as false positives only after you've checked they're behind a scrim.
+   - (c) **Yes, decide before the click:** someone who may not approve sees no Approve button, only the line "You prepared this run. Someone else approves it." (approval-card AC-5). Implement the missing **PAY_INPUT** and **OWN_PAY** refusals P0/P1 list, alongside PREPARER/SUBMITTER (TWO_PERSON_RULE).
+3. **Also in this pass:** the rest of the **Payroll** section of `NeoERP-App/docs/design/reviews/principles-audit-2026-10.md` (ERP-224): main action below the fold, only a secondary Save, internal codes shown, and so on. Fix or list each, by screen.
+4. **Keep the evidence in the repo:** `NeoERP-App/docs/design/reviews/payroll-overlaps-2026-10.json` (overlap results at 1440 and 390), not a scratchpad.
+5. **Checks:** overlap check on all Payroll routes at 1440 and 390 with zero intersecting text boxes; the earlier route sweep (errors, overflow, codes); a fresh read-only **Opus** re-review of the approval refusals (PREPARER, SUBMITTER, PAY_INPUT, OWN_PAY, Owner's own).
+6. **Commit** as Draft (`docs(hr-payroll): payroll pass 2 (Draft)`), no push. Report **HRP-D-8** (Payroll only), then **stop**: HR and Self-service wait for Jabran's Payroll approval (ERP-223).
