@@ -11,20 +11,20 @@ Owner: Code · ERP lead (trial). **Rewritten 2026-10-22 before a compact.** Read
 - **Rules learned:** GitHub Actions are **off** (full local suites of changed services before every push). Never run draft migrations on Jabran's databases. Drafts get committed (Draft status). All design lives in `NeoERP-App/docs/design/`; the domain model in `docs/domain/`. Jabran's machine-client catalog changes need his OK (he tends to say "approve as recommended").
 - **Ids:** last message sent **ERP-175**. Workspace repo `Neovatus/NeoERP` (branch master): many local commits, **unpushed** (Jabran pushes).
 
-## 2. In flight (updated 2026-10-23)
+## 2. In flight (updated 2026-10-23 22:15; stop for today after current work, ERP-241/242)
 
-**Development paused (Jabran, 2026-10-23); only the navigation pilot runs.** HOLD sent ERP-199..203.
+**Development paused except design-independent backend; design: Payroll first, then other modules after Jabran approves Payroll.**
 
 | Who | State |
 |---|---|
-| ERP · Design | Navigation pilot in Payroll (ERP-193) only; then stop (B, slice 6 wait) |
-| Codex · ERP backend | **Continues** CP-EV-1b (exception, ERP-204); work in /private/tmp/neoerp-erp174-*; local commits only; then queue ERP-205 (ORG-FACTS-3 Org, bootstrap backend, DB roles, rescan job) |
-| Accounts lead / Codex | HOLD (ERP-199, ERP-202); SB2 dimension-set migration planned, not built |
-| HR & Payroll lead / HRP · Design | H0 + P0 **backend** may resume via Codex (ERP-206); design and App on hold |
-| Fix lists from the audit (ERP-D-7) | Held until Jabran decides the navigation rule after the pilot |
-| ADR-021/022/023 | Proposed, order approved; Accepted after scope approval |
+| HRP · Design | Payroll pass 6 (HRP-114) finishing → report HRP-D-18 → stop for today. Definition of done: ERP-230 |
+| ERP · Design | Focus token, rig chrome, Payroll proof harness → report → stop. Queued for tomorrow: icon-only buttons (ERP-235), label check (ERP-240) |
+| Codex · ERP backend | CP-EV-1b pushed (9138608). ORG-FACTS-3 (ERP-205.1) next in builds/org-facts-3; then bootstrap backend, DB roles, rescan job |
+| Codex · HR & Payroll backend | H0 + P0 plan (HRP-95), lead reviews |
+| Accounts | HOLD; Phase 2 needs Jabran's manual check; Phase 3 needs approval |
 
-Large-customer roadmap: `docs/large-customer-roadmap.md` (gap lists from both leads merged).
+**Tomorrow:** (1) my re-check of Payroll against ERP-230; (2) Jabran reviews Payroll; (3) Jabran decides the direction proposed 2026-10-23: rig settles patterns on ~15 core screens, then shared Compose components and Accounts screen by screen in the app (needs app-work pause lifted); (4) web access stays an open roadmap decision (Next.js/React possible).
+**Rules added today:** persistent builds/ folder (never /tmp), Payroll definition of done, labels say what happens, field focus token, touch height by pointer, context shown once, no negative margins under titles.
 
 ## 3. Done recently (for context)
 
