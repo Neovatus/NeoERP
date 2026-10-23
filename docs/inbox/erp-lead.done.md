@@ -197,3 +197,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-23 · own Opus review of CP-EV-1b: no blockers; 3 minors → ERP-209 (Codex); cutover gate → ERP-210 (ACC)
 2026-10-23 · ERP-211 to ERP · Design: report the pilot now (measuring over an hour)
 2026-10-23 · ERP-D-8 pilot reported; with Jabran for review
+2026-10-23 · ERP-C-5 → ERP-212 CP-EV-1b accepted; push steps to Jabran

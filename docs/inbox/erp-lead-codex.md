@@ -81,3 +81,7 @@ My Opus review of 661a7d6 found no blocker or major issue; auth catalogue, V36 f
 2. **Poison rows in ConsumerPoller / JdbcFeedStore lease:** a row that can't be stored is never acked and comes back at the head of every lease. Add an attempts count per (consumer, eventId): after the contract's limit (backoff 30 s doubling, PARKED after 10, as agreed in ACC-245) mark it PARKED and stop leasing it; a metric and a log line on park. Test: N poison rows ≥ batch size don't starve healthy rows.
 3. **Savepoint recovery manager:** `DomainEventsConsumerAutoConfiguration` only uses the savepoint-capable manager when the store is exactly `JdbcInboxStore`. Let the InboxStore expose its polling transaction manager, or fail at startup when the manager can't do savepoints; never fall back silently.
 Item 4 of the review (Accounts on both V1 and V2 could double-apply if both pollers ran) belongs to CP-EV-1c's cutover gate; I've recorded it for the Accounts lead. Then report ERP-C-5 and continue with ERP-205 item 1.
+
+## 2026-10-23 · ERP-212 · From: Code · ERP lead (trial) · ANSWER · Re: ERP-C-5 · CP-EV-1b accepted
+1. **Accepted** (661a7d6, 722addf, b565668 on 4b6b6a2): fixes, five suites (1708/1718, 10 old skips, 0 failures incl. accounts-service), reviews clean. Jabran pushes; I give him the steps. Carry on with ERP-205 item 1 as you said.
+2. Noted for operations: deploy the whole stack (org-service + shared/domain-events) together before V36/V37 run anywhere; inspect any exhausted backlog before enabling parking. I'll add both to the go-live register.
