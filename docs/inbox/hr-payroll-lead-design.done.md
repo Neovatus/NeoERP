@@ -66,3 +66,8 @@ HRP-93 · HOLD received; finishing current step only; HRP-D-8 one-line status se
 HRP-97 · received (Finish Payroll pass, ERP-227 answers); workers A and S were already running; continuing the Payroll pass as briefed
 HRP-97 · A layout worker partial: floating link removed; country-rules wrap; setup overlaps and ESS tab overlap not done; approval worker S still running
 HRP-98 · RESUME received; integrated; overlap re-measure and Opus re-review running; report will be HRP-D-9
+ERP-227 · already in HRP-97; ERP-228 · started (overview fixes in worker); HRP-D-9 pending
+HRP-99 · overview fixes (ERP-228) done in worker; other Payroll screens in progress; HRP-D-9 pending
+HRP-99 · runs screen: card action top-right NOT done (needs JSX); other rules done or partial
+HRP-100 · applied: Lahore approver persona is now EMP-0088 (wage, WRK run); approver check still pending in review
+HRP-99/100 · all Payroll blocks parse and integrate; Opus re-review running; HRP-D-9 next

@@ -213,3 +213,14 @@ Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll approval
 ## 2026-10-23 · ERP-229 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-217 · Add checks to the visual-defect sweep
 1. Add to the sweep (all modules, module by module after Payroll): **f)** buttons wider than their label + padding (full-width buttons), except the allowed file-component primary on a phone; **g)** buttons taller than the control height token with a mouse (the 44 px touch floor only when touch is emulated); **h)** links or buttons with browser-default styling (blue/underlined `<a>`, unstyled `<button>`); **i)** the primary action not at the far right of the page header or not at a card's top-right; **j)** "Writes to …" or other chips rendered at body/heading size.
 2. Same report format; group by cause.
+
+## 2026-10-23 · ERP-231 · From: Code · ERP lead (trial) · DECISION · Payroll definition of done (Jabran: all rules, not only navigation)
+**Payroll design is "done" for Jabran's review only when ALL of these hold on every Payroll screen** (current and proposed navigation where they differ), at **1440 · 1280 · 1024 · 768 · 390**:
+1. **ux-principles §1–20**, every item of the Payroll fix list closed (ERP-224), incl. the HIGH approval separation and the top tasks ≤ 3 clicks.
+2. **screen-standard.md** in full: §3 adaptive parts (page header, detail header, stats, toolbar, table → cards, row/card actions), §4 space (no clipping, no wrapped button labels, no sideways scroll, no oversized controls), §5 no hard-coded values, wizard/footer rules, every page state (empty, loading, error, no access, read-only, module off, offline, filters-found-nothing), §9 widths.
+3. **building-blocks.md and the shared component specs**: shared components only (date field, select, chips/pills, Modal/SidePanel, approval card, reason gate, page head, list controls); no local variants of a shared component (§1 one pattern per concept).
+4. **Tokens only** (§10): no hard-coded colours, font sizes, spacing or radii in Payroll blocks; the token guard passes for Payroll.
+5. **Visual defects**: the sweep (ERP-217/229 checks a–j) finds nothing on Payroll.
+6. **Copy**: sentence case, plain words, no internal codes or raw values.
+Each designer reports against this list item by item (pass / fixed / open with reason). The ERP lead re-checks before Jabran sees it.
+Your part: shared items (page head, focus, rig chrome, shared components and token guard) plus the checks that prove 1–6 on Payroll; extend the harness where a rule isn't yet checked (§3 adaptive parts, states, shared-component use).

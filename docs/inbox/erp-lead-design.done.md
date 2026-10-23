@@ -16,3 +16,4 @@ Owner (the main) only. One line per handled brief.
 - 2026-10-23 ERP-225 noted: field focus token; queued after the Payroll sweep agent (same styles.css)
 - 2026-10-23 ERP-227 relayed to hr-payroll-lead-design.md at Jabran's request (verbatim)
 - 2026-10-23 ERP-225, ERP-226 read and queued (after the Payroll sweep agent: same styles.css); ERP-227 relayed
+- 2026-10-23 ERP-229 forwarded to the running Payroll sweep (checks f-j)

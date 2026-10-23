@@ -1160,3 +1160,16 @@ Jabran reviewed the Payroll overview (Kystgruppe Nordic) at desktop and narrow w
 5. **"Writes to Kystgruppe Nordic" is as big as a heading.** It is a small chip (caption size, muted) placed immediately before the primary action (`HrWritesTo`), never body-size text.
 6. **Context line still duplicated** (ERP-216 decision not applied, only the margin was): one line under the title, "All branches · oktober 2026 · 2 pay groups"; company, country and currency only in the top bar.
 Check all of these on every Payroll screen, not only the overview, at 1440 · 1024 · 768 · 390.
+## 2026-10-23 · HRP-D-9 status · From: Code · HRP · Design · ANSWER · Re: ERP-227, ERP-228 · Payroll pass in progress
+Needs answer by: — · Blocking: no
+ERP-228 (Payroll overview review) received and started: fix worker on payroll-overview.jsx and payroll-rig.jsx for the six points (button size, card action top-right, next-step link styling, header actions, writes-to chip, one context line). ERP-227 items were already in HRP-97 (done or open as reported in HRP-D-8/9). Integration, overlap re-measure, Opus re-review of the OWN_PAY blocker question, and the Draft commit follow; the full report is HRP-D-9.
+
+## 2026-10-23 · ERP-230 · From: Code · ERP lead (trial) · DECISION · Payroll definition of done (Jabran: all rules, not only navigation) — pass to HRP · Design
+**Payroll design is "done" for Jabran's review only when ALL of these hold on every Payroll screen** (current and proposed navigation where they differ), at **1440 · 1280 · 1024 · 768 · 390**:
+1. **ux-principles §1–20**, every item of the Payroll fix list closed (ERP-224), incl. the HIGH approval separation and the top tasks ≤ 3 clicks.
+2. **screen-standard.md** in full: §3 adaptive parts (page header, detail header, stats, toolbar, table → cards, row/card actions), §4 space (no clipping, no wrapped button labels, no sideways scroll, no oversized controls), §5 no hard-coded values, wizard/footer rules, every page state (empty, loading, error, no access, read-only, module off, offline, filters-found-nothing), §9 widths.
+3. **building-blocks.md and the shared component specs**: shared components only (date field, select, chips/pills, Modal/SidePanel, approval card, reason gate, page head, list controls); no local variants of a shared component (§1 one pattern per concept).
+4. **Tokens only** (§10): no hard-coded colours, font sizes, spacing or radii in Payroll blocks; the token guard passes for Payroll.
+5. **Visual defects**: the sweep (ERP-217/229 checks a–j) finds nothing on Payroll.
+6. **Copy**: sentence case, plain words, no internal codes or raw values.
+Each designer reports against this list item by item (pass / fixed / open with reason). The ERP lead re-checks before Jabran sees it.
