@@ -201,3 +201,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-23 · ERP-C-6 (lost /private/tmp checkouts) → ERP-213 rebuild from Codex logs; new persistent-checkout rule
 2026-10-23 · ERP-C-7 → ERP-214 rebuilt CP-EV-1b re-accepted; push to Jabran
 2026-10-23 · CP-EV-1b pushed (9138608); backend docs ae4c7ad; dev-app 12677483; workspace pushed → ERP-215
+2026-10-23 · Jabran: context-line overlap → ERP-216 (HRP · Design fix only; one context line, company/currency in top bar)
