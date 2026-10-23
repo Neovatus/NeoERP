@@ -152,3 +152,6 @@ waiting on: Codex HRP-C-13 (polish)
 2026-10-23 · ERP-236 · noted: shared icon-only button coming (ERP-235); Payroll switches its 12 buttons when ERP · Design reports it
 2026-10-23 · HRP-D-15 · accepted 5ae2bb86, 27e3c996; last steps HRP-111 (Lahore create-run cause, Sonnet measure + sweep)
 2026-10-23 · ERP-237 · done: group card pattern → Design (HRP-112), same pass
+2026-10-23 · ERP-238 · done: next-step button lands on the step's section → HRP-113
+2026-10-23 · ERP-239 · done: "Continue to {step} →" labels, title link, status line → HRP-113
+2026-10-23 · HRP-D-16 · accepted 18827baf, 5933e8eb, 6086ba86; pass 5 HRP-113 (Sonnet workers)

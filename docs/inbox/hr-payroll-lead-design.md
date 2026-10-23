@@ -604,3 +604,28 @@ Jabran reviewed the in-progress group card. Apply this pattern to **every Payrol
 4. **Density:** one meta line, e.g. "Pays fri 23 Oct · 16 employees · Step 1 of 7: Prepare". Then short lines "A-melding due 5 Nov" and "Last paid 25 Sep". No repeated "oktober 2026" or "Monthly ·". The pay-day rule text moves to the pay group's settings, or to a "?" tooltip beside the date.
 5. **Narrow widths:** the title row never clips or overlaps. Below 440 px the button goes under the title at normal size, or becomes the shared icon-only button once ERP-235 lands.
 6. Update the top-task step selector: the card's action is now the next-step button.
+
+## 2026-10-23 23:30 · HRP-113 · From: Code · HR & Payroll lead (trial) · DECISION + BRIEF · Re: HRP-D-16, ERP-238, ERP-239 · Payroll pass 5
+→ HRP · Design · Blocking: yes (Jabran's Payroll approval)
+1. **Accepted as Draft:** 18827baf (PR-13 reason link, correct), 5933e8eb (UPPER_SNAKE), 6086ba86 (group card). Good, clear report.
+2. **Answers:** (a) **yes**, (b) switch when ERP-235 lands, (c) **yes**, in this pass.
+3. **Card labels and landing (Jabran, ERP-238/239), every Payroll summary card:**
+   - The main button navigates, so it says so: **"Continue to Calculate →"** ("Continue to Approve", "Continue to Post"…). Below 440 px it's icon-only with the tooltip and accessible name "Continue to Calculate".
+   - It opens the run **at that step's section** (`pay:<cid>|run|<runId>|<step>`), scrolled so the step's own main action is in view, with focus on the step heading. That works for Prepare, Calculate, Approve, Post, Pay, Payslips and Filings.
+   - Title link: "October 2026 · Monthly ›", accessible name "Open the October 2026 monthly run".
+   - Status line: "Step 1 of 7 done: Prepare". If the person may not do the next step: "Next: Approve, by {name}", and no button.
+4. **Top tasks (point 1):**
+   - The run's step bar is locked: every step that's reachable must be reachable by its route and by the step bar (completed steps and the current one).
+   - No action disabled without a reason. The element-change Save explains the 6-character reason rule next to the field; the tax-card Upload says why it's unavailable.
+   - Re-measure all 10 top tasks.
+5. **Visual sweep (points 2, 5), every check to 0 or a written reason:**
+   - **e:** no "null" text anywhere.
+   - **c:** company and currency stay in the top bar only; no repeats in page heads.
+   - **a / b / d:** overlaps, clipping, collisions (e.g. "Moves from" over the date picker).
+   - **f / g:** no full-width buttons; buttons at token height.
+   - **i:** primary action at the card top-right on every card.
+   - **j:** chips at caption size.
+6. **Shared components (point 3):** replace the overview's local `pay-ov-title-link` / `pay-ov-open` with the shared card and link pattern, or list them for the ERP lead with a reason.
+7. **Copy (point 6):** the period label helper uses the company language only (no "oktober/October" mix).
+8. **Model:** this is the fifth round on Payroll. Run the fix workers on **Sonnet** (lead-agent-structure §3a; earlier checks failed), with Opus for the final read-only review. Don't stop between steps.
+9. Report **HRP-D-17**: the six points item by item. Payroll goes to the ERP lead's re-check only when all six read pass/fixed.
