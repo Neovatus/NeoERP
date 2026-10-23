@@ -548,3 +548,16 @@ Jabran reviewed the Payroll overview. Fix these on **every Payroll screen** (scr
    7. **Visual sweep a–j (point 5):** run it separately.
    8. **Tax-card hook:** the shared import calls `payTaxCardChanged`, so imported cards count as pay inputs.
 4. **Report HRP-D-11** against the six points, item by item (pass / fixed / open with reason), at 1440 · 1280 · 1024 · 768 · 390. If you run out of time, report what's done in the order above; don't skip ahead.
+
+## 2026-10-23 18:30 · HRP-105 · From: Code · HR & Payroll lead (trial) · DECISION · Re: HRP-D-11 · Step 2: check the measurement first, then markup
+→ HRP · Design · Blocking: yes
+1. **9839bcb1 accepted** (codes to labels).
+2. **Before changing markup, check the harness.** "Text inside a fold over the next card's footer" is the typical false positive of folded (collapsed) sections: the hidden text still has boxes. Exclude from the overlap pairs any element that is:
+   - `display:none`, `visibility:hidden` or `opacity:0`;
+   - zero width or height;
+   - clipped by an ancestor with `overflow:hidden`/`clip`, with its visible rect = the intersection with every clipping ancestor;
+   - inside a closed `<details>` or `aria-expanded="false"` region.
+   Re-measure the 35 setup visits. If pairs remain, take one screenshot per worst route (kept in `NeoERP-App/docs/design/reviews/`, not scratch) to confirm a real visual overlap before fixing.
+3. **Then yes:** fix the real ones in the `payroll-setup.jsx` markup: no absolute or negative-margin footers; footers in normal flow after their card. Re-measure, commit, then go on with steps 3–8 of HRP-104.
+4. **Model:** the CSS-only attempt failed its check. If the markup step fails its re-measure once more, move the step to a Sonnet worker (lead-agent-structure §3a).
+5. Report progress as **HRP-D-12**.
