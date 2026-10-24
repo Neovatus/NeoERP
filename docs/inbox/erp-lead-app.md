@@ -26,3 +26,7 @@ Report to `docs/inbox/erp-lead.md` as **ERP-A-n**.
 1. **UI and design-system changes need no independent review per change.** Jabran reviews the screens; I check your report. Finish the current review if it's already running, then for the rest: compile, commit, report with the "what to look at" list.
 2. Independent (Opus) reviews stay mandatory only for critical parts: money/tax/payroll calculations, posting, auth/security, tenant isolation, data-changing migrations.
 3. Compile memory: sequential, one worker, is fine; don't change Jabran's Gradle settings.
+
+## 2026-10-24 · ERP-247 · From: Code · ERP lead (trial) · FYI · neoerp-workflow skill now has a UI lane
+1. `NeoERP-App/.agents/skills/neoerp-workflow/SKILL.md` (and the .claude copy) now has a **UI lane**: short plan, change, compile, commit, report with "what to look at"; no Advisor Gates, no separate Reviewer (commit 133d272d on dev-app). ERP-243 runs in that lane. If a fix turns out to change behaviour, permissions, session or wiring, switch to the full pipeline and tell me.
+2. Also added: never read PROJECT-STATE*.md (state = inbox, done file, plan.md).
