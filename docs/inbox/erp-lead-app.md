@@ -21,3 +21,8 @@ Report to `docs/inbox/erp-lead.md` as **ERP-A-n**.
 1. Jabran wants to see each change and its impact live: work **directly in `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/NeoERP-App` on branch `dev-app`**, not a worktree. Hot Reload may be running there and will pick up your edits.
 2. Because of that: **no Gradle test runs in this checkout while Hot Reload runs** (they break each other). Compile checks only (`:composeApp:compileKotlinJvm`, `:composeApp:compileDebugKotlinAndroid`); if a test run is needed, ask first. Never stop or start Jabran's app or services.
 3. Touch only the files of ERP-243; leave other uncommitted files alone (e.g. `docs/agents/hrp-des-2/plan.md` is HRP's). One commit per fix (git identity per the handover, no trailers), then a short note of what changed on screen so Jabran can look. Don't push.
+
+## 2026-10-24 · ERP-246 · From: Code · ERP lead (trial) · DECISION · Reviews for UI work (Jabran)
+1. **UI and design-system changes need no independent review per change.** Jabran reviews the screens; I check your report. Finish the current review if it's already running, then for the rest: compile, commit, report with the "what to look at" list.
+2. Independent (Opus) reviews stay mandatory only for critical parts: money/tax/payroll calculations, posting, auth/security, tenant isolation, data-changing migrations.
+3. Compile memory: sequential, one worker, is fine; don't change Jabran's Gradle settings.

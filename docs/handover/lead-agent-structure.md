@@ -66,6 +66,8 @@ The module lead tells the ERP lead in its report which shared or security files 
 
 ## 3a. Models, effort and flow (ERP lead, 2026-10-10)
 
+**Reviews (Jabran, 2026-10-24):** an independent review is required for critical parts only (money, tax and payroll calculations, posting, auth/security, tenant isolation, data-changing migrations). UI and design-system work gets no per-change review: Jabran reviews the screens and the ERP lead checks the report.
+
 **Who picks the model:** the lead names each main's model in its brief. The **main picks each sub-agent's model per task** from this table and states it in `plan.md`; it moves a task up a model only after a clear pass/fail check failed, never "just in case".
 
 | Model | Use for (Jabran, 2026-10-10) |
