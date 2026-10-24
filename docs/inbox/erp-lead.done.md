@@ -233,3 +233,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-24 · Jabran: focus ring same grey → ERP-257 (app), ERP-258 (rig)
 2026-10-24 · Jabran: grid cell focus like a spreadsheet → ERP-259
 2026-10-24 · Jabran: top bar role/company line → ERP-260
+2026-10-24 · ERP-252..260 finished by the ERP lead after Codex's cap: 95072dfd (grid), c42d1905 (top bar); compiles JVM+Android pass; ERP-A-2 not written by Codex
