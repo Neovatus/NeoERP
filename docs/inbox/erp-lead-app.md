@@ -16,3 +16,8 @@ Audit: `NeoERP-App/docs/design/reviews/app-shared-audit-2026-10-24.md` (read it 
 5. **Focus ring 2 px with offset** for borderless controls (keyboard only); move the dp/sp literals of NeoFilePickerField, NeoSpotState, NeoOfflineStrip, NeoViewport, NeoSpotIllustration into tokens (and the hard-coded "Retry" into strings); make `NeoButton.fullWidth` internal to the file component and fix its 9 feature call sites (normal-size buttons).
 **Checks (Jabran, 2026-10-24): no new screenshot tests; Jabran reviews the screens himself.** Run only: JVM compile + Android compile, and the existing tests of the changed modules (designsystem, shell, accounts) — report counts. No push; report ERP-C-n with commits, files touched and a short "what to look at" list for Jabran (screens where each fix shows).
 Report to `docs/inbox/erp-lead.md` as **ERP-A-n**.
+
+## 2026-10-24 · ERP-245 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-243 · Work in Jabran's main app checkout (Jabran)
+1. Jabran wants to see each change and its impact live: work **directly in `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/NeoERP-App` on branch `dev-app`**, not a worktree. Hot Reload may be running there and will pick up your edits.
+2. Because of that: **no Gradle test runs in this checkout while Hot Reload runs** (they break each other). Compile checks only (`:composeApp:compileKotlinJvm`, `:composeApp:compileDebugKotlinAndroid`); if a test run is needed, ask first. Never stop or start Jabran's app or services.
+3. Touch only the files of ERP-243; leave other uncommitted files alone (e.g. `docs/agents/hrp-des-2/plan.md` is HRP's). One commit per fix (git identity per the handover, no trailers), then a short note of what changed on screen so Jabran can look. Don't push.
