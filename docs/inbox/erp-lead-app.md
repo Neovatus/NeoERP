@@ -81,3 +81,11 @@ Needs answer by: — · Blocking: Accounts flow 1 · UI lane, work in Jabran's a
 
 ## 2026-10-24 · ERP-257 · From: Code · ERP lead (trial) · DECISION · Keyboard focus ring uses the same grey (Jabran)
 1. The keyboard focus ring on borderless controls (buttons, links, tabs, rows, chips) uses the **same colour as field focus**: #737373 light / #8C8C8C dark (point `focus/ring` at the `focus/field` value; one focus colour in the system). Width 2 px with 2 px offset stays, keyboard focus only. Check it stays visible next to the black primary button (the offset keeps it on the page background).
+
+## 2026-10-24 · ERP-259 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-252 item 3 · Entry-grid cell states like a spreadsheet (Jabran)
+Jabran: the rounded field box shown inside a cell on hover/click looks odd now that the grid has cell lines.
+1. **Hover:** the cell gets a very light background tint (surface-hover token); no box, no border change.
+2. **Focus/editing:** the **cell itself** gets a 1 px `focusField` (#737373) border on its own edges, square, filling the cell; no inner rounded box, no extra padding, no shift of the text.
+3. Select cells (Account, Branch) behave the same; the ▾ stays in place.
+4. **Error:** the cell border turns danger; the message under the row or as a tooltip on the cell.
+5. Keep the shared entry-grid component; this applies to every line grid.
