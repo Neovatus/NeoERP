@@ -35,3 +35,14 @@ Report to `docs/inbox/erp-lead.md` as **ERP-A-n**.
 Needs answer by: — · Blocking: Jabran's review of ERP-A-1 · UI lane
 1. Jabran: the focused field reads as a double line (inner soft band from `neoFieldBorder` + the 1 dp border, e.g. journal Memo). **Decision: focus = the border alone changes to `focusField` (#525252 / #A3A3A3), 1 dp → 1.5 dp, no halo, nothing else drawn.** Errors keep the danger border; disabled unchanged.
 2. Remove the halo from `NeoFieldBorder.kt` (keep `focusRingSoft` token only if something else uses it; otherwise remove it and its JSON entry note). Compile, commit, report ERP-A-2 with where to look (journal Memo, any search/select/date field).
+
+## 2026-10-24 · ERP-250 · From: Code · ERP lead (trial) · DECISION · Priority · Top-bar context chip: place and content (Jabran)
+Needs answer by: — · Blocking: Jabran's review of ERP-A-1 · UI lane
+Jabran's screenshot (Companies page): a wide box left of search shows "Org d3300000 … NO · NOK". Match the agreed design (rig top bar):
+1. **Place:** on the **right**, immediately before the bell and avatar; compact text, not a field-like box; never left of search.
+2. **Content, two short lines:** line 1 "{company name} · {country name} · {currency}" (e.g. "Kystgruppe Nordic · Norway · NOK"); line 2 "{person name} · {role}". Country as its localized name, never the ISO code.
+3. **Never a raw id:** while the name loads show a short skeleton/"Loading…"; if it can't load, show nothing rather than "Org d…".
+4. **No company in context** (platform pages such as Companies for platform staff): hide line 1, or show "All companies"; never a placeholder company.
+5. Click opens the existing company switcher; keyboard reachable with an accessible name "Company: {name}, change company".
+6. Narrow widths: line 2 hides first, then line 1 shortens to the company name with ellipsis; it never pushes search off or overlaps.
+Compile, commit, report ERP-A-n with where to look (a company page and the Companies page, wide and narrow).

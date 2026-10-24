@@ -226,3 +226,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-24 · skill UI lane → ERP-247 (Codex App)
 2026-10-24 · ERP-A-1 shared app fixes (5 commits) checked; with Jabran for live review
 2026-10-24 · Jabran: field focus double line → ERP-248 (app), ERP-249 (rig, on resume)
+2026-10-24 · Jabran: top-bar chip wrong place/content → ERP-250 (Codex App)
