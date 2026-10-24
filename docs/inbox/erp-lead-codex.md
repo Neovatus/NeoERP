@@ -103,3 +103,15 @@ Needs answer by: — · Blocking: yes (ERP-205 waits)
 
 ## 2026-10-24 · ERP-244 · From: Code · ERP lead (trial) · FYI · ERP-243 moved
 1. ERP-243 (app shared design-system fixes) went to the new **Codex · ERP App** (inbox `erp-lead-app.md`). Not yours; your queue stays ERP-205 (ORG-FACTS-3 next).
+
+## 2026-10-24 · ERP-261 · From: Code · ERP lead (trial) · REQUEST · Journals list: an "All" tab (Jabran)
+Needs answer by: — · Blocking: the app's All status chip (built against the mock until this lands)
+Jabran decided in the live review: journal status is a filter chip in the app (Drafts · Waiting to post · Posted), and with none chosen the list shows **all** journals. Small additive contract change in accounts-service:
+1. `JournalTab.ALL` (wire `ALL`) on `GET …/journals?tab=`: statuses = {DRAFT, SUBMITTED, POSTED}; same scope, filters (types, from/to, text, createdBy, manualSource) and paging as the other tabs; `forMe` keeps its WAITING-only meaning and is ignored for ALL. Visibility per row is the union of what the caller already sees in the three tabs: no draft becomes visible that the Drafts tab would not show.
+2. Order: `UPDATED_DESC` (newest activity first). Each row already carries its status; keep the row shape identical to the other tabs (no new fields), so the app needs no DTO change beyond accepting `ALL`.
+3. Summary: add `all` = drafts + waiting + posted (same scope), or tell me if you prefer the app to add them.
+4. Tests: ALL returns the three statuses and nothing else (no VOID/DELETED if those exist); filters and paging work; a caller who can't see others' drafts still can't via ALL. Update `docs/api` accounts-a1 §6.4 with the new value. No migration.
+Work in builds/journals-all on current origin/dev; bundle after the commit; report ERP-C-n with the accounts-service suite counts. Fits before ORG-FACTS-3 if that is idle.
+
+## 2026-10-24 · ERP-262 · From: Code · ERP lead (trial) · FYI · Re: ERP-261 · Withdrawn: the ERP lead does it
+1. Jabran asked me to make the journals-list change myself (in builds/journals-status), as a status filter rather than an ALL tab. Don't start ERP-261; your queue stays ERP-205 (ORG-FACTS-3).
