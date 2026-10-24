@@ -249,3 +249,6 @@ Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll approval
 
 ## 2026-10-24 · ERP-249 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-225 · Field focus: one line, no halo (Jabran) — for when you resume
 1. Field focus is the border alone in `focus/field`, 1.5 px, **no halo** (no box-shadow). Update styles.css, design-system/styles.css, building-blocks "Field focus", and the tokens note. The app does the same (ERP-248).
+
+## 2026-10-24 · ERP-254 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-249 · focus/field value (for when you resume)
+1. `focus/field` = #737373 light / #8C8C8C dark, 1.5 px, no halo. Update neoerp-tokens.json, both styles.css and the building-blocks note to match the app (ERP-253).

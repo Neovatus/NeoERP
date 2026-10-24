@@ -72,3 +72,6 @@ Needs answer by: — · Blocking: Accounts flow 1 · UI lane, work in Jabran's a
    - Header count "Lines · n" counts the real lines (it shows 0 while rows exist).
    - Keep the existing keyboard behaviour (Tab across, Enter down/adds a line, ↓ opens a list, = fills the balancing amount).
 4. Report ERP-A-2: commits, files, and per item the screens to look at. Don't push.
+
+## 2026-10-24 · ERP-253 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-252 item 1 · Focus colour medium-dark grey (Jabran)
+1. `focusField` = **#737373** light (4.7:1 on white, 4.0:1 against the resting #ECECEC border) and **#8C8C8C** dark, at 1.5 dp, one line, no halo. #525252 read as near-black.
