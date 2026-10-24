@@ -75,3 +75,6 @@ Needs answer by: — · Blocking: Accounts flow 1 · UI lane, work in Jabran's a
 
 ## 2026-10-24 · ERP-253 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-252 item 1 · Focus colour medium-dark grey (Jabran)
 1. `focusField` = **#737373** light (4.7:1 on white, 4.0:1 against the resting #ECECEC border) and **#8C8C8C** dark, at 1.5 dp, one line, no halo. #525252 read as near-black.
+
+## 2026-10-24 · ERP-255 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-253/254 · Same width, colour only (Jabran)
+1. Field border stays **1 px** in every state; on focus only the colour changes to `focusField` (#737373 light / #8C8C8C dark). No width change, no halo.

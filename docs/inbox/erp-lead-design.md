@@ -252,3 +252,6 @@ Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll approval
 
 ## 2026-10-24 · ERP-254 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-249 · focus/field value (for when you resume)
 1. `focus/field` = #737373 light / #8C8C8C dark, 1.5 px, no halo. Update neoerp-tokens.json, both styles.css and the building-blocks note to match the app (ERP-253).
+
+## 2026-10-24 · ERP-256 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-253/254 · Same width, colour only (Jabran)
+1. Field border stays **1 px** in every state; on focus only the colour changes to `focusField` (#737373 light / #8C8C8C dark). No width change, no halo.
