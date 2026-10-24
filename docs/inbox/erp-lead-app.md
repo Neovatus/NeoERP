@@ -4,3 +4,15 @@ Append-only. Only the lead writes briefs here (protocol §3). The main marks ite
 Handover: docs/handover/main-agent-handover.md
 
 ---
+
+## 2026-10-24 · ERP-243 · From: Code · ERP lead (trial) · REQUEST · → Codex · ERP App · App shared design-system fixes (Jabran: pause lifted for this app work)
+Needs answer by: — · Blocking: walking Accounts flow 1 with Jabran
+Audit: `NeoERP-App/docs/design/reviews/app-shared-audit-2026-10-24.md` (read it first; file:line evidence there). Repo `NeoERP-App`, branch `dev-app`. **Persistent copy:** `/Users/jabransiddiqui/Offices/Neovatus/builds/app-shared-1` as a git worktree of the NeoERP-App repo (never /tmp, never Jabran's checkout, which runs Hot Reload); bundle after each commit.
+**Do, in this order, one commit each:**
+1. **Field focus:** tokens `focusField` (#525252 light / #A3A3A3 dark) and `focusRingSoft` (rgba 10,10,10,.14 / 250,250,250,.18) in `designsystem/tokens` (match `docs/design/design-system/neoerp-tokens.json` focus/field and ringSoft); one shared field-border helper (1 px focusField border + 3 px soft halo, no extra ring) used by NeoTextField, NeoForm fields, NeoSearchInput, list-control inputs, selects, NeoDateField, chip input and the journal editor's raw inputs (`JournalEditorInputs.kt:70,131`). Replace Material's 2 dp focused border.
+2. **Context in the top bar:** a company · country · currency context chip in `NeoSmartTopBar` (reads the active company from the session; opens the existing company switcher). Then remove country/currency from Accounts' `factLine` (`AccountsRoute.kt:754,1018-1024`) and the repeated "Amounts in {currency}" captions (e.g. `TrialBalanceScreen.kt:255`); keep fiscal year/period where it's the page's own fact.
+3. **Top-bar touch sizing** from `neoTouchFloor()` (touch platforms only), not `isMobileOrBelow(width)`; fix the `density/$touchFloor` description in neoerp-tokens.json.
+4. **Responsive actions API:** `NeoPageHeader(actions: List<label, icon, variant>)` (no hard-wired Plus; supports danger and a "More" overflow); `NeoButton(iconOnly = …)` for every variant with tooltip and accessible name = label; `NeoIconButton` secondary and danger variants. Migrate existing call sites.
+5. **Focus ring 2 px with offset** for borderless controls (keyboard only); move the dp/sp literals of NeoFilePickerField, NeoSpotState, NeoOfflineStrip, NeoViewport, NeoSpotIllustration into tokens (and the hard-coded "Retry" into strings); make `NeoButton.fullWidth` internal to the file component and fix its 9 feature call sites (normal-size buttons).
+**Checks (Jabran, 2026-10-24): no new screenshot tests; Jabran reviews the screens himself.** Run only: JVM compile + Android compile, and the existing tests of the changed modules (designsystem, shell, accounts) — report counts. No push; report ERP-C-n with commits, files touched and a short "what to look at" list for Jabran (screens where each fix shows).
+Report to `docs/inbox/erp-lead.md` as **ERP-A-n**.

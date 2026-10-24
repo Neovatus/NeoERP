@@ -220,3 +220,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-23 · Jabran: finish current work, report, stop for today → ERP-241, ERP-242
 2026-10-23 · ERP-D-9 Payroll pass (shared done; DoD 6/6 open) and HRP-D-18 (pass 6, stopped) → for Jabran tomorrow
 2026-10-24 · app shared fixes brief → ERP-243 (Codex), no new screenshot tests (Jabran)
+2026-10-24 · new Codex · ERP App (inbox erp-lead-app.md, ERP-A-n); ERP-243 moved there (ERP-244 FYI to backend Codex)

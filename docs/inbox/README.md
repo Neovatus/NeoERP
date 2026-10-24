@@ -16,7 +16,7 @@ Handover for every main: `docs/handover/main-agent-handover.md`. Briefs go to th
 |---|---|---|---|
 | ERP · Design | ERP-D | erp-lead-design.md | ERP lead |
 | ERP · Backend | ERP-B | erp-lead-backend.md | ERP lead |
-| ERP · App | ERP-A | erp-lead-app.md | ERP lead |
+| ERP · App (now **Codex · ERP App**, 2026-10-24: shared design system and app screens) | ERP-A | erp-lead-app.md | ERP lead |
 | Accounts · Design | ACC-D | accounts-lead-design.md | Accounts lead |
 | Accounts · Backend (was CC · Accounts backend) | ACC-B | accounts-lead-backend.md | Accounts lead |
 | Accounts · App (was CC · Accounts app) | ACC-A | accounts-lead-app.md | Accounts lead |
