@@ -224,3 +224,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-24 · Jabran: app Codex in main checkout → ERP-245
 2026-10-24 · Jabran: no per-change review for UI → ERP-246
 2026-10-24 · skill UI lane → ERP-247 (Codex App)
+2026-10-24 · ERP-A-1 shared app fixes (5 commits) checked; with Jabran for live review
