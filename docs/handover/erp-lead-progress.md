@@ -11,20 +11,21 @@ Owner: Code · ERP lead (trial). **Rewritten 2026-10-22 before a compact.** Read
 - **Rules learned:** GitHub Actions are **off** (full local suites of changed services before every push). Never run draft migrations on Jabran's databases. Drafts get committed (Draft status). All design lives in `NeoERP-App/docs/design/`; the domain model in `docs/domain/`. Jabran's machine-client catalog changes need his OK (he tends to say "approve as recommended").
 - **Ids:** last message sent **ERP-175**. Workspace repo `Neovatus/NeoERP` (branch master): many local commits, **unpushed** (Jabran pushes).
 
-## 2. In flight (updated 2026-10-23 22:15; stop for today after current work, ERP-241/242)
+## 2. In flight (updated 2026-10-24): all other sessions paused (Jabran)
 
-**Development paused except design-independent backend; design: Payroll first, then other modules after Jabran approves Payroll.**
+**Jabran, 2026-10-24: every session except the ERP lead is paused** (`docs/inbox/.paused-<stem>` for accounts-lead, hr-payroll-lead, erp-lead-design, hr-payroll-lead-design; the Claude mains were already paused; both Codex sessions idle). Their listeners stay alive but never wake. **Resume one:** `rm docs/inbox/.paused-<stem>`, then tell that session "check your inbox". Next direction under discussion: walk Accounts **flows in the app** with Jabran (fix in the app first, then update the design).
 
-| Who | State |
-|---|---|
-| HRP · Design | Payroll pass 6 (HRP-114) finishing → report HRP-D-18 → stop for today. Definition of done: ERP-230 |
-| ERP · Design | Focus token, rig chrome, Payroll proof harness → report → stop. Queued for tomorrow: icon-only buttons (ERP-235), label check (ERP-240) |
-| Codex · ERP backend | Idle (not started by Jabran). CP-EV-1b pushed (9138608). Next when Jabran starts it: ORG-FACTS-3 (ERP-205.1, ERP-215) in builds/org-facts-3; then bootstrap backend, DB roles, rescan job |
-| Codex · HR & Payroll backend | Not started (needs a session from Jabran); brief HRP-95 waits |
-| Accounts | HOLD; Phase 2 needs Jabran's manual check; Phase 3 needs approval |
+| Session | Last state | Pending when resumed |
+|---|---|---|
+| **Accounts lead** | HOLD (ERP-199); nothing in flight; all accepted work on origin (dev 4d162dd, dev-app 84902fa8) | Phase 2: Jabran's manual check + "accepted". Phase 3 (B/C) package awaits Jabran's approval; SB2a brief incl. dimension-set migration (ERP-197) held. CP-EV-1c (cutover to OrgEventsV2, one path at a time, ERP-210) after resume. Large-customer gaps answered (ACC-249). |
+| **Accounts Codex** | Idle; ACC-246 done (4d162dd) | Its inbox lists older briefs without done lines (ACC-232…244), handled earlier per the lead; the lead re-briefs on resume. |
+| **HR & Payroll lead** | Accepted HRP · Design pass 6 (HRP-D-18); stopped | Pass 7 drafted (HRP-117), starts only on Jabran's word. H0 + P0 backend via its Codex (HRP-95) not started. |
+| **HRP · Design** | Payroll pass 6 committed (064fbb2b, 39923cd1, 8288590b, c4fdb36d); stopped | Pass 7 (HRP-117); module items from ERP-D-9 (negative margins `.pay-why`, `.field-hint`, inline `.hr-sub`; 44 px width rules in module CSS; "Next step" vs narrow "Open the run" overlap on 8 screens); Payroll definition of done (ERP-230) 6/6 open. Older ids without done lines in its done file (HRP-73…89) are handled history. |
+| **HR & Payroll Codex** | Never started | H0 + P0 backend plan (HRP-95), HRP-116. |
+| **ERP · Design** | Reported ERP-D-9 and stopped (shared focus token, page head, pointer-based touch height, rig chrome, Payroll sweep + definition-of-done report) | ERP-235 icon-only buttons; ERP-240 button-spec line + nav-vs-action check; re-run genprin (31/32 regress, one stale row); other-module sweeps after Payroll (ERP-222); token clean-up B. Untracked: 1,923 crop PNGs (14 MB) and `styles.css.tmp`; deletion needs Jabran's OK. |
+| **Codex · ERP backend** | Idle; CP-EV-1b pushed (9138608) | ORG-FACTS-3 (ERP-205.1, ERP-215) in builds/org-facts-3; then bootstrap backend, DB roles, rescan job. |
 
-**Tomorrow:** (1) my re-check of Payroll against ERP-230; (2) Jabran reviews Payroll; (3) Jabran decides the direction proposed 2026-10-23: rig settles patterns on ~15 core screens, then shared Compose components and Accounts screen by screen in the app (needs app-work pause lifted); (4) web access stays an open roadmap decision (Next.js/React possible).
-**Rules added today:** persistent builds/ folder (never /tmp), Payroll definition of done, labels say what happens, field focus token, touch height by pointer, context shown once, no negative margins under titles.
+**Payroll design status:** shared items done; Payroll definition of done 6/6 open (ERP-D-9: 215 primary-placement, 134 repeated text, 589 hard-coded values, local variants of shared components, top tasks 9/10 current and 6/10 proposed). This is the evidence behind the app-first direction.
 
 ## 3. Done recently (for context)
 
