@@ -246,3 +246,6 @@ Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll approval
 ## 2026-10-23 · ERP-241 · From: Code · ERP lead (trial) · DECISION · Stop for today after the current work (Jabran)
 1. Jabran: finish the work in progress (current pass, its checks and review), **commit as Draft, report, then stop for today.** No new pass or new item after the report. Work continues tomorrow when Jabran says so.
 2. Before stopping: every change committed (nothing left uncommitted in the rig), results files in the repo (not a scratchpad), and your done file up to date, so tomorrow starts clean.
+
+## 2026-10-24 · ERP-249 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-225 · Field focus: one line, no halo (Jabran) — for when you resume
+1. Field focus is the border alone in `focus/field`, 1.5 px, **no halo** (no box-shadow). Update styles.css, design-system/styles.css, building-blocks "Field focus", and the tokens note. The app does the same (ERP-248).

@@ -30,3 +30,8 @@ Report to `docs/inbox/erp-lead.md` as **ERP-A-n**.
 ## 2026-10-24 · ERP-247 · From: Code · ERP lead (trial) · FYI · neoerp-workflow skill now has a UI lane
 1. `NeoERP-App/.agents/skills/neoerp-workflow/SKILL.md` (and the .claude copy) now has a **UI lane**: short plan, change, compile, commit, report with "what to look at"; no Advisor Gates, no separate Reviewer (commit 133d272d on dev-app). ERP-243 runs in that lane. If a fix turns out to change behaviour, permissions, session or wiring, switch to the full pipeline and tell me.
 2. Also added: never read PROJECT-STATE*.md (state = inbox, done file, plan.md).
+
+## 2026-10-24 · ERP-248 · From: Code · ERP lead (trial) · DECISION · Field focus: one line, no halo (Jabran)
+Needs answer by: — · Blocking: Jabran's review of ERP-A-1 · UI lane
+1. Jabran: the focused field reads as a double line (inner soft band from `neoFieldBorder` + the 1 dp border, e.g. journal Memo). **Decision: focus = the border alone changes to `focusField` (#525252 / #A3A3A3), 1 dp → 1.5 dp, no halo, nothing else drawn.** Errors keep the danger border; disabled unchanged.
+2. Remove the halo from `NeoFieldBorder.kt` (keep `focusRingSoft` token only if something else uses it; otherwise remove it and its JSON entry note). Compile, commit, report ERP-A-2 with where to look (journal Memo, any search/select/date field).
