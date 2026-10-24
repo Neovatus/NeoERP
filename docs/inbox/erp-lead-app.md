@@ -50,3 +50,25 @@ Compile, commit, report ERP-A-n with where to look (a company page and the Compa
 ## 2026-10-24 · ERP-251 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-250 · Reference and badge
 1. Jabran confirmed the target: the rig top bar exactly (right side, "**Kystgruppe Nordic** · Norway · NOK" with the company name bold, line 2 "Ingrid Hansen · Owner", then bell, then avatar).
 2. Notification badge sits at the bell's top-right corner, outside the glyph, never covering it.
+
+## 2026-10-24 · ERP-252 · From: Code · ERP lead (trial) · REQUEST · Combined fix list from Jabran's live review of ERP-A-1 (supersedes the open parts of ERP-248, ERP-250, ERP-251)
+Needs answer by: — · Blocking: Accounts flow 1 · UI lane, work in Jabran's app checkout (ERP-245), one commit per item, compile only, report ERP-A-2 with "what to look at"
+1. **Field focus: one line, no halo** (ERP-248). On focus only the border changes: `focusField` (#525252 light / #A3A3A3 dark), 1 dp → 1.5 dp. Remove the inner halo from `NeoFieldBorder.kt`; drop `focusRingSoft` if nothing else uses it. Errors keep the danger border; disabled unchanged. Look: journal Memo, any search/select/date/chip field.
+2. **Top-bar context: match the Design Review Hub exactly** (ERP-250, ERP-251; reference = rig top bar).
+   - Right side, immediately before the bell and avatar; compact text, no field-like box, never left of search.
+   - Line 1 "**{company name}** · {country name} · {currency}" (company bold, country written out, e.g. "Kystgruppe Nordic · Norway · NOK"); line 2 "{person} · {role}".
+   - Never a raw id ("Org d3300000"): skeleton while loading, nothing if it can't load.
+   - No company in context (platform pages, e.g. Companies): hide line 1 or show "All companies".
+   - Click/Enter opens the company switcher; accessible name "Company: {name}, change company".
+   - Narrow: line 2 hides first, then line 1 shortens to the company name with ellipsis; never pushes search off or overlaps.
+   - Notification badge at the bell's top-right corner, outside the glyph.
+3. **Entry grid (journal lines now; one shared pattern for every line grid later: invoices, bills, payroll one-offs).** Build it as a shared component/modifier in `designsystem` and use it in the journal lines editor:
+   - Faint column dividers + a light bottom line per row, so the grid is visible.
+   - Editable cells show a field box on hover; on focus the same one-line focus as item 1.
+   - Placeholders in every empty editable cell: "Number or name", "Description", "0.00" (Debit, Credit).
+   - Select cells (Branch, later tax code) show a ▾ and "None" in muted text.
+   - Amounts right-aligned, tabular figures.
+   - Delete-line icon shows on row hover/focus, not as a boxed button on every row; keyboard reachable.
+   - Header count "Lines · n" counts the real lines (it shows 0 while rows exist).
+   - Keep the existing keyboard behaviour (Tab across, Enter down/adds a line, ↓ opens a list, = fills the balancing amount).
+4. Report ERP-A-2: commits, files, and per item the screens to look at. Don't push.
