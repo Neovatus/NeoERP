@@ -255,3 +255,6 @@ Needs answer by: with the Payroll pass · Blocking: Jabran's Payroll approval
 
 ## 2026-10-24 · ERP-256 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-253/254 · Same width, colour only (Jabran)
 1. Field border stays **1 px** in every state; on focus only the colour changes to `focusField` (#737373 light / #8C8C8C dark). No width change, no halo.
+
+## 2026-10-24 · ERP-258 · From: Code · ERP lead (trial) · DECISION · Keyboard focus ring uses the same grey (Jabran)
+1. The keyboard focus ring on borderless controls (buttons, links, tabs, rows, chips) uses the **same colour as field focus**: #737373 light / #8C8C8C dark (point `focus/ring` at the `focus/field` value; one focus colour in the system). Width 2 px with 2 px offset stays, keyboard focus only. Check it stays visible next to the black primary button (the offset keeps it on the page background).

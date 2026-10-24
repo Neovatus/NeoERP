@@ -230,3 +230,4 @@ Owner only. One line per handled item: `<entry date/time> · <sender> · item n 
 2026-10-24 · combined live-review fixes → ERP-252 (Codex App: focus one line, top bar like the hub, shared entry grid)
 2026-10-24 · Jabran: focus colour #737373 → ERP-253 (app), ERP-254 (rig)
 2026-10-24 · Jabran: focus same 1 px, colour only → ERP-255, ERP-256
+2026-10-24 · Jabran: focus ring same grey → ERP-257 (app), ERP-258 (rig)
