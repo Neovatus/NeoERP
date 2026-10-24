@@ -46,3 +46,7 @@ Jabran's screenshot (Companies page): a wide box left of search shows "Org d3300
 5. Click opens the existing company switcher; keyboard reachable with an accessible name "Company: {name}, change company".
 6. Narrow widths: line 2 hides first, then line 1 shortens to the company name with ellipsis; it never pushes search off or overlaps.
 Compile, commit, report ERP-A-n with where to look (a company page and the Companies page, wide and narrow).
+
+## 2026-10-24 · ERP-251 · From: Code · ERP lead (trial) · DECISION · Amends: ERP-250 · Reference and badge
+1. Jabran confirmed the target: the rig top bar exactly (right side, "**Kystgruppe Nordic** · Norway · NOK" with the company name bold, line 2 "Ingrid Hansen · Owner", then bell, then avatar).
+2. Notification badge sits at the bell's top-right corner, outside the glyph, never covering it.
