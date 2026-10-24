@@ -89,3 +89,10 @@ Jabran: the rounded field box shown inside a cell on hover/click looks odd now t
 3. Select cells (Account, Branch) behave the same; the ▾ stays in place.
 4. **Error:** the cell border turns danger; the message under the row or as a tooltip on the cell.
 5. Keep the shared entry-grid component; this applies to every line grid.
+
+## 2026-10-24 · ERP-260 · From: Code · ERP lead (trial) · DECISION · Priority · Top-bar context still differs from the hub (Jabran)
+Jabran's screenshot after 0b79b858: one line "Ola Nordmann · Employee Self Service, Super Admin". The hub shows two lines: "**Kystgruppe Nordic** · Norway · NOK" / "Ingrid Hansen · Owner".
+1. **Role line = one role, the person's role in the selected company** (e.g. "Owner", "Accountant", "HR admin"); if several roles in that company, the highest one plus "+1" with the full list in the tooltip. Never a comma list of all roles across companies and the platform.
+2. **No company selected** (platform pages): line 1 "All companies" (or hidden) and line 2 "{person} · Platform admin" for platform staff; for a person with only Employee Self Service: line 2 "{person} · Employee".
+3. **Company selected:** always both lines, exactly as the hub (company name bold, country written out, currency).
+4. Check with Ola Nordmann (super admin, platform pages and inside a company via the switcher) and Ingrid Hansen (Owner, Kystgruppe Nordic). Report what each shows.
