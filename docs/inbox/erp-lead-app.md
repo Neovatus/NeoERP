@@ -96,3 +96,9 @@ Jabran's screenshot after 0b79b858: one line "Ola Nordmann · Employee Self Serv
 2. **No company selected** (platform pages): line 1 "All companies" (or hidden) and line 2 "{person} · Platform admin" for platform staff; for a person with only Employee Self Service: line 2 "{person} · Employee".
 3. **Company selected:** always both lines, exactly as the hub (company name bold, country written out, currency).
 4. Check with Ola Nordmann (super admin, platform pages and inside a company via the switcher) and Ingrid Hansen (Owner, Kystgruppe Nordic). Report what each shows.
+
+## 2026-10-26 · ERP-263 · From: Code · ERP lead (trial) · FYI · Re: ERP-A-2..7 · Review outcome (Jabran agreed)
+1. Accepted as built: focus/grid/dropdown position fixes, branch inheritance copy, footer company removal, top-bar toggle (icons, no fill, glyph alignment). Reports and hashes matched the code.
+2. Changed by me in dev-app 0492a6c2: the document details/Memo fold is undone (those fields are required to submit; §16 folds only secondary detail, §19 keyboard-first); one footer count "{complete} of {entered} lines complete" and card title "Lines"; branch and cost centre share "Use default · {name}" / "Use default · No …" via JournalWording; the single-branch fallback removed.
+3. Docs (cfd84a4f): §17 amended (top bar's company line counts), hover exception for the toggle in building-blocks, journals guide and developer page current, your batch-entry proposal committed as written.
+4. For next time: copy belongs in JournalWording/strings, not inline; a fold or exception against a principle is recorded in the principle file itself, not only in a module page.
