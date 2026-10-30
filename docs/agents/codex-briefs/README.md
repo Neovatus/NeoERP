@@ -66,3 +66,13 @@ Read our current data: tax CSVs in NeoERP-BackEnd/services/accounts-service/src/
 Find, from official sources (budget laws, tax authority announcements): VAT/moms/ALV/VSK rate changes, new or removed codes, reverse-charge scope changes, reporting box changes, e-invoicing/e-reporting mandates and dates, SAF-T or SIE format changes, PK Finance Act changes effective in the period. Only items with an official source.
 Output: per country — change, effective date, source link, which of our pack rows/contract items it affects, what to add (new dated version), urgency (before 31 Dec 2026 or later).
 ```
+
+## 6. Official payee verification services (research)
+
+```
+Task: research how NeoERP can verify a payee's bank account against official/bank services before a supplier (or customer refund) bank-details change is approved, per country: NO, SE, DK, FI, IS, PK.
+Workspace: /Users/jabransiddiqui/Offices/Neovatus/NeoERP. READ-ONLY on NeoERP-App and NeoERP-BackEnd. Never read PROJECT-STATE*.md. Write exactly one file: docs/agents/codex-payee-verification/report.md (commit only that file on master: "docs(codex): payee verification research").
+Context: NeoERP stores supplier bank details only through an approved change request (NeoERP-BackEnd/docs/api/accounts-c.md C-3, §7.2; decisions in docs/api/accounts-decisions-for-jabran.md "bank-details safety package"). We want an automatic "the bank confirms the name matches this account" signal for the approver.
+For each country find, from official sources only: the service (e.g. EU Verification of Payee under the Instant Payments Regulation (EU) 2024/886 / EPC VOP scheme for euro accounts — FI; Sweden: Bankgirot/BankID or bank name-check services for Bankgiro/accounts; Norway: Bits / bank account-name control (e.g. KAR); Denmark: NemKonto or bank services; Iceland; Pakistan: Raast / IBFT title fetch), who may call it (only banks/PSPs, or companies via their bank, PSD2/open-banking providers, aggregators), what it returns (match / close match / no match, name), cost and contract needed, API/spec links, whether it works for business accounts, and data-protection limits. Also list aggregators that cover several of these countries.
+Output: per country — service, access route for an ERP like NeoERP (direct / via the customer's bank / via an open-banking provider), returned data, prerequisites, links; then a recommended integration approach and order (which countries first), and what must be in NeoERP's design (where the check runs, how the result is stored and shown, what happens on "no match").
+```
