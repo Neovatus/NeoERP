@@ -33,7 +33,7 @@ check (T1, L4, L6, R4, R8, S1, U5) are checked by the lead against official sour
 ## Tax data (round 1)
 | ID | Decision | Recommendation | Triage |
 |---|---|---|---|
-| T1 | PK s.153 withholding base | Gross including sales tax (Ordinance s.153(1)), overriding MJ-4; ideally the MJ-4 accountant confirms | codex-tax-triage.md |
+| T1 | PK s.153 withholding base | **Decided after official check (professional-checks-pk.md): GROSS incl. sales tax for all 11 PK-WHT-153-* codes and PK-WHT-BY-CUST (s.153(1) text since Finance Act 2011). MJ-4 was our own unverified note. s.155 rent stays NET (T-10 base part dropped). Build: V43 (Claude) after V40–V42** | codex-tax-triage.md |
 | T2 | All confirmed tax data fixes | One forward migration + same corrections in the next pack | same |
 | T3 | FI reduced-rate import / EU acquisition codes | Next pack | same |
 | T4 | PK toll-manufacturing, rice/oil s.153 codes | Add, low priority | same |
@@ -48,7 +48,7 @@ check (T1, L4, L6, R4, R8, S1, U5) are checked by the lead against official sour
 | L3 | Long/short-term marking | Two new account subtypes (not a general maturity attribute) | same |
 | L4 | DK creditor number MOD11 | **Decided after official check (professional-checks-nordic.md): no check digit exists in the Nets handbooks; validate format only, exactly 8 ASCII digits** | same |
 | L5 | NO KID minimum length | Raise 2 → 4 | same |
-| L6 | PK statement lines | A Pakistani accountant checks | same |
+| L6 | PK statement lines | **Decided (professional-checks-pk.md): new BS_PK/PL_PK per Companies Act Fifth/Fourth Schedule face lines; 2045 own subtype, 1390 non-current, 2800 split unpaid/unclaimed dividends; captions; Gross profit only for trading companies; STATUTORY off for PK until done. Open for a PK accountant: ICAP AFRS-for-SSE format and "levies" line. Build later (V44+)** | same |
 | L7 | FI/DK line wording | Local-language wording from the law | same |
 | — | FIK +73, OCR app/server mismatch, IBAN per-country rules | Fix (no decision needed) | same |
 
@@ -68,12 +68,12 @@ check (T1, L4, L6, R4, R8, S1, U5) are checked by the lead against official sour
 ## Retention and e-invoicing
 | R1 | Keep by record class from the FY it concerns; purge on expiry; amend attachments C-14 and D-152 first | Yes | codex-research-triage.md |
 | R2 | Plaintext bank-column drop | Gate on full decrypt/restore proof | same |
-| R3 | Import and proof files | No plain-timer purge; PK purges off until PK law checked | same |
+| R3 | Import and proof files | No plain-timer purge. **PK checked: companies 10 years (Companies Act s.220(5)), others 6 (ITO s.174, STA s.24), hold during proceedings, indefinite for foreign items. OPEN for Jabran: PK law requires records kept in Pakistan; whether an abroad-hosted cloud copy counts needs a PK tax lawyer before the first PK tenant (meanwhile: full export kept in Pakistan)** | same |
 | R4 | Re-read NO §13 (amended 2027), DK §12(2), FI 2:10, IS before any purge | **Done (professional-checks-nordic.md): periods unchanged; NO must keep original e-invoice XML from 2027; DK has no 10-year property rule; IS still requires storage in Iceland until a new act (planned 2028)** | same |
 | R5 | Peppol | Provider access point; start comparison now | same |
 | R6 | NO e-invoice sender (needed by 2027-01-01) and PK FBR link | Pull forward | same |
 | R7 | Split buyer reference / order reference; fix docout text errors | One contract amendment | same |
-| R8 | PK SRO 1666(I)/2026 and FBR DI API | Read before PK build | same |
+| R8 | PK SRO 1666(I)/2026 and FBR DI API | **Done: all DI dates passed (mid band 15 Nov 2025); SRO 1666 adds excise/ICT fields, multi-tax invoices, electronic advance-receipt invoices; 72-hour cancel window (STGO 01/2026); PRAL API v1.12 latest (no credit-note type: confirm in sandbox). Contract updates B C-34, Docout C-16** | same |
 
 ## App UX
 | U1 | Legacy HR/Payroll/ESS/Inbox | Fix only serious bugs (errors, dates, money) now; full cleanup when rebuilt | codex-ux-sweep/triage.md |
