@@ -46,7 +46,7 @@ check (T1, L4, L6, R4, R8, S1, U5) are checked by the lead against official sour
 | L1 | "Statutory layout" claim | Report MANAGEMENT until L2 lands | codex-layouts-refs-triage.md |
 | L2 | FI missing subtotal; BS maturity misroutes | FI fix first; misroutes as one new chart version with an adoption step for existing companies | same |
 | L3 | Long/short-term marking | Two new account subtypes (not a general maturity attribute) | same |
-| L4 | DK creditor number MOD11 | Confirm weights with Nets/bank before enforcing | same |
+| L4 | DK creditor number MOD11 | **Decided after official check (professional-checks-nordic.md): no check digit exists in the Nets handbooks; validate format only, exactly 8 ASCII digits** | same |
 | L5 | NO KID minimum length | Raise 2 → 4 | same |
 | L6 | PK statement lines | A Pakistani accountant checks | same |
 | L7 | FI/DK line wording | Local-language wording from the law | same |
@@ -59,7 +59,7 @@ check (T1, L4, L6, R4, R8, S1, U5) are checked by the lead against official sour
 | P4 | DK, IS | Manual confirmation; revisit on request | same |
 
 ## SIE / SAF-T
-| S1 | Norway SAF-T version | 1.40 for FY2027+, 1.30 legacy only; re-check design against 1.40 | codex-sie-saft/triage.md |
+| S1 | Norway SAF-T version | **Confirmed: 1.40 for periods from 2027-01-01, 1.30 through FY2026; design fixes listed in professional-checks-nordic.md** | codex-sie-saft/triage.md |
 | S2 | SIE without zero balances | Accept with info note | same |
 | S3 | SRU scope | Doc: INK2R account codes only | same |
 | S4 | SIE hardening | One low-priority ticket | same |
@@ -69,7 +69,7 @@ check (T1, L4, L6, R4, R8, S1, U5) are checked by the lead against official sour
 | R1 | Keep by record class from the FY it concerns; purge on expiry; amend attachments C-14 and D-152 first | Yes | codex-research-triage.md |
 | R2 | Plaintext bank-column drop | Gate on full decrypt/restore proof | same |
 | R3 | Import and proof files | No plain-timer purge; PK purges off until PK law checked | same |
-| R4 | Re-read NO §13 (amended 2027), DK §12(2), FI 2:10, IS before any purge | Yes | same |
+| R4 | Re-read NO §13 (amended 2027), DK §12(2), FI 2:10, IS before any purge | **Done (professional-checks-nordic.md): periods unchanged; NO must keep original e-invoice XML from 2027; DK has no 10-year property rule; IS still requires storage in Iceland until a new act (planned 2028)** | same |
 | R5 | Peppol | Provider access point; start comparison now | same |
 | R6 | NO e-invoice sender (needed by 2027-01-01) and PK FBR link | Pull forward | same |
 | R7 | Split buyer reference / order reference; fix docout text errors | One contract amendment | same |
