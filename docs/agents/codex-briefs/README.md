@@ -155,3 +155,64 @@ Rules: NeoERP-App/docs/design/ux-principles.md §21 (click-through), §22 (page 
 Search composeApp/src/commonMain for: hard-coded date/number formatting (toString on dates/BigDecimal, String.format, "%.2f", LocalDate.toString), raw error codes or enum .name in Text(), toasts used for form errors, screens without empty/error states, required inputs without required = true, hard-coded colours/sizes instead of tokens, English strings not in sentence case.
 Output: findings grouped by rule (file:line, what, suggested fix), then a per-feature score table. Skip anything in tests and mocks.
 ```
+
+---
+
+# Round 3 (2026-10-31): Codex as builder and reviewer
+
+**Builder rules (Jabran 2026-10-31: Codex builds in its own git worktree so it can run in parallel).**
+- Never edit the main checkouts NeoERP-App / NeoERP-BackEnd. Create your worktree first:
+  `git -C <repo> fetch origin && git -C <repo> worktree add /Users/jabransiddiqui/Offices/Neovatus/NeoERP-worktrees/<task> -b codex/<task> origin/<base>`
+  (backend base `dev`, app base `dev-app`). Work, build and test only inside that worktree.
+- Commit on your branch only, never push, never merge, never force. The ERP lead (Claude) reviews, merges in
+  migration order and pushes.
+- Migration numbers are assigned here; use exactly yours. Applied migrations are frozen; never change V1–V39.
+  Never start services against Jabran's local database (Testcontainers in tests are fine).
+- Never read PROJECT-STATE*.md; never print secrets; do not delete files unless the brief says so.
+- Use cheaper model tiers for mechanical parts (data rows, wording, fixtures) and your strongest tier for
+  migrations, money/tax logic and review of your own diff.
+- Commit with: `git -c user.name=jabransiddiqui -c user.email=jabransiddiqui@outlook.com commit -m "<msg>" -m "Co-Authored-By: Codex <noreply@openai.com>"`
+- Finish with a report in your worktree's last commit message body or as `docs/agents/codex-<task>/build-report.md`
+  in the workspace repo (commit only that file on master): commit hashes, what changed per item, tests run with counts,
+  anything skipped and why.
+
+Merge order: V40 (Claude, posting guards) → C1 V41 → C2 V42. C3 has no migration.
+
+## C1. Tax data fixes (backend, V41)
+
+```
+Task: build the confirmed tax-data fixes as one forward migration V41 in NeoERP-BackEnd. Follow the "Round 3 builder rules" in /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-briefs/README.md (worktree /Users/jabransiddiqui/Offices/Neovatus/NeoERP-worktrees/c1-tax-data, branch codex/c1-tax-data from origin/dev).
+Source of truth: /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-tax-triage.md (details per item) and docs/agents/codex-decisions-2026-10-31.md.
+Do: T-03 (NO code 85 → PURCHASES, ZERO, 0 %, legal text), T-04 (provincial WHT jurisdictions PK-BA/KP/PB/SD), T-05 (rename payable WHT codes; keep names a company changed itself), T-06 (add rate versions from 2025-07-01 for CONTRACT, GOODS-CO, GOODS-OTHER, IT, MEDIA with the TY2026 values), T-07 (NO 15 % note: water and sewer since 2025-07-01), T-09 notes only (PORT/PROF qualifiers), T-13 (FI import self-assessment version date), T-14 (DK out-of-scope kind), T-21 (source text and start dates of SVC-CERTAIN / SVC-OTHER).
+Do NOT touch T-01, T-02, T-10 (waiting for the Pakistan professional check), T-08 / new codes (next pack), T-11, T-15–T-20, T-23.
+Migration V41 must be idempotent per tenant data (existing companies), touch only template/pack-derived rows the item names, keep company-edited names, and never change posted documents. Mirror the same corrections into the next pack version files under services/accounts-service/src/main/resources/packs/ only if the pack process in docs/api/accounts-packs-2026-3.md says corrections go there (packs are hash-locked; follow MANIFEST rules). Update contracts that state the old values.
+Tests: migration test(s) proving each change on a seeded tenant and that a company-renamed code keeps its name; run `./gradlew :services:accounts-service:test`.
+```
+
+## C2. Statement layouts and chart version (backend, V42)
+
+```
+Task: fix statement layouts and balance-sheet mappings in NeoERP-BackEnd as forward migration V42 plus a new chart version. Follow the "Round 3 builder rules" in /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-briefs/README.md (worktree /Users/jabransiddiqui/Offices/Neovatus/NeoERP-worktrees/c2-layouts, branch codex/c2-layouts from origin/dev).
+Source of truth: /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-layouts-refs-triage.md (A-items with chart rows and law references) and docs/agents/codex-decisions-2026-10-31.md (L1–L3, L7).
+Do: A1 (Finland: PL_NATURE_FI with "Voitto (tappio) ennen tilinpäätössiirtoja ja veroja" before appropriations; repoint FI); A2–A5, A8, A9 as ONE new chart version: two new account subtypes FINANCIAL_ASSET_CURRENT and OTHER_PAYABLE_NON_CURRENT (decision L3) and corrected line maps for 1380/1390, 2290 (SE 2390), group 18, SE 2350/2360/2410, NO 2030, SE 3960/3961/7960/7961; an adoption/re-subtype step for existing companies that never changes posted entries (follow how earlier chart versions are adopted — find it); A6/L1: report MANAGEMENT instead of STATUTORY_LAYOUT for any company not yet on the corrected version; A7 (DK/SE expense order and "external costs" line) and A11 (Iceland order/provisions) if the triage gives exact rows; L7: Finnish and Danish line wording from the law as local labels where the layout model supports local labels; A13/A14 doc corrections.
+Do NOT touch A10, A12, A17 (unverified/Pakistan pending).
+Tests: layout/statement tests per country showing each moved account on the right line and the FI subtotal; adoption test on an existing company; run `./gradlew :services:accounts-service:test`.
+```
+
+## C3. Payment references (backend + app, no migration)
+
+```
+Task: fix payment-reference validation in both repos. Follow the "Round 3 builder rules" in /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-briefs/README.md, with TWO worktrees: backend /Users/jabransiddiqui/Offices/Neovatus/NeoERP-worktrees/c3-refs-be (branch codex/c3-refs from origin/dev) and app /Users/jabransiddiqui/Offices/Neovatus/NeoERP-worktrees/c3-refs-app (branch codex/c3-refs from origin/dev-app).
+Source of truth: /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-layouts-refs-triage.md (B-items, vectors) and docs/agents/professional-checks-nordic.md (L4).
+Do: B1 (FIK +73 saved without payment ID; app FIK73 enum, no round-trip to None), B2 (app follows the backend: failed OCR is a warning, not a Submit block, unless the contract says otherwise — check accounts-b.md/accounts-c.md), B4 (IBAN per-country length/pattern in backend; mod-97 checksum in app), B5 per L4 decision: FI creditor number = exactly 8 ASCII digits [0-9]{8}, NO check digit; keep fixture 12345678 and fix its wrong "Luhn" comment; reject non-ASCII digits, B6, B7 (KID minimum length 4 in contract, pack note and both validators), B8 (KID MOD10/MOD11 per agreement where stored; otherwise document), B9 (app Bankgiro/Plusgiro checks), B10 (receipt payer reference checksum + PAYER_REFERENCE_INVALID), B11 (ASCII digits only before arithmetic).
+Do NOT do B3 (OCR control levels need a schema change; separate task).
+Keep backend and app validators identical; one shared test-vector table (official vectors from the triage) run in both repos' tests. Tests: `./gradlew :services:accounts-service:test` in the backend worktree; `./gradlew :composeApp:jvmTest --tests '*features.accounts*'` and once `:composeApp:compileDebugKotlinAndroid` in the app worktree.
+```
+
+## R1. Second review of the profile-access fix (I1)
+
+```
+Task: independent security review of NeoERP-BackEnd commit 5c93fb5 ("fix(user): pending invites never grant profile access; sensitive profile fields person-owned"). READ-ONLY; do not run Gradle in the main checkout. Never read PROJECT-STATE*.md. Write exactly one file: docs/agents/codex-review-i1/report.md in the workspace /Users/jabransiddiqui/Offices/Neovatus/NeoERP (commit only that file on master: "docs(codex): review of I1 fix").
+Background: NEW-01 in docs/agents/codex-tenant-isolation/triage.md. Read `git -C NeoERP-BackEnd show 5c93fb5` and the surrounding user-service code. Try to break it: any endpoint that still reads/writes iam.users or exposes personal data via a pending or foreign membership (search, people list, export, security summary, sessions, audit, bootstrap, machine endpoints); check-then-act races; platform staff paths; deactivated vs pending; email-change rule; fullName refreshed from the token at sign-in; fail-closed wiring; whether the tests exercise the attack through the real security chain.
+Output: verdict (SHIP / SHIP-AFTER-FIXES / BLOCK), findings (id, severity, file:line, failure scenario, fix).
+```
