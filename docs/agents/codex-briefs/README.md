@@ -76,3 +76,82 @@ Context: NeoERP stores supplier bank details only through an approved change req
 For each country find, from official sources only: the service (e.g. EU Verification of Payee under the Instant Payments Regulation (EU) 2024/886 / EPC VOP scheme for euro accounts — FI; Sweden: Bankgirot/BankID or bank name-check services for Bankgiro/accounts; Norway: Bits / bank account-name control (e.g. KAR); Denmark: NemKonto or bank services; Iceland; Pakistan: Raast / IBFT title fetch), who may call it (only banks/PSPs, or companies via their bank, PSD2/open-banking providers, aggregators), what it returns (match / close match / no match, name), cost and contract needed, API/spec links, whether it works for business accounts, and data-protection limits. Also list aggregators that cover several of these countries.
 Output: per country — service, access route for an ERP like NeoERP (direct / via the customer's bank / via an open-banking provider), returned data, prerequisites, links; then a recommended integration approach and order (which countries first), and what must be in NeoERP's design (where the check runs, how the result is stored and shown, what happens on "no match").
 ```
+
+---
+
+# Round 2 (2026-10-31): reviews and research, 7–13
+
+Same common rules as above. Tasks 7–10 first (security and money), 11–13 after.
+Code-review tasks: every finding also needs a concrete failure scenario (inputs/state → what goes wrong)
+and whether an existing test already covers it. Do not run Gradle in NeoERP-App or NeoERP-BackEnd
+(builders use those checkouts); reading code only.
+
+## 7. Bank-details safety review
+
+```
+Task: independent security review of NeoERP's supplier bank-details safety package.
+Workspace: /Users/jabransiddiqui/Offices/Neovatus/NeoERP. READ-ONLY on NeoERP-App and NeoERP-BackEnd; do not run Gradle there. Never read PROJECT-STATE*.md. Never print secrets or key material. Write exactly one file: docs/agents/codex-bank-safety-review/report.md (commit only that file on master: "docs(codex): bank safety review").
+Read: decisions "bank-details safety package" A–E in NeoERP-BackEnd/docs/api/accounts-decisions-for-jabran.md; contract NeoERP-BackEnd/docs/api/accounts-c.md C-3 / §7.2; code under NeoERP-BackEnd/services/accounts-service/src/main/kotlin/com/neovatus/accounts/ (infrastructure/crypto/BankDetailsCrypto.kt, configuration/bank/BankCryptoConfig.kt, the bank-change request, approval, notice, proof-file and fraud-signal code — grep "bank"), migrations V35–V39 in .../resources/db/migration/, scripts/accounts-bank-keys.sh, the user-service permission-holder count endpoint and its machine scope iam.permission-holders.read, and the app side (NeoERP-App/composeApp/src: grep "bank" in features/accounts).
+Check: AES-256-GCM via Tink — keyset handling, associated-data binding (can a ciphertext be moved to another row/company/field and still decrypt?), key rotation path, what happens with a missing/wrong key at startup; HMAC fingerprints (keyed, normalised input, enumeration risk on short account numbers); the startup backfill (idempotent? concurrent instances? partial failure? plaintext left behind?); any plaintext in logs, exceptions, audit events, API responses, app state, crash reports; the approval rules (two-person, Owner exception P3-30, self-approval, changing details while a request is pending, race between approve and edit); notice to the previous email; proof-file upload (type/size checks, malware, path traversal, who can read it); fraud signals (bypassable?); machine-scope least privilege; tenant isolation on every bank endpoint.
+Output: findings (id, severity, file:line, failure scenario, existing test or none, fix), then a short "what is solid" list.
+```
+
+## 8. Company data isolation audit
+
+```
+Task: audit NeoERP's backend for any way one company's data can be read or changed by a user of another company.
+Workspace: /Users/jabransiddiqui/Offices/Neovatus/NeoERP. READ-ONLY on NeoERP-App and NeoERP-BackEnd; do not run Gradle there. Never read PROJECT-STATE*.md. Write exactly one file: docs/agents/codex-tenant-isolation/report.md (commit only that file on master: "docs(codex): tenant isolation audit").
+Read: NeoERP-BackEnd/AGENTS.md (platform & tenant auth rules), docs/architecture/architecture-and-standards.md, architecture-tests/src/test/kotlin/com/neovatus/architecture/TenantRepositoryArchitectureTest.kt (@TenantOwnedRepository), then every controller and repository in services/ (accounts, user, org, hr, payroll, audit; api-gateway routing).
+Check: every endpoint taking an id (journal, invoice, customer, supplier, branch, warehouse, employee, file, import, notice…) resolves the owning company and checks it against the caller's scope before reading or acting; list/search queries always filter by company; native SQL / JDBC adapters include company_id; repositories missing @TenantOwnedRepository or bypassing it; machine/client-credential callers and platform staff (ROLE_SUPER_ADMIN) paths; IDOR via child resources (lines, attachments, approvals, history); cross-service calls that pass a company id from the request instead of the token; caches keyed without company; idempotency keys or numbering shared across companies.
+Output: endpoint/repository table (service, path or class, isolation check present Y/N, evidence file:line), then findings (id, severity, failure scenario, fix, suggested architecture-test rule to prevent the class of bug).
+```
+
+## 9. Posting engine invariants
+
+```
+Task: try to break NeoERP's general-ledger guarantees on paper and say whether the code stops each attack.
+Workspace: /Users/jabransiddiqui/Offices/Neovatus/NeoERP. READ-ONLY on NeoERP-App and NeoERP-BackEnd; do not run Gradle there. Never read PROJECT-STATE*.md. Write exactly one file: docs/agents/codex-posting-invariants/report.md (commit only that file on master: "docs(codex): posting invariants").
+Read: NeoERP-BackEnd/docs/api/accounts-a1.md (posting, approvals, idempotency), accounts-b.md / accounts-c.md (receivables/payables posting, settlements), code in services/accounts-service/src/main/kotlin/com/neovatus/accounts/application/service/posting/ (PostingEngine.kt, PostingRequestHash.kt, PostingLineValidator.kt, MachinePostingService.kt, LedgerCheckJob.kt), journal/period/year-end services, receivables/payables posting and allocation services, and migrations V26–V28 (immutability triggers), V30/V31 (idempotency request tables), V32, V38 (approval-run claims).
+Attacks to try (add your own): change or delete a posted line (app path and direct SQL — do triggers hold?); insert a line into a posted entry; reuse an idempotency key with a different body, different company, different user, after expiry; concurrent post of the same draft; approve while the creator edits; reverse twice / reverse a reversal; post into a closed or locked period or year; unbalanced entry via rounding (multi-currency, VAT); posting with an inactive or control account directly; allocation over-settling an invoice; concurrent receipts on one invoice; deadlock from lock order (rule: sources before targets, targets in id order, party last) — find any path that breaks it; numbering gaps or duplicates under concurrency/rollback; counters going backwards; machine poster acting as a person.
+Output: attack table (attack, expected guarantee, code path file:line, blocked Y/N/partly, test that proves it or none), then findings with failure scenario and fix.
+```
+
+## 10. Bookkeeping retention vs data protection
+
+```
+Task: research how long an ERP must keep accounting data, bank details, audit logs and source documents, and how that interacts with GDPR / data-protection erasure, for NO, SE, DK, FI, IS and PK.
+Workspace: /Users/jabransiddiqui/Offices/Neovatus/NeoERP. READ-ONLY on NeoERP-App and NeoERP-BackEnd. Never read PROJECT-STATE*.md. Write exactly one file: docs/agents/codex-retention/report.md (commit only that file on master: "docs(codex): retention research").
+Context: NeoERP stores encrypted supplier/customer bank details (old plaintext columns are to be dropped after a backfill), bank-change proof files, audit events, posted journals, invoices, imports (uploaded files are purged after a period), payroll and HR data in other services. Read NeoERP-BackEnd/docs/api/accounts-decisions-for-jabran.md (bank-details safety package, open items), accounts-attachments.md, accounts-c.md C-3.
+Find from official sources (bookkeeping acts and regulations, tax authorities, data-protection authorities, GDPR Art. 6(1)(c)/17(3)(b), PK Companies Act / Income Tax Ordinance record-keeping): retention period per record type and country, what counts as "documentation" (e.g. do bank-change requests, approval trails, import files count?), start of the period (end of fiscal year?), storage-location/format rules (e.g. abroad, electronic, readable copy), what may/must be deleted after, how to handle an erasure request for a sole trader or contact person, and rules for pseudonymising instead of deleting.
+Output: table (record type × country: period, start, source link/section), then what NeoERP must do: per record type keep/purge rule, erasure handling, and what this means for dropping plaintext bank columns, purging import files and proof files. Mark anything not verified.
+```
+
+## 11. SIE 4 and SAF-T conformance
+
+```
+Task: check NeoERP's SIE import/export and SRU mapping (Sweden) and SAF-T Financial (Norway; note DK/FI equivalents if any) against the official specifications.
+Workspace: /Users/jabransiddiqui/Offices/Neovatus/NeoERP. READ-ONLY on NeoERP-App and NeoERP-BackEnd; do not run Gradle there. Never read PROJECT-STATE*.md. Write exactly one file: docs/agents/codex-sie-saft/report.md (commit only that file on master: "docs(codex): SIE and SAF-T conformance").
+Read: SIE sections in NeoERP-BackEnd/docs/api/accounts-a2.md, accounts-a3.md, accounts-a4.md, accounts-a5.md (grep SIE, SRU, SAF-T); code: grep -ril "sie\|sru\|saft" NeoERP-BackEnd/services/accounts-service/src/main (SieImportConfig, SieExportConfig and their services, parsers, writers); test fixtures in services/accounts-service/src/test/resources/sie/ (incl. sru/2026P4 INK2R and NE CSVs).
+Check against: SIE 4B/4E spec (sie.se: record types, #FLAGGA, #KSUMMA, encoding CP437/PC8, #RAR, #IB/#UB/#RES, #VER/#TRANS sign and date rules, #SRU, #KTYP, dimensions #DIM/#OBJEKT, what an importer must accept vs may ignore); Skatteverket SRU file format and INK2/INK2R/INK2S/NE field codes for the 2026 tax year; Skatteetaten SAF-T Financial v1.30 (header, MasterFiles, GeneralLedgerEntries, StandardAccountID / grouping codes, tax codes mapping, validation rules) if we export or plan it.
+Output: per format — supported records, deviations (ours vs spec with section), import robustness gaps (what real files from Fortnox/Visma/BL would break us), SRU code mapping errors, and fixes. Mark unverified items.
+```
+
+## 12. E-invoicing readiness (Peppol)
+
+```
+Task: research what NeoERP needs to send and receive e-invoices and e-reports in NO, SE, DK, FI, IS and PK, with dates.
+Workspace: /Users/jabransiddiqui/Offices/Neovatus/NeoERP. READ-ONLY on NeoERP-App and NeoERP-BackEnd. Never read PROJECT-STATE*.md. Write exactly one file: docs/agents/codex-einvoicing/report.md (commit only that file on master: "docs(codex): e-invoicing readiness").
+Read: NeoERP-BackEnd/docs/api/accounts-roadmap.md (e-invoicing items), accounts-b.md (customer invoices, credit notes, payment references), accounts-c.md (supplier invoices), accounts-docout.md (documents out), and docs/agents/codex-2027-changes/report.md (already lists some mandates — do not repeat, link).
+Find from official sources: mandates and dates per country (B2G, B2B, receiving vs sending; Norway 2027 plan; Denmark OIOUBL→Peppol BIS; Finland Finvoice/TEAPPSXML/Peppol; Sweden; Iceland; Pakistan FBR Digital Invoicing scope and API), Peppol BIS Billing 3.0 + national CIUS rules (EHF, OIOUBL, Svefaktura), access-point options (own AP vs provider; certification cost), participant identifiers (orgnr schemes, 0192/0007/0184/0037/0216…), required invoice fields we may lack (buyer reference, order reference, VAT breakdown per rate, payment means codes, endpoint IDs, attachments), and receiving flow (validation, mapping to supplier invoices).
+Output: per country — mandate/date/source; field-gap table (BIS 3 field → do we have it, where); recommended architecture (provider AP vs own), order of countries, and items to add to the roadmap with urgency.
+```
+
+## 13. App UX conformance sweep
+
+```
+Task: sweep NeoERP-App screens for breaks of our own UX rules.
+Workspace: /Users/jabransiddiqui/Offices/Neovatus/NeoERP. READ-ONLY on NeoERP-App and NeoERP-BackEnd; do not run Gradle. Never read PROJECT-STATE*.md. Write exactly one file: docs/agents/codex-ux-sweep/report.md (commit only that file on master: "docs(codex): UX conformance sweep").
+Rules: NeoERP-App/docs/design/ux-principles.md §21 (click-through), §22 (page errors, top-aligned; reference line only on server errors), §23 (empty states: NeoSpotState / NeoNoResults / NotAvailable / EmptyLine), §24 (toasts: bottom-right desktop / bottom-centre phone, timings, max 3, never for form errors); NeoERP-App/docs/design/specs/building-blocks.md; notes/empty-error-states-audit.md and notes/formats-audit.md (decisions ES-Q*, FMT-Q*); formatting through core/format NeoFormat (dates "9 Oct 2026", date-time "19:05, 27 Oct 2026", money in company format with true minus, percent per country, company time zone); required fields marked with required = true and never folded; sentence-case headers; no raw error codes or enum names shown to users.
+Search composeApp/src/commonMain for: hard-coded date/number formatting (toString on dates/BigDecimal, String.format, "%.2f", LocalDate.toString), raw error codes or enum .name in Text(), toasts used for form errors, screens without empty/error states, required inputs without required = true, hard-coded colours/sizes instead of tokens, English strings not in sentence case.
+Output: findings grouped by rule (file:line, what, suggested fix), then a per-feature score table. Skip anything in tests and mocks.
+```
