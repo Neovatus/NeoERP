@@ -4,6 +4,11 @@ Every Codex finding was re-checked by an independent agent (triage files next to
 Codex was wrong outright in 0 findings; several severities were adjusted; the checks found 9 issues Codex missed.
 Recommendation is listed first. Answer "all as recommended" or list the IDs to change.
 
+**Jabran 2026-10-31: approved as recommended (incl. D0 delete NeoTableEmptyState.kt), except:** code that will be
+rewritten in coming phases is not fixed now. Legacy HR, Payroll, ESS and Inbox: UX batches B and C dropped; I2/I3
+(HR company checks) become requirements for the HR rebuild, not fixes now. Items that need a professional/official
+check (T1, L4, L6, R4, R8, S1, U5) are checked by the lead against official sources, decided, and reported to Jabran.
+
 ## Fix first (security and money)
 | ID | Decision | Recommendation | Triage |
 |---|---|---|---|
