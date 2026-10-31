@@ -216,3 +216,64 @@ Task: independent security review of NeoERP-BackEnd commit 5c93fb5 ("fix(user): 
 Background: NEW-01 in docs/agents/codex-tenant-isolation/triage.md. Read `git -C NeoERP-BackEnd show 5c93fb5` and the surrounding user-service code. Try to break it: any endpoint that still reads/writes iam.users or exposes personal data via a pending or foreign membership (search, people list, export, security summary, sessions, audit, bootstrap, machine endpoints); check-then-act races; platform staff paths; deactivated vs pending; email-change rule; fullName refreshed from the token at sign-in; fail-closed wiring; whether the tests exercise the attack through the real security chain.
 Output: verdict (SHIP / SHIP-AFTER-FIXES / BLOCK), findings (id, severity, file:line, failure scenario, fix).
 ```
+
+---
+
+# Round 4 (2026-11-01): Codex builders while Claude is capped
+
+Same "Round 3 builder rules" (own worktree, never push/merge, assigned migration numbers, no services against the
+local DB). Migration numbers: V41 = C1, V42 = C2, **V43 = C4, V44 = C5**. V40 stays unused (Flyway accepts the gap).
+Backend tasks C4 → C5 in that order, each branched from the previous task's branch so migrations stack:
+C4 from `codex/c2-layouts` once C2 is committed (or `origin/dev` + cherry-pick C1/C2 if told), C5 from `codex/c4-posting-guards`.
+C6 and C7 have no migration and can run in parallel from `origin/dev`; C8 from `origin/dev-app`.
+
+## C4. Posting guards (backend, V43)
+
+```
+Task: close the posting-engine gaps in NeoERP-BackEnd as forward migration V43 plus code. Follow the "Round 3 builder rules" in /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-briefs/README.md (worktree /Users/jabransiddiqui/Offices/Neovatus/NeoERP-worktrees/c4-posting-guards, branch codex/c4-posting-guards, base per Round 4 notes). Use your strongest tier: this is posting core.
+Source of truth: /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-posting-invariants/triage.md (exact fixes and the test that proves each) and docs/agents/codex-decisions-2026-10-31.md (E1–E5).
+Do (E1): F-01 record which transaction posted each journal and allow line inserts into a posted journal only from that same transaction; lines must carry a period; N-2 and F-07 line guards lock the parent document before checking status; F-05 a reversal link must point to a real reversal of that journal; F-03 number counters may only move up by exactly one. Correct the two docs the triage names (accounts-a2.md V11-7, journals-and-posting.md) and document E3 (stolen service DB login can still write a new balanced journal; accepted limit). Then E2: F-04 bulk-approval worker that lost its claim must not count its batch again; F-02 AR credit notes allocated to each other must not deadlock (filter targets before locking, as AP does).
+Never edit V1–V42. Tests: every test the triage names, incl. the existing PostedImmutabilityTriggerTest insert now being refused; run `./gradlew :services:accounts-service:test`.
+```
+
+## C5. Pakistan s.153 withholding on gross (backend, V44)
+
+```
+Task: switch Pakistan s.153 withholding to the gross amount including sales tax in NeoERP-BackEnd as forward migration V44. Follow the "Round 3 builder rules" in /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-briefs/README.md (worktree /Users/jabransiddiqui/Offices/Neovatus/NeoERP-worktrees/c5-pk-gross, branch codex/c5-pk-gross from codex/c4-posting-guards).
+Source of truth: /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/professional-checks-pk.md (T1 section: exact codes and every contract paragraph to correct) and codex-tax-triage.md T-01.
+Do: base GROSS on the 11 PK-WHT-153-* codes and PK-WHT-BY-CUST (existing companies too; keep company-edited names; never change posted documents); PK-WHT-155 rent stays NET_OF_SALES_TAX; correct contracts B C-21, C-46, LR-B17, C C-13 (example, SC4 note, row 12, D-24, LR-C10) and packs PK-5a; flip WithholdingBaseTest.s153DefaultBaseNetOfSalesTax and check PaymentApprovalTest. Example to test: 100 000 + 18 000 sales tax at 5 % → 5 900 withheld.
+Run `./gradlew :services:accounts-service:test`.
+```
+
+## C6. SIE import without zero balances + SIE hardening (backend, no migration)
+
+```
+Task: in NeoERP-BackEnd, make SIE import accept a valid file whose zero balances were all omitted, and do the small SIE hardening items. Follow the "Round 3 builder rules" in /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-briefs/README.md (worktree /Users/jabransiddiqui/Offices/Neovatus/NeoERP-worktrees/c6-sie, branch codex/c6-sie from origin/dev).
+Source: /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-sie-saft/triage.md (SIE-1 → accept as empty dataset with an INFO note, plus two fixtures; S4 hardening: warning on data after the closing checksum, object-code uniqueness after cleaning, date diagnostics; S3 doc: #SRU is an INK2R account annotation only; S5 one line on the year-end convention in the export doc) and docs/agents/professional-checks-nordic.md S1 (update accounts-h-design.md for SAF-T 1.40: pin the 1.40 XSD, drop saft_standard_account, grouping fields required, remove the period-13 claim, add the H-NO items listed).
+Run `./gradlew :services:accounts-service:test`.
+```
+
+## C7. Bank-change checks (backend, no migration unless unavoidable — then stop and report)
+
+```
+Task: bank-details safety follow-ups in NeoERP-BackEnd. Follow the "Round 3 builder rules" in /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-briefs/README.md (worktree /Users/jabransiddiqui/Offices/Neovatus/NeoERP-worktrees/c7-bank, branch codex/c7-bank from origin/dev). Strongest tier: security.
+Source: /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-bank-safety-review/triage.md and docs/agents/codex-decisions-2026-10-31.md (B1–B3, B7).
+Do: M-1 new signal HOLDER_NAME_MISSING when no holder name is given (the app already words it); BANK_COUNTRY_UNKNOWN if the triage defines it; M-2 record in the approval audit which signals were shown; B2 duplicate-account check across formats with no schema change (IBAN ↔ domestic number for NO, DK, FI, PK; SE later) and include other PENDING requests; B7 hardening: BS-03 debug logging, BS-09, M-3 reveal limit note (document per-instance limit), M-5 machine client must fail at startup when its secret env var is unset outside local/test profiles.
+Do NOT do B3 (notice sending), B4, B5, B6. Run `./gradlew :services:accounts-service:test` (and user-service tests if touched).
+```
+
+## C8. App follow-ups (app, no migration)
+
+```
+Task: small NeoERP-App follow-ups. Follow the "Round 3 builder rules" in /Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-briefs/README.md (worktree /Users/jabransiddiqui/Offices/Neovatus/NeoERP-worktrees/c8-app, branch codex/c8-app from origin/dev-app).
+Do: (1) Platform People list: hide search/filters/toolbar on first use and during first load, using the shared helper designsystem/components/ListToolsVisibility.kt (see commit ac651ff1 for the pattern); (2) when C3 is merged later nothing else is needed here — do not touch payment-reference code.
+Rules: docs/design/ux-principles.md §23. Run `./gradlew :composeApp:jvmTest --tests '*platform*'` and once `:composeApp:compileDebugKotlinAndroid`.
+```
+
+## R2. Final cross-review (Codex reviews Claude's work) — run last
+
+```
+Task: independent review of Claude-built security work. READ-ONLY; do not run Gradle in the main checkouts. Never read PROJECT-STATE*.md. Write exactly one file: docs/agents/codex-review-round3/report.md in /Users/jabransiddiqui/Offices/Neovatus/NeoERP (commit only that file on master: "docs(codex): review of Claude security fixes").
+Review: NeoERP-BackEnd commits 5c93fb5, 57ec7ad, 5ec33c3 (user-service: pending invites never grant access; person-owned profile fields; email and sign-in actions count every accepted membership) against docs/agents/codex-tenant-isolation/triage.md NEW-01; NeoERP-App commits 9f03ae41 and ac651ff1 (bank-change approval shows signals and proof file; proof download) against docs/agents/codex-bank-safety-review/triage.md BS-01/M-4. Try to break them.
+Output: verdict per commit group (SHIP / FIX-FIRST / BLOCK), findings (id, severity, file:line, failure scenario, fix).
+```
