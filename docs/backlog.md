@@ -236,3 +236,12 @@ Open questions collected from NeoERP-BackEnd/docs/modules/** (pages and module R
 - ERP · Design (later, Jabran will say when): "Designed vs built" in the rig hub catalogue: app screenshot tests export shots named by screen id; catalogue cards show Designed | Built at the same width and state, status matches / differs / not built; drift goes to the owning lead.
 
 - **Bootstrap: role in the selected company (2026-10-24, ERP-260).** The top bar should show the person's role in the selected company (e.g. Accountant, HR admin). Today only Owner can be shown truthfully (`effectiveAuthorization.companyOwner`); memberships carry no role labels and session roles are inferred from permissions. Needs selected-membership role display names in the bootstrap / effective-authorization response (auth contract change, Jabran's approval).
+
+## Accounts — deferred from the Codex rounds and M5 review (2026-11-03)
+
+- GRNI owner row moves to Purchasing/Inventory together with reclassifying the GRNI accounts (M5 D7).
+- Peppol receiving (Norway by 2030-01-01; go-live gate L-2).
+- Hash-chained ledger evidence against a stolen service DB login (posting triage E3), with the retention work.
+- Next pack: C18 adoption overlay must set `role_code` to NULL for the new PK accounts 1395/2810.
+- C23 app wording: OWN_BANK_CHANGE text chosen by requiresSecondPerson; "Reason" label for owner self-approval; "no bank check is set up yet".
+- Platform People / other low UX items from the Codex UX sweep in legacy HR, Payroll, ESS, Inbox: with each module's rebuild.
