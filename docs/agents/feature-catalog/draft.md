@@ -25,7 +25,7 @@ Legend for Status: Built / In build (M5) / Planned phase N (Accounts roadmap bui
 | PERIOD_CLOSE | Period close and year-end | Close, reopen, lock months; close the year | INCLUDED | Yes | | Planned phase 1 and 2 (A2, A3) | no |
 | FIN_STATEMENTS | Financial statements | Profit and loss, balance sheet, cash flow in each country's layout; PDF/XLSX/CSV export | INCLUDED | Yes | | Planned phase 1–2 (A2, A3, A3b) | no |
 | RECEIVABLES | Receivables | Customers, invoices with legal content, credit notes, receipts, ageing | INCLUDED | Yes | | Built (M1–M4); M5 refunds, advances, write-offs in build | yes |
-| PAYABLES | Payables | Suppliers, bills, payments (KID/OCR/Bankgiro), ageing | INCLUDED | Yes | | Planned phase 3 (C) (inferred: partly built) | yes |
+| PAYABLES | Payables | Suppliers, bills, payments (KID/OCR/Bankgiro), ageing | INCLUDED | Yes | | Built (M3–M4); M5 supplier advances and refunds next | yes |
 | REFUNDS_ADVANCES | Refunds, advances and write-offs | Customer refunds, advances and final-invoice deductions, supplier advances, bad-debt write-off and recovery | INCLUDED | Yes | | In build (M5) | no |
 | OPENING_BALANCE_IMPORT | Opening-balance import | Import opening balances from CSV, Excel, SAF-T | INCLUDED | Yes | | Planned (OBI; CSV/Excel next slot) | no |
 | SIE_SE | SIE import and export | SIE 4 export and import of balances and history | INCLUDED | Yes (when company country is SE) | SE | Planned phase 2 (H-SE) | no |
