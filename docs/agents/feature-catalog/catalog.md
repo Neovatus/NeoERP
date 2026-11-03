@@ -1,6 +1,7 @@
-# NeoERP feature catalog (Draft for Jabran)
+# NeoERP feature catalog (Approved by Jabran, 2026-11-03)
 
-Date: 2026-11-03. Docs only; no code changed. Waiting for Jabran's approval.
+Date: 2026-11-03. Docs only; no code changed yet. **Jabran approved Q1–Q8 as recommended (2026-11-03).** The
+catalog is built in the feature-entitlement slice after SB2d.
 
 **Purpose.** NeoERP is sold by module and by feature inside a module (RULES §2–§5: agreement, company default, branch override, feature override; no plans or tiers). This is the proposed full list of features per module, with a recommended commercial kind and default.
 
@@ -10,6 +11,16 @@ Date: 2026-11-03. Docs only; no code changed. Waiting for Jabran's approval.
 - Region = the feature applies only in that country (PK, NO, SE, DK, FI, IS). It is not "missing" elsewhere, it does not apply.
 - Every large-customer feature is optional per company and off by default (large-customer-roadmap). Basic features are on by default.
 - "(inferred)" = my guess, not read in a doc. Built/Planned status comes from the Accounts roadmap and M5 plan; where I could not confirm exact build state I say so.
+
+## Three layers (Jabran, 2026-11-03)
+
+| Layer | What it is | Who switches it | Examples |
+|---|---|---|---|
+| **1. Platform** | Runs the system. Every tenant has it, no agreement lists it, nothing switches it off (org V12). | Nobody | CORE (shell, dashboard), ORG (companies, branches, warehouses), IAM (users, roles, sign-in), plus the shared services below |
+| **2. Modules** | What a customer buys. Listed on the agreement; the ceiling of the entitlement chain. | Agreement → company → branch | FINANCE, HRMS, PAYROLL; later INVENTORY, SALES, PURCHASING, MANUFACTURING |
+| **3. Features** | Inside a module. INCLUDED ones come with the module (on or off by default); ADD_ON ones are sold separately; region ones apply only in that country. | Agreement → company → branch, per feature | RECEIVABLES (included), BUDGETS (add-on), VAT_RETURN_NO (region) |
+
+This is not a tier ladder (RULES §2): there is no plan field; each customer's agreement lists its own modules and add-ons.
 
 **Always-on foundations (not features, not sold):** dimensions for company, branch, account, period, product, department, cost centre, project (ADR-021); audit log; permissions; the posting engine; the approval model; the file store. Only the items below are switchable.
 
@@ -171,7 +182,7 @@ No contracts exist for these. All rows below are inferred from existing codes; t
 
 ---
 
-## Questions for Jabran
+## Questions for Jabran — all approved as recommended (Jabran, 2026-11-03)
 
 1. **ADD_ON or INCLUDED for large-customer features?** Recommendation: ADD_ON for budgets, budget control, fixed assets, consolidation, intercompany, posting API, salary grades/review, positions, volume, expense claims, recruitment. INCLUDED but off by default for things that are workflow polish (org chart, bulk import, approval limits, GDPR). Lets large customers buy what they need without a plan ladder.
 2. **Purchasing: module or feature?** It is a feature of INVENTORY today. Recommendation: make PURCHASING its own module (own agreement line, own budget contract, owns purchase orders, approvals, goods receipt). Needs a new module code and a decision on how the existing PURCHASING feature code is retired (keep the code, mark it deprecated, nothing deleted).
