@@ -4,6 +4,8 @@ Owner: **Code · ERP lead (trial)**. Started 2026-10-22. Status: **Draft**: wait
 
 ## Why
 
+**Product direction (Jabran, 2026-11-03):** NeoERP is built for large, multi-company customers from day one and is sold by module: each customer takes the modules it needs. A showcase that already does what large customers expect is what we pitch with, so large-customer foundations are part of the core design, not a later release. Small companies still see none of the extra features (below).
+
 NeoERP is for small **and** large companies (Jabran, 2026-10-22). Large customers expect budgets, cross-module reporting, position management and more. This page is the one list of what that needs, which module owns each part, and how the parts link. Nothing here stops current work: it all comes **after** the core phases in progress (Accounts Phase 3; HR & Payroll H0 + P0).
 
 Every large-customer feature is **optional per company and off by default**, so small companies see none of it (ux §14 fewest steps).
