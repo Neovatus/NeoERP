@@ -277,3 +277,33 @@ Task: independent review of Claude-built security work. READ-ONLY; do not run Gr
 Review: NeoERP-BackEnd commits 5c93fb5, 57ec7ad, 5ec33c3 (user-service: pending invites never grant access; person-owned profile fields; email and sign-in actions count every accepted membership) against docs/agents/codex-tenant-isolation/triage.md NEW-01; NeoERP-App commits 9f03ae41 and ac651ff1 (bank-change approval shows signals and proof file; proof download) against docs/agents/codex-bank-safety-review/triage.md BS-01/M-4. Try to break them.
 Output: verdict per commit group (SHIP / FIX-FIRST / BLOCK), findings (id, severity, file:line, failure scenario, fix).
 ```
+
+---
+
+# M5 build (2026-11-03): refunds, advances, write-offs
+
+**Sources for every M5 slice:** docs/agents/accounts-phase3/m5-plan.md (the plan) as corrected by
+docs/agents/accounts-phase3/m5-plan-review.md (findings F1–F22, "Corrected slice order", Jabran's decisions
+D1–D8 at the end). Where they differ, the review wins. Contracts: NeoERP-BackEnd/docs/api/accounts-b.md,
+accounts-c.md, accounts-a1.md (after the M5-0 contract fixes).
+
+**M5 rules (in addition to the Round 3 builder rules):**
+- Each slice = backend + its paired app screens (AP7-…). Two worktrees per slice:
+  `NeoERP-worktrees/<slice>-be` (branch `codex/<slice>` from the previous slice's backend branch, first slice from
+  origin/dev) and `NeoERP-worktrees/<slice>-app` (branch `codex/<slice>` from the previous slice's app branch, first
+  from origin/dev-app). Commit backend and app separately; never push.
+- Migration numbers are fixed: B2 V52, B4 V53, B0 V54, B3 V55, C1 V56, C3 V57, F1 V58 (only if the schema audit finds a
+  gap; otherwise no migration). Before committing a migration, `git fetch origin` and confirm the number is free on
+  origin/dev and on your base branch; if not, STOP and ask.
+- Posting: respect V43 guards (posted_xid, lock-before-status, reversal links, counters +1), lock order (sources
+  before targets, targets in id order, party last), idempotency with request-body comparison, two-person approval
+  with the documented Owner exceptions (D4). Never change posted rows.
+- Tests: the slice's named tests from the plan/review; run the FULL `./gradlew :services:accounts-service:test`
+  (add `-Pkotlin.compiler.execution.strategy=in-process -Dorg.gradle.jvmargs=-Xmx4g` if memory runs out) and
+  `./gradlew :composeApp:jvmTest --tests '*features.accounts*'` plus once `:composeApp:compileDebugKotlinAndroid`.
+- Report per slice: hashes (be/app), migration, tests with counts, deviations from the plan, open questions.
+- If a slice needs a decision not covered by D1–D8, STOP and ask instead of guessing.
+
+Order and branching: Lane AR (one session, in order): M5-0 → B1 → B2 → B4 → B0 → B3.
+Lane AP (second session) starts after B2 is committed, branching from codex/m5-b2: C0 → C1 → C2 → C3.
+Then R and F1 (one session) from the later of the two lane tips after the lead merges both lanes.
