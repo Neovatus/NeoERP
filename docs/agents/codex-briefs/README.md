@@ -333,3 +333,13 @@ a decision as a question with a recommendation. STOP after the plan; the lead ru
 
 **Step 2 — build:** only after approval, with the M5 rules above (worktrees, never push, full accounts-service test run,
 report hashes/migrations/tests/deviations, STOP on undecided points).
+
+## FE. Feature entitlements enforced (backend + app; plan before build) — after SB2d
+
+**Decision:** Jabran approved the feature catalog and its three layers on 2026-11-03
+(docs/agents/feature-catalog/catalog.md). Starts after SB2d is merged. Prompt to be written by the lead then; scope:
+add the approved codes to org-service `ModuleFeature.kt` (existing codes unchanged, PURCHASING moved to its own module
+with the old code kept as replaced); one shared resolved-feature check (agreement → company → branch → feature) used by
+every service, refusing when a feature is off, and the app hiding it; statutory region features on automatically for
+that country; fix the company-level feature toggle that skips the RULES §5 reason gate. Plan first, Opus review,
+Jabran approves.
