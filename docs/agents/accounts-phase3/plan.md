@@ -102,7 +102,7 @@ and switches to live once its backend slice is accepted. Opus review applies whe
 |---|---|---|---|---|
 | BE-1 | SB1+SC1+OI codes (G0-6) | Receivables, payables and import rights in roles | Gate 0 | user-service suite; ERP-lead security check |
 | BE-2 | SB2a engine amendments | (none visible) Engine takes in-process documents, tags, `RF`/`WO`, approval origin | Gate 0 | §13 engine tests; every posting test; full accounts-service + architecture tests (brief-sb2a "Rules"); Opus |
-| BE-2d | SB2d dimension set (only if G0-3 says yes) | (none visible) | BE-2, ADR-021 accepted | balance keys, concurrent first use, backfill; ERP-lead cross-module check |
+| BE-2d | SB2d dimension set (**ADR-021 accepted by Jabran 2026-11-03; runs right after M5**) | (none visible) | BE-2, ADR-021 accepted | balance keys, concurrent first use, backfill; ERP-lead cross-module check |
 | BE-3 | SB2 `b_receivables` + shared subledger core | (none visible) | BE-2 | DocumentMath vectors (creates fixture, G0-9); sequences; allocation core; Opus |
 | BE-4 | SB3 customers, invoices, credit notes | Customers, approved invoices posting SI, credit notes | BE-1, BE-3 | B §13 SB3; legal content per country; PK further tax (D-21); D-4 `USE_RECEIVABLES` |
 | BE-5 | SC2 `c_payables` + suppliers | Suppliers with bank-detail change guard | BE-3 (doc shape after BE-4) | C §13 SC2; bank-details request flow (D-28) |
