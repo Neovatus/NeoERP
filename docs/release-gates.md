@@ -57,7 +57,7 @@ Started 2026-11-03 (Jabran: "write them so we remember").
 ## Later phases
 
 - [ ] GRNI owner row moves to Purchasing/Inventory with the GRNI account reclassification (D7).
-- [ ] Customer refunds are cash/cheque-free only once customer bank details (M5 B0) ship.
+- [ ] Customer refunds by bank transfer only once customer bank details (M5 B0) ship.
 - [ ] Peppol receiving (by 2030-01-01 in Norway).
 - [ ] Hash-chained ledger evidence against a stolen service DB login (E3), with the retention work.
 - [ ] Next pack: C18 adoption overlay must null `role_code` for new 1395/2810 accounts.
