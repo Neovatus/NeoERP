@@ -106,3 +106,12 @@ Unused slots are dropped, not left as gaps, before anything is applied.
 - Q2 (consumption evidence), Q3 (PAY series, `ADVANCE_PAYMENT`), Q4 (non-deductible VAT carried with the supplier
   advance), Q6 (no 1480 reclassification): *agree with the plan as recommended* (Q3 is already forced by the schema;
   Q4 with F15's rule). Q8 needs no decision (F8).
+
+## Jabran's decisions (2026-11-03)
+
+All as recommended: D1 build customer bank details (B0) before refunds; D2 one contract-fix docs commit first;
+D3 refuse advance deductions across a VAT rate change in M5, correct rule right after M5 (go-live row ACC-R19,
+at the latest 2027-07-01); D4 Owner may confirm a write-off undo themself with tick box + audit; D5 PK advances with
+withholding out of M5 (ACC-R24); D6 FBR: states + "not sent" placeholder only, sending tied to the first PK customer
+(ACC-R25); D7 GRNI row to Purchasing/Inventory (backlog); D8 keep today's draft-create idempotency rule.
+Plan Q2, Q3, Q4, Q6 as the plan recommends. Build order = "Corrected slice order" above; F2 deferred.
