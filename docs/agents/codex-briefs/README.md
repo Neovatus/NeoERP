@@ -307,3 +307,29 @@ accounts-c.md, accounts-a1.md (after the M5-0 contract fixes).
 Order and branching: Lane AR (one session, in order): M5-0 → B1 → B2 → B4 → B0 → B3.
 Lane AP (second session) starts after B2 is committed, branching from codex/m5-b2: C0 → C1 → C2 → C3.
 Then R and F1 (one session) from the later of the two lane tips after the lead merges both lanes.
+
+**Update 2026-11-03 (Jabran):** Lane AP runs after Lane AR is complete, branching from `codex/m5-b3` (backend and app),
+not from B2. Migration numbers stay as above.
+
+## SB2d. Shared dimensions on lines and balances (backend first; plan before build) — after M5 is merged
+
+**Decision:** Jabran accepted ADR-021 on 2026-11-03 (NeoERP-BackEnd/docs/adr/ADR-021-shared-dimensions.md, Status;
+roadmap amendment "dimensions after M5"). Starts only after the lead has merged M5 (R and F1 included) and pushed.
+
+**Sources:** ADR-021 D1–D9 and its accepted question recommendations (not Q13/Q14);
+docs/agents/accounts-bc-readiness/brief-sb2a.md "Dimension-set id"; accounts-a1.md, accounts-a2.md (C-25 balance key),
+accounts-a3.md (C-12 year-end buckets), accounts-b.md, accounts-c.md.
+
+**Step 1 — plan only (no code):** write `docs/agents/accounts-sb2d/plan.md` in a worktree `NeoERP-worktrees/sb2d-plan`
+(workspace repo, branch `codex/sb2d-plan`). Cover: every table that gets `dimension_set_id` (journal lines, every B/C
+document line table incl. M5's, `account_period_balances`, `account_year_balances`); the backfill (existing rows → set of
+their current branch/cost centre, all-null set where none); the new balance key and how A2/A3 reports, year-end and
+period close change; engine resolution inside the posting transaction (ON CONFLICT, concurrent first use); the
+branch_id = set branch check; what happens to the fixed `cost_centre_id`/`project_id` columns; D7 free-dimension and
+project tables; API changes (`DimensionSetV1` on document lines, additive); the app part (pickers) as a later slice;
+migration count and order (numbers = next free on origin/dev at build, checked with `git fetch`); tests (ADR-021
+"Tests / acceptance", concurrency, backfill, every existing posting/report test green); risks. Mark anything that needs
+a decision as a question with a recommendation. STOP after the plan; the lead runs an Opus review and Jabran approves.
+
+**Step 2 — build:** only after approval, with the M5 rules above (worktrees, never push, full accounts-service test run,
+report hashes/migrations/tests/deviations, STOP on undecided points).
