@@ -1,7 +1,7 @@
 # Accounts SB2d — shared dimensions on lines and balances: implementation plan
 
-Status: **plan only. Revised 2026-11-04 after the independent Opus review ("approve after changes": H1–H3, M1–M7,
-L1–L7 applied). For the lead's re-check and Jabran's approval. No code, no migrations.**
+Status: **APPROVED by Jabran 2026-11-04 — all 15 questions as recommended** (Q5 clarified below). Revised the same day
+after the independent Opus review (H1–H3, M1–M7, L1–L7 applied). Build starts after M5.
 Written against `NeoERP-BackEnd` dev `a6ed776` (migrations up to V52; M5 in progress).
 Brief: `docs/agents/codex-briefs/README.md` "## SB2d" Step 1. Decision: ADR-021 (accepted 2026-11-03, all
 recommendations except Q13/Q14). Direction: `docs/large-customer-roadmap.md` (large multi-company customers
@@ -358,6 +358,19 @@ advance/refund/write-off tests, SIE export/import, architecture-tests. Counts in
 | Payroll sends department early | Refused with 422 until the HR-cache slice; noted for Payroll lead (L7). |
 
 ## 14. Questions for Jabran (recommendation first)
+
+**Q5 clarification (Jabran asked 2026-11-04: changing the branch, documents without a branch, referring to another
+branch, imports):**
+- *Change the branch:* on a draft, change the document's branch; every line follows (lines store none of their own).
+  A posted document never changes: credit it and issue a new one under the right branch.
+- *Document without a branch* (company-level): its lines have no branch either. To show the cost belongs to a
+  branch, set the document's branch. To spread one document's cost over several branches, use cost centre / project
+  / free dimensions on the lines, or (later) the allocation journals on the large-customer roadmap.
+- *Refer to another branch:* use a dimension (cost centre, project, free dimension) on the line, not the branch.
+- *Imports:* each imported document row carries its own branch, used as the document's branch. A file whose lines
+  of one document name different branches is split into one document per branch, or the row is refused with a clear
+  reason (decided per importer in its slice). Journal imports (CSV, SIE) are journals, where each line may carry its
+  own branch (Q9), so ledger imports are not limited by Q5.
 
 1. **Remove the old cost-centre and location columns from lines at the end of SB2d?** *Yes, in the last slice.*
    Only demo data exists, so two copies of the same fact for a release only add risk.
