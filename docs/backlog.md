@@ -242,6 +242,13 @@ Open questions collected from NeoERP-BackEnd/docs/modules/** (pages and module R
 - GRNI owner row moves to Purchasing/Inventory together with reclassifying the GRNI accounts (M5 D7).
 - M5-B2 rounding (Jabran 2026-11-03): advance-deduction invoices may show a signed net or VAT subtotal of a few cents while payable stays ≥ 0. Phase 5 document output, Peppol/EHF and FBR mapping must accept or present that case (check BIS totals rules and FBR schema).
 - M5-B2 review (2026-11-04), B3 acceptance items: (a) the V52 deferred trigger `ar_check_advance_consumption` locks the advance line at commit after the invoice (target-before-source); B3 refunds must prove no deadlock against credit-note approval, or lock only when the counter row changed. (b) Invoice-vs-refund concurrency test (deferred from B2).
+- M5-B1 review (2026-11-04, merged b8ba104), follow-up slice after B4 (before B0):
+  (1) `RECEIPT_POSTED` event and receipt audit payload carry `kind` and the advance tax total (amend B §12);
+  (2) `ReceiptPostingService.kt:124` runs `rules.prepare` before the state/version checks, so a stale post can answer a validation error instead of `VERSION_CONFLICT` — restore version-first order;
+  (3) AR ageing `ArReportJdbcAdapter.kt:~198-215` refuses forever if an account ever had both AR_CONTROL and CUSTOMER_ADVANCES history — ignore mappings superseded before use, or document a repair step;
+  (4) app: advance-line sums out of `ReceiptEditorScreen` composable into the ViewModel; distinguish several OUT_OF_SCOPE codes in the picker; customer list/detail explain advances in the balance; strings for the new refusal texts;
+  (5) app requires a description to post an advance, server does not — align.
+- Phase 5 / E: advance receipts freeze the English legal text only (`AdvanceReceiptRules.kt:48`); freeze the customer-language text like invoices. Reversing a taxed advance keeps the original tax point (same open engine policy as F4 refunds; decide with E).
 - Phase 5 document output: generated line text has no document-language mechanism. Advance deduction lines store only the advance number (the app words it); credit-note lines hard-code English (`"Credit: " + description` in `ArDocumentRules.creditLine`). Printed/PDF/e-invoice output must word both in the customer's language.
 - **Decision (Jabran 2026-11-04):** invoice creators/editors may read the selected customer's OPEN advances only (number, date, amount left) for deduction, without RECEIPT_READ; no receipts list, other customers or bank/payment details. Built with the B4 fixes; security review before push.
 - M5-B4 review (2026-11-04): a write-off recovery (undo) request cannot be withdrawn once recorded; add a withdraw by the requester before confirmation if users need it.
