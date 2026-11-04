@@ -269,7 +269,8 @@ Open questions collected from NeoERP-BackEnd/docs/modules/** (pages and module R
 
 ## App — Apple platform look (2026-11-04)
 
-- Liquid Glass on iOS/iPadOS (and macOS): **option A approved by Jabran 2026-11-04**: keep the NeoERP design system for
+- **Final decision (Jabran 2026-11-04, later the same day): system defaults only.** No custom glass anywhere; NeoERP keeps one solid design system on every platform; iOS system pieces get Liquid Glass by building with the current Xcode SDK (go-live P-18). No app slice. Spec `NeoERP-App/docs/design/specs/apple-platform-look.md` records it; the custom-glass design and rig preview are reference only.
+- (Superseded) Liquid Glass on iOS/iPadOS (and macOS): **option A approved by Jabran 2026-11-04**: keep the NeoERP design system for
   content; build with the current Xcode SDK so system pieces (keyboard, alerts, share sheet, menus) get Liquid Glass;
   add glass "material" tokens (translucent surface, backdrop blur, edge highlight) for the navigation layer only
   (bottom/top bars, sheets, floating buttons) on Apple targets, solid elsewhere; fall back to solid under Reduce
