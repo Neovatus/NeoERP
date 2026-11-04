@@ -246,3 +246,12 @@ Open questions collected from NeoERP-BackEnd/docs/modules/** (pages and module R
 - Next pack: C18 adoption overlay must set `role_code` to NULL for the new PK accounts 1395/2810.
 - C23 app wording: OWN_BANK_CHANGE text chosen by requiresSecondPerson; "Reason" label for owner self-approval; "no bank check is set up yet".
 - Platform People / other low UX items from the Codex UX sweep in legacy HR, Payroll, ESS, Inbox: with each module's rebuild.
+
+## App — Apple platform look (2026-11-04)
+
+- Liquid Glass on iOS/iPadOS (and macOS): proposal waiting for Jabran. Recommended: keep the NeoERP design system for
+  content; build with the current Xcode SDK so system pieces (keyboard, alerts, share sheet, menus) get Liquid Glass;
+  add glass "material" tokens (translucent surface, backdrop blur, edge highlight) for the navigation layer only
+  (bottom/top bars, sheets, floating buttons) on Apple targets, solid elsewhere; fall back to solid under Reduce
+  Transparency / Increase Contrast. Design spec in `NeoERP-App/docs/design/` first, then one app slice. Not before
+  Accounts M5, SB2d and FE.
