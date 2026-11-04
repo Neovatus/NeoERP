@@ -282,6 +282,11 @@ Output: verdict per commit group (SHIP / FIX-FIRST / BLOCK), findings (id, sever
 
 # M5 build (2026-11-03): refunds, advances, write-offs
 
+**Codex models (Jabran 2026-11-04, matching our Claude rule):** plans and money/posting/security/migration work on
+`gpt-6.1-sol` at `high` (reviews of Claude work: `gpt-6-astra` at `high`); app screens and docs on `gpt-6.1-terra` at
+`medium`; mechanical edits (strings, renames, link checks) on `gpt-6-luna` at `low`. Sub-agents inside a Codex session
+follow the same table. Move up one model only after a failed check.
+
 **Sources for every M5 slice:** docs/agents/accounts-phase3/m5-plan.md (the plan) as corrected by
 docs/agents/accounts-phase3/m5-plan-review.md (findings F1–F22, "Corrected slice order", Jabran's decisions
 D1–D8 at the end). Where they differ, the review wins. Contracts: NeoERP-BackEnd/docs/api/accounts-b.md,
