@@ -242,6 +242,8 @@ Open questions collected from NeoERP-BackEnd/docs/modules/** (pages and module R
 - GRNI owner row moves to Purchasing/Inventory together with reclassifying the GRNI accounts (M5 D7).
 - M5-B2 rounding (Jabran 2026-11-03): advance-deduction invoices may show a signed net or VAT subtotal of a few cents while payable stays ≥ 0. Phase 5 document output, Peppol/EHF and FBR mapping must accept or present that case (check BIS totals rules and FBR schema).
 - M5-B2 review (2026-11-04), B3 acceptance items: (a) the V52 deferred trigger `ar_check_advance_consumption` locks the advance line at commit after the invoice (target-before-source); B3 refunds must prove no deadlock against credit-note approval, or lock only when the counter row changed. (b) Invoice-vs-refund concurrency test (deferred from B2).
+- M5-B4 review (2026-11-04): a write-off recovery (undo) request cannot be withdrawn once recorded; add a withdraw by the requester before confirmation if users need it.
+- Flaky test: `SieImportHistoryTest.yearsBeforeGoLiveStoredOnApprovalOnly` asserts the audit text has no "750", which a random UUID/timestamp can contain; assert on the parsed amount field instead.
 - Peppol receiving (Norway by 2030-01-01; go-live gate L-2).
 - Hash-chained ledger evidence against a stolen service DB login (posting triage E3), with the retention work.
 - Next pack: C18 adoption overlay must set `role_code` to NULL for the new PK accounts 1395/2810.
