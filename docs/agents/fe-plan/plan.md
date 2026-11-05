@@ -352,3 +352,9 @@ Also touched:
 - **Q2, Q3, Q4, Q6, Q8, Q9, Q11, Q13: approved as recommended** (Jabran 2026-11-05). Q4: GDPR on by default but switchable; SAF-T NO/DK, FI/IS statutory files and payroll statutory rules are statutory.
 - **Q10, Q12, Q14: later, as recommended.** Q12 = paid add-on features for a franchise covered by the group's addendum: for now give them via an extension with an amendment reference or the franchise's own agreement. Q14 → go-live gate row (grace period after agreement expiry).
 - **Status: APPROVED.** FE-0 and FE-1 start now in their own worktrees alongside SB2d (FE-1 rebases on SB2d-1's settings.gradle.kts change); FE-2 follows FE-1; FE-3 waits for SB2d merged.
+
+## 13. Notes for FE-2 from the FE-0/1 review (2026-11-05)
+- Scope column decided by the lead: INTER_BRANCH_TRANSFERS and BATCH_SERIAL are COMPANY; the rest as the FE-1 builder proposed (BRANCH: DOCUMENT_OUTPUT, ATTACHMENTS, FBR_DIGITAL_INVOICING_PK, EINVOICE_SEND_*, HR_TIME, STOCK_BY_WAREHOUSE, STOCK_COUNT, POINT_OF_SALE, GOODS_RECEIPT, WORK_ORDERS, QUALITY_CONTROL, ROUTINGS_CAPACITY).
+- FE-2 resolver: DOCUMENT_OUTPUT must not resolve off at a branch where a statutory invoicing duty (FBR_DIGITAL_INVOICING_PK, EINVOICE_SEND_NO) is on — refuse that override (409) or keep output on.
+- FE-2: state what leave accrual does at a branch with HR_TIME off while LEAVE_ATTENDANCE (company) is on (recommend: leave works from entered absences; no clock-based accrual there).
+- FE-2 closes Bug 3 for PURCHASING too (platform staff can currently switch any unimplemented module on as an extension).
