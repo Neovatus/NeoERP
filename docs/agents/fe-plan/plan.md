@@ -358,3 +358,8 @@ Also touched:
 - FE-2 resolver: DOCUMENT_OUTPUT must not resolve off at a branch where a statutory invoicing duty (FBR_DIGITAL_INVOICING_PK, EINVOICE_SEND_NO) is on — refuse that override (409) or keep output on.
 - FE-2: state what leave accrual does at a branch with HR_TIME off while LEAVE_ATTENDANCE (company) is on (recommend: leave works from entered absences; no clock-based accrual there).
 - FE-2 closes Bug 3 for PURCHASING too (platform staff can currently switch any unimplemented module on as an extension).
+
+## 14. Notes for FE-4 from the FE-3 review (2026-11-06)
+- Machine posting: look up the idempotency replay BEFORE the FREE_DIMENSIONS gate, so a retry of a posting that already succeeded returns the stored result even after the feature was switched off (`MachinePostingService.kt:162-166`). Do this before payroll posts.
+- Machine posting without free values never checks the FINANCE module (pre-existing) — FE-4 adds the module check (FINANCE.PAYROLL_POSTING / PAYROLL.PAY_POSTING per §7).
+- Cache: consider single-flight for cold keys and an O(1) eviction (`EntitlementSource.kt:128-132`) before large-customer load; replace the `modules` parameter-name bean resolution with `@Primary` test beans.
