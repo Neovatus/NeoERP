@@ -197,10 +197,13 @@ at 10.4a**; no exclusive lock taken after 10.4a may be held before 10.4a by any 
   only exclusive lockers of those rows (period close, account edit) for the length of one posting, on first use only.
 - If Postgres still reports a deadlock (40P01), the transaction rolls back with nothing written, as any posting
   failure today. **Lead check (2026-11-04): accounts-service has no deadlock mapping today** (no 40P01 /
-  `POSTING_BUSY` handling exists), so SB2d-2a adds one: 40P01 and 55P03 map to a new retryable 409 `POSTING_RETRY`
+  `POSTING_BUSY` handling exists), so SB2d-2a adds one: 40P01, 55P03 and 40001 (SB2d-1 review L3) map to a new retryable 409 `POSTING_RETRY`
   ("Try again"), with a metric; no retry inside the engine; documented in A1 and the app's error codes.
 - Guard: an architecture/unit test asserts `DimensionSetRepository.resolve` is called only from the 10.4a step and
   the draft writers (below), never after a sequence or balance call in the same transaction.
+- **SB2d-2a, with the callers (SB2d-1 review L2):** an architecture check that no caller of `resolve` runs under
+  `Propagation.NESTED` or an explicit savepoint (a rollback to a savepoint would leave the transaction's remembered
+  inserted ids pointing at removed rows). `resolve` already refuses any isolation other than READ COMMITTED.
 
 **Draft paths (sets resolved at save, own short step in the draft transaction):** every writer of a line table in
 §2 resolves the line's tuple before its insert. Writers to change in SB2d-2a:
@@ -292,7 +295,7 @@ Expected V59–V62 if M5 ends at V58. Never edit an applied migration; slots tak
 |---|---|---|---|
 | SB2d-0 | Contract docs | `accounts-a0.md` (cost centres, projects, free dims), `accounts-a1.md` §3/§5.2 step 10.4a + lock invariant/R-2 + C-16 normalised hash, `accounts-a2.md` C-25 replaced, `accounts-a3.md` C-12 buckets, `accounts-b.md` / `accounts-c.md` line shape and branch rule, `docs/database/db-design.md`, ADR-021 Q18 item amendment. | lead |
 | SB2d-1 | Storage + resolver | M1; domain `DimensionSet`/`DimensionTuple`, `DimensionSetRepository` + adapter (SQL hash, ordered ON CONFLICT, global LRU); `shared/dimension-contracts`. Not yet called. Concurrency tests. | Opus |
-| SB2d-2a | Sets on lines | M2a; every draft writer (§6) and the engine's 10.4a fill `dimension_set_id`; manual-post re-resolve; normalised idempotency hashes. Balances, reports and year-end still read the old columns (still present). | **Opus** + ERP lead cross-module |
+| SB2d-2a | Sets on lines | M2a; every draft writer (§6) and the engine's 10.4a fill `dimension_set_id`; manual-post re-resolve; normalised idempotency hashes; `POSTING_RETRY` mapping (40P01, 55P03, 40001); architecture check: no resolve inside NESTED/savepoints. Balances, reports and year-end still read the old columns (still present). | **Opus** + ERP lead cross-module |
 | SB2d-2b | Balance key | M2b; `BalanceKey`; ledger check incl. branch mismatch; year-end; reports; SIE export; GL index; `YearEnd.hash`. Load runs. | **Opus** + ERP lead |
 | SB2d-3 | Maintenance of Accounts-owned values | cost centres write API + validity + `accounts.cost_centre.changed`; projects; free definitions/values with derived "used"; `Dimensions` vocabulary; permission codes; engine validation of the new fields. | Opus (posting path) |
 | SB2d-4 | API on lines + report filters | `dimensions` on every line of §9, conflict and branch normalisation, machine posting fields, report filters, export hash, event payloads, Postman/docs. | lead |
