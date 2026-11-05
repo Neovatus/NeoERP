@@ -403,3 +403,8 @@ branch, imports):**
     (worked out, not stored).* Nothing extra is written while posting.
 15. **Split the conversion and the balance change into two reviewed steps?** *Yes.* Each is a large money change;
     two smaller Opus reviews catch more than one big one.
+
+
+## SB2d-2a review notes for later slices (2026-11-05)
+- **SB2d-2b:** run the go-live P-24 load check (V61 + V62 on ~5M lines) before 2b merges. The year-end plan groups by branch and cost centre only, so year-end lines drop stock location (existing behaviour) — balances keyed by set must handle that. `YearEnd.hash` changes in 2b; a preview taken before that deploy fails at confirm (harmless).
+- **SB2d-4:** when the machine DTO starts reading `dimensions`, check `DIMENSION_CONFLICT` before the idempotency replay (`PostingRequestHash.of` in MachinePostingService ~163), so a conflicting replay gets 422, not the stored result.
