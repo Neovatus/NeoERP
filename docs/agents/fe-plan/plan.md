@@ -348,5 +348,5 @@ Also touched:
 ## 12. Jabran's decisions (2026-11-05)
 - **Q1 approved:** services check the company's agreement → company → branch modules and features (machine-token read of org, 30 s cache), on top of the person's role permissions.
 - **Q5 changed:** we are in development with no released customers, so **upgrade the data**: an org migration (FE-2) removes saved company/branch feature rows that contradict the statutory/region rules, writing one `entitlement_changes` history row per removed row with the system reason "FE upgrade: {rule}". No audit-outbox rows written from SQL. Builder reports the counts.
-- **Q7 changed:** same — **upgrade**: move any `INVENTORY.PURCHASING` rows to the new PURCHASING module (module rows, with history), then remove the old code from the catalog instead of keeping a "replaced" marker. `FEATURE_REPLACED` is not needed.
+- **Q7 changed:** Inventory and Purchasing are not built yet, so there is nothing to keep — **upgrade**: move any `INVENTORY.PURCHASING` rows to the new PURCHASING module (module rows, with history), then remove the old code from the catalog instead of keeping a "replaced" marker. `FEATURE_REPLACED` is not needed. Expected row count is 0 (demo data only); the builder confirms it.
 - Q2–Q4, Q6, Q8–Q14: awaiting confirmation.
