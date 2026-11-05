@@ -152,8 +152,8 @@ Growth: stock location joins the key (line-only under A2 C-25); item stays out (
   `<col> IS NULL` on the set. BS and cash flow stay company level (A3 C-7, CF-2).
 - `YearEndJdbcAdapter.kt` + `domain/calendar/YearEnd.kt` (A3 C-12): buckets = (P&L account, set); one YE line per
   bucket with that set. Target line(s): the bucket's set reduced to what the target account allows (today branch
-  → one line per branch as now; else the all-null set). Inactive values allowed (A3 A1-A1). `YearEnd.hash` leaves
-  null fields out so year-end previews made before the deploy keep their hash.
+  → one line per branch as now; else the all-null set). Inactive values allowed (A3 A1-A1). `YearEnd.hash` hashes fields
+  added since SB2d-2b only when set, so year-end previews made before the deploy keep their hash.
 - Period close / reopen / lock (`PeriodControlJdbcAdapter.kt`, `Pack2026_5.kt`): sums per account; compile only.
 - `SieExportJdbcAdapter.kt`: groups by set; keeps branch exactly as today (L1); `#OBJEKT` cost centre (dim 1) as now
   plus project (dim 6) when set.
@@ -228,7 +228,7 @@ re-purposing — and a value that a draft referenced is a reasonable reason to k
   and the same request sent nested or flat gives the same hash.
 - `PostingEngine.documentHash` (~l.380): same null omission for the new fields; the header branch is **not**
   merged into the line `branchId` used by this hash (the hash stays on what the module sent).
-- `YearEnd.hash` (`domain/calendar/YearEnd.kt` l.44): null fields omitted (preferred over forcing previews to refresh).
+- `YearEnd.hash` (`domain/calendar/YearEnd.kt` l.44): fields added since SB2d-2b (stock location) are hashed only when set; branch and cost centre are hashed exactly as before (preferred over forcing previews to refresh).
 - `ExportRequestHash` (`application/service/report/export/ExportSupport.kt` l.152): new report filters omitted when null.
 - Compat tests for all four (§12).
 
