@@ -342,3 +342,11 @@ Also touched:
 - `NeoERP-App/docs/design/screen-rig/entitlements.jsx:27,263`
 - `NeoERP-App/.../organization/presentation/organization/CompanyModulesTab.kt:560-580`
 - `settings.gradle.kts` (shared module ordering with SB2d)
+
+---
+
+## 12. Jabran's decisions (2026-11-05)
+- **Q1 approved:** services check the company's agreement → company → branch modules and features (machine-token read of org, 30 s cache), on top of the person's role permissions.
+- **Q5 changed:** we are in development with no released customers, so **upgrade the data**: an org migration (FE-2) removes saved company/branch feature rows that contradict the statutory/region rules, writing one `entitlement_changes` history row per removed row with the system reason "FE upgrade: {rule}". No audit-outbox rows written from SQL. Builder reports the counts.
+- **Q7 changed:** same — **upgrade**: move any `INVENTORY.PURCHASING` rows to the new PURCHASING module (module rows, with history), then remove the old code from the catalog instead of keeping a "replaced" marker. `FEATURE_REPLACED` is not needed.
+- Q2–Q4, Q6, Q8–Q14: awaiting confirmation.
