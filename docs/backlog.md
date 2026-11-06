@@ -289,6 +289,7 @@ Open questions collected from NeoERP-BackEnd/docs/modules/** (pages and module R
 - C23 app wording: OWN_BANK_CHANGE text chosen by requiresSecondPerson; "Reason" label for owner self-approval; "no bank check is set up yet".
 - Platform People / other low UX items from the Codex UX sweep in legacy HR, Payroll, ESS, Inbox: with each module's rebuild.
 - Backend `scripts/gateway-route-check-test.sh` fails on dev before BE-14 (internal-org section); fix the test's expected routes (found 2026-11-05).
+- Backend `docs/database/db-design.md` has no sections for accounts V63 (SB2d-3 dimension maintenance) and V64 (`ob_import_formats`, BE-13); add them (Opus review of Codex db docs, 2026-11-06).
 
 ## App — Apple platform look (2026-11-04)
 
