@@ -294,6 +294,7 @@ Open questions collected from NeoERP-BackEnd/docs/modules/** (pages and module R
 - App error model drops refusal `details`: `OB_IMPORT_FORMAT_NOT_FOR_COUNTRY` reason, `OB_FILE_NOT_FORMAT` detected value and `OB_FILE_NOT_KEPT` in the SIE wizard show generic words; keep details and word them (AP-8 wiring, 2026-11-06).
 - Backend PK pack: `PK-WHT-*` withholding codes ship inactive with no rate, and `TaxCodeService.addVersion` refuses a validFrom before today on LIVE books, so a company live since go-live can't apply withholding to earlier documents. Ship statutory rates, or allow a first version back-dated to go-live while the code is unused and the period open (BE-14 review, 2026-11-06).
 - Demo data: Kystgruppe/Sialkot demo documents are all dated today, so ageing shows no overdue buckets; spread dates across open periods or add an overdue opening item (BE-14 review, 2026-11-06).
+- Phase 3 UX review leftovers (2026-11-06): (a) S14 OB wizard stepper meta lines — design call, conflicts with SIE decision I7 (no stepper meta); (b) S19 error words not yet plumbed into `ReceivablesSupport`, `JournalPageSupport`, `SieResultTexts` (English defaults); (c) N7 DIMENSION_CONFLICT tag name assumes the line `problem` names BRANCH/COST/STOCK — confirm the backend field, else the generic sentence shows; (d) S10 OB result journal status pill has no test; (e) no rendered check of the OB list/result, More menu, Modules grid yet (Jabran's click-through).
 
 ## App — Apple platform look (2026-11-04)
 
