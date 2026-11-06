@@ -1,0 +1,35 @@
+# AP-8 / CP-OBI.2 checkpoint
+
+- Objective: country-neutral opening-balance wizard against explicit mocks, preserving SIE history.
+- Owner: Codex task lead; integration owner: Jabran. Assigned app worktree: `/Users/jabransiddiqui/Offices/Neovatus/NeoERP-worktrees/codex-ap8-app`, branch `codex/ap-8`.
+- Approval: Jabran's 2026-11-05 prompt authorizes this implementation, focused tests, iOS compilation and specified local commit; no push or merge. Approved OBI/AC-OBI contracts and rig govern implementation. Backend is not built; no live success fallback.
+- Baseline: `59f0eade00e28ceafae760de5716b603895d6809`, clean at pickup. Shared state was read before loading the prompt's narrower prohibition; no further PROJECT-STATE reads/writes.
+- Stage: Done for authorized mock implementation; live/visual acceptance deferred as report states. Discovery, Plan and independent Advisor 1 complete (proceed with constraints).
+- Discovery: existing SIE repository/controller/screens provide patterns; AP-6 opening-items flow is present. OBI specifies server-driven formats, File/Check/Accounts/Confirm, retained original, held-out AR/AP and OBI-12 prefill. Contracts require LIVE to confirm, while M6 says approve before go-live: follow the contract's LIVE gate, report this acceptance discrepancy. OBI-12's wire payload is not specified: isolate mock handoff assumptions behind domain interfaces.
+- Scope: app `features/accounts` OB domain/data/presentation/tests; explicit routing/access/DI/strings integration; relevant module and user documentation. No backend, auth, migrations, other checkouts, secrets or pushes.
+- Planned file ownership: data worker owns new `ObImport*` domain/repository/mock files; presentation worker owns new `presentation/obimport/` and dedicated OB resource files; lead owns route/access/DI/shared integration, checkpoint and report. Reviewer owns no product files. Workers may not run Gradle or commit.
+- Scenarios: country-specific formats, wrong files, columns, date acknowledgement, mapping/difference, closed periods, rights/platform restrictions, stale versions, company switching, uncertain writes, explicit unavailable live backend, party-prefill and unchanged SIE history.
+- Verification: new OB state/refusal/prefill tests plus accounts package and SIE regression only, one Gradle process at a time; iOS simulator compile with zero errors. No full suite. Independent review after implementation; focused fixes only.
+- Progress: domain/interface, mock/unavailable repositories, wizard/controller/resources and route/DI/SIE-history integration saved; first focused JVM test attempt reached compilation and failed with seven compiler errors; zero tests executed, no commit. Workers were interrupted twice by workspace spend cap and resumed on explicit Continue.
+- Advisor 1: independent reviewer accepted narrow plan with mock/live isolation, no invented OI dates, independently typed control total, contract LIVE gate and retained SIE history. These constraints are incorporated.
+- Remaining: finish worker tests and journal source integration, compile and run focused verification, independent review/fixes, requested local commit and report.
+- Prior interruption (resolved on latest resume; escalated diff check succeeded): automatic approval review could not authorize the requested focused Gradle command because the workspace spend cap was reached. The command did not execute. Worker execution/review has also repeatedly stopped on the same cap. This is a review-service failure, not a safety rejection. Do not bypass the approval mechanism.
+- Saved evidence: AP8 worktree contains uncommitted new OB models/interface/mock/unavailable implementation/prefill adapter/controller/resources and partial host, plus tracked navigation/DI/SIE history/prefill integration. No tests, iOS compile, commit, or completed report exists. UI worker explicitly reports its last host-function append was rejected, leaving unresolved function references; current tree is not claimed buildable.
+- Resume: inspect worker-saved files, finish missing host functions and tests, finish journal openingImport source integration, run one focused Gradle process at a time and iOS compile, independent review/fixes, commit with the prompt identity/message, and write report.md. Only then read and perform codex-dbdoc/prompt.md. Existing implementation/commit authorization persists; no push/merge. Runtime backend and M6 acceptance remain deferred to BE-13.
+
+## 2026-11-06 resume checkpoint
+- Execution is available again; root escalated edits succeeded. First JVM attempt failed at compile: two nullable setup facts, three skeleton enum references, two missing notice message arguments. Root fixed nullable facts/skeleton references; UI worker owns remaining notice fixes.
+- Independent round 1 findings R1–R6: sign-aware OI prefill, live SIE history entry, File-step forward navigation, uncertainty recovery, fiscal-year start, typed page failures. Root fixed R2 via separate SIE history menu and R5 via actual fiscal start month; workers own other fixes and tests. All await verification.
+- Neutral journal source DTO/domain/mapper and presentation link support added; legacy SIE read compatibility retained while BE-13 is absent.
+- Resume: finish worker findings/tests, run focused JVM tests and iOS compile serially, review fixes, docs, authorized commit/report, then dbdoc. No final AP8 report or dbdoc work yet.
+
+- Latest verification: second JVM attempt failed with one new delegated-property smart-cast error in ObImportHost:46; original seven compile errors resolved. UI worker owns this final compile fix. No tests executed yet. Data worker added 21 focused tests; controller tests now saved. No Gradle process currently active. OI mock configure(companyId,currency,goLiveDate) wired at root. R1/R2/R5 accepted by independent reviewer on source, R3/R4/R6 fixes await final check.
+
+- Verification update: JVM compiles. Accounts package run: 1,673 reported tests, three new-class initialization failures (non-Unit test methods), fixed with runBlocking<Unit>. Focused obimport rerun passed. iOS compilation started; inspect build/ap8-ios.log and active session before any further Gradle run. Independent review/doc completion/commit/report still outstanding; dbdoc not started.
+
+- iOS simulator compile completed successfully (exit 0, zero errors; existing warnings). Independent focused re-review accepted R1–R5. R6 remaining: server NoAnswer must not be labelled offline; UI worker assigned tiny cause fix/test. Following that change rerun affected OB tests and iOS compile, then documentation/commit/report. No active Gradle process.
+
+## Delivered 2026-11-06
+- AP8 mock implementation complete, independent reviewer approved all R1–R6 fixes. Final focused tests 39/0; iOS exit 0, zero errors. Prior package run 1673/3 initialization failures fixed in focused rerun.
+- Authorized local commit 981d28aca8f96ab043cf8bfd69f8effc00f5337c; no push/merge. Report written at report.md, including explicit mock/live/visual/translation limits.
+- Next: read codex-dbdoc/prompt.md and execute its separately authorized scope.
