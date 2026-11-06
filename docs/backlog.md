@@ -292,6 +292,8 @@ Open questions collected from NeoERP-BackEnd/docs/modules/** (pages and module R
 - Backend `docs/database/db-design.md` has no sections for accounts V63 (SB2d-3 dimension maintenance) and V64 (`ob_import_formats`, BE-13); add them (Opus review of Codex db docs, 2026-11-06).
 - App OB import: SIE format hands over to the older SIE wizard, so CSV/Excel and SIE screens look different; spec §0 says one OB wizard — unify visually (AP-8 wiring, 2026-11-06).
 - App error model drops refusal `details`: `OB_IMPORT_FORMAT_NOT_FOR_COUNTRY` reason, `OB_FILE_NOT_FORMAT` detected value and `OB_FILE_NOT_KEPT` in the SIE wizard show generic words; keep details and word them (AP-8 wiring, 2026-11-06).
+- Backend PK pack: `PK-WHT-*` withholding codes ship inactive with no rate, and `TaxCodeService.addVersion` refuses a validFrom before today on LIVE books, so a company live since go-live can't apply withholding to earlier documents. Ship statutory rates, or allow a first version back-dated to go-live while the code is unused and the period open (BE-14 review, 2026-11-06).
+- Demo data: Kystgruppe/Sialkot demo documents are all dated today, so ageing shows no overdue buckets; spread dates across open periods or add an overdue opening item (BE-14 review, 2026-11-06).
 
 ## App — Apple platform look (2026-11-04)
 
