@@ -305,3 +305,8 @@ Open questions collected from NeoERP-BackEnd/docs/modules/** (pages and module R
   (bottom/top bars, sheets, floating buttons) on Apple targets, solid elsewhere; fall back to solid under Reduce
   Transparency / Increase Contrast. Design spec in `NeoERP-App/docs/design/` first, then one app slice. Not before
   Accounts M5, SB2d and FE.
+
+## App languages (Jabran 2026-11-08) — scheduled after the dimension pickers, before Phase 4
+- **I18N-1 (≈1 day):** move the ~170 hard-coded UI texts (`Text("…")`, English defaults in rules/support files such as `AccountsErrorWords`, `ReceivablesSupport`, `JournalPageSupport`, `SieResultTexts`, `AuditWording`) into composeResources; add a build check that fails on new hard-coded UI text; add a language choice in user settings (English, Norsk, Svenska; default = device language). Number/date formats follow the chosen locale.
+- **I18N-2 (≈2 days):** translate all strings into Norwegian bokmål (`values-nb`) and Swedish (`values-sv`), using the official chart-of-accounts and tax terms. From then on every new string is added in en, nb and sv in the same commit (slice not done without all three). Native accountant review = go-live gate L-7.
+- Later, only when sold there: Danish, Finnish, Icelandic. Urdu only on customer request (needs right-to-left layout). Customer-language document output stays with Phase 5 document output.
