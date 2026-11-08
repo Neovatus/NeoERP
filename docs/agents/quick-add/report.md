@@ -46,3 +46,13 @@ NeoQuickAddTest (new), payables.QuickAddTest (new), PaymentEditorViewModelTest, 
 - **N3:** the code and name rules show only after the field is touched or Save is pressed; Save stays pressable and pressing it with a problem shows the rules.
 - **N4:** hidden-field refusals are prefixed with the field's label ("Code: …"; `NeoQuickAdd.visibleError(labels)`).
 - **L4 leftover:** the dimension panel's Name uses `accounts_dim_field_name`.
+
+## Journal grid
+
+Gap: quick add for dimension values was only in `LineDimensionPickers`; the journal editor grid had none.
+
+- `JournalEditorContext` gains `quickAdd: DimensionQuickAdd?` (set from `JournalsPageHolder.dimensionQuickAdd` in `JournalsHost`). `extraColumns` and `canAddCostCentre` keep an empty project, company-dimension or cost-centre column for someone who may add its first value; `JournalEditorRules` uses them (rights come from `DimensionQuickAdd.canCreate`, the same rule as the line pickers: COST_CENTER create, DIMENSIONS.MANAGE for projects, MANAGE plus FREE_DIMENSIONS on for company values).
+- `JournalEditorBranch` provides `ProvideDimensionQuickAdd` around the editor. `JournalLineGrid` cost centre, project and company-dimension cells (wide grid and phone cards) pass `onAdd` and the existing `accounts_dim_quick_add_action_add` label to `NeoSearchSelect` and open the existing `DimensionQuickAddPanel` (typed text prefilled, valid from the company's today). The created value is kept in the shared scope (shows in every line's list) and picked on that line through `vm.setCostCentre` / `vm.setDimension`; nothing else in the journal state changes. No second view model, no new strings.
+- Branch and stock location are not quick-added (Org setup).
+- Tests: `JournalQuickAddTest` (empty cells kept only with the right, per-list rights, FREE_DIMENSIONS off, value picked with description, account and amounts kept). Ran `*journals.state.*`, `*journals.route.*`, `*payables.QuickAddTest`.
+- Not covered by an automated UI test: the panel itself in the grid (no journal grid compose test exists); worth a manual check as Owner typing `P-900` in a Project cell.

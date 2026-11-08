@@ -321,3 +321,4 @@ Open questions collected from NeoERP-BackEnd/docs/modules/** (pages and module R
 ## Quick add (QA-1) follow-ups
 - Receipts host passes no actor name, and some paths no owner flag, to the customer full sheet behind "Open full record" (QA-1 review Low).
 - No Compose UI test drives the add row or the quick-add panels; only rule and view-model tests (QA-1 review Low).
+- Backend: sales-invoice list rows omit `creditedTotal` though accounts-b §7.5 shows it on every row (ReceivablesJson.documents; callers ReceivablesControllers.kt:164/315, WriteOffController.kt:36). App reads it as optional since 80fbec65; send it or drop it from the contract (found 2026-11-08).

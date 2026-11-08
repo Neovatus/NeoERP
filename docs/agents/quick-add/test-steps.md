@@ -2,7 +2,9 @@
 
 **Sign-in:** open the app, click **Continue with NeoERP ID**, and sign in at the browser page. The usernames are below, and the passwords are in `NeoERP-BackEnd/docs/local-demo-data.md`.
 
-**Company:** Kystgruppe Nordic. Use **Save draft** only: until the branch fix comes (next step), Submit there is still refused.
+**Before you start:** restart the app, so it has the latest code. The documents now also show a **Branch** field and lines laid out as a table. Those get their own test steps next; here, leave Branch as it is.
+
+**Company:** Kystgruppe Nordic. **Save draft** is enough for these steps.
 
 ## Q1. Add a supplier while paying in advance
 
