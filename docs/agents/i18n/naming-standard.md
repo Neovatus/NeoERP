@@ -1,4 +1,4 @@
-# App text: files and key naming standard (Draft for Jabran, 2026-11-08)
+# App text: files and key naming standard (Approved by Jabran, 2026-11-08)
 
 Applies to every text in NeoERP-App (`composeApp/src/commonMain/composeResources/values*/`).
 I18N-1 moves this into `NeoERP-App/docs/` and into `AGENTS.md` / `ARCHITECTURE.md` so Claude and Codex builders follow it.
