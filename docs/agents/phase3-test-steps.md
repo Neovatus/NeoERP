@@ -403,6 +403,77 @@ A Swedish demo company exists: **Stockholm Handel** (`erik.berg` Accountant, `sa
 7. Sign out, sign in as `sara.lind`, open the journal, **Post** it.
    Expected: posted by Sara (second person); *Accounts → Journals* now lists it as Posted.
 
+
+## T19. Dimensions tab: cost centres and projects (Kystgruppe Nordic)
+
+1. Sign in as `ola.nordmann`, pick Kystgruppe Nordic. *Accounts*, open the **Dimensions** tab.
+   Expected: "Dimensions on lines" with rows for Cost centres, Projects and **Company dimension** slots (Not set up / **Set up**).
+2. Open **Projects**, click **New project**, enter code `P-100`, name "Harbour crane", save.
+   Expected: toast "Harbour crane added"; it is listed Active.
+3. Add a second project `P-200` "Old quay", then open it and **Deactivate** it with a reason.
+   Expected: the reason gate asks for a reason; after confirm the row shows the **Inactive** pill and "Deactivated because …".
+4. Open *Cost centres*, add a cost centre "Operations" with **Group only** ticked, then a cost centre "Crane team" with **Part of** = Operations.
+   Expected: the tree shows Crane team under Operations; the fold arrow opens and closes the group.
+5. Open "Operations" and look for **Delete**.
+   Expected: no Delete (it has a value under it).
+6. Sign out, sign in as `anna.lindh` (Accountant), *Accounts → Dimensions*.
+   Expected: same lists, but **no** New/Deactivate/Delete buttons (view only).
+
+## T20. Company dimensions (slots) and two people editing
+
+1. As `ola.nordmann`, *Dimensions → Company dimension → Set up*: name "Vessel", file column `VESSEL`. Save.
+   Expected: slot 1 shows Vessel with "0 active · 0 inactive".
+2. Open Vessel, **New value** "MS Fjord" and "MS Kyst".
+   Expected: both listed Active.
+3. Set up a second slot with file column `VESSEL` again.
+   Expected: refused: "The file column VESSEL is already used by Vessel. Choose another."
+4. Set up slot 2 "Test slot", file column `TEST`, then **Delete** it (it has no values) and give a reason.
+   Expected: the gate reads "It is removed at once. This can't be undone." / "It has no values. Its place is free again."; the slot is back to **Set up**.
+5. Open "MS Fjord" in two app windows (both as `ola.nordmann`). In window 1 rename it "MS Fjord I" and save. In window 2 rename it "MS Fjord II" and save.
+   Expected: window 2 says "Someone else changed this. The latest version is shown." and shows "MS Fjord I"; Save is off until you edit again. (Skip if you can't open two windows; say so.)
+
+## T21. Pickers on a journal line
+
+1. As `anna.lindh`, *Accounts → Journals → New journal*, date in November 2026. Add a line on a cost account (e.g. 6300) and its opposite on the bank account.
+   Expected: on the cost line, pickers for **Cost centre**, **Project** and **Vessel** are offered (only what that account allows; the bank line may show fewer).
+2. Pick Project "Harbour crane", Vessel "MS Fjord I", Cost centre "Crane team". Save the draft. Close and reopen it.
+   Expected: all three values are still on the line.
+3. Open the Project picker.
+   Expected: "Old quay" (inactive) is **not** offered; "Operations" (group only) is not offered as a cost centre.
+4. Submit, then sign in as `bjorn.eriksson` and **Post**.
+   Expected: posted; the posted journal shows the three names read-only on the line.
+
+## T22. Pickers on an invoice and a bill
+
+1. As `anna.lindh`, *Receivables → New invoice*, any customer, one line on a revenue account.
+   Expected: the line offers Cost centre / Project / Vessel where the account allows them.
+2. Pick Project "Harbour crane", save the draft, reopen.
+   Expected: the project is still there.
+3. *Payables → New bill*, any supplier, one cost line with Cost centre "Crane team". Save, reopen, change only the description, save again, reopen.
+   Expected: the cost centre is still there (before this slice a bill lost its cost centres on save).
+4. On a receipt or payment, add an advance line.
+   Expected: only the dimensions the advances account allows are offered (on the shipped chart that is usually none, so the pickers are hidden), never a picker that is refused on save.
+
+## T23. Report filters
+
+1. As `bjorn.eriksson`, *Accounts → Reports → Trial balance*, filter **Project** = Harbour crane.
+   Expected: only amounts tagged Harbour crane (the T21 journal). Filter **Untagged**: everything else.
+2. Open *Profit and loss* with the same project filter.
+   Expected: the note "With a project or company-dimension filter, lines that have no value for it are left out. Choose Untagged to see them."
+3. Drill from P&L into the general ledger.
+   Expected: the project filter is carried over.
+4. Filter Project = "Old quay" (inactive).
+   Expected: offered in the list, marked inactive.
+
+## T24. Company dimensions off (Stockholm Handel)
+
+1. Sign in as `erik.berg`, pick Stockholm Handel. *Accounts → Dimensions*.
+   Expected: Cost centres and Projects show; **no** Company dimension slots.
+2. New journal, a cost line.
+   Expected: Cost centre and Project pickers only; no company-dimension picker.
+3. At a narrow window (or phone), open the journal grid.
+   Expected: the dimension columns scroll sideways; nothing is cut off or overlaps. Send a screenshot either way.
+
 ---
 
 # If something fails
