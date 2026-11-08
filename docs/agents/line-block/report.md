@@ -20,3 +20,13 @@ Commit (NeoERP-App, dev-app, not pushed): see SHA in the reply.
 - On-account notes: the wide row now has header labels and a remove icon (disabled on the blank last line). No Add line there (view model auto-keeps a blank line); no limit.
 - Advance lines wide: Tax code column 200 dp, amount 140 dp; Android compile not run.
 - Credit/debit note "against an invoice/bill" lines (`InvoiceLinesCard`, `BillLinesCard`) are not repeating-add lines and were left as they are.
+
+## Review fixes (opus-review.md)
+- H1: each wide cell has a description "<column>, line N" (", required" for required columns), from `core_a11y_cell_line(_required)`.
+- M1: remove slot is `max(40 dp, touch floor)`, header spacer too. M2: `NeoText` got `textAlign`; invoice/bill Net and Tax are right-aligned. M3: `NeoLineColumn.hint`; Discount hint "10 % or an amount" back on narrow.
+- L1: `core_fmt_field_error`, `core_title_lines` (no glued text, no hard-coded "Lines"). L2: `core_msg_line_limit` is `<plurals>`. L3: header star uses `NeoRequiredLabel` (danger colour, "required" announced). L4: narrow Remove carries "Remove line N". L5: tests for narrow keys, error staying with its line after a middle remove, wide cell names, hidden remove. L6: on-account notes hide Remove on the blank last line (`showRemove`).
+- Tests: jvmTest NeoLinesBlockUiTest (9) and commonTest NeoLinesRulesTest (3) pass; nothing else run.
+
+## Narrow footer
+
+Side-panel and sticky footers no longer squeeze their status text. New `NeoFooterLayout.kt` (designsystem/components): `NeoFooterContent` (used by `NeoSidePanel`, keeps the `RowScope` lambda; weighted children are the text) and `NeoStartActions` (used by `NeoStickyFooter`, so `NeoFooterOverlay` pages such as the invoice editor get the same rule). One row while the buttons plus a readable text (up to 200dp, never less than its longest word) fit; otherwise the text full width with the buttons under it, right-aligned; in the panel's `full` (phone) mode the buttons are full width and stacked, primary last/at the bottom. Decision is `neoFooterMode` (pure). Children are measured once (intrinsics decide), after Hot Reload crashed on a double measure. `NeoFooterOverlay` already reserves the measured footer height, so the taller stacked footer scrolls clear. Test: `NeoFooterLayoutTest` (decision, wide, narrow, phone, sticky footer) passes.
