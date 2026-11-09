@@ -21,7 +21,7 @@ Read-only review of `m5-r-app`, branch `claude/m5-r`, at a4447162 (range `4d44cc
 ## Must fix
 
 - **M1 Post refund has no confirmation.** `payables/SupplierRefundsScreen.kt:278–281` calls `vm::post` directly. The rig gates it with "Post refund for {cur} {x}? It gets the next number and goes into the books for {period}." (`docs/design/screen-rig/accounts-bc.jsx:2668–2674`). Add a `NeoDialogSheet` confirmation.
-- **M2 The advance payment omits supplier refunds.** `payables/PaymentDetailState.kt:48–49` builds the list from `deductions` only. `refunds` is mapped (`domain/model/PaymentModels.kt:51`, `data/mapper/PaymentMapper.kt:108`) but never shown. The heading is "Deducted and refunded" (`payables/PaymentDetailScreen.kt:129`), so Open does not reconcile. Add "{RFD} refunded −{x}" rows (`accounts_advance_refunded_row`), each linking to the refund.
+- **M2 The advance payment omits supplier refunds.** `payables/PaymentDetailState.kt:48–49` builds the list from `deductions` only. `refunds` is mapped (`domain/model/PaymentModels.kt:51`, `data/mapper/PaymentMapper.kt:108`) but never shown. The heading is "Deducted and refunded" (`payables/PaymentDetailScreen.kt:129`), so Open does not reconcile. Add "{RFD} refunded −{x}" rows (`accounts_advance_fmt_refunded_row`), each linking to the refund.
 - **M3 Delete draft can't be reached.** `payables/SupplierRefundsScreen.kt:78` sends anyone with `prepareRefund` from a draft row to the editor, which has no Delete. Delete exists only on the detail page (`:420`), which only non-preparers reach, and for them it is disabled. Add Delete draft to the editor, or open drafts on the detail page. The AR refunds have the same gap (`receivables/RefundsHost.kt:80`).
 
 ## Should fix
@@ -50,7 +50,7 @@ Read-only review of `m5-r-app`, branch `claude/m5-r`, at a4447162 (range `4d44cc
 - **S7** Bring the bill Advances card in line with the AR S6 fix:
   - The offer notice is Info (`BillEditorScreen.kt:401`). Make it neutral.
   - The load failure is Warning (`:395`). Make it a slim error with Try again.
-  - The hint "Up to {x}" should be "Up to {x} is still open." (`strings_accounts_supplier_deduction.xml`, `sdeduction_limit`).
+  - The hint "Up to {x}" should be "Up to {x} is still open." (`strings_accounts_supplier_advance.xml`, `sdeduction_limit`).
   - The input (`:419`) has no `isError` and is not end-aligned.
 - **S8** `"−" + f.money(…)` again (S14 from the last review) at `BillDetailScreen.kt:187, 203, 206`. Use `f.money(-x)`.
 - **S9** AP advance source sheet:

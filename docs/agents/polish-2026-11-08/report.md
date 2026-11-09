@@ -7,7 +7,7 @@ One commit (SHA in the reply). Not pushed. English strings only.
 3. `dimensionCodeAndName` shows code once when code equals name; used by DimensionLabel, DimensionValue.label, dimension panels, journals and report pickers.
 4. Payments/receipts status column widened (250 dp; refunds 190 dp). The marks logic already gave "Waiting for approval" on an unfiltered list, so the likely cause was the narrow column squeezing the second pill; I could not reproduce. Added a test for a submitted advance. If it still shows only "Advance", check whether a status chip is selected (then the pill is hidden by design).
 5. Advance line Tax code: `NeoSelectOption.closedLabel` shows only the code in the closed field (receipt and payment advance lines); the list keeps code and name.
-6. Dimensions overview: a set-up slot shows "Company dimension N" (`accounts_dimensions_label_company_slot`).
+6. Dimensions overview: a set-up slot shows "Company dimension N" (`accounts_dimension_label_company_slot`).
 7. Picker panel: with nothing listed the panel is sized for one row (three only for skeleton or failure); the no-match box no longer pads vertically.
 8. One Clear filters: toolbar button only while rows exist; the text line keeps it (ux-principles section 23). Done for receivables, payables, refunds, ageing, customers, suppliers and journals.
 9. Credit and debit note on account lines start on the company default tax code (`defaultTaxCodeId`); a line holding only the default is still the open blank line.

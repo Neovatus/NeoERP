@@ -49,9 +49,9 @@ notice: `payables/PayablesSupport.kt:126-127` (`DUPLICATE_SUPPLIER_CODE` → `co
 
 **M3. The dimension panel disables Save without saying why.**
 - **Where:** `dimensions/DimensionQuickAdd.kt:98` computes `valueProblem`, and `saveEnabled = problem == null`. No problem text is drawn.
-  The full panel draws one (`DimensionValuePanel.kt:161-176`, `accounts_dim_problem_*`).
+  The full panel draws one (`DimensionValuePanel.kt:161-176`, `accounts_dimension_problem_*`).
 - **Failure:** the person types `R 1` or `Retail shop` as the code. `codeOk` fails on the space, and Save is grey with no message.
-- **Fix:** show the same `accounts_dim_problem_*` text under the code field once it has been touched.
+- **Fix:** show the same `accounts_dimension_problem_*` text under the code field once it has been touched.
 
 ## Low
 
@@ -71,10 +71,10 @@ notice: `payables/PayablesSupport.kt:126-127` (`DUPLICATE_SUPPLIER_CODE` → `co
   - **Effect:** the customer sheet behind "Open full record" gets a blank actor or non-owner for its bank section. The report lists this
     as open. The server enforces the rule, so this is only a display gap.
 - **L4. String keys do not follow naming-standard §3 and §4.**
-  - **Prefix (§3):** `composeResources/values/strings_accounts_quick_add.xml` holds `accounts_supplier_…`, `accounts_customer_…` and
+  - **Prefix (§3):** `composeResources/values/strings_accounts_quick_add.xml` holds `accounts_supplier_advance_…`, `accounts_customer_…` and
     `accounts_dimension_…`. Keys must start with the file's scope (`accounts_quick_add_…`), or go into the supplier, customer and dim files.
-  - **Area name:** `accounts_dimension_…` uses a new area word; the existing dimension keys use `accounts_dim_`.
-  - **Unused key:** `core_label_code` is defined but never used (rule 10). The dimension panel uses `accounts_dim_field_code` for Code but
+  - **Area name:** `accounts_dimension_…` uses a new area word; the existing dimension keys use `accounts_dimension_`.
+  - **Unused key:** `core_label_code` is defined but never used (rule 10). The dimension panel uses `core_label_code` for Code but
     `core_label_name` for Name.
   - **Hard-coded text:** `LineDimensionPickers.kt:85` adds the new literal `"Add value"`. The new add rows in
     `PaymentEditorScreen.kt:123` and `ReceiptEditorScreen.kt:117` add more `"Add supplier"` / `"Add customer"` literals (rule 8: new text
@@ -139,7 +139,7 @@ Read-only: read from the commit (`git show dd924421:…`), not the working tree;
 | L1 open-full flag never reset | **Fixed** | The flag is gone. |
 | L2 closing during a save | **Fixed** | Cancel, outside-dismiss and "Open full record" are off while busy. |
 | L3 receipt actor/owner | Not fixed (left on purpose, report says so) | Display only. |
-| L4 key names and literals | **Fixed** | `accounts_quick_add_*`, `accounts_dim_quick_add_*`, `core_label_code` gone, the three add labels in resources. Small leftover: the dimension panel still uses `core_label_name` while `accounts_dim_field_name` exists. |
+| L4 key names and literals | **Fixed** | `accounts_quick_add_*`, `accounts_dimension_quick_add_*`, `core_label_code` gone, the three add labels in resources. Small leftover: the dimension panel still uses `core_label_name` while `core_label_name` exists. |
 | L5 stale KDoc | **Fixed** | |
 | L6 valid-from | **Fixed** | Company's today, written in building-blocks. |
 | L7 full sheet's edits not reaching the form | **Fixed** | The full new-record sheet's `onSaved` picks the record. |

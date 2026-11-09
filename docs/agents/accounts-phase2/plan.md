@@ -191,7 +191,7 @@ Only the explicit files below belong to this closeout. Preserve all other existi
 
 **NeoERP-App** — `fix(accounts): complete Phase 2 SIE defaults and guide`
 
-- `composeApp/src/commonMain/composeResources/values/strings_accounts_sie_import_flow.xml`
+- `composeApp/src/commonMain/composeResources/values/strings_accounts_sie_import.xml`
 - `composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/features/accounts/data/mapper/AccountsSetupMapper.kt`
 - `composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/features/accounts/data/mapper/SieImportMapper.kt`
 - `composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/features/accounts/data/remote/dto/AccountsA0Dtos.kt`

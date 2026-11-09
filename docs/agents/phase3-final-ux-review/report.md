@@ -37,7 +37,7 @@ then right (disable with reason; Jabran 2026-11-04 rule stays for rights).
 
 ## Should fix
 - S1 Plural feature names with "is" (strings_entitlements_off.xml:3–9) → "Refunds and advances are off for {company}".
-- S2 feature_off_ask_admin → "Ask your company admin to turn it on." (name when known).
+- S2 core_msg_feature_ask_admin → "Ask your company admin to turn it on." (name when known).
 - S3 NotAvailable / NotForCountry use warn "denied" spot (designsystem/components/NeoFeatureOffNotice.kt:141–145) → neutral.
 - S4 featureDisplayName (NeoFeatureOffNotice.kt:90–100) lacks SIE_SE, OPENING_BALANCE_IMPORT etc.; obimport/ObImportHost.kt:403
   shows "Module is off" → names for every NeoFeatureAction code, pass name from OB host.
