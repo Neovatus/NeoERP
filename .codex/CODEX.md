@@ -105,3 +105,6 @@ If a task touches both repos:
 - If the task starts with "endpoint", "service", "JWT", "RBAC", "Flyway", or "database", move into `NeoERP-BackEnd`.
 - If the task mentions a screen design, tokens, or a handoff, read `NeoERP-App/docs/design/` and `docs/domain/RULES.md` before choosing a repo.
 - If the task mentions bootstrap, login, permissions, or module enablement, expect both repos to be relevant.
+
+## Builders get one repo (Jabran 2026-11-10)
+A builder gets only the repo it works in; briefs live in that repo's `docs/agents/<topic>/`. Both repos only for cross-repo tasks.

@@ -63,6 +63,10 @@ those rules get built pixel-accurate and rule-wrong.
 `NeoERP-App/docs/design/design-system/neoerp-tokens.json` is authoritative for every
 design value; `styles.css` derives from it, never the reverse.
 
+## Builders get one repo (Jabran 2026-11-10)
+
+A builder (Claude or Codex) gets only the repo it works in. Its brief lives in that repo's `docs/agents/<topic>/`, not in this workspace. Both repos only for cross-repo tasks. The workspace keeps `docs/domain/` and the lead's notes.
+
 ## Cross-repo changes
 
 If a task touches both repos:
