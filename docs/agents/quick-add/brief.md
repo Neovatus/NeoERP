@@ -55,6 +55,6 @@ Run targeted tests only. The lead runs the full suite.
 
 ## Rules
 
-- **Commits:** one Gradle run at a time in the checkout. Don't push. Commit with `git -c user.name=jabransiddiqui -c user.email=jabransiddiqui@outlook.com commit -m "<msg>" -m "Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>"`.
+- **Commits:** one Gradle run at a time in the checkout. Don't push. Commit with `git -c user.name=jabransiddiqui -c user.email=jabransiddiqui@outlook.com commit -m "<msg>"`.
 - **Forbidden:** don't touch PROJECT-STATE*.md, .local-secrets, sign-in/auth code, or the backend.
 - **Done:** write `docs/agents/quick-add/report.md` (workspace) with what changed, commit SHAs, tests run, and anything left open.

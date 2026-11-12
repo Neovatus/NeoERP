@@ -6,4 +6,4 @@ Work ONLY in `/Users/jabransiddiqui/Offices/Neovatus/NeoERP-worktrees/codex-dbdo
 V54 customer bank requests · V55 refund draft settles · V56 supplier advance evidence · V57 AP advance guard + signed subtotals · V58 supplier refund requests · V59 fiscal state integrity.
 For each: tables/columns added, constraints and triggers (what they enforce, in plain words), and why. Check facts against the SQL; do not invent.
 Never read `PROJECT-STATE*.md`, `.local-secrets` or key material.
-Commit: `git -c user.name=jabransiddiqui -c user.email=jabransiddiqui@outlook.com commit -m "docs(db): accounts V54–V59 sections" -m "Co-Authored-By: Codex <noreply@openai.com>"`. Report in `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-dbdoc/report.md` (one paragraph + commit hash).
+Commit: `git -c user.name=jabransiddiqui -c user.email=jabransiddiqui@outlook.com commit -m "docs(db): accounts V54–V59 sections"`. Report in `/Users/jabransiddiqui/Offices/Neovatus/NeoERP/docs/agents/codex-dbdoc/report.md` (one paragraph + commit hash).

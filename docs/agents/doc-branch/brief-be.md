@@ -14,7 +14,7 @@
 5. **Tests:** multi-branch on-account notes with and without a branch, single-branch default, inactive branch, and from-document copy. Run targeted tests only (one Gradle run at a time).
 
 **Rules:**
-- Commit, don't push. Commit with `git -c user.name=jabransiddiqui -c user.email=jabransiddiqui@outlook.com commit -m "<msg>" -m "Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>"`.
+- Commit, don't push. Commit with `git -c user.name=jabransiddiqui -c user.email=jabransiddiqui@outlook.com commit -m "<msg>"`.
 - Don't touch PROJECT-STATE*.md, .local-secrets, auth or sign-in code.
 - The services are running locally; don't restart them.
 - Report to docs/agents/doc-branch/report-be.md.

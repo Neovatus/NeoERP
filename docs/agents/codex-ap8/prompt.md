@@ -22,7 +22,7 @@ AP-8 = CP-OBI.2: one opening-balance (OB) import wizard for every country — CS
 - commonMain must compile for iOS: **never use `String.format`/`"…".format`, `putIfAbsent` or `assert(`**.
 - Tests: view-model state tests for every step and refusal (wrong file, unmapped columns, unbalanced TB, period closed, missing rights), the OBI-12 pre-fill, and the SIE wizard regression. Run only those tests plus the accounts app package: `./gradlew :composeApp:jvmTest --tests '…'`; then `./gradlew :composeApp:compileKotlinIosSimulatorArm64` must have 0 errors. One Gradle run at a time. No full suite.
 - Never read `PROJECT-STATE*.md`, `.local-secrets` or key material; no passwords or tokens.
-- Commit identity: `git -c user.name=jabransiddiqui -c user.email=jabransiddiqui@outlook.com commit -m "feat(accounts): AP-8 opening-balance import wizard (mocks)" -m "Co-Authored-By: Codex <noreply@openai.com>"`.
+- Commit identity: `git -c user.name=jabransiddiqui -c user.email=jabransiddiqui@outlook.com commit -m "feat(accounts): AP-8 opening-balance import wizard (mocks)"`.
 
 ## Report (`report.md`)
 Screens built, mock contract assumptions (anything the contract left open), tests and counts, iOS result, commit hash, open questions.

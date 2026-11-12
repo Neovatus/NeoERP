@@ -171,7 +171,7 @@ Output: findings grouped by rule (file:line, what, suggested fix), then a per-fe
 - Never read PROJECT-STATE*.md; never print secrets; do not delete files unless the brief says so.
 - Use cheaper model tiers for mechanical parts (data rows, wording, fixtures) and your strongest tier for
   migrations, money/tax logic and review of your own diff.
-- Commit with: `git -c user.name=jabransiddiqui -c user.email=jabransiddiqui@outlook.com commit -m "<msg>" -m "Co-Authored-By: Codex <noreply@openai.com>"`
+- Commit with: `git -c user.name=jabransiddiqui -c user.email=jabransiddiqui@outlook.com commit -m "<msg>"` No Codex, Claude or other AI attribution line in commit messages or code comments.
 - Finish with a report in your worktree's last commit message body or as `docs/agents/codex-<task>/build-report.md`
   in the workspace repo (commit only that file on master): commit hashes, what changed per item, tests run with counts,
   anything skipped and why.
