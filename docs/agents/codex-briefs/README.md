@@ -163,12 +163,17 @@ Output: findings grouped by rule (file:line, what, suggested fix), then a per-fe
 **Builder rules (Jabran 2026-10-31: Codex builds in its own git worktree so it can run in parallel).**
 - Never edit the main checkouts NeoERP-App / NeoERP-BackEnd. Create your worktree first:
   `git -C <repo> fetch origin && git -C <repo> worktree add /Users/jabransiddiqui/Offices/Neovatus/NeoERP-worktrees/<task> -b codex/<task> origin/<base>`
-  (backend base `dev`, app base `dev-app`). Work, build and test only inside that worktree.
+  (base `main` in both repos since 2026-11-12, or the phase/fix branch the brief names). Work, build and test only
+  inside that worktree.
 - Commit on your branch only, never push, never merge, never force. The ERP lead (Claude) reviews, merges in
   migration order and pushes.
 - Migration numbers are assigned here; use exactly yours. Applied migrations are frozen; never change V1–V39.
   Never start services against Jabran's local database (Testcontainers in tests are fine).
 - Never read PROJECT-STATE*.md; never print secrets; do not delete files unless the brief says so.
+- **Stop and ask (report back, don't work around) when (2026-11-13, applies to Claude builders too):** the brief and
+  the code disagree; a shared component can't do what is needed without changing its behaviour for other screens; a
+  migration, an API/contract change or a security/permission change turns out to be needed; a test expectation would
+  have to change; or you would touch files outside the brief's list. Every brief states its own extra stop points.
 - Use cheaper model tiers for mechanical parts (data rows, wording, fixtures) and your strongest tier for
   migrations, money/tax logic and review of your own diff.
 - Commit with: `git -c user.name=jabransiddiqui -c user.email=jabransiddiqui@outlook.com commit -m "<msg>"` No Codex, Claude or other AI attribution line in commit messages or code comments.
