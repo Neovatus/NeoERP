@@ -60,7 +60,7 @@ Who: `anna.lindh` prepares, `bjorn.eriksson` approves. Company: Kystgruppe Nordi
 
 1. Sign in as Anna. *Accounts → Payables → Payments*. Click the "..." button next to **Record payment**, then **Pay in advance**.
    Expected: a side panel titled **Pay in advance**, subtitle "Money paid to a supplier before they deliver, against their prepayment invoice. Someone else approves it; the final bill deducts it later."
-2. Fill: Supplier *Fjord Energi AS*; Date: today; Paid from: the main bank account (1920); Amount paid (NOK) `2,500.00`; Reference `ADV-DEMO-1`.
+2. Fill: Supplier: pick *Fjord Energi AS* (search `Fjord`); Date: today; Paid from: the main bank account (1920); Amount paid (NOK) `2,500.00`; Reference `ADV-DEMO-1`.
    Expected: no errors yet; the panel now shows the heading **Supplier's prepayment invoice** and a block **What it's for**.
 3. Supplier's prepayment invoice number `PP-9001`; Prepayment invoice date: today. Under **What it's for**: Description `Prepayment, December power`; Tax code: the Norwegian no-VAT advance code (`NO-ADV-OOS-IN`, "Advance paid, no VAT"); Amount including VAT (NOK) `2,500.00`.
    Expected: footer reads "Paid 2,500.00 · lines 2,500.00". The line says "No VAT on this advance". No amber "VAT can't be claimed" warning (a no-VAT line needs no invoice number).
@@ -68,7 +68,7 @@ Who: `anna.lindh` prepares, `bjorn.eriksson` approves. Company: Kystgruppe Nordi
    Expected: toast "... sent for approval." with "Someone else approves it."; the payment opens as a submitted advance; Anna has no Approve button (she wrote it).
 5. Sign out, sign in as Bjorn. *Accounts → Payables → Payments*, open the new advance (it carries the **Advance** mark, 2,500.00). Click **Approve payment**, then **Approve** in the sheet "Approve {number}?".
    Expected: the sheet says "It gets the next payment number and goes into the books as money paid ahead to the supplier. The final bill deducts it later. A mistake is corrected by reversing it." After Approve: toast "Payment {number} approved." / "It is in the books. Send the money from your bank."
-6. Sign out, sign in as Anna. *Accounts → Payables → Bills → New bill*. Supplier *Fjord Energi AS*; Supplier's invoice number `FE-4700`; leave dates; one line: Description `Shore power, December`, Qty `1`, Unit price `10,000.00`, Tax code the 25 % input VAT code (`NO-MVA-IN-25`).
+6. Sign out, sign in as Anna. *Accounts → Payables → Bills → New bill*. Supplier: pick *Fjord Energi AS* (search `Fjord`); Supplier's invoice number `FE-4700`; leave dates; one line: Description `Shore power, December`, Qty `1`, Unit price `10,000.00`, Tax code the 25 % input VAT code (`NO-MVA-IN-25`).
    Expected: a card **Advances** shows two notices: "You paid Fjord Energi AS 3,000.00 in advance (...)" (the seeded one) and "You paid Fjord Energi AS 2,500.00 in advance (...)" (yours), each with **Deduct from this bill**. Bill total 12,500.00 (10,000.00 + 2,500.00 VAT).
 7. Click **Deduct from this bill** on the 2,500.00 notice.
    Expected: a row "Advance {number} deducted", field **Amount including VAT** with hint "Up to 2,500.00 is still open.", and the footer "Advance deducted 2,500.00 · left to pay 10,000.00".
@@ -85,7 +85,7 @@ Who: `anna.lindh` (one person records and posts). Company: Kystgruppe Nordic. Su
    Expected: the list shows one posted refund (the seeded 500.00 from Bergen Kontorservice), tabs Drafts / Posted / Reversed. Button **Record refund received** is enabled.
 2. Click **Record refund received**.
    Expected: side panel "Record refund received", subtitle "One person: whoever records it posts it."
-3. Supplier *Bergen Kontorservice AS*.
+3. Supplier: pick *Bergen Kontorservice AS* (search `Bergen`).
    Expected: card **Pays back** ("What Bergen Kontorservice AS owes you...") lists one row **Credit with supplier** with **Left 1,000.00**.
 4. Date received: today; Received into: the main bank account; Amount `400.00`; Bank reference `SR-DEMO-1`. Type `400.00` in the **Pays back** column of the row.
    Expected: footer "Received 400.00 = balances 400.00 + advances 0.00"; **Post refund** becomes enabled. (Pressing **Everything** instead assigns the whole 1,000.00 if the Amount is 1,000.00.)
@@ -127,7 +127,7 @@ Who: `anna.lindh` prepares, `bjorn.eriksson` approves. Company: Kystgruppe Nordi
 
 Company: Sialkot Mills (PKR). Customer: Sialkot Sports Traders (Pvt) Ltd. Tax code PK-ST-18 (18 %).
 
-1. Sign in as `omar.farooq`, pick **Sialkot Mills**. *Accounts → Receivables → Invoices → New invoice*. Customer *Sialkot Sports Traders (Pvt) Ltd*; one line: Description `Football, match size 5`, Qty `4`, Unit price `10,000.00`, Tax code `PK-ST-18`.
+1. Sign in as `omar.farooq`, pick **Sialkot Mills**. *Accounts → Receivables → Invoices → New invoice*. Customer: pick *Sialkot Sports Traders (Pvt) Ltd* (search `Sialkot Sports`); one line: Description `Football, match size 5`, Qty `4`, Unit price `10,000.00`, Tax code `PK-ST-18`.
    Expected: total 47,200.00 (40,000.00 + 7,200.00 tax).
 2. Click **Submit for approval**.
    Expected: invoice shows Submitted. Omar, although Owner, has **no "Approve my own invoice"**: the note reads "You wrote, changed or sent this invoice, so someone else must approve it." (Hina exists, so the Owner shortcut is closed.)
