@@ -66,6 +66,7 @@ Who: `anna.lindh` prepares, `bjorn.eriksson` approves. Company: Kystgruppe Nordi
    Expected: footer reads "Paid 2,500.00 · lines 2,500.00". The line says "No VAT on this advance". No amber "VAT can't be claimed" warning (a no-VAT line needs no invoice number).
 4. Click **Submit for approval**.
    Expected: toast "... sent for approval." with "Someone else approves it."; the payment opens as a submitted advance; Anna has no Approve button (she wrote it).
+   The list row also shows an amber **No bank details** pill: Fjord Energi AS has no bank details on file and 1920 is a bank account. It is a warning only; Bjorn can still approve (the money is then paid by hand, not from a bank file).
 5. Sign out, sign in as Bjorn. *Accounts → Payables → Payments*, open the new advance (it carries the **Advance** mark, 2,500.00). Click **Approve payment**, then **Approve** in the sheet "Approve {number}?".
    Expected: the sheet says "It gets the next payment number and goes into the books as money paid ahead to the supplier. The final bill deducts it later. A mistake is corrected by reversing it." After Approve: toast "Payment {number} approved." / "It is in the books. Send the money from your bank."
 6. Sign out, sign in as Anna. *Accounts → Payables → Bills → New bill*. Supplier: pick *Fjord Energi AS* (search `Fjord`); Supplier's invoice number `FE-4700`; leave dates; one line: Description `Shore power, December`, Qty `1`, Unit price `10,000.00`, Tax code the 25 % input VAT code (`NO-MVA-IN-25`).
