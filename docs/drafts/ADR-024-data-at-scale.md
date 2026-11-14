@@ -97,7 +97,7 @@ OpenSearch for all search now (cluster per region, second copy of personal data,
 ## 6. Open questions for Jabran
 | # | Question | Recommendation |
 |---|---|---|
-| Q1 | Add Elasticsearch/BigQuery now? | No. Postgres first; each engine comes back with numbers. |
+| Q1 | Add Elasticsearch/BigQuery now? | **Decided (Jabran 2026-11-14): No.** Postgres first; each engine comes back with numbers. |
 | Q2 | Push customer data to their own warehouse, possibly outside our region? | Not in release 1; pull feed first; later opt-in, customer-owned destination, DPA, legal sign-off. |
 | Q3 | Do reporting copies, indexes, replicas count as records that must stay in Pakistan? | Assume yes until the PK legal opinion; rules out cloud warehouses for PK. |
 | Q4 | Same for Iceland? | Same rule; decide with the Iceland hosting decision. |

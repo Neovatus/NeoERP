@@ -339,3 +339,19 @@ Found in T1 testing: Pay in advance checked the amount paid but not the "What it
 - **One file-size formatter:** `formatNeoFileSize` (design system) and `SieFileSize` say the same thing; keep one, with the company decimal mark.
 - **Report grouping:** `AccountsReportAmount.grouped()` keeps its big-number type (NUMERIC(24,4) beyond `Long`) but calls a shared grouping helper so report and money formatting can't drift.
 - **Check:** add a build check (like HardcodedUiText) that flags a `NeoInput` used for money outside the shared amount field.
+
+## Real time, notifications and data at scale (Jabran 2026-11-14)
+Drafts: `docs/drafts/ADR-024-data-at-scale.md`, `docs/drafts/ADR-025-realtime-notifications.md`. Not accepted yet; the open questions in each go to Jabran before any build.
+- **Decided (Jabran 2026-11-14):** no Elasticsearch/OpenSearch, BigQuery, ClickHouse or other extra engine until a measurement shows it is needed (ADR-024 Q1); each comes back with the number and the monthly cost.
+- **Phasing:**
+  - Phase 4 platform lane, beside A4 (after the ADRs are accepted): ADR-025 RT-0 (inbox `userId` bug, `InboxRepositoryImpl.kt:21` vs `NotificationController.kt:78-79`), RT-1 shared action ids, RT-2 notification service (in-app); ADR-024 Stage 0 (query statistics and metrics, large-customer test data generator, customer/supplier list balance fix F1, session advisory locks → transaction-level, local Postgres 15 → 16, batched detail lookups).
+  - End of Phase 4: RT-3 SSE hub, RT-4 app `core/realtime`, RT-5 first Accounts screens (exports, imports, approval counts, permission changes).
+  - Phase 5 (documents and bank): RT-6 real e-mail; RT-8 FBR/e-invoice status events; bank statement import and payment files as action-id jobs.
+  - Phase 5b (controls and close): live close board and reconciliation sign-offs with notifications.
+  - HR/Payroll rebuild: on the foundation from day one (leave approvals with push, payroll runs with action ids, sensitive data as ids only).
+  - Mobile push RT-7: with the HR/ESS rebuild or the first phone approvals (Apple/Firebase accounts, store review).
+  - Reporting (ADR-023): action ids for scheduled reports and e-mail distribution.
+  - Before the first large customer (release gate): ADR-024 Stage 1 (keyset paging on big lists, trigram search indexes and the global search bar, explicit pool sizes and PgBouncer, journal_lines partition spike, reporting store on Postgres).
+  - Only on a measured trigger: ADR-024 Stage 2 (read replica, partitioning, OpenSearch, ClickHouse, archiving closed years).
+- **Rule after the foundation exists:** every new slice returns an action id for async work, declares a stream contract for live types, and sends messages through the notification service; old screens move over gradually.
+- **To discuss at implementation (Jabran 2026-11-14):** events carrying a data snapshot (fields per module stream contract, permission-checked per person, ids only for sensitive types, version guard, size cap) and the request `Prefer` header (`return=representation` / `respond-async` / `return=minimal`). Not written into ADR-025 yet.
