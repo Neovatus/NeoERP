@@ -4,10 +4,10 @@
 | Field | Content |
 |---|---|
 | Identity | A4: recurring journals, accruals with automatic reversal, CSV journal import. Repos: NeoERP-BackEnd, NeoERP-App. Lead: Claude (workspace lead session). |
-| Stage | Plan, awaiting Jabran's decisions D-174…D-182. |
-| Approval | A4 contract and D-108…D-115 approved by Jabran 2026-10-10 (G-3). Phase 4 start with A4 while Phase 3 testing continues: Jabran 2026-11-14. FMT-T waits for the fix-branch merge (Jabran 2026-11-14). Build not yet approved. |
+| Stage | Engineer: S0 (contract refresh) then S1, backend worktree `NeoERP-worktrees/a4-be`, branch `phase/4-a4` from main e210155. |
+| Approval | A4 contract and D-108…D-115 approved by Jabran 2026-10-10 (G-3). Phase 4 start with A4 while Phase 3 testing continues: Jabran 2026-11-14. FMT-T waits for the fix-branch merge (Jabran 2026-11-14). **Jabran 2026-11-14 approved D-174…D-182 as recommended, with D-179 changed** (below) and confirmed the rule: a module or feature switched off keeps its history readable, read-only. Lead approves L-1 (one migration per slice) and L-2 (accounts machine client reads org legal-profiles time zone, read-only, cached; re-checked in the S1 Opus review). |
 | Progress | Plan refresh done 2026-11-14 (Opus, read-only). Lead verified: G-3 approval, `PostingEngine.kt:917-925` period-13 reversal dating, `DenyImplications.kt:13` "Recurring journals are not covered". |
-| Resume point | Jabran answers D-174…D-182 → S0 contract refresh (docs) → S1 build in a worktree under NeoERP-worktrees/, branch from main. |
+| Resume point | S0+S1 builder (Opus) running in a4-be; then Opus review of S1 (security + migration); then S2 ∥ S3a. |
 
 Base: backend main e210155; next free migrations accounts **V67**, user **V46** (taken at merge).
 
@@ -35,7 +35,7 @@ Base: backend main e210155; next free migrations accounts **V67**, user **V46** 
 
 App spec `NeoERP-App/docs/design/specs/accounts-a4.md`: rig exists; `NeoFilePicker`/upload built (drop AC4-4); wizard must use `NeoWizardStepper`/`NeoWizardCard`/`NeoWizardFooter`; recurring editor reuses `JournalLineGrid` via a grid-state interface; all text in en/nb/sv/da resources (`strings_accounts_recurring.xml`, `strings_accounts_journal_import.xml`); feature-off state (`NeoFeatureAction.RecurringJournals`, `JournalCsvImport`); period-13 text follows D-174; limits and columns follow D-178/D-182; pickers: accounts no quick add, dimensions quick add; Origin filter maps to backend `source`; result card follows D-181.
 
-## 2. Decisions (Jabran)
+## 2. Decisions (Jabran) — all approved 2026-11-14
 | # | Question | Recommendation | Blocks |
 |---|---|---|---|
 | D-174 | Period-13 adjustment with "Reverse automatically"? | Not allowed in A4 (422 `AUTO_REVERSE_NOT_ALLOWED`, reason ADJUSTMENT_PERIOD). | S2 |
@@ -43,7 +43,7 @@ App spec `NeoERP-App/docs/design/specs/accounts-a4.md`: rig exists; `NeoFilePick
 | D-176 | Lock next month when posting an accrual | Yes: reversal month `FOR SHARE` after the posting period, check OPEN. | S2 |
 | D-177 | JOURNAL.CREATE/READ denial carries to recurring journals | Yes, at runtime in `DenyImplications`. | S1 |
 | D-178 | CSV dimension columns | branch, cost_centre, project + one per active free dimension code (while Free dimensions is on); unknown/inactive = row problem; no "propose new value" in A4. | S4 |
-| D-179 | Feature switched off | Recurring creates nothing, catches up when back on (≤36/run); approved auto-reversals keep posting; new auto-reverse needs the feature on. | S2, S3b |
+| D-179 | Feature switched off | **Approved as changed:** history (templates, runs, imports) stays readable, read-only; recurring creates nothing while off and **does not catch up** the off months when switched back on — those runs are recorded `SKIPPED_FEATURE_OFF` and a person may still use Create draft now; auto-reversals of accruals approved while on keep posting (the only exception); new auto-reverse needs the feature on. | S2, S3b |
 | D-180 | Language of `{month}`/`{period}` and system memos | Company ledger language (`LedgerText`). | S3a |
 | D-181 | Keep uploaded CSV after confirm | Keep as ATTACHMENT, scanned, download with JOURNAL.READ; discarded/expired 24 h. | S4 |
 | D-182 | Import limits | 5 MB, 10,000 rows, 500 journals. | S4 |
