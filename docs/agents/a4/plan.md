@@ -7,7 +7,7 @@
 | Stage | Engineer: S0 (contract refresh) then S1, backend worktree `NeoERP-worktrees/a4-be`, branch `phase/4-a4` from main e210155. |
 | Approval | A4 contract and D-108…D-115 approved by Jabran 2026-10-10 (G-3). Phase 4 start with A4 while Phase 3 testing continues: Jabran 2026-11-14. FMT-T waits for the fix-branch merge (Jabran 2026-11-14). **Jabran 2026-11-14 approved D-174…D-182 as recommended, with D-179 changed** (below) and confirmed the rule: a module or feature switched off keeps its history readable, read-only. Lead approves L-1 (one migration per slice) and L-2 (accounts machine client reads org legal-profiles time zone, read-only, cached; re-checked in the S1 Opus review). |
 | Progress | Plan refresh done 2026-11-14 (Opus, read-only). Lead verified: G-3 approval, `PostingEngine.kt:917-925` period-13 reversal dating, `DenyImplications.kt:13` "Recurring journals are not covered". |
-| Resume point | S0+S1 builder (Opus) running in a4-be; then Opus review of S1 (security + migration); then S2 ∥ S3a. |
+| Resume point | S0+S1 built (a4-be 4aed6bb, 5874974, 649fc96; targeted tests green). Opus review: 0 Critical/High; M1 (seam may call Org under locks → features warmed before locks), M2 (cancel auto-reversal declares the GL feature and works while Recurring is off; Create draft now / Dismiss refused while off, allowed after back on for SKIPPED_FEATURE_OFF runs), L1 (cache Org failure 1 min; jobs skip a company with unknown zone, UTC only for previews), L2–L5 — all accepted by the lead 2026-11-14, builder fixing. Then S2 ∥ S3a. |
 
 Base: backend main e210155; next free migrations accounts **V67**, user **V46** (taken at merge).
 
