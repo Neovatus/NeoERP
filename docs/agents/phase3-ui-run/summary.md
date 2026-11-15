@@ -1,22 +1,17 @@
 # Phase 3 UI run summary
 
-- T11: blocked — 0 findings (not run)
-- T12: blocked — 0 findings (not run)
-- T13: blocked — 0 findings (not run)
-- T14: blocked — 0 findings (not run)
-- T15: blocked — 0 findings (not run)
-- T16: blocked — 0 findings (not run)
-- T17: blocked — 0 findings (not run)
-- T18: blocked — 0 findings (not run)
-- T19: blocked — 0 findings (not run)
-- T20: blocked — 0 findings (not run)
-- T21: blocked — 0 findings (not run)
-- T22: blocked — 0 findings (not run)
-- T23: blocked — 0 findings (not run)
-- T24: blocked — 0 findings (not run)
+- T14: failed — 1 finding
+- T15: blocked — 0 findings
+- T16: blocked — 0 findings
+- T17: passed — 0 findings (optional .xls step skipped)
+- T18: blocked — 0 findings
+- T19: passed — 0 findings
+- T20: passed — 0 findings (two-window step skipped)
+- T21: passed — 0 findings (Vessel unavailable on selected account, as already known)
+- T22: passed — 0 findings
+- T23: passed — 0 findings
+- T24: blocked — 0 findings
 
-Blocker: Desktop control listed the running MainKt process but could not attach to it by name or listed identifier. No test steps were performed, and feature restoration was not verified.
+T14 branch selection fails, blocking T15–T16. T18 was not submitted because Stockholm already had a posted opening-balance journal. T24 lacked the prerequisite Stockholm dimension values. A screenshot command initially failed; display access subsequently enabled captures, and T14 evidence was reproduced and captured. Two app-only crops show the selector and error at approximately 626 × 600 pixels. Phone widths and multiple tablet/desktop widths were not captured; the requested multi-size entry-screen coverage remains incomplete. The earlier T18 balance discrepancy was withdrawn after the refreshed preview was checked. Backend was not restarted.
 
-Retry: Desktop control was reset and again listed MainKt as running, but attaching by its listed identifier returned “Invalid app: com.oracle.java.java”. No test steps were performed on retry.
-
-Launch retry: `./gradlew :composeApp:run` displayed “NeoERP is already open.” Desktop control listed two running entries named `MainKt`, with identifiers `com.jetbrains.jbr.java` and `com.oracle.java.java`; it did not provide window titles or a window list. Attaching to the first identifier returned “Invalid app: com.jetbrains.jbr.java”; attaching by name returned “Invalid app: MainKt”. The sign-in screen was not observed and no test steps were performed.
+Supplementary evidence: T21 now links three app-content renderings from the existing journal editor screenshot test at simulated 390, 820 and 1440 px window widths. They use fixture data and tall virtual canvases, not the running app or real devices; they do not complete the requested multi-size coverage of each entry screen. No new finding was verified from them.

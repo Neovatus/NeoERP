@@ -478,14 +478,17 @@ A Swedish demo company exists: **Stockholm Handel** (`erik.berg` Accountant, `sa
 
 ## T24. Company dimensions off (Stockholm Handel)
 
-Precondition: Stockholm Handel is live (T18) and `sara.lind` has created a cost centre and a project there.
+Precondition: Stockholm Handel is live (T18).
+
+0. Setup: sign in as `sara.lind`, pick Stockholm Handel. *Accounts → Dimensions*: **Create cost centre** `SALES` "Sales" and **Create project** `P-10` "Webshop". Sign out.
+   Expected: both listed Active.
 
 1. Sign in as `erik.berg`, pick Stockholm Handel. *Accounts → Dimensions*.
    Expected: Cost centres and Projects show; **no** Company dimension slots.
 2. New journal, a cost line (the Stockholm cost centre and project from the precondition are the ones offered).
    Expected: Cost centre and Project pickers only; no company-dimension picker.
 3. At a narrow window (or phone), open the journal grid.
-   Expected: the dimension columns scroll sideways; nothing is cut off or overlaps. Send a screenshot either way.
+   Expected: below about 720 px the grid becomes one card per line, with Cost centre and Project inside each card; at a wide window the dimension columns scroll sideways. Nothing is cut off or overlaps. Send a screenshot either way.
 
 ---
 
