@@ -250,6 +250,11 @@ checklist); these gates enforce them. They apply to every App slice from Phase 4
    goes into the shared piece when the cause is shared; otherwise every sibling is fixed in the same batch. The report
    lists the places found and what was done with each ("fixed", "not affected", "left, because …"). Review checks the
    list; a sibling with the same bug left unfixed is a finding.
+8. **Every screen batch ships its size tests** (Jabran, 2026-11-16). New or changed screens get screenshot tests on the
+   shared device matrix (4 phones, 3 tablets, 4 desktops incl. a short 1024×700 window; variants en, nb, large font)
+   with the automatic layout checks (cut-off text, overlap, off-screen, footer covering content, footer/dialog button
+   alignment). A failing check is fixed in the batch. The lead views one phone, one tablet and one desktop image per
+   new screen; Jabran judges the look at the click-through.
 
 ## Context limit: hand off before it fills (Jabran, 2026-10-08)
 
