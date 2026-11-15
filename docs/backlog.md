@@ -360,3 +360,6 @@ Drafts: `docs/drafts/ADR-024-data-at-scale.md`, `docs/drafts/ADR-025-realtime-no
 - **Rule (decided):** every document belongs to one branch. A company with one branch shows no Branch field (filled automatically at posting). With several, the form shows a Branch dropdown prefilled with the person's branch, else head office. No global branch switcher (people book for several branches in one session; a forgotten switch posts silently to the wrong branch).
 - **Branch-limited access (later, platform lane with approval limits):** rights per branch in user-service; the Branch field offers only the branches the person may use, and with exactly one it is hidden and filled automatically, the same as a one-branch company. Server enforces it on every write and read.
 - **Working-branch preference (later, optional):** a profile setting that only sets the default on new forms; never locks.
+
+## Automated UI tests from the T scripts (Jabran 2026-11-15) — after the Phase 3 merge
+Turn each manual test script (phase3-test-steps T1–T24 and later phases) into Compose UI tests on the JVM (flows, texts, rights) plus screenshot tests (light, dark, phone width) of the screens involved, run with every batch (WORKFLOW UI gate 3). Agent click-through (Codex on "NeoERP Dev.app") only occasionally, e.g. once per phase. API acceptance scripts keep covering server flows.
