@@ -5,8 +5,8 @@
 |---|---|
 | Identity | Approval limits for journals, supplier payments and customer refunds (spec `NeoERP-App/docs/design/specs/accounts-approval-limits.md`). Repos: NeoERP-BackEnd, NeoERP-App. Lead: Claude (workspace lead session). |
 | Stage | Plan done 2026-11-15 (Opus, read-only; base: worktree a4-be = main e210155 + A4). Waiting for Jabran's decisions. No build until Phase 3 testing ends and A4 is merged. |
-| Approval | **AL-D11 decided by Jabran 2026-11-15:** a limit change needs a second person (one proposes, a different person confirms; applies only on confirm). **Jabran 2026-11-15 approved the planner's §2.1 design** (separate CONFIRM code; no confirming a change that names you; no stand-in confirm; no editing a pending proposal; 14-day expiry; Owner confirms alone only when no other holder, with reason and visible tag), except: notifying other holders waits for the notification service (ADR-025); until then a banner on Limits + History. Everything else (AL-D1…AL-D10, AL-D12…AL-D19) open. |
-| Resume point | Put AL-D1…AL-D19 and §0 to Jabran when testing allows; then S0 contract. |
+| Approval | **AL-D11 decided by Jabran 2026-11-15:** a limit change needs a second person (one proposes, a different person confirms; applies only on confirm). **Jabran 2026-11-15 approved the planner's §2.1 design** (separate CONFIRM code; no confirming a change that names you; no stand-in confirm; no editing a pending proposal; 14-day expiry; Owner confirms alone only when no other holder, with reason and visible tag), except: notifying other holders waits for the notification service (ADR-025); until then a banner on Limits + History. **Jabran 2026-11-15 decided AL-D1…AL-D19** (§2 "Decided" column), on the rule "we're in dev: target design, not workarounds for old code". |
+| Resume point | All decisions made. Next: S0 contract (after A4 lands), backend first; Opus security review of the AL-D12 endpoint and the AL-D14 id change. |
 
 ## 0. Things the spec assumes that the code does not have
 1. **Bank entries and payment batches are not built** (slice D is roadmap row 8; D3 is Phase 5 / PF-1). v1 kinds = journals, supplier payments, customer refunds. No bypass today: any other money-out is a manual journal, covered by journal limits. Rule: slice D must bring bank entries under the limits when it builds them.
@@ -36,6 +36,16 @@
 Next free migrations at merge: accounts **V70**, user **V47**. One per slice.
 
 ## 2. Decisions
+
+### Decided (Jabran 2026-11-15)
+- **As recommended:** AL-D2, D3, D4, D6, D7, D8, D9, D10, D13, D15, D18, D19; AL-D1 (read stand-ins fresh is the target design, kept).
+- **AL-D5 (target):** the shared model includes LINE_MANAGER, MANAGER_OF_MANAGER, COST_CENTRE_OWNER step types now; the new HR supplies the people from its start (not "reserved").
+- **AL-D12 (yes):** machine-only user-service endpoint (holders of a code in a company: IAM user id, subject, name, roles), Accounts client only, logged and counted; Opus security review.
+- **AL-D14 (target):** one id everywhere = IAM user id. New tables store only it; existing Accounts documents get a new IAM-id column filled once from the subject (new migrations; applied ones stay frozen). Subject no longer used for matching once filled.
+- **AL-D16 (new Payroll):** the new Payroll's pay-run approval uses the shared limit model (bands, steps, stand-ins, two-person limit changes) from day one; Accounts adds no second limit on payroll postings (normal checks stay). Auto-reversal job and reversals: no limits. Recurring and imported journals: limits apply.
+- **AL-D17 (target):** reminders ship with ADR-025's notification service in Phase 4; banner on Limits until then.
+
+### Planner recommendations (for reference)
 | # | Recommendation | Blocks |
 |---|---|---|
 | AL-D1 | Pure-Kotlin `shared/approval-model` (bands, steps, checks, AL-6 solver, stand-in resolution); tables in the owning service (last step + posting in one transaction); stand-ins central in user-service, **read fresh, no event feed**. | S1, S2 |

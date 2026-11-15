@@ -363,3 +363,7 @@ Drafts: `docs/drafts/ADR-024-data-at-scale.md`, `docs/drafts/ADR-025-realtime-no
 
 ## Automated UI tests from the T scripts (Jabran 2026-11-15) — after the Phase 3 merge
 Turn each manual test script (phase3-test-steps T1–T24 and later phases) into Compose UI tests on the JVM (flows, texts, rights) plus screenshot tests (light, dark, phone width) of the screens involved, run with every batch (WORKFLOW UI gate 3). Agent click-through (Codex on "NeoERP Dev.app") only occasionally, e.g. once per phase. API acceptance scripts keep covering server flows.
+
+## Legacy-shaped decisions sweep (Jabran 2026-11-15) — after the weekly limit reset
+Read-only Opus pass over plans and ADRs (workspace `docs/agents/*/plan.md`, `NeoERP-BackEnd/docs/adr/`, app `docs/agents/*/plan.md`) listing decisions shaped by old modules or missing capabilities (old HR/Payroll/ESS/inbox, seed roles, missing events, two user ids), each with the target design. We're in dev: target design first.
+Also for the new Payroll design: pay-run approval on the shared approval-limit model (AL-D16).
