@@ -5,10 +5,11 @@ you do not change code, do not commit, do not push.
 
 ## Before you start
 - Jabran is **not** testing while you run (same app, same users, same database). The app is single-instance.
-- The local backend and the app are running from `NeoERP/NeoERP-BackEnd` and `NeoERP/NeoERP-App`
-  (branch `fix/phase3-test-fixes`). If the app is not open, start it with
-  `cd NeoERP/NeoERP-App && ./gradlew :composeApp:run` (no Hot Reload). Do not start or restart the backend.
-- Script: `NeoERP/docs/agents/phase3-test-steps.md`. Run **T11 to T24** in order. Skip T10 (needs two app instances).
+- The local backend runs from `NeoERP/NeoERP-BackEnd`. Do not start or restart it.
+- **Use the test app** `/Users/jabransiddiqui/Offices/Neovatus/NeoERP-TestApp/NeoERP Dev.app` (open it with
+  `open "/Users/jabransiddiqui/Offices/Neovatus/NeoERP-TestApp/NeoERP Dev.app"`). It is a real macOS app named
+  "NeoERP Dev", pinned to the local backend. Any other NeoERP window must be closed first (single instance).
+- Script: `NeoERP/docs/agents/phase3-test-steps.md`. Run the tests from the one Jabran names (default **T12**) to **T24** in order. Skip T10 (needs two app instances).
 - Sign-in: use the demo users named in each test. Their sign-in details are in
   `NeoERP/NeoERP-BackEnd/docs/local-demo-data.md`. Type them only into the NeoERP sign-in page on `localhost`
   (Keycloak on localhost:8082). **Never** copy them into your report or any other place.
