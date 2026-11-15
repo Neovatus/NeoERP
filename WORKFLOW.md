@@ -245,6 +245,11 @@ checklist); these gates enforce them. They apply to every App slice from Phase 4
    gets the open questions, not the first look.
 6. **Review includes consistency.** Every App review checks gates 1–4 besides money and security; a screen that
    differs from its siblings is a finding.
+7. **Every fix asks "where else?"** (backend and App). Before fixing, the builder searches for the same pattern in
+   sibling screens, documents and services (AR and AP, invoice and bill, receipt and payment, every dialog …). The fix
+   goes into the shared piece when the cause is shared; otherwise every sibling is fixed in the same batch. The report
+   lists the places found and what was done with each ("fixed", "not affected", "left, because …"). Review checks the
+   list; a sibling with the same bug left unfixed is a finding.
 
 ## Context limit: hand off before it fills (Jabran, 2026-10-08)
 
