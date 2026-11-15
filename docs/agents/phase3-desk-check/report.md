@@ -44,3 +44,9 @@ T1 4 No bank details pill; T1 8 deduction display; T3 2 VAT split on 1,500.00; c
 
 ## Steps right
 T1 4/9 · T2 3/8 · T3 6/8 · T4 3/8 · T5 5/6 · T6 2/6 · T7 5/7 · T8 0/6 · T9 6/8 · T10 3/6 · T11 2/3 · T12 2/3 · T13 3/5 · T14 5/7 · T15 4/5 · T16 4/5 · T17 2/5 · T18 3/7 · T19 3/6 · T20 2/5 · T21 0/4 · T22 3/4 · T23 4/4 · T24 1/3. Seed amounts and the people table match.
+
+## Decisions (Jabran 2026-11-15, lead's recommendations)
+1. **Item 1 (T8):** the Owner (non-staff) sees Company → Modules → Module detail **read-only**: features, Required by law, Add-on / Bought / Not bought. Staff keep editing.
+2. **Item 3 (T21):** Chart of accounts lets an account **switch a company dimension on**; switching it off is refused once posted lines carry that dimension. Backend + app.
+3. **Owner's own approval (T4):** unchanged for Phase 3 (Owner's own with confirmation and history). The stricter "never while another approver exists" company setting belongs to Phase 4 approval limits (AL-D18).
+Queue: items 1 and 3 start after the current fix builder (2, 4–9) finishes (one Gradle builder per checkout).
