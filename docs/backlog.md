@@ -367,3 +367,6 @@ Turn each manual test script (phase3-test-steps T1–T24 and later phases) into 
 ## Legacy-shaped decisions sweep (Jabran 2026-11-15) — after the weekly limit reset
 Read-only Opus pass over plans and ADRs (workspace `docs/agents/*/plan.md`, `NeoERP-BackEnd/docs/adr/`, app `docs/agents/*/plan.md`) listing decisions shaped by old modules or missing capabilities (old HR/Payroll/ESS/inbox, seed roles, missing events, two user ids), each with the target design. We're in dev: target design first.
 Also for the new Payroll design: pay-run approval on the shared approval-limit model (AL-D16).
+
+## Person-id subject fallback (D-202, Jabran 2026-11-16) — before go-live
+Approval limits records the IAM user id on every new write; rows without one are matched by subject. Remove the subject fallback once no environment holds pre-AL rows (contract `accounts-approval-limits.md` §13, branch phase/4-al).
