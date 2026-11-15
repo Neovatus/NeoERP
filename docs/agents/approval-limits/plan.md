@@ -45,6 +45,9 @@ Next free migrations at merge: accounts **V70**, user **V47**. One per slice.
 - **AL-D16 (new Payroll):** the new Payroll's pay-run approval uses the shared limit model (bands, steps, stand-ins, two-person limit changes) from day one; Accounts adds no second limit on payroll postings (normal checks stay). Auto-reversal job and reversals: no limits. Recurring and imported journals: limits apply.
 - **AL-D17 (target):** reminders ship with ADR-025's notification service in Phase 4; banner on Limits until then.
 
+- **AL-D15 amended (Jabran 2026-11-16, after the Opus security review H3):** opening-balance journals keep Standard two-person only until the first non-OB posting or the first period close, whichever comes first; after that they follow JOURNAL limits.
+- **AL-Q3 (lead, on the review's advice):** one combined holders + stand-ins read and scope, with per-client module allowlists and no note/subject in the answer.
+
 ### Planner recommendations (for reference)
 | # | Recommendation | Blocks |
 |---|---|---|
