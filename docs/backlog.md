@@ -355,3 +355,8 @@ Drafts: `docs/drafts/ADR-024-data-at-scale.md`, `docs/drafts/ADR-025-realtime-no
   - Only on a measured trigger: ADR-024 Stage 2 (read replica, partitioning, OpenSearch, ClickHouse, archiving closed years).
 - **Rule after the foundation exists:** every new slice returns an action id for async work, declares a stream contract for live types, and sends messages through the notification service; old screens move over gradually.
 - **To discuss at implementation (Jabran 2026-11-14):** events carrying a data snapshot (fields per module stream contract, permission-checked per person, ids only for sensitive types, version guard, size cap) and the request `Prefer` header (`return=representation` / `respond-async` / `return=minimal`). Not written into ADR-025 yet.
+
+## Branch choice on documents (Jabran 2026-11-15)
+- **Rule (decided):** every document belongs to one branch. A company with one branch shows no Branch field (filled automatically at posting). With several, the form shows a Branch dropdown prefilled with the person's branch, else head office. No global branch switcher (people book for several branches in one session; a forgotten switch posts silently to the wrong branch).
+- **Branch-limited access (later, platform lane with approval limits):** rights per branch in user-service; the Branch field offers only the branches the person may use, and with exactly one it is hidden and filled automatically, the same as a one-branch company. Server enforces it on every write and read.
+- **Working-branch preference (later, optional):** a profile setting that only sets the default on new forms; never locks.
