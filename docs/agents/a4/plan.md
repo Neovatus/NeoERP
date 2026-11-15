@@ -59,3 +59,8 @@ Test names per slice: see the planner report summarised here and contract §13.
 ## 4. Out of scope / room for the rest of Phase 4
 Not in A4: template self-posting (D-108), spreading as one object, allocations, XLSX, non-JV imports, location/department/item dimensions, proposing new dimension values, tax/party on lines, multi-currency, notifications.
 Leave room: approval limits (keep `contributors` complete; store amount + `authorisedBy` on `scheduled_reversals`); spreading (keep `domain/recurring` generic, per-source link columns); allocations (reuse run table and draft-per-period seam); budgets (share the column-spec parser and dimension resolver); Phase 5 FX revaluation (keep `scheduled_reversals` generic with a `source` column).
+
+
+## Merge notes (2026-11-15)
+- The Phase 3 fix branch adds a `released` flag to the entitlement catalog and marks RECURRING_JOURNALS and JOURNAL_CSV_IMPORT `released = false` (fix/phase3-batch-be 2ebaf8d). When A4 merges into phase/4 after the Phase 3 merge, set both back to `released = true` in `EntitlementCatalog.kt` in the same merge, or the recurring job records SKIPPED_FEATURE_OFF and `a4-acceptance.sh`'s feature PUT gets FEATURE_NOT_RELEASED.
+- `PostingEngine.kt` conflicts expected: the fix branch adds `MAX_MEMO`/`documentMemo` next to A4's companion constants and `normalised()` edit.
