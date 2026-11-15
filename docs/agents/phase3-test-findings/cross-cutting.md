@@ -5,3 +5,5 @@
    - `NeoDialogSheet` puts `actions` in a Row with `Arrangement.End` and **no spacing** (each caller decides, or not);
    - `NeoConfirmDialog` uses `spacedBy(spacing.xs)`.
    Fix: one rule for every dialog — the actions Row is `Arrangement.spacedBy(<one dialog-actions token>, Alignment.End)`, the same token in Card/Sheet/Confirm and the panel footers; remove caller-side spacers. Check every dialog/sheet in Accounts after the change.
+2. **Server: waiting write-offs not counted** (from the T3 batch, item 6). `activeWriteOffs` reads only POSTED (`ArDocumentJdbcAdapter.kt:549`) and `WriteOffRules.price` checks the invoice's open amount, so two waiting write-offs can together exceed what is open; the server only refuses when the second is approved (WRITE_OFF_EXCEEDS_OPEN or VERSION_CONFLICT). The app now prefills/limits to open minus waiting. Proposed: the server refuses at save/submit when this write-off + other SUBMITTED write-offs on the invoice exceed what is open (money; Opus review).
+3. Reason dialog's "contract event" note: lead call — keep it on the request inbox (agreement requests), drop it on role save.
