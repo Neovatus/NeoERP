@@ -1,0 +1,4 @@
+# Codex run T12–T14 (2026-11-15) — lead triage
+- T12 passed: Lahore live from 1 Jul 2026 (Jabran approved). Finding: a newly live company with no journals — Journals empty state offers only "New opening balances"; the New journal split menu (Journal / Opening balances / Import opening balances… / Imported files) isn't reachable. Flow. → next batch.
+- T13 finding: "Download the template" on the CSV File step shows "Something went wrong. Refresh and try again." instead of a save dialog. Flow. Check whether it fails only in the packaged Dev.app (file chooser / missing module) or also in `gradlew run`. → next batch.
+- T14 CRASH (fixed in batch-app): `ObImportHost.kt:289` built `NeoSelectOption(name, label)` with label/value swapped; choosing "Not used" → `ObColumnRole.valueOf("Not used")` → uncaught exception. Only occurrence of the pattern.
