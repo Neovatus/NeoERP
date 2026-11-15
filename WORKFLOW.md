@@ -119,11 +119,11 @@ How sessions split and run work. It applies on top of the stages above.
 - **The lead stays responsive.** The main agent talks with Jabran, plans, delegates, reviews and reports. Real work goes to sub-agents or background jobs, so Jabran's questions are answered while work runs. Keep a visible task list with progress.
 - **Parallel by files.** Run independent work as parallel workers, split so no two workers edit the same file. The lead integrates shared files.
 - **Models (Claude):**
-  - **Opus 5.5:** planning, design, contracts and every review. It also implements anything that needs decisions or complex logic, and helps the Sonnet implementer when it is stuck.
-  - **Sonnet 5.5:** the default implementer for work fully specified by an approved contract (endpoints, DTOs, app data layers, screens from an approved rig).
+  - **Opus 5.5 (default builder, Jabran 2026-11-15):** planning, design, contracts, every review, and building full screen batches and anything where the spec leaves decisions open.
+  - **Sonnet 5.5:** only fully decided work: review fixes, wording, copying an existing pattern, data layers from a fixed contract.
   - **Haiku 5.5:** clearly defined tasks only: renames, doc and backlog updates, demo data and seed scripts, summaries, simple mechanical fixes.
-  - **Fable 5.1:** only the most critical problems: two identical failures at high effort, or a hard concurrency, security or data-integrity bug.
-  - **Hard rule:** anything touching money, security or auth, locking or concurrency, or migrations is implemented or co-implemented by Opus. Sonnet and Haiku work always gets an independent Opus review before it lands. (Jabran, 2026-10-08)
+  - **Fable 5.2:** only the most critical problems: two identical failures at high effort, or a hard concurrency, security or data-integrity bug.
+  - **Hard rule:** anything touching money, security or auth, locking or concurrency, or migrations is implemented or co-implemented by Opus. Every build, whichever model, gets a fresh independent Opus review before it lands. (Jabran, 2026-10-08; widened 2026-11-15)
 - **Loop for each piece of work:** spec and rig → Jabran approves → contract → backend and app slices in parallel → review → Jabran compiles and checks on devices.
 - **Approval.** When Jabran approves a spec and its contract, the slices the contract lists are approved for implementation. That includes their Flyway migrations and commits. Pushes, login or sign-in changes, and anything outside those slices still need his explicit approval.
 - **Current state and next work:** see `NeoERP-App/docs/HANDOFF.md` and the owning `docs/agents/<task>/plan.md`.
