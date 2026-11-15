@@ -221,6 +221,31 @@ enough to be worth their cost.
 - **Design reviews:** a design is reviewed once before Jabran approves it, and again only if it
   changes. Drafts for later slices are not re-reviewed until that slice is next.
 
+## UI quality gates (Jabran, 2026-11-15)
+
+Phase 3 testing found mostly look-and-consistency problems no builder saw: screens building their own version of a
+shared piece, data too simple to show a bug, and nobody looking at the screen. The rules already exist
+(`NeoERP-App/docs/design/specs/building-blocks.md`, `ux-principles.md`, the App definition of done and review
+checklist); these gates enforce them. They apply to every App slice from Phase 4 on.
+
+1. **One shared piece per concept.** A screen never builds its own dialog actions, status pill, link in a card or
+   table, footer, picker or empty state. If the piece is missing, it is added to the design system and to
+   `building-blocks.md` first, then used. A builder who finds two screens doing the same thing differently reports it.
+2. **Checks, not memory.** Architecture/lint tests fail when a feature screen bypasses a building block (for example a
+   button Row inside a dialog, a ghost `NeoButton` used as a link in a fact list or table, a status worked out per
+   screen). New building blocks come with their check.
+3. **Screenshots before Jabran.** Every new or changed screen gets entries in the screenshot tool (light, dark, phone
+   width) in the same slice; an agent reviews them against `building-blocks.md` and `ux-principles.md` and lists what
+   it sees before the slice is handed over.
+4. **Realistic data.** Tests and the demo seed include the awkward cases: a company with several branches, several open
+   advances or invoices, two tax codes at the same rate, documents waiting for approval, an Owner who may approve
+   their own. A test that only passes on a one-branch company is not enough.
+5. **Desk check and click-through before handover.** At slice end an agent checks the test steps against the code
+   (as `docs/agents/phase3-desk-check/`), and a click-through agent (Codex with desktop control) runs them; Jabran
+   gets the open questions, not the first look.
+6. **Review includes consistency.** Every App review checks gates 1–4 besides money and security; a screen that
+   differs from its siblings is a finding.
+
 ## Context limit: hand off before it fills (Jabran, 2026-10-08)
 
 Every agent session, the implementer's and the reviewer's included:
