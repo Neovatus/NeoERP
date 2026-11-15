@@ -5,7 +5,7 @@
 |---|---|
 | Identity | Approval limits for journals, supplier payments and customer refunds (spec `NeoERP-App/docs/design/specs/accounts-approval-limits.md`). Repos: NeoERP-BackEnd, NeoERP-App. Lead: Claude (workspace lead session). |
 | Stage | Plan done 2026-11-15 (Opus, read-only; base: worktree a4-be = main e210155 + A4). Waiting for Jabran's decisions. No build until Phase 3 testing ends and A4 is merged. |
-| Approval | **AL-D11 decided by Jabran 2026-11-15:** a limit change needs a second person (one proposes, a different person confirms; applies only on confirm). Everything else open. |
+| Approval | **AL-D11 decided by Jabran 2026-11-15:** a limit change needs a second person (one proposes, a different person confirms; applies only on confirm). **Jabran 2026-11-15 approved the planner's §2.1 design** (separate CONFIRM code; no confirming a change that names you; no stand-in confirm; no editing a pending proposal; 14-day expiry; Owner confirms alone only when no other holder, with reason and visible tag), except: notifying other holders waits for the notification service (ADR-025); until then a banner on Limits + History. Everything else (AL-D1…AL-D10, AL-D12…AL-D19) open. |
 | Resume point | Put AL-D1…AL-D19 and §0 to Jabran when testing allows; then S0 contract. |
 
 ## 0. Things the spec assumes that the code does not have
@@ -58,7 +58,7 @@ Next free migrations at merge: accounts **V70**, user **V47**. One per slice.
 | AL-D18 | "Owner may not post own journal" switch + self-approval report: separate Phase 4 item. | — |
 | AL-D19 | Stuck items: "Nobody can approve step 2"; reject + resubmit takes the current policy; Limits warns on unfillable steps. | S4 |
 
-### 2.1 Planner's view on AL-D11 (differs from lead in places)
+### 2.1 AL-D11 design — approved by Jabran 2026-11-15 (notifications deferred to ADR-025)
 1. **One holder only:** Owner may confirm own proposal only when the server finds no other CONFIRM holder (fresh count, excluding the proposer); tick "Nobody else can confirm this" + reason; marked `confirmedAlone`, tagged in History, shown on Limits until a second holder exists. A non-Owner sole holder is refused. Rejected: blocking (unusable for owner-run companies); Neovatus confirming (RULES §13, liability). Lead had proposed confirm by UPDATE holders; planner prefers a separate CONFIRM code so a company can split edit from confirm.
 2. **Confirmer needs no decide code** (oversight, e.g. an auditor). Conflict rule: you cannot confirm a proposal that names you as an approver.
 3. **Stand-ins cannot confirm.**
