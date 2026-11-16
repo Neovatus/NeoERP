@@ -379,3 +379,12 @@ or client, own token audience; ERP services refuse consumer tokens; no membershi
 consumers only (staff stay invite-only); (3) GDPR: Neovatus as controller of the cross-shop link, consumer-chosen
 shop links with consent, unlink and delete; (4) points as a liability — legal check for payment/e-money rules per
 country; points ledger as its own module posting to each shop's Accounts; (5) scale (millions of consumers).
+
+## Decisions 2026-11-16 (Jabran: "all looks good")
+- Report filters (T7 item 3): one pattern on every report — fiscal year + from/to periods, the same quick chips, "Exact dates" only on General ledger and journal list.
+- ADR-024 and ADR-025: accept after the lead's one-page summary.
+- Branching: Phase 3 (with the combined Phase 4 work so far) goes to main as one PR once the Codex retest is green; Phase 4 then has its own `phase/4` PR collecting all its work, merging main into phase/4 when needed.
+- Security clean-ups from the legacy sweep: item 7 (legacy scopes, audit transition paths) and item 9 (plaintext bank columns) as one small batch soon.
+- Go-live checklist: demo users never on a hosted stack, or new passwords there (demo passwords are in a committed doc).
+- Phase 4 order after approval limits: Owner-may-not-post switch → (parallel) platform lane (ADR-025 notifications, ADR-024 stage 0) → company dimensions per account → spreading schedules → allocations → budgets.
+- A4 leftovers (Automatic reversals tab, "{n} recurring journals need you" notice) in one small batch after Jabran's A4 click-through (docs/agents/a4-test-steps.md).
