@@ -370,3 +370,12 @@ Also for the new Payroll design: pay-run approval on the shared approval-limit m
 
 ## Person-id subject fallback (D-202, Jabran 2026-11-16) — before go-live
 Approval limits records the IAM user id on every new write; rows without one are matched by subject. Remove the subject fallback once no environment holds pre-AL rows (contract `accounts-approval-limits.md` §13, branch phase/4-al).
+
+## Product idea: NeoERP ID for shoppers and cross-shop loyalty (Jabran 2026-11-16) — idea only, not scheduled
+A consumer sign-in ("NeoERP ID") for the customers of our customers, usable across every shop on NeoERP, with an
+earn/spend points model on purchases. Builds on the one-person-id design (stable id issued by auth-service).
+Before any build: an ADR covering (1) a separate consumer account type, kept apart from ERP staff (own Keycloak realm
+or client, own token audience; ERP services refuse consumer tokens; no memberships); (2) open self-sign-up for
+consumers only (staff stay invite-only); (3) GDPR: Neovatus as controller of the cross-shop link, consumer-chosen
+shop links with consent, unlink and delete; (4) points as a liability — legal check for payment/e-money rules per
+country; points ledger as its own module posting to each shop's Accounts; (5) scale (millions of consumers).
