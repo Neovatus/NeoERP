@@ -388,3 +388,6 @@ country; points ledger as its own module posting to each shop's Accounts; (5) sc
 - Go-live checklist: demo users never on a hosted stack, or new passwords there (demo passwords are in a committed doc).
 - Phase 4 order after approval limits: Owner-may-not-post switch → (parallel) platform lane (ADR-025 notifications, ADR-024 stage 0) → company dimensions per account → spreading schedules → allocations → budgets.
 - A4 leftovers (Automatic reversals tab, "{n} recurring journals need you" notice) in one small batch after Jabran's A4 click-through (docs/agents/a4-test-steps.md).
+
+## Approval limits: decide-roles read for proposers (2026-11-16)
+The Limits editor can only list roles holding a decide code via `/api/rbac/roles` (needs IAM.ROLE.READ). Add `GET /api/rbac/approval-stand-ins/decide-roles?orgId=&kinds=` for APPROVAL_LIMIT.UPDATE/CONFIRM holders, answering `{items:[{roleId,name,canDecide:[kinds]}]}`; then the app uses it for everyone. Small user-service slice, security review.
