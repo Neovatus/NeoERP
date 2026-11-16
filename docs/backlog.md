@@ -395,3 +395,6 @@ The Limits editor can only list roles holding a decide code via `/api/rbac/roles
 ## Report filters follow-ups (C2, 2026-11-16)
 - Balance sheet: "As at" (fiscal year + one period; chips Today / End of last period / End of last year; default as at today). General ledger default Year to date keeps the year-start→today request. Operational journal list defaults to All periods.
 - Reports journal listing: add exact-date support in the backend request, then the "Exact dates" toggle in the app.
+
+## Approval limits: confirmedByUserId on limits answer (2026-11-16)
+Send `confirmedByUserId` per kind in GET /approval-limits so the app needs no History read to hide Acknowledge from the person who confirmed alone.
