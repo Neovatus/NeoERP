@@ -391,3 +391,7 @@ country; points ledger as its own module posting to each shop's Accounts; (5) sc
 
 ## Approval limits: decide-roles read for proposers (2026-11-16)
 The Limits editor can only list roles holding a decide code via `/api/rbac/roles` (needs IAM.ROLE.READ). Add `GET /api/rbac/approval-stand-ins/decide-roles?orgId=&kinds=` for APPROVAL_LIMIT.UPDATE/CONFIRM holders, answering `{items:[{roleId,name,canDecide:[kinds]}]}`; then the app uses it for everyone. Small user-service slice, security review.
+
+## Report filters follow-ups (C2, 2026-11-16)
+- Balance sheet: "As at" (fiscal year + one period; chips Today / End of last period / End of last year; default as at today). General ledger default Year to date keeps the year-start→today request. Operational journal list defaults to All periods.
+- Reports journal listing: add exact-date support in the backend request, then the "Exact dates" toggle in the app.
