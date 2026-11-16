@@ -4,10 +4,10 @@
 | Field | Content |
 |---|---|
 | Identity | Token `sub` = stable identity id (not the old username); IAM user id stored everywhere; reseed dev data; delete the username fallback in user-service and the subject fallback in approval limits (D-202). Repos: NeoERP-BackEnd (auth/Keycloak mapping, user-service, accounts, others that store actors), NeoERP-App (if it reads `sub`/username). |
-| Approval | **Jabran 2026-11-16: yes** ("we're in dev with no customers"). Sign-in change approved in principle; the plan's concrete auth changes still come to Jabran before code. |
-| Stage | Planning (Opus, read-only). |
+| Approval | **Jabran 2026-11-16 approved the direction and all 9 auth points**: A = refuse first sign-in without an IAM row (invite only), B = keep the `neoerp_identity_id` claim (= sub), C = delete the V9 local dev users; local data wiped and reseeded **after Jabran's current test round**. |
+| Stage | Planned and approved. Waiting for S2 and S3 to finish, then ID-1a. |
 | Source | `docs/agents/legacy-sweep/report.md` item 1; App `docs/agents/auth-architecture-decision/plan.md:77-78`; backlog D-202. |
-| Resume point | Read the planner's output, put the auth specifics to Jabran, then slices. Approval limits S2/S3 continue meanwhile; the plan says how they adapt. |
+| Resume point | After S2 + trimmed S3 land: ID-1a (backend auth/user/shared-security, Opus, security review) → ID-1b (seeds, docs, AL §13 rewrite, Sonnet) → ID-1c (app, Sonnet) → lead full run → Jabran resets after his test round. Then AL S4. |
 
 ## Planner output (Opus, read-only, 2026-11-16) — summary
 - Today: three ids (Keycloak user id; auth `neoerp_identity_id`; random `iam.users.id`). Token `sub` = preferred_username (auth-service `JwtCustomizerConfig.kt:75-83`). user-service resolver: identity id, then (idp, subject=username) fallback (`UserIdentityResolver.kt:7-22`).
