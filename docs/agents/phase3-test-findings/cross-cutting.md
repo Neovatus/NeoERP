@@ -17,3 +17,13 @@
    c. Uncaught exceptions (the earlier crash had no NeoERP message): a default uncaught-exception handler that logs to the app log and shows a NeoERP-styled "Something went wrong — restart" screen instead of a silent close or a raw Java dialog. Where else: any other `JOptionPane`/AWT dialog in jvmMain.
 8. **Local test app bundle** (Codex desktop control could not attach: `gradlew run` runs as JBR java "MainKt", "Invalid app"). Add a dev-packaged app **"NeoERP Dev.app"** (createDistributable variant / separate task) with `neoerp.env=localLive` baked in at build time — never production — proper bundle name + N icon, so desktop-control tools (Codex) can attach and Jabran can double-click it. Keep `runDistributable`/`runRelease*` production as they are. Document the task in the App README / test steps.
 - NeoUiTextLeakTest fails on BillEditorScreen.kt:355 / InvoiceEditorScreen.kt:270 tax rows (fix branch; likely scanner false positive — fix the scanner or the code). Found by A4 P4, 2026-11-15.
+
+## Shared-component faults found by the size tests (A4 size-test builder, 2026-11-16; images in a4-app build/design-shots/A4ScreenSizeTest/sizes/)
+1. `NeoBreadcrumbs` (all phones/tablets): crumbs after the room runs out get zero width → collapse middle crumbs to "…" (keep first + last two) or wrap.
+2. `NeoDataTable` cards: label weight 1, single line, clipped → long value squeezes the label to nothing; give the label natural width up to ~40%, ellipsis.
+3. `NeoTableCellText`: long descriptions cut mid-line (~820 wide) → Ellipsis.
+4. `NeoSearchInput`: 320–360 phones show "Name" for "Name or memo"; top-bar search shows "Sea" → Ellipsis / icon-only top-bar search on phones.
+5. `NeoDataTable` headings run into each other (1180 wide, font 1.3) → ellipsize, or switch to cards when headings don't fit.
+6. `NeoWizardFooter` narrow: ⋯ and primary have 0 px between touch areas; primary label shortened ("Create 12 dra…") → keep the gap; move secondary actions under ⋯ first.
+Lead visual notes (recurring list, phone): the two lines under "Next date" are not aligned the same way (date left, warning right); "Last" repeats the same "Couldn't submit" warning as Next date. Journal detail head on phones: ~30 dp empty band under ⋯.
+Codex's short-window footer overlap (1024×700) did not reproduce in the size test → re-check live in the retest round.
