@@ -398,3 +398,9 @@ The Limits editor can only list roles holding a decide code via `/api/rbac/roles
 
 ## Approval limits: confirmedByUserId on limits answer (2026-11-16)
 Send `confirmedByUserId` per kind in GET /approval-limits so the app needs no History read to hide Acknowledge from the person who confirmed alone.
+
+## C2 follow-ups (2026-11-18)
+- Phones: collapse the report/journal period block into one summary line ("Period: All periods ▾") that opens the filter panel; today it stacks ~6 rows above the list on 390dp.
+- General ledger: show "from the trial balance" again after a TB drill (hint only).
+- Operational journals: period 12 and 13 share dates, so period 12 includes year-end adjustments — say so in the filter help.
+- Older layout faults found by the C2 screen audit in ledger/journal listing cards and statement tables (see NeoERP-App docs/agents/c2/review.md on phase/4 after merge).
