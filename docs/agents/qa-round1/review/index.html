@@ -1,0 +1,141 @@
+<title>QA Round 1 Review</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a triage ledger. Summary strip, severity filter, then one row per root-cause group that opens into its findings and screenshots. */
+:root {
+  --bg: #f6f7f9; --surface: #ffffff; --fg: #15181d; --muted: #5d6573; --line: #dde1e7;
+  --accent: #2f5fd0;
+  --sev-money: #b4232a; --sev-security: #8a1fa8; --sev-data: #c2550c; --sev-blocker: #b07d00;
+  --sev-flow: #2f5fd0; --sev-layout: #0f7a6c; --sev-wording: #5d6573;
+  --chip-bg: #eef1f5;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111317; --surface: #1a1d23; --fg: #e8eaee; --muted: #9aa2b0; --line: #2c313a; --accent: #7a9cf0;
+  --sev-money: #f0646b; --sev-security: #d07ef0; --sev-data: #f39a57; --sev-blocker: #e8c04a;
+  --sev-flow: #7a9cf0; --sev-layout: #4fc7b5; --sev-wording: #9aa2b0; --chip-bg: #242832; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #111317; --surface: #1a1d23; --fg: #e8eaee; --muted: #9aa2b0; --line: #2c313a; --accent: #7a9cf0;
+  --sev-money: #f0646b; --sev-security: #d07ef0; --sev-data: #f39a57; --sev-blocker: #e8c04a;
+  --sev-flow: #7a9cf0; --sev-layout: #4fc7b5; --sev-wording: #9aa2b0; --chip-bg: #242832; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 20px; }
+h1 { font-size: 26px; font-weight: 600; margin: 0; text-wrap: balance; }
+.lede { color: var(--muted); margin: 4px 0 0; max-width: 68ch; }
+.strip { display: flex; flex-wrap: wrap; gap: 8px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; display: grid; gap: 2px; min-width: 96px; }
+.stat b { font-size: 20px; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 12px; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; }
+.filters button { font: inherit; font-size: 13px; border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+  border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filters button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.groups { display: grid; gap: 8px; }
+details.g { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; border-left: 4px solid var(--sev, var(--line)); }
+details.g > summary { list-style: none; cursor: pointer; padding: 12px 14px; display: grid; grid-template-columns: auto 1fr auto; gap: 4px 12px; align-items: baseline; }
+details.g > summary::-webkit-details-marker { display: none; }
+.gid { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.gt { font-weight: 600; min-width: 0; }
+.meta { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.chip { font-size: 12px; background: var(--chip-bg); border-radius: 4px; padding: 1px 7px; white-space: nowrap; }
+.chip.sev { color: var(--sev); font-weight: 600; }
+.cause { grid-column: 2 / -1; color: var(--muted); font-size: 14px; }
+.body { padding: 0 14px 14px; display: grid; gap: 12px; }
+.fix { font-size: 14px; } .fix b { font-weight: 600; }
+.f { border-top: 1px solid var(--line); padding-top: 10px; display: grid; gap: 8px; }
+.fhead { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.ftext { min-width: 0; overflow-wrap: anywhere; }
+.shots { display: flex; flex-wrap: wrap; gap: 8px; }
+.shots a { display: block; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--bg); }
+.shots img { display: block; height: 220px; width: auto; max-width: 100%; object-fit: contain; }
+.shots figcaption { font-family: var(--mono); font-size: 11px; color: var(--muted); padding: 2px 6px; }
+.empty { color: var(--muted); }
+@media (max-width: 560px) { details.g > summary { grid-template-columns: 1fr; } .meta { justify-content: flex-start; } .cause { grid-column: 1; } .shots img { height: 160px; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>QA round 1: findings by root cause</h1>
+    <p class="lede">iPhone and iPad simulator round on the local stack (T1–T24 and A1–A18), 19 Nov 2026. Each row is one root cause; open it for the findings and screenshots. Leave a comment on any row to say fix, skip or discuss.</p>
+  </header>
+  <div class="strip" id="strip"></div>
+  <div class="filters" id="filters" role="group" aria-label="Filter by severity"></div>
+  <div class="groups" id="groups"><p class="empty">Loading findings…</p></div>
+</div>
+
+<script>
+const SEV = { money:"Money", security:"Security", data:"Data", "flow-blocker":"Blocker", flow:"Flow", layout:"Layout", wording:"Wording" };
+const SEVVAR = { money:"--sev-money", security:"--sev-security", data:"--sev-data", "flow-blocker":"--sev-blocker", flow:"--sev-flow", layout:"--sev-layout", wording:"--sev-wording" };
+const SPECIAL = { FIXED:"Confirmed fixed", SCRIPT:"Test script or seed data", "NOT-RUN":"Not run: goes to the retest" };
+let all = [], filter = "all";
+const el = (t, cls, txt) => { const e = document.createElement(t); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+
+function render() {
+  const box = document.getElementById("groups"); box.textContent = "";
+  const shown = all.filter(g => filter === "all" || (filter === "other" ? SPECIAL[g.id] : g.severity === filter));
+  if (!shown.length) { box.append(el("p", "empty", "Nothing in this filter.")); return; }
+  for (const g of shown) {
+    const d = el("details", "g"); d.id = g.id;
+    const sevKey = SPECIAL[g.id] ? null : g.severity;
+    if (sevKey) d.style.setProperty("--sev", `var(${SEVVAR[sevKey] || "--line"})`);
+    const s = el("summary");
+    s.append(el("span", "gid", g.id), el("span", "gt", SPECIAL[g.id] ? SPECIAL[g.id] + (g.title ? ": " + g.title : "") : g.title));
+    const m = el("span", "meta");
+    if (sevKey) { const c = el("span", "chip sev", SEV[sevKey] || sevKey); m.append(c); }
+    if (g.repo) m.append(el("span", "chip", g.repo));
+    m.append(el("span", "chip", `${(g.findings || []).length} found`));
+    s.append(m);
+    if (g.rootCause) s.append(el("span", "cause", g.rootCause));
+    d.append(s);
+    const b = el("div", "body");
+    if (g.suggestedFix) { const p = el("p", "fix"); p.append(el("b", null, "Suggested fix: "), document.createTextNode(g.suggestedFix)); b.append(p); }
+    for (const f of g.findings || []) {
+      const fd = el("div", "f");
+      fd.append(el("div", "fhead", [f.test, f.step && ("step " + f.step), f.device].filter(Boolean).join(" · ")));
+      fd.append(el("div", "ftext", f.text || ""));
+      if (f.screenshots && f.screenshots.length) {
+        const sh = el("div", "shots");
+        for (const n of f.screenshots) {
+          const a = el("a"); a.href = "shots/" + encodeURIComponent(n); a.target = "_blank"; a.rel = "noopener";
+          const fig = el("figure"); fig.style.margin = "0";
+          const img = el("img"); img.loading = "lazy"; img.alt = n; img.src = "shots/" + encodeURIComponent(n);
+          fig.append(img, el("figcaption", null, n)); a.append(fig); sh.append(a);
+        }
+        fd.append(sh);
+      }
+      b.append(fd);
+    }
+    d.append(b); box.append(d);
+  }
+}
+
+function setup(data) {
+  all = data;
+  const real = all.filter(g => !SPECIAL[g.id]);
+  const count = k => real.filter(g => g.severity === k).length;
+  const strip = document.getElementById("strip");
+  const add = (n, label) => { const s = el("div", "stat"); s.append(el("b", null, String(n)), el("span", null, label)); strip.append(s); };
+  add(real.length, "root causes");
+  add(real.reduce((a, g) => a + (g.findings || []).length, 0), "findings");
+  for (const k of Object.keys(SEV)) if (count(k)) add(count(k), SEV[k]);
+  const fx = all.find(g => g.id === "FIXED"); if (fx) add((fx.findings || []).length, "confirmed fixed");
+  const fl = document.getElementById("filters");
+  const opts = [["all", "All"], ...Object.keys(SEV).filter(count).map(k => [k, SEV[k]]), ["other", "Fixed, script, not run"]];
+  for (const [k, label] of opts) {
+    const btn = el("button", null, label); btn.type = "button"; btn.setAttribute("aria-pressed", String(k === filter));
+    btn.onclick = () => { filter = k; [...fl.children].forEach(c => c.setAttribute("aria-pressed", String(c === btn))); render(); };
+    fl.append(btn);
+  }
+  render();
+  if (location.hash) { const t = document.getElementById(location.hash.slice(1)); if (t) { t.open = true; t.scrollIntoView(); } }
+}
+
+fetch("findings.json").then(r => r.json()).then(setup).catch(() => {
+  const box = document.getElementById("groups"); box.textContent = ""; box.append(el("p", "empty", "The findings file could not be loaded."));
+});
+</script>
