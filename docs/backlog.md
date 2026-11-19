@@ -404,3 +404,7 @@ Send `confirmedByUserId` per kind in GET /approval-limits so the app needs no Hi
 - General ledger: show "from the trial balance" again after a TB drill (hint only).
 - Operational journals: period 12 and 13 share dates, so period 12 includes year-end adjustments — say so in the filter help.
 - Older layout faults found by the C2 screen audit in ledger/journal listing cards and statement tables (see NeoERP-App docs/agents/c2/review.md on phase/4 after merge).
+
+## QA round 1 follow-ups (2026-11-19)
+- Platform Overview "Books start": read the Accounts go-live once a company is live; the seed fix (planned books start) covers only demo companies (QA1 G09).
+- Accounts spec accounts-b-c §4.2.2 "one empty row at the end": aligned with building-blocks (no trailing row where Add line exists) in the QA1 fix merge, unless Jabran says otherwise.
