@@ -408,3 +408,4 @@ Send `confirmedByUserId` per kind in GET /approval-limits so the app needs no Hi
 ## QA round 1 follow-ups (2026-11-19)
 - Platform Overview "Books start": read the Accounts go-live once a company is live; the seed fix (planned books start) covers only demo companies (QA1 G09).
 - Accounts spec accounts-b-c §4.2.2 "one empty row at the end": aligned with building-blocks (no trailing row where Add line exists) in the QA1 fix merge, unless Jabran says otherwise.
+- Date and number formats (Jabran 2026-11-19): keep ONE format, set in one place (`NeoFormat`/`NeoDateFormat`/`NeoNumberFormat`); screens keep "1 Dec 2026", typed fields and numbers follow the company's country. No personal format setting now. Later, if customers ask: a per-user "Language and formats" choice (Company default first), with documents leaving the company always in the company format (~1 day, profile field + NeoFormat reads it first).
