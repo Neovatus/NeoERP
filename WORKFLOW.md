@@ -256,6 +256,23 @@ checklist); these gates enforce them. They apply to every App slice from Phase 4
    alignment). A failing check is fixed in the batch. The lead views one phone, one tablet and one desktop image per
    new screen; Jabran judges the look at the click-through.
 
+## Builder scope: write scope and read scope (Jabran, 2026-11-19)
+
+Every builder brief (Claude or Codex) names two scopes, on top of "one repo per builder":
+
+- **Write scope:** the exact folders the builder may change (e.g. `services/accounts-service/**` and the docs it owns).
+  A change anywhere else is a **stop and ask**. Shared modules (`shared/**`, design-system components, architecture
+  tests) are never in a write scope unless the brief says so by name.
+- **Read scope:** the rest of the repo, read-only. The builder must use it to follow the project's standards:
+  reuse the existing pattern, building block, helper and test harness before writing anything new, and follow the
+  architecture (layering, ports, naming, `docs/design/specs/building-blocks.md`, `ARCHITECTURE.md` / `AGENTS.md`).
+  No new pattern, component, helper or library where one exists; if none fits, stop and ask.
+- **The report lists** what was reused (pattern or building block and where it lives) and anything new with the reason.
+- **The lead checks before merging** that every changed path is inside the write scope (`git diff --stat`), and that
+  nothing duplicates an existing piece. A path outside the scope or a duplicate is sent back.
+
+The full repo stays checked out: the build, the shared modules, the architecture tests and "where else?" need it.
+
 ## Context limit: hand off before it fills (Jabran, 2026-10-08)
 
 Every agent session, the implementer's and the reviewer's included:
