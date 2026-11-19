@@ -314,3 +314,13 @@ checkpoint is reconciled and the user separately approves its scope. Unnamed
 integration owners must be clarified, not inferred from a proposed role.
 Workspace/design versioning remains undecided. No document moves, renames,
 archival or retirement, and no repository initialization, are authorized.
+
+## QA rounds and limits (Jabran, 2026-11-19)
+- **Simulator size checks, 6 positions on 4 simulators:** iPhone SE portrait (375×667) and landscape (667×375); iPhone 18 Pro landscape (874×402); iPad mini portrait (744);
+  iPad Pro 13 portrait (1032) and landscape (1376). The app's layout switches at 600, 720, 1024 and 1280. The 320 phone and desktop windows: automated size tests and Codex on macOS.
+  Flow tests use one simulator per person; shut down simulators not in use.
+- **Testers** run scripted steps on Sonnet, in chunks of about 4 tests or 6 groups; Opus builds, reviews and groups findings. Results stay in the round's report files (no review page unless asked).
+- **Fix rule:** collect all findings of a round, fix once at the end; fix at once only blockers that stop other tests.
+- **Every builder brief** includes the review checklist: desktop and keyboard behaviour unchanged unless the brief says otherwise; contract-mapping tests for any API change;
+  shared component changes list their callers; JVM and iOS compile; read "BUILD SUCCESSFUL" and "0 failed" before any push.
+- **Limits:** start big parallel work early in a 5-hour window; below 90% keep going; the lead asks for /compact at about 50% context.
