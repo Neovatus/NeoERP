@@ -51,7 +51,7 @@ Nothing is started until Jabran says go.
 - Trial balance: zero values blank instead of 0,00; "Filters" button and inline filters shown together.
 - Wording: G40 Owner toast "Someone else approves it."; T16 create dialog vs "Approve all (as Owner)", pill "Created" after approval; T18 Swedish memo in English UI; G01 refusal card on stale page doesn't say who/why; G06 hint.
 
-## 4. Decisions for Jabran
+## 4. Decisions (Jabran 2026-11-20: all four recommendations approved)
 
 1. **G16 reads while a feature is off:** the refund panel still loads open credit/advances; only writes are refused. Keep reads open (history stays visible) or refuse them? Recommendation: keep reads open (the Earlier imports history already does), refuse writes only.
 2. **Refunds menu items while off:** they stay and lead to the off page. T11 reads as if they disappear. Recommendation: keep them, leading to the off page (consistent with Journal imports).
