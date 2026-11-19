@@ -9,8 +9,12 @@ seed data, not from a run, so a label that differs on screen is a finding: send 
 - **Sign-in:** open the app, click **Continue with NeoERP ID**, sign in at the browser page with the username below.
   Password: see `NeoERP-BackEnd/docs/local-demo-data.md`. Sign out with **Sign out** at the bottom of the sidebar before
   switching people.
-- **Company:** every test uses **Kystgruppe Nordic** (NOK, comma decimals, dates `dd.mm.yyyy`). Today is **16.11.2026**.
-  Only **Nov 2026** is known to be open there (Jan to Mar are LOCKED for good). The accrual tests also need
+- **Company:** every test uses **Kystgruppe Nordic** (NOK, comma decimals). Typed dates are `dd.mm.yyyy`; the screen
+  shows dates like `1 Dec 2026` (toasts, cards, tags such as "Reverses 1 Dec 2026"). The Expected texts below write
+  `01.12.2026`: read it as the same date. The steps were written for **16.11.2026**; any day in Nov 2026 works.
+  **Jan to Mar 2026 are LOCKED** by the seed (`seed-demo-a4.sh`, part of the reset; permanent, Kystgruppe only);
+  Apr 2026 onward is open, so Nov 2026 is open. On a database seeded before QA1 every month is open and A5 step 8,
+  A7 and A18 item 7 cannot be reached: reset and reseed. The accrual tests also need
   **Dec 2026 OPEN** (a reversal on 01.12.2026 needs it) and A4 jobs on. If Dec 2026 is closed, say so: A1, A2 and A4 then
   show the closed-month wording instead (that is itself a check of D-176 and the editor's warning line), and
   `docs/domain` needs a note.
@@ -30,7 +34,12 @@ seed data, not from a run, so a label that differs on screen is a finding: send 
   past, wait up to 15 minutes and reload its detail. Start the waiting tests (A5, A7, A14) first and do the others while
   you wait. **Automatic reversals post on the 1st of the next month by a second job**, so no test can watch the reversal
   itself post today (see "Not turned into steps").
-- **Optional demo data:** `NEOERP_LOCAL_DEMO=1 scripts/seed-demo-a4.sh` creates *Office rent Oslo*, *Quarterly insurance
+- **Start state and tester tips:** run on a freshly reset and seeded stack (`NEOERP_CONFIRM_RESET=yes
+  scripts/reset-local-dev.sh`); earlier runs leave `A4T` rows, posted journals and ended recurring journals, and a name
+  that already exists is refused (A5 step 14). After sending the app Home and back to front, wait 5 to 10 s before
+  tapping. A dev session expires after 30 minutes idle: sign in again. Plan which device or window each person uses
+  before you start (A13, A14, A15 need several people).
+- **Demo data:** `NEOERP_LOCAL_DEMO=1 scripts/seed-demo-a4.sh` (it also locks Jan to Mar 2026) creates *Office rent Oslo*, *Quarterly insurance
   accrual*, *Accrued electricity (A4 demo)* and the import *kystgruppe-a4-demo.csv*. The tests below do **not** need it
   and each says what it creates. If you ran it, the lists in A5, A7, A9, A10 and A13 show those rows too; ignore them.
 - **Self-contained tests.** Each test names the data it creates. Names carry the tag `A4T` so you can tell them from seed
@@ -38,7 +47,7 @@ seed data, not from a run, so a label that differs on screen is a finding: send 
 - **Recipe R1, "an accrual posted by Bjorn"** (used by A4, A14 and A17; each says which amount):
   1. Sign in as `anna.lindh`, *Journals → New journal ▾ → New accrual or prepayment*. Kind **Accrued expense**, Month
      **Nov 2026**, Date `30.11.2026`, Amount `{amount}`, Expense account `6705 Accounting fees`, Balance account stays
-     the suggested `2960`, Branch Oslo HQ, Memo `Accrued accounting fees A4T`, Document reference `EST-A4T-{n}`, Document
+     the suggested `2960` (if the app suggests 2950 Påløpt rente, pick **2960 Accrued expenses** by hand: G06), Branch Oslo HQ, Memo `Accrued accounting fees A4T`, Document reference `EST-A4T-{n}`, Document
      date `30.11.2026`. Click **Submit for posting**.
   2. Sign out, sign in as `bjorn.eriksson`, *Journals → Waiting to post*, open the journal, **Post**, confirm.
 - **Recipe R2, "a waiting-to-post recurring journal"** is written out in A5.
@@ -80,10 +89,9 @@ reversal due 01.12.2026.
    kind; you can change it." There is no "Add" option at the bottom of the account picker (the chart is setup data).
    Under the fields a small table "The journal it creates": Debit 6705 Accounting fees 15 000,00, Credit 2960 Accrued
    expenses 15 000,00.
-6. Branch: Oslo HQ. Cost centre: open the picker. Memo: finish as `Accrued accounting fees A4T`. Document reference
+6. Branch: Oslo HQ. Cost centre: open the picker and type something unknown, such as `zzq`. Memo: finish as `Accrued accounting fees A4T`. Document reference
    `EST-A4T-1`; Document date `30.11.2026`.
-   Expected: the cost-centre picker offers **Add "x"** when you type something unknown (quick add); the branch picker does
-   not. The consequence line above the buttons reads "Posts in Nov 2026 once someone else posts it. Reversed
+   Expected: the cost-centre picker lists the cost centres and says "Nothing matches "zzq"." with no **Add "x"** (cost centres are setup data, so the picker has no quick add, like the branch picker and the account picker). The consequence line above the buttons reads "Posts in Nov 2026 once someone else posts it. Reversed
    automatically on 01.12.2026." **Submit for posting** is enabled.
 7. Click **Submit for posting**.
    Expected: the panel closes with the toast "{JV-DRAFT-…} submitted for posting. Reversed on 01.12.2026 once posted."
@@ -214,8 +222,7 @@ within 15 minutes one journal for Nov 2026 waiting to post.
    group of the next dates 01.12.2026, 01.01.2027 and so on (up to 6), last line "No end date." Above the footer a notice
    "1 journals will be created now: Nov 2026." (plural form is worth a look).
 8. Set Starts to `01.03.2026`, then back to `01.11.2026`.
-   Expected: with March the "Created now" group lists months with the tag "Locked — will be skipped" (Jan to Mar) or
-   "Closed — will be skipped"; write down what you see for Apr to Oct. Back to Nov: only Nov 2026 is created now.
+   Expected: with March the "Created now" group lists Mar to Nov 2026 ("9 journals will be created now"); Mar 2026 carries the tag "Locked — will be skipped" (seeded lock) and Apr to Oct carry no tag (open). Write down anything different. Back to Nov: only Nov 2026 is created now.
 9. Lines: row 1 account `6300`, Debit `25 000,00`, branch Oslo HQ; row 2 account `1920`, Credit `25 000,00`, branch Oslo HQ.
    Expected: the account picker has no "Add" option. The footer shows Debit total 25 000,00, Credit 25 000,00, Difference 0,00.
 10. Click **Save**.
@@ -269,34 +276,33 @@ Who: `anna.lindh`. Creates: recurring journal **A4T Insurance** (quarterly, last
 
 ## A7. Runs list: a skipped date, Create draft now, Dismiss
 
-Who: `anna.lindh`. Creates: recurring journal **A4T Old fee** (one date, 01.03.2026, in a LOCKED month), so one run
-**Skipped**; one draft from **Create draft now**; and a second skipped date to **Dismiss**.
+Who: `anna.lindh`. Needs Jan to Mar 2026 LOCKED (seeded). Creates: recurring journal **A4T Old fee** (three dates, 01.01.2026
+to 01.03.2026, all in LOCKED months), so three runs **Skipped**; one draft from **Create draft now** on March; and
+skipped dates to **Dismiss**.
 
 1. Sign in as Anna, *Recurring journals → New recurring journal*. Name `A4T Old fee`. Memo `Old fee `+Insert **Month and year**.
-   Creates **Draft**. Repeats **Every month**, On **1st**, Starts `01.03.2026`, Ends **After**, Times `2`.
-   Expected: "Created now" shows 01.03.2026 (Locked — will be skipped) and 01.04.2026 with its own tag (Closed or Locked,
-   or nothing if April is open: note which). Notice above the buttons "2 journals will be created now: …" with the
-   warning "… is locked, so that one will be skipped."
+   Creates **Draft**. Repeats **Every month**, On **1st**, Starts `01.01.2026`, Ends **After**, Times `3`.
+   Expected: "Created now" shows 01.01.2026, 01.02.2026 and 01.03.2026, each "Locked — will be skipped". Notice above the buttons "3 journals will be created now: Jan 2026, Feb 2026, Mar 2026." with the
+   warning "… are closed or locked, so those will be skipped."
 2. Lines: 6800 debit `300,00` branch Oslo HQ; 2990 credit `300,00` branch Oslo HQ. **Save**.
    Expected: toast "Saved. …"; detail opens, status Active.
 3. Wait up to 15 minutes; reload the detail.
-   Expected: two rows in **Dates**: 01.03.2026 "Skipped: Mar 2026 is locked" (warning) and 01.04.2026 "Skipped: Apr 2026 is
-   closed/locked" (or "Draft created" if April is open). Each skipped row has **Create draft now** and **Dismiss**.
-   The list row shows the **Needs you** tag, and the Journals page shows no notice of this (the "recurring journals need
-   you" notice is not built yet, see "Not turned into steps").
+   Expected: three rows in **Dates**, each "Skipped: {month} is locked" (warning): 01.01.2026, 01.02.2026, 01.03.2026. Each skipped row has **Create draft now** and **Dismiss**.
+   The journal has used all three of its "After 3 times" (skipped dates count), so it is **Ended** at once and the
+   default list (Active and Paused) hides it although it carries **Needs you**: open **Status** and tick **Ended** to
+   find it. The Journals page shows no notice of this (the "recurring journals need you" notice is not built yet, see "Not turned into steps").
 4. Click **Create draft now** on the 01.03.2026 row.
    Expected: a dialog "Create the Mar 2026 journal"; field **Date** is preset to the first day of the earliest open
-   month after March (01.11.2026 likely), with the line under it showing that month's state. Body: "A draft with this
+   month after March (01.04.2026 with the seeded locks), with the line under it ("Period: Apr 2026") showing that month's state. Body: "A draft with this
    recurring journal's current lines. Memo and document reference say Mar 2026." Buttons **Cancel**, **Create draft**.
 5. Click **Create draft**.
    Expected: the editor of the new draft opens: memo "Old fee Mar 2026", date from step 4, lines 6800 / 2990 with
    300,00. Back to the recurring journal: the 01.03.2026 row reads "Created by Anna Lindh on {date}" and links to the draft.
-6. On the 01.04.2026 row (if it is skipped) click **Dismiss**.
-   Expected: dialog "Dismiss the Apr 2026 date?" with a reason field; confirm disabled until you type a reason.
+6. On the 01.02.2026 row click **Dismiss**.
+   Expected: dialog "Dismiss the Feb 2026 date?" with a reason field (at least 6 characters); confirm disabled until you type a reason.
    Reason `A4T handled elsewhere`, confirm: toast "Date dismissed."; the row reads "Dismissed by Anna Lindh" with the
-   reason in a quote block; **Needs you** disappears from the list row.
-   (If April was created, skip this step and Dismiss nothing.)
-7. *Recurring journals* list, toggle the chip **Needs you**.
+   reason in a quote block. Dismiss the 01.01.2026 row the same way: **Needs you** disappears from the list row.
+7. *Recurring journals* list, set **Status** to include **Ended** (the journal is Ended), toggle the chip **Needs you** (a phone list may not show the chip: use the Status filter and read the tag).
    Expected: the chip counts rows needing a person; with none left it reads without a count or shows no rows.
 
 ## A8. Pause, Resume, End, and the ended-only list state
@@ -326,10 +332,11 @@ today), then pauses, resumes and ends it. No journals are made.
    Expected: dialog "End A4T Pause me?" in danger style, body "It has created nothing, so it's deleted." (a never-used
    one is deleted) with a reason field. Confirm.
    Expected: toast "A4T Pause me was deleted." and you return to the list; the row is gone.
-7. To see a real Ended state you need one that has created something: use **A4T Old fee** from A7 (it has runs; if you
-   skipped A7, create it first). Open it, More → **End**, reason `A4T done`.
-   Expected: body "It stops for good. Journals already created stay."; toast "A4T Old fee has ended."; status **Ended**
-   (neutral); no Edit, Pause, Resume or End on it; its runs stay readable.
+7. To see a real Ended state you need one that has runs: use **A4T Old fee** from A7 (if you skipped A7, create it
+   first and wait for the job). After A7 it has already ended by itself (its 3 skipped dates used up "After 3 times"), so
+   open it through **Status → Ended** and check the same result without clicking End. If it is still Active, More → **End**,
+   reason `A4T done`: body "It stops for good. Journals already created stay."; toast "A4T Old fee has ended."
+   Expected: status **Ended** (neutral); no Edit, Pause, Resume or End on it; its runs stay readable.
 8. *Recurring journals* list.
    Expected: the Status filter default is Active and Paused, so A4T Old fee is hidden. Open **Status** and tick **Ended**:
    it appears with the Ended pill. Untick Active and Paused so **only Ended** is on.
@@ -561,15 +568,15 @@ journal keys is not needed: use File 1 again) that is later discarded.
 2. Sign out, sign in as Bjorn. *Journals → New journal ▾ → Journal imports* (history).
    Expected: a row for the file with status **Checked** and By Anna Lindh.
 3. Open that row.
-   Expected: a read-only summary of the check (journals, lines, totals, warnings and problems) with no **Create** and no
-   **Upload a fixed file** or **Discard** for Bjorn; a notice such as "Only Anna Lindh, who uploaded the file, can create
-   these journals." Bjorn can still read the journals table.
+   Expected: a read-only summary of the check (journals, lines, totals, warnings and problems) with no **Create**, no
+   **Upload a fixed file** and no **Discard** for Bjorn (Finance Manager); a notice "Only Anna Lindh, who uploaded the file, can create
+   these journals." and the footer "Only the person who uploaded the file can create these journals." Bjorn can still read the journals table.
 4. If the screen offers a Create button anyway, click it.
    Expected: the refusal "Only Anna Lindh, who uploaded the file, can create these journals." and nothing is created.
 5. Open *Journals → New journal ▾ → Import journals* as Bjorn.
    Expected: his own Upload step opens (his own check, if any, resumes; Anna's does not). Anna's check is not his.
 6. Sign in as Ola. Open the same history row.
-   Expected: same read-only view (an Owner also cannot create someone else's import).
+   Expected: same read-only view (an Owner also cannot create someone else's import), but with **Discard**: the dialog reads "Discard Anna Lindh's check?" with a required reason field and "Anna Lindh sees who discarded the check and why." Cancel the dialog now: Anna's check must stay for step 7. (To test the Owner's discard, repeat steps 1 and 6 with a new check after step 8, discard it as Ola with a reason, then open the row as Anna: "Ola Nordmann discarded this check. Nothing was created. Reason: …".)
 7. Sign in as Anna. Open *Import journals* again.
    Expected: the page resumes at **Check** with her unfinished check (coming back to the import route resumes it).
 8. Click **Discard** and confirm.
@@ -622,8 +629,10 @@ to post from it, and one accrual written by Bjorn. Uses recipe R1 for the accrua
 
 All three tests are run by `jonas.moe` first: **Platform → Companies → Kystgruppe Nordic → Modules → Finance**. The
 features are named in the list under **Finance**; the build's names are **Recurring journals** (FINANCE.RECURRING_JOURNALS)
-and **Journal import** (FINANCE.JOURNAL_CSV_IMPORT). Report the exact label you find. Switching a feature off asks for a
-reason in a dialog "Record the reason"; type `A4 test, switching back later`, **Apply change**.
+and **Journal import** (FINANCE.JOURNAL_CSV_IMPORT). Report the exact label you find (round 1 saw "Recurring journals and
+accruals" and "Journal CSV import"). Switching a feature off asks for a reason in a dialog "Record the reason"; type
+`A4 test, switching back later`, wait until the whole text shows, then **Apply change** (a tap that lands while the
+typing is still arriving stores half the reason).
 
 ## A15. Recurring journals off
 
@@ -677,10 +686,11 @@ Who: `jonas.moe`, then `anna.lindh`. Creates: nothing (reads A10's import).
 3. Open the history.
    Expected: the list with the imports from A10 to A13 is readable (Created, Discarded); a confirmed one still shows
    **Download the file** and downloads it (read-only history, D-179).
-4. Try to start a check: only possible if an old route is reachable. If the history offers an "Upload" or "Earlier imports"
-   back link, follow it.
-   Expected: the wizard route shows the feature-off state: "Import journals isn't part of your plan right now." (the
-   spot state names the feature; builders' decision: "Journal import"), no upload field. Report the exact title you see.
+4. Try to start a check: only possible if an old route is reachable. On the history page (Earlier imports) click the
+   breadcrumb **Import journals** (or an "Upload" back link if there is one).
+   Expected: the wizard route shows the feature-off state, not the Recurring journals page: the title "Journal import is off for
+   Kystgruppe Nordic" with "Ask your company admin to turn on Journal import." and **Back to Journals**, no upload field
+   (the spec words are "Import journals isn't part of your plan right now."). Report the exact title you see.
 5. As the same Anna, if an unfinished check from before still exists (you can create one in A13 before switching off),
    open it from the history.
    Expected: read-only; no Create.

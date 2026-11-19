@@ -9,14 +9,26 @@ Written from the code and the seed scripts, not from a run, so a label that diff
   (or email) below. Password: see `NeoERP-BackEnd/docs/local-demo-data.md`. Sign out with **Sign out** at the bottom of
   the sidebar before switching people. Omar belongs to two companies: pick the company with the chip at the top
   ("Company: ..., change company").
+- **Start state:** run on a freshly reset and seeded stack (`NEOERP_CONFIRM_RESET=yes scripts/reset-local-dev.sh`, then
+  the Accounts seeds; see `local-demo-data.md`). Round 1 and its retest used up seeded rows, so "seeded" below always
+  means "after a fresh reset and seed". Tests that use rows up: T2 (Bergen credit), T3 (Fjordtech invoice), T4 and T5
+  (Sialkot receipt, refund and payment; the refund shows as posted once approved, RFD-DRAFT-000006 in round 1) and
+  T12 to T18 (go-live is permanent). After a reset Lahore is READY again and has no imports, so T12 to T15 must be run
+  again before T16, on the same database.
+- **Tester tips:** after sending the app Home and back to front, wait 5 to 10 s before tapping (the first screen is white
+  and a tap in that time lands on the home screen). A dev session expires after 30 minutes idle: sign in again if a
+  step fails with a sign-in error. When a test needs two or three people, plan which device or window each person uses
+  before you start; a device you may only look at cannot press a button.
 - **Menu path:** the sidebar group **Accounts** holds Overview, Journals, then two headings **Receivables** (Invoices,
   Credit notes, Receipts, Refunds, Customers, Ageing) and **Payables** (Bills, Debit notes, Payments, Refunds received,
   Suppliers, Ageing), then Reports, Period close, Chart of accounts, and so on. Written below as
   *Accounts → Payables → Payments*.
 - **More actions:** the square "..." button next to a page's main button (tooltip "More actions").
-- **Amounts:** written with a point (`2,500.00`). Type them the way the field's grey example shows: comma decimals for
-  NOK and SEK companies, point decimals for PKR. Leave every date as today (Kystgruppe Jan-Mar are LOCKED for good; only
-  Nov 2026 is open there).
+- **Amounts and dates:** the Expected texts write amounts with a point (`2,500.00`). The screen shows them in the
+  company's style (Kystgruppe and Stockholm `2 500,00`, Sialkot and Lahore `2,500.00`) and you type them that way too
+  (the field's grey example shows it); typed dates follow the country (Norway `19.11.2026`). Dates on screen read like
+  `1 Dec 2026`. Leave every date as today. At Kystgruppe the seed locks Jan-Mar 2026 (permanent, Kystgruppe only);
+  Apr 2026 onward is open, including Nov and Dec 2026.
 - **Seed amounts you can rely on:**
   - Kystgruppe Nordic (NOK): customer *Fjordtech AS* invoice A, 16,150.00 gross, **6,150.00 open**; *Nordlys Bygg AS*
     invoice B 50,000.00 with a 12,500.00 write-off already posted; supplier *Fjord Energi AS* has a **3,000.00
@@ -26,7 +38,7 @@ Written from the code and the seed scripts, not from a run, so a label that diff
     listed here can be higher than the seed alone gives.
   - Sialkot Mills (PKR): customer *Sialkot Sports Traders (Pvt) Ltd* (NTN and STRN on file), invoice 2 for 59,000.00 is
     approved and **open** (its receipt waits for Hina); customer *Daska Garments Co* has a 5,000.00 refund **waiting
-    for Hina**; supplier *Faisalabad Yarn Mills* payment 2 (59,000.00) waits for Hina.
+    for Hina**; supplier *Faisalabad Yarn Mills* payment 2 (59,000.00) waits for Hina. These wait only after a fresh reset and seed: T4 and T5 approve them.
 - **Things that differ from the brief (code says so):**
   1. Lahore Textiles is READY (not live). The Journals page switches **New journal** off while books are not live, and
      **Confirm** refuses with "Opening balances can be imported once the books are live." So the opening-balance import
@@ -61,13 +73,13 @@ Who: `anna.lindh` prepares, `bjorn.eriksson` approves. Company: Kystgruppe Nordi
 
 1. Sign in as Anna. *Accounts → Payables → Payments*. Click the "..." button next to **Record payment**, then **Pay in advance**.
    Expected: a side panel titled **Pay in advance**, subtitle "Money paid to a supplier before they deliver, against their prepayment invoice. Someone else approves it; the final bill deducts it later."
-2. Fill: Supplier: pick *Fjord Energi AS* (search `Fjord`); Date: today; Paid from: the main bank account (1920); Amount paid (NOK) `2,500.00`; Reference `ADV-DEMO-1`.
+2. Fill: Supplier: pick *Fjord Energi AS* (search `Fjord`); Date: today; Paid from: leave the default, **1921 Kystgruppe operating bank** (Branch fills in as Oslo HQ); Amount paid (NOK) `2,500.00`; Reference `ADV-DEMO-1`.
    Expected: no errors yet; the heading **Supplier's prepayment invoice** and the block **What it's for** are shown from the start of the panel.
 3. Supplier's prepayment invoice number `PP-9001`; Prepayment invoice date: today. Under **What it's for**: Description `Prepayment, December power`; Tax code: the option that reads "NO-ADV-OOS-IN · No VAT on this advance"; Amount including VAT (NOK) `2,500.00`.
    Expected: footer reads "Paid 2,500.00 · lines 2,500.00". The line says "No VAT on this advance". No amber "VAT can't be claimed" warning (a no-VAT line needs no invoice number). (If you pick a code with VAT and leave the invoice number or date empty, the warning reads "No VAT can be claimed without the supplier’s prepayment invoice number and date…".)
 4. Click **Submit for approval**.
-   Expected: the panel closes and the payments list opens on the waiting tab, with the toast "{ref} sent for approval." / "Someone else approves it." The new row shows an amber **No bank details** pill: Fjord Energi AS has no bank details on file and 1920 is a bank account. It is a warning only; Bjorn can still approve (the money is then paid by hand, not from a bank file).
-   Open the row: it opens as a submitted advance; Anna has no Approve button and sees the line "You wrote, changed or sent this payment…" (she wrote it).
+   Expected: the panel closes and the payments list opens on the waiting tab, with the toast "{ref} sent for approval." / "Someone else approves it." The new row shows an amber **No bank details** pill: Fjord Energi AS has no bank details on file and 1921 is a bank account. It is a warning only; Bjorn can still approve (the money is then paid by hand, not from a bank file).
+   Open the row: it opens as a submitted advance; Anna has no Approve button and sees the line "Someone other than the person who wrote or sent it approves it." (she wrote it).
 5. Sign out, sign in as Bjorn. *Accounts → Payables → Payments*, open the new advance (it carries the **Advance** mark, 2,500.00). Click **Approve payment**, then **Approve** in the sheet "Approve {number}?".
    Expected: the sheet says "It gets the next payment number and goes into the books as money paid ahead to the supplier. The final bill deducts it later. A mistake is corrected by reversing it." After Approve: toast "Payment {number} approved." / "It is in the books. Send the money from your bank."
 6. Sign out, sign in as Anna. *Accounts → Payables → Bills → New bill*. Supplier: pick *Fjord Energi AS* (search `Fjord`); Supplier's invoice number `FE-4700`; leave dates; one line: Description `Shore power, December`, Qty `1`, Unit price `10,000.00`, Tax code the 25 % input VAT code (`NO-MVA-IN-25`).
@@ -215,7 +227,7 @@ Who: `bjorn.eriksson` (or `ola.nordmann`). Company: Kystgruppe Nordic.
 
 ## T8. Company → Modules labels
 
-Known issue (being fixed): the Owner sees no feature list under Company → Modules (the module detail only draws for Neovatus staff). Until it is fixed, run steps 1 to 6 as `jonas.moe` via *Platform → Companies* (open the company) → **Modules**, and say so in your notes. Intended behaviour is below.
+Run steps 1 to 6 as the two Owners directly (`ola.nordmann`, `ayesha.khan`). `jonas.moe` is not needed for T8: the Owner sees the feature list under Company → Modules.
 
 1. Sign in as `ola.nordmann` (Kystgruppe, Norway). Sidebar group **Company** → **Modules**. Open **Finance**.
    Expected: heading with "Features · n of m on". Norwegian statutory duties (VAT return, SAF-T, e-invoice sending for Norway) show the pill **Required by law** where a switch would be; no switch.
@@ -253,19 +265,19 @@ Company used: Kystgruppe Nordic (it has a posted write-off to check).
 
 ## T10. The feature-off page wording
 
-The page shows only when you are already on it as the feature goes off (the menu hides it otherwise). It needs two things at once: a second person to flip the switch, and a window that notices. If you can only run one app window, skip this test and tell me.
+The page shows only when you are already on it as the feature goes off (the menu hides it otherwise). It needs two things at once: a second person to flip the switch, and a window that notices. If you can only run one app window, skip this test and tell me. Plan the devices first: Ola, Jonas and Anna (or Bjorn) each need a device or window you may type on; on a look-only device **Post refund** in step 3 cannot be pressed.
 
 1. Sign in as `ola.nordmann` (Owner, Kystgruppe). **Accounts → Payables → Refunds received**; leave the page open.
    Expected: the list of refunds received (Refunds and advances is on).
 2. In a second app window (or after Anna's session changes nothing), `jonas.moe` switches **Refunds and advances** off for Kystgruppe Nordic as in T9 steps 1-3. (Skip if already off from T9 and go to step 3 with a fresh sign-in.)
    Expected: Ola's window still shows the list.
-3. In Ola's window click **Record refund received**, fill supplier, date, account, amount, and click **Post refund** (or just bring the window back to focus after 5 minutes).
-   Expected: the write is refused and the app re-checks what is on; the page becomes an off page.
+3. In Ola's window click **Record refund received**, fill supplier, date, account, amount, and click **Post refund**, then confirm in the sheet "Post refund for ...?" (or send the app Home and back to front and wait 5 to 10 s).
+   Expected: the write is refused and the app re-checks what is on; the form closes with a toast that the feature was switched off, and the page becomes an off page.
 4. Read the page.
    Expected, as Owner: title "Refunds and advances are off for Kystgruppe Nordic" (plural "are"), warning tone; the line "Neovatus decides what your agreement covers." only when the agreement does not cover it; the Owner gets **Ask Neovatus** only (no other button).
 5. Click **Ask Neovatus**.
    Expected: opens *Company → Modules* where the feature request is made.
-   Known issue (being fixed): the Owner sees no feature list on that page, so there is nothing to ask about. Note what you see.
+   The Finance list shows the row "Refunds, advances and write-offs", In the agreement, Off, with **Ask Neovatus**.
 6. Sign in as `anna.lindh` (not an Owner) and reach the same page the same way.
    Expected: "Ask your company admin to turn on Refunds and advances."; no request button; a **Back** button.
 
@@ -293,7 +305,7 @@ confirm that is fine before doing it.
 2. Click **Review and go live**; choose the first day of a month as the go-live date (any offered date); resolve any blocker the checklist lists; confirm.
    Expected: the Overview turns Live. Write down the go-live date G: balances in the import will be "at G minus 1 day".
 3. *Accounts → Journals*, click the arrow part of **New journal**.
-   Expected: the menu lists **Journal**, **Opening balances**, then **Import opening balances...**, **Imported files**.
+   Expected: the menu lists **Journal**, **Opening balances**, **New accrual or prepayment**, **Import journals**, **Import opening balances...**, **Imported files** (**Journal imports** appears once journals have been imported).
 
 ## T13. OB-1: CSV template, upload, wait while reading
 
@@ -339,7 +351,7 @@ Continue from T13.
    Expected: "These balances are read as at the end of {G minus 1}, in PKR." and a tick box "These are the balances at {date}". **Next** is disabled with a reason until you tick it.
 5. Tick the box, click **Next**.
    Expected: the **Accounts** step: table "In the file / Balance / Your account". Rows 1920, 1500, 2400, 2000 are matched; 1500 and 2400 are marked **Held out**; 1925 shows the grey tag **Needs an account**. Intended: a button "Create account 1925 Meezan savings account".
-   Known issue (being fixed): the button is offered but the server refuses it, because 1925 falls in the bank group where accounts cannot be created this way. Instead, pick account **1930** for the 1925 row (the row's account picker) and carry on.
+   Known issue (G19, still open): the button is not offered at all now (before, the server refused it, because 1925 falls in the bank group). Instead, pick account **1930** for the 1925 row (the row's account picker) and carry on. The Accounts step also has a **Branch** field: choose Lahore HQ.
 6. Tick **To do**.
    Expected: only the 1925 row stays. Intended: **Create account 1925 Meezan savings account** turns the row's account into the new account, marked "New account", and the tag disappears. Workaround: map the row to 1930 as above and the tag disappears.
 7. Look at the bottom of the card.
@@ -361,16 +373,16 @@ Continue from T13.
 
 ## T16. OB-4: hand-off to opening items for customers and suppliers
 
-Use the Accounts step of an import (the **Held out** card) or the result of a confirmed one.
+Use the Accounts step of an import (the **Held out** card) or the result of a confirmed one. Needs T12 to T15 done on this database (after a reset, run them again first).
 
 1. In the **Held out** card click **Enter as opening items** next to **Customers' balances 200,000.00**.
-   Expected: the wizard "Import balances at go-live" (Receivables) opens with the file `opening-items-ar-lahore-tb.csv` already chosen (name shown as selected) and the field **Total from your old system** already holding **200,000.00**, with PKR on the right.
+   Expected: the wizard "Import balances at go-live" (Receivables) opens with the file `customers-opening-items.csv` already chosen (name shown as selected) and the field **Total from your old system** already holding **200,000.00**, with PKR on the right.
 2. Click **Check the file**.
    Expected: the summary shows "Total in your file" 200,000.00, "Total from your old system" 200,000.00 and the green **They match**; the balances table lists Gulberg Retail Traders 120,000.00 and Model Town Stores 80,000.00 with original numbers `OB-1500`. If parties are missing, the page offers the checkbox to create customers.
-3. Click **Create 2 balances** and confirm.
+3. Set **Default branch** to Lahore HQ (it starts as Not set; Lahore needs a branch on lines, so without it the create is refused), tick **Create missing customers** if offered, leave Create as **Waiting for approval**, click **Create 2 balances** and confirm.
    Expected: card "2 balances created from {file}" with **Open the import**.
 4. Go back to the import and click **Enter as opening items** next to **Suppliers' balances 150,000.00**; **Check the file**; **Create 2 balances**.
-   Expected: control total prefilled 150,000.00, **They match**; supplier bills Kasur Cotton Suppliers 90,000.00 and Lahore Packaging Works 60,000.00.
+   Expected: control total prefilled 150,000.00, **They match**; set Default branch Lahore HQ again and tick **Create missing suppliers**; supplier bills Kasur Cotton Suppliers 90,000.00 and Lahore Packaging Works 60,000.00.
 5. Approve both (a second person: `ayesha.khan` approves what `omar.farooq` created, or the other way round), then check *Reports → Trial balance*.
    Expected: 1500 shows 200,000.00 Dr, 2400 shows 150,000.00 Cr and **2098 Opening balance equity is 0.00**.
 
@@ -393,7 +405,7 @@ Needs an `.xlsx` of the same data: open `lahore-tb.csv` in Excel or Numbers and 
 
 # 6. SIE (Swedish)
 
-A Swedish demo company exists: **Stockholm Handel** (`erik.berg` Accountant, `sara.lind` Owner). It has the SIE add-on and is READY, so it must go live first like Lahore (T12), and that is permanent. A usable SIE file is in the repo: `NeoERP-BackEnd/services/accounts-service/src/test/resources/phase2/kyst-se-fy2026.se` (company "Stockholm Handel", ORGNR 556334-3689, fiscal 2026, accounts 1930, 2081, 2641, 6110).
+A Swedish demo company exists: **Stockholm Handel** (`erik.berg` Accountant, `sara.lind` Owner). It has the SIE add-on and is READY, so it must go live first like Lahore (T12), and that is permanent. A usable SIE file is in the repo: `NeoERP-BackEnd/services/accounts-service/src/test/resources/phase2/kyst-se-fy2026.se` (company "Stockholm Handel", ORGNR 556334-3689, fiscal 2026, accounts 1930, 2081, 2641, 6110). The file is saved as PC8 (code page 437), as its `#FORMAT PC8` line says. Copy it onto the device again from the repo if your copy is older: an old copy is UTF-8 and the Check step then warns "Some names look wrong".
 
 ## T18. SIE opening balances at Stockholm, two people
 
@@ -404,9 +416,10 @@ A Swedish demo company exists: **Stockholm Handel** (`erik.berg` Accountant, `sa
 3. Choose `kyst-se-fy2026.se`.
    Expected: "Reading the file..." then Check.
 4. Look at the Check step.
-   Expected: card **What the file holds** with fields for the Program and the Company in the file ("Stockholm Handel"), and **Year to use** (no Currency or Version fields); no Date card; no Columns table (SIE has no columns).
-5. Choose the year to use, then **Next**.
-   Expected: rows 1930 98,750.00 Dr, 2081 100,000.00 Cr, 2641 250.00 Dr matched to the BAS chart; 6110 shows a zero balance (income and expenses are last year's result); **Difference** reads 1,000.00 and the field "Where the difference goes" lets you choose account 2099 (or 2009), the retained-earnings account.
+   Expected: card **What the file holds** with fields for the Program and the Company in the file ("Stockholm Handel, 556334-3689"), **Year to use** (two choices, neither chosen) and **Character set** (PC8 (code page 437), no "Some names look wrong" warning); no Currency or Version fields; no Date card; no Columns table (SIE has no columns). No notice "Your company has no org number": Stockholm carries 556334-3689 after a fresh reset and seed.
+5. Choose **Opening balances of 2026 (#IB)**, then **Next**. On the Accounts step open **Default branch** and choose Stockholm (the only choice; **Next** stays off until you do).
+   Expected: rows 1930 100 000,00 Dr and 2081 100 000,00 Cr matched to the BAS chart (1930 Företagskonto, 2081 Aktiekapital); 2641 and 6110 show 0,00 "Not needed" (income and expenses are last year's result); Debit 100 000,00, Credit 100 000,00, **Held out** 0,00, **Difference** 0,00.
+   Variant (optional, before you continue): choose **Closing balances of 2025 (#UB)** instead. Expected: 1930 98 750,00 Dr, 2081 100 000,00 Cr, 2641 250,00 Dr, **Difference** 1 000,00, and the field "Put the difference on" offers 2099 Årets resultat or 2009. Choose 2099. Then switch back to #IB for the rest of the test.
 6. **Next**, then **Create and submit journals**.
    Expected: result page with the pill **Confirmed**, a **SIE** tile, journals waiting to post.
 7. Sign out, sign in as `sara.lind`, open the journal, **Post** it.
@@ -416,12 +429,12 @@ A Swedish demo company exists: **Stockholm Handel** (`erik.berg` Accountant, `sa
 ## T19. Dimensions tab: cost centres and projects (Kystgruppe Nordic)
 
 1. Sign in as `ola.nordmann`, pick Kystgruppe Nordic. *Accounts*, open the **Dimensions** tab.
-   Expected: "Dimensions on lines" with rows for Cost centres, Projects and **Company dimension** slots; Sales channel is already set up, the other slots show Not set up.
-2. Open **Projects**, click **Create project**, enter code `P-100`, name "Harbour crane", save.
+   Expected: "Dimensions on lines" with rows for Cost centres, Projects and Sales channel (company dimension 1, already set up), and one row **Company dimension** ("A tag of your own on every line...") that shows Not set up with **Set up** and takes the next free slot.
+2. Open **Projects**, click **New project**, enter code `P-100`, name "Harbour crane", save.
    Expected: toast "P-100 Harbour crane added"; it is listed Active.
-3. Add a second project `P-200` "Old quay" (**Create project**), then open it and **Deactivate** it with a reason.
+3. Add a second project `P-200` "Old quay" (**New project**), then open it and **Deactivate** it with a reason of at least 6 characters.
    Expected: the reason gate asks for a reason; after confirm the row shows the **Inactive** pill; the reason is shown in the panel.
-4. Open *Cost centres*, add a cost centre with code `OPS`, name "Operations" and **Group only** ticked, then a cost centre with code `CRANE`, name "Crane team" and **Part of** = Operations.
+4. Open *Cost centres*, click **New cost centre**, add a cost centre with code `OPS`, name "Operations" and **Group only** ticked, then a cost centre with code `CRANE`, name "Crane team" and **Part of** = Operations.
    Expected: the tree shows Crane team under Operations; the fold arrow opens and closes the group.
 5. Open "Operations" and look for **Delete**.
    Expected: no Delete (it has a value under it).
@@ -430,20 +443,20 @@ A Swedish demo company exists: **Stockholm Handel** (`erik.berg` Accountant, `sa
 
 ## T20. Company dimensions (slots) and two people editing
 
-1. As `ola.nordmann`, *Dimensions → Company dimension 2 → Set up dimension*: name "Vessel", file column `VESSEL`. Save.
+1. As `ola.nordmann`, *Dimensions →* the **Company dimension** row (Not set up) **→ Set up** (it takes slot 2) *→ Set up dimension*: name "Vessel", file column `VESSEL` (the File column fills itself from the name in mixed case: clear it and type `VESSEL`). Save.
    Expected: Vessel is company dimension 2, with "0 active · 0 inactive".
 2. Open Vessel, **New value** "MS Fjord" with code `FJORD` and "MS Kyst" with code `KYST`.
    Expected: both listed Active.
 3. Set up a second slot with file column `VESSEL` again.
    Expected: refused: "The file column VESSEL is already used by Vessel. Choose another."
-4. Set up the next free slot (3) "Test slot", file column `TEST`, then **Delete** it (it has no values) and give a reason.
-   Expected: the gate reads "It is removed at once. This can't be undone." / "It has no values. Its place is free again."; the slot is back to **Set up**.
+4. Set up the next free slot (3) "Test slot", file column `TEST` (retype it in upper case as in step 1), then **Delete** it (it has no values) and give a reason of at least 6 characters.
+   Expected: the gate reads "It is removed at once. This can't be undone." / "It has no values. Its place is free again."; the overview is back to "Company dimension · Not set up · Set up".
 5. Open "MS Fjord" in two app windows (both as `ola.nordmann`). In window 1 rename it "MS Fjord I" and save. In window 2 rename it "MS Fjord II" and save.
    Expected: window 2 says "Someone else changed this. The latest version is shown." and shows "MS Fjord I"; Save is off until you edit again. (Skip if you can't open two windows; say so.)
 
 ## T21. Pickers on a journal line
 
-1. As `anna.lindh`, *Accounts → Journals → New journal*, date in November 2026. Add a line on a cost account (e.g. 6300) and its opposite on the bank account.
+1. As `anna.lindh`, *Accounts → Journals → New journal*, date **today** (a new cost centre or project is valid from the day it was added, so an earlier November date cannot use it). Add a line on a cost account (e.g. 6300) and its opposite on the bank account.
    Expected: on the cost line, pickers for **Cost centre**, **Project** and **Vessel** are offered (only what that account allows; the bank line may show fewer).
    Known issue (design decision pending): no shipped account allows company dimensions, so **Vessel** cannot be picked yet (only seed account 3090 takes slot 1). Note what is offered and carry on with Cost centre and Project; the Vessel parts of steps 2 and 4 wait for the decision.
 2. Pick Project "Harbour crane", Vessel value per code 3 (MS Fjord I), Cost centre "Crane team". Save the draft. Close and reopen it.
@@ -451,7 +464,7 @@ A Swedish demo company exists: **Stockholm Handel** (`erik.berg` Accountant, `sa
 3. Open the Project picker.
    Expected: "Old quay" (inactive) is **not** offered; "Operations" (group only) is not offered as a cost centre.
    Known issue (being fixed): the journal's Cost centre picker still offers group-only entries such as "Operations" (the invoice and bill pickers do not). Report what you see.
-4. Submit, then sign in as `bjorn.eriksson` and **Post**.
+4. Submit (it first asks for Document reference and Document date: type `QA-T21` and today's date), then sign in as `bjorn.eriksson` and **Post**.
    Expected: posted; the posted journal shows the three names read-only on the line.
 
 ## T22. Pickers on an invoice and a bill
@@ -480,7 +493,7 @@ A Swedish demo company exists: **Stockholm Handel** (`erik.berg` Accountant, `sa
 
 Precondition: Stockholm Handel is live (T18).
 
-0. Setup: sign in as `sara.lind`, pick Stockholm Handel. *Accounts → Dimensions*: **Create cost centre** `SALES` "Sales" and **Create project** `P-10` "Webshop". Sign out.
+0. Setup: sign in as `sara.lind`, pick Stockholm Handel. *Accounts → Dimensions*: **New cost centre** `SALES` "Sales" and **New project** `P-10` "Webshop" (an empty list offers **Add the first cost centre** / **Add the first project**). Sign out.
    Expected: both listed Active.
 
 1. Sign in as `erik.berg`, pick Stockholm Handel. *Accounts → Dimensions*.
