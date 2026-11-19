@@ -324,3 +324,4 @@ archival or retirement, and no repository initialization, are authorized.
 - **Every builder brief** includes the review checklist: desktop and keyboard behaviour unchanged unless the brief says otherwise; contract-mapping tests for any API change;
   shared component changes list their callers; JVM and iOS compile; read "BUILD SUCCESSFUL" and "0 failed" before any push.
 - **Limits:** start big parallel work early in a 5-hour window; below 90% keep going; the lead asks for /compact at about 50% context.
+- **After each round:** fix the test scripts from the round's SCRIPT list (Sonnet job), and end the round's `summary.md` with a **Lessons** section (3–5 lines: way of working changed, automated test added, spec changed).
