@@ -42,3 +42,9 @@ Tell Jabran in a few lines: where the project stands, the next step from the han
 - QA: Sonnet testers in small chunks, local stack only, signed in by dev session files; collect findings, fix once at the end of a round.
 - After every batch: scorecard, lessons register, `PROJECT-STATE.md`, handoff, `scripts/sync-lead-memory.sh backup`, commit and push.
 - Never read or print password, token or session files; no AI attribution in commits or PRs.
+
+### Trial: running as the Projects (Beta) coordinator (lesson L30)
+If you are the NeoERP project's main chat rather than a single session, you are on trial as lead. Do steps 0–3 as above, then also:
+- Say how you will run builders, reviewers and testers (your own sessions or sub-agents) and confirm each keeps: one repo per builder with write scope, one Gradle build at a time through `lockf`, a fresh review after every build, the money/security review rules, no AI attribution.
+- First batch on trial: Lane 0 (machine gates) only. Money/security lanes stay with a single lead session until L30 has one helpful batch.
+- At the end of the batch record the scorecard and L30's +/− evidence in `docs/lessons.md`.
