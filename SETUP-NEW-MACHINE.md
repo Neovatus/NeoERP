@@ -113,3 +113,7 @@ For iOS: open `iosApp` in Xcode after building the shared framework.
 ## Lead memory (2026-11-20)
 
 Claude's lead memory lives outside the repos (`~/.claude/projects/<workspace path>/memory`). A copy is kept in `docs/lead-memory/` (Jabran approved keeping it on GitHub, 2026-11-20); the lead refreshes it with `scripts/sync-lead-memory.sh backup` at the end of each batch. On a new machine, after cloning the workspace to the same path, run `scripts/sync-lead-memory.sh restore`.
+
+## Local dev secrets (2026-11-20)
+
+`NeoERP-BackEnd/.env`, `infra/.env` and `.local-secrets/` (demo passwords, bank-number keys) are committed in the private BackEnd repo for the local stack only, so a fresh clone has them. They must never be used on a hosted stack (go-live gate ERP-Q5).
