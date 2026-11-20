@@ -2,6 +2,17 @@
 
 Every batch or QA round produces lessons. They are not rules straight away: each one is tried, checked over more batches, and only then becomes a convention.
 
+**Judged on** (Jabran 2026-11-20). Every lesson names which of these it aims at, and each batch's evidence says what it did to them; a lesson that helps one but hurts another is not promoted until the trade-off is agreed.
+
+| Code | Criterion | Asks |
+|---|---|---|
+| ACC | Accuracy | Fewer wrong results, fewer "partly fixed", fewer findings reaching Jabran |
+| EFF | Efficiency | Less wall-clock and fewer round-trips per batch |
+| MNT | Maintainability | Code, specs and scripts stay simple, shared and consistent |
+| DEC | Flows and decisions | Decisions recorded, followed and traceable; flows match the domain rules |
+| SCL | Scalability | Still works with more modules, lanes, people and customers |
+| TOK | Token efficiency | Fewer tokens and less plan usage for the same result |
+
 **Stages**
 
 | Stage | Meaning | Moves on when |
@@ -15,15 +26,15 @@ Every batch or QA round produces lessons. They are not rules straight away: each
 
 ## Register
 
-| # | Lesson | Source | Stage | Evidence |
-|---|---|---|---|---|
-| L01 | Retest only the screens a fix lane touched; no full re-walk of the flows | QA1 retest (2.7 M tester tokens for small fixes) | Trial | — |
-| L02 | Sonnet testers in small chunks (10–20 min, one device set) instead of one long Opus run | QA1 retest | Trial | + QA1 retest (chunks 5–18 min covered as much as the 63-min Opus run) |
-| L03 | Repeat faults become build rules (detekt / grep in Gradle, pre-commit hook): no format outside NeoFormat, no raw text field for amounts, no hardcoded colours | QA1 retest | Proposed | — |
-| L04 | Reviewers load one project review-checklist skill instead of the checklist being copied into each brief | QA1 retest | Proposed | — |
-| L05 | Fix the shared component, not the one screen; briefs name the component and every screen that uses it | QA1 retest (G12, G17, G32 partly fixed) | Trial | — |
-| L06 | iOS-only checks become JVM tests where possible: size tests at 667×375 and 874×402, keyboard type per numeric field, per-country number parse/format | QA1 retest | Trial | — |
-| L07 | Lead reads small things itself; reads of more than 3 files, long logs or web pages go to a sub-agent and only the conclusion comes back | Jabran 2026-11-20 | Trial | — |
-| L08 | Grant simulator access when a device is booted, before a tester needs it | QA1 retest (iPhone SE prompt missed) | Trial | — |
-| L09 | Check the build exit and "0 failed" before any push; never chain a push after a background test | QA1 merge (red push) | Convention (memory, 2026-11-19) | + QA1 merge fix-forward |
-| L10 | Collect all findings of a round, fix once at the end; only flow blockers fixed at once | QA round 1 | Convention (WORKFLOW.md, 2026-11-19) | + QA1, + QA1 retest |
+| # | Lesson | Aims at | Source | Stage | Evidence |
+|---|---|---|---|---|---|
+| L01 | Retest only the screens a fix lane touched; no full re-walk of the flows | TOK, EFF | QA1 retest (2.7 M tester tokens for small fixes) | Trial | — |
+| L02 | Sonnet testers in small chunks (10–20 min, one device set) instead of one long Opus run | TOK, EFF | QA1 retest | Trial | + QA1 retest (chunks 5–18 min covered as much as the 63-min Opus run) |
+| L03 | Repeat faults become build rules (detekt / grep in Gradle, pre-commit hook): no format outside NeoFormat, no raw text field for amounts, no hardcoded colours | ACC, MNT, TOK | QA1 retest | Proposed | — |
+| L04 | Reviewers load one project review-checklist skill instead of the checklist being copied into each brief | ACC, MNT, SCL | QA1 retest | Proposed | — |
+| L05 | Fix the shared component, not the one screen; briefs name the component and every screen that uses it | ACC, MNT | QA1 retest (G12, G17, G32 partly fixed) | Trial | — |
+| L06 | iOS-only checks become JVM tests where possible: size tests at 667×375 and 874×402, keyboard type per numeric field, per-country number parse/format | ACC, TOK | QA1 retest | Trial | — |
+| L07 | Lead reads small things itself; reads of more than 3 files, long logs or web pages go to a sub-agent and only the conclusion comes back | TOK, SCL | Jabran 2026-11-20 | Trial | — |
+| L08 | Grant simulator access when a device is booted, before a tester needs it | EFF | QA1 retest (iPhone SE prompt missed) | Trial | — |
+| L09 | Check the build exit and "0 failed" before any push; never chain a push after a background test | ACC | QA1 merge (red push) | Convention (memory, 2026-11-19) | + QA1 merge fix-forward |
+| L10 | Collect all findings of a round, fix once at the end; only flow blockers fixed at once | EFF, TOK, DEC | QA round 1 | Convention (WORKFLOW.md, 2026-11-19) | + QA1, + QA1 retest |
