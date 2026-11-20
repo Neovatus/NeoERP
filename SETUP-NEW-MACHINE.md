@@ -109,3 +109,7 @@ For iOS: open `iosApp` in Xcode after building the shared framework.
 - [ ] Create App `local.properties` with correct `sdk.dir`
 - [ ] Start Docker → run backend `scripts/run-all-services.sh`
 - [ ] Recreate any local service config/env files
+
+## Lead memory (2026-11-20)
+
+Claude's lead memory lives outside the repos (`~/.claude/projects/<workspace path>/memory`). A copy is kept in `docs/lead-memory/` (Jabran approved keeping it on GitHub, 2026-11-20); the lead refreshes it with `scripts/sync-lead-memory.sh backup` at the end of each batch. On a new machine, after cloning the workspace to the same path, run `scripts/sync-lead-memory.sh restore`.

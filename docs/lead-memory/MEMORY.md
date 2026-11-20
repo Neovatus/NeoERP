@@ -1,0 +1,43 @@
+- [Orchestrator mode](orchestrator-mode.md) — main agent stays interactive, runs many parallel agents, checks their output
+- [Review channel](review-channel.md) — talk to reviewer via NeoERP/.review-channel/ files; only NEEDS JABRAN goes to chat
+- [App tests vs Hot Reload](app-tests-hot-reload.md) — in-place jvmTest can clash with Hot Reload; superseded on copies by [Work directly in the checkouts]
+- [Worktree isolation picks cwd repo](worktree-isolation-repo.md) — cd into the target repo before spawning worktree agents
+- [Targeted test runs](targeted-test-runs.md) — targeted tests per step; reviewers do not re-run; ONE full run per merge batch (≤3 related slices) before push (Jabran 2026-11-05)
+- [Context limit → compact](context-limit-compact.md) — at ~80% write handoff-implementer.md, ask Jabran to /compact
+- [ERP lead review scope](erp-lead-review-scope.md) — only shared/security/cross-module/CI; never re-review module work
+- [Sub-agent models](subagent-models.md) — Opus default builder (spec decisions usually open); Sonnet only fully decided work; fresh Opus review after every build; Haiku mechanical; Fable only critical (2026-11-15)
+- [HRP Draft commits pre-accepted](hrp-draft-commits-preaccepted.md) — HRP '(Draft)' docs-only commits may ride Accounts pushes
+- [Builders: isolated checkout](builders-isolated-checkout.md) — SUPERSEDED 2026-10-27 (work in the checkouts); still: never /tmp, migrations freeze once applied
+- [No compile per change](no-compile-each-change.md) — UI edits: commit, Jabran runs the app and reports errors; compile before push
+- [Fix batches in temp worktrees](edit-in-place-test-in-copy.md) — during Jabran's testing, builders work in NeoERP-worktrees/<batch>; merge into his checkout only when he says restart; delete after (2026-11-15)
+- [Builder batching](builder-batching.md) — no items added to a running builder; one Gradle builder per checkout; full compile once per batch
+- [Test steps format](test-steps-format.md) — every test request: sign-in, numbered clicks, Expected per step
+- [Design references](design-references.md) — other products' screens give structure only; our design system and UX §21–22 decide the look
+- [Push after commit](push-after-commit.md) — push right after verified commits; review-scope commits after the lead review (Jabran 2026-10-30)
+- [Draft migration applied locally](draft-migration-local-apply.md) — restart during a builder's migration edit → checksum mismatch; undo empty migration locally, don't repair
+- [Release gates](release-gates.md) — deferred items: rows in NeoERP-BackEnd/docs/operations/hosting-and-go-live-requirements.md (Gate column); later items in docs/backlog.md
+- [Product direction: large customers](product-direction-large.md) — built for large multi-company customers from day one, sold by module; dimensions/budgets/reporting are core design (Jabran 2026-11-03)
+- [Phase 3 finish plan](phase3-finish-plan.md) — finish all Phase 3 (M5 lanes, SB2d, FE, M6, acceptance), then Jabran tests (2026-11-04)
+- [Agent model label](agent-model-label.md) — every Agent description starts with [Opus]/[Sonnet]/[Haiku] so the task list shows it
+- [Worktree cleanup](worktree-cleanup.md) — remove merged worktrees + branches after each batch merge (standing OK, Jabran 2026-11-05)
+- [Check approved decisions](check-approved-decisions.md) — grep the plan Q&A before any lead call that narrows scope; never override Jabran-approved answers
+- [App languages](app-languages.md) — en/nb/sv/da, all steps (I18N-1..4); old modules (hr, payroll, ess, HR reports, inbox) skipped until rebuilt (Jabran 2026-11-10)
+- [Quick add from pickers](quick-add-pickers.md) — app-wide "Add “x”" panel in form pickers; setup data link-only; QA-1 before I18N-1 (Jabran 2026-11-08)
+- [Gradle one at a time](gradle-one-at-a-time.md) — one lane at a time, no helper agents, Gradle through lockf; builders compile only, lead tests once (Jabran 2026-11-10)
+- [One repo per builder](one-repo-per-builder.md) — app builders see only NeoERP-App, backend only BackEnd; briefs inside the repo; Codex too (Jabran 2026-11-10; move after I18N round)
+- [No AI co-author](no-claude-coauthor.md) — never Co-Authored-By Claude or Codex, nor AI attribution, in commits/PRs/comments; tell all builders incl. Codex (Jabran 2026-11-12)
+- [Branch per phase](branch-per-phase.md) — slices → lane → phase/N → main (one PR per phase per repo); Phase 3 fixes on fix/phase3-test-fixes; Phase 4 lanes in worktrees; FMT-T after the fix merge (2026-11-15)
+- [Collect, then fix per test](collect-then-fix-per-test.md) — during manual tests, log findings; fix only after Jabran finishes each T, no App edits mid-test (2026-11-15)
+- [Save usage limits](save-usage-limits.md) — one builder at a time, Sonnet for small fixes, bigger batches, Opus only for money/security; Jabran prefers waiting (2026-11-15)
+- [Usage stop thresholds](usage-stop-thresholds.md) — 90% plan limit: start nothing new, finish running; 92%: stop and hand off (2026-11-15)
+- [Dev: no legacy constraints](dev-no-legacy-constraints.md) — in dev, old HR/Payroll/ESS replaced; pick the target design, not workarounds for old code (2026-11-15)
+- [Builder write/read scope](builder-write-read-scope.md) — briefs name write scope (else stop) + read scope (reuse project patterns, no invented ones); lead checks diff paths (2026-11-19)
+- [Tester agent: full flows](tester-agent-full-flows.md) — tester sub-agent may Post/Approve/Pay as demo users on LOCAL stack only, via dev session files (Jabran 2026-11-19)
+- [Check test result before push](check-test-result-before-push.md) — read BUILD SUCCESSFUL + 0 failed before any push; never chain push after a background test (2026-11-19 slip)
+- [QA report: no artifact](qa-report-no-artifact.md) — QA/retest results stay in repo report files; no review page unless asked (2026-11-19)
+- [QA simulator sizes](qa-simulator-sizes.md) — 6 size positions on 4 sims (iPhone SE ±landscape, 18 Pro landscape, iPad mini, iPad Pro 13 ±landscape); breakpoints 600/720/1024/1280; shut down unused sims (2026-11-19)
+- [Usage efficiency plan](usage-efficiency-plan.md) — Sonnet testers in small chunks, review checklist in briefs, big work early in the 5-h window, compact at ~50% (2026-11-19)
+- [Lead runs demo tokens](lead-runs-demo-tokens.md) — lead may run make-demo-tokens.sh to refresh expired sessions (local only); never read its files (Jabran 2026-11-19)
+- [Lessons register](lessons-register.md) — after every batch update docs/lessons.md: Proposed → Trial → Convention after 2 helpful batches, or Dropped (Jabran 2026-11-20)
+- [Lead sub-agent reads](lead-subagent-reads.md) — small reads myself; >3 files, logs, web pages via sub-agent (trial L07, 2026-11-20)
+- [Money/security guardrails](money-security-guardrails.md) — mandatory, not trials: test per finding, invariant checks block push, 2nd different reviewer, accountant + pen test at go-live (Jabran 2026-11-20)
