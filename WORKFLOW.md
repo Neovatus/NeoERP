@@ -325,4 +325,9 @@ archival or retirement, and no repository initialization, are authorized.
   shared component changes list their callers; JVM and iOS compile; read "BUILD SUCCESSFUL" and "0 failed" before any push.
 - **Limits:** start big parallel work early in a 5-hour window; below 90% keep going; the lead asks for /compact at about 50% context.
 - **After each round:** fix the test scripts from the round's SCRIPT list (Sonnet job), and end the round's `summary.md` with a **Lessons** section (3–5 lines: way of working changed, automated test added, spec changed).
+- **Guardrails for money, security and statutory work (Jabran 2026-11-20, not trials):**
+  1. Every money or security finding gets an automated test before it is closed.
+  2. Money invariant checks run after every seed and full test run: debits = credits per journal, ledger = sum of postings, subledgers = control accounts, no double post or double pay under retry, rounding per currency. A break stops the push.
+  3. Money and security changes get a second, different reviewer (Opus plus Codex or `/security-review`) before merge.
+  4. Posting rules and statutory files are signed off by a human accountant before go-live; pen test and production invariant checks are go-live gates (BackEnd `hosting-and-go-live-requirements.md` ERP-Q1–Q3).
 - **Lessons register (`docs/lessons.md`, Jabran 2026-11-20):** after every batch or round, new lessons go in as Proposed; Trial lessons get "+/−" evidence per batch; a lesson that helped in 2 batches becomes a Convention (moved into this file or the lead's memory), one that didn't is Dropped with the reason. The lead tells Jabran what moved.
