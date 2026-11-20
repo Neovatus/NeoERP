@@ -93,3 +93,4 @@ Fable process review: docs/reviews/process-review-fable-2026-11-20.md; lessons L
 4. Fix lanes from docs/agents/qa-round1-retest/fix-list.md behind the gates; money/security lanes: reviewer re-runs tests + second different reviewer.
 5. One Sonnet retest of changed screens only; scorecard + lessons update.
 Omar's role: resolved (same role, doc fixed).
+- Open for Jabran: PROJECT-STATE*.md now in git (4942efa, last content Sep 2026, still 'canonical' in AGENTS.md/WORKFLOW.md). Ask: refresh it in the docs clean-up, or point guides to the handoff and mark these as history (needs lifting the never-read rule for that job).
