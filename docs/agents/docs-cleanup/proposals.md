@@ -73,10 +73,11 @@ Keep = lead habit. Delete = superseded or one-off history. Move = rule binds bui
 
 ## Open questions for Jabran
 
-1. Should numbering, locking, migrations, isolation or statutory lanes also get the second reviewer and the test re-runs? Today the rule says money and security only.
-2. Who owns design and architecture decisions now the Cowork reviewer is retired? WORKFLOW.md names "the reviewer (fresh Opus sub-agent)" for now.
+None open.
 
 Answered 2026-11-21:
+- Second reviewer scope (overseer verdict FIX 1): "money and security lanes" = money posting, numbering, security/auth, locking or concurrency, migrations, company isolation (`risk-paths.txt`); defined once in WORKFLOW Working mode, Review.
+- Design and architecture owner (Jabran): the lead proposes (spec or ADR), Jabran approves; the reviewer checks the work against it.
 - `hrp-draft-commits-preaccepted` memory: delete.
 - Move-to-repo rules: builder rules go to that repo's AGENTS.md; cross-repo process to WORKFLOW.md; design/UI to NeoERP-App/docs/design/. Targets are filled in the memory table; the lead applies them after Lane 0.
 - "Canonical state" no-moves sentence: replaced with "Moving or retiring a document needs Jabran's OK for that change."
