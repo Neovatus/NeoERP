@@ -112,7 +112,7 @@ How sessions split and run work. It applies on top of the stages above.
 - **Who does what.** Lead sessions (one per Mac; see "Two Macs, two leads") plan, delegates, integrates, tests once per merge batch and pushes. Builders (Claude or Codex) build one repo each and commit. Reviewers are fresh Opus sub-agents; the cloud Cowork reviewer is retired (2026-11-20).
 - **Review.** Every build gets a fresh independent Opus review before it lands. This review is the Independent Reviewer stage, not self-review.
   - Money and security lanes: the reviewer re-runs the builder's targeted tests from clean and writes a failing test or reproduction per finding. A second, different reviewer (Codex or `/security-review`) checks before merge.
-  - Every review: `git fetch` first, list new migration files against the latest origin, and re-run tests with `--rerun` instead of trusting cached results.
+  - Every review: `git fetch` first and list new migration files against the latest origin. Test re-runs only on money and security lanes (above).
   - UI and wording lanes: one review, no re-runs.
 - **The lead stays responsive.** The main agent talks with Jabran, plans, delegates, reviews and reports. Real work goes to sub-agents or background jobs, so Jabran's questions are answered while work runs. Keep a visible task list with progress.
 - **Parallel by files.** Run independent work as parallel workers, split so no two workers edit the same file. The lead integrates shared files.
@@ -198,7 +198,7 @@ enough to be worth their cost.
     - A contract or DTO change runs the producer's and every consumer's tests (backend and app).
     - App code runs the affected feature's tests plus `jvmTest` of the shared core when `core/` changed.
     - Docs only: no tests.
-  - **Builders** run their targeted tests through the Gradle lock (`lockf`, one Gradle run at a time machine-wide); wording lanes compile only. Lanes run one at a time and builders spawn no helper agents. Run `./gradlew --stop` after Android or iOS compiles.
+  - **Builders** run their targeted tests through the Gradle lock (`lockf`, one Gradle run at a time machine-wide); wording lanes compile only. One Gradle lane at a time per machine; builders spawn no helper agents. Run `./gradlew --stop` after Android or iOS compiles.
   - **Before push, the lead runs one full run per merge batch (at most 3 related slices):** the full suites of every touched service, the library, `:architecture-tests` and the app's `jvmTest`. Load and concurrency tests run then, or when the engine or locking code changed. Read "BUILD SUCCESSFUL" and "0 failed" before pushing, in a separate step from the test run.
   - **Reports state the scope that was run**, e.g. "accounts: 3 classes, 41 tests" or "full suite 342/0". A failure in an unrelated test gets a backlog row (`docs/backlog.md`) with an owner the same turn, or it blocks.
 - **Test output costs tokens; keep it out of the context.**

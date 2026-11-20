@@ -66,8 +66,8 @@ Keep = lead habit. Delete = superseded or one-off history. Move = rule binds bui
 | dev-no-legacy-constraints | move-to-repo | Binds builders and reviewers; target: WORKFLOW.md (cross-repo process). |
 | app-languages | move-to-repo | Binds App builders (four languages per string); target: NeoERP-App/AGENTS.md. |
 | quick-add-pickers | move-to-repo | Design decision; target: NeoERP-App/docs/design/. |
-| product-direction-large | move-to-repo | Product direction; target: WORKFLOW.md (cross-repo) or docs/domain/. |
-| release-gates | move-to-repo | Where to log deferred items; target: NeoERP-BackEnd/AGENTS.md (points to the ops doc). |
+| product-direction-large | move-to-repo | Product direction; target: WORKFLOW.md (cross-repo; the detail stays in docs/large-customer-roadmap.md). |
+| release-gates | move-to-repo | Where to log deferred items; target: WORKFLOW.md (cross-repo: BackEnd ops doc Gate column + workspace docs/backlog.md). |
 | phase3-finish-plan | delete | Plan history, in PROJECT-STATE. |
 | hrp-draft-commits-preaccepted | delete (Jabran 2026-11-21) | Stale after the HRP rebuild. |
 
