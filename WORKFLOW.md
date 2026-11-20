@@ -57,8 +57,9 @@ Continue safe steps within an already-approved plan without repeatedly asking
 ownership, contract/schema/identity/product decisions, failed verification that
 cannot be safely resolved in scope, or a gate requiring user input. Missing an
 independent reviewer is not permission to label self-review independent.
-Final Approval always pauses. Commits follow the approved commit scope; pushes
-require explicit authorization. Updating state never grants implementation approval.
+Final Approval always pauses. Commits follow the approved commit scope. Push: the lead pushes right after verified
+commits ("BUILD SUCCESSFUL" and "0 failed" read); builders never push; a push outside approved work needs Jabran.
+No AI attribution (Co-Authored-By or similar) in commits, PRs or comments. Updating state never grants implementation approval.
 
 ## Task checkpoint: mandatory fields
 
@@ -108,14 +109,12 @@ model has obeyed them. Independent review and the closeout check supply oversigh
 
 How sessions split and run work. It applies on top of the stages above.
 
-- **Two sessions, two jobs.**
-  - The local session (Claude Code on Jabran's Mac, or Codex) is the **implementer**. It builds, compiles, runs the tests and services, and commits.
-  - The cloud Cowork session is the **designer and reviewer**. It writes specs, the rig and contracts, and it reviews the implementer's commits.
-- **The review hand-off.**
-  - After each batch, the implementer prints `review <first>..<last>` for each repo.
-  - Jabran passes that to the reviewer.
-  - The reviewer returns findings ranked by severity. The implementer fixes them and recompiles.
-  - This review counts as the Independent Reviewer stage. It is not self-review.
+- **Who does what.** Lead sessions (one per Mac; see "Two Macs, two leads") plan, delegates, integrates, tests once per merge batch and pushes. Builders (Claude or Codex) build one repo each and commit. Reviewers are fresh Opus sub-agents; the cloud Cowork reviewer is retired (2026-11-20).
+- **Review.** Every build gets a fresh independent Opus review before it lands. This review is the Independent Reviewer stage, not self-review.
+  - **Money and security lanes** means any change touching money posting, numbering, security/auth, locking or concurrency, migrations, or company isolation (the paths in `risk-paths.txt`). They get the re-runs and the second, different reviewer:
+  - On those lanes the reviewer re-runs the builder's targeted tests from clean and writes a failing test or reproduction per finding. A second, different reviewer (Codex or `/security-review`) checks before merge.
+  - Every review: `git fetch` first and list new migration files against the latest origin. Test re-runs only on money and security lanes (above).
+  - UI and wording lanes: one review, no re-runs.
 - **The lead stays responsive.** The main agent talks with Jabran, plans, delegates, reviews and reports. Real work goes to sub-agents or background jobs, so Jabran's questions are answered while work runs. Keep a visible task list with progress.
 - **Parallel by files.** Run independent work as parallel workers, split so no two workers edit the same file. The lead integrates shared files.
 - **Models (Claude):**
@@ -123,9 +122,10 @@ How sessions split and run work. It applies on top of the stages above.
   - **Sonnet 5.5:** only fully decided work: review fixes, wording, copying an existing pattern, data layers from a fixed contract.
   - **Haiku 5.5:** clearly defined tasks only: renames, doc and backlog updates, demo data and seed scripts, summaries, simple mechanical fixes.
   - **Fable 5.2:** only the most critical problems: two identical failures at high effort, or a hard concurrency, security or data-integrity bug.
-  - **Hard rule:** anything touching money, security or auth, locking or concurrency, or migrations is implemented or co-implemented by Opus. Every build, whichever model, gets a fresh independent Opus review before it lands. (Jabran, 2026-10-08; widened 2026-11-15)
-- **Loop for each piece of work:** spec and rig → Jabran approves → contract → backend and app slices in parallel → review → Jabran compiles and checks on devices.
-- **Approval.** When Jabran approves a spec and its contract, the slices the contract lists are approved for implementation. That includes their Flyway migrations and commits. Pushes, login or sign-in changes, and anything outside those slices still need his explicit approval.
+  - **Hard rule:** anything touching money, security or auth, locking or concurrency, or migrations is implemented or co-implemented by Opus. (Jabran, 2026-10-08; widened 2026-11-15)
+  - Label every sub-agent with its model in the description, e.g. `[Opus] C3 build`.
+- **Loop for each piece of work:** spec and rig → Jabran approves → contract → backend and app slices in parallel → review → lead tests and pushes → Jabran clicks through.
+- **Approval.** When Jabran approves a spec and its contract, the slices the contract lists are approved for implementation. That includes their Flyway migrations, commits and the lead's pushes of verified work. Login or sign-in changes, and anything outside those slices, still need his explicit approval.
 - **Current state and next work:** see `NeoERP-App/docs/HANDOFF.md` and the owning `docs/agents/<task>/plan.md`.
 
 ## Guardrails against agent loops (2026-10-06)
@@ -134,7 +134,7 @@ Agents must not circle. These apply to every implementer and reviewer.
 
 - **Design is frozen at commit.** The committed spec, contract and rig are the
   source of truth. Implementers do not redesign; a needed change is a one-line
-  change note to the reviewer, who decides.
+  change note to the lead, who proposes the change (spec or ADR) for Jabran to approve.
 - **Two review rounds per checkpoint, then stop.** Round 1 finds. Round 2 checks the
   fixes only. After that only a BLOCKER or MAJOR with a reproduction or a
   failing test reopens a batch. Everything else goes to the backlog file
@@ -146,11 +146,11 @@ Agents must not circle. These apply to every implementer and reviewer.
   tests named before it starts, and is done when those tests are green and the
   reviewer accepts. A slice that grows past its file list is split, not stretched.
 - **Two strikes, then escalate.** The same failure twice → stop, write what was
-  tried, escalate (Fable 5.1, then the reviewer, then Jabran). No third blind retry.
+  tried, escalate (Fable 5.2, then the lead, then Jabran). No third blind retry.
 - **Time box.** A job that has not produced a green test or a clear blocker
   within its box reports back instead of continuing.
 - **One owner per decision.** Product calls: Jabran. Design and architecture:
-  the reviewer. Implementation detail inside the contract: the implementer.
+  the lead proposes (spec or ADR), Jabran approves; the reviewer checks the work against it. Implementation detail inside the contract: the implementer.
   Agents never reopen a decision recorded in the spec's decision table.
 - **Jabran's time is for checkpoints only:** approve a design, click through a
   finished slice, approve pushes outside approved work.
@@ -169,22 +169,17 @@ enough to be worth their cost.
 - **Between checkpoints (implementer only):**
   - The implementer works through the waves on its own, in local commits or a feature branch. There is **no
     independent review and no reviewer round per wave**.
-  - The gate per wave is mechanical: the named tests are green, the full suites and
-    `:architecture-tests` are green, and the money/security checks in the contract are run.
+  - The gate per wave is mechanical: the named and impact-based tests (Test scope below) are green, and the money/security checks in the contract are run.
   - Sonnet works with an **Opus self-check** at the end of each wave. That is one short pass over the wave's diff in the
     implementer session, not a separate review job.
-  - The implementer writes to the channel only for a contract question or amendment, a blocker, or
+  - The implementer tells the lead only about a contract question or amendment, a blocker, or
     two strikes. It does not post a status message per wave.
 - **At a checkpoint:**
   1. **One** independent Opus review of the whole checkpoint diff, scoped to the
      contract sections that diff touches.
-  2. The implementer fixes the findings and posts **one** review-request entry: the range, test counts, the review
-     verdict, and any rulings needed.
-  3. **The reviewer's round:**
-     - *Risk-flagged* checkpoints (money posting, numbering, locking or
-       concurrency, security/auth, migrations, isolation) get one reviewer round.
-     - *Other checkpoints* are accepted on test names and the independent review's verdict, with no extra round.
-  4. Push after acceptance. Jabran clicks through user-visible checkpoints.
+  2. The implementer fixes the findings and sends the lead **one** report: the range, the test scope run with counts, the review verdict, and any rulings needed.
+  3. **Money and security checkpoints** (as defined in Working mode, Review) also get the second reviewer and the test re-runs (see Working mode, Review). **UI and wording checkpoints** are accepted on test names and the one review, with no re-runs.
+  4. After the lead's full run, the lead pushes. Jabran clicks through user-visible checkpoints.
 - **Docs are part of done (Jabran, 2026-10-09).** A checkpoint is accepted only when, in the same diff:
   - its **developer page** is updated: `NeoERP-BackEnd/docs/modules/{module}/{feature}.md` (flows, server rules, data,
     events, decisions, guidelines) and the app side in `NeoERP-App/docs/modules/`;
@@ -204,8 +199,9 @@ enough to be worth their cost.
     - A contract or DTO change runs the producer's and every consumer's tests (backend and app).
     - App code runs the affected feature's tests plus `jvmTest` of the shared core when `core/` changed.
     - Docs only: no tests.
-  - **At a checkpoint, before push:** run the full suites of every touched service, the library, `:architecture-tests` and the app's `jvmTest`, once. Load and concurrency tests run at the checkpoint, or when the engine or locking code changed.
-  - **Reports state the scope that was run**, e.g. "accounts: 3 classes, 41 tests" or "full suite 342/0". A failure in an unrelated test is recorded and the work moves on: it doesn't block, unless the change could have caused it.
+  - **Builders** run their targeted tests through the Gradle lock (`lockf`, one Gradle run at a time machine-wide); wording lanes compile only. One Gradle lane at a time per machine; builders spawn no helper agents. Run `./gradlew --stop` after Android or iOS compiles.
+  - **Before push, the lead runs one full run per merge batch (at most 3 related slices):** the full suites of every touched service, the library, `:architecture-tests` and the app's `jvmTest`. Load and concurrency tests run then, or when the engine or locking code changed. Read "BUILD SUCCESSFUL" and "0 failed" before pushing, in a separate step from the test run.
+  - **Reports state the scope that was run**, e.g. "accounts: 3 classes, 41 tests" or "full suite 342/0". A failure in an unrelated test gets a backlog row (`docs/backlog.md`) with an owner the same turn, or it blocks.
 - **Test output costs tokens; keep it out of the context.**
   - Run Gradle quietly (`-q --console=plain`). Send the full log to a file under the build directory, never into the conversation.
   - Read back only the summary (passed/failed counts per module) and, for failures, the test name with the first assertion message and up to 20 lines of stack.
@@ -215,7 +211,7 @@ enough to be worth their cost.
   - Testcontainers and load tests run in the background and report only their result.
 - **Cost rules for reviews:**
   - Read the diff and the named contract sections only, never the whole repo.
-  - One reviewer per checkpoint, not one per slice or one per dimension.
+  - One reviewer per checkpoint, not one per slice or one per dimension (plus the second reviewer on money and security).
   - Re-review only the fixes (the two-round rule above still applies).
   - Docs-only or mechanical changes are accepted on a skim.
 - **Design reviews:** a design is reviewed once before Jabran approves it, and again only if it
@@ -273,30 +269,27 @@ Every builder brief (Claude or Codex) names two scopes, on top of "one repo per 
 
 The full repo stays checked out: the build, the shared modules, the architecture tests and "where else?" need it.
 
-## Context limit: hand off before it fills (Jabran, 2026-10-08)
+## Context limit: compact and hand off (Jabran, 2026-10-08; thresholds updated 2026-11-20)
 
-Every agent session, the implementer's and the reviewer's included:
-- **At about 80 % of the context window**, stop taking new work and finish the current small step.
+- **The lead** asks Jabran for `/compact` at about 50 % of the context window. **Every other session** hands off at about 80 %.
+- At the threshold, stop taking new work and finish the current small step.
 - **Write a handoff note** (≤ 60 lines) in `.review-channel/handoff-<role>.md`. Replace it, don't append. It holds:
   - the current checkpoint and slice;
   - what is done (commits), what is in progress, and the exact next step;
-  - open rulings, entry numbers and branches;
+  - open rulings and branches;
   - anything uncommitted;
   - the rules that matter for the next step.
-- Then **compact the context, not the session**:
-  - **Claude Code:** run `/compact` with a focus line, e.g. `/compact keep: handoff-implementer.md, current checkpoint, open entries`.
-  - **Cowork:** compaction happens automatically. Keep the handoff note current at every checkpoint, so nothing important exists only in the conversation when it compacts.
-  - After compacting, re-read `WORKFLOW.md` and the handoff note before continuing.
-  - A fresh session is only needed when compaction has happened several times and quality drops.
-- **Don't wait for the automatic compaction at 100 %** in the middle of a wave or a review: details get lost and mistakes repeat.
-- **Hand off at natural boundaries** (end of a wave, a checkpoint or a review) even below 80 % when the next piece of work is large.
+- Then compact the context, not the session: run `/compact` with a focus line, e.g. `/compact keep: handoff-implementer.md, current checkpoint`. After compacting, re-read `WORKFLOW.md` and the handoff note.
+- A fresh session is only needed when compaction has happened several times and quality drops.
+- Don't wait for automatic compaction in the middle of a wave or a review: details get lost and mistakes repeat.
+- Hand off at natural boundaries (end of a wave, a checkpoint or a review) even below the threshold when the next piece of work is large.
+- At 90 % of the plan limit (5-hour or weekly) start nothing new and finish what runs; at 92 % stop and hand off.
 
-## Communication by prompt (Jabran, 2026-10-08)
-- The `.review-channel/to-*.md` files are **retired**; their history is in `.review-channel/archive/`, read only when someone refers to an old entry.
-- **Reviewer → implementer:** the reviewer gives Jabran one short prompt. Jabran pastes it into the implementer session.
-- **Implementer → reviewer:** the implementer ends its work with one short report (commits or range, the test scope run with counts, rulings needed, the review verdict). Jabran pastes it to the reviewer.
-- Keep both short: decisions and instructions, no restated history.
-- `.review-channel/handoff-<role>.md` stays, for compaction.
+## Reviews and reports (2026-11-20)
+- The `.review-channel/to-*.md` files and the cloud Cowork reviewer are retired (history in `.review-channel/archive/`, read only when someone refers to an old entry).
+- Reviews are fresh Opus sub-agents plus Codex or `/security-review` where the Working mode requires it. Reviewers report findings to the lead.
+- Builders end with one short report to the lead: commits or range, test scope run with counts, rulings needed, review verdict. Keep it to decisions and instructions, no restated history.
+- `.review-channel/handoff-<role>.md` stays, for handoffs.
 
 ## Canonical state and reference
 
@@ -313,8 +306,8 @@ State approval does not authorize implementation, login changes, migrations,
 commits or pushes. Every workstream retains "None newly approved" until its owning
 checkpoint is reconciled and the user separately approves its scope. Unnamed
 integration owners must be clarified, not inferred from a proposed role.
-Workspace/design versioning remains undecided. No document moves, renames,
-archival or retirement, and no repository initialization, are authorized.
+Workspace/design versioning remains undecided. Moving or retiring a document needs
+Jabran's OK for that change. No repository initialization is authorized.
 
 ## QA rounds and limits (Jabran, 2026-11-19)
 - **Simulator size checks, 6 positions on 4 simulators:** iPhone SE portrait (375×667) and landscape (667×375); iPhone 18 Pro landscape (874×402); iPad mini portrait (744);
@@ -324,14 +317,13 @@ archival or retirement, and no repository initialization, are authorized.
 - **Fix rule:** collect all findings of a round, fix once at the end; fix at once only blockers that stop other tests.
 - **Every builder brief** includes the review checklist: desktop and keyboard behaviour unchanged unless the brief says otherwise; contract-mapping tests for any API change;
   shared component changes list their callers; JVM and iOS compile; read "BUILD SUCCESSFUL" and "0 failed" before any push.
-- **Limits:** start big parallel work early in a 5-hour window; below 90% keep going; the lead asks for /compact at about 50% context.
+- **Limits:** start big parallel work early in a 5-hour window; thresholds are in "Context limit".
 - **After each round:** fix the test scripts from the round's SCRIPT list (Sonnet job), and end the round's `summary.md` with a **Lessons** section (3–5 lines: way of working changed, automated test added, spec changed).
 - **Guardrails for money, security and statutory work (Jabran 2026-11-20, not trials):**
   1. Every money or security finding gets an automated test before it is closed.
   2. Money invariant checks run after every seed and full test run: debits = credits per journal, ledger = sum of postings, subledgers = control accounts, no double post or double pay under retry, rounding per currency. A break stops the push.
-  3. Money and security changes get a second, different reviewer (Opus plus Codex or `/security-review`) before merge.
-  4. Posting rules and statutory files are signed off by a human accountant before go-live; pen test and production invariant checks are go-live gates (BackEnd `hosting-and-go-live-requirements.md` ERP-Q1–Q3).
-  5. Review strength (Jabran 2026-11-20, review C4): on money and security lanes the reviewer re-runs the builder's targeted tests from clean and writes a failing test or reproduction per finding; the second reviewer is a different model. Nothing is merged uncompiled. UI and wording lanes keep one review without re-runs.
-  6. Company isolation (review C3): the tenant architecture test covers every service; database row-level security follows by ADR before the first customer; Payroll's rebuild must carry the company column.
+  3. Money and security changes (as defined in Working mode, Review) get a second, different reviewer (Opus plus Codex or `/security-review`) before merge, with the re-runs described in Working mode, Review. Nothing is merged uncompiled. Test runs fail on unexpected skips (e.g. Docker-skipped tests).
+  4. Posting rules and statutory files are signed off by a human accountant before go-live; pen test and production invariant checks are go-live gates; owners: accountant sign-off and pen test = Jabran, production invariant checks = the lead (BackEnd `hosting-and-go-live-requirements.md` ERP-Q1–Q3).
+  5. Company isolation (review C3): the tenant architecture test covers every service; database row-level security follows by ADR before the first customer; Payroll's rebuild must carry the company column.
 - **Two Macs, two leads (Jabran 2026-11-21):** each lead writes what it works on in `.review-channel/claims.md` first; work on different branches; pull before work, push right after; usage thresholds apply per account. **Probation:** until Jabran says the new Mac's lead behaves as expected, it builds only on `phase/4-b2-*` lane branches and does **not** merge to `phase/*` or `main`; after each lane it writes `.review-channel/lane-ready-<lane>.md` (diff range, brief, review files, targeted and full test results with "BUILD SUCCESSFUL" and "0 failed", write-scope check). The old Mac's lead reviews process and result against this file and lessons, writes `.review-channel/lane-verdict-<lane>.md` (MERGE / FIX: list), and the merge to `phase/4` happens only after MERGE. Both leads back up memory to `docs/lead-memory/` (no deletes, newer wins).
 - **Lessons register (`docs/lessons.md`, Jabran 2026-11-20):** after every batch or round, new lessons go in as Proposed; Trial lessons get "+/−" evidence per batch; a lesson that helped in 2 batches becomes a Convention (moved into this file or the lead's memory), one that didn't is Dropped with the reason. The lead tells Jabran what moved.

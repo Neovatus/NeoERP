@@ -73,18 +73,7 @@ design value; `styles.css` derives from it, never the reverse.
 
 ## Shared stage process
 
-Both repositories use the same process:
-
-```text
-Architecture Discovery -> Architecture Plan -> Advisor Gate 1 -> Engineer
-  -> Advisor Gate 2 -> Reviewer -> Advisor Gate 3 -> Improver
-  -> focused independent re-review -> Final Approval Gate
-  -> Delivery (focused commits + explicitly requested push) -> Done
-```
-
-Every stage uses its senior role and mandatory Zoom-Out Scan. Final Approval
-always pauses. Documentation, verification, and independent re-review must be
-complete before Final Approval; Delivery cannot modify the approved artifact.
+Both repositories use the stages, gates, review rules and push rule in [WORKFLOW.md](../WORKFLOW.md). Do not keep a copy here.
 
 ## Cross-repo changes
 
@@ -97,7 +86,7 @@ If a task touches both repos:
 5. Integrate and review both repository diffs together at each applicable gate.
 6. Reach one Final Approval before either repository enters Delivery.
 7. Create separate focused commit plans and hashes per repository.
-8. Push only when explicitly requested, naming each branch and remote.
+8. Builders never push; the lead pushes verified commits (see WORKFLOW.md).
 
 ## Practical rule of thumb
 
