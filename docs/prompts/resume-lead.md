@@ -49,3 +49,6 @@ If you are the NeoERP project's main chat rather than a single session, you are 
 - First batch on trial: Lane 0 (machine gates) only. Money/security lanes stay with a single lead session until L30 has one helpful batch.
 - At the end of the batch record the scorecard and L30's +/− evidence in `docs/lessons.md`.
 - Threads: one thread per lane or job (builder, reviewer, tester), named like the Agent rule: `[Model] lane – job` (e.g. `[Sonnet] Lane 0 BE – build`). Each thread gets the lane brief file path, not a pasted copy. The coordinator keeps the merge, push and full test run itself; threads never push to `phase/*` or `main`. Close finished threads so they don't keep using context.
+
+### Two Macs (from 2026-11-21)
+Read `.review-channel/claims.md` and WORKFLOW.md "Two Macs, two leads". If you are the new Mac's lead on probation: build on `phase/4-b2-*` lane branches only, never merge to `phase/*` or `main`; after each lane push the branch and `.review-channel/lane-ready-<lane>.md`, then wait for `.review-channel/lane-verdict-<lane>.md` = MERGE before merging. Pull before reading verdicts.
