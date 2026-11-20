@@ -125,7 +125,7 @@ The `(SELECT …)` form is evaluated once per query, so the planner still uses `
 |---|---|---|---|
 | R0 | Accept this ADR; Lane 0 arch test covers all 8 services | — | Jabran |
 | R1 | `TenantTransactionBinder` (marker per connection, M3), aspect, the four flag functions (M2), session-setting and savepoint bans, `bindSystemJob`/`bindPlatform` class allowlists, binder unit tests | S | lead review + 2nd reviewer (security) |
-| R2 | Accounts: one migration `ENABLE`/`FORCE` + policy on all 97 company tables, M6 per-command policies on the system tables and `audit_outbox`, M7 policy on the catalog tables; revoke writes on reference tables; extend `RuntimeRoleCheck`; ledger-check port takes a scope | M | RLS suite (§5) green as runtime role |
+| R2 | Accounts: one migration `ENABLE`/`FORCE` + policy on all 97 company tables, M6 per-command policies on the system tables and `audit_outbox`, M7 policy on the catalog tables; revoke writes on reference tables; extend `RuntimeRoleCheck`; ledger-check port takes a scope; code change: `PlatformCatalogUsageAudit.complete()` appends a second audit row instead of updating (M7) | M | RLS suite (§5) green as runtime role |
 | R3 | Accounts: switch the fixture's app connection to `neoerp_accounts_app` (owner keeps seeding) and fix every path that read without a scope | M | full accounts suite green |
 | R4 | Payroll v2 and HR v2: `company_id NOT NULL`, composite keys and RLS in the **first** migration; no baseline entries allowed; old tables dropped, no backfill (dev has no legacy data to keep) | in the rebuild | P-17 closes |
 | R5 | Reporting store (ADR-023) ships with RLS | in its build | — |
