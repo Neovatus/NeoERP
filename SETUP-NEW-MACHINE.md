@@ -128,6 +128,12 @@ Claude's lead memory lives outside the repos (`~/.claude/projects/<workspace pat
 
 `NeoERP-BackEnd/.env`, `infra/.env` and `.local-secrets/` (demo passwords, bank-number keys) are committed in the private BackEnd repo for the local stack only, so a fresh clone has them. They must never be used on a hosted stack (go-live gate ERP-Q5).
 
+Each service's `services/<service>/src/main/resources/application-local.properties` (local database login and other local Spring settings, all 8 services) also comes with the clone (BackEnd 8bc622a), even though `.gitignore` lists the pattern. Without them every service except the gateway stops at startup with "SCRAM-based authentication, but no password was provided". All of these are on `phase/4`, not `main`: switch the fresh clone to `phase/4`. `scripts/check-new-machine.sh` checks for them.
+
+git does not keep file permissions, so a fresh clone leaves `.local-secrets/*` readable by others, and accounts-service then refuses to start. Run `chmod 700 NeoERP-BackEnd/.local-secrets && chmod 600 NeoERP-BackEnd/.local-secrets/*` once; the check script flags it.
+
+First build on a new Mac: compile once before starting the services (`./gradlew classes`), and give the Kotlin compiler room in `/tmp/gradle-home/gradle.properties` (`kotlin.daemon.jvmargs=-Xmx3g`, `org.gradle.jvmargs=-Xmx2g`). Without it, the eight parallel cold builds of `run-all-services.sh` run out of memory ("GC overhead limit exceeded") on a 16 GB Mac. `/tmp` is cleared on reboot, so recreate the file after a restart.
+
 ## Let Claude set up the new Mac
 
 Clone the workspace, open it in Claude Code and say: "Read `docs/prompts/setup-new-mac.md` and do what it says." To continue the project there afterwards: "Read `docs/prompts/resume-lead.md` and do what it says." See [docs/prompts/](docs/prompts/README.md).

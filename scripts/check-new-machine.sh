@@ -17,9 +17,10 @@ has python3 && ok "python3"             || bad "python3" "brew install python"
 has node    && ok "node"                || bad "node" "brew install node"
 has rsync   && ok "rsync"               || bad "rsync" "brew install rsync"
 [ -x /usr/bin/lockf ] && ok "lockf"     || bad "lockf" "comes with macOS"
-/usr/libexec/java_home -v 21 >/dev/null 2>&1 || ls -d "$HOME"/Library/Java/JavaVirtualMachines/jbr-21* >/dev/null 2>&1 \
-  && ok "JDK 21 (runs Gradle)" || bad "JDK 21 (runs Gradle)" "brew install --cask temurin@21 (or JetBrains Runtime 21)"
-/usr/libexec/java_home -v 17 >/dev/null 2>&1 && ok "JDK 17 (backend toolchain)" || bad "JDK 17 (backend toolchain)" "brew install --cask temurin@17"
+# `java_home -v N` falls back to any JDK and still exits 0, so match the installed versions instead.
+has_jdk() { /usr/libexec/java_home -V 2>&1 | grep -qE "^[[:space:]]+$1(\.|[[:space:]])"; }
+has_jdk 21 && ok "JDK 21 (runs Gradle)" || bad "JDK 21 (runs Gradle)" "Android Studio: Download JDK 21 (JetBrains Runtime), or brew install --cask temurin@21"
+has_jdk 17 && ok "JDK 17 (backend toolchain)" || bad "JDK 17 (backend toolchain)" "Android Studio: Download JDK 17 (Eclipse Temurin), or brew install --cask temurin@17"
 has docker  && ok "Docker"              || bad "Docker Desktop" "brew install --cask docker, then open it once"
 has docker && { docker info >/dev/null 2>&1 && ok "Docker running" || bad "Docker running" "open -a Docker"; }
 has xcodebuild && ok "Xcode ($(xcodebuild -version 2>/dev/null | head -1))" || bad "Xcode" "install Xcode 27 from the App Store, then xcode-select -s /Applications/Xcode.app"
@@ -33,7 +34,18 @@ echo "Code"
 [ -d "$NEO/KMM-Module/KMM-Network" ] && ok "KMM-Module/KMM-Network" || bad "KMM-Module" "cd $NEO && git clone https://github.com/Neovatus/KMM-Module.git"
 [ -f "$ROOT/NeoERP-App/local.properties" ] && grep -q '^sdk.dir=' "$ROOT/NeoERP-App/local.properties" && [ -d "$(sed -n 's/^sdk.dir=//p' "$ROOT/NeoERP-App/local.properties")" ] \
   && ok "App local.properties sdk.dir" || bad "App local.properties sdk.dir" "echo \"sdk.dir=\$HOME/Library/Android/sdk\" > $ROOT/NeoERP-App/local.properties"
-[ -f "$ROOT/NeoERP-BackEnd/.local-secrets/demo-passwords" ] && ok "dev secrets (from the clone)" || bad "dev secrets" "git -C $ROOT/NeoERP-BackEnd pull"
+[ -f "$ROOT/NeoERP-BackEnd/.local-secrets/demo-passwords" ] && ok "dev secrets (from the clone)" || bad "dev secrets" "git -C $ROOT/NeoERP-BackEnd switch phase/4 && git -C $ROOT/NeoERP-BackEnd pull"
+# Each service's local Spring settings (database login etc.) come with the clone too; without them services cannot reach Postgres.
+missing_props=""
+for svc in api-gateway org-service auth-service user-service hr-service payroll-service audit-service accounts-service; do
+  [ -f "$ROOT/NeoERP-BackEnd/services/$svc/src/main/resources/application-local.properties" ] || missing_props="$missing_props $svc"
+done
+# git does not keep file modes: a clone makes the secret files 644, and accounts-service refuses to start unless they are 600.
+open_secrets="$(find "$ROOT/NeoERP-BackEnd/.local-secrets" -type f -perm -044 2>/dev/null | head -1)"
+[ -z "$open_secrets" ] && ok "dev secrets are owner-only (600)" \
+  || bad "dev secrets readable by others" "chmod 700 $ROOT/NeoERP-BackEnd/.local-secrets && chmod 600 $ROOT/NeoERP-BackEnd/.local-secrets/*"
+[ -z "$missing_props" ] && ok "service application-local.properties (from the clone)" \
+  || bad "application-local.properties for:$missing_props" "git -C $ROOT/NeoERP-BackEnd switch phase/4 && git -C $ROOT/NeoERP-BackEnd pull"
 case "$ROOT" in "$HOME/Offices/Neovatus/NeoERP") ok "workspace path matches the old Mac";; *) bad "workspace path" "clone to ~/Offices/Neovatus/NeoERP so scripts and memory restore work";; esac
 
 echo
