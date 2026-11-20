@@ -1,14 +1,10 @@
 ---
 name: lead-runs-demo-tokens
-description: The lead may run make-demo-tokens.sh itself to refresh expired dev session files (local stack only); never read its inputs or outputs
+description: "The lead may run `NEOERP_DEV_SESSION=1 scripts/make-demo-tokens.sh <users>` (NeoERP-BackEnd, local stack only) and NeoERP-App `tools/dev-session-to-si"
 metadata:
-  node_type: memory
   type: feedback
-  originSessionId: 7ea71d1e-9845-4f9c-b0bc-6094b7d85c1b
-  modified: 2026-11-19T22:31:57.461Z
 ---
 
-Jabran (2026-11-19): "when you need to refresh token run the command as well". The lead runs `NEOERP_DEV_SESSION=1 scripts/make-demo-tokens.sh <users…>` from NeoERP-BackEnd itself when simulator sessions expire (30 min idle), then `tools/dev-session-to-simulator.sh` (in NeoERP-App) plus keychain reset and relaunch.
+The lead may run `NEOERP_DEV_SESSION=1 scripts/make-demo-tokens.sh <users>` (NeoERP-BackEnd, local stack only) and NeoERP-App `tools/dev-session-to-simulator.sh` to refresh simulator sessions; never open or print `.local-secrets/*`, `*.jwt`, `*.session.json` or `neoerp-demo-tokens.env`; tester sub-agents do not run it (Jabran 2026-11-19).
 
-**Why:** saves round-trips to Jabran during QA rounds.
-**How to apply:** local stack only; the script reads `.local-secrets/demo-passwords` itself. Never cat, open or print that file, the `.jwt`/`.session.json` outputs, or `neoerp-demo-tokens.env`; pass paths only. Sub-agent testers still do not run it. Related: [[tester-agent-full-flows]].
+**Lives in:** this memory; moves to WORKFLOW.md QA section with the DOCS-1 repo-guide edits.
