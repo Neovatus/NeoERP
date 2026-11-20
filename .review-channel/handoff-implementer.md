@@ -62,3 +62,34 @@
 - Jabran decisions: G01 only uploader may discard an import check, Owner with written reason; G29 cost centres stay link-only (fix script). Fix rule: collect all, fix once at end; only blockers mid-round.
 - Fix batch lanes: BE (worktree be-qa1, running), APP-A touch/input (app-qa1-a, running), then APP-C layout/wording (after A), APP-B flows + BE contracts (after BE). Accounts V73 reserved for AL S5; BE uses V74+.
 - After lanes: Opus review each, full runs, merge to phase/4, new simulator build, retest round (fixed groups + NOT-RUN list), then device de-dup (notes in scratchpad size-dedup-notes) and QA devices doc + setup script; Codex desktop brief ready docs/agents/qa-desktop/brief-codex.md.
+- 2026-11-19: QA1 BE lane uses accounts V74; **AL S5 moves to V75** (Flyway has no outOfOrder). G08 rule (lead): only ON equal to the agreement becomes INHERIT; explicit OFF stays stored; no INHERIT→INHERIT history rows. BE review fixes sent back to the BE builder (G07 actorSource only on CREATED/UPDATED/SUBMITTED, docs, G39 catalog rename, seed guard).
+
+## STOP at 95% (2026-11-19 ~16:50, 5-h window resets 18:00 UTC) — QA1 fix batch state
+- **BE lane** (be-qa1, phase/4-qa1-be, 14 commits, clean): built + reviewed + review fixes done. Full backend `./gradlew test` was running in background (log: scratchpad be-qa1-full.log). If green → fast-forward push to phase/4 (V74; AL S5 moves to V75). Remove be-qa1 after merge.
+- **App A** (app-qa1-a, 7 commits + ~20 UNCOMMITTED files = in-progress review fixes: picker focus for hardware keyboard, desktop select-on-entry gate, iOS NumbersAndPunctuation + toolbar removal, paste filtering, focus after pick, explicit number format, onFocusBehavior, spec updates). Resume the lane-A builder (SendMessage to it) to finish + commit; do NOT commit its half work blindly.
+- **App C** (app-qa1-c, based on A's 7 commits, ~109 UNCOMMITTED files, layout/wording G34–G38, G39–G47 app side, tokens json). Resume the lane-C builder to finish, commit, then merge phase/4-qa1-app-a (after A's fixes) before final compile.
+- **App B** (app-qa1-b, 7 commits + ~11 uncommitted; last commit G23; was mid "placeholders end to end"). Resume the lane-B builder to finish (G15–G30 flows + BE contracts G01–G44 app side).
+- Then: Opus review of C and B (A already reviewed; check its fix commits), full app jvmTest + iOS compile once on the combined branch (merge A→C→B or A, C, B into one merge branch), push phase/4, new simulator build, Jabran runs reset (Stockholm org number needs reseed) + make-demo-tokens, retest round (fixed groups + NOT-RUN list + Split View/Larger Text + iPhone Duo/resizable check), then device de-dup.
+- **App B update (stopped early, uncompiled):** commits f34e2e3f G04, 42cc13c7 G01+G18, e636a7fa G07+G44, 863f9549 G21+G02, 47522dcc G13+G18, 4f0d585c G23, 78db5910 G10. NOT compiled — run compileLocalKotlinJvm + compileKotlinIosSimulatorArm64 + i18n + accounts tests first. NOT done: G03, G08, G11, G15, G16, G19, G20, G24, G25, G28, G29, G30 (needs a second B builder pass). BE gaps: import history row lacks discardedByName; 403 roles detail not parsed.
+- **BE lane MERGED** to phase/4 (6b67792) after full backend run green (42 min). be-qa1 removed. Jabran told to reset + reseed now (no simulator session files yet).
+- **App A DONE** incl. all 9 review fixes (b8aa34c6; compiles JVM+iOS; 949 targeted tests green). Two commit messages still say "WIP: not yet compiled" (they compile now). Lane C must merge phase/4-qa1-app-a before its final compile. Retest on sim: NumbersAndPunctuation keyboard, onFocusBehavior=DoNothing with side panels/dialogs, hardware keyboard on iPad pickers, G14.
+
+## 2026-11-19 night: QA1 fixes merged, retest running
+- phase/4: BE 6b67792 (QA1 BE, V74; AL S5 → V75). App f42afb54 (lanes A+B+C merged, full jvmTest green after size fix). Reset+reseed done (3 LOCKED months at Kystgruppe, Stockholm org no).
+- Simulators: new build installed on 9 devices, fresh sessions (Ola, Anna, Bjørn, Omar, Hina, Ayesha*, Erik*, Sara*, Jonas); *shut down after their tests.
+- Retest brief docs/agents/qa-round1-retest/brief.md; results in that folder (no artifact). West tester done (fixed G08 G09 G10 G11 G46; partly G03 G19 G39 G41; broken G25; new: SIE says no org number though DB has it, 2081 line no branch, Back to receivables opens wizard, Enter as opening items still offered after create, Omar sees Withdraw on Ayesha's import, iPhone17 amount letters keyboard, unconfirmed "500"→"5,00").
+- Running: Opus Kystgruppe journals tester; Sonnet Sialkot leftovers (G04, G40, Larger Text). Next: Sonnet chunk for remaining Kystgruppe groups (G15 G16 G24 G27 G35 G37 G38 G40 G45–G47; needs a fresh Jonas session for feature switches) + size checks on the 6-size set (iPhone SE needs app + session). Then group retest results → second fix batch.
+- New rules (WORKFLOW.md "QA rounds and limits"; memory usage-efficiency-plan, qa-simulator-sizes, qa-report-no-artifact, check-test-result-before-push).
+- After retest: Sonnet job fixes phase3-test-steps.md + a4-test-steps.md from the SCRIPT list; add Lessons section to qa-round1-retest/summary.md.
+
+- STOP after retest wrap-up (fix list, script-fix job, Lessons, commit). Do NOT start the second fix batch until Jabran says go (2026-11-19).
+- Retest wrap-up DONE (6fa0b72): fix list docs/agents/qa-round1-retest/fix-list.md (R01–R28 + layout/wording + 4 decisions). Waiting for Jabran: go for batch 2 and the 4 decisions. All simulators shut down; sessions will need refresh (lead runs make-demo-tokens.sh).
+
+## Evening plan (Jabran approved 2026-11-20)
+Fable process review: docs/reviews/process-review-fable-2026-11-20.md; lessons L15–L29 sorted in docs/lessons.md; WORKFLOW guardrails 5–6 (review strength, isolation).
+1. Lane 0 machine gates (Sonnet, both repos, ~1 h): scripts/verify.sh + pre-push hook (failed = 0 AND skipped within allowlist; marker per HEAD); money invariant check script (L12) run after seed and full run; tenant arch test to all 8 services; docs/risk-paths.txt (L16); backend CI trigger dev → phase/** + PR (Actions stay off); first build rules (NeoFormat/NeoNumericInput only, no Double money, no hardcoded colours).
+2. In parallel: Sonnet docs clean-up of contradictions (review H1: push, review scope, compaction 80 vs 50, retired models) → WORKFLOW.md single source; memory keeps lead habits only (L25).
+3. ADR: row-level security (ERP-Q4) — Opus draft for Jabran.
+4. Fix lanes from docs/agents/qa-round1-retest/fix-list.md behind the gates; money/security lanes: reviewer re-runs tests + second different reviewer.
+5. One Sonnet retest of changed screens only; scorecard + lessons update.
+Omar's role: resolved (same role, doc fixed).
