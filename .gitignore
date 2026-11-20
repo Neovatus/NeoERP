@@ -5,8 +5,6 @@
 # Generated output and scratch.
 /Claude outputs/
 /_scratch/
-# Project state files are not shared through this repo.
-/PROJECT-STATE*.md
 # Inbox listener runtime files.
 docs/inbox/.listen-*
 docs/inbox/.paused-*
