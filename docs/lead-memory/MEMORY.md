@@ -42,3 +42,4 @@
 - [Lead sub-agent reads](lead-subagent-reads.md) — small reads myself; >3 files, logs, web pages via sub-agent (trial L07, 2026-11-20)
 - [Money/security guardrails](money-security-guardrails.md) — mandatory, not trials: test per finding, invariant checks block push, 2nd different reviewer, accountant + pen test at go-live (Jabran 2026-11-20)
 - [Project state current](project-state-current.md) — PROJECT-STATE.md in git; lead updates it every batch; .claude/.codex copies deprecated (Jabran 2026-11-20)
+- [Two Macs: probation](two-macs-probation.md) — new-Mac lead builds on lane branches; old-Mac lead reviews lane-ready files and writes MERGE/FIX verdicts (Jabran 2026-11-21)
