@@ -300,7 +300,8 @@ Every agent session, the implementer's and the reviewer's included:
 
 ## Canonical state and reference
 
-The user approved the three-file split and placement on 2026-09-06.
+One current state file: [PROJECT-STATE.md](PROJECT-STATE.md). The `.claude`/`.codex`
+copies were deprecated on 2026-11-20 (history only). The lead updates it at the end of every batch.
 Read [PROJECT-STATE.md](PROJECT-STATE.md), the canonical active-workstream index,
 on every pickup, then the owning plan. Read the
 [dated factual reference](docs/reconciliation-2026-09-06.md) on demand; it is not a

@@ -10,7 +10,8 @@ Repository skills retain their technical gates. Shared process and record owners
 come from WORKFLOW.md, not duplicated tool-specific instructions.
 
 Read the canonical [PROJECT-STATE.md](PROJECT-STATE.md) on every task pickup.
-The user approved its split and placement on 2026-09-06. Read the
+It is the one current state file; the `.claude`/`.codex` copies were deprecated on
+2026-11-20 (history only). The lead updates it at the end of every batch. Read the
 [dated factual reference](docs/reconciliation-2026-09-06.md) on demand, not on every pickup.
 State approval does not authorize implementation, login changes or migrations;
 each workstream needs its owning checkpoint reconciled and scope separately approved.

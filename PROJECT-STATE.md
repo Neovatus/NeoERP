@@ -1,44 +1,46 @@
-# NeoERP project state: canonical active-workstream index
+# NeoERP project state: active-workstream index
 
-The user approved the factual content of PROJECT-STATE.codex.md on **2026-09-06**.
-The user approved the three-file split and placement on **2026-09-06**.
-This is the canonical active-workstream index.
-It follows [WORKFLOW.md](WORKFLOW.md); recording the user-approved ownership model does not approve engineering.
-Baseline revisions: App `73136f3`; backend `7584040`. Both repositories have substantial
-uncommitted changes: these revisions alone do not identify the reviewed implementation.
+**Updated 2026-11-20.** This is the one current state file. `PROJECT-STATE.claude.md` and
+`PROJECT-STATE.codex.md` are deprecated (history only).
+Format: [WORKFLOW.md](WORKFLOW.md) "One owner per record". Links, not history; detail lives in the owning plan.
+Most recent detail: the lead's handoff `.review-channel/handoff-implementer.md`.
+
+**Kept current by:** the lead updates this file at the end of every batch, together with the
+[lessons register](docs/lessons.md).
+
+**Branches (2026-11-20):** both repos work on `phase/4`; one PR per phase to `main`.
+`phase/4` heads: App `bff8d14c`, BackEnd `9105bda`. `main`: App `370ad7a6` (PR #4), BackEnd `c6d5a6f` (PR #7).
+
+Integration owner for every row: **Jabran** (decides scope, approves). The lead runs the work.
 
 ## Active workstreams
 
-Owning-plan choices remain proposals. Existing plans need their stale checkpoints
-reconciled before use; their historical stage labels do not override this gate.
-The user confirmed the corrected mapping on **2026-09-06**: Jabran, Codex,
-Claude Code and Design contribute to every workstream; Jabran is the integration
-owner for all of them. This supersedes the earlier per-lane assignments.
-AUTH-01 closed on **2026-09-15** and PLAT-01 was opened to carry the platform
-admin and dashboard work, so the index now lists five workstreams.
+| ID | Workstream / position | Owning plan or doc | Run by | Blocker / dependency | Next approved work |
+| --- | --- | --- | --- | --- | --- |
+| QA-B2 | Phase 4 Accounts, QA batch 2: second fix list R01–R28 plus layout and wording. All four decisions approved 2026-11-20. Not started. | [fix-list.md](docs/agents/qa-round1-retest/fix-list.md), [summary.md](docs/agents/qa-round1-retest/summary.md) | Lead | Lane 0 gates first (evening plan 2026-11-20). | Fix lanes (BE, App A, App B, App C) behind the gates; money/security lanes get test re-runs and a second, different reviewer. Then one Sonnet retest of changed screens, scorecard and lessons. |
+| GATE-0 | Lane 0 machine gates: `scripts/verify.sh` and pre-push hook, money invariant check, tenant architecture test on all 8 services, `docs/risk-paths.txt`, CI trigger fix, first build rules. Approved 2026-11-20; not built yet. | [WORKFLOW.md](WORKFLOW.md) "QA rounds and limits" guardrails; [process review](docs/reviews/process-review-fable-2026-11-20.md) C1–C3 | Lead (Sonnet builder, both repos) | None. | Build it (evening plan step 1). |
+| DOCS-1 | Docs clean-up: remove contradictions (push, review scope, compaction 80 vs 50, retired models) so WORKFLOW.md is the single source; memory keeps lead habits only. This state refresh is part of it. | [process review](docs/reviews/process-review-fable-2026-11-20.md) H1; [lessons](docs/lessons.md) L25 | Lead (Sonnet) | None. | Evening plan step 2, in parallel with GATE-0. |
+| ISO-1 | Company isolation: row-level security ADR (ERP-Q4), and the open ADR-012 legacy baseline (unscoped methods, hr-service awaiting). Payroll rebuild must carry the company column. | [ADR-012](NeoERP-BackEnd/docs/adr/ADR-012-tenant-query-isolation.md); [go-live gates](NeoERP-BackEnd/docs/operations/hosting-and-go-live-requirements.md) ERP-Q4; process review C3 | Lead (Opus draft) | ADR acceptance by Jabran before any build. | Opus drafts the RLS ADR for Jabran (evening plan step 3). |
+| AL-1 | Approval limits: S1–S4 and app P1 done. Left: S5 payments and refunds (accounts V75; V73/V74 taken), then app P2 (steps card). | [approval-limits plan](docs/agents/approval-limits/plan.md) | Lead | Order against QA-B2 not recorded (see below). | S5 → app P2, each with a money review. |
+| PLAT-2 | Platform lane: ADR-025 notifications (RT-0..RT-2) and ADR-024 Stage 0. | [backlog](docs/backlog.md) "ADR-024/025"; drafts in `docs/drafts/` | Lead | Jabran accepts ADR-024 and ADR-025 (summaries given; 3 additions to ADR-025 proposed). | None until the ADRs are accepted. |
+| QA-DESK | Codex desktop-only QA pass on macOS (report only). Brief ready. | [brief-codex.md](docs/agents/qa-desktop/brief-codex.md) | Jabran runs Codex | Lead names the session file; app on the current `phase/4`. | Run when Jabran is away from the PC. |
+| GO-LIVE | Release gates: accountant sign-off (ERP-Q1), pen test (ERP-Q2), production invariant checks (ERP-Q3), RLS (ERP-Q4), hosted secrets (ERP-Q5), plus the P-rows. All open. | [hosting-and-go-live-requirements.md](NeoERP-BackEnd/docs/operations/hosting-and-go-live-requirements.md) | Jabran (Q1, Q2), lead (Q3) | First hosted stage and first customer. | No build now; later items live in [backlog](docs/backlog.md). |
 
-| ID | Workstream / current position | Proposed owning plan | Contributors | Integration owner | Major blocker / dependency | Next approved work |
-| --- | --- | --- | --- | --- | --- | --- |
-| ENT-01 | Agreements/entitlements console: backend slice and app data layer implemented; console and cross-repo acceptance incomplete. | [Agreements/entitlements plan](NeoERP-BackEnd/docs/agents/agreements-entitlements-review/plan.md); propose extending its reviewed scope to own cross-repo console reconciliation. | Jabran, Codex, Claude Code, Design | Jabran | Dirty implementations; unresolved contract/limit/acceptance findings; ADR-012 commerce gate. | None newly approved. Proposed next: reconcile the existing review checkpoint and cross-repo acceptance scope; obtain plan approval before engineering. |
-| TEN-01 | ADR-012 tenant isolation migration: foundation exists; **126 methods across 29 interfaces remain**. | [Security foundation plan](NeoERP-BackEnd/docs/agents/iam-auth-security-foundation/plan.md), proposed owning checkpoint for the [ADR-012 migration sequence](NeoERP-BackEnd/docs/adr/ADR-012-tenant-query-isolation.md); not a restart of delivered foundation work. | Jabran, Codex, Claude Code, Design | Jabran | Query-isolation backlog and uncovered-service classification scope; Payroll compensating control must remain; allowlist must be empty before commerce. | None newly approved. Proposed next: reconcile the migration checkpoint and confirm the next bounded Accounts -> HR -> Payroll scope before implementation. |
-| AUTH-01 | **Complete and accepted live on 2026-09-15.** Hosted Keycloak login, stable identity mapping, refresh rotation, invitations, recovery and full sign-out all pass live acceptance; the designed Keycloak screens render and their states were reviewed against NeoERP-Design. | [Auth plan](NeoERP-App/docs/agents/auth-architecture-decision/plan.md) — now the accepted record, including the decisions below. | Jabran, Codex, Claude Code, Design | Jabran | None open. Prior blockers cleared: the null-state acceptance is fixed, and sign-out now ends device tokens, Keycloak sessions and the broker's own browser session. Evidence remains tied to uncommitted trees. | Complete; no further auth work approved. Follow-on carried by PLAT-01: a native NeoERP Security screen replacing the Keycloak account console, using `kc_action` for hosted credential capture and the Account REST API for everything else. |
-| PLAT-01 | Platform admin and dashboard: **not started.** The platform dashboard is entirely mocked and no backend endpoint exists for it; the Companies/organization surface is implemented and renders live data. | To be created during Discovery by the assigned lead; scope proposed as Companies/organization acceptance first, then the dashboard on real data. | Jabran, Codex, Claude Code, Design | Jabran | The dashboard aggregates companies, entitlements, requests and audit, so it depends on ORG-01 and ENT-01 being accepted; building it first would mean mocks or throwaway aggregation. | None newly approved. Proposed next: agree the Companies/organization acceptance scope with ORG-01, then define the dashboard's backing contract. Carries the deferred Security screen and the designed Admins "Enforce 2FA" control. |
-| ORG-01 | Organization acceptance: model, presentation and enrollment state ownership implemented; current cross-tenant/runtime acceptance still open. | [Enrollment/Organization acceptance candidate plan](NeoERP-App/docs/agents/enrollment-state-ownership/plan.md); reconcile delivered extraction and propose acceptance-only scope rather than rerunning refactoring. | Jabran, Codex, Claude Code, Design | Jabran | Stable auth and entitlement contracts; current dirty trees; tenant-admin and platform-admin acceptance outstanding. | None newly approved. Proposed next: agree current-backend acceptance scope after AUTH-01/ENT-01 dependencies are bounded; no runtime test execution authorized by this split. |
+## Done since last update (16 Sep 2026)
 
-The integration owner is the WORKFLOW.md record editor and tie-breaker, not a claim about contribution, expertise or effort. Anyone may work any lane; only the integration owner edits the shared index and resolves ownership collisions.
+- AUTH-01 auth accepted live (2026-09-15).
+- Phase 3 fixes and Phase 4 so far merged to `main` (App PR #4, BackEnd PR #7, 2026-11-16).
+- A4 features, size tests and A1–A18 click-through steps.
+- ID-1 one person id (token subject = identity id); DEVCO bootstrap retired; separate seeded Super Admin.
+- Approval limits S1–S4 and app P1; SEC-1 plaintext bank columns dropped (V72).
+- C1 payment numbers and C2 report filters (Codex build, Opus review).
+- DT-1 dev-only session sign-in for simulator testing.
+- QA round 1 (T1–T24, A1–A18), QA1 fix batch (BackEnd V74, App lanes A–C) and retest; fix list and decisions written.
+- Process review (Fable, 2026-11-20), lessons register and guardrails 1–6 in WORKFLOW.md.
 
-Equal contribution does not permit silently taking over another agent's in-flight
-task or concurrently editing the same plan without coordination; WORKFLOW.md's
-single-writer and explicit-handoff rules remain in force.
+## Unconfirmed — ask Jabran
 
-## Shared blockers and pickup
-
-- **Uncommitted trees in both code repositories** block reproducible cross-repo acceptance; inspect relevant changes and coordinate ownership, never automatically discard or commit them.
-- **Missing workspace/design versioning** blocks versioned distribution and document disposition, not the approved canonical designation. Both folders remain outside Git; choosing a versioned home and any moves require separate approval.
-- **Shared contributors and integration ownership are confirmed; engineering remains unapproved.** Jabran integrates every workstream; all four participants can contribute to every lane. This correction authorizes recording that model only. Approving factual state is not permission to change login, run migrations, implement, commit or push.
-- **Auth is no longer a dependency.** AUTH-01 closed on 2026-09-15, so the "stable auth contract" ORG-01 waits on is settled: identity is an immutable Keycloak subject mapped to a stable `neoerp_identity_id`, ERP authority comes only from user-service, and sign-out ends every session layer. Entitlement contracts (ENT-01) remain outstanding.
-
-Read the owning plan and repository rules on pickup. Read the dated
-[approved factual reference](docs/reconciliation-2026-09-06.md) on demand, not on
-every task start. Document-placement work belongs to the
-[consolidation plan](docs/agents/documentation-consolidation/plan.md), not this index.
+- **AL S5 vs QA batch 2:** which goes first? The 2026-11-19 handoff had S5 next; the 2026-11-20 evening plan lists only gates, docs, ADR and batch 2.
+- **User guide Phase 4 pages:** no active stream found; the backlog lists missing Accounts user-guide pages (reports, year-end). Is this a workstream now?
+- **HR/Payroll rebuild:** Payroll v2 scope signed off 2026-10-09 ([scope](docs/agents/payroll/scope.md)); old modules are skipped until rebuilt. Is a rebuild active, or after Phase 4?
+- **Old rows ENT-01 (agreements/entitlements console), PLAT-01 (platform dashboard), ORG-01 (organization acceptance):** not in the current handoff. Done, folded into Phase 3/4, or still open?

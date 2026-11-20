@@ -1,3 +1,5 @@
+> **DEPRECATED (2026-11-20) — history only. Do not use for planning or state. The current state is [PROJECT-STATE.md](PROJECT-STATE.md).**
+
 # NeoERP: proposed shared project state and handoff
 
 **Proposal for reconciliation, not the canonical project state or engineering approval.**

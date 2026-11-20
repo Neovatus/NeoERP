@@ -41,3 +41,4 @@
 - [Lessons register](lessons-register.md) — after every batch update docs/lessons.md: Proposed → Trial → Convention after 2 helpful batches, or Dropped (Jabran 2026-11-20)
 - [Lead sub-agent reads](lead-subagent-reads.md) — small reads myself; >3 files, logs, web pages via sub-agent (trial L07, 2026-11-20)
 - [Money/security guardrails](money-security-guardrails.md) — mandatory, not trials: test per finding, invariant checks block push, 2nd different reviewer, accountant + pen test at go-live (Jabran 2026-11-20)
+- [Project state current](project-state-current.md) — PROJECT-STATE.md in git; lead updates it every batch; .claude/.codex copies deprecated (Jabran 2026-11-20)
