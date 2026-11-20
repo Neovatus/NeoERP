@@ -56,25 +56,27 @@ Keep = lead habit. Delete = superseded or one-off history. Move = rule binds bui
 | worktree-cleanup | keep | Lead habit. |
 | worktree-isolation-repo | keep | Lead habit when spawning. |
 | check-approved-decisions | keep | Lead habit. |
-| tester-agent-full-flows | move-to-repo | Binds tester briefs: put in NeoERP-App docs/agents testing guide or WORKFLOW QA section; then delete. |
-| app-tests-hot-reload | move-to-repo | Binds builders running jvmTest; put in NeoERP-App AGENTS.md, then delete. |
-| draft-migration-local-apply | move-to-repo | Binds backend builders; put in NeoERP-BackEnd AGENTS.md, then delete. |
+| tester-agent-full-flows | move-to-repo | Binds tester briefs: target: WORKFLOW.md QA section (cross-repo process); then delete. |
+| app-tests-hot-reload | move-to-repo | Binds builders running jvmTest; target: NeoERP-App/AGENTS.md; then delete. |
+| draft-migration-local-apply | move-to-repo | Binds backend builders; target: NeoERP-BackEnd/AGENTS.md; then delete. |
 | builders-isolated-checkout | delete | Marked superseded 2026-10-27; worktree-batch rule kept elsewhere. |
-| no-compile-each-change | move-to-repo | Binds App builders (compile once per batch); the WORKFLOW checklist covers it; delete after adding one line. |
-| branch-per-phase | move-to-repo | Branch rule binds builders; put in WORKFLOW (Branches) then delete. |
-| design-references | move-to-repo | Binds designers; put in NeoERP-App docs/design guide. |
-| dev-no-legacy-constraints | move-to-repo | Binds builders and reviewers; put in WORKFLOW or both repo guides. |
-| app-languages | move-to-repo | Binds App builders (four languages per string); App AGENTS.md. |
-| quick-add-pickers | move-to-repo | Design decision; App spec. |
-| product-direction-large | move-to-repo | Product direction; docs/domain or PROJECT-STATE. |
-| release-gates | move-to-repo | Where to log deferred items; WORKFLOW or BackEnd ops doc. |
+| no-compile-each-change | move-to-repo | Binds App builders (compile once per batch); the WORKFLOW checklist covers it; target: NeoERP-App/AGENTS.md (one line); then delete. |
+| branch-per-phase | move-to-repo | Branch rule binds builders; target: WORKFLOW.md (Branches); then delete. |
+| design-references | move-to-repo | Binds designers; target: NeoERP-App/docs/design/. |
+| dev-no-legacy-constraints | move-to-repo | Binds builders and reviewers; target: WORKFLOW.md (cross-repo process). |
+| app-languages | move-to-repo | Binds App builders (four languages per string); target: NeoERP-App/AGENTS.md. |
+| quick-add-pickers | move-to-repo | Design decision; target: NeoERP-App/docs/design/. |
+| product-direction-large | move-to-repo | Product direction; target: WORKFLOW.md (cross-repo) or docs/domain/. |
+| release-gates | move-to-repo | Where to log deferred items; target: NeoERP-BackEnd/AGENTS.md (points to the ops doc). |
 | phase3-finish-plan | delete | Plan history, in PROJECT-STATE. |
-| hrp-draft-commits-preaccepted | delete | Stale: HRP rebuild changed; confirm with Jabran. |
+| hrp-draft-commits-preaccepted | delete (Jabran 2026-11-21) | Stale after the HRP rebuild. |
 
 ## Open questions for Jabran
 
 1. Should numbering, locking, migrations, isolation or statutory lanes also get the second reviewer and the test re-runs? Today the rule says money and security only.
 2. Who owns design and architecture decisions now the Cowork reviewer is retired? WORKFLOW.md names "the reviewer (fresh Opus sub-agent)" for now.
-3. Is the `hrp-draft-commits-preaccepted` memory stale now that HRP is rebuilt? Proposed: delete.
-4. Where should the move-to-repo memory rules land (App and BackEnd AGENTS.md, WORKFLOW.md, docs/design guide)?
-5. WORKFLOW.md "Canonical state" still says no document moves or retirements are authorized. Is that still true?
+
+Answered 2026-11-21:
+- `hrp-draft-commits-preaccepted` memory: delete.
+- Move-to-repo rules: builder rules go to that repo's AGENTS.md; cross-repo process to WORKFLOW.md; design/UI to NeoERP-App/docs/design/. Targets are filled in the memory table; the lead applies them after Lane 0.
+- "Canonical state" no-moves sentence: replaced with "Moving or retiring a document needs Jabran's OK for that change."

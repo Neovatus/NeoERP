@@ -305,8 +305,8 @@ State approval does not authorize implementation, login changes, migrations,
 commits or pushes. Every workstream retains "None newly approved" until its owning
 checkpoint is reconciled and the user separately approves its scope. Unnamed
 integration owners must be clarified, not inferred from a proposed role.
-Workspace/design versioning remains undecided. No document moves, renames,
-archival or retirement, and no repository initialization, are authorized.
+Workspace/design versioning remains undecided. Moving or retiring a document needs
+Jabran's OK for that change. No repository initialization is authorized.
 
 ## QA rounds and limits (Jabran, 2026-11-19)
 - **Simulator size checks, 6 positions on 4 simulators:** iPhone SE portrait (375×667) and landscape (667×375); iPhone 18 Pro landscape (874×402); iPad mini portrait (744);
