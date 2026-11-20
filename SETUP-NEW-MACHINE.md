@@ -128,10 +128,6 @@ Claude's lead memory lives outside the repos (`~/.claude/projects/<workspace pat
 
 `NeoERP-BackEnd/.env`, `infra/.env` and `.local-secrets/` (demo passwords, bank-number keys) are committed in the private BackEnd repo for the local stack only, so a fresh clone has them. They must never be used on a hosted stack (go-live gate ERP-Q5).
 
-## Let Claude set up the new Mac (2026-11-20)
+## Let Claude set up the new Mac
 
-Clone the workspace first (`git clone https://github.com/Neovatus/NeoERP.git ~/Offices/Neovatus/NeoERP`), open it in Claude Code, and paste:
-
-> Set up this Mac for NeoERP. Read `SETUP-NEW-MACHINE.md`, run `scripts/check-new-machine.sh`, and install or clone each MISSING item using its hint (ask me before any cask install that needs my password, and for the Xcode and Android Studio installs, which I do myself). Re-run the check until everything is OK. Then start Docker, run `NEOERP_CONFIRM_RESET=yes NeoERP-BackEnd/scripts/reset-local-dev.sh`, run `scripts/sync-lead-memory.sh restore`, and tell me what you installed. Do not start any batch or agents; the other Mac runs the work.
-
-`scripts/check-new-machine.sh` only checks (it installs nothing), so it is safe to run any time.
+Clone the workspace, open it in Claude Code and say: "Read `docs/prompts/setup-new-mac.md` and do what it says." To continue the project there afterwards: "Read `docs/prompts/resume-lead.md` and do what it says." See [docs/prompts/](docs/prompts/README.md).
