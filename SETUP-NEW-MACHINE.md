@@ -105,7 +105,7 @@ Tools (Homebrew for most):
 - [ ] Homebrew, Git, GitHub CLI `gh` (signed in: `gh auth login`), Python 3, Node (JS/WASM targets)
 - [ ] JDK **21** to run Gradle (the lead uses JetBrains Runtime 21: `~/Library/Java/JavaVirtualMachines/jbr-21.0.7`) **and** JDK **17** for the backend toolchain (`JavaLanguageVersion.of(17)`; Temurin 17, or let foojay provision it)
 - [ ] Docker Desktop (Postgres 15, Keycloak 25, Mailpit, SeaweedFS containers from `infra/compose.yml`)
-- [ ] Xcode 27 with the iOS simulators (iPhone SE, iPhone 18 Pro, iPad mini, iPad Pro 13 — see QA sizes in WORKFLOW.md)
+- [ ] Xcode 26.5 or newer (builds iOS, Liquid Glass included); Xcode 27 with iOS 27.2 simulators only on the Mac that runs iOS QA, so results match earlier rounds (iPhone SE, iPhone 18 Pro, iPad mini, iPad Pro 13)
 - [ ] Android Studio (Android SDK, compileSdk 36) and IntelliJ IDEA if wanted
 - [ ] Claude Code (desktop app) and Codex CLI if Codex lanes are used
 

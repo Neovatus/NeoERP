@@ -23,7 +23,7 @@ has_jdk 21 && ok "JDK 21 (runs Gradle)" || bad "JDK 21 (runs Gradle)" "Android S
 has_jdk 17 && ok "JDK 17 (backend toolchain)" || bad "JDK 17 (backend toolchain)" "Android Studio: Download JDK 17 (Eclipse Temurin), or brew install --cask temurin@17"
 has docker  && ok "Docker"              || bad "Docker Desktop" "brew install --cask docker, then open it once"
 has docker && { docker info >/dev/null 2>&1 && ok "Docker running" || bad "Docker running" "open -a Docker"; }
-has xcodebuild && ok "Xcode ($(xcodebuild -version 2>/dev/null | head -1))" || bad "Xcode" "install Xcode 27 from the App Store, then xcode-select -s /Applications/Xcode.app"
+has xcodebuild && ok "Xcode ($(xcodebuild -version 2>/dev/null | head -1))" || bad "Xcode" "install Xcode 26.5+ from the App Store (27 on the iOS QA Mac), then xcode-select -s /Applications/Xcode.app"
 xcrun simctl list devices 2>/dev/null | grep -q "iPhone SE" && ok "iPhone SE simulator" || bad "iPhone SE simulator" "Xcode > Settings > Components, add an iOS runtime; create iPhone SE, iPhone 18 Pro, iPad mini, iPad Pro 13"
 [ -d "$HOME/Library/Android/sdk" ] && ok "Android SDK" || bad "Android SDK" "install Android Studio, SDK platform 36"
 has claude  && ok "Claude Code CLI"     || bad "Claude Code CLI" "optional; the desktop app is enough"
