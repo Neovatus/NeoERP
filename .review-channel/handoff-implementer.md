@@ -93,8 +93,12 @@ Fable process review: docs/reviews/process-review-fable-2026-11-20.md; lessons L
 4. Fix lanes from docs/agents/qa-round1-retest/fix-list.md behind the gates; money/security lanes: reviewer re-runs tests + second different reviewer.
 5. One Sonnet retest of changed screens only; scorecard + lessons update.
 Omar's role: resolved (same role, doc fixed).
-- Open for Jabran: PROJECT-STATE*.md now in git (4942efa, last content Sep 2026, still 'canonical' in AGENTS.md/WORKFLOW.md). Ask: refresh it in the docs clean-up, or point guides to the handoff and mark these as history (needs lifting the never-read rule for that job).
+- PROJECT-STATE: resolved 2026-11-20 — refreshed to today (7b0eb44); .claude/.codex copies deprecated; lead updates it every batch.
 
 ## Status 2026-11-20 (before any Mac switch)
 - Weekly usage 83% (resets Mon 23 Nov 12:00); 5-h window fresh. Proposed to Jabran, NOT yet answered: tonight only Lane 0 + R01–R13 (Fable builders on the two money/data lanes, Opus reviews), rest after Monday; or wait for Monday.
 - Nothing running. Prompts: docs/prompts/setup-new-mac.md, docs/prompts/resume-lead.md.
+
+## START HERE (next session, any Mac)
+1. First question to Jabran: batch 2 now (part 1 only: Lane 0 machine gates + fix-list R01–R13, Fable builders on money/data lanes, Opus reviews, within the ~7% weekly room) or wait for the weekly reset (Mon 23 Nov 12:00) and run all of batch 2?
+2. Then follow "Evening plan" above, in order: Lane 0 → docs clean-up + RLS ADR → fix lanes → one Sonnet retest of changed screens → scorecard, lessons, PROJECT-STATE, memory backup.
