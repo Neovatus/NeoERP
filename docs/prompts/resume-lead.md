@@ -48,3 +48,4 @@ If you are the NeoERP project's main chat rather than a single session, you are 
 - Say how you will run builders, reviewers and testers (your own sessions or sub-agents) and confirm each keeps: one repo per builder with write scope, one Gradle build at a time through `lockf`, a fresh review after every build, the money/security review rules, no AI attribution.
 - First batch on trial: Lane 0 (machine gates) only. Money/security lanes stay with a single lead session until L30 has one helpful batch.
 - At the end of the batch record the scorecard and L30's +/− evidence in `docs/lessons.md`.
+- Threads: one thread per lane or job (builder, reviewer, tester), named like the Agent rule: `[Model] lane – job` (e.g. `[Sonnet] Lane 0 BE – build`). Each thread gets the lane brief file path, not a pasted copy. The coordinator keeps the merge, push and full test run itself; threads never push to `phase/*` or `main`. Close finished threads so they don't keep using context.
