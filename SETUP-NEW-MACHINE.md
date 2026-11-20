@@ -51,7 +51,7 @@ bash scripts/bootstrap-local-company.sh                            # seed local 
 Verify: `./gradlew test`
 
 ### Config to recreate (gitignored)
-Any `application-local.properties` / `application-dev.properties` / `.env` files are **not** committed. If a service needs local overrides, recreate them on the new machine.
+The local `.env` files and `.local-secrets/` are committed (private repo, local stack only, see the end of this file).
 
 ---
 
@@ -99,16 +99,26 @@ For iOS: open `iosApp` in Xcode after building the shared framework.
 
 ---
 
-## Quick checklist for the new laptop
-- [ ] Git, JDK 17, Docker Desktop
-- [ ] Android SDK (Android Studio) — for Android target
-- [ ] Xcode — for iOS target (macOS)
-- [ ] Node — for JS/WASM targets
-- [ ] Clone `NeoERP-App`, `NeoERP-BackEnd`, **and** `KMM-Network`
-- [ ] Fix `includeBuild` path in App `settings.gradle.kts`
-- [ ] Create App `local.properties` with correct `sdk.dir`
-- [ ] Start Docker → run backend `scripts/run-all-services.sh`
-- [ ] Recreate any local service config/env files
+## Quick checklist for the new laptop (checked against the working Mac, 2026-11-20)
+
+Tools (Homebrew for most):
+- [ ] Homebrew, Git, GitHub CLI `gh` (signed in: `gh auth login`), Python 3, Node (JS/WASM targets)
+- [ ] JDK **21** to run Gradle (the lead uses JetBrains Runtime 21: `~/Library/Java/JavaVirtualMachines/jbr-21.0.7`) **and** JDK **17** for the backend toolchain (`JavaLanguageVersion.of(17)`; Temurin 17, or let foojay provision it)
+- [ ] Docker Desktop (Postgres 15, Keycloak 25, Mailpit, SeaweedFS containers from `infra/compose.yml`)
+- [ ] Xcode 27 with the iOS simulators (iPhone SE, iPhone 18 Pro, iPad mini, iPad Pro 13 — see QA sizes in WORKFLOW.md)
+- [ ] Android Studio (Android SDK, compileSdk 36) and IntelliJ IDEA if wanted
+- [ ] Claude Code (desktop app) and Codex CLI if Codex lanes are used
+
+Code (same paths as the old Mac keep every script and the lead memory working):
+- [ ] `~/Offices/Neovatus/NeoERP` (workspace), then inside it `NeoERP-App` and `NeoERP-BackEnd`
+- [ ] `~/Offices/Neovatus/KMM-Module` (github.com/Neovatus/KMM-Module) — the App finds `KMM-Module/KMM-Network` there by default; elsewhere set `neoerp.kmmNetworkPath` or `NEOERP_KMM_NETWORK_PATH`
+- [ ] App `local.properties` with `sdk.dir` of the new Android SDK
+
+First run:
+- [ ] Start Docker, then `cd NeoERP-BackEnd && NEOERP_CONFIRM_RESET=yes scripts/reset-local-dev.sh` (stack + seed); dev secrets come with the clone
+- [ ] Services: `scripts/run-all-services.sh`
+- [ ] Lead memory: `scripts/sync-lead-memory.sh restore` in the workspace
+- [ ] Gradle: always through the lock, see WORKFLOW.md (`lockf -k /private/tmp/neoerp-gradle.lock ./gradlew …`, `GRADLE_USER_HOME=/tmp/gradle-home`)
 
 ## Lead memory (2026-11-20)
 
