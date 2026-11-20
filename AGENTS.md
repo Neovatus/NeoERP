@@ -15,5 +15,5 @@ It is the one current state file; the `.claude`/`.codex` copies were deprecated 
 [dated factual reference](docs/reconciliation-2026-09-06.md) on demand, not on every pickup.
 State approval does not authorize implementation, login changes or migrations;
 each workstream needs its owning checkpoint reconciled and scope separately approved.
-Do not create a Git repository, retire documents, commit or push without applicable
-authorization. Do not change another agent's code or task ownership implicitly.
+Do not create a Git repository, retire documents or commit without applicable
+authorization. Builders never push; the lead pushes verified commits (WORKFLOW.md). Do not change another agent's code or task ownership implicitly.
