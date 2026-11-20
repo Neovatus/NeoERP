@@ -40,7 +40,7 @@ Integration owner for every row: **Jabran** (decides scope, approves). The lead 
 
 ## Unconfirmed — ask Jabran
 
-- **AL S5 vs QA batch 2:** which goes first? The 2026-11-19 handoff had S5 next; the 2026-11-20 evening plan lists only gates, docs, ADR and batch 2.
+- ~~AL S5 vs QA batch 2~~ resolved 2026-11-21 (Jabran): full QA batch 2 first, AL S5 after. Batch 2 started 2026-11-21 with Lane 0.
 - **User guide Phase 4 pages:** no active stream found; the backlog lists missing Accounts user-guide pages (reports, year-end). Is this a workstream now?
 - **HR/Payroll rebuild:** Payroll v2 scope signed off 2026-10-09 ([scope](docs/agents/payroll/scope.md)); old modules are skipped until rebuilt. Is a rebuild active, or after Phase 4?
 - **Old rows ENT-01 (agreements/entitlements console), PLAT-01 (platform dashboard), ORG-01 (organization acceptance):** not in the current handoff. Done, folded into Phase 3/4, or still open?
