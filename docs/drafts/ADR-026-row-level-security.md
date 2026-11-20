@@ -1,12 +1,12 @@
 # ADR-026: Row-level security — a second wall per company
 
 ## Status
-Draft (ISO-1, Opus planner, 2026-11-21). Not accepted. Answers go-live gate ERP-Q4 and process review C3 (b). Makes ADR-012 Phase 4 concrete. Waiting on Jabran's D1–D10. No build starts before acceptance. Moves to `NeoERP-BackEnd/docs/adr/` when accepted.
+Draft (ISO-1, Opus planner, 2026-11-21). Not accepted. Answers go-live gate ERP-Q4 and process review C3 (b). Makes ADR-012 Phase 4 concrete. Waiting on Jabran's D1–D11. Review 1 (`docs/agents/rls-adr/review-1-opus.md`, FIX, 8 findings) is folded in. No build starts before acceptance. Moves to `NeoERP-BackEnd/docs/adr/` when accepted.
 Evidence paths are under `NeoERP-BackEnd/` unless they start with `docs/` (workspace). Line numbers are from `phase/4` at e36b6c6a.
 **Unverified (check before acceptance):** whether the chosen managed-Postgres provider's admin role is a true superuser or has `BYPASSRLS` (it decides whether the Flyway owner can be held to `FORCE`); taken from general knowledge, not provider docs.
 
 ## Summary (plain English)
-**Turn on Postgres row-level security (RLS) for the services that hold company money and people data: Accounts now, Payroll and HR in their rebuilds from their first migration, and the reporting store (already decided in ADR-023).** Leave org-, user-, audit- and auth-service on application checks plus route tests for now; they are platform services whose normal reads cross companies by design. Each transaction tells the database its one company with `set_config('neoerp.company_id', …, true)` (the same as `SET LOCAL`). A shared aspect does this from the `CompanyTenantScope` that ADR-012 already forces into every tenant repository call. No setting means no rows. The app role never owns tables and never has `BYPASSRLS`. Cross-company machine jobs and Super Admin platform reads get narrow, named policies on only the tables they need. This is a safety net under ADR-012, not a replacement.
+**Turn on Postgres row-level security (RLS) for the services that hold company money and people data: Accounts now, Payroll and HR in their rebuilds from their first migration, and the reporting store (already decided in ADR-023).** Leave org-, user-, audit- and auth-service on application checks plus route tests for now; they are platform services whose normal reads cross companies by design. Each transaction tells the database its one company with `set_config('neoerp.company_id', …, true)` (the same as `SET LOCAL`). A shared aspect does this from the `CompanyTenantScope` that ADR-012 already forces into every tenant repository call. No setting means no rows. The app role never owns tables and never has `BYPASSRLS`. Cross-company machine jobs and Super Admin platform reads get narrow, named policies on only the tables they need. Every flag is read through an owner function that turns the pooled-connection `''` into NULL. This is a safety net under ADR-012, not a replacement.
 
 ### Background
 | Idea | Plain English |
@@ -36,9 +36,10 @@ The arch test imports only hr, payroll and accounts ports (`TenantRepositoryArch
 ### 1.2 Which tables hold company data (counted from the migrations; tenant column `company_id`, or `org_id` in user/audit)
 | Service | Tables | Company-bound | Not company-bound |
 |---|---|---|---|
-| accounts | 115 | 97 | 18: reference (`currencies`, `tax_packs`, `coa_templates`, `journal_types`, report layouts…), `audit_outbox`, `org_sync_state`, `bank_key_checks`, event consumers/subscriptions |
+| accounts | 115 | 97 | 18: reference (`currencies`, `tax_packs`, `coa_templates`, `journal_types`, report layouts…), `org_sync_state`, `bank_key_checks`, event consumers/subscriptions |
 | hr | 21 | 6 | 15 child/master tables (attendance, leave, shifts, performance, history) — company only through `employees` |
 | payroll | 12 | **0** | all 12 (P-17) |
+| accounts note | | | `audit_outbox` has no `company_id` but holds each company's payload under `org_id` (`V6__a0_baseline.sql:327-340`); it is treated as company data (M1, D11) |
 | org | 28 | 19 | 9: `companies` itself, agreements and addenda, relationship history, event tables |
 | user | 29 | 13 | 16: users, permissions catalogue, platform roles/staff, role links |
 | audit | 4 | 3 (`org_id` nullable) | `notification_delivery_attempts` |
@@ -50,7 +51,7 @@ The arch test imports only hr, payroll and accounts ports (`TenantRepositoryArch
 - **Zero RLS today:** no `ROW LEVEL SECURITY` in any migration (process review C3).
 - **Local and test Postgres run as a superuser:** compose `POSTGRES_USER: neoerp` (`infra/compose.yml:22`); the Testcontainers fixture uses that user (`BooksFixture.kt:309,326-328`; 88 of 456 accounts test files use the fixture). A superuser skips RLS, so today's tests would neither break nor prove anything once RLS is on.
 - **Cross-company machine paths in Accounts:** 21 `@Scheduled` jobs in 15 classes; 11 Accounts system repositories on the reviewed allowlist (export, SIE and journal-import queues, bank notices, evidence cleanup, opening-import expiry, ledger check, audit and domain outboxes, org event inbox, org sync state) (`TenantRepositoryArchitectureTest.kt:281-361`). The ledger check already works one company per transaction (`LedgerCheckJob.kt:55-77`). The event relay writes `company_id NOT NULL` on outbox/inbox rows and consumers open a scope per event (ADR-019:92-95).
-- **Session advisory locks** in export, ledger check and org sync (ADR-024 §1). They do not conflict with `SET LOCAL`, but they block a transaction-mode pooler (ADR-024 D5).
+- **Session advisory locks** in export, ledger check and org sync (ADR-024 §1). They do not conflict with `SET LOCAL`, but they block a transaction-mode pooler (ADR-024 D5, draft, not yet accepted).
 
 ## 2. Options
 | | A. No RLS, stronger tests | B. RLS on Accounts + rebuilt Payroll (and HR, reporting) — **recommended** | C. RLS on every company table in all services |
@@ -67,21 +68,30 @@ The arch test imports only hr, payroll and accounts ports (`TenantRepositoryArch
 | Platform jobs, Super Admin | unchanged | Named per-table system and platform policies (§3.5–3.6) | Many more such policies (IAM, org, audit) |
 | Go-live ERP-Q4 | Does not meet it | Meets it for money and personnel data | Meets it fully, latest |
 
-Option A is rejected as the end state: C3 asks for a second layer, and a test only proves the paths someone wrote a test for. Its tests are still required under B (ADR-012 acceptance 4, L17). Option C is rejected now: org and IAM are where "which companies can this person reach" is computed, so their legitimate reads cross companies; RLS there gives little and costs the most. Revisit audit-service when it is split by company (D8).
+Option A is rejected as the end state: C3 asks for a second layer, and a test only proves the paths someone wrote a test for. Its tests are still required under B (ADR-012 acceptance 4, L17). Option C is rejected now: org and IAM are where "which companies can this person reach" is computed, so their legitimate reads cross companies; RLS there gives little and costs the most. Revisit audit-service when it is split by company (M8).
 
 ## 3. Decision (mechanism for option B)
-**D1. Scope.** RLS on every company-bound table of accounts-service now; of payroll-service and hr-service from their rebuild's first migration; of the ADR-023 reporting store from its first migration. Platform reference tables (no `company_id`) get no RLS and stay read-only for the runtime role.
+Mechanism items are M1–M8. Jabran's decisions in §7 keep the numbers D1–D11.
 
-**D2. One company per transaction, from the existing scope.**
-- Setting name: `neoerp.company_id`. Read only through one owner-owned function:
-  `neoerp_current_company()` = `NULLIF(current_setting('neoerp.company_id', true), '')::uuid`, `STABLE`. The `NULLIF` matters: after a pooled connection has once used `SET LOCAL`, the setting reads as `''`, not NULL, in the next transaction.
-- Set by a shared `TenantTransactionBinder` (new, in `shared/tenant-security`): `SELECT set_config('neoerp.company_id', :id, true)` on the transaction's connection (`DataSourceUtils`, so JDBC and JPA share it).
-- Called by a Spring aspect around every bean that implements a `@TenantOwnedRepository` interface. ADR-012 already guarantees the first argument is `CompanyTenantScope` (`TenantRepositoryArchitectureTest.kt:148-172`), so the aspect needs no per-method code.
-- Per transaction: first call binds and remembers the company (transaction resource); same company again does nothing; **a different company in the same transaction throws** (no mixing). With no transaction active the aspect opens one (`REQUIRED`) around that call, so the setting never falls into autocommit.
-- Session-level settings are forbidden: an architecture test fails on `set_config('neoerp.…', …, false)` or `SET neoerp.` without `LOCAL` in main code.
-- Pool safety: the value dies at commit or rollback, before Hikari gets the connection back; also safe behind a transaction-mode PgBouncer (ADR-024 D5).
+**M1. Scope.** RLS on every company-bound table of accounts-service now; of payroll-service and hr-service from their rebuild's first migration; of the ADR-023 reporting store from its first migration. Accounts `audit_outbox` is company data too (each company's `payload_text` and `reason` under a nullable `org_id`, `V6__a0_baseline.sql:327-340`): it gets RLS keyed on `org_id` (M6, D11). Platform reference tables (no company column) get no RLS. Today the runtime role has full data rights on every table (`accounts-runtime-role.psql:36,40`); R2 revokes `INSERT, UPDATE, DELETE` on the reference tables (they are loaded by Flyway only, `TenantRepositoryArchitectureTest.kt:236-239`), and `RuntimeRoleCheck` refuses to start if the role can write one.
 
-**D3. Policies (same shape on every table).**
+**M2. Every flag is read through an owner function with `NULLIF`.** After a pooled connection has once used `SET LOCAL`, a custom setting reads as `''`, not NULL, in every later transaction on that connection. A raw `current_setting(…) IS NOT NULL` test would therefore stay true forever. So no policy reads a setting directly. Four `STABLE` functions, owned by the owner role, each `NULLIF(current_setting('<name>', true), '')`:
+| Function | Setting | Set by | Type |
+|---|---|---|---|
+| `neoerp_current_company()` | `neoerp.company_id` | binder, from `CompanyTenantScope` (M3) | `uuid` |
+| `neoerp_system_job()` | `neoerp.system_job` | `bindSystemJob(name)` (M6) | `text` |
+| `neoerp_platform_access()` | `neoerp.platform_access` | `bindPlatform(access)` (M7) | `uuid` (operation id) |
+| `neoerp_migration()` | `neoerp.migration` | Flyway init SQL (M5) | `text`, must equal `'on'` |
+Every policy names its role in `TO` (the runtime role, or the owner for the migration policy). No policy is `TO PUBLIC`. Session-level settings are forbidden: an architecture test fails on `set_config('neoerp.…', …, false)` or `SET neoerp.` without `LOCAL` in main code. The value dies at commit or rollback, before Hikari gets the connection back, and it is safe behind a transaction-mode pooler (ADR-024 D5, **draft, not yet accepted**).
+
+**M3. One company per transaction, from the existing scope.**
+- A shared `TenantTransactionBinder` (new, in `shared/tenant-security`) runs `SELECT set_config('neoerp.company_id', :id, true)` on the transaction's connection (`DataSourceUtils`, so JDBC and JPA share it).
+- A Spring aspect calls it around every bean that implements a `@TenantOwnedRepository` interface. ADR-012 already guarantees the first argument is `CompanyTenantScope` (`TenantRepositoryArchitectureTest.kt:148-172`), so no per-method code is needed.
+- **The marker lives with the connection, not as a plain bound resource.** Spring does not suspend plain bound resources for `REQUIRES_NEW`; it does suspend transaction synchronizations (`DimensionSetJdbcAdapter.kt:125-130` explains and relies on this). So the binder keeps "company X is set on connection C" in a `TransactionSynchronization` registered for the transaction, and checks the current `ConnectionHolder`'s connection against it on every call. A different connection (an inner `REQUIRES_NEW`, as in `ExportSupport.kt:55-69`, `LedgerCheckJob.kt:44,51`, `ScheduledReversalJob.kt:90,95,102`, `FiscalSubmission.kt:49`, and the recurring-journal job) has no marker, so `set_config` runs again on it. When the inner transaction ends, the outer marker resumes with the outer connection, where the setting is still in place.
+- **Savepoints:** a rollback to a savepoint undoes a `set_config` made after it, while a synchronization would keep the marker. Main code uses no `NESTED` propagation or explicit savepoint today (only a warning in `DimensionSetRepository.kt:19-22`). An architecture test keeps it that way in RLS services. If one is ever needed, the binder must re-run `set_config` after the savepoint, and §5.4 proves it.
+- Same company again in the same transaction and connection: nothing to do. **A different company in the same transaction throws** (no mixing). With no transaction active, the aspect opens one (`REQUIRED`) around that call, so the setting never falls into autocommit.
+
+**M4. Policies (same shape on every company table).**
 ```sql
 ALTER TABLE accounts.journal_lines ENABLE ROW LEVEL SECURITY;
 ALTER TABLE accounts.journal_lines FORCE ROW LEVEL SECURITY;
@@ -90,32 +100,32 @@ CREATE POLICY company_isolation ON accounts.journal_lines
   USING (company_id = (SELECT neoerp_current_company()))
   WITH CHECK (company_id = (SELECT neoerp_current_company()));
 ```
-The `(SELECT …)` form is evaluated once per query, so the planner still uses `company_id`-leading indexes. HR v2 / Payroll v2 child tables carry their own `company_id NOT NULL` (composite FKs `(company_id, parent_id)`, as `docs/drafts/hr-payroll/HR-PAYROLL-LEAD-REVIEW.md:147-148`), so no policy needs a join. Views, if any, are `security_invoker = true`. Triggers and functions stay `SECURITY INVOKER`.
+The `(SELECT …)` form is evaluated once per query, so the planner still uses `company_id`-leading indexes. HR v2 / Payroll v2 child tables carry their own `company_id NOT NULL` (composite FKs `(company_id, parent_id)`, `docs/drafts/hr-payroll/HR-PAYROLL-LEAD-REVIEW.md:147-148`), so no policy needs a join. Views, if any, are `security_invoker = true`. Triggers and functions stay `SECURITY INVOKER`.
+**Missing setting = deny.** No company → NULL → no row matches. Reads return nothing and writes fail `WITH CHECK`. The binder logs a `TENANT_SETTING_MISSING` security event when a write fails this way, so it shows in tests, not as silent emptiness in production.
 
-**D4. Missing setting = deny.** No setting → `NULL` → no row matches; reads return nothing and writes fail `WITH CHECK`. The aspect and binder log a `TENANT_SETTING_MISSING` security event when a write fails this way, so it shows in tests, not as silent emptiness in production.
-
-**D5. Roles.**
+**M5. Roles.**
 | Role | Who | Attributes | RLS |
 |---|---|---|---|
-| `neoerp_<svc>_owner` | Flyway only | owns schema; **not superuser, no `BYPASSRLS`** in hosted stacks | `FORCE` holds it; data migrations run with `neoerp.migration = 'on'` (Flyway init SQL) and a policy `TO owner USING (current_setting('neoerp.migration', true) = 'on')` |
-| `neoerp_<svc>_app` | the service | `NOSUPERUSER NOBYPASSRLS NOINHERIT`, owns nothing (as today) | company policy, plus D6/D7 policies on named tables |
-`RuntimeRoleCheck` (FAIL outside local/test) gets one more check: every company-bound table has `relrowsecurity` and `relforcerowsecurity`. Locally the owner is the `neoerp` superuser and skips RLS; that is accepted for dev only.
+| `neoerp_<svc>_owner` | Flyway only | owns schema; **not superuser, no `BYPASSRLS`** in hosted stacks | `FORCE` holds it; data migrations set `neoerp.migration = 'on'` through Flyway init SQL, and one policy per table `TO neoerp_<svc>_owner USING (neoerp_migration() = 'on')` |
+| `neoerp_<svc>_app` | the service | `NOSUPERUSER NOBYPASSRLS NOINHERIT`, owns nothing (as today) | M4 company policy, plus M6/M7 policies on named tables |
+**What `FORCE` on the owner does and does not do:** it only guards against accidental use of the owner connection (a wrong datasource user, a script run as owner): such a session sees no company rows. It is not a control against the owner itself, which can `ALTER TABLE … NO FORCE ROW LEVEL SECURITY` or set `neoerp.migration`. The real control is that the service never holds the owner's password at runtime (P-5). `RuntimeRoleCheck` (FAIL outside local/test) also checks that every company-bound table has `relrowsecurity` and `relforcerowsecurity`. Locally the owner is the `neoerp` superuser and skips RLS; that is accepted for dev only.
 
-**D6. Cross-company machine jobs.** Two steps, never one wide query over company data:
-1. **Claim/select** on the system tables already on the allowlist (queues, outboxes, inboxes, `accounts_setups` for the LIVE list): an extra policy `FOR SELECT, UPDATE … USING (current_setting('neoerp.system_job', true) IS NOT NULL)` exists **only on those tables**. The binder's `bindSystemJob(name)` sets it; an arch test lets only the packages already named in `SYSTEM_ALLOWLIST` call it. A wrong system bind therefore cannot reach `journal_lines`.
-2. **Work** for each claimed row in its own transaction under `SystemTenantScopes.forCompany(row.companyId, …)`, which binds the company as in D2. The ledger check is already shaped this way (`LedgerCheckJob.kt:55-77`); its port changes from `companyId: UUID` to the scope.
-Event consumers already open a scope per event (ADR-019 D7). The domain-event feed reader is a system job on the outbox table only.
+**M6. Cross-company machine jobs.** Two steps, never one wide query over company data:
+1. **Claim or select** on the system tables already on the allowlist (export, SIE and journal-import queues, bank notices, evidence cleanup, opening-import expiry, audit and domain outboxes, org event inbox, and `accounts_setups` for the LIVE company list). Postgres allows one command per policy, so each table gets **one policy per command it needs**, all `TO neoerp_accounts_app USING (neoerp_system_job() IS NOT NULL)`: `FOR SELECT` and `FOR UPDATE` on the queues and outboxes; `FOR DELETE` only where the job deletes (evidence cleanup, opening-import expiry, retention); `FOR SELECT` only on `accounts_setups`. These policies exist **only on those tables**, so a wrong system bind cannot reach `journal_lines`. The catalog test (§5.5) lists every allowed (table, command) pair and fails on any other.
+2. **Work** for each claimed row in its own transaction under `SystemTenantScopes.forCompany(row.companyId, …)`, which binds the company as in M3. The ledger check is already shaped this way (`LedgerCheckJob.kt:55-77`); its port changes from `companyId: UUID` to the scope.
+`bindSystemJob` is allowlisted **by class**, not by package: the existing `SYSTEM_ALLOWLIST` admits the whole `ACCOUNTS_JDBC_ADAPTERS` package (`TenantRepositoryArchitectureTest.kt:288`), which would let all 76 adapters call it. A new arch rule names the system adapter classes (one per allowlisted system repository) and the job classes that may call `bindSystemJob`; any other caller fails the build.
+**`audit_outbox` (D11):** the writer runs in the request's transaction, so an M4-shaped policy on `org_id` covers its `INSERT` (`WITH CHECK (org_id = (SELECT neoerp_current_company()))`). The dispatcher reads and marks rows under system-job `SELECT` and `UPDATE` policies. Rows with a NULL `org_id` (platform events, if any) are reachable only through the system policy. The domain-event outbox and the feed reader follow the same shape on `company_id`. Event consumers already open a scope per event (ADR-019 D7).
 
-**D7. Super Admin and platform-wide reads.** Enter-company sessions already get a normal `CompanyTenantScope` (`ServiceAuthorization.kt:91`), so they need nothing new. A `@PlatformWideRepository` adapter binds `neoerp.platform_access = <operationId>` from `PlatformTenantAccess`; a `FOR SELECT` policy for it exists only on the tables that port reads (today the chart-template and tax-pack usage counts). No platform write policy exists (ADR-012 §3). The arch test lets only `PLATFORM_WIDE_ALLOWLIST` adapters call `bindPlatform`.
+**M7. Super Admin and platform-wide reads.** Enter-company sessions already get a normal `CompanyTenantScope` (`ServiceAuthorization.kt:91`), so they need nothing new. A `@PlatformWideRepository` adapter binds `neoerp.platform_access = <operationId>` from `PlatformTenantAccess`. A `FOR SELECT TO neoerp_accounts_app USING (neoerp_platform_access() IS NOT NULL)` policy exists only on the tables that port reads (today the chart-template and tax-pack usage counts). No platform write policy exists (ADR-012 §3). The arch test lets only the `PLATFORM_WIDE_ALLOWLIST` adapter classes call `bindPlatform`.
 
-**D8. Not in scope now.** org, user, audit and auth keep application checks, the 8-service arch test (Lane 0) and the L17 route tests. Audit is reconsidered when `org_id` becomes NOT NULL or audit holds money or personnel detail.
+**M8. Not in scope now.** org, user, audit-service and auth keep application checks, the 8-service arch test (Lane 0) and the L17 route tests. audit-service is reconsidered when `org_id` becomes NOT NULL or it holds money or personnel detail.
 
 ## 4. Rollout and migration
 | Step | What | Size | Gate |
 |---|---|---|---|
 | R0 | Accept this ADR; Lane 0 arch test covers all 8 services | — | Jabran |
-| R1 | `TenantTransactionBinder`, aspect, `neoerp_current_company()`, session-setting ban, binder unit tests | S | lead review + 2nd reviewer (security) |
-| R2 | Accounts: one migration `ENABLE`/`FORCE` + policy on all 97 company tables, D6 policies on the system tables, D7 policy on the catalog tables; extend `RuntimeRoleCheck`; ledger-check port takes a scope | M | RLS suite (§5) green as runtime role |
+| R1 | `TenantTransactionBinder` (marker per connection, M3), aspect, the four flag functions (M2), session-setting and savepoint bans, `bindSystemJob`/`bindPlatform` class allowlists, binder unit tests | S | lead review + 2nd reviewer (security) |
+| R2 | Accounts: one migration `ENABLE`/`FORCE` + policy on all 97 company tables, M6 per-command policies on the system tables and `audit_outbox`, M7 policy on the catalog tables; revoke writes on reference tables; extend `RuntimeRoleCheck`; ledger-check port takes a scope | M | RLS suite (§5) green as runtime role |
 | R3 | Accounts: switch the fixture's app connection to `neoerp_accounts_app` (owner keeps seeding) and fix every path that read without a scope | M | full accounts suite green |
 | R4 | Payroll v2 and HR v2: `company_id NOT NULL`, composite keys and RLS in the **first** migration; no baseline entries allowed; old tables dropped, no backfill (dev has no legacy data to keep) | in the rebuild | P-17 closes |
 | R5 | Reporting store (ADR-023) ships with RLS | in its build | — |
@@ -126,19 +136,21 @@ ERP-Q4 is met when R1–R3 are done for Accounts, R4 for any of HR/Payroll that 
 
 ## 5. Tests and acceptance
 1. **Company A cannot read B:** for every company-bound table, a Testcontainers test as `neoerp_<svc>_app` binds A and counts B's rows = 0; insert or update with B's `company_id` fails. Generated from the catalog, so a new table is covered without new code.
-2. **Missing setting denies:** in a fresh transaction with no bind, every company-bound table returns 0 rows; on a pooled connection that served A in the previous transaction, still 0 (the `''` case).
+2. **Missing setting denies:** in a fresh transaction with no bind, every company-bound table returns 0 rows; on a pooled connection that served A in the previous transaction, still 0 (the `''` case). **After a system-job or platform transaction**, a user transaction for A on the same connection (pool of 1) sees only A's rows in every queue, outbox, inbox, `accounts_setups` and catalog table, and cannot update or delete B's.
 3. **No mixing:** binding B after A in one transaction throws; nothing commits.
+3a. **REQUIRES_NEW:** an outer transaction bound to A calls an inner `REQUIRES_NEW` repository call for A; the inner call sees A's rows (set again on its own connection), and the outer call still sees A's rows afterwards. An inner call for B inside an outer A works on its own connection and leaves the outer at A.
 4. **Pool:** 2 threads × 1 connection pool, alternating A and B 1,000 times, never see the other's rows.
-5. **Catalog check:** every table with a `company_id` column has RLS enabled and forced and a `company_isolation` policy; an unlisted exception fails the build.
-6. **Roles:** app role is not superuser, has no `BYPASSRLS`, owns nothing (extends `DatabaseRoleTest`); owner without `neoerp.migration` sees 0 company rows.
-7. **Jobs and platform:** system bind sees queue rows of A and B but 0 `journal_lines`; platform bind sees only the catalog tables; the arch test rejects a call to either bind from another package.
+4a. **Savepoint rollback:** an arch test finds no `NESTED` propagation or explicit savepoint in RLS services. A binder test binds A after a savepoint, rolls back to it, then reads: it sees A's rows (binder set it again) or 0 rows, never B's.
+5. **Catalog check:** every table with a `company_id` column (and `audit_outbox` on `org_id`) has RLS enabled and forced and a `company_isolation` policy; every policy has a named role (none `TO PUBLIC`) and reads settings only through the M2 functions; system and platform policies exist only on the listed (table, command) pairs. An unlisted exception fails the build.
+6. **Roles:** app role is not superuser, has no `BYPASSRLS`, owns nothing, cannot write reference tables (extends `DatabaseRoleTest`); owner without `neoerp.migration` sees 0 company rows.
+7. **Jobs and platform:** system bind sees queue rows of A and B but 0 `journal_lines`; platform bind sees only the catalog tables; the arch test rejects a call to either bind from any class not on its class allowlist (an ordinary JDBC adapter included).
 8. These tests may not be skipped silently: the suite fails when Docker is missing (P-16, L18).
 9. Measured: posting and GL report p95 on the ADR-024 large-tenant data differ by < 5 % with RLS on.
 
 ## 6. Consequences
 Positive: a missed `company_id` in Accounts, Payroll, HR or reporting returns nothing instead of another company's data; native SQL and new report queries are covered; the posting-guard and runtime-role work is reused.
 Negative: one more migration rule per table; a job or adapter that forgets its scope now fails (by design) and needs fixing; tests must run as the runtime role to mean anything; two small policy families (system, platform) to review.
-Risks: a broad `neoerp.system_job` policy creeping onto business tables (the catalog test lists where it may exist); a hosted owner that is secretly a superuser (`RuntimeRoleCheck` and the go-live check); developers mistaking RLS for authorization (ADR-012 checks stay mandatory).
+Risks: a broad `neoerp.system_job` policy creeping onto business tables (the catalog test lists where it may exist); a policy reading a setting without `NULLIF` (the catalog test checks); `FORCE` on the owner read as a control against the owner, which it is not (M5); a hosted owner that is secretly a superuser (`RuntimeRoleCheck` and the go-live check); developers mistaking RLS for authorization (ADR-012 checks stay mandatory).
 
 ## 7. Decisions for Jabran
 | # | Decision | Recommendation |
@@ -147,12 +159,13 @@ Risks: a broad `neoerp.system_job` policy creeping onto business tables (the cat
 | D2 | RLS on org, user, audit, auth too? | **No, not now**; app checks + 8-service arch test + L17 route tests. Revisit audit later. |
 | D3 | Setting carried per transaction by a shared aspect from `CompanyTenantScope`? | **Yes**; session-level settings banned by test. |
 | D4 | One company per transaction (group views loop per company)? | **Yes**, as ADR-023 already says. |
-| D5 | `FORCE` on the owner too, with a migration flag for data migrations? | **Yes** in hosted stacks; locally the superuser owner is accepted. |
-| D6 | Cross-company jobs through narrow per-table system policies on one pool, or a separate DB role and pool? | **Per-table policies, one pool** (fewer connections, ADR-024 D5); separate role only if a reviewer finds a path a policy cannot contain. |
+| D5 | `FORCE` on the owner too, with a migration flag for data migrations? | **Yes** in hosted stacks, as a guard against accidental owner connections only (M5); locally the superuser owner is accepted. |
+| D6 | Cross-company jobs through narrow per-table system policies on one pool, or a separate DB role and pool? | **Per-table policies, one pool** (fewer connections, ADR-024 D5, draft); class-allowlisted binds; separate role only if a reviewer finds a path a policy cannot contain. |
 | D7 | Super Admin platform reads through a read-only policy on named tables only? | **Yes**; no platform write policy. |
 | D8 | Accounts tests switch to the runtime role (R3), not only a separate RLS suite? | **Yes**, right after R2; it is what makes the existing 88 fixture tests prove RLS. |
 | D9 | Payroll/HR rebuild drops old tables with no backfill? | **Yes** (dev only, no customer data); a backfill plan is needed only if any environment holds real payroll data. |
 | D10 | When must it be done? | Accounts R1–R3 before the first production customer (ERP-Q4); HR/Payroll in their rebuild before they serve a customer (P-17). |
+| D11 | Accounts `audit_outbox` (each company's audit payload under nullable `org_id`): RLS on `org_id` with system policies for the dispatcher, or a named exception? | **RLS on `org_id`** (M6): the writer's insert is checked against the company, the dispatcher reads through system-job policies; NULL `org_id` rows only through the system policy. |
 
 ## 8. Open questions
 - Q1. Is a Payroll/HR rebuild active now or after Phase 4? It decides whether R4 lands before R2 (`PROJECT-STATE.md:45` asks the same).
@@ -161,4 +174,4 @@ Risks: a broad `neoerp.system_job` policy creeping onto business tables (the cat
 - Q4. Franchise and group (RULES §7–§8): a franchise is its own company, so RLS keeps the group out of its rows; group consolidation reads each company under its own scope. Confirm no screen needs one query over several companies.
 
 ## Related decisions
-ADR-001 (database per service), ADR-012 (tenant query isolation; Phase 4 is this ADR), ADR-016 (security checks), ADR-019 D7 (event relay tenant rules), ADR-023 (reporting with RLS from day one), ADR-024 D5 (pooling); go-live P-5, P-16, P-17, ERP-Q4; process review C3; lessons L17, L18.
+ADR-001 (database per service), ADR-012 (tenant query isolation; Phase 4 is this ADR), ADR-016 (security checks), ADR-019 D7 (event relay tenant rules), ADR-023 (reporting with RLS from day one), ADR-024 D5 (pooling; draft, not yet accepted); go-live P-5, P-16, P-17, ERP-Q4; process review C3; lessons L17, L18.
