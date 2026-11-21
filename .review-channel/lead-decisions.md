@@ -140,5 +140,5 @@ Options: (a) ban savepoints in accounts, hr, payroll, shared tenant-security and
 Pick: (a), judged in the R1 security review with the code in front of the reviewer.
 Why: R1 binds nothing in the poller yet, so the savepoints carry no risk today; rewriting the shared consumer's recovery in a binder lane widens it; the exception is named, tested and tied to the step (R4) where it would start to matter. Note: "fail closed" must be checked against D-13's finding that unbound calls on system-policy tables return 0 rows rather than error.
 Sources: BE `phase/4-b2-iso-r1` (`shared/domain-events/src/main/kotlin/**/ConsumerPoller.kt:62-71`, the builder's savepoint ban test); accepted ADR-026 M3, R4 (`docs/agents/iso-r1/adr-026-accepted.md`); D-13 above.
-Fable 5.2 (high): judged in the ISO-R1 security review
-Status: pending (builder continues on (a))
+Fable 5.2 (high): APPROVE with three conditions (ISO-R1 security review, `docs/agents/iso-r1/review-2-fable-security.md` on BE `phase/4-b2-iso-r1`): R4 binds first inside `ConsumerPoller` itself, before its first savepoint; a poison-row test; and the exception stays as narrow as the review states.
+Status: approved with conditions; conditions go into the ISO-R1 fix round and the R4 brief.
