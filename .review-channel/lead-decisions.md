@@ -153,7 +153,7 @@ Options: (a) App wording "Lines on accounts that take a branch get this branch";
 Pick: (a).
 Why: the user's complaint is that equity looks like it belongs to "other branches"; only a separate row says what it is, and the TB still balances. Payload change is additive (a new row kind).
 Sources: BE `phase/4-b2-fix-be` (builder report); App spec `accounts-a1.md` C-13, `accounts-a2-a3.md` C-3; QA `G03.md`, `T18.md`.
-Fable 5.2 (medium): pending
+Fable 5.2 (medium): APPROVE — critical (money report). (a) is right, with three conditions: it is not additive, it replaces `OUTSIDE_FILTER` (BE `ReportModels.kt:103`, `ReportReadModel.kt:201-206`, `TrialBalanceExporter.kt:216`; App `ReportsWording.kt`, `TrialBalanceState.kt`), so BE, export and App ship together; the two rows must sum per column to today's all − match (test), and NO_BRANCH only exists under a branch filter — with a cost-centre filter (alone or combined) keep one row. Source fix: the TB contract is A2 C-6, not C-3 (`accounts-a2-a3.md:742`); I found A1 C-13 only by reference (`accounts-dimensions.md:233`), not in `accounts-a1.md`.
 Status: pending (critical: money reporting → Jabran with Fable's view)
 
 ## D-17 FIX-BE R19 "Ends after N times" and skipped runs — 2026-11-21
@@ -162,8 +162,8 @@ Options: (a) keep the count; a template with unresolved skipped runs stays ACTIV
 Pick: (a).
 Why: keeps the approved contract and its review findings; fixes the real problem (an ended template hiding work that needs the user); (b) can post more journals than the user set.
 Sources: App spec `accounts-a4.md` C-17; BE `domain/recurring`; QA `A7.md`, `G23.md`.
-Fable 5.2 (medium): pending
-Status: pending
+Fable 5.2 (medium): APPROVE — not critical. (a) extends the end rule that already keeps a template ACTIVE for WAITING/FAILED runs (`RecurringOccurrences.kt:72-78`) and keeps the spec's count ("skipped and dismissed ones included", `accounts-a4.md:270-271`). Conditions: "unresolved skipped" is a new notion beside `settled` (`RecurringJournal.kt:175-177`), so the count and next date do not change; Dismiss and Create draft now must end the template when the last one is resolved (test); spec C-17 and the App's ACTIVE-with-no-next-date row are updated.
+Status: approved (Fable, not critical) with its conditions; sent to the FIX-BE builder.
 
 ## D-18 FIX-BE R29 classifying the 60 unscoped repositories — 2026-11-21
 Question: About 24 of the 60 are SYSTEM (outboxes, queues, IdP and session ports, identity, platform authority/staff, AuthzQueryRepository) and the three annotations cannot express that; user, audit and auth have no CompanyTenantScope resolver; about 15 mix per-company and cross-company methods (Membership, Role/RolePermission/RoleVersion, OnboardingInvite, OrgRequest, Company, Branch, Warehouse, audit query with null orgId), incl. person-facing cross-company reads with orgId null.
@@ -171,5 +171,5 @@ Options: (a) in this lane add a RATCHET_SYSTEM_ALLOWLIST (class → reason, allo
 Pick: (a).
 Why: the system ones are mechanical and shrink the baseline now; the splits change service APIs and person-facing reads (security design), which need their own brief and reviews; R29's deadline (empty before RLS / first customer) is kept by R29b.
 Sources: BE `architecture-tests` (FrozenTenantBaselines, tenant-classification-baseline.txt, SYSTEM_ALLOWLIST); ISO-R1 bind allowlists (`shared/tenant-security`); fix-list R29; ADR-026 D2, D4.
-Fable 5.2 (medium): pending
+Fable 5.2 (medium): APPROVE — critical (security), with conditions. The existing list means "machine path, never a person request" and its test imports only hr and accounts (`TenantRepositoryArchitectureTest.kt:86-93`); AuthzQueryRepository, the session/IdP ports and platform authority/staff serve person requests, so the new list needs its own meaning (reason names the key: caller identity or platform permission), the package rule extended to user/org/auth/audit, and AuthzQueryRepository pinned to `AuthzService` (its role-name reads take ids with no company, `AuthzQueryRepository.kt:44-52`). Keep out of the list, for PlatformWide or R29b: PlatformPeopleRepository, PlatformCompanyAccessRepository, PeopleQueryRepository, UserRepository and the two `inventory()` ports (people across companies); I read signatures, not every adapter, so the builder's list needs the second reviewer. RLS order is compatible: ADR-026 D2 puts no RLS on org/user/auth (`ADR-026:202`), so R2+R3 and R4 do not wait; R29b must land before R7 (audit_events, `:168`) and the pen test — Jabran to confirm rewording fix-list R29's "before RLS" to that, since R2+R3/R4 may start now (Q5 b, `:157`).
 Status: pending (critical: security → Jabran with Fable's view)
