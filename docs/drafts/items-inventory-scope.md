@@ -825,7 +825,7 @@ receives foreign-currency purchases into stock.
 | With other modules | Purchase v1 (orders, goods receipt, landed costs), Sales v1 (orders, deliveries, kits, pricing), Manufacturing, POS, Phase 7 inter-company | — |
 
 Order: INV-0 → INV-1 → INV-1b → INV-1c → INV-2 → INV-3 → INV-5 → INV-6 → INV-4 → INV-4b → INV-8 → INV-7 → INV-9,
-then Purchase v1 and Sales v1 replace the document-driven moves with their own documents. Money slices get the money
+then Purchase v1 and Sales v1 build on Inventory's Receipt and Delivery documents (decision 8 b), which stay for companies without Purchase or Sales (decision 20). Money slices get the money
 guardrails: a test per finding, invariant checks before push, a second different reviewer. Each slice designs its screens at the QA sizes
 (§4.4) before build, as the module loop asks (`module-sequence.md:32-34`).
 
@@ -1012,7 +1012,7 @@ guardrails: a test per finding, invariant checks before push, a second different
     PK invoices need them now (`accounts-h-design.md:221-222`); fields are cheap, reports need documents.
     **Change (Fable):** fields are held **per country** (decision 3); and a **Pakistan federal excise (FED) fact per
     item** is added, since Accounts B already prints and posts FED (`BE/docs/api/accounts-b.md:1008`, `:1500`).
-20. **Build order (critical: approved scope).** Brief order is Inventory, then Purchase, then Sales scope drafts.
+20. **Build order (critical: approved scope).** **Approved by Jabran 2026-11-21 as recommended, with Fable's change** (the Receipt/Delivery path stays as a permanent second path for companies without Purchase or Sales; the first build round is INV-0 to INV-9, decision 14). Brief order is Inventory, then Purchase, then Sales scope drafts.
     **Recommend:** build Inventory INV-0 to INV-8 first (variants INV-1b straight after INV-1, because the variant id
     is the key on stock moves) with the document-driven path (decision 8), then Purchase v1 and Sales v1. Why:
     Accounts documents already carry item, unit, quantity and location fields (`ADR-018:66`), so Inventory works
