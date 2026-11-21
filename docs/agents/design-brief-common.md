@@ -40,3 +40,11 @@ modes a company, and where it makes sense a branch or franchise, switches on, al
 keeps everything configurable afterwards; no code branches on the business type. Each draft says which starter
 setup each business type gets for its module. (Recommended by the lead; the cross-module decision is in the
 HR/Payroll change list, decision 17, for Jabran.)
+
+## Words for releases (Jabran 2026-11-21)
+Use these meanings, and say them in plain words when writing to Jabran:
+- **First release** (in drafts "v1", e.g. "Inventory v1"): the first round of a module's slices; what a customer gets when the module first ships.
+- **Later**: a named later slice of the same module, after its first release.
+- **With X**: arrives with module X, which owns it.
+- **v2** (only "HR v2", "Payroll v2"): the **rebuild** of a module that existed before; the old v1 code is deleted. It is not a second release of a new module.
+Every scope draft defines its phase labels once, near the top, with this meaning.
