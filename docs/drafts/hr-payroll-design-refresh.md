@@ -150,14 +150,14 @@ These apply to every spec; the per-spec sections below only add the lines.
 
 | Spec | Items | Critical | Non-critical |
 |---|---|---|---|
-| All six (X) | 17 | 6 | 11 |
+| All six (X) | 18 | 7 | 11 |
 | hr-h1 | 10 | 6 | 4 |
-| hr-h2-h3 | 9 | 3 | 6 |
+| hr-h2-h3 | 15 | 9 | 6 |
 | hr-h4 | 6 | 1 | 5 |
-| payroll-p | 10 | 8 | 2 |
-| ess | 6 | 1 | 5 |
+| payroll-p | 13 | 11 | 2 |
+| ess | 7 | 2 | 5 |
 | people-access | 2 | 0 | 2 |
-| **Total** | **60** | **25** | **35** |
+| **Total** | **71** | **36** | **35** |
 
 The 35 non-critical items were settled by Fable (`docs/agents/hrp-des/fable-settlement.md`); PY.10 moved to critical. One of them chooses between contradicting texts already in the specs:
 H4.4 (the O1 and O5 rows); the other such case, H1.7, chooses between two approved specs and goes to Jabran (decision 13).
@@ -244,9 +244,72 @@ Each groups the critical items it settles.
     as quick). (Fable) (b) Young-worker checks: J-9's "every country" note is aligned to your G-6 (six full countries
     only, no school-term limits). **Recommend: yes**, text only.
 
+14. **Time recording modes** (critical: approved scope; H23.10–H23.13, ES.7, PY.11). Jabran 2026-11-21: an IT company logs
+    time per project, a store keeps a check-in/out sheet; it should fit all businesses. Today hr-h2-h3 §24 leaves
+    geofenced and hardware clock-in, kiosks and an offline queue out (`hr-h2-h3.md:913`), no spec has project time, and
+    ESS open point 8 (decided 2026-10-30) leaves geo rules out until a customer needs them (`ess.md:258`). Modes, per
+    company with a branch override, alone or together:
+
+    | Mode | Recommend | Why |
+    |---|---|---|
+    | Phone clock in/out (ESS) | v2 (exists) | Already designed (§19.1) |
+    | Supervisor sheet (manual sign-in sheet entered by a supervisor) | **v2** | The store's case; small change on §14's "Record for someone" |
+    | Project and task timesheets (ADR-021 project; line manager or named approver) | **v2** (no task records, no billing) | The services case; labour cost by project is a large-customer need; project dimension and `projectId` on pay lines exist |
+    | Import from biometric machines (file import of punch logs) | **v2** (file import only; formats *to verify*) | Pakistan factories; no biometric data stored |
+    | Shared kiosk or tablet | Later | A shared device needs its own identity design (PIN or badge, no personal login), a security review |
+    | Geofenced phone clock-in | Later | Location is personal data; ESS open point 8 already decided "when a customer needs it" |
+    | Offline clock-in queue | Later | Lead decision 2026-10-09: no offline clock-in in v2 (`hr-h2-h3.md:947`) |
+    | Direct device connection | Later | File import first |
+
+    **Recommend: the four v2 modes above.** Options: (a) these four (size L); (b) phone clock and supervisor sheet only,
+    project time later (size M; leaves the IT company without project hours); (c) all modes in v2 (size L+, adds two
+    security reviews). It amends §24's out list and the H3 contract (record sources, the device-time exception, the
+    sheet and timesheet endpoints). Changes: hr-h2-h3 §11–§16, §19, §24; ess §8; payroll-p §6.4 and P1/P2 (project split).
+15. **Sick-pay refunds and follow-up** (critical: statutory; H23.15, PY.13). Today both are out (`hr-h2-h3.md:912`),
+    though Payroll already receives the `refundClaim` flag (`:300, :659`) and P7 drafts Denmark's refund deadlines
+    (`payroll-p.md:494`). Options: (a) **in each country's v2 slice**: a refund-claim worksheet in Payroll (what can be
+    claimed, for whom, how much, by when; Claimed and Received recorded; the claim made in the authority's portal or by
+    file, D7) and follow-up plans as HR statutory tasks with due dates (content not stored); (b) later, after launch.
+    **Recommend: (a).** An employer that advances sick pay and misses the claim deadline loses the money, and follow-up
+    duties (NO oppfølgingsplan and dialogue meeting, SE rehabilitation) carry sanctions; both reuse built patterns
+    (statutory tasks `hr-h4.md:143-150`, worksheets). All rules *to verify* with each country's practitioner (J-8).
+    Changes: hr-h2-h3 §7.4, §24; payroll-p §6.5, country slices P4–P9.
+16. **Collective agreements** (critical: statutory; H23.14, PY.12). Today the agreement is a code and name on the job row
+    (H1-12) and only extra leave days are held (`hr-h2-h3.md:353`); full agreement libraries are out of scope
+    (`WS docs/agents/payroll/scope.md:87`), and rule 8 puts agreement rules on top of the pack, never below the minimum.
+    Options: (a) **agreement profiles the company defines**: overtime categories and thresholds, unsocial-hours and shift
+    windows, extra leave, notice hints (HR), and their rates and allowances (Payroll), assigned through the job row's
+    agreement code; (b) extra days only, as today; (c) shipped libraries of the main agreements per country.
+    **Recommend: (a) in v2, (c) later as templates copied into a profile.** In the Nordics most pay rules come from
+    agreements, so (b) cannot run a Nordic payroll beyond the legal minimum; (c) needs maintaining dozens of agreements
+    and their yearly changes. Changes: hr-h1 §5 (agreement field), hr-h2-h3 §5, §15.3; payroll-p §9; P1-15.
+17. **Business type at enrollment** (critical: product direction, cross-module; X.18). The company, and each franchise
+    or branch, picks a business type at enrollment (IT/services, retail store, factory, restaurant, construction,
+    wholesale…). Options: (a) **the type only pre-fills a starter setup**, copied, then the company's own and editable
+    per company and, where it makes sense, per branch; no code branches on the type; (b) types change behaviour (code
+    paths per industry); (c) no types, everyone starts empty. **Recommend: (a)**, the lead's recommendation and the
+    brief rule (`WS docs/agents/design-brief-common.md`, master `3cdc3de`). (b) breaks for a business that does two
+    things and multiplies tests; (c) gives a slow first day (ux §14). A franchise is its own company (RULES §7, §8), so it
+    picks its own type; a company-owned branch may differ in what is per-branch (time modes, work calendars), never in
+    books (RULES §7). It is cross-module: Org enrollment stores the type; Inventory's starter category sets (Inventory
+    decision 2, `WS docs/drafts/items-inventory-scope.md:85-95`, draft) read it. **HR v2 needs from it:** the type at
+    company and branch level from Org's facts, and nothing else; HR and Payroll ship starter sets per type (time modes,
+    calendars and shift templates, leave extras, pay-group template, agreement-profile examples). Changes: org.md
+    enrollment (Org lane), hr-h1 setup, hr-h2-h3 §11–§12, payroll-p §9.
+
 **Before the build can start:** ADR-026 accepted (D1–D11) and its R1 (shared binder and the four flag functions) built,
 plus Jabran's approval of this list. (Fable) Whether the first HR/Payroll migration also waits for Accounts R2–R3
 (ADR-026 Q1's order) is Jabran's call; Fable's view is that R1 is enough, since it is shared code.
+
+## Jabran additions 2026-11-21
+
+Jabran 2026-11-21: "this product is for all businesses: an IT company's employees log time per project; a store just
+keeps a check-in/out sheet; it should fit all businesses". Four decisions follow from it, all critical:
+
+- **Decision 14, time recording modes** (approved scope): items H23.10–H23.13, ES.7, PY.11.
+- **Decision 15, sick-pay refunds and follow-up** (statutory): items H23.15, PY.13.
+- **Decision 16, collective agreements** (statutory): items H23.14, PY.12.
+- **Decision 17, business type at enrollment** (product direction, cross-module): item X.18.
 
 ## Not changed, checked
 
