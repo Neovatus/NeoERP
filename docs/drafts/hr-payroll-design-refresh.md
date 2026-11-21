@@ -268,12 +268,12 @@ Review: `docs/agents/hrp-des/review-1-opus.md`. Branch rebased by the lead onto 
 | 3 MAJOR: cipher source misstated | H1.3 and decision 8: file store for exports only in Accounts; bank details via Accounts' own `BankDetailsCrypto` (Tink); shared cipher is a build step with a security review | c911ec4 |
 | 4 MAJOR: X.2 lacks database roles and test rule | X.2 adds owner and app roles, `RuntimeRoleCheck` with `relrowsecurity`/`relforcerowsecurity`, binder and M2 functions, tests as the runtime role; size M | c911ec4, a2328b6 |
 | 5 MAJOR: H23.2 misses AL-D5 | H23.2 and decision 5: relation steps now, company-set bands and up to 3 steps, one step as the Standard default; size L | c911ec4, a2328b6 |
-| 6 MAJOR: critical items labelled non-critical | X.13, PY.7, H23.8 critical; X.4 split into money (critical) and X.15 formats (non-critical); counts and Fable sentence updated | 732de3b, 82573cb, this commit |
+| 6 MAJOR: critical items labelled non-critical | X.13, PY.7, H23.8 critical; X.4 split into money (critical) and X.15 formats (non-critical); counts and Fable sentence updated | 732de3b, 82573cb, 3041809 |
 | 7 MINOR: gap-check D7 | PY.3 and decision 7 add the one-off dimension override before P1 | 732de3b |
 | 8 MINOR: L17, L18, risk-paths wording | X.3 (h), (i); risk-paths wording names the security-configuration paths | 732de3b |
 | 9 MINOR: ADR-025 phasing for the rebuild | X.12 adds push for leave approvals and RT-7; new X.16 (ids only, critical) | 732de3b, 82573cb |
 | 10 MINOR: ADR-023 | "Not changed, checked" bullet | 3041809 |
-| 11 MINOR: quick add from pickers | New X.17 | 3041809, this commit |
+| 11 MINOR: quick add from pickers | New X.17 | 3041809, 8150f84 |
 | 12 MINOR: decision 2 reasoning | Decision 2 tied to D9 and names the menu change for Jabran; decisions 1 and 3 cite "target design first" | 3041809 |
 | 13 MINOR: migration range | X.1 hr-service V1–V9, payroll-service V1–V5; PA.1 notes v1's V9 | 732de3b |
 | 14 MINOR: D-10 status | D-10 confirmed as a trial; X.8 and the status line updated; WS base `bacf878` | 732de3b |
