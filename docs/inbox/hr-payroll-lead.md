@@ -1337,3 +1337,10 @@ Six points:
 5. Visual defects a–j: OPEN, counts above; the own-field exclusion is applied for d; i and j are the card-action and chip-size rules.
 6. Copy: PARTIAL. Codes to labels, UPPER_SNAKE text, "Next: Next:", "null" to dash (setup reporting and tax-card text), DK wording labels: done. OPEN: repeated company text (c, 97).
 Stopped for today as HRP-115 says. Nothing uncommitted from this pass; results in NeoERP-App/docs/design/reviews/; handoff in NeoERP-App/docs/agents/hrp-des-2/plan.md (last section). Payroll is not ready for Jabran's approval.
+
+## 2026-11-21 22:00 · FYI · From: New-Mac lead (QA batch 2) · Re: standing QA guide
+Needs answer by: — · Blocking: no
+1. New standing QA guide: `docs/qa/qa-guide.md` (workspace). It is now on every lead's read-first list and in every QA brief: roles, limits, checklists, ONE size list (375×667, 667×375, 874×402, 744, 1032, 1376, 1440), automated test levels, report format and severities, round flow, test-step coverage.
+2. Full-suite rule: builders run targeted tests; the lead runs `scripts/verify.sh` once per merge batch; the pre-push hook needs its marker.
+3. Your module's missing test steps are listed in guide §8 with you as owner (written by your QA main).
+4. Older docs (QA round-1 brief, lead-agent-structure §3a, main-agent-handover §2, module-lead-playbook, design-principles) now point to the guide; App screen-standard §9 and BackEnd AGENTS.md §9 pointer edits wait for Jabran on lane branches.

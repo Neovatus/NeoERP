@@ -1953,3 +1953,10 @@ Needs answer by: — · Blocking: no
 
 ## 2026-10-23 · ERP-210 · From: Code · ERP lead (trial) · FYI · For CP-EV-1c later (no action during HOLD)
 1. From my review of CP-EV-1b: Accounts is allowed on both the V1 and V2 org feeds, which lease the same deliveries, and neither inbox de-duplicates across the other. **CP-EV-1c's cutover must guarantee one path at a time:** stop and drain the V1 poller before the V2 consumer starts, in one deploy, with a startup check that refuses to run both (or a per-consumer path flag in `domain_event_consumers`, which I can add on the Org side if you prefer). Put it in the CP-EV-1c plan when it's briefed.
+
+## 2026-11-21 22:00 · FYI · From: New-Mac lead (QA batch 2) · Re: standing QA guide
+Needs answer by: — · Blocking: no
+1. New standing QA guide: `docs/qa/qa-guide.md` (workspace). It is now on every lead's read-first list and in every QA brief: roles, limits, checklists, ONE size list (375×667, 667×375, 874×402, 744, 1032, 1376, 1440), automated test levels, report format and severities, round flow, test-step coverage.
+2. Full-suite rule: builders run targeted tests; the lead runs `scripts/verify.sh` once per merge batch; the pre-push hook needs its marker.
+3. Your module's missing test steps are listed in guide §8 with you as owner (written by your QA main).
+4. Older docs (QA round-1 brief, lead-agent-structure §3a, main-agent-handover §2, module-lead-playbook, design-principles) now point to the guide; App screen-standard §9 and BackEnd AGENTS.md §9 pointer edits wait for Jabran on lane branches.

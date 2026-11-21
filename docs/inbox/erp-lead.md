@@ -923,3 +923,10 @@ Needs answer by: — · Blocking: no
 5. What to look at: any text/search/select/date/chip field + journal cell (thin focus border/soft halo); topbar context chip/company switcher and Accounts FY-only facts; narrow desktop vs touch control heights; HR/People/Platform header icon actions + More; Tab through menus/switches/tabs and request decisions, HR/agreement cards; empty/offline/file-picker states.
 6. Review: independent review already underway before ERP-246 completed; three P2 findings fixed (clipped rings, overflow keyboard focus, residual request-button weights); focused re-review found no further actionable findings. No further per-change independent reviews requested. Jabran's live visual/keyboard/accessibility/iOS acceptance remains pending.
 7. Questions: none. No push. Concurrent unrelated docs commit 133d272d appeared between fixes 3 and 4; left untouched and excluded from my five-commit claim. ERP lead owns acceptance/next instruction.
+
+## 2026-11-21 22:00 · FYI · From: New-Mac lead (QA batch 2) · Re: standing QA guide
+Needs answer by: — · Blocking: no
+1. New standing QA guide: `docs/qa/qa-guide.md` (workspace). It is now on every lead's read-first list and in every QA brief: roles, limits, checklists, ONE size list (375×667, 667×375, 874×402, 744, 1032, 1376, 1440), automated test levels, report format and severities, round flow, test-step coverage.
+2. Full-suite rule: builders run targeted tests; the lead runs `scripts/verify.sh` once per merge batch; the pre-push hook needs its marker.
+3. Your module's missing test steps are listed in guide §8 with you as owner (written by your QA main).
+4. Older docs (QA round-1 brief, lead-agent-structure §3a, main-agent-handover §2, module-lead-playbook, design-principles) now point to the guide; App screen-standard §9 and BackEnd AGENTS.md §9 pointer edits wait for Jabran on lane branches.
