@@ -535,7 +535,7 @@ All rows are GK unless a repo source is named; each needs the country accountant
 |---|---|---|---|---|---|
 | SE | Standard and reduced rates by goods type (food, books); rates from the tax pack (`packs/2026.2/tax-codes.csv`), the item holds only a tax class | SIE 4 has no stock records; stock shows as GL lines on group 14 accounts (`se-bas.csv:29`) | Peppol BIS / Svefaktura line: item name, seller id, GTIN, unit (Rec 20); optional at SE launch (roadmap:110) | FIFO and lowest value for tax; year-end count and stock list kept as accounting records (BFL retention) | Intrastat (SCB) above threshold; own-use withdrawal VAT |
 | NO | 25 % standard, 15 % food, 12 % lower rate; from the pack | SAF-T Financial carries GL lines only, no stock section; SAF-T Cash Register is for POS, not Inventory | EHF / Peppol BIS lines as SE; required for B2B from 2027-01-01 (roadmap:110, gate L-1) | FIFO for tax; year-end stock specification (bokføringsforskriften) | No Intrastat (EEA, not EU); customs on imports; bottle deposit |
-| DK | 25 %; from the pack | SAF-T from 2027-01-01 (ACC-R2, roadmap:141) carries GL lines; stock accounts mapped to the standard chart (1460 → 6140; stock movement 1770 still *(verify)*: `accounts-packs-2026-2.md:307`, `:331`) | OIOUBL / Peppol BIS lines as SE | FIFO or average; lowest value | Intrastat (Danmarks Statistik); deposit |
+| DK | 25 %; from the pack | SAF-T from 2027-01-01 (ACC-R2, roadmap:141) carries GL lines; stock accounts mapped to the standard chart (1460 → 6140; stock movement 1770 still *(verify)*: `accounts-packs-2026-2.md:307`, `:336`) | OIOUBL / Peppol BIS lines as SE | FIFO or average; lowest value | Intrastat (Danmarks Statistik); deposit |
 | FI | Standard and reduced rates; from the pack | No SAF-T; tax authority reads the books | Finvoice / Peppol lines | FIFO or average (KPL); lowest value | Intrastat (Tulli) |
 | IS | Standard and reduced rates; from the pack | No SAF-T today | Peppol lines | FIFO or average | No Intrastat (EEA) |
 | PK | Sales tax on goods (standard rate, further tax for unregistered buyers, Third Schedule retail-price tax); `retailPrice`, `saleType`, `scheduleRef` on lines (`accounts-b.md:1438`) | Annex-C sales register with HS code per invoice line (`accounts-h-design.md:215`) | FBR Digital Invoicing: HS code, FBR unit, quantity per line (`accounts-b.md:1005`, `:2051`; FBR reference cache `HS_CODES`, `UOM`, `accounts-docout.md:300`). Until Inventory exists the line text stands in and the export warns (`accounts-h-design.md:221-222`) | IAS 2 (FIFO or weighted average); registered persons keep records of goods and stock (Sales Tax Act s.22) | Tier-1 retailer POS integration with FBR (with POS); provincial sales tax is on services, not goods |
@@ -613,7 +613,7 @@ dimension set for high-volume sources, with the stock ledger keeping the detail 
 
 - The stock move valuation line carries `DimensionSetV1` from the start (`ADR-021:80`); dimensions are copied from the
   source line unless a person changed them (`ADR-021:85`); Inventory, as the producing module, resolves defaults and
-  sends explicit values (ADR-021 D4, `ADR-021:100`).
+  sends explicit values (ADR-021 D4, `ADR-021:101`).
 - The Inventory slice fills `dimension_sets.item_id` and runs the Q18 set-count measurement (`ADR-021:7`, `:239`). The
   B and C lines' own `item_id` columns then move into the set (`accounts-b.md:32`, `:524`).
 - Account rules decide where item may go. Today the SE stock account allows branch and stock location only, and COGS
@@ -703,3 +703,91 @@ Order: INV-0 → INV-1 → INV-2 → INV-3 → INV-5 → INV-6 → INV-4 → INV
 Sales v1 replace the document-driven moves with their own documents. Money slices get the money guardrails: a test
 per finding, invariant checks before push, a second different reviewer. Each slice designs its screens at the QA sizes
 (§4.4) before build, as the module loop asks (`module-sequence.md:32-34`).
+
+## 10. Decisions for Jabran
+
+**Critical** = money or posting, statutory, product direction, or approved scope. **Non-critical** = everything else.
+
+1. **Who can use items (critical: product direction).** ADR-018 gives the item master to Inventory (`ADR-018:31`),
+   but a services firm with Sales and no stock needs items too. **Recommend:** Items live in the inventory service
+   and are reachable when any of INVENTORY, SALES or PURCHASING is on; stock features need INVENTORY. Why: sold by
+   module, one item list for every module.
+2. **Chart of items: how a company starts (critical: product direction).** Options: no templates, fixed industry
+   charts, or starter sets. **Recommend:** starter category sets by business type, chosen at setup, copied and then
+   the company's own (§2.3); the country decides units, tax classes and statutory fields; category defaults point
+   to account roles. Why: it mirrors the chart of accounts (country rules, company copy, "Used for" roles,
+   `accounts-a0.md:50`, `:133`, `:210`) and avoids a tier-like industry ladder (`RULES.md:41-54`). This agrees with
+   the lead's leaning, with the country and business-type split made explicit.
+3. **Group or company item master (critical: product direction).** **Recommend:** model a catalogue plus per-company
+   settings from v1; in v1 each company owns its catalogue (ADR-018 §2 rule, `ADR-018:44-49`); a group catalogue for
+   owned companies switches on after a short cross-company scope ADR; franchises keep their own unless they opt in.
+   Why: large groups need one item id across companies, but crossing the company boundary needs an ADR today
+   (`ADR-018:96`). Agrees with the lead's leaning except that it is gated, not on in v1.
+4. **Variants (non-critical).** **Recommend:** variants with attributes in the item master from v1; each variant is
+   its own item id; grid editor as INV-1b. Why: retail and textiles need size and colour from the first day; the lead
+   leans the same way.
+5. **Valuation methods (critical: money, statutory).** **Recommend:** FIFO and moving weighted average in v1, one per
+   company, fixed after the first move; FIFO is the default and the only offer in SE and NO until the accountants
+   confirm average is allowed there (GK); standard cost with Manufacturing; no LIFO.
+6. **Valuation off (critical: money).** Feature `INVENTORY_VALUATION` exists (`V41:119`). Many Nordic small-company
+   systems book purchases straight to cost and adjust stock once a year (GK, §3.8). **Recommend:** on = perpetual
+   (stock journals per move, §8.2); off = quantities only, no stock journals, purchases stay costs, and a period-end
+   "stock value change" journal from the valuation of the count. Default on for new Inventory companies. Why: serves
+   both a large perpetual customer and a small shop.
+7. **Valuation pool (critical: money).** **Recommend:** cost per item per company, with quantities per location; a
+   transfer moves cost unchanged. Why: the books are the company's (`RULES.md:121-128`); per-location cost makes
+   every transfer a revaluation.
+8. **Stock before Purchase and Sales exist (critical: approved scope, posting).** **Recommend:** v1 moves stock from
+   Accounts documents: a bill line with a stock item posts DR GRNI in C, and Inventory then posts DR INVENTORY /
+   CR GRNI; an invoice line with a stock item makes Inventory post COGS (from `accounts.sales_invoice.posted`,
+   `ADR-018:76`), plus manual goods in and out. Why: Inventory is useful to an Accounts-only company and the INVENTORY
+   account stays posted only by Inventory. Needs C's service API to accept an INVENTORY-sourced line (today pinned to
+   PURCHASING, `accounts-c.md:218`).
+9. **Price variance and landed costs (critical: money).** C posts the bill's difference to PURCHASE_PRICE_VARIANCE
+   (`accounts-c.md:218`). **Recommend:** keep that in v1 (variance is a cost); landed costs and actual-cost
+   correction of the on-hand share come with Purchase v1. Why: built path, small variances; full IAS 2 actual cost
+   needs charges that only Purchase brings (GK on IAS 2).
+10. **Opening stock (critical: money).** **Recommend:** adopt the GL balance: import quantities and costs, refuse unless
+    the total equals the GL balance per location, no second journal; a difference needs one adjustment journal with a
+    reason. Why: the opening-balance import may already hold 1460; a second journal would double it.
+11. **Negative stock (critical: money).** **Recommend:** refused by default; a company may allow it on Store
+    locations only, with the cost corrected when the receipt arrives and a daily list of negative items. Why: shops
+    sell before goods are booked in; warehouses must not.
+12. **Posting detail (critical: posting).** **Recommend:** one journal per source document by default; a company
+    switch per source (POS, deliveries, counts) to post one daily summary per location, account and dimension set,
+    with drill-down to the moves. Why: 20 million moves would swamp a ledger sized for 2 million lines (`ADR-023:135`).
+13. **Inter-company transfers (critical: money, statutory).** **Recommend:** Phase 7; until then a sale in one company
+    and a purchase in the other, linked by a transfer id once Sales and Purchase exist. Why: two books, VAT and
+    unrealised profit (`RULES.md:126-127`; roadmap:151).
+14. **Batch, serial and expiry (non-critical).** **Recommend:** INV-9, the first slice after v1, with nullable lot and
+    serial on every move from v1. Why: food, pharma and Pakistani textile and pharma firms need it (GK), the first
+    Swedish customers likely do not.
+15. **Counts and close (critical: statutory).** **Recommend:** blind counting; counter cannot approve own variances;
+    automatic posting under a company value limit, approval above it; unposted moves block the period close; a
+    missing year-end count is a warning a company can make blocking. Why: the count is the year-end evidence (GK).
+16. **Write-downs (critical: money).** **Recommend:** NRV write-downs through a provision account and a new pack role
+    (base and PK have 1490 `INVENTORY_PROVISION`, SE and DK have none: `base-ifrs.csv:41`, `pk.csv:42`); in the next
+    pack edition. Why: keeps cost and write-down visible apart and reversible.
+17. **Item on journal lines (critical: posting).** **Recommend:** item on COGS, adjustment and variance lines only,
+    not on INVENTORY and GRNI; a pack edition allows the item tag on those accounts; measure the set count (Q18) in
+    INV-2. Why: margin and product budgets need it; balance lines would multiply sets for no use (§8.3).
+18. **Who sees stock values (non-critical).** **Recommend:** a separate value-read code; Stock Clerk and store staff
+    see quantities only by default. Why: large customers hide cost prices from shop floors (GK).
+19. **Country item fields in v1 (critical: statutory).** **Recommend:** HS / PCT code, FBR unit, retail price, sale
+    type default (PK); GTIN, CN8, net mass, country of origin (Nordic) on the item in v1; Intrastat reports later with
+    Sales and Purchase. Why: PK invoices need them now (`accounts-h-design.md:221-222`); fields are cheap, reports
+    need documents.
+20. **Build order (critical: approved scope).** Brief order is Inventory, then Purchase, then Sales scope drafts.
+    **Recommend:** build Inventory INV-0 to INV-8 first with the document-driven path (decision 8), then Purchase v1
+    and Sales v1. Why: Accounts documents already carry item, unit, quantity and location fields (`ADR-018:66`), so
+    Inventory works alone, and Purchase and Sales then plug into a working stock ledger.
+
+## 11. Not verified
+
+- Every GK line: country tax, valuation and count rules; e-invoice item terms; Intrastat scope; the ERP and Nordic
+  system comparison (vendor documents were not read).
+- The brief names `NeoERP-BackEnd/docs/adr/ADR-024-data-at-scale.md`; the file is at
+  `WS/docs/drafts/ADR-024-data-at-scale.md` and still says Draft there (line 4), although backlog:385 records the
+  approval.
+- The volume figures in §7 are assumptions, not customer data.
+- Pack accounts and units are UNCHECKED against official sources (backlog:74).
