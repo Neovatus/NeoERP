@@ -117,6 +117,7 @@ Code (same paths as the old Mac keep every script and the lead memory working):
 First run:
 - [ ] Start Docker, then `cd NeoERP-BackEnd && NEOERP_CONFIRM_RESET=yes scripts/reset-local-dev.sh` (stack + seed); dev secrets come with the clone
 - [ ] Services: `scripts/run-all-services.sh`
+- [ ] Accounts demo data (the reset leaves it out on purpose): in one shell in `NeoERP-BackEnd`, `scripts/make-demo-tokens.sh < /dev/null && source /private/tmp/neoerp-demo-tokens.env && export NEOERP_LOCAL_DEMO=1`, then `scripts/seed-demo-accounts.sh` → `scripts/seed-demo-phase3.sh` → `scripts/seed-demo-a4.sh` (see `NeoERP-BackEnd/docs/local-demo-data.md`); then `scripts/money-invariants.sh` passes with more than 0 posted journals. Never open the password or token files.
 - [ ] Lead memory: `scripts/sync-lead-memory.sh restore` in the workspace
 - [ ] Gradle: always through the lock, see WORKFLOW.md (`lockf -k /private/tmp/neoerp-gradle.lock ./gradlew …`, `GRADLE_USER_HOME=/tmp/gradle-home`)
 

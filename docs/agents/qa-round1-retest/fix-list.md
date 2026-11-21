@@ -40,7 +40,7 @@ Nothing is started until Jabran says go.
 | R26 | G19: Create account 1925 still missing. G41: template cancel says "The file could not be saved". | app |
 | R27 | iPad Pro portrait: Accounts rail flyout stays open over the page after picking an item. | app |
 | R28 | G25 (backlog item, still broken) — stays in backlog unless Jabran pulls it in. | app |
-| R29 | Lane 0 found (2026-11-21): ~42 repository methods without a company-scope classification (user-service 28, org-service 9, audit-service 3, auth-service 2), held in `architecture-tests` `tenant-classification-baseline.txt`. Classify each (scoped, or system/platform with reason); the baseline may only shrink (test fails on an added line). **Owner:** BE fix lane, batch 2. **Deadline:** baseline empty before RLS (ADR-026) and before the first customer. Money/security lane: re-runs + second reviewer. | backend |
+| R29 | Lane 0 found (2026-11-21): 44 outbound repository ports without a company-scope classification (user-service 29, org-service 8, audit-service 4, auth-service 3; list in the baseline file), held in `architecture-tests` `tenant-classification-baseline.txt`. Classify each (scoped, or system/platform with reason); the baseline may only shrink (test fails on an added line). **Owner:** BE fix lane, batch 2. **Deadline:** baseline empty before RLS (ADR-026) and before the first customer. Money/security lane: re-runs + second reviewer. | backend |
 
 ## 3. Layout and wording
 
