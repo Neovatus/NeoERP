@@ -19,6 +19,8 @@ GitHub renderer + script: clean. Browser-pane look: not done.
 ## Docs pages
 User guide: none: a design change list. Developer pages: none: no code; the specs change when the list is approved.
 
+> **Jabran 2026-11-21:** decisions made for the old v1 HR/Payroll/ESS code (e.g. 2026-10-09 "data is kept") are outdated; the rebuild replaces them, so a change to them is not a reversal. Decisions on the **v2 design** (gates G-1..G-4, payroll D1/J-8, the 2026-10-21 approvals) still stand unless Jabran changes them here.
+
 ## For Jabran: 17 decisions — **1–3 answered 2026-11-21: old HR/Payroll/ESS code deleted, data not kept**; (all recommended yes unless noted; Fable's view per item in `fable-settlement.md`)
 1. HR v2 and Payroll v2 on a new schema (company column, composite keys, RLS from the first migration). **This reverses your 2026-10-09 "data is kept".**
 2. v1 HR, Payroll and ESS stop working from the first v2 migration; hidden until each v2 area ships.
