@@ -961,7 +961,7 @@ guardrails: a test per finding, invariant checks before push, a second different
     **Change (Fable):** for a summarised source, COGS lines carry **no item** (category at most, see decision 17), or
     the summary would keep one line per item per location per day; a late move for a day already summarised posts as
     a **further summary**, never an edit of the posted one.
-13. **Inter-company transfers (critical: money, statutory).** Two parts:
+13. **Inter-company transfers (critical: money, statutory).** **Approved by Jabran 2026-11-21 as recommended, with Fable's change** (same-country pairs first; cross-border pairs a named later step S3c-1x). The note on roadmap decision 15 ("no owned-group pilot") is moot: no pilot is decided (Jabran 2026-11-21); it is handled in the Accounts roadmap round. Two parts:
     - **S3c-1 linked transfer, before Phase 7 (INV-4b):** one transfer id; each company posts only its own invoice or
       bill and IV journals (decision 8 path), on AR and AP with `linkedCompanyId` as Accounts F does
       (`accounts-f-design.md:162-163`; needs PR-9, not built), a transfer-price setting, stock in transit; no VAT
