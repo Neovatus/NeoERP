@@ -5,8 +5,9 @@ fresh Opus review → Fable 5.2 (high) settles the **non-critical** items and gi
 the whole list**, reading the **critical** items and anything Fable rejected or left open. The HR v2 build on
 `phase/hrp-v2` starts only after that.
 
-**What this checks.** The six specs approved at the design gate of 2026-10-21 (G-1…G-9,
-`docs/drafts/hr-payroll/hr-payroll-open-decisions.md:5-19`) against what was decided since: ADR-026 (company column and
+**What this checks.** Six specs: four approved at the design gate of 2026-10-21 (hr-h1, payroll-p, hr-h2-h3, hr-h4;
+G-1…G-9, `docs/drafts/hr-payroll/hr-payroll-open-decisions.md:5-19`), ess (approved 2026-10-29 and 2026-10-30) and
+people-access (approved 2026-10-03, design pass 2026-10-29) (Fable), against what was decided since: ADR-026 (company column and
 row-level security from the first migration, old tables dropped), the money/security/statutory guardrails, the building
 blocks and the one-format rule, UX-1 (short heights, Larger Text, touch entry), approval limits, shared dimensions
 (ADR-021), file store (ADR-020), notifications (ADR-025), data at scale (ADR-024) and the Accounts roadmap (A5, L.1).
@@ -142,12 +143,12 @@ These apply to every spec; the per-spec sections below only add the lines.
 | hr-h1 | 10 | 6 | 4 |
 | hr-h2-h3 | 9 | 3 | 6 |
 | hr-h4 | 6 | 1 | 5 |
-| payroll-p | 10 | 7 | 3 |
+| payroll-p | 10 | 8 | 2 |
 | ess | 6 | 1 | 5 |
 | people-access | 2 | 0 | 2 |
-| **Total** | **60** | **24** | **36** |
+| **Total** | **60** | **25** | **35** |
 
-The 36 non-critical items are for Fable to settle. One of them chooses between contradicting texts already in the specs:
+The 35 non-critical items were settled by Fable (`docs/agents/hrp-des/fable-settlement.md`); PY.10 moved to critical. One of them chooses between contradicting texts already in the specs:
 H4.4 (the O1 and O5 rows); the other such case, H1.7, chooses between two approved specs and goes to Jabran (decision 13).
 X.8 follows D-10, which Jabran confirmed as a trial.
 
@@ -157,15 +158,22 @@ Each groups the critical items it settles.
 
 1. **Start HR v2 and Payroll v2 on a new schema** (X.1, X.2, X.13, H1.1, H23.1, H4.1): company column, composite keys,
    row-level security and the two database roles per service from the first migration, old tables dropped, no backfill,
-   no optional-tenant filters. This is ADR-026 D1 (option B) and D9, which you have not accepted yet. **Recommend: yes.**
-   Dev holds no customer data (ADR-026:166); your 2026-11-15 rule "We're in dev: target design first"
-   (`WS docs/backlog.md:367-368`) points the same way; adding the wall later means a second migration of every table.
+   no optional-tenant filters. **This reverses your rule of 2026-10-09, "v2 replaces v1 … Data is kept"**
+   (`WS docs/handover/erp-lead-decisions.md:115`; the lead review's D2 "Clear dev data" was withdrawn that day,
+   `HR-PAYROLL-LEAD-REVIEW.md:151, :566`), so it needs your explicit yes. (Fable) It is ADR-026 D1 (option B) and D9, which
+   you have not accepted yet. **Recommend: yes.** Dev holds no customer data (ADR-026:166); your 2026-11-15 rule "We're
+   in dev: target design first" (`WS docs/backlog.md:367-368`) points the same way; adding the wall later means a
+   second migration of every table. Data other services hold from v1 HR (IAM's `employee_links` and the Employee-role
+   memberships made from them, audit-service workflow items) is cleared and seeded again in dev. (Fable)
 2. **v1 HR, Payroll and ESS stop working from the first v2 migration** (H1.2). **Recommend: yes.** It follows from D9:
-   keeping v1 running would mean keeping the old tables, which D9 drops. One touch to modules that otherwise "stay
-   untouched" (Q1) is needed: **hide their menu entries** until each v2 area ships. Please confirm that one App change.
+   keeping v1 running would mean keeping the old tables, which D9 drops. Backend v1 code goes with the tables in the
+   same lane; the App hides v1 routes and menu entries and gives employee-only users a plain "being rebuilt" state.
+   (Fable) Please confirm that App change to modules that otherwise "stay untouched" (Q1).
 3. **Amend the signed-off Payroll scope P0** (PY.1): new schema, no interim calculator, no legacy runs, no seed copies.
    **Recommend: yes.** It follows from 1 and "target design first"; P0 keeps four eyes (now inside the approval model,
-   decision 6), `@Version`, idempotency, the audit outbox and tier 2.
+   decision 6), `@Version`, idempotency, the audit outbox and tier 2. Without the interim calculator nothing in P0
+   produces a Calculated run, so the amended scope says P0's state machine, four eyes and idempotency are proven with a
+   **test-only fixture calculator that never ships**; P1's engine is the first real one. (Fable)
 4. **Payroll country order: does it amend your D1 and J-8?** (PY.2). Today Payroll goes PK → NO → SE → DK → FI → IS
    (D1, 2026-10-09) with "all six signed off before launch; PK first" (J-8); Accounts launches SE → NO → PK → FI → IS → DK.
    First question: **does J-8 still hold?** If all six must be signed off before launch, the payroll order does not move
@@ -175,15 +183,26 @@ Each groups the critical items it settles.
 5. **HR approvals on the shared approval model from H2, with company-set steps** (H23.2). **This amends hr-h2-h3 §24,
    which you approved at G-4** (multi-step approvals out of v2). Your AL-D5 (2026-11-15) put the relation step types in
    the model now and has the new HR supply the people from its start; it does not by itself decide multi-step HR chains
-   in v2. **Recommend: amend §24**: up to three steps the company may set (bands by amount only for kinds with an
-   amount), one step (the line manager) as the Standard default; chains are priority 1 for large customers. The
-   alternative keeps G-4's one-step scope, still on the shared model so stand-ins work.
+   in v2. **Recommend: amend §24**: up to three steps the company may set, one step (the line manager) as the Standard
+   default; chains are priority 1 for large customers. With two limits (Fable): company-set chains sit behind the
+   existing `APPROVAL_CHAINS` switch (off gives the one-step Standard, the approved H2 design), with the HR policy
+   screen as its own named slice so H2 does not grow; and every HR kind has **one band** in v2, since at an encashment's
+   approval HR knows days, not the amount (H0-17). The alternative keeps G-4's one-step scope, still on the shared model
+   so stand-ins work.
 6. **How AL-D16 is built for pay runs** (PY.4). You decided on 2026-11-15 that pay-run approval uses the shared limit
-   model from day one; two points are open. (a) The amount a band is measured on. **Recommend: the run's net pay total
-   in company currency**, like the "amount paid" basis of payments (AL-D4); the alternative, gross plus employer cost,
-   puts large runs in higher bands but is not what leaves the bank. (b) Owner's own on a band with more than one step.
-   **Recommend: payroll's own condition stays** (only when nobody else holds a payroll calculate or approve right,
-   fresh, fails closed; L-1, L-2), and the Owner fills at most one step, as the model's Owner rule says for Accounts.
+   model from day one; two points are open.
+   (a) **The amount a band is measured on. You choose:**
+   - **Net pay total** (the drafter's pick): the amount that leaves the bank to employees, like the "amount paid" basis
+     of payments (AL-D4). Weakness: net falls when deductions go to payees while the same money still leaves the
+     company, so the mix of deductions can move a run into a lower band.
+   - **Total run cost, gross pay plus employer contributions** (Fable's pick): the debit total of the PR journal, the
+     same basis AL-D4 uses for journals; deductions cannot lower it. Weakness: it is not what the payroll team sees as
+     "paid", and bands set by the company must be read as cost, not cash. (Fable)
+   (b) Owner's own on a band with more than one step. **Recommend: payroll's own condition stays** (only when nobody
+   else holds a payroll calculate or approve right, fresh, fails closed; L-1, L-2), and the Owner fills at most one step.
+   In practice Owner's own can only exist on a one-step band: every step needs a `PAYROLL.RUN.APPROVE` holder and L-1
+   says nobody else holds it, so a multi-step band there is a stuck item (AL-D19) the Limits screen must warn about.
+   Two-person limit changes also need a payroll confirm code, as Accounts has. (Fable)
 7. **Payroll posting carries the shared dimensions** (PY.3, H1.4): amend P2 and A5 (`AccountsPostingV2`) to carry the
    full dimension set; HR adds department to employee-facts segments, department validity and the
    `hr.department.changed` event. **Recommend: yes, before the H1 build and CP-P2.** ADR-021 is accepted, and a frozen
@@ -205,11 +224,18 @@ Each groups the critical items it settles.
 12. **Cross-company reads stay one company per call** (H1.5): employer lists from IAM, HR facts per employer under its
     own scope. **Recommend: yes.** It is ADR-026 D4 and keeps a franchise's employees out of the group's reach (RULES §8).
 13. **Two texts aligned to your approved decisions** (H1.7, H23.8). (a) Adding an employee: hr-h1 (G-1) has a
-    quick-add panel, hr-h4 (G-4, later) replaces it with the wizard when H4 ships. **Recommend: H1 keeps the quick-add
-    panel until the H4 wizard replaces it**, so every slice before H4 has a way to add an employee (in dev too, with v1
-    hidden); then the wizard is the one way. Only hr-h4's stale O1 lead-decision line is deleted now. (b) Young-worker
-    checks: J-9's "every country" note is aligned to your G-6 (six full countries only, no school-term limits).
-    **Recommend: yes**, text only.
+    quick-add panel, hr-h4 (G-4) replaces it with the wizard when H4 ships. **Recommend: H1 keeps the quick-add panel
+    until the H4 wizard replaces it**, so every slice before H4 has a way to add an employee (in dev too, with v1
+    hidden). For the end state the O1 lead-decision line ("keep H1's quick add", `hr-h4.md:496`) is **not provably
+    stale**: it, the wizard text (:88) and the O1 row (:509) arrived in one App commit (`a09fc826`), and for O5 it was
+    the lead-decision line that won. Nothing in the files settles it, so you choose; nothing is deleted as stale.
+    **Recommend: the wizard replaces the panel when H4 ships** (one way to add an employee; "Add now, finish later" is
+    as quick). (Fable) (b) Young-worker checks: J-9's "every country" note is aligned to your G-6 (six full countries
+    only, no school-term limits). **Recommend: yes**, text only.
+
+**Before the build can start:** ADR-026 accepted (D1–D11) and its R1 (shared binder and the four flag functions) built,
+plus Jabran's approval of this list. (Fable) Whether the first HR/Payroll migration also waits for Accounts R2–R3
+(ADR-026 Q1's order) is Jabran's call; Fable's view is that R1 is enough, since it is shared code.
 
 ## Not changed, checked
 
@@ -256,7 +282,8 @@ These still hold against the later decisions:
 - ADR-026 is not accepted; decisions 1–3 and every R4/D9 item depend on Jabran's D1 and D9.
 - That no non-local environment holds HR or Payroll data (D9's condition, ADR-026:166) was taken from the ADR and
   PROJECT-STATE, not checked on any server.
-- What IAM's employee links hold (code, position) for the ESS switcher (H1.5) was not read in user-service code.
+- What IAM's employee links hold for the ESS switcher (H1.5): answered by Fable from the H1 contract §10.2 and user-service
+  `EmployeeLinkPushRequest`: company, employee code, position name (today `designationName`), branch and employment status. (Fable)
 - The rig was not opened; layout items come from the spec text and the UX-1 rules, not from screenshots.
 - The Nordic country flows (`docs/drafts/hr-payroll/payroll-p5…p9-*.md`) and the P5–P9 contracts were read only for
   order and status, not row by row.
