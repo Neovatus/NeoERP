@@ -819,19 +819,26 @@ guardrails: a test per finding, invariant checks before push, a second different
    entitlement-chain rule (RULES §3: the Items area resolves on from any of the four modules) and a note on ADR-018
    (`ADR-018:31`: Inventory owns the master, Accounts B and C read it even without the INVENTORY module). The
    group catalogue is an INVENTORY feature, so a group on Finance only cannot share a catalogue (§7).
+   **Change (Fable):** approving an invoice or bill with no stock line never depends on inventory-service being up
+   (B and C read item data from a display cache, ADR-021 D2 pattern); and RULES §3 has no "on from any of four
+   modules" rule today, so that rule gets its own wording in RULES §3 and in the ADR-018 amendment, approved by
+   Jabran with this scope.
 2. **Chart of items: how a company starts (critical: product direction).** Options: no templates, fixed industry
    charts, or starter sets. **Recommend:** starter category sets by business type, chosen at setup, copied and then
    the company's own (§2.3); the country decides units, tax classes and statutory fields; category defaults point
    to account roles. Why: it mirrors the chart of accounts (country rules, company copy, "Used for" roles,
    `accounts-a0.md:50`, `:133`, `:210`) and avoids a tier-like industry ladder (`RULES.md:41-54`). This agrees with
-   the lead's leaning, with the country and business-type split made explicit.
+   the lead's leaning, with the country and business-type split made explicit. Fable agrees, and adds: keep the sets
+   as versioned data like the packs, not code (Fable).
 3. **Group or company item master (critical: product direction).** **Recommend:** model a catalogue plus per-company
    settings from v1. The default is one catalogue per company (ADR-018 §2 rule, `ADR-018:44-49`). The **group
    catalogue** for owned companies gets a slot: its cross-company scope ADR is written in INV-0, and it ships in
    INV-1c, before INV-2, as company feature `GROUP_CATALOGUE`, off by default. Franchises keep their own unless they
    opt in (RULES §8). Why: large multi-company customers from day one (`large-customer-roadmap.md:7`) need one item id
    across companies, and crossing the company boundary needs an ADR (`ADR-018:96`); doing the ADR first keeps the
-   slot without risking the boundary. Agrees with the lead's leaning.
+   slot without risking the boundary. Agrees with the lead's leaning. **Change (Fable):** country fields (HS / PCT,
+   CN8, FBR unit, sale type, SRO data, retail price, tax class) are held **per country** in the catalogue, not once per
+   item, because a group can span Sweden and Pakistan, where the 8-digit codes differ (§2.4).
 4. **Variants (non-critical).** **Recommend:** variants with attributes in the item master from v1; each variant is
    its own item id; grid editor as INV-1b. Why: retail and textiles need size and colour from the first day; the lead
    leans the same way.
@@ -839,15 +846,25 @@ guardrails: a test per finding, invariant checks before push, a second different
    company, fixed after the first move. **FIFO is the default in every Nordic country**; average is offered there only
    after the country accountant's check (ERP-Q1), because NO and SE tax rest on FIFO and DK only "assumes" average
    acceptable (§4.9 sources). PK keeps the choice under IAS 2. Standard cost with Manufacturing; no LIFO (FI law
-   allows it, no need known).
+   allows it, no need known). **Change (Fable):** the method is **stored on the item**, inherited from the company
+   (and the category, §2.2), although v1 offers one choice per company; DK allows a method per goods group and
+   standard cost arrives with Manufacturing, so a company-only column would need re-keying.
 6. **Valuation off (critical: money).** Feature `INVENTORY_VALUATION` exists and is on by default
    (`EntitlementCatalog.kt:177`). Many Nordic small-company systems book purchases straight to cost and adjust stock
    once a year (GK, §3.8). **Recommend:** on = perpetual (stock journals per move, §8.2); off = quantities only, no
    stock journals, purchases stay costs, and a period-end "stock value change" journal from the valuation of the
    count. Default on for new Inventory companies. Why: serves both a large perpetual customer and a small shop.
+   **Change (Fable):** the switch may change only at the start of a period, with a tie-out journal; and cost per item
+   is still captured while it is off, because the period-end journal needs it.
 7. **Valuation pool (critical: money).** **Recommend:** cost per item per company, with quantities per location; a
    transfer moves cost unchanged. Why: the books are the company's (`RULES.md:121-128`); per-location cost makes
-   every transfer a revaluation.
+   every transfer a revaluation. **Conflict fixed (Fable):** with one company pool, value per location cannot tie
+   exactly to a location-tagged GL balance (a receipt at one location changes the average for stock at every other
+   location with no journal there). Jabran picks one:
+   - **(a) recommended (Fable):** the daily tie-out is per company and account only; value per location is a report
+     (§8.8 and the §3.9 S1 row now say so).
+   - (b) cost layers per location, so each location ties to its tagged GL balance, at the price of a revaluation on
+     every transfer.
 8. **Stock before Purchase and Sales exist (critical: approved scope, posting). This changes ADR-018.** ADR-018 has
    Inventory post COGS "from its own delivery and return events" (`ADR-018:40`); the invoice event only lets it
    reconcile (`ADR-018:76`). **Recommend:** v1 moves stock from Accounts documents, **stock first, in the approval
@@ -882,10 +899,30 @@ guardrails: a test per finding, invariant checks before push, a second different
    to GRNI, an exception to C-6, which refuses INVENTORY accounts on bill lines, `accounts-c.md:191`; an
    INVENTORY-sourced client next to PURCHASING, `accounts-c.md:218`); and an invariant check (GRNI per receipt line
    never debit; every stock invoice line has exactly one issue; no stock move without a live source document).
+
+   The above is **option (a)**, the drafter's recommendation. **Option (b), Fable's alternative:** Inventory owns a
+   small **receipt** and **delivery** document. A person (or the bill or invoice editor's "Receive" / "Deliver"
+   step) creates it in Inventory first; it posts IV DR INVENTORY / CR GRNI or DR COGS / CR INVENTORY on its own. The
+   bill or invoice line then **points to it** (`sourceLineId`, as Purchasing's goods receipt would), and C clears
+   GRNI by `receivedValue` exactly as C-27 is written. ADR-018 stays as written, with INVENTORY added beside
+   PURCHASING as a source module.
+
+   | | (a) stock first in the approval | (b) Inventory-owned receipt and delivery |
+   |---|---|---|
+   | ADR-018 | Amended (COGS from Accounts documents) | Unchanged apart from INVENTORY as a source |
+   | Service calls | Two-way synchronous: Accounts calls Inventory, Inventory posts to Accounts | One way, as Purchasing and Sales will: Inventory posts; Accounts reads the link |
+   | Failure handling | Retries, reversal rule, sweeper job | A receipt or delivery stands on its own; a refused bill leaves a true received-not-invoiced state |
+   | Steps for the user | One: approve the bill or invoice | Two: receive or deliver, then bill or invoice (the editor can offer both in one screen) |
+   | Fit with Purchase and Sales later | Their documents replace the path | The same shape: Purchase's goods receipt and Sales' delivery become richer versions of it |
+   | Invariant | GRNI per receipt line never debit | GRNI cleared only against a posted receipt |
+
+   Jabran chooses (a) or (b). Either needs Jabran's explicit yes, because ADR-018 is accepted (Fable flag 5).
 9. **Price variance and landed costs (critical: money).** C posts the bill's difference to PURCHASE_PRICE_VARIANCE
    (`accounts-c.md:218`). **Recommend:** keep that in v1 (variance is a cost); landed costs and actual-cost
    correction of the on-hand share come with Purchase v1. Why: built path, small variances; full IAS 2 actual cost
-   needs charges that only Purchase brings (GK on IAS 2).
+   needs charges that only Purchase brings (GK on IAS 2). Fable agrees and adds the real v1 gap: freight and duty
+   are not added to stock cost, so an importing customer does not go live on v1 valuation without landed costs or
+   a documented revaluation step (Fable).
 10. **Opening stock (critical: money).** **Recommend:** adopt the GL balance: import quantities and costs, refuse
     unless the total equals the GL balance per account (per location only where the opening balance carries the
     location tag, which the opening-balance import may not have set), no second journal; a difference needs one
