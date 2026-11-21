@@ -176,4 +176,5 @@ Status: pending (critical: security → Jabran with Fable's view)
 
 ## D-19 FIX-BE R08 {month} and {period} format — Jabran 2026-11-21
 Jabran: "we already have one formatting based on the country, decide based on that." **Decided:** both `{month}` and `{period}` render with the company's country format that the App's NeoFormat uses (same month and month-year patterns), not a fixed English form; this supersedes the ledger-language part of D-180 for these two tokens; contract test BE output = NeoFormat pattern per country.
+Clarified (lead, from the App code 2026-11-21): NeoFormat month-year is "<short month> <year>", {month} the full name; names come from the language tables `core_fmt_months_short/long` (en, nb, sv, da; no dots); the country changes only numbers. Stored memo text uses the ledger language (D-180): NO → nb, SE → sv, DK → da, PK/FI/IS → en. QA's "nov./des." came from Java's locale. App mirror test to add in an App lane.
 Status: acted (sent to the FIX-BE builder)

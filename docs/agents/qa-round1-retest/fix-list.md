@@ -68,5 +68,5 @@ Nothing is started until Jabran says go.
 
 - **BE (Opus, money/data):** R07 (if BE), R08, R09, R10, R13, R17 history By, R19 count rule, R25 BE parts, R04 investigation.
 - **App A — input, keyboard, sizes (Opus):** R03, R05, R06, R12, R14, R15, R22.
-- **App B — flows (Sonnet, decided items):** R01, R02, R11, R16–R21, R23–R27, R31 (two unbuilt A4 Journals screens, with R21; Jabran 2026-11-21); R32 (focused field above the keyboard, UX-1 D-1); R33 (screenshot frames at the short-height sizes).
+- **App B — flows (Sonnet, decided items):** R01, R02, R11, R16–R21, R23–R27, R31 (two unbuilt A4 Journals screens, with R21; Jabran 2026-11-21); R32 (focused field above the keyboard, UX-1 D-1); R33 (screenshot frames at the short-height sizes); plus from FIX-BE: the R04 report-404 fix (drop the saved filter and fiscal year, reload), R07 2960 for accrued expenses, the NeoFormat ↔ BE month-table mirror test (D-19), and the TB row label if D-16 is approved.
 - **App C — layout and wording (Sonnet):** section 3.
