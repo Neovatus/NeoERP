@@ -261,7 +261,7 @@ graph LR
    monthly close step).
 9. **Phase 6 per country.** **Decided by Jabran 2026-11-21: all six countries of the first market group**, starting right after document output (5.1), not at the end of Phase 5; the "Paid" step joins when D is built; country order **PK → NO → SE → DK → FI → IS** (as Payroll D1), so each country's accountant (ERP-Q1) checks accounting, tax and payroll together; DK SAF-T 2.1 (2027-01-01) is a go-live condition for Danish companies. "SE first" is withdrawn (no first country decided). The gate needs "Phases 1–6 for that country". **Recommend:** build E for Sweden first and
    ship it with Phase 5; other countries' E and H follow their launch order.
-10. **Vendor choices with no owner:** Peppol access point (D-121/D-123) and PK FBR route (D-125). **Recommend:**
+10. **Vendor choices with no owner:** **Decided by Jabran 2026-11-21:** Jabran decides each vendor; the lead prepares a fresh comparison for all three now (official sources first, then vendors; cost, EU/EEA hosting and DPA, onboarding time, a pick with reasons), so they are decided before Phase 5 starts; the Pakistan FBR/PRAL sandbox paperwork starts early. Comparisons in `docs/agents/vendor-choices/`. Peppol access point (D-121/D-123) and PK FBR route (D-125). **Recommend:**
     decide D-121/D-123 before NO e-invoicing (5.2) starts; D-125 before PK work (PK is third in launch order).
 11. **Go-live items with no slot or owner:** company-local today, control-difference alerts, read-only off pages,
     FE-2 check, D-202 removal, Hikari leak, ACC-R19 (deadline 2027-07-01). **Recommend:** one go-live hardening lane
