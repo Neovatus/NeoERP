@@ -8,7 +8,7 @@ Write a line before starting, remove it when done. Never touch work the other le
 | Old Mac (Team) | overseeing lead | Reviews each new-Mac lane before it merges; reconciles state; may take over the HR/Payroll stream from Monday with its own Gradle lock (Jabran 2026-11-21) | `phase/hrp-v2` (only after a handover from the new Mac) | 2026-11-21 |
 
 ## New-Mac lead rules (Jabran 2026-11-21; this lead only, the old-Mac lead's process is unchanged)
-1. Every sub-agent the new-Mac lead starts runs at **High** effort.
+1. The new-Mac lead session and every sub-agent it starts run at **High** effort (lead session: set by Jabran in the app, since a session cannot raise its own effort).
 2. An open decision where the lead has a recommendation is written to [lead-decisions.md](lead-decisions.md): question, options, pick and **why**. A fresh Fable 5.2 reviewer at high effort (given the entry and its sources only) approves or rejects it. APPROVE → the lead acts. REJECT or still open → Jabran. Critical decisions (money, security, approved scope, product direction) go to Jabran directly, with the Fable view attached. Decisions Jabran already owns stay his.
 
 ## Merged lanes
