@@ -889,7 +889,7 @@ guardrails: a test per finding, invariant checks before push, a second different
      (§8.8 and the §3.9 S1 row now say so).
    - (b) cost layers per location, so each location ties to its tagged GL balance, at the price of a revaluation on
      every transfer.
-8. **Stock before Purchase and Sales exist (critical: approved scope, posting). This changes ADR-018.** ADR-018 has
+8. **Stock before Purchase and Sales exist (critical: approved scope, posting). This changes ADR-018.** **Approved by Jabran 2026-11-21: option (b)**, Inventory-owned Receipt and Delivery documents; bill and invoice lines point to them; "Receive and bill" / "Deliver and invoice" in one screen; ADR-018 unchanged apart from INVENTORY added beside PURCHASING as a source module (Jabran's explicit yes for that ADR-018 change). Purchase's goods receipt and Sales' delivery (and POS) build on the same documents. ADR-018 has
    Inventory post COGS "from its own delivery and return events" (`ADR-018:40`); the invoice event only lets it
    reconcile (`ADR-018:76`). **Recommend:** v1 moves stock from Accounts documents, **stock first, in the approval
    flow**:
