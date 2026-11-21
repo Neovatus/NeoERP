@@ -477,5 +477,5 @@ plus `HR-PAYROLL-LEAD-REVIEW.md` (D1) and `payroll-v2-p1.md` (J-8).
 - Fable: PY.11 own slice after base P2; split elements and hours named; size L (b8cab39).
 - Fable: PY.12 a missing rate stops the employee's calculation, never zero (b8cab39).
 - Fable: PY.13 Sweden corrected with sources; Pakistan out; several deadlines as pack rows; new posting roles need an A5/P2 amendment and accountant sign-off (b8cab39).
-- Fable: totals line notes the additions' settlement and size changes (this commit).
+- Fable: totals line notes the additions' settlement and size changes (a1bfc5d).
 
