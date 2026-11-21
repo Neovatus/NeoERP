@@ -18,3 +18,13 @@ later, not planned) with why. Completeness is checked against how established ER
 and feature lists only; our design system and UX §21–22 decide the look), with the comparison named. Each draft
 ends with a **cross-module map**: features that touch the module but are owned by another, with owner, dependency
 and phase. The product roadmap (ROADMAP-P) joins these maps into one feature map across all modules.
+
+## Not only an ERP: payments, tax, reconciliation, automation (Jabran 2026-11-21)
+NeoERP is also a payments and taxation system (e.g. Pakistan: FBR sales tax and withholding, provincial sales tax
+on services, Raast/1Link) and a Nordic "regnskap" system (Norway: Altinn VAT return and A-melding, SAF-T; Sweden:
+Skatteverket, SIE; Denmark: SKAT; e-invoicing). Every scope draft answers, per feature and per country where it
+applies: **Payments** (how money moves), **Tax** (what is reported, where), **Reconciliation** (what must match
+what), **Reports**, and **Automation** (what can run without a person). Benchmarks include the Nordic accounting
+systems (Tripletex, Fiken, PowerOffice Go, Visma eAccounting/eEkonomi, Fortnox, e-conomic, Dinero) and Pakistani
+practice, not only ERPs (structure only). ROADMAP-P adds a **country capability matrix** (payments, tax returns and
+filings, statutory reports, reconciliations, automations per country) across all modules.
