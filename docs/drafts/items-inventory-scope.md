@@ -988,7 +988,7 @@ guardrails: a test per finding, invariant checks before push, a second different
     rule checked, §3.9 S4). **Change (Fable):** the automatic-posting value limit **defaults to zero** until the
     company sets one, so a counter cannot post their own small variances unseen; auto-posted variances are reported
     per counter.
-16. **Write-downs (critical: money).** **Recommend:** NRV write-downs, and the Swedish 97 % rule (IL 17 kap. 4 §),
+16. **Write-downs (critical: money).** **Approved by Jabran 2026-11-21 as recommended, with Fable's change** (K3 in Sweden and PK tax deductibility to the country accountant checks, ERP-Q1). **Recommend:** NRV write-downs, and the Swedish 97 % rule (IL 17 kap. 4 §),
     as journals on a provision account. Every chart except SE has one (1490 in base, PK, DK, FI, IS; 1498 in NO:
     `base-ifrs.csv:41`, `pk.csv:42`, `dk.csv:41`, `fi.csv:41`, `is.csv:41`, `no-ns4102.csv:36`), but no role points to
     it; the next pack edition adds the role and an SE account. In NO the write-down is ignored for tax (skatteloven
