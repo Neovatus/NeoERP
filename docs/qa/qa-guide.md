@@ -347,6 +347,12 @@ for Jabran (`fix-list.md`) and `script-fixes.md`.
 9. **Lessons.** `summary.md` ends with Lessons; the lead adds them to [lessons.md](../lessons.md) as Proposed and
    updates the Trial evidence.
 10. **Close.** The lead commits the round's files, gives the verdict and a short chat summary.
+11. **Clean up** (lessons L32). After every build or test run, the lead stops the Gradle daemons it started
+    (`GRADLE_USER_HOME=/tmp/gradle-home ./gradlew --stop` in that checkout, or the daemon PIDs). When Jabran says the
+    testing is done, the lead also stops the backend services it started (Ctrl+C in the terminal running
+    `scripts/run-all-services.sh`, or stopping that script's process: its exit handler stops every service; each service is three Java processes: the service, its Gradle daemon and the `bootRun`
+    client) and shuts down the simulators (`xcrun simctl shutdown <device>`). Docker (database, Keycloak) stays up.
+    The chat summary says what was stopped.
 
 ### Brief template
 
