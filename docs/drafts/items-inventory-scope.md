@@ -873,7 +873,7 @@ guardrails: a test per finding, invariant checks before push, a second different
    allows it, no need known). **Change (Fable):** the method is **stored on the item**, inherited from the company
    (and the category, §2.2), although v1 offers one choice per company; DK allows a method per goods group and
    standard cost arrives with Manufacturing, so a company-only column would need re-keying.
-6. **Valuation off (critical: money).** Feature `INVENTORY_VALUATION` exists and is on by default
+6. **Valuation off (critical: money).** **Approved by Jabran 2026-11-21 as recommended, with Fable's changes** (switch only at a period start with a tie-out journal; cost per item captured when off). Feature `INVENTORY_VALUATION` exists and is on by default
    (`EntitlementCatalog.kt:177`). Many Nordic small-company systems book purchases straight to cost and adjust stock
    once a year (GK, §3.8). **Recommend:** on = perpetual (stock journals per move, §8.2); off = quantities only, no
    stock journals, purchases stay costs, and a period-end "stock value change" journal from the valuation of the
