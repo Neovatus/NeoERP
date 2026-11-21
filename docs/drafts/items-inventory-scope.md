@@ -181,7 +181,8 @@ goods, where tax follows the printed retail price, not the selling price (`BE/do
 times (ADR-018 §3, `ADR-018:53`).
 
 **The item master keeps:** the base sales price and costs (§2.7), the units and conversions those prices refer to,
-and the tax class and Pakistan retail price as item facts the documents copy.
+and the tax class and Pakistan retail price as item facts the documents copy. The Pakistan retail price is kept per
+unit and per variant, because it is printed on each unit or pack (STGO 08 of 2026, https://download1.fbr.gov.pk/Docs/202673875133134STGO08OF2026.pdf).
 
 ## 3. Full feature catalogue
 
@@ -222,7 +223,7 @@ the reason says when to revisit.
 | I14 | Item names in several languages | Later, with document output (roadmap:109) | Customer-language line text is folded into 5.1 (roadmap:109); app UI is en/nb/sv/da |
 | I15 | Item pictures and documents (data sheets) | Later, with attachments (roadmap:113) | Needs the file store and virus scan |
 | I16 | Weight, volume, size per unit | v1 (fields) | Intrastat net mass, shipping later |
-| I17 | Country fields: HS / PCT code, FBR unit, Third Schedule retail price, CN8, country of origin, tax class | v1 (fields) | §6; PK invoices need them today (`BE/docs/api/accounts-h-design.md:221-222`) |
+| I17 | Country fields: HS / PCT code, FBR unit, sale type, SRO schedule and item serial (reduced and exempt goods), fixed notified value or retail price (per unit and variant), CN8, net mass, country of origin, tax class | v1 (fields) | §6; PK invoices need them today (`BE/docs/api/accounts-h-design.md:221-222`); FBR DI line fields `sroScheduleNo`, `sroItemSerialNo`, `fixedNotifiedValueOrRetailPrice` (https://download1.fbr.gov.pk/Docs/20257301172130815TechnicalDocumentationforDIAPIV1.12.pdf); retail price printed on each unit or pack (STGO 08 of 2026, https://download1.fbr.gov.pk/Docs/202673875133134STGO08OF2026.pdf) |
 | I18 | Item import and export (CSV / Excel, check then confirm, per-row refusals) | v1 | Large customers start with thousands of items; same pattern as OBI and ADR-021 D10 (`ADR-021:165-167`) |
 | I19 | Bulk change with review step | Later | Large-customer item (`large-customer-roadmap.md:48` names it for HR; same need) |
 | I20 | New-item request and approval | Later | Large groups control master data; not needed for a first customer |
@@ -231,6 +232,9 @@ the reason says when to revisit.
 | I23 | Customer and supplier item numbers | With Sales / With Purchase | ADR-018 §3 extension tables (`ADR-018:53`) |
 | I24 | Group catalogue shared by owned companies | v1 (INV-1c), feature off by default; scope ADR in INV-0 | §2.4, decision 3 |
 | I25 | Hazardous-goods data (UN numbers, classes) | Not planned | No customer type in the sources needs it; revisit with shipping |
+| I26 | Item change history (audit events with before and after) | v1 | Module definition of done asks audit events with readable wording (`App/docs/module-sequence.md:61`) |
+| I27 | Returnable packaging (pallets, crates, kegs) beyond the bottle deposit | Later, with Sales and Purchase | A balance of packaging per customer and supplier needs their documents |
+| I28 | Rental items (out and back, charged by time) | Not planned | A rental module of its own; revisit on a customer ask |
 
 ### 3.2 Locations and structure
 
@@ -244,6 +248,7 @@ the reason says when to revisit.
 | L6 | Consignment stock (ours at a customer, or a supplier's in our store) | Not planned | Ownership split per move; revisit on a customer ask |
 | L7 | Outside warehouse (3PL) feeds | Later, through an integration API | Same idea as ADR-021 D10 for postings |
 | L8 | Store-server stock for offline POS | With POS (ADR-007 Proposed) | Store owns on-hand; moves stream up (`BE/docs/adr/ADR-007-store-edge-topology-for-offline-retail.md:86-88`) |
+| L9 | Goods in transit from a supplier (ours before arrival, by Incoterms) | With Purchase | Ownership passes by the delivery term on the order; needs Purchase's documents |
 
 ### 3.3 Stock movements and control (the eleven features, detail in §4)
 
@@ -387,7 +392,7 @@ checked them. Every catalogue feature is in exactly one row; the last row lists 
 | S10, P1, P3 | All | None (orders pay later, Purchase) | — | — | Below-reorder list (R6) | Nightly suggestions; low-stock alert; draft purchase orders with Purchase |
 | X4 | All | None | Retention per country (`packs/2026.2/retention-rules.csv`) | — | — | Purge only through retention controls (roadmap:160) |
 | I26 | All | None | Item changes are audit events (bookkeeping trail) | — | Item change history | — |
-| All other features: I2-I4, I7-I9, I11-I16, I18-I25, I27, I28, L1-L9, S6, S11, S14-S16, P2, P4-P9, P11, P12, C1, C4, C5, C9, R1-R10, X5-X7 | All | None (P7 drop ship pays through Sales and Purchase) | None beyond the rows above | Covered by S1 / C10 where they post | Their own report rows in §3.6 | None in v1 |
+| All other features: I2-I4, I7-I9, I11-I16, I18-I25, I27, I28, L1-L9, S6, S11, S14-S16, P2, P4-P12, C1, C4, C5, C9, R1-R10, X5-X7 | All | None (P7 drop ship pays through Sales and Purchase) | None beyond the rows above | Covered by S1 / C10 where they post | Their own report rows in §3.6 | None in v1 |
 
 ## 4. The eleven stock features (Jabran's list)
 
@@ -867,9 +872,10 @@ per finding, invariant checks before push, a second different reviewer. Each sli
     **Recommend:** both parts as above. Note roadmap decision 15 (no owned-group pilot before Phase 7,
     roadmap:273-274, not yet approved): if Jabran keeps it, S3c-1 can wait for Phase 7 too without harm; if not,
     S3c-1 lets a group move stock between its companies correctly in each set of books before consolidation exists.
-14. **Batch, serial and expiry (non-critical).** **Recommend:** INV-9, the first slice after v1, with nullable lot and
-    serial on every move from v1. Why: food, pharma and Pakistani textile and pharma firms need it (GK), the first
-    Swedish customers likely do not.
+14. **Batch, serial and expiry (critical: statutory for pharma and food customers).** **Recommend:** INV-9, the first slice after v1, with nullable lot and
+    serial on every move from v1. Why: batch and expiry tracking is a legal duty for pharma (PK DRAP, GK) and food
+    traceability customers, so no such customer can go live before INV-9; the first Swedish customers likely do
+    not need it.
 15. **Counts and close (critical: statutory).** **Recommend:** blind counting; counter cannot approve own variances;
     automatic posting under a company value limit, approval above it; unposted moves block the period close; a
     missing year-end count is a warning a company can make blocking. Why: the count is the year-end evidence (GK).
@@ -884,8 +890,8 @@ per finding, invariant checks before push, a second different reviewer. Each sli
     INV-2. Why: margin and product budgets need it; balance lines would multiply sets for no use (§8.3).
 18. **Who sees stock values (non-critical).** **Recommend:** a separate value-read code; Stock Clerk and store staff
     see quantities only by default. Why: large customers hide cost prices from shop floors (GK).
-19. **Country item fields in v1 (critical: statutory).** **Recommend:** HS / PCT code, FBR unit, retail price, sale
-    type default (PK); GTIN, CN8, net mass, country of origin (Nordic) on the item in v1; Intrastat reports later with
+19. **Country item fields in v1 (critical: statutory).** **Recommend:** HS / PCT code, FBR unit, sale type, SRO
+    schedule and item serial defaults, and the fixed notified value or retail price per unit and variant (PK); GTIN, CN8, net mass, country of origin (Nordic) on the item in v1; Intrastat reports later with
     Sales and Purchase. Why: PK invoices need them now (`accounts-h-design.md:221-222`); fields are cheap, reports
     need documents.
 20. **Build order (critical: approved scope).** Brief order is Inventory, then Purchase, then Sales scope drafts.
