@@ -203,3 +203,9 @@ Pick: one definition of "visible" (code points left after removing every Unicode
 Why: the lead's round-2 instruction over-reached (blank refusal was the row's ask); 6 matches the app's MIN_REASON_LENGTH; a database backstop must not break reversals of old journals.
 Class: small (lead; corrects its own instruction). Status: acted (sent to FIX-BE round 3). Fable 2b N4 → R29b follow-up.
 Note (Opus 1c L1, lead): an old short reason at submit or post is refused with 422 `CONTROL_REASON_REQUIRED` `{reason: INVALID, min, max}`, as other submit/post refusals, not 400; accepted. A U+0000 in a reason is refused by the service with a field error (Sonnet 3 F1). Table name: `accounts.recurring_journals`.
+
+## D-24 FIX-APP-A round 2: the grid "not taken" reason and tab fling — 2026-11-21
+Question: round 1 moved a disabled grid cell's reason into its tooltip to stop the iPad mini row growing (D-22); both reviews found it breaks the approved spec (`accounts-a1.md:216`, R-22 "never only a tooltip"), on desktop too, and touch has no hover. The R15 fix also removed fling/overscroll on NeoTabs.
+Pick: the spec wins. The reason is shown inside the disabled cell as its one-line content ("Not used for 1920"), ellipsis allowed, full text in tooltip and spoken name; the row keeps its height; the account kind stays on the account's own line. NeoTabs keeps fling/overscroll with the R15 first-tap fix; if not possible, the builder reports why and it comes to Jabran.
+Why: an approved spec rule is not changed by a fix lane; the in-cell text meets both the spec and the row-height finding.
+Class: small (lead). Status: acted (sent to App A round 2).
