@@ -4,6 +4,7 @@
 `PROJECT-STATE.codex.md` are deprecated (history only).
 Format: [WORKFLOW.md](WORKFLOW.md) "One owner per record". Links, not history; detail lives in the owning plan.
 Most recent detail: the lead's handoff `.review-channel/handoff-implementer.md`.
+**Jabran's own to-do list** (what only he can do, with when): [JABRAN-TODO.md](JABRAN-TODO.md); the lead updates it every batch.
 
 **Kept current by:** the lead updates this file at the end of every batch, together with the
 [lessons register](docs/lessons.md).
