@@ -904,10 +904,35 @@ per finding, invariant checks before push, a second different reviewer. Each sli
 
 ## 11. Not verified
 
-- Every GK line: country tax, valuation and count rules; e-invoice item terms; Intrastat scope; the ERP and Nordic
-  system comparison (vendor documents were not read).
+- Every GK line still marked GK: country rules review 1 did not check (IS throughout; FI tax; DK, FI, IS and PK count
+  records; import VAT; deposits; own-use VAT; Intrastat scope; DRAP), e-invoice item terms, the ERP and Nordic system
+  comparison (vendor documents were not read). Lines review 1 checked now carry its source URL.
 - The brief names `NeoERP-BackEnd/docs/adr/ADR-024-data-at-scale.md`; the file is at
   `WS/docs/drafts/ADR-024-data-at-scale.md` and its line 4 still says "Not accepted", although roadmap:96 records
   ADR-024 and ADR-025 as moved to accepted after the lead's summary (backlog:385 is the action, not the acceptance).
 - The volume figures in §7 are assumptions, not customer data.
 - Pack accounts and units are UNCHECKED against official sources (backlog:74).
+
+## 12. Round 2 (review 1, `docs/agents/inv-scope/review-1-opus.md`)
+
+| Finding | Fix | Commit |
+|---|---|---|
+| 1 MAJOR feature defaults | On by default once the module is on, from `EntitlementCatalog.kt:173-178`; V41's FALSE is "not statutory"; §1, §7, decision 6 | 20b002c |
+| 2 MAJOR provision accounts | Every chart except SE has one (1490; NO 1498), no role points to it; §4.5, decision 16 | 51d4a3e |
+| 3 MAJOR NO tax write-downs | Skatteloven § 14-5 (2) c: ignored for tax; books-vs-tax report R10; §4.5, §4.9, §6, §3.9 | 51d4a3e, bc7a1f7 |
+| 4 MAJOR SE 97 % rule | IL 17 kap. 4 § as a booked year-end write-down; §4.5, §6, §3.9, decision 16 | 51d4a3e, bc7a1f7 |
+| 5 MAJOR decision 8 | Stated as an ADR-018 change; stock first in the approval flow so GRNI is never debit; three §9.1 rows | 9e7ed42 |
+| 6 MAJOR group catalogue slot | Scope ADR in INV-0; INV-1c behind `GROUP_CATALOGUE`, off by default; decision 3 | 7f0897f |
+| 7 MAJOR inter-company split | S3c-1 linked transfer (INV-4b) before Phase 7, S3c-2 in Phase 7; roadmap decision 15 cited; decision 13 | 7f0897f |
+| 8 MAJOR phone scanning | Camera scanning for counts in INV-6, cost noted; decision 21 | 9df23c6 |
+| 9 MAJOR addition 5 | §3.9 rebuilt per country with a Payments column; every feature in one row; C8, S13, S12, S8 added | bc7a1f7 |
+| 10 MAJOR Finance-only | Non-stock and service items with FINANCE; entitlement-chain rule and ADR-018 note; decision 1 | 9e7ed42 |
+| 11 MINOR variants late | INV-1b straight after INV-1 | 9df23c6 |
+| 12 MINOR valuation overstated | FIFO default in every Nordic country, average after ERP-Q1; DK and FI rules from the spot-check; C5 | 51d4a3e |
+| 13 MINOR PK fields | SRO schedule and item serial, fixed notified value or retail price per unit and variant; I17, §2.7, §6, decision 19 | b0109f1, 28b8491 |
+| 14 MINOR citations | 30 unit codes; `App/docs/module-sequence.md`; `ADR-021:103`; idempotency pattern; ADR-024 acceptance at roadmap:96 | 20b002c |
+| 15 MINOR opening tie-out | Per account, per location only where tagged; §8.7, decision 10 | 20b002c |
+| 16 MINOR labels and gaps | Decision 14 critical for pharma and food; I26 item history, I27 returnable packaging, I28 rental, L9 supplier goods in transit | b0109f1 |
+| 17 MINOR final home | `docs/agents/inventory/scope.md` after sign-off (status line) | 20b002c |
+| GK spot-check | Rows 2-8 and 10 now cite the review's URLs; row 3 (NO lowest value) and row 6-7 (DK, FI) corrected; row 9 (PK imported Third Schedule) added to C8; row 11 still unverified | 51d4a3e, bc7a1f7, b0109f1 |
+| Branch base | The lead rebased onto `origin/master`; the common brief's two new sections are read (§3, §3.9) | — |
