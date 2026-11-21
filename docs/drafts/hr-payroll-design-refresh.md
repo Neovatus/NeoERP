@@ -159,7 +159,7 @@ These apply to every spec; the per-spec sections below only add the lines.
 | people-access | 2 | 0 | 2 |
 | **Total** | **71** | **36** | **35** |
 
-The 35 non-critical items were settled by Fable (`docs/agents/hrp-des/fable-settlement.md`); PY.10 moved to critical. One of them chooses between contradicting texts already in the specs:
+The 35 non-critical items were settled by Fable (`docs/agents/hrp-des/fable-settlement.md`); PY.10 moved to critical. The 11 critical items added on 2026-11-21 (decisions 14–17) carry Fable's text changes (1 settled, 10 settled with change, section "Additions 14–17"); sizes moved to L for H23.14 with PY.12 and PY.11, and decision 14 as a whole is more than L. One of them chooses between contradicting texts already in the specs:
 H4.4 (the O1 and O5 rows); the other such case, H1.7, chooses between two approved specs and goes to Jabran (decision 13).
 X.8 follows D-10, which Jabran confirmed as a trial.
 
@@ -459,3 +459,23 @@ plus `HR-PAYROLL-LEAD-REVIEW.md` (D1) and `payroll-v2-p1.md` (J-8).
 - Fable: decision 13a and H1.7 the O1 line is not provably stale (one commit, App `a09fc826`); Jabran chooses (6090b68, 0132c44).
 - Fable: "Before the build can start" line: ADR-026 accepted and R1 built, plus Jabran's approval (0132c44).
 - Fable: smaller corrections: which specs were approved when; IAM link fields answered (0132c44).
+
+**Fable on additions 14–17** (`docs/agents/hrp-des/fable-settlement.md`, "Additions 14–17"; changes marked "(Fable)"):
+
+- Fable: decision 4 updated view: with the Markets rule (Pakistan and the Nordics together, no pilot) keep D1's order, option (c); PY.2 cites the rule (fc6bbf0, b8cab39).
+- Fable: decision 14 one source of worked hours per person per day; a second person for sheet and import; build order; sizes (fc6bbf0).
+- Fable: decision 15 Sweden's general refund repealed 1 July 2024, only special high-risk protection; Pakistan out until verified; "legal duties with dates"; deadlines as pack rows; health visibility (fc6bbf0).
+- Fable: decision 16 label reason is payroll money and approved scope; one profile identity; no rate stops the calculation; windows need start and end times; size L (fc6bbf0).
+- Fable: decision 17 type never reaches entitlement or permissions; Super Admin picks it; pick other or several sets; starter sets hold no figures; HR does not wait for Org (fc6bbf0).
+- Fable: X.18 no figures in sets; Inventory reading the type is the plan, not the state (b8cab39).
+- Fable: H23.10 one-source rule; project timesheets give hours only; new `channel` and `time_basis` values; mode is a setting (b8cab39).
+- Fable: H23.11 sheet is one approval item by someone else; nobody records their own row; typed times named as an exception (b8cab39).
+- Fable: H23.12 source or split stated; needs Accounts for projects; approver line manager or policy steps; rest checks "not checked" (b8cab39).
+- Fable: H23.13 device log-file preset; branch-zone wall-clock times and DST flags; pairing by rostered shift; own code, second person, file hash (b8cab39).
+- Fable: H23.14 one profile identity; windows with start and end; thresholds checked on save; size L with PY.12 (b8cab39).
+- Fable: H23.15 visibility follows the sick report; NO meeting conditional; no "sanctions" (b8cab39).
+- Fable: PY.11 own slice after base P2; split elements and hours named; size L (b8cab39).
+- Fable: PY.12 a missing rate stops the employee's calculation, never zero (b8cab39).
+- Fable: PY.13 Sweden corrected with sources; Pakistan out; several deadlines as pack rows; new posting roles need an A5/P2 amendment and accountant sign-off (b8cab39).
+- Fable: totals line notes the additions' settlement and size changes (this commit).
+
