@@ -941,7 +941,7 @@ guardrails: a test per finding, invariant checks before push, a second different
    | Invariant | GRNI per receipt line never debit | GRNI cleared only against a posted receipt |
 
    Jabran chooses (a) or (b). Either needs Jabran's explicit yes, because ADR-018 is accepted (Fable flag 5).
-9. **Price variance and landed costs (critical: money).** C posts the bill's difference to PURCHASE_PRICE_VARIANCE
+9. **Price variance and landed costs (critical: money).** **Approved by Jabran 2026-11-21: price variance as recommended; plus a simple landed-cost step in Inventory's first build round (INV-3)**: a freight or customs bill links to one or more receipts, the amount is spread by value, quantity or weight, the on-hand share goes into stock cost and the sold share to COGS; Purchase later adds expected charges on orders and accrued landed costs. C posts the bill's difference to PURCHASE_PRICE_VARIANCE
    (`accounts-c.md:218`). **Recommend:** keep that in v1 (variance is a cost); landed costs and actual-cost
    correction of the on-hand share come with Purchase v1. Why: built path, small variances; full IAS 2 actual cost
    needs charges that only Purchase brings (GK on IAS 2). Fable agrees and adds the real v1 gap: freight and duty
