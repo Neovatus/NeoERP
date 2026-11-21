@@ -68,3 +68,15 @@ and a recommendation (which new ADR, or a change to which existing one). Topics:
 - Commit only your own file (`docs(arch1): gap map` / `docs(arch1): capacity model`); if git reports an
   index.lock, wait a few seconds and retry. No AI attribution, no push.
 - Final report: the top findings in a few lines and the decisions Jabran will need.
+
+## Step 2: the ADRs (Jabran 2026-11-21: "go with your recommendations for the ADRs")
+Write each new ADR and ADR change from `gap-map.md`, with options and the **recommended option marked "Accepted on the
+lead's recommendation (Jabran 2026-11-21)"**. ADRs that touch security or company isolation (017, 028, 029) also get a
+Fable security view before any build uses them. New ADRs go to workspace `docs/drafts/ADR-0NN-<name>.md` (they move to
+`NeoERP-BackEnd/docs/adr/` with the next BackEnd docs change, as ADR-024/025/026 did); changes to existing ADRs are
+written as an amendment file `docs/drafts/ADR-0NN-amendment-2026-11-21.md` (the BackEnd files are not edited here).
+Format of every ADR: Status, Context (cite gap-map.md and sources), Options (table), Decision, Consequences, Open
+questions (only those that need a fact we do not have, e.g. a legal opinion), Related. Plain English; one H1.
+Writers: W1 = ADR-017, ADR-028 (now) and ADR-027 (after the capacity model); W2 = ADR-030, ADR-031 and the ADR-007–011
+amendments (now); W3 = ADR-029, ADR-032, ADR-033, ADR-034, the ADR-023/024 amendments, the principles page
+`docs/drafts/engineering-principles.md` and the housekeeping list (after the capacity model).
