@@ -1006,7 +1006,7 @@ guardrails: a test per finding, invariant checks before push, a second different
     see quantities only by default. Why: large customers hide cost prices from shop floors (GK). **Settled with a
     change (Fable):** the **backend** leaves values out of responses, exports, reports and count-variance amounts for
     a person without the code; hiding them only in the app is not enough.
-19. **Country item fields in v1 (critical: statutory).** **Recommend:** HS / PCT code, FBR unit, sale type, SRO
+19. **Country item fields in v1 (critical: statutory).** **Approved by Jabran 2026-11-21 as recommended, with Fable's changes.** **Recommend:** HS / PCT code, FBR unit, sale type, SRO
     schedule and item serial defaults, and the fixed notified value or retail price per unit and variant (PK); GTIN,
     CN8, net mass, country of origin (Nordic) on the item in v1; Intrastat reports later with Sales and Purchase. Why:
     PK invoices need them now (`accounts-h-design.md:221-222`); fields are cheap, reports need documents.
