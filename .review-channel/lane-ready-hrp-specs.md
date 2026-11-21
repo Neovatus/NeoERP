@@ -1,6 +1,6 @@
 # Lane ready: HRP-SPECS (HR/Payroll v2 specs from the approved change list) — 2026-11-21
 
-**Repo / branch:** `NeoERP-App`, `phase/hrp-v2-specs` (pushed, head `cee72801`, 16 commits). Merge target: App `phase/hrp-v2` (cut at `87ae114c`, which holds UX-1). Docs only: no code, no Gradle, no `verify.sh` needed for the specs (the hook's NORMAL path decides).
+**Repo / branch:** `NeoERP-App`, `phase/hrp-v2-specs` (pushed; head after the headcount-read addition below). Merge target: App `phase/hrp-v2` (cut at `87ae114c`, which holds UX-1). Docs only: no code, no Gradle, no `verify.sh` needed for the specs (the hook's NORMAL path decides).
 **Brief:** `docs/agents/hrp-specs/brief.md`. Approved: Jabran 2026-11-21 (HRP-DES change list, all decisions as recommended; HR v2 starts on this Mac on `phase/hrp-v2`).
 **Builder:** Opus 5.5 high. **Reviewer:** Opus 5.5 fresh, high (review 1 FIX → review 1b ACCEPT). The lead applied review 1b's one minor (n1).
 
@@ -37,3 +37,6 @@ User guide: none (the HR v2 screens are not built). Developer/design: the six sp
    - CONFIRM: Owner, Payroll approver; never the proposer, never a stand-in, never a person the proposal names as an approver. Owner-only company: Owner confirms alone with the "confirmed alone" banner (SR-L3).
    Lead's recommendation: approve as proposed.
 2. Verdict (lead's call: MERGE into App `phase/hrp-v2`).
+
+## Update 2026-11-21 evening
+- Added (Accounts roadmap decision 14, Jabran): hr-h1 §12.7 headcount read for Accounts allocations (counts and FTE per cost centre, department and branch on a date; no names or pay; scope `hr.headcount.read`, accounts-service only). Opus review 1c ACCEPT (`3bac5ce5`); the scope rename it asked for applied by the lead.
