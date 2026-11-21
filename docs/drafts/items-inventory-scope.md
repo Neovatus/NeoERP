@@ -381,14 +381,15 @@ pattern `{SOURCE_DOCUMENT_TYPE}:{sourceDocumentId}:{n}` (`ADR-018:65`), for exam
 
 - **In v1:** goods in from a purchase, goods out to a sale, issues to internal use and to projects, and both kinds of
   return. Before Purchasing and Sales exist, the source document is an Accounts bill or invoice line that names an
-  item and a location (decision 8).
+  item and a location; the stock move runs first, inside the bill's or invoice's approval, so GRNI is never debit
+  (decision 8, an ADR-018 change).
 - **Why:** without receipts and issues there is no stock; ADR-018 fixes who posts what (`ADR-018:40-41`).
 
 | Move | When | Journal (IV unless named) |
 |---|---|---|
-| Goods receipt (Purchasing, or a bill line with a stock item) | On receipt date | DR INVENTORY (branch, location) / CR GRNI (party supplier), at the order or bill price in company currency (`ADR-018:41`) |
+| Goods receipt (Purchasing, or a bill line with a stock item, called first in the bill's approval) | On receipt date (bill date when bill-driven) | DR INVENTORY (branch, location) / CR GRNI (party supplier), at the order or bill price in company currency (`ADR-018:41`) |
 | Bill for that receipt | On bill posting, by Accounts C (journal PI) | DR GRNI `receivedValue`, DR / CR PURCHASE_PRICE_VARIANCE the difference (`accounts-c.md:218`); decision 9 for the variance |
-| Issue to a sale (Sales delivery, or an invoice line with a stock item) | On delivery date, or invoice date when invoice-driven | DR COGS (item and the line's dimensions) / CR INVENTORY, at FIFO or average cost (`ADR-018:40`) |
+| Issue to a sale (Sales delivery, or an invoice line with a stock item, called first in the invoice's approval) | On delivery date, or invoice date when invoice-driven | DR COGS (item and the line's dimensions) / CR INVENTORY, at FIFO or average cost (`ADR-018:40`) |
 | Sales return (credit note line with `sourceLineId`) | On return | DR INVENTORY / CR COGS at the original cost (`ADR-018:40`) |
 | Purchase return (debit note) | On return | DR GRNI / CR INVENTORY; the debit note credits GRNI (`accounts-c.md:1205`) |
 | Issue to internal use | On issue | DR the reason's expense account (cost centre) / CR INVENTORY |
@@ -710,6 +711,9 @@ receives foreign-currency purchases into stock.
 | Multi-currency (5.9) | roadmap:117 | Only for foreign purchases into stock |
 | Year-end item buckets | `accounts-a3.md:1234` | Before item rides on P&L lines |
 | Org catalog flips `INVENTORY` to implemented | `org.md:1521-1524` | Agreements can then include it |
+| ADR-018 amendment: Inventory posts receipts and COGS from Accounts bill and invoice lines, stock first in the approval | `ADR-018:40`, `:76`; decision 8 | Document-driven stock before Purchase and Sales |
+| B/C contract change: `itemId` and `stockLocationId` on lines a person enters; stock bill lines post to GRNI (C-6 exception); INVENTORY-sourced client beside PURCHASING; Items reachable with FINANCE | `accounts-b.md:524`; `accounts-c.md:191`, `:218`; decisions 1, 8 | Same |
+| Invariant checks: GRNI per receipt line never debit; one issue per stock invoice line; stock value = GL | decision 8; §8.8; roadmap:173 | Money guardrail before push |
 
 ### 9.2 Slices
 
@@ -739,9 +743,14 @@ per finding, invariant checks before push, a second different reviewer. Each sli
 **Critical** = money or posting, statutory, product direction, or approved scope. **Non-critical** = everything else.
 
 1. **Who can use items (critical: product direction).** ADR-018 gives the item master to Inventory (`ADR-018:31`),
-   but a services firm with Sales and no stock needs items too. **Recommend:** Items live in the inventory service
-   and are reachable when any of INVENTORY, SALES or PURCHASING is on; stock features need INVENTORY. Why: sold by
-   module, one item list for every module.
+   but a services firm with Sales and no stock needs items too, and so does a company on **Finance only** that
+   invoices from Accounts B: Tripletex, Fiken, Fortnox and e-conomic all keep a product register inside invoicing
+   (§3.8). **Recommend:** Items live in the inventory service and are reachable when any of FINANCE, INVENTORY,
+   SALES or PURCHASING is on. With FINANCE alone a company gets **non-stock and service items** (number, name, unit,
+   tax class, base price, accounts, country fields) on B and C lines; **stock items and every stock feature need
+   INVENTORY**. Why: sold by module, one item list for every module, and NeoERP is a regnskap system too. This is an
+   entitlement-chain rule (RULES §3: the Items area resolves on from any of the four modules) and a note on ADR-018
+   (`ADR-018:31`: Inventory owns the master, Accounts B and C read it even without the INVENTORY module).
 2. **Chart of items: how a company starts (critical: product direction).** Options: no templates, fixed industry
    charts, or starter sets. **Recommend:** starter category sets by business type, chosen at setup, copied and then
    the company's own (§2.3); the country decides units, tax classes and statutory fields; category defaults point
@@ -769,12 +778,26 @@ per finding, invariant checks before push, a second different reviewer. Each sli
 7. **Valuation pool (critical: money).** **Recommend:** cost per item per company, with quantities per location; a
    transfer moves cost unchanged. Why: the books are the company's (`RULES.md:121-128`); per-location cost makes
    every transfer a revaluation.
-8. **Stock before Purchase and Sales exist (critical: approved scope, posting).** **Recommend:** v1 moves stock from
-   Accounts documents: a bill line with a stock item posts DR GRNI in C, and Inventory then posts DR INVENTORY /
-   CR GRNI; an invoice line with a stock item makes Inventory post COGS (from `accounts.sales_invoice.posted`,
-   `ADR-018:76`), plus manual goods in and out. Why: Inventory is useful to an Accounts-only company and the INVENTORY
-   account stays posted only by Inventory. Needs C's service API to accept an INVENTORY-sourced line (today pinned to
-   PURCHASING, `accounts-c.md:218`).
+8. **Stock before Purchase and Sales exist (critical: approved scope, posting). This changes ADR-018.** ADR-018 has
+   Inventory post COGS "from its own delivery and return events" (`ADR-018:40`); the invoice event only lets it
+   reconcile (`ADR-018:76`). **Recommend:** v1 moves stock from Accounts documents, **stock first, in the approval
+   flow**:
+   - **Bill with a stock line:** C's approval first calls Inventory's receipt (idempotent on the bill line, the
+     ADR-018 §5 key pattern). Inventory posts IV DR INVENTORY / CR GRNI and returns `receivedValue`. Only then does C
+     post the bill with DR GRNI `receivedValue` and the variance, exactly as C-27 defines it ("the value Inventory
+     already debited to stock and credited to GRNI", `accounts-c.md:218`). If C's posting fails after the receipt,
+     the receipt stands as received-not-invoiced (GRNI credit, a true state) and the approval retries with the same
+     key. **GRNI per receipt line is never debit.**
+   - **Invoice with a stock line:** B's approval first calls Inventory's issue (stock check, negative-stock rule,
+     IV DR COGS / CR INVENTORY), then B posts revenue and tax. A failed B posting leaves a delivered-not-invoiced
+     issue that the retry invoices; the same order Sales will use (delivery, then invoice).
+   - Plus manual goods in and out inside Inventory.
+   Why: Inventory is useful to an Accounts-only company, and the INVENTORY account stays posted only by Inventory.
+   Needs three changes (§9.1): the ADR-018 amendment; a B/C contract change (lines a person enters may carry
+   `itemId` and `stockLocationId`, today null until Inventory exists, `accounts-b.md:524`; a stock line on a bill posts
+   to GRNI, an exception to C-6, which refuses INVENTORY accounts on bill lines, `accounts-c.md:191`; an
+   INVENTORY-sourced client next to PURCHASING, `accounts-c.md:218`); and an invariant check (GRNI per receipt line
+   never debit; every stock invoice line has exactly one issue).
 9. **Price variance and landed costs (critical: money).** C posts the bill's difference to PURCHASE_PRICE_VARIANCE
    (`accounts-c.md:218`). **Recommend:** keep that in v1 (variance is a cost); landed costs and actual-cost
    correction of the on-hand share come with Purchase v1. Why: built path, small variances; full IAS 2 actual cost
