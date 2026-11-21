@@ -29,6 +29,33 @@
 # Handoff — ERP lead session (2026-11-16, ~09:00) — STOPPED at 92% weekly (reset 13:00)
 
 
+## Handoff — 2026-11-21 night — new-Mac lead (read this first)
+
+**Jabran's direction (2026-11-21, ~23:00): complete Phase 4 first.** Tooling lanes BE-JDK21 (brief drafted in the
+lead's scratchpad, `be-jdk21-brief.md`; copy into a lane when it starts) and TEST-SPEED-1 wait until after the Phase 4 PR.
+
+**In flight:**
+- **BE-RUN-1** (opt-in jar mode, `NEOERP_RUN_MODE=jar`): Jabran said **MERGE**. Lane `phase/4-b2-be-run-1` head
+  `e3009697` (pushed), lane-ready filed. `scripts/verify.sh --range a50eabbb..HEAD` running in the worktree
+  `NeoERP-worktrees/be-run-1` (started 22:29, ~54 min, risk NORMAL). When `verify: OK`: fast-forward BE `phase/4` to
+  `e3009697` through the hook, push, record (claims, PROJECT-STATE, lane-verdict file), remove the worktree after.
+- **BE-DOCS-1** (docs catch-up): lane `phase/4-b2-be-docs-1` on top of `e3009697` + QA pointer `4ce6b1f5`. Builder done
+  (6 commits); Opus review 1 = FIX (M1 P-8 gate restore, M2 ELMA wording, LOWs), decisions in
+  `docs/agents/be-docs-1/review-1-opus.md`; builder applying them. Then a short re-review, lane-ready. It rides on
+  the next BackEnd full run (no separate 54-min gate for docs alone).
+- Backend, simulators and Gradle daemons are stopped (L32). Docker stays up.
+
+**Phase 4 remaining (approved Accounts roadmap):** 4.2 App B (split **B1** layout and input: F1–F10, R32, App A
+LOWs; **B2** R21/R31 A4 screens = 4.10, R07, FIX-BE App items, remaining R rows, money parts get a second reviewer),
+App C, R34-App incl. R34i, retest; 4.3 R29b; 4.5 DOCS-2c screenshots; 4.18 report and QA1 follow-ups; 4.7 AL S5 →
+4.8 P2/S6 → 4.9 small reads → 4.11 owner switch; 4.19 Phase 4 PR. S4 (two iPad keyboard steps) on Jabran's to-do.
+**Next for the lead:** App B1 brief (from `docs/agents/qa-round1-retest/fix-list.md`, `simulator-checks-2026-11-21.md`
+F1–F10, App A reviews' LOWs), App lane on App `phase/4` `324d3039`.
+
+**Today's other outcomes:** QA guide additions (scroll-then-search check, iOS look before layout merges L31, clean-up
+L32 incl. "never `gradlew --stop` on /tmp/gradle-home while the backend runs"); Jabran's App checkout fast-forwarded
+to `324d3039`; Kotlin Multiplatform plugin installed in Android Studio 2026.2 (needed the marketplace plugin).
+
 ## Handoff — 2026-11-21 late evening — new-Mac lead
 
 - **Merged today (Jabran MERGE):** FIX-BE (BE phase/4 `a50eabbb`), FIX-APP-A (App phase/4 `324d3039`), HRP-SPECS (App phase/hrp-v2 `f15782fa`), INV-SCOPE, VENDORS, Accounts roadmap with all 16 decisions, ARCH-1 step 1 (gap map + capacity model) — all on workspace master. Jabran's checkouts fast-forwarded (BE `a50eabbb`, App `87ae114c`; App now behind phase/4 `324d3039` — fast-forward only with his OK).
