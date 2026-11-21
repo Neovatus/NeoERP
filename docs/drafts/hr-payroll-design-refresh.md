@@ -1,5 +1,7 @@
 # HR/Payroll design refresh: change list (HRP-DES)
 
+> **Approved by Jabran 2026-11-21: all 17 decisions and PY.10 as recommended**, with: decision 4 keep D1 (PK → NO → SE → DK → FI → IS; J-8 holds); decision 6 bands on **total run cost** (gross pay + employer contributions); decision 13 quick-add until the H4 wizard replaces it; decision 14 v2 modes = phone clock-in, supervisor sheet (second person), project/task timesheets, biometric file import; PY.10 the Sweden sick-pay blocker stays open until its card is reviewed in the Sweden slice; decision 17 business type pre-fills a starter setup only, built once in Org with HR v2's H2 slice. Decisions 1–3: old v1 code deleted, data not kept. Decisions made for the v1 code are outdated.
+
 Status: **Draft, 2026-11-21 (Opus drafter).** It approves nothing. Approval path (brief `docs/agents/hrp-des/brief.md`):
 fresh Opus review → Fable 5.2 (high) settles the **non-critical** items and gives a view on the rest → **Jabran approves
 the whole list**, reading the **critical** items and anything Fable rejected or left open. The HR v2 build on
