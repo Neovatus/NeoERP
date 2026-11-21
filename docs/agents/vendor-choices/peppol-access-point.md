@@ -1,5 +1,7 @@
 # D-121 Peppol access point: vendor comparison
 
+> **Decided by Jabran 2026-11-21:** Inexchange / Maventa (Visma) (fallback Storecove), as recommended. Vendor contact and contracts are Jabran's (see `requests.md`).
+
 Research date: **2026-11-21**. Choice: one Peppol access-point vendor for NO (EHF), SE, DK (incl. NemHandel / OIOUBL), FI (incl. operator network / Finvoice) and IS, covering send, receive, participant lookup, receiver registration (SMP) and status, through an API that a multi-tenant ERP can use to register many companies. Contract refs: BE `docs/api/accounts-docout.md` C-9 (format by receiver), C-15 (`EInvoiceTransport` port, one vendor account per environment, one sub-account per company), C-23 (company receiver registration), D-121 (criteria: OpenPeppol-certified AP + SMP, EU/EEA hosting, inbound conversion to UBL, per-document price, region/DPA/sub-processors recorded before signing, H-7).
 
 Research only. No vendor was contacted, no account or sandbox was opened, no form was sent. Earlier research ([codex-peppol-providers](../codex-peppol-providers/report.md), cut-off 2026-11-01) is the baseline; this file records what changed and re-checks the deciding points.

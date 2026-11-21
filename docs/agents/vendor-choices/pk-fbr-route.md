@@ -1,5 +1,7 @@
 # D-125: Pakistan FBR Digital Invoicing route (PRAL direct vs licensed integrators)
 
+> **Decided by Jabran 2026-11-21:** PRAL direct under rule 150XF (fallback a licensed integrator), as recommended. Vendor contact and contracts are Jabran's (see `requests.md`).
+
 Research date: **2026-11-21**. Research and recommendation only. Nobody at FBR, PRAL or any integrator was contacted, nothing was signed up for, and no API was called. Contract refs: BE `docs/api/accounts-docout.md` C-16 and Amendment DO-FBR. Workspace `docs/agents/codex-einvoicing/report.md` §PK and `docs/agents/professional-checks-pk.md` R8.
 
 **Confidence labels:**

@@ -1,5 +1,7 @@
 # D-123 Transactional e-mail provider: comparison and recommendation
 
+> **Decided by Jabran 2026-11-21:** Amazon SES eu-north-1 (fallback Mailgun EU), as recommended. Vendor contact and contracts are Jabran's (see `requests.md`).
+
 Research only, read 2026-11-21 from public pages. No vendor was contacted and nothing was signed up. Every price and claim carries the date it was read; anything not confirmed from a source is marked *(not verified)* and collected in the last section.
 
 ## 1. What the provider must do
