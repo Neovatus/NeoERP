@@ -18,6 +18,8 @@ Rendered through GitHub's renderer and checked by script (one H1, headings, tabl
 ## Docs pages
 User guide: none: a planning draft. Developer pages: none: no code or feature changed.
 
+> **Correction (Jabran 2026-11-21):** no pilot customer and no first country have been decided. Every "pilot", "Swedish pilot" or "SE first" in this draft is the drafter's assumption, not a decision; the launch order in older docs (SE → NO → PK) also conflicts with the payroll decisions D1/J-8 (Pakistan first). Decisions 2, 13 and 15 are re-read as: **which country, and what kind of first customer, comes first?** — a decision for Jabran, not an input.
+
 ## Waiting on Jabran: 16 decisions in the draft's §7, among them
 - 1: keep the approved Phase 4 order (owner switch → platform lane → dimension rules → spreading → allocations → budgets) before the Phase 4 PR.
 - 2: plan for a large Swedish pilot (Phase 5b and ADR-024 Stage 1 before go-live).

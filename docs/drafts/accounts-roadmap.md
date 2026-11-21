@@ -232,6 +232,8 @@ graph LR
 - State unclear: 0.
 
 ## 7. Decisions for Jabran
+> **Correction (Jabran 2026-11-21):** no pilot customer and no first country have been decided. Every "pilot", "Swedish pilot" or "SE first" in this draft is the drafter's assumption, not a decision; the launch order in older docs (SE → NO → PK) also conflicts with the payroll decisions D1/J-8 (Pakistan first). Decisions 2, 13 and 15 are re-read as: **which country, and what kind of first customer, comes first?** — a decision for Jabran, not an input.
+
 
 1. **Phase 4 scope.** The brief lists batch 2, AL S5 and DOCS-2. Your 2026-11-16 order (backlog:389) also puts the
    owner switch, platform lane, account dimension rules, spreading, allocations and budgets in Phase 4.

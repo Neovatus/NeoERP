@@ -1,5 +1,7 @@
 # Accounts roadmap: views on the 16 decisions
 
+> **Correction (Jabran 2026-11-21):** no pilot customer and no first country have been decided. Every "pilot", "Swedish pilot" or "SE first" in this draft is the drafter's assumption, not a decision; the launch order in older docs (SE → NO → PK) also conflicts with the payroll decisions D1/J-8 (Pakistan first). Decisions 2, 13 and 15 are re-read as: **which country, and what kind of first customer, comes first?** — a decision for Jabran, not an input.
+
 Reviewer: Fable 5.2 (high), decision views for Jabran
 Reviewed: docs/drafts/accounts-roadmap.md at 34913f93d76e7d3859e8a6fcc5d410819deaa7fd (workspace `master`)
 
