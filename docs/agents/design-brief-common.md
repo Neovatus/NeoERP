@@ -31,3 +31,12 @@ filings, statutory reports, reconciliations, automations per country) across all
 
 ## Markets (Jabran 2026-11-21)
 No single first country and no pilot customer. The first market group is **Pakistan and the Nordic countries (SE, NO, DK, FI, IS) together**; then other EU countries; then other countries. Scope drafts plan country work for all six in the first group and keep the design open for EU and other countries (country packs, not hard-coded rules).
+
+## Fits every business: business type plus configuration (Jabran 2026-11-21)
+NeoERP is for all businesses (an IT company logging time per project, a store with a check-in/out sheet, a factory
+with shifts and biometric devices). Every scope and design draft: (1) offers the ways different businesses work as
+modes a company, and where it makes sense a branch or franchise, switches on, alone or together; (2) lets the
+**business type picked at enrollment** (company and each franchise or branch) pre-fill a starter setup only; (3)
+keeps everything configurable afterwards; no code branches on the business type. Each draft says which starter
+setup each business type gets for its module. (Recommended by the lead; the cross-module decision is in the
+HR/Payroll change list, decision 17, for Jabran.)
