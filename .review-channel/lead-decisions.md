@@ -142,3 +142,34 @@ Why: R1 binds nothing in the poller yet, so the savepoints carry no risk today; 
 Sources: BE `phase/4-b2-iso-r1` (`shared/domain-events/src/main/kotlin/**/ConsumerPoller.kt:62-71`, the builder's savepoint ban test); accepted ADR-026 M3, R4 (`docs/agents/iso-r1/adr-026-accepted.md`); D-13 above.
 Fable 5.2 (high): APPROVE with three conditions (ISO-R1 security review, `docs/agents/iso-r1/review-2-fable-security.md` on BE `phase/4-b2-iso-r1`): R4 binds first inside `ConsumerPoller` itself, before its first savepoint; a poison-row test; and the exception stays as narrow as the review states.
 Status: approved with conditions; conditions go into the ISO-R1 fix round and the R4 brief.
+
+## D-15 FIX-BE small decisions (lead, 2026-11-21)
+R04: cause is a stale saved report filter on one device (report endpoints 404 for an id not in the company, `ReportReadModel` 111/539/619-640/683; filters carry across tabs since G24); App fix (drop saved filter and fiscal year on a report 404, reload) in an App lane; no BE change. R07 (builder D1): App picks 2960 for accrued expenses; no pack role in this lane. R30b (builder D6): CHECK NOT VALID accepted, but not V75 (reserved for AL S5); next free accounts version, reservation named. Small and reversible: lead decision (Jabran's rule).
+Status: acted (sent to the FIX-BE builder)
+
+## D-16 FIX-BE R10/R09 branch wording and trial balance rows — 2026-11-21
+Question: Equity accounts take no branch tag (A1 C-13), so in the branch trial balance they fall in OUTSIDE_FILTER "Other branches and lines without a branch" (kept so the TB balances, A2 C-3); QA read that as a bug (R10), and the SIE import says "Every line gets this branch" while 2081 gets none (R09).
+Options: (a) App wording "Lines on accounts that take a branch get this branch"; BE splits OUTSIDE_FILTER into OTHER_BRANCHES and NO_BRANCH ("Company-level lines (no branch)") — a TB payload change, App needs a label; (b) wording only, no BE change.
+Pick: (a).
+Why: the user's complaint is that equity looks like it belongs to "other branches"; only a separate row says what it is, and the TB still balances. Payload change is additive (a new row kind).
+Sources: BE `phase/4-b2-fix-be` (builder report); App spec `accounts-a1.md` C-13, `accounts-a2-a3.md` C-3; QA `G03.md`, `T18.md`.
+Fable 5.2 (medium): pending
+Status: pending (critical: money reporting → Jabran with Fable's view)
+
+## D-17 FIX-BE R19 "Ends after N times" and skipped runs — 2026-11-21
+Question: C-17 (S3a review M2/M3) counts every settled run, SKIPPED_* and DISMISSED included, in maxOccurrences; QA (R19) says skipped dates should not count.
+Options: (a) keep the count; a template with unresolved skipped runs stays ACTIVE until they are resolved (like WAITING_FISCAL_YEAR and FAILED), so it never shows Ended while it needs the user and N never overshoots; (b) skipped and dismissed runs stop counting (N means N journals; the schedule runs past skipped months) — a contract change.
+Pick: (a).
+Why: keeps the approved contract and its review findings; fixes the real problem (an ended template hiding work that needs the user); (b) can post more journals than the user set.
+Sources: App spec `accounts-a4.md` C-17; BE `domain/recurring`; QA `A7.md`, `G23.md`.
+Fable 5.2 (medium): pending
+Status: pending
+
+## D-18 FIX-BE R29 classifying the 60 unscoped repositories — 2026-11-21
+Question: About 24 of the 60 are SYSTEM (outboxes, queues, IdP and session ports, identity, platform authority/staff, AuthzQueryRepository) and the three annotations cannot express that; user, audit and auth have no CompanyTenantScope resolver; about 15 mix per-company and cross-company methods (Membership, Role/RolePermission/RoleVersion, OnboardingInvite, OrgRequest, Company, Branch, Warehouse, audit query with null orgId), incl. person-facing cross-company reads with orgId null.
+Options: (a) in this lane add a RATCHET_SYSTEM_ALLOWLIST (class → reason, allowed packages, like SYSTEM_ALLOWLIST), move the clearly SYSTEM ones there (~24 off the baseline, cap ~60 → ~36); the method splits and the user-service scope resolver become their own lane R29b, before RLS; (b) do all 60 in this lane.
+Pick: (a).
+Why: the system ones are mechanical and shrink the baseline now; the splits change service APIs and person-facing reads (security design), which need their own brief and reviews; R29's deadline (empty before RLS / first customer) is kept by R29b.
+Sources: BE `architecture-tests` (FrozenTenantBaselines, tenant-classification-baseline.txt, SYSTEM_ALLOWLIST); ISO-R1 bind allowlists (`shared/tenant-security`); fix-list R29; ADR-026 D2, D4.
+Fable 5.2 (medium): pending
+Status: pending (critical: security → Jabran with Fable's view)
