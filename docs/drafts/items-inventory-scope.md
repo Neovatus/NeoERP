@@ -884,7 +884,9 @@ per finding, invariant checks before push, a second different reviewer. Each sli
     with drill-down to the moves. Why: 20 million moves would swamp a ledger sized for 2 million lines (`ADR-023:135`).
 13. **Inter-company transfers (critical: money, statutory).** Two parts:
     - **S3c-1 linked transfer, before Phase 7 (INV-4b):** one transfer id; each company posts only its own invoice or
-      bill and IV journals (decision 8 path), a transfer-price setting, stock in transit; feature
+      bill and IV journals (decision 8 path), on AR and AP with `linkedCompanyId` as Accounts F does
+      (`accounts-f-design.md:162-163`; needs PR-9, not built), a transfer-price setting, stock in transit; no VAT
+      between companies of one VAT group (NO mval § 2-2 (3); SE, DK, FI GK); feature
       `INTERCOMPANY_TRANSFERS`, off by default; after INV-4 and the scope ADR (decision 3). "Intercompany is a link,
       not a share" (`ADR-018:49`), so it does not need Phase 7.
     - **S3c-2 reconciliation and unrealised-profit elimination:** Phase 7 (roadmap:151).
