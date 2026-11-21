@@ -266,7 +266,7 @@ graph LR
 11. **Go-live items with no slot or owner:** **Decided by Jabran 2026-11-21: as recommended, with Fable's date rule** — one go-live hardening lane (G.5–G.8) owned by the ERP lead, built before the hosted stage; ACC-R19 in Phase 5, due before the first production customer or 2027-07-01, whichever comes first. company-local today, control-difference alerts, read-only off pages,
     FE-2 check, D-202 removal, Hikari leak, ACC-R19 (deadline 2027-07-01). **Recommend:** one go-live hardening lane
     (G.5–G.8) owned by the ERP lead, built before the hosted stage; ACC-R19 in Phase 5.
-12. **Stale file.** `BE/docs/post-release-backlog.md` (April 2026). **Recommend:** mark it superseded by this roadmap and
+12. **Stale file.** **Decided by Jabran 2026-11-21: as recommended** (marked superseded in the next BackEnd docs change, with the ADR-024/025 move and the go-live "NO pilot" row fix). `BE/docs/post-release-backlog.md` (April 2026). **Recommend:** mark it superseded by this roadmap and
     `docs/backlog.md` (separate change).
 13. **ERP-Q1 order.** The gate says "Norway first, 6 weeks before the NO pilot", but Sweden launches first.
     **Recommend:** first accountant sign-off for Sweden, 6 weeks before the SE pilot.
