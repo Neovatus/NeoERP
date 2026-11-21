@@ -451,10 +451,10 @@ on each line follow §8.3.
 
 | Move | When | Journal (IV unless named) |
 |---|---|---|
-| Goods receipt (Purchasing, or a bill line with a stock item, called first in the bill's approval) | On receipt date (bill date when bill-driven) | DR INVENTORY (branch, location) / CR GRNI (party supplier), at the order or bill price in company currency (`ADR-018:41`) |
+| Goods receipt (Purchasing's goods receipt, or Inventory's own Receipt document before Purchasing exists; the bill line points to it, decision 8 b) | On receipt date | DR INVENTORY (branch, location) / CR GRNI (party supplier), at the order or bill price in company currency (`ADR-018:41`) |
 | Bill for that receipt | On bill posting, by Accounts C (journal PI) | DR GRNI `receivedValue`, DR / CR PURCHASE_PRICE_VARIANCE the difference (`accounts-c.md:218`); decision 9 for the variance |
-| Issue to a sale (Sales delivery, or an invoice line with a stock item, called first in the invoice's approval) | On delivery date, or invoice date when invoice-driven | DR COGS (item and the line's dimensions) / CR INVENTORY, at FIFO or average cost (`ADR-018:40`) |
-| Sales return (credit note line with `sourceLineId`) | On return | DR INVENTORY / CR COGS at the original cost (`ADR-018:40`) |
+| Issue to a sale (Sales delivery, or Inventory's own Delivery document before Sales exists; the invoice line points to it, decision 8 b) | On delivery date | DR COGS (item and the line's dimensions) / CR INVENTORY, at FIFO or average cost (`ADR-018:40`) |
+| Sales return (credit note line with `sourceLineId`; goods first to a Returns location) | On return | DR INVENTORY / CR COGS at the original cost (`ADR-018:40`) |
 | Purchase return (debit note) | On return | DR GRNI / CR INVENTORY; the debit note credits GRNI (`accounts-c.md:1205`) |
 | Issue to internal use | On issue | DR the reason's expense account (cost centre) / CR INVENTORY |
 | Issue to a project | On issue | DR the project cost account with the project dimension / CR INVENTORY |
