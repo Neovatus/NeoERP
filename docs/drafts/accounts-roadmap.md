@@ -257,7 +257,7 @@ graph LR
 7. **Norway e-invoice by 2027-01-01 (RM-NO, roadmap:17).** **Decided by Jabran 2026-11-21: build it from the start as a priority base and a reason to adopt NeoERP** (Norwegian companies must send e-invoices from 2027-01-01 and receive from 2030-01-01). Document output (5.1) and NO send/receive over EHF/Peppol (5.2, 5.3) come **first in Phase 5**, right after Phase 4 merges; PK FBR and SE/DK/FI Peppol build on the same document-output base. The go-live gate stays (no NO company live without 5.2 and 5.3). The Peppol access-point vendor (decision 10) must be chosen before 5.2 starts. The open RM-NO amendment is closed with decision 4. Not a promise of delivery by 2027-01-01: Phase 4 finishes first. Six weeks away; document output is not started.
    **Recommend:** drop the date as a build target; no Norwegian customer until NO send (5.2) and receive (5.3) are
    live (gate L-1, roadmap:154).
-8. **Fixed assets.** Large-customer priority 1, roadmap says after launch. **Recommend:** Phase 5b (depreciation is a
+8. **Fixed assets.** **Decided by Jabran 2026-11-21: Phase 5b in the normal build order, with the tax depreciation book in the same feature** (books vs tax per asset: NO saldo groups, SE 30 %/20 % rules, PK Third Schedule rates; the spec gap `accounts-fixed-assets.md:37, 438, 446` is closed in 5b, not "Later"). Recurring journals are only a stopgap for a company that goes live before 5b is done. Large-customer priority 1, roadmap says after launch. **Recommend:** Phase 5b (depreciation is a
    monthly close step).
 9. **Phase 6 per country.** The gate needs "Phases 1–6 for that country". **Recommend:** build E for Sweden first and
    ship it with Phase 5; other countries' E and H follow their launch order.
