@@ -45,5 +45,6 @@ done ones with the date) every batch. Details and drafts are linked; nothing her
 ## Done
 | Date | What |
 |---|---|
+| 2026-11-21 | QA guide: the five choices approved (desktop sizes, severity scale, Larger Text, DK/FI/IS by automated tests, test-steps location) |
 | 2026-11-21 | FIX-APP-A merged (App `phase/4` `324d3039`) and its short-heights design paragraph approved |
 | 2026-11-21 | All 21 Items/Inventory decisions; all 16 Accounts roadmap decisions; ADR-024/025 accepted with the ADR-025 additions; vendor picks D-121/D-123/D-125; MERGE verdicts for FIX-BE, HRP-SPECS, INV-SCOPE, VENDORS, the Accounts roadmap; payroll approval-limit holders; OK to delete the stale FIX-BE branch and to fast-forward the checkouts |

@@ -17,6 +17,8 @@ Where a rule already lives elsewhere, this guide links to it and does not repeat
 | Domain rules (entitlement chain, books per company) | [RULES.md](../domain/RULES.md) §3, §7 |
 | Countries and packs | [target-countries.md](../handover/target-countries.md) |
 
+**Approved by Jabran 2026-11-21:** the desktop pass (1440×900 plus a short 1024×700 window; 1280, 1920 and full screen by automated tests), the severity scale (Blocker / High / Medium / Low plus a kind tag; money and security never below High), Larger Text at every simulator position once per round (Accessibility Medium and the largest size), DK / FI / IS country checks by automated tests until a demo company is seeded, and new test steps in workspace `docs/test-steps/` (existing files stay where they are).
+
 ## 1. Roles
 
 | Who | Model | Does | Never |
