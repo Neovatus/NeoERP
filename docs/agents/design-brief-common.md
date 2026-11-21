@@ -43,8 +43,9 @@ HR/Payroll change list, decision 17, for Jabran.)
 
 ## Words for releases (Jabran 2026-11-21)
 Use these meanings, and say them in plain words when writing to Jabran:
-- **First release** (in drafts "v1", e.g. "Inventory v1"): the first round of a module's slices; what a customer gets when the module first ships.
-- **Later**: a named later slice of the same module, after its first release.
+- **First build round** (in drafts "v1", e.g. "Inventory v1"): the slices a scope draft **proposes** to build first. It is a proposal, not a release decision.
+- **Later**: a named later slice of the same module.
 - **With X**: arrives with module X, which owns it.
-- **v2** (only "HR v2", "Payroll v2"): the **rebuild** of a module that existed before; the old v1 code is deleted. It is not a second release of a new module.
+- **v2** (only "HR v2", "Payroll v2"): a name meaning the rebuild replaces old code that is deleted. For customers it is still the first HR and Payroll; nothing has been released.
+- **What a customer release contains** (which modules, features and countries) is **not decided** for any module. Jabran decides it in the one product roadmap (ROADMAP-P); scope drafts only propose.
 Every scope draft defines its phase labels once, near the top, with this meaning.
