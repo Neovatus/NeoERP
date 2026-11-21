@@ -250,6 +250,9 @@ suite before every push" text that was in lead-agent-structure §3a and main-age
    needs the two review files (`--reviews`).
 4. **The pre-push hook** refuses a push to `phase/<N>` or `main` without the marker `build/verify/<sha>.ok` for that
    commit and range. Lane branches pass the hook. Never `--no-verify`.
+   **Approved, being built (GATE-LITE-1, Jabran 2026-11-21):** a lane that changes only docs (`docs/**`, `*.md`) or a
+   dev-only script on the fixed list gets a light marker without a full run, if an ancestor commit has a full-run
+   marker. Code, build files, migrations, tests and the gate's own files always need the full run.
 5. **Layout lanes: an iOS look before the merge.** When an App lane changes the page frame, scrolling, the top bar,
    the footer, keyboard handling or sizes, the lead (or a QA tester) runs the "Scroll, then open search" check (§3
    "Layout and buttons") and one keyboard-up form on one iPhone and one iPad simulator before the merge, and writes the
