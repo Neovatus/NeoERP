@@ -28,6 +28,16 @@
 
 # Handoff — ERP lead session (2026-11-16, ~09:00) — STOPPED at 92% weekly (reset 13:00)
 
+
+## Handoff — 2026-11-21 late evening — new-Mac lead
+
+- **Merged today (Jabran MERGE):** FIX-BE (BE phase/4 `a50eabbb`), FIX-APP-A (App phase/4 `324d3039`), HRP-SPECS (App phase/hrp-v2 `f15782fa`), INV-SCOPE, VENDORS, Accounts roadmap with all 16 decisions, ARCH-1 step 1 (gap map + capacity model) — all on workspace master. Jabran's checkouts fast-forwarded (BE `a50eabbb`, App `87ae114c`; App now behind phase/4 `324d3039` — fast-forward only with his OK).
+- **Decided today:** all 21 inventory + 16 Accounts roadmap decisions; ADR-024/025/026 stay in the workspace (system-level); vendor picks SES / Maventa / PRAL; JABRAN-TODO.md is his to-do list (keep current).
+- **Paused:** ARCH-1 step 2 (the new ADRs 017, 027–034) until Jabran has read gap-map.md and capacity-model.md.
+- **Simulator checks** (`docs/agents/qa-round1-retest/simulator-checks-2026-11-21.md`): S1–S3 pass on iPhone 18 Pro, R05/R06 do not reproduce; new findings F1–F8 for App B. S4 (iPad) waits for Jabran to grant simulator access. Backend running from Jabran's BE checkout (all 8 services).
+- **Running:** QA guide writer (docs/qa/qa-guide.md + pointers; App/BE pointer edits on lane branches phase/4-b2-qa-guide-app / -be, not pushed). After it: check, push workspace, FYI to each lead inbox (docs/inbox/*-lead.md), ≤10-line report to Jabran.
+- **Next:** App B brief (R01, R02, R11, R16–R21, R23–R27, R31–R33, FIX-BE App items, LOWs from App A reviews, F1–F8), R34-App incl. R34i (hooks guard phase/hrp-v2), BE-DOCS-1, R29b, HR v2 H1 build on phase/hrp-v2.
+
 ## Full run done on the combined branches (both pushed, both `combined/phase3-4`)
 - **Backend** `NeoERP-worktrees/combined-be` = phase/4-id1 (A4 + AL S1–S3 + ID-1a/1b) + fix/phase3-batch-be; A4 features released; arch fixes (journal-import queue classified, recurring line writer reviewed, inventory 117); unreleased tests moved to BUDGETS. Full run 4,166 tests: all green after fixes (entitlement-catalog 11/0, architecture 36/0, org 85/0 re-run; the rest green in the full run).
 - **App** `NeoERP-worktrees/combined-app` = phase/4-id1-app (A4 + size tests + ID-1c) + fix/phase3-batch-app2 (Phase 3 batches 1+2); conflicts resolved (Journals list keeps Recurring link + first-use New journal menu; LayoutChecks from batch 2). Full run 3,721 tests, 1 failure = `NeoErpAuthRuntimeTargetTest` live probe against Jabran's running old auth-service (environment, re-check after reset). Android + iOS compile clean.
