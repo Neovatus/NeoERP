@@ -1,9 +1,10 @@
 # Items and Inventory scope (draft for Jabran)
 
-Status: **Draft, 2026-11-21 (docs lane c, Opus drafter).** It approves nothing. Jabran decides §10.
+Status: **Decisions decided by Jabran 2026-11-21** (§10; decisions 4, 18, 21 and 25 settled by Fable). The draft is
+the approved Items/Inventory scope, to be turned into INV-0 briefs.
 Brief: `docs/agents/inv-scope/brief.md`, plus three additions from Jabran on 2026-11-21 sent through the lead (the
 eleven named features, the item master structure, the pricing boundary, the full catalogue, payments and tax).
-Round 2 fixes for review 1 are listed in §12. **Final home:** once Jabran signs it off, the approved scope moves to
+Round 2 fixes for review 1 are listed in §12. **Final home:** now that Jabran has decided it, the approved scope moves to
 `docs/agents/inventory/scope.md`, as the module loop asks (`App/docs/module-sequence.md:29-31`).
 
 Short names: **BE** = `NeoERP-BackEnd`, **App** = `NeoERP-App`, **WS** = this workspace, **UX1** =
@@ -204,7 +205,9 @@ barcode app, scrap, quality), Visma Business NXT and Fortnox Lager (articles, st
 value; Fortnox as the small-company baseline). These were not read from vendor documents in this lane. They set the
 **structure and completeness** only; our design system and ux §21-22 decide the look.
 
-**Phases:** **v1** = Inventory v1. **Later** = a named later Inventory slice. **With X** = arrives with module X, which
+**Phases:** **v1** = the proposed first build round of Inventory, INV-0 to INV-9 (decision 20); not a release
+decision: release contents are decided in the product roadmap, ROADMAP-P (`docs/agents/design-brief-common.md`,
+"Words for releases"). **Later** = a named later Inventory slice. **With X** = arrives with module X, which
 owns it (§5). **Phase 7** = Accounts inter-company and consolidation (roadmap:151). **Not planned** = on no roadmap;
 the reason says when to revisit.
 
@@ -231,7 +234,7 @@ the reason says when to revisit.
 | I17 | Country fields: HS / PCT code, FBR unit, sale type, SRO schedule and item serial (reduced and exempt goods), fixed notified value or retail price (per unit and variant), CN8, net mass, country of origin, tax class | v1 (fields) | §6; PK invoices need them today (`BE/docs/api/accounts-h-design.md:221-222`); FBR DI line fields `sroScheduleNo`, `sroItemSerialNo`, `fixedNotifiedValueOrRetailPrice` (https://download1.fbr.gov.pk/Docs/20257301172130815TechnicalDocumentationforDIAPIV1.12.pdf); retail price printed on each unit or pack (STGO 08 of 2026, https://download1.fbr.gov.pk/Docs/202673875133134STGO08OF2026.pdf) |
 | I18 | Item import and export (CSV / Excel, check then confirm, per-row refusals) | v1 | Large customers start with thousands of items; same pattern as OBI and ADR-021 D10 (`ADR-021:165-167`) |
 | I19 | Bulk change with review step | Later | Large-customer item (`large-customer-roadmap.md:48` names it for HR; same need) |
-| I20 | New-item request and approval | Later | Large groups control master data; placement to review with the group catalogue (INV-1c), lead 2026-11-21: "not needed for a first customer" withdrawn (no pilot decided) |
+| I20 | New-item request and approval | Later | Large groups control master data; placement to review with the group catalogue (INV-1c) |
 | I21 | Item defaults for cost centre or project | Later | ADR-021 D4 names it as "later" (`ADR-021:97`) |
 | I22 | Substitutes and alternatives | Later, with Sales | Offered when an item is out of stock |
 | I23 | Customer and supplier item numbers | With Sales / With Purchase | ADR-018 §3 extension tables (`ADR-018:53`) |
@@ -246,7 +249,7 @@ the reason says when to revisit.
 | # | Feature | Phase | Why |
 |---|---|---|---|
 | L1 | Stock locations (Warehouse, Store, Returns) per branch | v1 (exists in Org) | `BE/docs/modules/org/stock-locations.md:9-17`; backend must accept Returns first (backlog:141, :195) |
-| L2 | Per item × location settings (reorder levels, default receipt location) | v1 | §4.10 |
+| L2 | Per item × location settings (reorder levels, default receipt location); per Store location the negative-stock switch | v1 | §4.10; decision 11 |
 | L3 | In-transit locations for transfers | v1 | §4.3 |
 | L4 | Bins (shelves) inside a location | Later | Word reserved (`App/docs/design/specs/stock-locations.md:12`); needs put-away and pick rules |
 | L5 | Zones, put-away and pick rules | Later, after bins | Warehouse operations (§5) |
@@ -261,21 +264,22 @@ the reason says when to revisit.
 | # | Feature | Phase | Why |
 |---|---|---|---|
 | S1 | Stock on hand per item, location, company (quantity and value) | v1 | §4.1 |
-| S2 | Receipts and issues (purchase, sale, internal use, projects, returns) | v1 | §4.2 |
+| S2 | Receipts and issues (purchase, sale, internal use, projects, returns) through Inventory's Receipt and Delivery documents | v1 | §4.2, decision 8 |
 | S3a | Transfers between locations of one branch | v1 | §4.3 |
 | S3b | Transfers between branches of one company (in transit) | v1 | §4.3; feature `INTER_BRANCH_TRANSFERS` |
-| S3c-1 | Linked inter-company transfer: one transfer id, each company posts only its own documents, transfer price, stock in transit | Later (INV-4b), after INV-4 and the scope ADR; feature off by default | §4.3, decision 13 |
+| S3c-1 | Linked inter-company transfer between companies in the same country: one transfer id, each company posts only its own documents, transfer price, stock in transit | Later (INV-4b), after INV-4 and the scope ADR; feature off by default | §4.3, decision 13 |
+| S3c-1x | Cross-border linked transfers (customs, EU reverse charge, EC sales list) | Later, a named step after INV-4b | Decision 13 |
 | S3c-2 | Inter-company reconciliation and elimination of unrealised profit in group stock | Phase 7 | §4.3, decision 13 |
 | S4 | Stock counts: full, cycle, phone count sheets, approval, variance posting, close link | v1 | §4.4 |
 | S5 | Adjustments and write-downs (damage, shrinkage, obsolescence, NRV) with reason and approval | v1 | §4.5 |
 | S6 | Reservations: on hand, reserved, available | v1 (model; reservations from transfers) | §4.6 |
-| S7 | Batch / lot, serial numbers, expiry | Later (INV-9); fields on moves from v1 | §4.7, decision 14 |
+| S7 | Batch / lot, serial numbers, expiry | v1 (INV-9, the last slice of the first build round); lot and serial on moves, balances and cost layers from INV-2 | §4.7, decision 14 |
 | S8 | Units of measure and conversions | v1 | §4.8 |
 | S9 | Valuation FIFO and moving average; standard cost; revaluation | v1 (FIFO, average, revaluation); standard with Manufacturing | §4.9 |
 | S10 | Reorder points, minimum stock, purchase suggestions | v1 (suggestions list); orders with Purchase | §4.10 |
 | S11 | Stock reports and their place in the reporting layer | v1 (level 1); level 2-3 later | §4.11 |
-| S12 | Negative stock rules | v1 | Decision 11 |
-| S13 | Opening stock at go-live | v1 | Decision 10 |
+| S12 | Negative stock rules: company switch, off by default; when on, allowed per Store location; never on warehouses | v1 | Decision 11 |
+| S13 | Opening stock at go-live (three cases: books differ, missing costs, valuation off) | v1 | Decision 10, §8.7 |
 | S14 | Stock status (available, quarantine, blocked) | v1 via Returns locations; status per batch later | Returns type text: "kept apart until checked" (`App/docs/design/specs/stock-locations.md:30`) |
 | S15 | Specific-identification cost (cost per serial) | Later, with serials | Needed for high-value serial goods only |
 | S16 | Packages, pallets, SSCC labels | Not planned | Shipping and EDI first |
@@ -315,8 +319,8 @@ the reason says when to revisit.
 | C5 | LIFO | Not planned | Not allowed under IAS 2 (GK); FI bookkeeping law allows it (KPL 4:5.4, https://www.kuntaliitto.fi/sites/default/files/media/file/Lausunto-10-1997.pdf), but no customer need is known |
 | C6 | Revaluation of an item's cost | v1 | §4.9 |
 | C7 | Net realisable value write-down | v1 | §4.5 |
-| C8 | Landed costs (freight, duty, insurance into stock value) | With Purchase | Charges arrive on bills; decision 9 |
-| C9 | Late bill price corrects stock cost (actual costing) | Later, with landed costs | Decision 9 |
+| C8 | Landed costs (freight, duty, insurance into stock value) | v1 (INV-3): a freight or customs bill linked to receipts, spread by value, quantity or weight; expected charges on orders and accrued landed costs With Purchase | Charges arrive on bills; decision 9, §4.2 |
+| C9 | Late bill price corrects stock cost (actual costing) | With Purchase | The bill's price difference posts to PURCHASE_PRICE_VARIANCE (`accounts-c.md:218`); decision 9 |
 | C10 | Stock value ties to the GL every day | v1 | §8.8, money guardrail |
 
 ### 3.6 Reports and analysis
@@ -336,7 +340,7 @@ the reason says when to revisit.
 | R11 | GRNI ageing by supplier and receipt | v1 | Named in §3.9 S2 |
 | R12 | Transfers in transit and their age | v1 | Named in §3.9 S3 |
 | R13 | Negative stock list | v1 | Decision 11 |
-| R14 | Expiry list | With INV-9 | Decision 14 |
+| R14 | Expiry list | v1 (INV-9) | Decision 14 |
 | R15 | Items missing statutory data (HS, FBR unit, SRO, retail price, GTIN, tax class) | v1 | §3.9 I17 |
 
 ### 3.7 Integrations and compliance
@@ -387,14 +391,15 @@ where all five answers are "none".
 | S1, C10 | DK | None | SAF-T from 2027-01-01 with GL lines (roadmap:141); stock accounts mapped to the standard chart (`accounts-packs-2026-2.md:307`, `:336`) | Day-price write-down vs books (https://tax.dk/jv/cc/C_C_2_3_1_6_1.htm) | R10 | — |
 | S1, C10 | FI, IS | None | Stock in the annual accounts; tax rule not verified (GK) | As All | R3 | As All |
 | S1, C10 | PK | None | IAS 2 stock in the annual accounts; stock records kept for sales tax (Sales Tax Act s.22, GK) | As All | R3 | As All |
-| S2, C2 | All | None (payment is on the bill or invoice) | VAT or sales tax on the bill and invoice, not on the move | GRNI per receipt line never debit; GRNI = received not billed (`accounts-c.md:218`; decision 8) | GRNI ageing | Receipt first in the bill approval (decision 8); auto-receipt from a matching supplier e-invoice or ASN with Purchase (roadmap:111) |
+| S2, C2 | All | None (payment is on the bill or invoice) | VAT or sales tax on the bill and invoice, not on the move | GRNI cleared only against a posted receipt; GRNI = received not billed (`accounts-c.md:218`; decision 8) | GRNI ageing | "Receive and bill" and "Deliver and invoice" in one screen (decision 8); auto-receipt from a matching supplier e-invoice or ASN with Purchase (roadmap:111) |
 | S2 (own use) | NO, SE, DK, FI | None | Own-use withdrawal can carry output VAT (GK) | — | Own-use issues by reason | Reason carries a tax rule (later) |
 | S3a, S3b | All | None | None inside one company | In transit = dispatched not received | Transfers in transit and age | Receipt reminder after N days |
 | S3c-1 | All | Inter-company settlement between the two companies (Accounts D, later netting) | Transfer-pricing documentation (GK); the transfer price posts in both books in every case | A's `AR_CONTROL` for customer B = B's `AP_CONTROL` for supplier A, per transfer id (`linkedCompanyId`, PR-9) | Inter-company stock and margin | Bill in B drafted from A's invoice |
 | S3c-1 | NO | As All | No VAT between companies in one VAT group (fellesregistrering, mval § 2-2 (3)): they count as one VAT subject (https://www.skatteetaten.no/en/rettskilder/type/uttalelser/bfu/fellesregistrering---omsetning-fra-utenlandsk-hovedkontor-til-norsk-filial-og-omsetning-mellom-filial-og-fellesregistrerte-selskaper/); normal VAT otherwise | VAT group membership per company pair, dated | Transfers with and without VAT | Tax code picked from the pair's VAT-group fact |
-| S3c-1 | SE, DK, FI | As All | VAT groups exist (SE mervärdesskattegrupp, DK fællesregistrering, FI arvonlisäverotusryhmä): no VAT inside one; normal and cross-border rules otherwise (GK, for ERP-Q1) | As NO | As NO | As NO |
+| S3c-1 | SE, DK, FI | As All | VAT groups exist (SE mervärdesskattegrupp, DK fællesregistrering, FI arvonlisäverotusryhmä): no VAT inside one; normal rules otherwise; cross-border pairs are S3c-1x (GK, for ERP-Q1) | As NO | As NO | As NO |
 | S3c-1 | IS | As All | VAT-group rule not checked (GK, for ERP-Q1) | As NO | As NO | As NO |
 | S3c-1 | PK | As All | Sales tax on the invoice between separate registered persons; no group relief known (GK, for ERP-Q1) | As All | As All | As All |
+| S3c-1x | All | As S3c-1 | Customs, EU reverse charge and EC sales list for pairs in different countries (decision 13; rules GK, for ERP-Q1) | As S3c-1 | As S3c-1 | Later |
 | S3c-2 | All | None | Consolidation (Phase 7) | Unrealised profit in group stock | Consolidation report | Phase 7 |
 | S4 | NO | None | Yearly count, list per item (kind, quantity, value), kept 5 years (bokføringsforskriften § 6-1, secondary source https://revisorforeningen.no/revisornytt/varetelling1120) | Counted vs book value before posting | R5 | Post under a value limit, approval above; recount over tolerance |
 | S4 | SE | None | Year-end count and stock list kept as accounting records (Skatteverket page above) | As NO | R5 | As NO |
@@ -407,9 +412,9 @@ where all five answers are "none".
 | S8 | PK | None | FBR unit depends on the HS code ("HS Code with UOM" reference method in the FBR DI technical document v1.12, https://download1.fbr.gov.pk/Docs/20257301172130815TechnicalDocumentationforDIAPIV1.12.pdf) | — | Items whose unit does not fit their HS code | Propose the FBR unit from the HS code (FBR reference cache `HS_CODES`, `UOM`, `accounts-docout.md:300`) |
 | S8 | All others | None | Rec 20 unit code on e-invoice lines (`accounts-b.md:1437`) | — | — | Default unit from the category |
 | S9, C3, C6 | All | None | Method per country (§4.9) | Revaluation journal = change in valuation report | Valuation per method | — |
-| S12 | All | None | — | Negative stock corrected at the next receipt's cost; difference to INVENTORY_ADJUSTMENT | Negative items, daily | Alert on any negative balance |
-| S13 | All | None | Opening stock value in the opening balance | Imported stock = GL opening balance per account, per location where tagged (decision 10) | Opening tie-out | Refuse the import until it ties |
-| C8 | NO, SE | Freight, duty and import VAT paid to forwarders or customs (with Purchase) | Import VAT reported in the VAT return (GK) | Landed costs on bills vs costs added to stock | Landed cost per receipt | Spread charges by value or weight |
+| S12 | All | None | — | Negative stock (only where the company switch and the Store location allow it, never on warehouses) corrected at the next receipt's cost; difference to INVENTORY_ADJUSTMENT | Negative items, daily | Alert on any negative balance; once a location's switch is turned off, further sales of already-negative items are refused until the receipt is booked |
+| S13 | All | None | Opening stock value in the opening balance | Imported stock = GL opening balance per account, per location where tagged; a difference goes through one adjustment journal with a reason and a chosen counter account; with valuation off, no tie-out at import (decision 10) | Opening tie-out; lines missing a cost | Refuse the import until it ties or the adjustment is approved; propose missing costs from the last purchase price, an estimate or a standard cost |
+| C8 | NO, SE | Freight, duty and import VAT paid to forwarders or customs on the charge bill (Accounts C); expected charges on orders with Purchase | Import VAT reported in the VAT return (GK) | Landed costs on bills vs costs added to stock and COGS | Landed cost per receipt | Spread a linked charge bill by value, quantity or weight (INV-3, decision 9) |
 | C8 | DK, FI, IS | As NO | Import VAT at customs or in the return, per country (GK) | As NO | As NO | As NO |
 | C8 | PK | Duty and sales tax paid at import (GK) | Imported Third Schedule goods valued at the declared retail price (FBR Circular 01 of 2019, https://download1.fbr.gov.pk/Docs/201972615718450CIRCULARNO.01OF2019.pdf) | As NO | As NO | As NO |
 | I17 (retail price) | PK | None | Retail price printed on each unit or pack, tax 18 % of retail price for Third Schedule goods (s.3(2)(a); STGO 08 of 2026, https://download1.fbr.gov.pk/Docs/202673875133134STGO08OF2026.pdf) | Invoice tax vs retail price × quantity | Third Schedule items without a retail price | Retail price per unit and variant copied to the line |
@@ -444,18 +449,25 @@ on each line follow §8.3.
 ### 4.2 Receipts and issues
 
 - **In v1:** goods in from a purchase, goods out to a sale, issues to internal use and to projects, and both kinds of
-  return. Before Purchasing and Sales exist, the source document is an Accounts bill or invoice line that names an
-  item and a location; the stock move runs first, inside the bill's or invoice's approval, so GRNI is never debit
-  (decision 8, an ADR-018 change).
+  return. The source of every move is an Inventory-owned **Receipt** or **Delivery** document (or a manual goods in
+  or out, an internal-use or a project issue). It posts its own IV journal; the Accounts bill or invoice line then
+  points to it (`sourceLineId`, as Purchasing's goods receipt would), and C clears GRNI by `receivedValue` as C-27 is
+  written (`accounts-c.md:218`). "Receive and bill" and "Deliver and invoice" do both in one screen. This path is
+  permanent for companies without Purchase or Sales (decision 20); Purchase's goods receipt, Sales' delivery and POS
+  build on the same documents (decision 8).
+- **Landed costs (INV-3, decision 9):** a freight or customs bill links to one or more receipts; its amount is spread
+  by value, quantity or weight; the share still on hand goes into stock cost (the open cost layers) and the share
+  already sold goes to COGS. Purchase later adds expected charges on orders and accrued landed costs.
 - **Why:** without receipts and issues there is no stock; ADR-018 fixes who posts what (`ADR-018:40-41`).
 
 | Move | When | Journal (IV unless named) |
 |---|---|---|
-| Goods receipt (Purchasing's goods receipt, or Inventory's own Receipt document before Purchasing exists; the bill line points to it, decision 8 b) | On receipt date | DR INVENTORY (branch, location) / CR GRNI (party supplier), at the order or bill price in company currency (`ADR-018:41`) |
+| Goods receipt (Inventory's Receipt document; Purchase's goods receipt builds on it; the bill line points to it, decision 8) | On receipt date | DR INVENTORY (branch, location) / CR GRNI (party supplier), at the order or bill price in company currency (`ADR-018:41`) |
 | Bill for that receipt | On bill posting, by Accounts C (journal PI) | DR GRNI `receivedValue`, DR / CR PURCHASE_PRICE_VARIANCE the difference (`accounts-c.md:218`); decision 9 for the variance |
-| Issue to a sale (Sales delivery, or Inventory's own Delivery document before Sales exists; the invoice line points to it, decision 8 b) | On delivery date | DR COGS (item and the line's dimensions) / CR INVENTORY, at FIFO or average cost (`ADR-018:40`) |
+| Issue to a sale (Inventory's Delivery document; Sales' delivery and POS build on it; the invoice line points to it, decision 8) | On delivery date | DR COGS (item and the line's dimensions) / CR INVENTORY, at FIFO or average cost (`ADR-018:40`) |
 | Sales return (credit note line with `sourceLineId`; goods first to a Returns location) | On return | DR INVENTORY / CR COGS at the original cost (`ADR-018:40`) |
 | Purchase return (debit note) | On return | DR GRNI / CR INVENTORY; the debit note credits GRNI (`accounts-c.md:1205`) |
+| Landed cost (freight or customs bill linked to receipts) | On the charge bill's posting | DR INVENTORY for the share on hand and DR COGS for the share sold, against the charge bill's line; decision 9 |
 | Issue to internal use | On issue | DR the reason's expense account (cost centre) / CR INVENTORY |
 | Issue to a project | On issue | DR the project cost account with the project dimension / CR INVENTORY |
 
@@ -468,7 +480,7 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
 |---|---|---|---|
 | Between locations of one branch | v1 | Daily shop and warehouse work | IV: DR INVENTORY (location B) / CR INVENTORY (location A), same value; only when the account carries the location tag (1460 does: `se-bas.csv:29`). No posting when it does not |
 | Between branches of one company, through an in-transit location (requested → in transit → received) | v1 | Feature `INTER_BRANCH_TRANSFERS` (`V41:118`); the state model is the one ADR-007 and ADR-009 require for stores (`ADR-007:88`, `BE/docs/adr/ADR-009-edge-sync-endpoint-routing-and-idempotent-posting.md:94`) | IV at dispatch: DR INVENTORY (in-transit, branch B) / CR INVENTORY (branch A); at receipt: DR INVENTORY (location in B) / CR INVENTORY (in-transit). Transit loss on receipt goes to INVENTORY_ADJUSTMENT. Branch P&L is untouched; the balance sheet shows stock per branch |
-| S3c-1 Between companies of a group, linked (each company posts its own books) | Later (INV-4b), before Phase 7 | Two legal entities: a sale in one company and a purchase in the other; VAT follows the pair of companies (none inside a VAT group, normal rules otherwise, including cross-border; see the §3.9 S3c-1 rows); "intercompany is a link, not a share" (`ADR-018:49`), so each company posts only its own documents and one company never posts into another's books (`RULES.md:126-127`). With decision 8 the invoice and bill exist before Sales and Purchase. Transfer price set per group (cost, cost plus %, later a price list) | Company A at dispatch: invoice through Accounts B (DR `AR_CONTROL`, the customer being company B with `linkedCompanyId`; CR revenue; output VAT unless both are in one VAT group) and IV DR COGS / CR INVENTORY at cost. Company B at receipt: IV DR INVENTORY / CR GRNI at the transfer price, then the bill through Accounts C (CR `AP_CONTROL`, the supplier being company A with `linkedCompanyId`) clears GRNI. This is how Accounts F posts linked companies (`BE/docs/api/accounts-f-design.md:162-163`); the INTERCOMPANY control kind (`accounts-a1.md:73`) is not used. `linkedCompanyId` is not built yet (PR-9, `accounts-f-design.md:47`; left to F's contract, XF-2, `:354`). The transfer price posts in both sets of books, VAT or not. Stock in transit between the two dates. Both legs linked by one transfer id. Decision 13 |
+| S3c-1 Between companies of a group, linked (each company posts its own books) | Later (INV-4b), before Phase 7 | Two legal entities: a sale in one company and a purchase in the other; INV-4b covers pairs of companies in the same country; VAT follows the pair (none inside a VAT group, normal rules otherwise; see the §3.9 S3c-1 rows); cross-border pairs (customs, EU reverse charge, EC sales list) are the later step S3c-1x; "intercompany is a link, not a share" (`ADR-018:49`), so each company posts only its own documents and one company never posts into another's books (`RULES.md:126-127`). With decision 8, company A ships on an Inventory Delivery and invoices against it, and company B receives on an Inventory Receipt and bills against it, without Sales or Purchase. Transfer price set per group (cost, cost plus %, later a price list) | Company A at dispatch: invoice through Accounts B (DR `AR_CONTROL`, the customer being company B with `linkedCompanyId`; CR revenue; output VAT unless both are in one VAT group) and IV DR COGS / CR INVENTORY at cost. Company B at receipt: IV DR INVENTORY / CR GRNI at the transfer price, then the bill through Accounts C (CR `AP_CONTROL`, the supplier being company A with `linkedCompanyId`) clears GRNI. This is how Accounts F posts linked companies (`BE/docs/api/accounts-f-design.md:162-163`); the INTERCOMPANY control kind (`accounts-a1.md:73`) is not used. `linkedCompanyId` is not built yet (PR-9, `accounts-f-design.md:47`; left to F's contract, XF-2, `:354`). The transfer price posts in both sets of books, VAT or not. Stock in transit between the two dates. Both legs linked by one transfer id. Decision 13 |
 | S3c-2 Inter-company reconciliation and unrealised profit | Phase 7 | Postings into the other company, reconciliation and eliminations are roadmap L.2 (roadmap:151) | Consolidation entries in Accounts; Inventory supplies the transfer-price margin still in B's stock |
 
 ### 4.4 Stock counts
@@ -532,11 +544,13 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
 
 ### 4.7 Batch / lot, serial numbers, expiry
 
-- **Later (INV-9)**, feature `BATCH_SERIAL` (`V41:117`). Every stock move carries nullable lot and serial ids from
-  v1, so turning it on later needs no change to the move table.
-- **Why later:** it touches every move screen (pick a lot, scan a serial) and every count; no pilot customer or first
-  country is decided (Jabran 2026-11-21; first market group Pakistan + Nordics), and food, pharma and electronics
-  customers need it by law or practice; its timing is decision 14.
+- **In v1 (INV-9, the last slice of the first build round)**, feature `BATCH_SERIAL` (`V41:117`). From INV-2 every
+  stock move, stored balance and cost layer can carry a lot and serial, so INV-9 needs no change to those tables.
+  Until INV-9 is built the module grid does not show `BATCH_SERIAL` as available (a catalogue change in INV-0).
+- **Why in the first build round:** pharmacy, food and electronics retail need it by law or practice (PK DRAP, food
+  traceability, GK), and they are covered from the start on the same Inventory + Sales/POS base (pharmacy
+  prescriptions only by integration). It comes last because it touches every move screen (pick a lot, scan a serial)
+  and every count. Decision 14.
 - **Posting:** none extra; FIFO by expiry (FEFO) changes which lot is issued, not the journal.
 
 ### 4.8 Units of measure and conversions
@@ -555,7 +569,8 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
 - **In v1:** FIFO and moving weighted average; the method is stored on the item, inherited from the company and
   category (decision 5), and v1 offers one method per company, chosen at Inventory setup and fixed once the
   first move posts (a change later is a dated revaluation event, by an accountant, with a reason). Valuation pool is
-  item × company (decision 7). Standard cost comes with Manufacturing; LIFO is not offered (C5).
+  item × company in v1 (decision 7); each cost layer carries a **pool key** that can hold a location, so cost per
+  location can be added later as a company setting without a data change. Standard cost comes with Manufacturing; LIFO is not offered (C5).
 - **Country rules (source per country; for ERP-Q1):**
   - **NO:** FIFO for tax, no write-downs for tax (skatteloven § 14-5 (2) b and c,
     https://lovdata.no/lov/1999-03-26-14/§14-5).
@@ -604,16 +619,20 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
 
 ## 5. Cross-module map
 
-Features that touch Inventory but belong to another module. Inventory leaves the hooks named here.
+Features that touch Inventory but belong to another module. Inventory leaves the hooks named here. The Sales and
+Purchase features Jabran named for later scope drafts (pricing, near-expiry offers, POS, returns, exchanges, purchase
+returns) are placed in Sales or Purchase, as listed in `docs/agents/design-brief-common.md`, "Features Jabran named for later scope drafts".
 
 | Feature | Owner | Inventory provides | Depends on | Phase |
 |---|---|---|---|---|
-| Price lists, customer price levels, quantity and date prices, discounts, campaigns, bundles pricing, price override rights, tax on discounts (incl. PK retail-price tax) | Sales | Base price, units, variants, tax class (§2.7, §2.8) | Sales scope | With Sales |
+| Pricing: price levels, price lists per branch, store or customer group, quantity and date prices, discounts, offers and campaigns, bundles pricing, price override rights, tax on discounts (incl. PK retail-price tax) | Sales | Base price, units, variants, tax class (§2.7, §2.8) | Sales scope (`docs/agents/design-brief-common.md`, "Features Jabran named for later scope drafts") | With Sales |
+| Near-expiry offers: a markdown rule by days to expiry per item, category or store, or a manual markdown with a reason; POS picks the batch by FEFO and applies the price; shelf labels | Sales (with POS) | Batch and expiry data, FEFO lot pick (INV-9, decision 14) | Sales scope (`docs/agents/design-brief-common.md`, "Features Jabran named for later scope drafts"); INV-9 | With Sales |
 | Supplier prices and discounts, supplier item numbers, lead times | Purchase | Units, item ids | Purchase scope | With Purchase |
-| Purchase requests and orders; goods receipt document; three-way matching | Purchase (`ADR-018:30`) | Receipt move and GRNI posting (§4.2) | Purchase v1; GRNI owner row move (backlog:242) | With Purchase |
-| Quotes, sales orders, deliveries, pick / pack / ship | Sales (`ADR-018:29`) | Reservations, issue move and COGS (§4.2, §4.6) | Sales v1 | With Sales |
-| Returns and RMA (authorisation, inspection, restock or scrap) | Sales (customer side), Purchase (supplier side) | Returns locations, return moves at original cost | Sales, Purchase | With Sales / Purchase |
-| Landed costs (freight, duty, insurance) | Purchase (charges on bills), Accounts C | Revaluation of the receipt's layers | Purchase v1; decision 9 | With Purchase |
+| Purchase requests and orders; goods receipt document; three-way matching | Purchase (`ADR-018:30`) | Receipt document, move and GRNI posting (§4.2); Purchase's goods receipt builds on it (decision 8) | Purchase v1; GRNI owner row move (backlog:242) | With Purchase |
+| Quotes, sales orders, deliveries, pick / pack / ship | Sales (`ADR-018:29`) | Delivery document, reservations, issue move and COGS (§4.2, §4.6); Sales' delivery builds on it (decision 8) | Sales v1 | With Sales |
+| Customer returns and exchanges: return authorisation, return reason per line, inspection, restock or scrap, restocking fee, refund to card, cash, wallet or store credit; exchange at the till or in the back office (a return plus a new sale in one step, only the difference paid or refunded, VAT on both lines) | Sales (with POS for the till) | Returns locations (returned goods go there first), return moves at original cost, a Delivery for the new sale | Sales scope (`docs/agents/design-brief-common.md`, "Features Jabran named for later scope drafts") | With Sales |
+| Purchase returns to the supplier against the order or receipt, supplier credit tracking, replacement deliveries | Purchase | Purchase return move (DR GRNI / CR INVENTORY, §4.2), a Receipt for the replacement | Purchase scope (`docs/agents/design-brief-common.md`, "Features Jabran named for later scope drafts") | With Purchase |
+| Landed costs (freight, duty, insurance) | Inventory for the simple step (INV-3); Purchase for expected charges on orders and accrued landed costs; Accounts C for the charge bills | Charge bill linked to receipts, spread by value, quantity or weight, on-hand share to the receipt's layers, sold share to COGS (§4.2) | Decision 9 | v1 (INV-3); expected and accrued charges With Purchase |
 | Bills of material, assembly, production orders, standard cost, MRP | Manufacturing (catalogued, `V41:131-135`) | Component issue and output receipt moves | A Manufacturing module decision | With Manufacturing |
 | Quality inspection, quarantine release | Manufacturing `QUALITY_CONTROL` (`V41:133`) / Purchase receiving | Returns-type locations now; stock status later | Manufacturing or Purchase | Later |
 | Project issues and project stock | Projects (future; project dimension today, `ADR-021:224`) | Issue to project (§4.2) | Project dimension (built) | v1 issue; project module later |
@@ -621,11 +640,11 @@ Features that touch Inventory but belong to another module. Inventory leaves the
 | Budgets by product (quantity × price) | Accounts budgets (`ADR-022:77`) | Quantity actuals by item (Q14, `ADR-022:267`) | Budgets stage 1 (roadmap:101) | Later |
 | Budget check on stock purchases | Purchase calls ADR-022 stage 2 (`ADR-022:193`) | Nothing: "stock purchases go through Purchasing's check point" | ADR-022 stage 2 (roadmap:154) | With Purchase |
 | Warehouse mobile scanning (camera) beyond counts, label printing | Inventory | Scan view from INV-6 | Document output 5.1 for labels | Later |
-| Point of sale and offline stores | POS (`SALES.POINT_OF_SALE`, `V41:123`; ADR-007, ADR-009 Proposed) | Append-only moves, so a store server can own on-hand later (`ADR-009:39`) | ADR-007 accepted | With POS |
+| Point of sale: tills, offline stores, daily till close and reconciliation | Sales / POS (`SALES.POINT_OF_SALE`, `V41:123`; ADR-007, ADR-009 Proposed) | Delivery documents (decision 8), append-only moves, so a store server can own on-hand later (`ADR-009:39`); per-Store negative-stock switch (decision 11) | ADR-007 accepted; Sales scope (`docs/agents/design-brief-common.md`, "Features Jabran named for later scope drafts") | With POS |
 | E-commerce stock and item sync | Integration API (outside systems) | Item and on-hand read API, stock move write API | Machine-client model (`ADR-021:178-186`) | Later |
 | EDI (orders, despatch advice, price catalogues) | Sales and Purchase | Item ids, GTINs | Peppol access point choice (roadmap:262) | Later |
 | Intrastat | Accounts E with Sales and Purchase | CN8, net mass, origin, supplementary unit on items | E (roadmap:140) | Later |
-| Linked inter-company transfers (S3c-1) | Inventory with Accounts B and C | Transfer document, both companies' moves, transfer id | INV-4, scope ADR (INV-0), decision 8 path, `linkedCompanyId` on parties (PR-9, `accounts-f-design.md:47`), VAT-group fact per company pair | Later (INV-4b) |
+| Linked inter-company transfers (S3c-1, same-country pairs; cross-border S3c-1x later) | Inventory with Accounts B and C | Transfer document, both companies' moves, transfer id | INV-4, scope ADR (INV-0), decision 8 path, `linkedCompanyId` on parties (PR-9, `accounts-f-design.md:47`), VAT-group fact per company pair | Later (INV-4b) |
 | Inter-company reconciliation, eliminations, consolidation (S3c-2) | Accounts Phase 7 (roadmap:151) | Margin on transferred stock still on hand | Phase 7 | Phase 7 |
 | Expense claims with goods | HR / Accounts (`large-customer-roadmap.md:52`) | None (non-stock) | — | Not linked |
 
@@ -635,7 +654,7 @@ All rows are GK unless a repo source is named; each needs the country accountant
 
 | Country | VAT / sales tax on goods | Statutory files | E-invoice item data | Stock rules | Other |
 |---|---|---|---|---|---|
-| SE | Standard and reduced rates by goods type (food, books); rates from the tax pack (`packs/2026.2/tax-codes.csv`), the item holds only a tax class | SIE 4 has no stock records; stock shows as GL lines on group 14 accounts (`se-bas.csv:29`) | Peppol BIS / Svefaktura line: item name, seller id, GTIN, unit (Rec 20); optional at SE launch (roadmap:110) | FIFO and lowest value; **97 % rule** (IL 17 kap. 4 §) as a booked year-end write-down, a company choice; whether a K3 company may book it is unconfirmed (ERP-Q1); year-end count and stock list kept as accounting records (https://skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag/varulager.4.1df9c71e181083ce6f6371.html) | Intrastat (SCB) above threshold; own-use withdrawal VAT; VAT group (mervärdesskattegrupp, GK) |
+| SE | Standard and reduced rates by goods type (food, books); rates from the tax pack (`packs/2026.2/tax-codes.csv`), the item holds only a tax class | SIE 4 has no stock records; stock shows as GL lines on group 14 accounts (`se-bas.csv:29`) | Peppol BIS / Svefaktura line: item name, seller id, GTIN, unit (Rec 20); optional in SE (roadmap:110) | FIFO and lowest value; **97 % rule** (IL 17 kap. 4 §) as a booked year-end write-down, a company choice; whether a K3 company may book it is unconfirmed (ERP-Q1); year-end count and stock list kept as accounting records (https://skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag/varulager.4.1df9c71e181083ce6f6371.html) | Intrastat (SCB) above threshold; own-use withdrawal VAT; VAT group (mervärdesskattegrupp, GK) |
 | NO | 25 % standard, 15 % food, 12 % lower rate; from the pack | SAF-T Financial carries GL lines only, no stock section; SAF-T Cash Register is for POS, not Inventory | EHF / Peppol BIS lines as SE; required for B2B from 2027-01-01 (roadmap:110, gate L-1) | FIFO for tax, **no write-down for tax** (skatteloven § 14-5 (2) b, c, https://lovdata.no/lov/1999-03-26-14/§14-5), so books and tax stock can differ; yearly count with a list per item (kind, quantity, value), kept 5 years (bokføringsforskriften § 6-1 per a secondary source, https://revisorforeningen.no/revisornytt/varetelling1120) | No Intrastat (EEA, not EU); customs on imports; bottle deposit; VAT group (fellesregistrering, mval § 2-2 (3)): no VAT between its companies (https://www.skatteetaten.no/en/rettskilder/type/uttalelser/bfu/fellesregistrering---omsetning-fra-utenlandsk-hovedkontor-til-norsk-filial-og-omsetning-mellom-filial-og-fellesregistrerte-selskaper/) |
 | DK | 25 %; from the pack | SAF-T from 2027-01-01 (ACC-R2, roadmap:141) carries GL lines; stock accounts mapped to the standard chart (1460 → 6140; stock movement 1770 still *(verify)*: `accounts-packs-2026-2.md:307`, `:336`) | OIOUBL / Peppol BIS lines as SE | Only FIFO fully accepted for tax, average assumed acceptable, method per goods group; write-down to day price (https://tax.dk/jv/cc/C_C_2_3_1_6_1.htm) | Intrastat (Danmarks Statistik); deposit; VAT group (fællesregistrering, GK) |
 | FI | Standard and reduced rates; from the pack | No SAF-T; tax authority reads the books | Finvoice / Peppol lines | KPL 4:5.4 allows FIFO, LIFO or average (https://www.kuntaliitto.fi/sites/default/files/media/file/Lausunto-10-1997.pdf); tax rule not verified; lowest value (GK) | Intrastat (Tulli); VAT group (arvonlisäverotusryhmä, GK) |
@@ -650,8 +669,9 @@ retention (X4). Return files and Intrastat stay in Accounts E (roadmap:140).
 
 - **Shared item master or per-company items:** §2.4 and decision 3. One catalogue per company by default; the group
   catalogue in INV-1c behind feature `GROUP_CATALOGUE`, off by default, after its scope ADR in INV-0.
-- **Inter-company stock:** §4.3 and decision 13. Linked transfers (S3c-1) in INV-4b, each company posting its own
-  books; reconciliation and eliminations (S3c-2) in Phase 7.
+- **Inter-company stock:** §4.3 and decision 13. Linked transfers (S3c-1) between companies in the same country in
+  INV-4b, each company posting its own books; cross-border pairs later (S3c-1x); reconciliation and eliminations
+  (S3c-2) in Phase 7.
 - **Many warehouses and locations:** locations are Org's, counted against the agreement's `WAREHOUSES` limit, either
   as a company pool or per branch (`BE/docs/modules/org/stock-locations.md:41-44`). Inventory adds per-location
   settings (L2) and, later, bins (L4). Org cannot know whether a location holds stock, so **deactivating a location
@@ -682,8 +702,9 @@ retention (X4). Return files and Intrastat stay in Accounts E (roadmap:140).
   catalogue (a member company follows it, a franchise opts in), and **both companies'** `INTERCOMPANY_TRANSFERS` for a
   transfer. Both rows belong to the INVENTORY module. The item master itself is not a feature row: it resolves on from
   any of FINANCE, INVENTORY, SALES or PURCHASING (decision 1). So a group on Finance only keeps one catalogue per
-  company and cannot share one until it takes INVENTORY. The real default for `BATCH_SERIAL` being on matters little
-  because INV-9 builds it later; until then the feature has nothing to switch.
+  company and cannot share one until it takes INVENTORY. `BATCH_SERIAL` is on by default (`EntitlementCatalog.kt:175`),
+  but the module grid does not show it as available until INV-9 is built (decision 14); until then the feature has
+  nothing to switch.
 - **Franchise:** a franchise is its own company and keeps its own items unless it opts into a group catalogue
   (`RULES.md:154-167`).
 
@@ -714,7 +735,7 @@ retention (X4). Return files and Intrastat stay in Accounts E (roadmap:140).
 | Count variance, adjustment | INVENTORY_ADJUSTMENT or reason's account (or reverse) | INVENTORY (or reverse) | §4.4, §4.5 |
 | NRV write-down / release | Write-down expense / provision | Provision / write-down expense | §4.5 |
 | Revaluation | INVENTORY or INVENTORY_ADJUSTMENT | the other | §4.9 |
-| Opening stock | none if adopted (decision 10) | — | §8.7 |
+| Opening stock | none if adopted; where the books differ, one adjustment journal with a reason: INVENTORY against a chosen counter account (stock change, owner's equity or prior-year correction) (decision 10) | the other | §8.7 |
 
 Accounts C posts the bill side (PI, GRNI and price variance); Accounts B posts revenue and tax only (`ADR-018:40`).
 Granularity: one journal per source document by default; a daily summary per company × location × account ×
@@ -768,16 +789,24 @@ receives foreign-currency purchases into stock.
   carry item. A frozen valuation report at the year-end date is kept with the count records.
 - Opening stock at go-live: the opening-balance import may already have put a balance on 1460. Inventory adopts it:
   quantities and costs are imported, their total must equal the GL balance per account, and per location only where
-  the opening balance carries the location tag; no second journal posts; a difference needs one adjustment journal
-  with a reason (decision 10).
+  the opening balance carries the location tag; no second journal posts (decision 10). Three cases:
+  - **The books show zero or less than the list:** one adjustment journal with a reason and a chosen counter account
+    (stock change, owner's equity or prior-year correction), through approval.
+  - **Lines without a cost:** every line needs one. Missing costs are listed and filled from the last purchase price,
+    an estimate or a standard cost, and changed later by a revaluation with a reason (§4.9). A zero cost is accepted
+    only when marked on purpose, with a reason.
+  - **Valuation off (decision 6):** quantities and costs are imported with no tie-out at import; the stock account is
+    set by the period-end "stock value change" journal.
 
 ### 8.8 Control and reconciliation
 
 - INVENTORY is a protected control kind (`accounts-a1.md:73`); bill lines refuse INVENTORY accounts
   (`accounts-c.md:191`); outside systems never post to stock control accounts
   (`App/docs/design/specs/accounts-integrations.md:165-166`).
-- **Recommendation:** once a company has posted its first Inventory move, manual journals on INVENTORY-role accounts
-  are refused, as GRNI already does once used (`accounts-c.md:218`); corrections go through Inventory adjustments.
+- Once a company has posted its first Inventory move, manual journals on INVENTORY-role accounts are refused, as GRNI
+  already does once used (`accounts-c.md:218`); corrections go through Inventory adjustments (decision 22). Two named
+  exceptions: the valuation-off period-end "stock value change" journal (decision 6) and the one opening-stock
+  adjustment journal with a reason (decision 10).
 - A daily invariant check ties stock value to the GL per company and account (value per location is a report, because
   one company cost pool cannot tie per location, decision 7); it joins the money invariant checks
   (roadmap G.5, `:173`) and blocks push like the other money guardrails.
@@ -789,7 +818,7 @@ receives foreign-currency purchases into stock.
 | Needed | Source | Why |
 |---|---|---|
 | AccountsPostingV2 core (5.13), machine client config | roadmap:121; backlog:81, :86 | Every stock journal |
-| Domain-event relay consumers | ADR-019 accepted (`BE/docs/adr/ADR-019-domain-event-relay.md:5`) | Item display caches; invoice- and bill-driven moves (`ADR-018:76-78`) |
+| Domain-event relay consumers | ADR-019 accepted (`BE/docs/adr/ADR-019-domain-event-relay.md:5`) | Item display caches (decision 1); invoice and bill events that let Inventory reconcile its deliveries and receipts (`ADR-018:76-78`) |
 | ADR-026 row-level security decided | roadmap:90 | A new service should start with it |
 | Cross-company scope ADR for the group catalogue and linked transfers (written in INV-0) | decision 3, 13; `ADR-018:96` | Opens the company boundary for item data only, never for books |
 | Org fixes: Returns type, ORG-SEC-1, inactive-branch create | backlog:139, :141-142 | Locations are Inventory's base |
@@ -799,35 +828,37 @@ receives foreign-currency purchases into stock.
 | Tax class mapping per country in the packs (Accounts lead) | decision 23 | Before INV-1 |
 | Catalogue: hide `BATCH_SERIAL` in the module grid until INV-9 | `EntitlementCatalog.kt:30`, `:175`; decision 14 | INV-0 |
 | Org catalog flips `INVENTORY` to implemented | `org.md:1521-1524` | Agreements can then include it |
-| ADR-018 amendment: Inventory posts receipts and COGS from Accounts bill and invoice lines, stock first in the approval; accounts-service calls inventory-service synchronously during approval (new internal scope, ADR-016); Inventory down → approval refused, retried with the same key; refused, cancelled or FBR-rejected documents reverse their move by the same key | `ADR-018:40`, `:76`; `accounts-a1.md:65`; backlog:276; decision 8 | Document-driven stock before Purchase and Sales |
-| B/C contract change: `itemId` and `stockLocationId` on lines a person enters; stock bill lines post to GRNI (C-6 exception); INVENTORY-sourced client beside PURCHASING; Items reachable with FINANCE | `accounts-b.md:524`; `accounts-c.md:191`, `:218`; decisions 1, 8 | Same |
+| ADR-018 change (Jabran's explicit yes, decision 8): INVENTORY added beside PURCHASING as a source module, for Inventory's own Receipt and Delivery documents; COGS still from Inventory's own delivery and return events (`ADR-018:40`), the invoice event only for reconciling (`ADR-018:76`). Plus decision 1's wording: Items reachable from FINANCE, INVENTORY, SALES or PURCHASING, in RULES §3 and ADR-018 | `ADR-018:31`, `:40`, `:76`; `accounts-a1.md:65`; decisions 1, 8 | Stock for companies without Purchase or Sales |
+| B/C contract change: `itemId` and `stockLocationId` on lines a person enters; a stock bill line points to an Inventory Receipt line and an invoice line to a Delivery line (`sourceLineId`); C clears GRNI by `receivedValue` as C-27 is written, so C-6 (no INVENTORY accounts on bill lines) stays; INVENTORY-sourced client beside PURCHASING; Items reachable with FINANCE, read from a display cache | `accounts-b.md:524`; `accounts-c.md:191`, `:218`; decisions 1, 8 | Same |
 | `linkedCompanyId` on customers and suppliers (Accounts F PR-9, not built; XF-2 leaves it to F's contract) and a dated VAT-group fact per company pair | `accounts-f-design.md:47`, `:354`; decision 13 | INV-4b only |
-| Invariant checks: GRNI per receipt line never debit; one issue per stock invoice line; no stock move without a live source document; stock value = GL | decision 8; §8.8; roadmap:173 | Money guardrail before push |
+| Invariant checks: GRNI cleared only against a posted receipt; each stock invoice line points to exactly one posted delivery line; stock value = GL | decision 8; §8.8; roadmap:173 | Money guardrail before push |
 
 ### 9.2 Slices
 
 | Slice | Holds | Risk |
 |---|---|---|
-| INV-0 | Contract: service, permission manifest and defaults, events, reporting contract, entitlement mapping; this scope's decisions applied | security |
+| INV-0 | Contract: service, permission manifest and defaults, events, reporting contract, entitlement mapping (incl. `BATCH_SERIAL` hidden until INV-9); cross-company scope ADR; this scope's decisions applied | security |
 | INV-1 | Item master: types, categories with defaults, starter sets, numbering, barcodes, units, country fields, tax class, import; item events; item picker on Accounts B / C lines | statutory |
 | INV-1b | Variants and attributes grid | none |
 | INV-1c | Group catalogue (feature `GROUP_CATALOGUE`, off by default): parent-owned catalogue, per-company settings, franchise opt-in | security |
-| INV-2 | Stock ledger: moves, balances, valuation (FIFO, average), opening stock adoption, IV posting through 5.13, daily GL tie-out | **money** |
-| INV-3 | Receipts and issues: bill- and invoice-driven moves (decision 8), manual goods in and out, internal use, projects, returns | **money** |
+| INV-2 | Stock ledger: moves, balances and cost layers (with a pool key that can hold a location, and able to carry a lot and serial), valuation (FIFO, average; method stored on the item), back-dated moves and re-costing, opening stock (three cases, decision 10), IV posting through 5.13, daily GL tie-out per company and account | **money** |
+| INV-3 | Receipts and issues: Inventory's Receipt and Delivery documents with bill and invoice lines pointing to them, "Receive and bill" / "Deliver and invoice" in one screen (decision 8); simple landed costs (decision 9); negative-stock rules per Store location (decision 11); manual goods in and out, internal use, projects, returns | **money** |
 | INV-4 | Transfers inside a company (location, branch, in transit); reservations model | money |
-| INV-4b | Linked inter-company transfers (feature `INTERCOMPANY_TRANSFERS`, off by default), transfer price, VAT by company pair; needs PR-9 `linkedCompanyId` | **money**, statutory |
+| INV-4b | Linked inter-company transfers between companies in the same country (feature `INTERCOMPANY_TRANSFERS`, off by default), transfer price, VAT by company pair; needs PR-9 `linkedCompanyId` | **money**, statutory |
 | INV-5 | Adjustments, write-downs, revaluation, approval | **money** |
 | INV-6 | Stock counts (full, cycle, phone sheets with camera scanning, approval, variance posting), close checklist rows, year-end items | **money**, statutory |
 | INV-7 | Reorder points and suggestions; low-stock alerts (notification service, roadmap:96) | none |
 | INV-8 | Reports (stock list, movements, valuation vs GL, ageing, slow-moving, variances) | none |
-| INV-9 | Batch, lot, serial, expiry, FEFO | none |
-| Later | Bins and put-away; camera scanning outside counts and labels; catch weight; transfer suggestions; ABC; consignment | — |
-| With other modules | Purchase v1 (orders, goods receipt, landed costs), Sales v1 (orders, deliveries, kits, pricing), Manufacturing, POS, Phase 7 inter-company | — |
+| INV-9 | Batch, lot, serial, expiry, FEFO, expiry list; shows `BATCH_SERIAL` as available | statutory |
+| Later | Cross-border linked transfers (S3c-1x); bins and put-away; camera scanning outside counts and labels; catch weight; transfer suggestions; ABC; consignment; cost per location as a company setting (decision 7) | — |
+| With other modules | Purchase (orders, goods receipt on the Receipt document, expected and accrued landed costs, purchase returns), Sales (orders, deliveries on the Delivery document, kits, pricing, near-expiry offers, returns and exchanges), Manufacturing, POS, Phase 7 inter-company | — |
 
-Order: INV-0 → INV-1 → INV-1b → INV-1c → INV-2 → INV-3 → INV-5 → INV-6 → INV-4 → INV-4b → INV-8 → INV-7 → INV-9,
-then Purchase v1 and Sales v1 build on Inventory's Receipt and Delivery documents (decision 8 b), which stay for companies without Purchase or Sales (decision 20). Money slices get the money
-guardrails: a test per finding, invariant checks before push, a second different reviewer. Each slice designs its screens at the QA sizes
-(§4.4) before build, as the module loop asks (`module-sequence.md:32-34`).
+Order: INV-0 → INV-1 → INV-1b → INV-1c → INV-2 → INV-3 → INV-5 → INV-6 → INV-4 → INV-4b → INV-8 → INV-7 → INV-9.
+That is Inventory's first build round, INV-0 to INV-9 (decisions 14, 20). Purchase and Sales then build on Inventory's
+Receipt and Delivery documents (decision 8); the Receipt/Delivery path stays permanently for companies without
+Purchase or Sales (decision 20). Scope drafts follow in the order Inventory, Purchase, Sales. Money slices get the
+money guardrails: a test per finding, invariant checks before push, a second different reviewer. Each slice designs
+its screens at the QA sizes (§4.4) before build, as the module loop asks (`module-sequence.md:32-34`).
 
 ## 10. Decisions for Jabran
 
