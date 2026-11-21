@@ -854,7 +854,7 @@ guardrails: a test per finding, invariant checks before push, a second different
    `accounts-a0.md:50`, `:133`, `:210`) and avoids a tier-like industry ladder (`RULES.md:41-54`). This agrees with
    the lead's leaning, with the country and business-type split made explicit. Fable agrees, and adds: keep the sets
    as versioned data like the packs, not code (Fable).
-3. **Group or company item master (critical: product direction).** **Recommend:** model a catalogue plus per-company
+3. **Group or company item master (critical: product direction).** **Approved by Jabran 2026-11-21 as recommended, with Fable's change.** **Recommend:** model a catalogue plus per-company
    settings from v1. The default is one catalogue per company (ADR-018 §2 rule, `ADR-018:44-49`). The **group
    catalogue** for owned companies gets a slot: its cross-company scope ADR is written in INV-0, and it ships in
    INV-1c, before INV-2, as company feature `GROUP_CATALOGUE`, off by default. Franchises keep their own unless they
