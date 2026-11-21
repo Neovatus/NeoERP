@@ -4,7 +4,7 @@ Write a line before starting, remove it when done. Never touch work the other le
 
 | Mac | Lead | Claimed | Branches | Since |
 |---|---|---|---|---|
-| New Mac (Ultra) | lead on probation | QA batch 2: Lane 0, fix lanes R01–R30, retest; DOCS-1 (merged), ISO-1 ADR-026 draft, DOCS-2a/2b/2c, Accounts roadmap draft; docs lanes UX-1 → HRP-DES (HR/Payroll design refresh) → INV-SCOPE (Items/Inventory scope), then Purchase/Sales/Reports scope one at a time; later ROADMAP-P; **HR/Payroll v2 build** on `phase/hrp-v2` once Jabran approves the HRP-DES change list (batch 2 keeps Gradle-lock priority, one build at a time) | `phase/4-b2-*` lane branches only (now: lane0-app, iso-r1; lane-ready: ux1, hrp-des, inv-scope, iso1b merged) | 2026-11-21 |
+| New Mac (Ultra) | lead on probation | QA batch 2: Lane 0, fix lanes R01–R30, retest; DOCS-1 (merged), ISO-1 ADR-026 draft, DOCS-2a/2b/2c, Accounts roadmap draft; docs lanes UX-1 → HRP-DES (HR/Payroll design refresh) → INV-SCOPE (Items/Inventory scope), then Purchase/Sales/Reports scope one at a time; later ROADMAP-P; **HR/Payroll v2 build** on `phase/hrp-v2` once Jabran approves the HRP-DES change list (batch 2 keeps Gradle-lock priority, one build at a time) | `phase/4-b2-*` lane branches only (now: iso-r1, r34; lane-ready: ux1, hrp-des, inv-scope, iso1b merged) | 2026-11-21 |
 | Old Mac (Team) | overseeing lead | Reviews each new-Mac lane before it merges; reconciles state; may take over the HR/Payroll stream from Monday with its own Gradle lock (Jabran 2026-11-21) | `phase/hrp-v2` (only after a handover from the new Mac) | 2026-11-21 |
 
 ## New-Mac lead rules (Jabran 2026-11-21; this lead only, the old-Mac lead's process is unchanged)
@@ -13,6 +13,7 @@ Write a line before starting, remove it when done. Never touch work the other le
 3. **Fable budget (Jabran 2026-11-21):** Fable uses at most 50 % of the weekly limit (plan below 40 %, nothing new at 45 %). Fable does substantial work only: independent security reviews of gate, money and security lanes, batched checks of substantial decisions, and views on Jabran's critical lists. Few-line reviews, small fix confirmations and small decisions go to the lead, Opus or Sonnet.
 
 ## Merged lanes
+- 2026-11-21 Lane 0 App: App `phase/4` fast-forwarded to `69a5deb0` through the new hook (verify OK 3862/0/1, RISK, final review pair round 4; verdict MERGE by Jabran). `install-hooks.sh` run in the App clone (incl. Jabran's checkout).
 - 2026-11-21 Lane 0 BE: fast-forward of BE `phase/4` to `5e00b131` (verdict MERGE). `scripts/install-hooks.sh` run in this Mac's BE checkout; old Mac: run it after pulling.
 - 2026-11-21 DOCS-2b: merge commit `d0dd5441` on BE `phase/4` (verify OK 4222/0/59, NORMAL; first push through the pre-push hook).
 - 2026-11-21 DOCS-2a: fast-forward of App `phase/4` to `f19a101b`.
