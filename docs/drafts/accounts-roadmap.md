@@ -203,7 +203,7 @@ ADR-018). The file is stale. See decision 12.
 4. Go-live lane on a hosted stage: RLS, secrets, KMS, backups, CI, invariant checks, company-local today.
 5. Gates: ERP-Q3 green on the stage → ERP-Q2 pen test (4 weeks before) → ERP-Q1 SE accountant → L-6 pilot.
 
-Phase 5b and G.12 join the path only if the first customer is large (decision 2).
+Phase 5b and G.12 are **included in the build order** (after Phase 5) for every business, not only when a large customer appears; they must be done before the first large customer, and they do not gate the first customer of any size (decision 2, Jabran 2026-11-21).
 
 ```mermaid
 graph LR
