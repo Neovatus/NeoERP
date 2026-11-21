@@ -287,3 +287,12 @@ Review: `docs/agents/hrp-des/review-1-opus.md`. Branch rebased by the lead onto 
 Approved Q&A grepped before relying on earlier decisions: `PROJECT-STATE.md`, `docs/backlog.md`,
 `docs/agents/approval-limits/plan.md`, `docs/agents/payroll/scope.md`, `docs/drafts/hr-payroll/hr-payroll-open-decisions.md`,
 plus `HR-PAYROLL-LEAD-REVIEW.md` (D1) and `payroll-v2-p1.md` (J-8).
+
+**Round 3** (review 2, `docs/agents/hrp-des/review-2-opus.md`, FIX: 1 major, 5 minor):
+
+- Finding 1 MAJOR (no way to add an employee before H4): H1.7 and decision 13(a) keep hr-h1's quick-add panel until the H4 wizard replaces it; only the stale O1 lead-decision line goes now (a17bc7c).
+- Finding 2 (decision 5 amends G-4): decision 5 and H23.2 say they amend hr-h2-h3 §24, approved at G-4; the alternative "keeps G-4's one-step scope" (fd886c0).
+- Finding 3 (bands): H23.2 gives bands by amount only to kinds with an amount (encashment); other kinds have one band (fd886c0).
+- Finding 4 (cost centre): X.17 gives rule 5's reason: the value lives in accounts-service and HR does not create Accounts records; not setup data (fd886c0).
+- Finding 5 (PY.10): made conditional on Sweden moving earlier (fd886c0).
+- Finding 6 (order): X items sorted X.1 to X.17 (823ee0d).
