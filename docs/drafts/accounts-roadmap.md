@@ -245,7 +245,7 @@ graph LR
    summary and your answer on the 3 proposed ADR-025 additions (state:26); they block 4.12. ADR-022 blocks 4.17,
    ADR-026 blocks G.1, ADR-023 blocks L.6. **Recommend:** the lead sends the summary and the 3 additions now so 4.12
    can start; accept ADR-022 stage 1 before 4.17, ADR-026 after its D1–D11, ADR-023 at the start of Phase 5b.
-4. **Old phase table.** roadmap:84-92 still numbers phases the old way. **Recommend:** after you approve this draft,
+4. **Old phase table.** **Decided by Jabran 2026-11-21: as recommended** (a short "superseded" amendment on the old table once this roadmap is approved; ROADMAP-P later merges the roadmap files). roadmap:84-92 still numbers phases the old way. **Recommend:** after you approve this draft,
    add an amendment to `accounts-roadmap.md` that points to it (separate change, outside this brief's scope).
 5. **A5 payroll posting.** Old Phase 4; it needs Payroll v2 (rebuild starts 2026-11-21 in parallel, see decision 16).
    D + D2 (5.6) also lists A5, for clearing payroll, tax and contribution payables (roadmap:125). The launch gate
