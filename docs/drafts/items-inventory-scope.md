@@ -847,7 +847,7 @@ guardrails: a test per finding, invariant checks before push, a second different
    (B and C read item data from a display cache, ADR-021 D2 pattern); and RULES §3 has no "on from any of four
    modules" rule today, so that rule gets its own wording in RULES §3 and in the ADR-018 amendment, approved by
    Jabran with this scope.
-2. **Chart of items: how a company starts (critical: product direction).** Options: no templates, fixed industry
+2. **Chart of items: how a company starts (critical: product direction).** **Approved by Jabran 2026-11-21 as recommended, with Fable's change.** Options: no templates, fixed industry
    charts, or starter sets. **Recommend:** starter category sets by business type, chosen at setup, copied and then
    the company's own (§2.3); the country decides units, tax classes and statutory fields; category defaults point
    to account roles. Why: it mirrors the chart of accounts (country rules, company copy, "Used for" roles,
