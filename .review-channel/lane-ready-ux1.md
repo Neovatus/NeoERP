@@ -29,6 +29,6 @@ GitHub renderer + script on every changed page (9 of 9): one H1, no skipped head
 - **User guide:** none: design rules, no user-facing change yet.
 
 ## For Jabran
-- **D-10 needs your confirmation** (it changes §4 "Button labels never wrap"): the footer primary may wrap its label to two lines at any size, only as the last step after every fold; labels are still written to fit at 375 pt. Real case: sv "Skapa och skicka in verifikationer".
+- **D-10 confirmed by Jabran as a trial (2026-11-21)**, to be checked in the QA size tests; the "for Jabran's confirmation" marker in §4, §25 and the wizard footer comes out when the lane merges. Was: (it changes §4 "Button labels never wrap"): the footer primary may wrap its label to two lines at any size, only as the last step after every fold; labels are still written to fit at 375 pt. Real case: sv "Skapa och skicka in verifikationer".
 - Code follow-ups: **R32** (focused field above the keyboard in every editor, D-1) in App B; **R33** screenshot-test frames at the short-height sizes, in App B.
 - Nit not reopened: §25 says two wrapped lines "fit the 44 pt touch height"; at the accessibility sizes the footer grows anyway.
