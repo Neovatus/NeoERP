@@ -6,7 +6,7 @@ Index of everything settled for design, as of 2026-10-20. Written by Cowork · E
 
 1. **Design first, then build.** No build starts until the module's contract **and** its rig are approved (design gate, playbook §2). Jabran approves rigs.
 2. **The Screen Rig is the design** (`NeoERP-App/docs/design/screen-rig/app.html`). It wins over older notes; the design system (`NeoERP-App/docs/design/design-system/`, tokens in `neoerp-tokens.json`) sets type, colour, spacing and icons, matched by measurement (screen-standard §1). The domain model is `docs/domain/RULES.md`.
-3. **Every state is drawn:** empty, loading, error, no access, module off, read-only, offline, filters-found-nothing, at **1440 · 1280 · 1024 · 768 · 390** (screen-standard §9).
+3. **Every state is drawn:** empty, loading, error, no access, module off, read-only, offline, filters-found-nothing, at **375×667 · 667×375 · 874×402 · 744 · 1032 · 1376 · 1440** (screen-standard §9; the one size list is the [QA guide](../qa/qa-guide.md) §4).
 4. **v2 replaces v1** (Jabran, 2026-10-09): old screens and calls are not patched; each is deleted in the checkpoint that builds its replacement.
 5. **The company's Org country decides** formats, packs and labels in every module; nobody is asked again (`target-countries.md`). Countries without a pack show "coming", never another country's rules.
 6. **Domain-correct, not just pretty:** if a local practitioner (NO, SE, DK, FI, IS, PK) would reject it, the lead rejects it first.
@@ -44,7 +44,7 @@ Index of everything settled for design, as of 2026-10-20. Written by Cowork · E
 - No hard-coded dp/sp; type roles, motion and icons from the design system.
 - Controls in a row share a height; compact density.
 - List screens and forms/wizards built from the standard components (§7–8); record forms in `NeoSidePanel`.
-- Rig review at 1440 · 1280 · 1024 · 768 · 390; screenshot tests at 1440 and 390 plus a 320–1440 width sweep (§9).
+- Rig review at 375×667 · 667×375 · 874×402 · 744 · 1032 · 1376 · 1440 ([QA guide](../qa/qa-guide.md) §4); screenshot tests at 1440 and 390 plus a 320–1440 width sweep (§9).
 
 ## D. Shared building blocks (`NeoERP-App/docs/design/specs/building-blocks.md`)
 
@@ -68,5 +68,5 @@ Index of everything settled for design, as of 2026-10-20. Written by Cowork · E
 
 1. **Dates:** screen-standard §8 now points to building-blocks "Typing dates" (company format of the company being edited, plus ISO and digit-only forms). Resolved.
 2. **Sideways scroll:** no sideways scroll of the page or of a record table (cards below the tight minimum); **only matrix grids**, where columns are the data, may scroll inside their own card with `NeoTableScroll`, row labels pinned. screen-standard §4 and building-blocks "Tables" now say the same. Resolved.
-3. **Required widths:** rig review at **1440 · 1280 · 1024 · 768 · 390**; screenshot tests at 1440 and 390 plus the 320–1440 sweep. In screen-standard §9 and playbook §2. Resolved.
+3. **Required widths:** rig review at **375×667 · 667×375 · 874×402 · 744 · 1032 · 1376 · 1440**; screenshot tests at 1440 and 390 plus the 320–1440 sweep. In screen-standard §9 and the [QA guide](../qa/qa-guide.md) §4 (UX-1, 2026-11-21, replaced 1440 · 1280 · 1024 · 768 · 390). Resolved.
 4. Also fixed: §A.2 named the removed `NeoERP-Design` folder; it now names the design system in `NeoERP-App/docs/design/design-system/` and `docs/domain/RULES.md`.

@@ -1,5 +1,7 @@
 # QA round 1 retest (report only)
 
+**Standing rules (2026-11-21):** the [QA guide](../../qa/qa-guide.md) (roles, limits, checklists, sizes §4, report format, round flow). This brief is the retest record.
+
 Same rules, devices, sizes and report format as the first round: read `NeoERP/docs/agents/qa-round1/brief.md` first and follow it,
 except where this file says otherwise. The local stack was **reset and reseeded** (19 Nov): earlier test data is gone; Kystgruppe now has 3 LOCKED months;
 Stockholm Handel has org number 556334-3689. The app is the new build with the QA1 fixes (phase/4 f42afb54).

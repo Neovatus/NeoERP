@@ -3,6 +3,9 @@
 Jabran, 2026-11-19: a proper tester runs every flow end to end as the demo people, **including Post, Approve, Pay and
 Refund**, and checks that the data is right afterwards. You report; you do not change code, do not commit, do not push.
 
+**Standing rules (2026-11-21):** roles, limits, checklists, sizes, report format, severity and round flow are now in the [QA guide](../../qa/qa-guide.md).
+This brief is the round 1 record; a new round's brief follows the guide's brief template (§7) and reads the guide first.
+
 ## Limits (hard)
 - **Local stack and seeded demo people only.** The backend is on localhost. Never a hosted stack, never a real account.
 - **Sign-in only through the dev session files** that Jabran makes (`/private/tmp/neoerp-<user>.session.json`). The lead
@@ -38,6 +41,9 @@ Use the `mcp__Claude_Code_iOS_Simulator__control` tool with `device` set on each
 screen; turn the device to landscape on the iPad for each test's main screen.
 
 ## Sizes: a layout pass on every main screen of each test
+
+**Superseded 2026-11-21:** the size list is the [QA guide](../../qa/qa-guide.md) §4 (UX-1's list). The ladder below is kept as the round 1 record.
+
 Run the flows on the devices above. Then, for each test's main screens, run a **layout pass** across this ladder. It
 covers every design breakpoint (`NeoBreakpointTokens`: phone 480, mobile 720, tablet 1024, desktop 1280, wide 1440):
 One device per design band (devices in the same band show the same design, so don't repeat them):

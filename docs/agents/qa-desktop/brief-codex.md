@@ -4,6 +4,9 @@ The flows, the data checks and the tablet and phone layouts are tested by a sepa
 simulators. This pass checks only what exists on the Mac: mouse and keyboard, window sizes, real files, and the
 browser sign-in. Expect about 30 to 45 minutes. You **report**; you do not change code, commit or push.
 
+**Read first:** the [QA guide](../../qa/qa-guide.md): limits (§2), layout checks (§3), sizes (§4, desktop row), report format and severity (§6).
+Where this brief says more (no money actions, window commands, screenshots), this brief wins.
+
 ## Before you start
 - Jabran isn't using the app while you run. Close any other NeoERP window first.
 - The backend runs from `NeoERP/NeoERP-BackEnd`. Don't start, stop or restart it, and don't reset data.
@@ -21,7 +24,8 @@ Then set the size, replacing `<name>`:
 `osascript -e 'tell application "System Events" to tell process "<name>" to set {position, size} of window 1 to {{0, 25}, {1024, 700}}'`
 This needs Accessibility permission for your terminal. If you get a permission error, stop and tell Jabran (System
 Settings, Privacy & Security, Accessibility).
-Sizes, in this order: **1024×700** (short), **1280×800**, **1440×900**, **1920×1080**, and full screen.
+Sizes, in this order (the desktop row of the QA guide §4): **1024×700** (short) and **1440×900**. 1280×800, 1920×1080
+and full screen are covered by the automated size tests (QA guide §4, "Automated sizes").
 
 ## Checks
 Screens: Overview, Journals (list and editor), Invoices, Bills, Payments, Reports (trial balance and one drill-down),

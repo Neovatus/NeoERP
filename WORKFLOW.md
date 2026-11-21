@@ -109,7 +109,7 @@ model has obeyed them. Independent review and the closeout check supply oversigh
 
 How sessions split and run work. It applies on top of the stages above.
 
-- **Who does what.** Lead sessions (one per Mac; see "Two Macs, two leads") plan, delegates, integrates, tests once per merge batch and pushes. Builders (Claude or Codex) build one repo each and commit. Reviewers are fresh Opus sub-agents; the cloud Cowork reviewer is retired (2026-11-20).
+- **Who does what.** Lead sessions (one per Mac; see "Two Macs, two leads") plan, delegates, integrates, tests once per merge batch and pushes. Every lead reads the [QA guide](docs/qa/qa-guide.md) before planning a QA round or a test batch. Builders (Claude or Codex) build one repo each and commit. Reviewers are fresh Opus sub-agents; the cloud Cowork reviewer is retired (2026-11-20).
 - **Review.** Every build gets a fresh independent Opus review before it lands. This review is the Independent Reviewer stage, not self-review.
   - **Money and security lanes** means any change touching money posting, numbering, security/auth, locking or concurrency, migrations, or company isolation (the paths in `risk-paths.txt`). They get the re-runs and the second, different reviewer:
   - On those lanes the reviewer re-runs the builder's targeted tests from clean and writes a failing test or reproduction per finding. A second, different reviewer (Codex or `/security-review`) checks before merge.
@@ -201,7 +201,7 @@ enough to be worth their cost.
     - App code runs the affected feature's tests plus `jvmTest` of the shared core when `core/` changed.
     - Docs only: no tests.
   - **Builders** run their targeted tests through the Gradle lock (`lockf`, one Gradle run at a time machine-wide); wording lanes compile only. One Gradle lane at a time per machine; builders spawn no helper agents. Run `./gradlew --stop` after Android or iOS compiles.
-  - **Before push, the lead runs one full run per merge batch (at most 3 related slices):** the full suites of every touched service, the library, `:architecture-tests` and the app's `jvmTest`. Load and concurrency tests run then, or when the engine or locking code changed. Read "BUILD SUCCESSFUL" and "0 failed" before pushing, in a separate step from the test run.
+  - **Before push, the lead runs one full run per merge batch (at most 3 related slices):** `scripts/verify.sh` in each repo the batch touches (BackEnd: every service, `shared/*`, `:architecture-tests` and the money invariants; App: `jvmTest` and the iOS compile). The pre-push hook refuses a push to `phase/<N>` or `main` without its marker (`NeoERP-BackEnd/docs/operations/verify.md`, `NeoERP-App/docs/operations/verify.md`). Load and concurrency tests run then, or when the engine or locking code changed. Read `verify: OK` and "0 failed" before pushing, in a separate step from the test run. The test kinds per level: [QA guide](docs/qa/qa-guide.md) §5.
   - **Reports state the scope that was run**, e.g. "accounts: 3 classes, 41 tests" or "full suite 342/0". A failure in an unrelated test gets a backlog row (`docs/backlog.md`) with an owner the same turn, or it blocks.
 - **Test output costs tokens; keep it out of the context.**
   - Run Gradle quietly (`-q --console=plain`). Send the full log to a file under the build directory, never into the conversation.
@@ -311,13 +311,11 @@ Workspace/design versioning remains undecided. Moving or retiring a document nee
 Jabran's OK for that change. No repository initialization is authorized.
 
 ## QA rounds and limits (Jabran, 2026-11-19)
-- **Simulator size checks, 6 positions on 4 simulators:** iPhone SE portrait (375×667) and landscape (667×375); iPhone 18 Pro landscape (874×402); iPad mini portrait (744);
-  iPad Pro 13 portrait (1032) and landscape (1376). The app's layout switches at 600, 720, 1024 and 1280. The 320 phone and desktop windows: automated size tests and Codex on macOS.
-  Flow tests use one simulator per person; shut down simulators not in use.
+- **The [QA guide](docs/qa/qa-guide.md) holds the standing QA rules:** roles, limits, what to check, the one size list (§4), automated tests per level, report format and severity, round flow, brief template and test-step coverage. Every QA brief and every lead reads it first. The bullets below stay the source for the rules they state.
 - **Testers** run scripted steps on Sonnet, in chunks of about 4 tests or 6 groups; Opus builds, reviews and groups findings. Results stay in the round's report files (no review page unless asked).
 - **Fix rule:** collect all findings of a round, fix once at the end; fix at once only blockers that stop other tests.
 - **Every builder brief** includes the review checklist: desktop and keyboard behaviour unchanged unless the brief says otherwise; contract-mapping tests for any API change;
-  shared component changes list their callers; JVM and iOS compile; read "BUILD SUCCESSFUL" and "0 failed" before any push.
+  shared component changes list their callers; JVM and iOS compile; read "BUILD SUCCESSFUL" and "0 failed" before any push. Its read-first list names the [QA guide](docs/qa/qa-guide.md) §5 (the tests the slice must add).
 - **Limits:** start big parallel work early in a 5-hour window; thresholds are in "Context limit".
 - **After each round:** fix the test scripts from the round's SCRIPT list (Sonnet job), and end the round's `summary.md` with a **Lessons** section (3–5 lines: way of working changed, automated test added, spec changed).
 - **No GitHub CI in dev (Jabran 2026-11-21):** GitHub Actions are switched off on all three repos (`Neovatus/NeoERP-BackEnd`, `Neovatus/NeoERP-FrontEnd`, `Neovatus/NeoERP`) so nothing uses Actions minutes; there is no CI pipeline yet (go-live row P-8). The local `scripts/verify.sh` + pre-push hook are the gate. Never switch Actions on or add a workflow without Jabran's OK; turning Actions on would also start the existing BackEnd `services-test.yml` on every push to `main` and `phase/**`.

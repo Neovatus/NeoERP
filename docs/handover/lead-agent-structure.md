@@ -2,6 +2,8 @@
 
 Owner: **Code · ERP lead (trial)**. **Decided 2026-10-10 by the ERP lead** (Jabran delegated: the ERP lead decides what the leads don't). Playbook §2a and protocol §1/§8 point here; every inbox got an FYI.
 
+**Read first, every lead:** [WORKFLOW.md](../../WORKFLOW.md), [PROJECT-STATE.md](../../PROJECT-STATE.md) and the [QA guide](../qa/qa-guide.md) (testing, sizes, reports, which tests run when).
+
 ## 1. The shape (same for every lead)
 
 ```
@@ -62,7 +64,7 @@ The module lead tells the ERP lead in its report which shared or security files 
 - **Mains are their own Claude Code sessions** (persistent, named as above, model per playbook §3: Opus for money, payroll, security and locking; Sonnet for pattern work). A sub-agent inside a lead's session ends with its task, so it can't be a standing main.
 - **Sub-agents run inside the main's session**, in parallel, each in its own git worktree. Before spawning worktree agents, the main `cd`s into its target repo.
 - **Lead ↔ main messages** go through inbox files, as between leads: `docs/inbox/<lead>-<main>.md` (e.g. `accounts-lead-backend.md`), append-only, with done files. Briefs carry `→ <main name>`, model and checkpoint id; reports end with commits, test counts and open questions. Jabran no longer carries prompts and reports; he says "check your inbox" to a session, or Dispatch does.
-- **Tests:** only what's new or affected (§3a "Testing"); the full suite only when shared code changed.
+- **Tests:** see §3a "Testing".
 
 ## 3a. Models, effort and flow (ERP lead, 2026-10-10)
 
@@ -112,12 +114,7 @@ Effort: medium by default; high only when stuck, and only after a clear check fa
 
 **Session rules:** each worker sub-agent is fresh per task. Mains are persistent sessions; when one gets long, it writes a handoff in its `plan.md` and asks Jabran to compact it. Reuse existing code before writing new; never drop behaviour silently. Comments explain "why", with no checkpoint or ticket ids. Tests: the contract's named tests count as agreed. Two-company tenant tests and security tests are always required; otherwise update existing tests before adding new ones. Questions go in the report, never through interactive prompts.
 
-**Testing (Jabran, 2026-10-10): only what's new or affected.**
-- Run the tests for **what you changed and what depends on it**: the changed module's affected test classes, plus modules that call the changed code. New code gets its new tests; existing tests are updated, not duplicated. Quiet logs. No `--rerun-tasks`.
-- **GitHub Actions are off (Jabran, 2026-10-16: they used all the Actions minutes).** So before every push, the builder runs **locally the full test suite of every service, shared library and app module changed in the pushed range**, plus `architecture-tests` (backend) when a port, repository or package changed, and reports the counts in the push report. Services the push doesn't touch aren't re-run. The CI workflow file stays in the repo, ready for when Actions come back.
-- **Shared code changed** (`shared/*`, `designsystem/**`, `core/**`, shell or navigation, security or auth, or a data-changing migration): also run the full suites of every service or module that depends on it, once per push.
-- The app has no CI yet, so App mains run the full `jvmTest` once per checkpoint **only** when shared app code changed; otherwise the affected feature's tests.
-- While Hot Reload runs, app tests run in an isolated copy.
+**Testing (updated 2026-11-21): one rule, in [WORKFLOW.md](../../WORKFLOW.md) "Test scope" and the [QA guide](../qa/qa-guide.md) §5.** Builders and mains run targeted tests per step (what changed and what depends on it, through the Gradle lock, quiet logs). The lead runs `scripts/verify.sh` once per merge batch in each touched repo before the push; the pre-push hook needs its marker. This replaces the 2026-10-10 and 2026-10-16 text here (builders ran the full suites before every push). GitHub Actions stay off (WORKFLOW "No GitHub CI in dev").
 
 ## 3c. Codex as a main or a reviewer (Jabran, 2026-10-13)
 
