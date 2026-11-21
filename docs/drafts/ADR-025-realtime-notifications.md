@@ -1,7 +1,7 @@
 # ADR-025: Real-time updates (SSE), action ids, push notifications and one notification service
 
 ## Status
-**Accepted by Jabran** (approved 2026-11-16; the three additions below accepted 2026-11-21, Accounts roadmap decision 3). Moves to `NeoERP-BackEnd/docs/adr/` with the next BackEnd docs change. Was: Draft (ERP lead, 2026-11-14, Opus planner; lead-checked). Waiting on Jabran's answers (Q1–Q17) and review by the ERP, Accounts and HR/Payroll leads. Moves to `NeoERP-BackEnd/docs/adr/` when accepted.
+**Accepted by Jabran** (approved 2026-11-16; the three additions below accepted 2026-11-21, Accounts roadmap decision 3). Kept in the workspace as a system-level decision (Jabran 2026-11-21). Was: Draft (ERP lead, 2026-11-14, Opus planner; lead-checked). Waiting on Jabran's answers (Q1–Q17) and review by the ERP, Accounts and HR/Payroll leads. Moves to `NeoERP-BackEnd/docs/adr/` when accepted.
 Builds on ADR-016, ADR-019, ADR-020, ADR-023, ADR-008; changes none. Amends ADR-019 Q7 only to say where notifications live.
 
 ## Direction (Jabran)

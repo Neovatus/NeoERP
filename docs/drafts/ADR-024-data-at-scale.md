@@ -1,7 +1,7 @@
 # ADR-024: Data at scale — large databases, search and analytics
 
 ## Status
-Draft (ERP lead, 2026-11-14, Opus planner; lead-checked F1, the session advisory locks and the Postgres 15/16 mismatch). Not accepted. Answers ADR-023 Q3 (store engine) and Q4 (sizes) from the database side. Waiting on Jabran's Q1–Q12. Moves to `NeoERP-BackEnd/docs/adr/` when accepted.
+**Accepted by Jabran** (approved 2026-11-16; fully accepted 2026-11-21, Accounts roadmap decision 3). Kept in the workspace as a system-level decision (Jabran 2026-11-21). Size figures to be corrected from `docs/agents/arch1/capacity-model.md` (J3/J4). Was: Draft (ERP lead, 2026-11-14, Opus planner; lead-checked F1, the session advisory locks and the Postgres 15/16 mismatch). Not accepted. Answers ADR-023 Q3 (store engine) and Q4 (sizes) from the database side. Waiting on Jabran's Q1–Q12. Moves to `NeoERP-BackEnd/docs/adr/` when accepted.
 **Unverified (check before acceptance):** cloud-warehouse regions (no Pakistan region for BigQuery/Snowflake) and managed-Postgres extension availability were taken from general knowledge, not provider docs.
 
 ## Summary (plain English)
