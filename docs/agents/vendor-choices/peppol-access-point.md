@@ -138,3 +138,6 @@ Legend: **Yes** = stated on a first-party page read 2026-11-21; **Earlier** = fr
 - **Pagero:** which SMP registers receivers; NemHandel and Finnish operator routes for partners; prices; hosting re-check.
 - **ecosio:** whether Zürich can be excluded; IS onboarding; prices.
 - **Official sources:** exact MLS mandatory dates (sources give 1 March or 31 March 2027; MLR retirement 1 May 2027 from one secondary source); the ISO 27001 deadline (1 July vs 1 October 2027); the Peppol Network Policy 1.0.0 content (PDF could not be read here); the NemHandel FAQ certificate position (page undated); Fjársýslan's specific SP requirements for Iceland; whether IS storage rules apply to AP transit copies.
+
+## Later option: NeoERP as its own Peppol access point (Jabran 2026-11-21)
+Start with a certified access-point vendor so Norway's e-invoicing is not delayed. When customer volume justifies it, NeoERP may become its own certified Peppol access point and SMP (OpenPeppol membership, certification through the national authority, ISO 27001, round-the-clock operations, conformance tests). NemHandel (DK) and the Finnish operator network would still need their own connections. The `EInvoiceTransport` port (docout C-15) keeps the switch possible without changing the modules. Official direct routes stay direct: PRAL in Pakistan and every country's tax filing.
