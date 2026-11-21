@@ -340,26 +340,54 @@ supports decision 6 (valuation can be off) and §3.9's reconciliation column. Pa
 run local ERPs, Odoo or SAP Business One with HS (PCT) codes and units on every item because FBR invoices need them;
 Tier-1 retailers must link their POS to FBR; textile and pharma firms track lots. That supports I17 and decision 14.
 
-### 3.9 Tax, reconciliation, report and automation per feature
+### 3.9 Payments, tax, reconciliation, report and automation per feature and country
 
-Only features where something applies are listed. Tax facts are GK unless a source is named.
+Answers the common brief's five questions (`docs/agents/design-brief-common.md`, "Not only an ERP"). **Payments:**
+stock moves move no money, so the column says "none" except where money really moves (landed costs, import VAT and
+duty, deposits, inter-company settlement). Country cells marked GK need ERP-Q1; sources are named where the review
+checked them. Every catalogue feature is in exactly one row; the last row lists those where all five answers are
+"none".
 
-| # | Tax / statutory | Reconciliation | Report | Automation |
-|---|---|---|---|---|
-| I1, I6 | Tax class on the item or category picks the VAT / sales-tax code on documents per country (NO, SE, DK, FI, IS VAT; PK sales tax); rates stay in the packs (`accounts-a0.md:160`) | — | Items without a tax class | New item inherits the category's tax class and accounts |
-| I10, X2 | E-invoice line ids: seller item id, standard id (GTIN), classification (EN 16931 terms; content comes from the frozen snapshot, `accounts-docout.md:205`) | — | Items without GTIN where a customer needs it | — |
-| I17, X1 | PK: HS (PCT) code and FBR unit on every invoice line, Third Schedule retail price, sale type (`accounts-b.md:1005`, `:1438`); Annex-C sales register lists the HS code (`accounts-h-design.md:215-222`). SE, DK, FI: CN8, net mass and origin for Intrastat | — | PK items missing HS code or unit (refused at approval otherwise, `accounts-b.md:2541`) | Fill line fields from the item; warn at item save, not only at invoice approval |
-| S1, C10 | Year-end stock value in the annual accounts and tax return in every country; NO SAF-T and SIE SE carry stock only as GL lines on stock accounts (GK) | Stock ledger value = GL balance of INVENTORY-role accounts, per company and location, daily | Valuation report with GL beside it (R3) | Daily tie-out job; alert on any difference (money guardrail, roadmap:173) |
-| S2, C2 | VAT on the bill and invoice, not on the move; own-use withdrawals can carry output VAT (GK, SE / NO / DK / FI) | GRNI balance = received-not-billed receipt lines; bills clear by `receivedValue` (`accounts-c.md:218`) | GRNI ageing by supplier and receipt | Auto-receipt from a supplier e-invoice or ASN that matches an order (with Purchase; Peppol receive, roadmap:111); COGS posted on delivery without a person |
-| S3b | None inside one company | In-transit stock = dispatched not received | Transfers in transit and their age | Receipt reminder after N days |
-| S3c-1, S3c-2 | Two sales: VAT (cross-border rules), PK sales tax; transfer pricing documentation (GK) | Inter-company receivable = payable; unrealised profit in group stock | Inter-company stock and margin | Phase 7 |
-| S4 | Year-end count list is an accounting record kept for the retention period (GK; SE, NO bookkeeping rules); count needed for the annual stock value | Counted value vs book value, per count, before posting | Count variance report (R5) | Post variances under a company value limit automatically; above it, to approval; recount over tolerance |
-| S5, C7 | Write-downs reduce taxable profit under each country's lowest-value rules (GK) | Provision account balance vs provision report | Ageing and slow-moving (R4) | Suggested write-down from ageing rules, a person approves |
-| S7 | Pharma and food traceability (GK) | Lot quantities = item quantity | Expiry list | Expiry alert; FEFO issue |
-| S9, C6 | Valuation method per country (§4.9) | Revaluation journal = change in valuation report | Valuation per method | — |
-| S10, P1 | — | — | Below-reorder list (R6) | Nightly suggestions; low-stock alert to the buyer; purchase orders drafted with Purchase |
-| X3 | Intrastat arrivals and dispatches above thresholds (SE, DK, FI; not NO, IS) (GK) | Intrastat values vs EU purchases and sales on the VAT return | Intrastat draft | Draft from posted documents |
-| X4 | Retention per country (pack `retention-rules.csv`) | — | — | Purge only through the retention controls (roadmap:160) |
+| # | Country | Payments | Tax / statutory | Reconciliation | Report | Automation |
+|---|---|---|---|---|---|---|
+| I1, I6 | All | None | Tax class on item or category picks the VAT or sales-tax code per country; rates stay in the packs (`accounts-a0.md:160`) | — | Items without a tax class | New item inherits category tax class and accounts |
+| I10, X2 | NO, SE, DK, FI, IS | None | E-invoice line ids: seller id, GTIN, classification (EN 16931; from the frozen snapshot, `accounts-docout.md:205`); NO B2B from 2027-01-01 (roadmap:110) | — | Items without GTIN where a customer needs it | Fill line ids from the item |
+| I17, X1 | PK | None | HS (PCT) code, FBR unit, quantity, sale type, SRO schedule and item serial (reduced and exempt goods), fixed notified value or retail price per line (`accounts-b.md:1005`, `:1438`; FBR DI fields per review 1, https://download1.fbr.gov.pk/Docs/20257301172130815TechnicalDocumentationforDIAPIV1.12.pdf); Annex-C lists the HS code (`accounts-h-design.md:215-222`) | Annex-C lines vs posted invoices (Accounts E) | PK items missing HS code, unit or SRO data (refused at approval otherwise, `accounts-b.md:2541`) | Fill line fields from the item; warn at item save |
+| I17, X3 | SE, DK, FI | None | Intrastat: CN8, net mass, origin, supplementary unit, above thresholds (GK) | Intrastat values vs EU purchases and sales on the VAT return | Intrastat draft (later) | Draft from posted documents |
+| I17, X3 | NO, IS | None | No Intrastat (EEA, not EU); customs declarations carry the commodity code (GK) | — | — | — |
+| I5 | NO, SE, DK, FI | Deposit amounts settled with the national deposit scheme (GK) | Deposit is outside VAT or taxed per country rule (GK) | Deposits charged vs deposits paid to the scheme | Deposit report | Add the deposit line from the item |
+| S1, C10 | All | None | Year-end stock value in the annual accounts and the tax return | Stock ledger value = GL balance of INVENTORY-role accounts, per company and location, daily | Valuation with GL beside it (R3) | Daily tie-out job; alert on any difference (roadmap:173) |
+| S1, C10 | NO | None | SAF-T Financial carries GL lines only, no stock section (https://www.skatteetaten.no/en/business-and-organisation/start-and-run/best-practices-accounting-and-cash-register-systems/saf-t-financial/questions-and-answers---saf-t-financial/); stock for tax at FIFO cost without write-downs (skatteloven § 14-5 (2) b, c, https://lovdata.no/lov/1999-03-26-14/§14-5) | Books vs tax stock difference | R10 | Difference computed at year end |
+| S1, C10 | SE | None | SIE 4 carries stock as GL lines only (GK); 97 % rule must match the books (https://skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag/varulager.4.1df9c71e181083ce6f6371.html) | Provision (97 % or NRV) vs valuation report | R10 | Proposed 97 % journal at year end, a person approves |
+| S1, C10 | DK | None | SAF-T from 2027-01-01 with GL lines (roadmap:141); stock accounts mapped to the standard chart (`accounts-packs-2026-2.md:307`, `:336`) | Day-price write-down vs books (https://tax.dk/jv/cc/C_C_2_3_1_6_1.htm) | R10 | — |
+| S1, C10 | FI, IS | None | Stock in the annual accounts; tax rule not verified (GK) | As All | R3 | As All |
+| S1, C10 | PK | None | IAS 2 stock in the annual accounts; stock records kept for sales tax (Sales Tax Act s.22, GK) | As All | R3 | As All |
+| S2, C2 | All | None (payment is on the bill or invoice) | VAT or sales tax on the bill and invoice, not on the move | GRNI per receipt line never debit; GRNI = received not billed (`accounts-c.md:218`; decision 8) | GRNI ageing | Receipt first in the bill approval (decision 8); auto-receipt from a matching supplier e-invoice or ASN with Purchase (roadmap:111) |
+| S2 (own use) | NO, SE, DK, FI | None | Own-use withdrawal can carry output VAT (GK) | — | Own-use issues by reason | Reason carries a tax rule (later) |
+| S3a, S3b | All | None | None inside one company | In transit = dispatched not received | Transfers in transit and age | Receipt reminder after N days |
+| S3c-1 | All | Inter-company settlement between the two companies (Accounts D, later netting) | Two sales: VAT or PK sales tax on the invoice; transfer-pricing documentation (GK) | Inter-company receivable in A = payable in B, per transfer id | Inter-company stock and margin | Bill in B drafted from A's invoice |
+| S3c-2 | All | None | Consolidation (Phase 7) | Unrealised profit in group stock | Consolidation report | Phase 7 |
+| S4 | NO | None | Yearly count, list per item (kind, quantity, value), kept 5 years (bokføringsforskriften § 6-1, secondary source https://revisorforeningen.no/revisornytt/varetelling1120) | Counted vs book value before posting | R5 | Post under a value limit, approval above; recount over tolerance |
+| S4 | SE | None | Year-end count and stock list kept as accounting records (Skatteverket page above) | As NO | R5 | As NO |
+| S4 | DK, FI, IS, PK | None | Count supports the year-end value; record rules not verified (GK) | As NO | R5 | As NO |
+| S5, C7 | NO | None | Write-downs ignored for tax (§ 14-5 (2) c) | Provision vs R10 difference | R4, R10 | Suggested write-down from ageing, a person approves |
+| S5, C7 | SE | None | Lowest value and 97 % rule, booked (IL 17 kap. 4 §) | Provision vs valuation | R4, R10 | As NO |
+| S5, C7 | DK | None | Write-down to day price (Juridisk vejledning C.C.2.3.1.6.1) | Provision vs valuation | R4 | As NO |
+| S5, C7 | FI, IS, PK | None | Lowest value in the books; tax not verified (GK) | Provision vs valuation | R4 | As NO |
+| S7 | PK, all | None | Pharma lot and expiry duties (DRAP, GK); food traceability (GK) | Lot quantities = item quantity | Expiry list | Expiry alert; FEFO issue |
+| S8 | PK | None | FBR unit depends on the HS code (review 1 finding 9) | — | Items whose unit does not fit their HS code | Propose the FBR unit from the HS code (FBR reference cache `HS_CODES`, `UOM`, `accounts-docout.md:300`) |
+| S8 | All others | None | Rec 20 unit code on e-invoice lines (`accounts-b.md:1437`) | — | — | Default unit from the category |
+| S9, C3, C6 | All | None | Method per country (§4.9) | Revaluation journal = change in valuation report | Valuation per method | — |
+| S12 | All | None | — | Negative stock corrected at the next receipt's cost; difference to INVENTORY_ADJUSTMENT | Negative items, daily | Alert on any negative balance |
+| S13 | All | None | Opening stock value in the opening balance | Imported stock = GL opening balance per account, per location where tagged (decision 10) | Opening tie-out | Refuse the import until it ties |
+| C8 | NO, SE | Freight, duty and import VAT paid to forwarders or customs (with Purchase) | Import VAT reported in the VAT return (GK) | Landed costs on bills vs costs added to stock | Landed cost per receipt | Spread charges by value or weight |
+| C8 | DK, FI, IS | As NO | Import VAT at customs or in the return, per country (GK) | As NO | As NO | As NO |
+| C8 | PK | Duty and sales tax paid at import (GK) | Imported Third Schedule goods valued at the declared retail price (FBR Circular 01 of 2019, https://download1.fbr.gov.pk/Docs/201972615718450CIRCULARNO.01OF2019.pdf) | As NO | As NO | As NO |
+| I17 (retail price) | PK | None | Retail price printed on each unit or pack, tax 18 % of retail price for Third Schedule goods (s.3(2)(a); STGO 08 of 2026, https://download1.fbr.gov.pk/Docs/202673875133134STGO08OF2026.pdf) | Invoice tax vs retail price × quantity | Third Schedule items without a retail price | Retail price per unit and variant copied to the line |
+| S10, P1, P3 | All | None (orders pay later, Purchase) | — | — | Below-reorder list (R6) | Nightly suggestions; low-stock alert; draft purchase orders with Purchase |
+| X4 | All | None | Retention per country (`packs/2026.2/retention-rules.csv`) | — | — | Purge only through retention controls (roadmap:160) |
+| I26 | All | None | Item changes are audit events (bookkeeping trail) | — | Item change history | — |
+| All other features: I2-I4, I7-I9, I11-I16, I18-I25, I27, I28, L1-L9, S6, S11, S14-S16, P2, P4-P9, P11, P12, C1, C4, C5, C9, R1-R10, X5-X7 | All | None (P7 drop ship pays through Sales and Purchase) | None beyond the rows above | Covered by S1 / C10 where they post | Their own report rows in §3.6 | None in v1 |
 
 ## 4. The eleven stock features (Jabran's list)
 
