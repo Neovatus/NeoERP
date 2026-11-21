@@ -10,4 +10,4 @@ Ready-to-use prompts. In Claude Code, open the `NeoERP` workspace folder and say
 | [resume-overseer.md](resume-overseer.md) | The old-Mac lead that checks the new Mac's lanes and builds HR/Payroll from Monday: reopen the same session, or start fresh as overseer. |
 | [resume-lead.md](resume-lead.md) | Any session (new Mac, new session, after a compact) that should continue the project as the lead from where the last one stopped, after checking it works the way we agreed. |
 
-Only one Mac runs agents and pushes at a time. Before switching, the old session writes its handoff and pushes (`resume-lead.md`, step 0).
+Two Macs, two leads (WORKFLOW.md "Two Macs, two leads"): the new Mac leads (`resume-lead.md`), the old Mac oversees and builds HR/Payroll (`resume-overseer.md`). Claim work in `.review-channel/claims.md` first; pull before work, push right after.
