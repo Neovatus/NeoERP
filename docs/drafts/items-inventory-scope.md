@@ -282,7 +282,7 @@ the reason says when to revisit.
 | P7 | Drop shipment and special orders | With Sales and Purchase | Goods never touch our stock |
 | P8 | Pick, pack and ship | With Sales | Delivery is Sales' document (`ADR-018:29`) |
 | P9 | Multi-step receiving (receive, inspect, put away) | With Purchase and quality | Goods receipt is a Purchasing feature (`V41:128`) |
-| P10 | Camera barcode scanning on phones | Later | Hardware scanners work in v1 as typed input; camera needs platform work |
+| P10 | Camera barcode scanning on phones | v1 for counts (INV-6, decision 21); later for receipts, transfers and picking | Jabran asked for phone scanning on counts; hardware scanners also work as typed input |
 | P11 | Barcode label printing | Later, with document output | Uses the PDF pipeline of 5.1 |
 | P12 | Wave and batch picking | Not planned | High-volume warehouse only; revisit with bins |
 
@@ -414,8 +414,12 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
 ### 4.4 Stock counts
 
 - **In v1:** full count (year end), cycle counts (a subset by location, category or ABC class later), count sheets on
-  a phone with hardware-scanner input, count approval, variance posting, and the period-close link. Feature
-  `STOCK_COUNT` per branch (`V41:120`).
+  a phone with **camera barcode scanning** (and hardware scanners, which type like a keyboard), count approval,
+  variance posting, and the period-close link. Feature `STOCK_COUNT` per branch (`V41:120`;
+  `EntitlementCatalog.kt:178`).
+- **Camera scanning cost (decision 21):** platform camera work on Android and iOS (camera permission, a barcode
+  decoder, a scan view that keeps the focused count line visible per ux §25), none on desktop. GK estimate: an M-size
+  piece inside INV-6. Scanning elsewhere (receipts, transfers, labels) reuses it later (P10).
 - **Flow:** create a count (scope, cut-off time) → the system freezes the expected quantity per line at cut-off →
   counters enter quantities (blind by default: expected quantity hidden) → recount lines over a tolerance → review
   the differences (quantity and value) → approve → post. Moves after cut-off are kept apart, so counting does not
@@ -550,7 +554,7 @@ Features that touch Inventory but belong to another module. Inventory leaves the
 | Fixed-asset items | Accounts AC-FA (roadmap:134) | Item type I4 hands the receipt to the register | AC-FA | With fixed assets |
 | Budgets by product (quantity × price) | Accounts budgets (`ADR-022:77`) | Quantity actuals by item (Q14, `ADR-022:267`) | Budgets stage 1 (roadmap:101) | Later |
 | Budget check on stock purchases | Purchase calls ADR-022 stage 2 (`ADR-022:193`) | Nothing: "stock purchases go through Purchasing's check point" | ADR-022 stage 2 (roadmap:154) | With Purchase |
-| Warehouse mobile scanning (camera), label printing | Inventory (later) | — | Document output 5.1 | Later |
+| Warehouse mobile scanning (camera) beyond counts, label printing | Inventory | Scan view from INV-6 | Document output 5.1 for labels | Later |
 | Point of sale and offline stores | POS (`SALES.POINT_OF_SALE`, `V41:123`; ADR-007, ADR-009 Proposed) | Append-only moves, so a store server can own on-hand later (`ADR-009:39`) | ADR-007 accepted | With POS |
 | E-commerce stock and item sync | Integration API (outside systems) | Item and on-hand read API, stock move write API | Machine-client model (`ADR-021:178-186`) | Later |
 | EDI (orders, despatch advice, price catalogues) | Sales and Purchase | Item ids, GTINs | Peppol access point choice (roadmap:262) | Later |
@@ -578,8 +582,10 @@ retention (X4). Return files and Intrastat stay in Accounts E (roadmap:140).
 
 ## 7. Large multi-company needs
 
-- **Shared item master or per-company items:** §2.4 and decision 3. v1 per company, model ready for a group catalogue.
-- **Inter-company stock:** §4.3 and decision 13. Phase 7, because both books and VAT are involved.
+- **Shared item master or per-company items:** §2.4 and decision 3. One catalogue per company by default; the group
+  catalogue in INV-1c behind feature `GROUP_CATALOGUE`, off by default, after its scope ADR in INV-0.
+- **Inter-company stock:** §4.3 and decision 13. Linked transfers (S3c-1) in INV-4b, each company posting its own
+  books; reconciliation and eliminations (S3c-2) in Phase 7.
 - **Many warehouses and locations:** locations are Org's, counted against the agreement's `WAREHOUSES` limit, either
   as a company pool or per branch (`BE/docs/modules/org/stock-locations.md:41-44`). Inventory adds per-location
   settings (L2) and, later, bins (L4). Org cannot know whether a location holds stock, so **deactivating a location
@@ -735,14 +741,15 @@ receives foreign-currency purchases into stock.
 | INV-4 | Transfers inside a company (location, branch, in transit); reservations model | money |
 | INV-4b | Linked inter-company transfers (feature `INTERCOMPANY_TRANSFERS`, off by default), transfer price | **money**, statutory |
 | INV-5 | Adjustments, write-downs, revaluation, approval | **money** |
-| INV-6 | Stock counts (full, cycle, phone sheets, approval, variance posting), close checklist rows, year-end items | **money**, statutory |
+| INV-6 | Stock counts (full, cycle, phone sheets with camera scanning, approval, variance posting), close checklist rows, year-end items | **money**, statutory |
 | INV-7 | Reorder points and suggestions; low-stock alerts (notification service, roadmap:96) | none |
 | INV-8 | Reports (stock list, movements, valuation vs GL, ageing, slow-moving, variances) | none |
 | INV-9 | Batch, lot, serial, expiry, FEFO | none |
 | Later | Bins and put-away; camera scanning outside counts and labels; catch weight; transfer suggestions; ABC; consignment | — |
 | With other modules | Purchase v1 (orders, goods receipt, landed costs), Sales v1 (orders, deliveries, kits, pricing), Manufacturing, POS, Phase 7 inter-company | — |
 
-Order: INV-0 → INV-1 → INV-2 → INV-3 → INV-5 → INV-6 → INV-4 → INV-8 → INV-7 → INV-1b → INV-9, then Purchase v1 and
+Order: INV-0 → INV-1 → INV-1b → INV-1c → INV-2 → INV-3 → INV-5 → INV-6 → INV-4 → INV-4b → INV-8 → INV-7 → INV-9,
+then Purchase v1 and
 Sales v1 replace the document-driven moves with their own documents. Money slices get the money guardrails: a test
 per finding, invariant checks before push, a second different reviewer. Each slice designs its screens at the QA sizes
 (§4.4) before build, as the module loop asks (`module-sequence.md:32-34`).
@@ -854,9 +861,12 @@ per finding, invariant checks before push, a second different reviewer. Each sli
     Sales and Purchase. Why: PK invoices need them now (`accounts-h-design.md:221-222`); fields are cheap, reports
     need documents.
 20. **Build order (critical: approved scope).** Brief order is Inventory, then Purchase, then Sales scope drafts.
-    **Recommend:** build Inventory INV-0 to INV-8 first with the document-driven path (decision 8), then Purchase v1
-    and Sales v1. Why: Accounts documents already carry item, unit, quantity and location fields (`ADR-018:66`), so
+    **Recommend:** build Inventory INV-0 to INV-8 first (variants INV-1b straight after INV-1, because the variant id
+    is the key on stock moves) with the document-driven path (decision 8), then Purchase v1 and Sales v1. Why: Accounts documents already carry item, unit, quantity and location fields (`ADR-018:66`), so
     Inventory works alone, and Purchase and Sales then plug into a working stock ledger.
+21. **Camera scanning for counts (non-critical).** **Recommend:** in INV-6, phones only (Android and iOS camera
+    work, an M-size piece, GK); hardware scanners work everywhere from INV-1. Why: Jabran asked for scanning on a
+    phone for counts; most people mean the camera.
 
 ## 11. Not verified
 
