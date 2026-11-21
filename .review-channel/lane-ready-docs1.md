@@ -25,3 +25,6 @@ Docs only: no tests (WORKFLOW test scope "Docs only: no tests"). No code repo to
 
 ## After MERGE (lead)
 Apply the proposals: 9 repo-guide rows (after Lane 0 merges, on b2 lane branches) and the memory table (delete/keep/move per row).
+
+## Docs pages (rule from 2026-11-21, added after merge)
+User guide: none: process docs only. Developer pages: none: no code or feature changed.

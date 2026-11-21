@@ -36,3 +36,6 @@
 - [Project state current](project-state-current.md) — PROJECT-STATE.md in git; lead updates it every batch; .claude/.codex copies deprecated (Jabran 2026-11-20)
 - [Two Macs: probation](two-macs-probation.md) — new-Mac lead builds on lane branches; old-Mac lead reviews lane-ready files and writes MERGE/FIX verdicts (Jabran 2026-11-21)
 - [Verify trust check](verify-trust-check.md) — Lane 0: old full run + verify.sh side by side in lane-ready (BE and App); then verify.sh alone per merge (Jabran 2026-11-21)
+- [Second reviewer independent](second-reviewer-independent.md) — /security-review or Codex gets diff + brief only, not the first review (Jabran 2026-11-21)
+- [Regression test per finding](regression-test-per-finding.md) — HIGH/MEDIUM fixes proven old FAIL / new PASS; big LOWs to a fix-lane row (Jabran 2026-11-21)
+- [Lane-ready docs pages](lane-ready-docs-pages.md) — every lane-ready lists user-guide + developer pages changed or "none: reason"; missing = FIX (Jabran 2026-11-21)

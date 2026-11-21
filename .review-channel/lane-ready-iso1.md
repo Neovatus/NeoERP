@@ -18,3 +18,6 @@ Docs only: no tests.
 
 ## Waiting on Jabran (in the ADR §7)
 D1–D11 (recommendation: option B; RLS on Accounts now, Payroll/HR v2 and the reporting store from their first migration; org/user/audit/auth stay on app checks + tests) and open questions Q1–Q4 (rebuild timing, hosting provider, branch-level RLS, cross-company screens).
+
+## Docs pages (rule from 2026-11-21)
+User guide: none: a decision record, no user-facing change. Developer pages: none yet: the ADR is a draft; `NeoERP-BackEnd/docs/modules/accounts/` pages follow with the build (R2) after Jabran accepts it.
