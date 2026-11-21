@@ -1025,7 +1025,7 @@ guardrails: a test per finding, invariant checks before push, a second different
     people mean the camera. **Settled with a change (Fable):** the "M-size" figure is a guess; INV-6's design step
     confirms the size and names the barcode decoder as a dependency choice before build. The App has no camera or
     barcode library today and builds for Android, iOS and desktop.
-22. **Manual journals on stock accounts (critical: posting).** Was decided in §8.8 without a number (Fable flag 9).
+22. **Manual journals on stock accounts (critical: posting).** **Approved by Jabran 2026-11-21 as recommended**, with two named exceptions: the valuation-off period-end "stock value change" journal (decision 6) and the one opening-stock adjustment journal with a reason (decision 10). Was decided in §8.8 without a number (Fable flag 9).
     **Recommend:** once a company has posted its first Inventory move, manual journals on INVENTORY-role accounts are
     refused, as GRNI already is once used (`accounts-c.md:218`); corrections go through Inventory adjustments. Why:
     otherwise the stock ledger and the GL drift apart.
