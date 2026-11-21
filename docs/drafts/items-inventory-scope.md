@@ -947,7 +947,7 @@ guardrails: a test per finding, invariant checks before push, a second different
    needs charges that only Purchase brings (GK on IAS 2). Fable agrees and adds the real v1 gap: freight and duty
    are not added to stock cost, so an importing customer does not go live on v1 valuation without landed costs or
    a documented revaluation step (Fable).
-10. **Opening stock (critical: money).** **Recommend:** adopt the GL balance: import quantities and costs, refuse
+10. **Opening stock (critical: money).** **Approved by Jabran 2026-11-21 as recommended, plus three cases (Jabran):** (1) books show zero or less than the list: one adjustment journal with a reason and a chosen counter account (stock change, owner's equity, or prior-year correction), through approval; (2) every line needs a cost; missing costs are listed and filled from the last purchase price, an estimate or a standard cost, changed later by a revaluation with a reason; zero cost only when marked on purpose with a reason; (3) valuation off: quantities and costs imported, no tie-out at import, the stock account set at period end (decision 6). **Recommend:** adopt the GL balance: import quantities and costs, refuse
     unless the total equals the GL balance per account (per location only where the opening balance carries the
     location tag, which the opening-balance import may not have set), no second journal; a difference needs one
     adjustment journal with a reason. Why: the opening-balance import may already hold 1460; a second journal would
