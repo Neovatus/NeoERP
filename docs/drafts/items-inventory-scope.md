@@ -973,3 +973,16 @@ guardrails: a test per finding, invariant checks before push, a second different
 | 17 MINOR final home | `docs/agents/inventory/scope.md` after sign-off (status line) | 20b002c |
 | GK spot-check | Rows 2-8 and 10 now cite the review's URLs; row 3 (NO lowest value) and row 6-7 (DK, FI) corrected; row 9 (PK imported Third Schedule) added to C8; row 11 still unverified | 51d4a3e, bc7a1f7, b0109f1 |
 | Branch base | The lead rebased onto `origin/master`; the common brief's two new sections are read (§3, §3.9) | — |
+
+### Round 3 (review 2, `docs/agents/inv-scope/review-2-opus.md`)
+
+| Finding | Fix | Commit |
+|---|---|---|
+| 1 MAJOR reversal after the stock move | Refused, discarded, cancelled or FBR-rejected documents reverse their move by the same key through the A1 reverse endpoint; posted ones go through credit or debit notes; accounts-service calls inventory-service in the approval, Inventory down → approval refused and retried; invariant "no stock move without a live source document"; decision 8, §9.1 | 5f55e8a |
+| 2 MAJOR inter-company account | S3c-1 posts on `AR_CONTROL` / `AP_CONTROL` with `linkedCompanyId` as Accounts F does, not the INTERCOMPANY kind; PR-9 added to §9.1, §5 and INV-4b; decision 13 | 09d124d, 75075e2 |
+| 3 MAJOR VAT groups | No VAT inside a VAT group (NO mval § 2-2 (3), Skatteetaten source; SE, DK, FI GK; IS, PK not checked); transfer price posts in both books; §3.9 S3c-1 rows, §4.3, §6 rows, decision 13 | 09d124d, 75075e2 |
+| 4 MINOR GK label | Third Schedule rule cites STGO 08 of 2026 in §2.8 | 5136151 |
+| 5 MINOR review cited as a source | Primary URLs (KPL, FBR DI technical document incl. "HS Code with UOM") replace review references | 5136151 |
+| 6 MINOR count rule | "At least one row; country rows split a feature"; R10 out of the last row | 5136151 |
+| 7 MINOR cross-company switches | Parent's `GROUP_CATALOGUE`, both companies' `INTERCOMPANY_TRANSFERS`; both INVENTORY rows; Finance-only groups cannot share a catalogue (§7, decision 1) | 5136151 |
+| 8 MINOR style | Long lines reflowed, mid-sentence break fixed; words unchanged | f2d6ecd |
