@@ -137,7 +137,7 @@ items 4.11–4.17. They stay here and come before the Phase 4 PR (4.19). See dec
 
 | # | Item | Why here | Depends on | Size | Risk |
 |---|---|---|---|---|---|
-| 6.1 | E: VAT report and return files, **SE momsdeklaration first**, then NO MVA-melding, DK, FI, IS, PK Annex A/C; EU sales lists; return flow Prepare → Check → Approve → File → Paid → Locked (backlog:277) | Launch gate per country (roadmap:154) | B, C (done); 5.4 for PK | L | statutory |
+| 6.1 | E: VAT report and return files for all six, in the order PK Annex A/C, NO MVA-melding, SE momsdeklaration, DK, FI, IS (decision 9); EU sales lists; return flow Prepare → Check → Approve → File → Paid → Locked (backlog:277) | Launch gate per country (roadmap:154) | B, C (done); 5.4 for PK | L | statutory |
 | 6.2 | H-NO ∥ H-DK SAF-T (one engine); account name rule (backlog:313); ACC-R3, ACC-R22; DK SAF-T 2.1 from 2027-01-01 (ACC-R2) | NO, DK launch gates | 6.1; file store | L | statutory |
 | 6.3 | H-PK, H-FI, H-IS statutory files not covered by E | Per-country launch | 6.1 | M | statutory |
 | 6.4 | OBI SAF-T reader (CP-OBI.3) | Built with H-NO ∥ H-DK (`api/accounts-ob-import.md:3`) | 6.2 | M | money |
@@ -259,7 +259,7 @@ graph LR
    live (gate L-1, roadmap:154).
 8. **Fixed assets.** **Decided by Jabran 2026-11-21: Phase 5b in the normal build order, with the tax depreciation book in the same feature** (books vs tax per asset: NO saldo groups, SE 30 %/20 % rules, PK Third Schedule rates; the spec gap `accounts-fixed-assets.md:37, 438, 446` is closed in 5b, not "Later"). Recurring journals are only a stopgap for a company that goes live before 5b is done. Large-customer priority 1, roadmap says after launch. **Recommend:** Phase 5b (depreciation is a
    monthly close step).
-9. **Phase 6 per country.** The gate needs "Phases 1–6 for that country". **Recommend:** build E for Sweden first and
+9. **Phase 6 per country.** **Decided by Jabran 2026-11-21: all six countries of the first market group**, starting right after document output (5.1), not at the end of Phase 5; the "Paid" step joins when D is built; country order **PK → NO → SE → DK → FI → IS** (as Payroll D1), so each country's accountant (ERP-Q1) checks accounting, tax and payroll together; DK SAF-T 2.1 (2027-01-01) is a go-live condition for Danish companies. "SE first" is withdrawn (no first country decided). The gate needs "Phases 1–6 for that country". **Recommend:** build E for Sweden first and
    ship it with Phase 5; other countries' E and H follow their launch order.
 10. **Vendor choices with no owner:** Peppol access point (D-121/D-123) and PK FBR route (D-125). **Recommend:**
     decide D-121/D-123 before NO e-invoicing (5.2) starts; D-125 before PK work (PK is third in launch order).
