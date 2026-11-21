@@ -33,6 +33,13 @@ people-access if affected). Per spec: a table `# | spec section:line | what chan
 recommendation | size`. Then "Decisions for Jabran" (numbered, each with a recommendation and why), and
 "Not changed, checked" (what still holds). Plain English, one H1, no raw HTML.
 
+## Approval path (Jabran 2026-11-21)
+Opus draft → fresh Opus review (correctness) → Fable 5.2 at high effort settles the non-critical items (building
+blocks, layout, wording, UX-1 rules) and gives a view on the rest → **Jabran approves the whole list**, reading the
+critical items (payroll money, statutory, approved scope, RLS) and anything Fable rejected or left open. Mark each
+item `critical` or `non-critical` in the output so this split is visible. The HR v2 build starts only after Jabran's
+approval.
+
 ## Rules
 Commit on `phase/4-b2-hrp-des`; do not push or merge. No AI attribution. Never open `.local-secrets/`, `*.jwt`,
 `*.session.json`. Write scope: `docs/drafts/hr-payroll-design-refresh.md`, `docs/agents/hrp-des/**`.
