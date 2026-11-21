@@ -141,7 +141,7 @@ the same when a company joins a group catalogue later, so nothing is re-keyed (t
 
 - **Item number:** unique within the catalogue. Either typed, or the next number of a **series** set on the category
   (for example `FAB-00001`), same idea as document number series in Accounts. Numbers never change once used on a
-  move (codes are never cut on screen: `UX1/ux-principles.md:276`).
+  move (codes are never cut on screen: `UX1/ux-principles.md:278`).
 - **Barcodes:** several per item, each tied to a unit (a piece GTIN-13, a case GTIN-14). Search by barcode works from
   day one with hardware scanners, which type like a keyboard.
 - **Supplier item numbers** belong to Purchasing's supplier extension (ADR-018 §3 "preferred items", `ADR-018:53`);
@@ -317,6 +317,37 @@ the reason says when to revisit.
 | X6 | E-commerce stock sync, EDI stock messages | Later (§5) | Needs an outside-system API |
 | X7 | Stock in SAF-T / SIE files | No work in v1 | Stock appears only as GL lines in our countries' files (§6) |
 
+**Nordic accounting systems and Pakistani practice (all GK, structure only).** NeoERP is also a payments, tax and
+"regnskap" system, so the catalogue was also held against Tripletex, Fiken, PowerOffice Go and Visma eAccounting /
+eEkonomi (NO), Fortnox (SE), e-conomic and Dinero (DK). Their shape: a product (vare) register with units, VAT code and
+accounts per product group; stock as quantity per product with a simple stocktake; many small users book purchases
+straight to cost and post one stock-change journal at year end (the periodic way), while the larger ones post stock
+value per move. Everything ties back to the ledger, the VAT return and the statutory file (SAF-T NO, SIE SE). That
+supports decision 6 (valuation can be off) and §3.8's reconciliation column. Pakistani practice (GK): mid-size firms
+run local ERPs, Odoo or SAP Business One with HS (PCT) codes and units on every item because FBR invoices need them;
+Tier-1 retailers must link their POS to FBR; textile and pharma firms track lots. That supports I17 and decision 14.
+
+### 3.8 Tax, reconciliation, report and automation per feature
+
+Only features where something applies are listed. Tax facts are GK unless a source is named.
+
+| # | Tax / statutory | Reconciliation | Report | Automation |
+|---|---|---|---|---|
+| I1, I6 | Tax class on the item or category picks the VAT / sales-tax code on documents per country (NO, SE, DK, FI, IS VAT; PK sales tax); rates stay in the packs (`accounts-a0.md:160`) | — | Items without a tax class | New item inherits the category's tax class and accounts |
+| I10, X2 | E-invoice line ids: seller item id, standard id (GTIN), classification (EN 16931 terms; content comes from the frozen snapshot, `accounts-docout.md:205`) | — | Items without GTIN where a customer needs it | — |
+| I17, X1 | PK: HS (PCT) code and FBR unit on every invoice line, Third Schedule retail price, sale type (`accounts-b.md:1005`, `:1438`); Annex-C sales register lists the HS code (`accounts-h-design.md:215-222`). SE, DK, FI: CN8, net mass and origin for Intrastat | — | PK items missing HS code or unit (refused at approval otherwise, `accounts-b.md:2541`) | Fill line fields from the item; warn at item save, not only at invoice approval |
+| S1, C10 | Year-end stock value in the annual accounts and tax return in every country; NO SAF-T and SIE SE carry stock only as GL lines on stock accounts (GK) | Stock ledger value = GL balance of INVENTORY-role accounts, per company and location, daily | Valuation report with GL beside it (R3) | Daily tie-out job; alert on any difference (money guardrail, roadmap:173) |
+| S2, C2 | VAT on the bill and invoice, not on the move; own-use withdrawals can carry output VAT (GK, SE / NO / DK / FI) | GRNI balance = received-not-billed receipt lines; bills clear by `receivedValue` (`accounts-c.md:218`) | GRNI ageing by supplier and receipt | Auto-receipt from a supplier e-invoice or ASN that matches an order (with Purchase; Peppol receive, roadmap:111); COGS posted on delivery without a person |
+| S3b | None inside one company | In-transit stock = dispatched not received | Transfers in transit and their age | Receipt reminder after N days |
+| S3c | Two sales: VAT (cross-border rules), PK sales tax; transfer pricing documentation (GK) | Inter-company receivable = payable; unrealised profit in group stock | Inter-company stock and margin | Phase 7 |
+| S4 | Year-end count list is an accounting record kept for the retention period (GK; SE, NO bookkeeping rules); count needed for the annual stock value | Counted value vs book value, per count, before posting | Count variance report (R5) | Post variances under a company value limit automatically; above it, to approval; recount over tolerance |
+| S5, C7 | Write-downs reduce taxable profit under each country's lowest-value rules (GK) | Provision account balance vs provision report | Ageing and slow-moving (R4) | Suggested write-down from ageing rules, a person approves |
+| S7 | Pharma and food traceability (GK) | Lot quantities = item quantity | Expiry list | Expiry alert; FEFO issue |
+| S9, C6 | Valuation method per country (§4.9) | Revaluation journal = change in valuation report | Valuation per method | — |
+| S10, P1 | — | — | Below-reorder list (R6) | Nightly suggestions; low-stock alert to the buyer; purchase orders drafted with Purchase |
+| X3 | Intrastat arrivals and dispatches above thresholds (SE, DK, FI; not NO, IS) (GK) | Intrastat values vs EU purchases and sales on the VAT return | Intrastat draft | Draft from posted documents |
+| X4 | Retention per country (pack `retention-rules.csv`) | — | — | Purge only through the retention controls (roadmap:160) |
+
 ## 4. The eleven stock features (Jabran's list)
 
 Every posting below goes through the posting connection of roadmap 5.13 (AccountsPostingV2 core, roadmap:121), as
@@ -382,7 +413,7 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
   period of the year a missing full or cycle-complete count is a warning, and a company may make it blocking
   (decision 15). The checklist itself is Accounts A2 C-14 (`BE/docs/api/accounts-a2.md:87`).
 - **Phone screens:** count entry is a top phone task. It uses the number keyboard with Done and refuses letters (ux
-  §25 touch entry, `UX1/ux-principles.md:283`); quantities are never cut (`UX1/ux-principles.md:276`); checked at the
+  §25 touch entry, `UX1/ux-principles.md:284`); quantities are never cut (`UX1/ux-principles.md:278`); checked at the
   QA sizes 375×667, 667×375, 874×402, 744, 1032, 1376, 1440 (`UX1/screen-standard.md:342-361`).
 
 ### 4.5 Adjustments and write-downs
@@ -463,7 +494,7 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
 | KPI tiles: stock value, days of stock, turnover | 3 | Later |
 | Self-service pivot over stock facts | 4 (`ANALYTICS` add-on, `ADR-023:175`) | Later |
 
-- Level 1 reports are the book of record and stay in Inventory (`ADR-023:33`). For levels 2-4, Inventory writes a
+- Level 1 reports are the book of record and stay in Inventory (`ADR-023:34`). For levels 2-4, Inventory writes a
   short reporting contract (events and facts per move, valuation and count) as ADR-023 D2 asks (`ADR-023:44`).
 - Big lists use keyset paging and capped counts (ADR-024 D3, `ADR-024-data-at-scale.md:60`); large exports run as
   background jobs with a notification (ux §14).
