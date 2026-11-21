@@ -934,6 +934,9 @@ guardrails: a test per finding, invariant checks before push, a second different
 12. **Posting detail (critical: posting).** **Recommend:** one journal per source document by default; a company
     switch per source (POS, deliveries, counts) to post one daily summary per location, account and dimension set,
     with drill-down to the moves. Why: 20 million moves would swamp a ledger sized for 2 million lines (`ADR-023:135`).
+    **Change (Fable):** for a summarised source, COGS lines carry **no item** (category at most, see decision 17), or
+    the summary would keep one line per item per location per day; a late move for a day already summarised posts as
+    a **further summary**, never an edit of the posted one.
 13. **Inter-company transfers (critical: money, statutory).** Two parts:
     - **S3c-1 linked transfer, before Phase 7 (INV-4b):** one transfer id; each company posts only its own invoice or
       bill and IV journals (decision 8 path), on AR and AP with `linkedCompanyId` as Accounts F does
@@ -943,38 +946,79 @@ guardrails: a test per finding, invariant checks before push, a second different
       not a share" (`ADR-018:49`), so it does not need Phase 7.
     - **S3c-2 reconciliation and unrealised-profit elimination:** Phase 7 (roadmap:151).
     **Recommend:** both parts as above. Note roadmap decision 15 (no owned-group pilot before Phase 7,
-    roadmap:273-274, not yet approved): if Jabran keeps it, S3c-1 can wait for Phase 7 too without harm; if not,
-    S3c-1 lets a group move stock between its companies correctly in each set of books before consolidation exists.
+    roadmap:273-274, not yet approved). S3c-1 does not wait for it: the product is built for large multi-company
+    customers from day one (`large-customer-roadmap.md:7`), and S3c-1 lets a group move stock between its companies
+    correctly in each set of books before consolidation exists (Fable). **Change (Fable):** INV-4b covers pairs of
+    companies **in the same country** first; cross-border pairs (customs, EU reverse charge, EC sales list) are a
+    named later step (S3c-1x), not "normal rules otherwise".
 14. **Batch, serial and expiry (critical: statutory for pharma and food customers).** **Recommend:** INV-9, the first
     slice after v1, with nullable lot and serial on every move from v1. Why: batch and expiry tracking is a legal duty
     for pharma (PK DRAP, GK) and food traceability customers, so no such customer can go live before INV-9; the first
-    Swedish customers likely do not need it.
+    Swedish customers likely do not need it. **Change (Fable):** nullable ids on moves are not enough; the stored
+    balances and cost layers built in INV-2 can carry a lot. And `BATCH_SERIAL` is on by default
+    (`EntitlementCatalog.kt:175`) while only the module has an "implemented" flag (`EntitlementCatalog.kt:30`), so
+    until INV-9 the module grid must not show batch and serial as available (a catalogue change in INV-0).
 15. **Counts and close (critical: statutory).** **Recommend:** blind counting; counter cannot approve own variances;
     automatic posting under a company value limit, approval above it; unposted moves block the period close; a
-    missing year-end count is a warning a company can make blocking. Why: the count is the year-end evidence (GK).
+    missing year-end count is a warning a company can make blocking. Why: the count is the year-end evidence (NO
+    rule checked, §3.9 S4). **Change (Fable):** the automatic-posting value limit **defaults to zero** until the
+    company sets one, so a counter cannot post their own small variances unseen; auto-posted variances are reported
+    per counter.
 16. **Write-downs (critical: money).** **Recommend:** NRV write-downs, and the Swedish 97 % rule (IL 17 kap. 4 §),
     as journals on a provision account. Every chart except SE has one (1490 in base, PK, DK, FI, IS; 1498 in NO:
     `base-ifrs.csv:41`, `pk.csv:42`, `dk.csv:41`, `fi.csv:41`, `is.csv:41`, `no-ns4102.csv:36`), but no role points to
     it; the next pack edition adds the role and an SE account. In NO the write-down is ignored for tax (skatteloven
     § 14-5 (2) c), so Inventory reports the books-versus-tax stock difference (R10). Why: keeps cost and write-down
-    apart and reversible, and gives the Swedish customer the 97 % rule in its first year.
+    apart and reversible, and gives the Swedish customer the 97 % rule in its first year. **Change (Fable):** the
+    Swedish 97 % journal is a **company choice**, never automatic. **Unconfirmed, for ERP-Q1:** whether a K3 company
+    (most large Swedish customers) may book the 97 % write-down; neither the drafter nor Fable could confirm it.
 17. **Item on journal lines (critical: posting).** **Recommend:** item on COGS, adjustment and variance lines only,
     not on INVENTORY and GRNI; a pack edition allows the item tag on those accounts; measure the set count (Q18) in
     INV-2. Why: margin and product budgets need it; balance lines would multiply sets for no use (§8.3).
+    **Change (Fable):** for sources posted as daily summaries (decision 12), COGS carries no item (or the category
+    only), and margin by item comes from the reporting layer's stock facts; ADR-021 Q18 already allows moving item out
+    of the set if the count grows (`ADR-021:239`).
 18. **Who sees stock values (non-critical).** **Recommend:** a separate value-read code; Stock Clerk and store staff
-    see quantities only by default. Why: large customers hide cost prices from shop floors (GK).
+    see quantities only by default. Why: large customers hide cost prices from shop floors (GK). **Settled with a
+    change (Fable):** the **backend** leaves values out of responses, exports, reports and count-variance amounts for
+    a person without the code; hiding them only in the app is not enough.
 19. **Country item fields in v1 (critical: statutory).** **Recommend:** HS / PCT code, FBR unit, sale type, SRO
     schedule and item serial defaults, and the fixed notified value or retail price per unit and variant (PK); GTIN,
     CN8, net mass, country of origin (Nordic) on the item in v1; Intrastat reports later with Sales and Purchase. Why:
     PK invoices need them now (`accounts-h-design.md:221-222`); fields are cheap, reports need documents.
+    **Change (Fable):** fields are held **per country** (decision 3); and a **Pakistan federal excise (FED) fact per
+    item** is added, since Accounts B already prints and posts FED (`BE/docs/api/accounts-b.md:1008`, `:1500`).
 20. **Build order (critical: approved scope).** Brief order is Inventory, then Purchase, then Sales scope drafts.
     **Recommend:** build Inventory INV-0 to INV-8 first (variants INV-1b straight after INV-1, because the variant id
     is the key on stock moves) with the document-driven path (decision 8), then Purchase v1 and Sales v1. Why:
     Accounts documents already carry item, unit, quantity and location fields (`ADR-018:66`), so Inventory works
-    alone, and Purchase and Sales then plug into a working stock ledger.
+    alone, and Purchase and Sales then plug into a working stock ledger. **Change (Fable):** Purchase and Sales do not
+    *replace* the document-driven path: decisions 1 and 8 keep it for companies without Purchase or Sales, so it is a
+    **permanent second path** to maintain, and Jabran approves it knowing that. Under decision 8 option (b) the second
+    path is small (Inventory's own receipt and delivery).
 21. **Camera scanning for counts (non-critical).** **Recommend:** in INV-6, phones only (Android and iOS camera
-    work, an M-size piece, GK); hardware scanners work everywhere from INV-1. Why: Jabran asked for scanning on a
-    phone for counts; most people mean the camera.
+    work); hardware scanners work everywhere from INV-1. Why: Jabran asked for scanning on a phone for counts; most
+    people mean the camera. **Settled with a change (Fable):** the "M-size" figure is a guess; INV-6's design step
+    confirms the size and names the barcode decoder as a dependency choice before build. The App has no camera or
+    barcode library today and builds for Android, iOS and desktop.
+22. **Manual journals on stock accounts (critical: posting).** Was decided in §8.8 without a number (Fable flag 9).
+    **Recommend:** once a company has posted its first Inventory move, manual journals on INVENTORY-role accounts are
+    refused, as GRNI already is once used (`accounts-c.md:218`); corrections go through Inventory adjustments. Why:
+    otherwise the stock ledger and the GL drift apart.
+23. **Tax class (critical: statutory).** Used in §2.2 and decisions 1, 3 and 19 without a number (Fable flag 10). No
+    Accounts A0, B or E document defines a tax class today. **Recommend:** a tax class is a short country list (for
+    example standard, reduced food, zero, exempt, Third Schedule) kept in the country pack beside the tax codes; the
+    pack maps each class to a sales and a purchase tax code; the company may only pick a class, never edit the
+    mapping; the Accounts lead owns the mapping in the pack edition before INV-1. Why: rates and codes come from the
+    country, never from the item (`accounts-a0.md:50`, `:160`).
+24. **Back-dated moves and re-costing (critical: money).** Not decided anywhere (Fable flag 11). **Recommend:** a
+    move may be dated before later moves of the same item only within an open period; under FIFO and average the
+    later issues of that item are **re-costed** from that date, and the difference posts as one adjustment journal on
+    the move's date (never an edit of posted journals); a move dated in a closed period is refused (§8.7). Why: the
+    stock value must stay right without reopening posted entries.
+25. **Locations with stock (non-critical).** Was in §7 without a number. **Recommend:** Org asks Inventory before it
+    deactivates a location, and refuses while the location holds stock. The volume figures in §7 stay assumptions to
+    confirm with the first large customer. Why: a deactivated location with stock hides value.
 
 ## 11. Not verified
 
