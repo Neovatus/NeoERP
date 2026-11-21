@@ -72,8 +72,7 @@ and a recommendation (which new ADR, or a change to which existing one). Topics:
 ## Step 2: the ADRs (Jabran 2026-11-21: "go with your recommendations for the ADRs")
 Write each new ADR and ADR change from `gap-map.md`, with options and the **recommended option marked "Accepted on the
 lead's recommendation (Jabran 2026-11-21)"**. ADRs that touch security or company isolation (017, 028, 029) also get a
-Fable security view before any build uses them. New ADRs go to workspace `docs/drafts/ADR-0NN-<name>.md` (they move to
-`NeoERP-BackEnd/docs/adr/` with the next BackEnd docs change, as ADR-024/025/026 did); changes to existing ADRs are
+Fable security view before any build uses them. New ADRs go to workspace `docs/drafts/ADR-0NN-<name>.md` and **stay in the workspace** (Jabran 2026-11-21: "ARCH-1 needs to be in the workspace, not the frontend or backend"); changes to existing ADRs are
 written as an amendment file `docs/drafts/ADR-0NN-amendment-2026-11-21.md` (the BackEnd files are not edited here).
 Format of every ADR: Status, Context (cite gap-map.md and sources), Options (table), Decision, Consequences, Open
 questions (only those that need a fact we do not have, e.g. a legal opinion), Related. Plain English; one H1.
