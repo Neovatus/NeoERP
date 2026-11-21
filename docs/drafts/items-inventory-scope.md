@@ -982,7 +982,7 @@ guardrails: a test per finding, invariant checks before push, a second different
     balances and cost layers built in INV-2 can carry a lot. And `BATCH_SERIAL` is on by default
     (`EntitlementCatalog.kt:175`) while only the module has an "implemented" flag (`EntitlementCatalog.kt:30`), so
     until INV-9 the module grid must not show batch and serial as available (a catalogue change in INV-0).
-15. **Counts and close (critical: statutory).** **Recommend:** blind counting; counter cannot approve own variances;
+15. **Counts and close (critical: statutory).** **Approved by Jabran 2026-11-21 as recommended, with Fable's change.** **Recommend:** blind counting; counter cannot approve own variances;
     automatic posting under a company value limit, approval above it; unposted moves block the period close; a
     missing year-end count is a warning a company can make blocking. Why: the count is the year-end evidence (NO
     rule checked, §3.9 S4). **Change (Fable):** the automatic-posting value limit **defaults to zero** until the
