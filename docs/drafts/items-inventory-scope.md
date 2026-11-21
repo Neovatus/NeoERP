@@ -952,7 +952,7 @@ guardrails: a test per finding, invariant checks before push, a second different
     location tag, which the opening-balance import may not have set), no second journal; a difference needs one
     adjustment journal with a reason. Why: the opening-balance import may already hold 1460; a second journal would
     double it.
-11. **Negative stock (critical: money).** **Recommend:** refused by default; a company may allow it on Store
+11. **Negative stock (critical: money).** **Approved by Jabran 2026-11-21, with the setting per store location:** a company switch (off by default) and, when on, an on/off per Store location; warehouses can never allow it; turning it off later refuses further sales of already-negative items until the receipt is booked; cost corrected on receipt and the daily list of negative items as recommended. **Recommend:** refused by default; a company may allow it on Store
     locations only, with the cost corrected when the receipt arrives and a daily list of negative items. Why: shops
     sell before goods are booked in; warehouses must not.
 12. **Posting detail (critical: posting).** **Recommend:** one journal per source document by default; a company
