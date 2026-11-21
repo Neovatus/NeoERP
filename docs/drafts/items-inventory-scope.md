@@ -1035,7 +1035,7 @@ guardrails: a test per finding, invariant checks before push, a second different
     pack maps each class to a sales and a purchase tax code; the company may only pick a class, never edit the
     mapping; the Accounts lead owns the mapping in the pack edition before INV-1. Why: rates and codes come from the
     country, never from the item (`accounts-a0.md:50`, `:160`).
-24. **Back-dated moves and re-costing (critical: money).** Not decided anywhere (Fable flag 11). **Recommend:** a
+24. **Back-dated moves and re-costing (critical: money).** **Approved by Jabran 2026-11-21 as recommended.** Not decided anywhere (Fable flag 11). **Recommend:** a
     move may be dated before later moves of the same item only within an open period; under FIFO and average the
     later issues of that item are **re-costed** from that date, and the difference posts as one adjustment journal on
     the move's date (never an edit of posted journals); a move dated in a closed period is refused (§8.7). Why: the
