@@ -48,6 +48,8 @@ Integration owner for every row: **Jabran** (decides scope, approves). The lead 
 
 ## Unconfirmed — ask Jabran
 
+- ~~First country / pilot~~ resolved 2026-11-21 (Jabran): no pilot customer chosen and no single first country; **first market group: Pakistan + Nordic (SE, NO, DK, FI, IS) together**, then other EU countries, then other countries.
+
 - ~~AL S5 vs QA batch 2~~ resolved 2026-11-21 (Jabran): full QA batch 2 first, AL S5 after. Batch 2 started 2026-11-21 with Lane 0.
 - ~~User guide Phase 4 pages~~ resolved 2026-11-21 (Jabran): workstream DOCS-2 in batch 2.
 - ~~HR/Payroll rebuild~~ resolved 2026-11-21 (Jabran): workstream HRP-2 below.

@@ -28,3 +28,6 @@ what), **Reports**, and **Automation** (what can run without a person). Benchmar
 systems (Tripletex, Fiken, PowerOffice Go, Visma eAccounting/eEkonomi, Fortnox, e-conomic, Dinero) and Pakistani
 practice, not only ERPs (structure only). ROADMAP-P adds a **country capability matrix** (payments, tax returns and
 filings, statutory reports, reconciliations, automations per country) across all modules.
+
+## Markets (Jabran 2026-11-21)
+No single first country and no pilot customer. The first market group is **Pakistan and the Nordic countries (SE, NO, DK, FI, IS) together**; then other EU countries; then other countries. Scope drafts plan country work for all six in the first group and keep the design open for EU and other countries (country packs, not hard-coded rules).
