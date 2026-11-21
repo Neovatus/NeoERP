@@ -275,5 +275,5 @@ graph LR
 16. **Payroll v2 rebuild.** PROJECT-STATE asks whether it is active or after Phase 4 (state:46). It decides when A5 and
     the D payroll clearing (L.1) can start. **Recommend:** after Phase 4; A5 stays in Later until then.
     **Answered (Jabran 2026-11-21):** the rebuild has not started; it starts now in parallel with QA batch 2 (design
-    now, build on the old Mac from Monday, branch `phase/hrp-v2`); batch 2 goes first. A5 and L.1 follow Payroll v2's
+    now, build once Jabran approves the design-refresh change list, branch `phase/hrp-v2`); batch 2 goes first. A5 and L.1 follow Payroll v2's
     own progress (its P2 posting step), not the end of Phase 4. Decision 5's "A5 to Later" should be re-read with this.

@@ -7,7 +7,7 @@ Asked: Jabran 2026-11-21 (docs lane b, after UX-1). Drafter: Opus, then one fres
 ## Context (Jabran 2026-11-21)
 The HR/Payroll **rebuild** has not started. It is a rebuild (Payroll v2 from `docs/agents/payroll/scope.md` plus
 HR v2, designs approved 2026-10-21), not a refactor. Old HR/Payroll/ESS modules stay untouched and out of QA and
-i18n. Build starts on the old Mac from Monday on `phase/hrp-v2`. This lane prepares the designs for that build.
+i18n. The build starts on this Mac on `phase/hrp-v2` as soon as Jabran approves this lane's change list (batch 2 keeps Gradle-lock priority); the old Mac may take it over from Monday. This lane prepares the designs for that build.
 
 ## Read
 `docs/agents/design-brief-common.md` (all of it). UX-1 is on App branch `phase/4-b2-ux1`
