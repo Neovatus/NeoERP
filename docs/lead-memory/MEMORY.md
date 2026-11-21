@@ -11,7 +11,7 @@
 - [Design references](design-references.md) — other products' screens give structure only; our design system and UX §21–22 decide the look
 - [Draft migration applied locally](draft-migration-local-apply.md) — restart during a builder's migration edit → checksum mismatch; undo empty migration locally, don't repair
 - [Release gates](release-gates.md) — deferred items: rows in NeoERP-BackEnd/docs/operations/hosting-and-go-live-requirements.md (Gate column); later items in docs/backlog.md
-- [Product direction: large customers](product-direction-large.md) — built for large multi-company customers from day one, sold by module; dimensions/budgets/reporting are core design (Jabran 2026-11-03)
+- [Product direction: large customers](product-direction-large.md) — built for large multi-company customers from day one, sold by module; dimensions/budgets/reporting are core design (Jabran 2026-11-03); not just ERP: all businesses + payments, taxation, Nordic regnskap (2026-11-21)
 - [Phase 3 finish plan](phase3-finish-plan.md) — finish all Phase 3 (M5 lanes, SB2d, FE, M6, acceptance), then Jabran tests (2026-11-04)
 - [Worktree cleanup](worktree-cleanup.md) — remove merged worktrees + branches after each batch merge (standing OK, Jabran 2026-11-05)
 - [Check approved decisions](check-approved-decisions.md) — grep the plan Q&A before any lead call that narrows scope; never override Jabran-approved answers
@@ -39,3 +39,7 @@
 - [Second reviewer independent](second-reviewer-independent.md) — /security-review or Codex gets diff + brief only, not the first review (Jabran 2026-11-21)
 - [Regression test per finding](regression-test-per-finding.md) — HIGH/MEDIUM fixes proven old FAIL / new PASS; big LOWs to a fix-lane row (Jabran 2026-11-21)
 - [Lane-ready docs pages](lane-ready-docs-pages.md) — every lane-ready lists user-guide + developer pages changed or "none: reason"; missing = FIX (Jabran 2026-11-21)
+- [New-Mac lead: effort + decisions](new-mac-lead-effort-decisions.md) — NEW MAC ONLY: sub-agents High effort; my recommended decisions need written reasons + Fable 5.2 high approval; open/critical to Jabran (2026-11-21)
+- [No pilot decided](no-pilot-decided.md) — no pilot customer or first country decided (Jabran 2026-11-21); first market group = Pakistan + Nordic together, then EU, then others
+- [No GitHub CI in dev](no-github-ci-dev.md) — Actions off on all 3 repos (2026-11-21); never enable Actions or add a workflow without Jabran OK
+- [Fable budget](fable-budget.md) — Fable ≤50% of weekly limit (plan <40%, stop new at 45%); security reviews + batched decision checks only (2026-11-21)

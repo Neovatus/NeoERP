@@ -417,3 +417,6 @@ Send `confirmedByUserId` per kind in GET /approval-limits so the app needs no Hi
 - **Minimum supported version check** at app start on every platform, with an "update now" prompt.
 - **Mobile:** no code push (store rules for compiled apps). Fix on the server where possible; Android in-app update prompt and staged rollout; iOS phased release and expedited review.
 - **Per-module kill switch** building on the existing feature switches, so a broken screen can be turned off remotely.
+
+## App architecture: feature composition pairs (Jabran to decide; from App Lane 0, D-11, 2026-11-21)
+- The rule "features never import from other features" (`NeoERP-App/.claude/CLAUDE.md:64`) has 289 import lines plus 24 fully qualified references in 30 feature pairs, frozen by Lane 0 as a per-pair count ratchet (may only shrink). Largest: organization→entitlement 63, platform→people 40, organization→agreement 34, organization→people 29. Question for Jabran: should composition pairs (organization composing entitlement/agreement/people/roles/audit; platform→people) become an allowed pattern, or be removed by moving shared pieces into `core/` or a composition module? Lead proposes in a spec or ADR; until then the ratchet holds.
