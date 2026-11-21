@@ -272,7 +272,7 @@ graph LR
     **Recommend:** first accountant sign-off for Sweden, 6 weeks before the SE pilot.
 14. **Allocations headcount key.** **Decided by Jabran 2026-11-21: Fable's version** — allocations v1 with fixed %, key tables (e.g. floor area) and "from the ledger" shares; HR v2 gets the read "employees per cost centre or department on a date" in its design now, so the headcount key (L.9) follows HR H1, not "Later". Needs an HR read; HR rebuild not active. **Recommend:** allocations v1 with % and
     fixed keys only; headcount key with L.9.
-15. **Group pilot.** Phase 7 is "before the first multi-company group pilot", but the direction is large multi-company
+15. **Group pilot.** **Decided by Jabran 2026-11-21: Fable's version.** Multi-company groups are welcome from day one, each company with its own books and the multi-company close board (5b.2); the rule is "no customer that depends on consolidation or inter-company automation before Phase 7"; Phase 7's inter-company postings and consolidation get a firm slot in the build order (Inventory's linked inter-company transfers, INV-4b, need them), not "Later". "Pilot" wording withdrawn (no pilot decided). Phase 7 is "before the first multi-company group pilot", but the direction is large multi-company
     customers from day one. **Recommend:** no owned-group pilot before Phase 7; single-company pilots first.
 16. **Payroll v2 rebuild.** PROJECT-STATE asks whether it is active or after Phase 4 (state:46). It decides when A5 and
     the D payroll clearing (L.1) can start. **Recommend:** after Phase 4; A5 stays in Later until then.
