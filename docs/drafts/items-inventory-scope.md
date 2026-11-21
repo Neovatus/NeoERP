@@ -123,7 +123,9 @@ picks the chart and tax codes never come from the chart (`accounts-a0.md:50`, `:
 
 **Recommendation (agrees with the lead's leaning, with a gate):** design the item master from day one as a
 **catalogue** plus **per-company item settings**. The catalogue holds what is the same everywhere (number, name,
-type, base unit, attributes and variants, GTIN, HS/CN codes). The company settings hold what each legal entity
+type, base unit, attributes and variants, GTIN), plus the **country fields per country** (HS / PCT, CN8, FBR unit,
+sale type, SRO data, retail price, tax class), because a group can span countries whose 8-digit codes differ
+(decision 3). The company settings hold what each legal entity
 decides: active, bought / sold / stocked flags, category and accounts, tax class, base price and cost (§2.7),
 locations and reorder levels. In v1 each company is its own catalogue owner (catalogue scope = company), which is the
 ADR-018 rule. A **group catalogue** (one catalogue owned by the parent, used by its owned companies) is a company
@@ -251,6 +253,7 @@ the reason says when to revisit.
 | L6 | Consignment stock (ours at a customer, or a supplier's in our store) | Not planned | Ownership split per move; revisit on a customer ask |
 | L7 | Outside warehouse (3PL) feeds | Later, through an integration API | Same idea as ADR-021 D10 for postings |
 | L8 | Store-server stock for offline POS | With POS (ADR-007 Proposed) | Store owns on-hand; moves stream up (`BE/docs/adr/ADR-007-store-edge-topology-for-offline-retail.md:86-88`) |
+| L10 | Stock held at an outside processor (textile dyeing and finishing, subcontracting) | Later, with Manufacturing or Purchase | The textile starter set implies it (§2.3); ours while at the processor |
 | L9 | Goods in transit from a supplier (ours before arrival, by Incoterms) | With Purchase | Ownership passes by the delivery term on the order; needs Purchase's documents |
 
 ### 3.3 Stock movements and control (the eleven features, detail in §4)
@@ -276,6 +279,10 @@ the reason says when to revisit.
 | S14 | Stock status (available, quarantine, blocked) | v1 via Returns locations; status per batch later | Returns type text: "kept apart until checked" (`App/docs/design/specs/stock-locations.md:30`) |
 | S15 | Specific-identification cost (cost per serial) | Later, with serials | Needed for high-value serial goods only |
 | S16 | Packages, pallets, SSCC labels | Not planned | Shipping and EDI first |
+| S17 | Back-dated moves and re-costing | v1 | Decision 24 |
+| S18 | Internal store requisitions with approval | Later (after INV-7) | Common Pakistani practice (Fable settlement); a request before an issue |
+| S19 | Gate passes (goods leaving the premises) | Later | Common Pakistani practice (Fable settlement) |
+| S20 | Count import from a file | v1 (INV-6) | Outside counting teams deliver files |
 
 ### 3.4 Planning and warehouse work
 
@@ -293,6 +300,9 @@ the reason says when to revisit.
 | P10 | Camera barcode scanning on phones | v1 for counts (INV-6, decision 21); later for receipts, transfers and picking | Jabran asked for phone scanning on counts; hardware scanners also work as typed input |
 | P11 | Barcode label printing | Later, with document output | Uses the PDF pipeline of 5.1 |
 | P12 | Wave and batch picking | Not planned | High-volume warehouse only; revisit with bins |
+| P13 | Printed stock documents: transfer note, goods received note, count sheet | Later, with document output (roadmap:109) | Uses the PDF pipeline of 5.1 |
+| P14 | Planning fields beyond the reorder point: lead time, safety stock, minimum order quantity, order multiples | v1 fields (INV-7); lead time from Purchase later | Suggestions need them |
+| P15 | Available-to-promise and back orders | With Sales | Needs sales orders |
 
 ### 3.5 Costing and Accounts
 
@@ -323,6 +333,11 @@ the reason says when to revisit.
 | R8 | Gross margin by item and category | Later (ADR-023 level 2) | Needs Sales or B invoice facts plus COGS |
 | R9 | Budget vs actual quantity by product | Later | ADR-022 Q14 waits for quantity actuals from Inventory (`ADR-022:267`) |
 | R10 | Stock in the books versus stock for tax (NO: no write-downs for tax; SE: 97 % rule) | v1 | Needed for the tax return (§4.5) |
+| R11 | GRNI ageing by supplier and receipt | v1 | Named in §3.9 S2 |
+| R12 | Transfers in transit and their age | v1 | Named in §3.9 S3 |
+| R13 | Negative stock list | v1 | Decision 11 |
+| R14 | Expiry list | With INV-9 | Decision 14 |
+| R15 | Items missing statutory data (HS, FBR unit, SRO, retail price, GTIN, tax class) | v1 | §3.9 I17 |
 
 ### 3.7 Integrations and compliance
 
@@ -332,9 +347,11 @@ the reason says when to revisit.
 | X2 | Item ids on e-invoice lines (seller id, GTIN, classification) | v1 (fields); writer with 5.2 | §6 |
 | X3 | Intrastat arrivals and dispatches | Later, with Sales and Purchase | §6; fields in v1 |
 | X4 | Stock records kept for the retention period | v1 | Retention rules are pack data (`packs/2026.2/retention-rules.csv`) |
-| X5 | Excise duty (alcohol, tobacco, sugar), bonded warehouses | Not planned | Specialist; revisit on a customer ask (GK) |
+| X5 | Excise duty: PK federal excise (FED) per item; Nordic excise on alcohol, tobacco, sugar; bonded warehouses | v1 item fact for PK FED (Accounts B already prints and posts FED, `BE/docs/api/accounts-b.md:1008`, `:1500`); excise returns and bonded warehouses Later | NeoERP is also a taxation system (Fable flag 7); Nordic excise is GK |
 | X6 | E-commerce stock sync, EDI stock messages | Later (§5) | Needs an outside-system API |
 | X7 | Stock in SAF-T / SIE files | No work in v1 | Stock appears only as GL lines in our countries' files (§6) |
+| X8 | PK monthly sales-tax return stock statements: Annex-J (manufacturers) and Annex-H1 (commercial importers, distributors, wholesalers), opening and closing stock by HS code | v1 data (INV-8 report), filing with Accounts E | SRO 55(I)/2025, from the January 2025 return (named in the Fable settlement; source not opened by the drafter, for ERP-Q1) |
+| X9 | Packaging producer-responsibility data per item (Nordic: packaging material and weight) | Later (fields) | Producer-responsibility reporting (GK) |
 
 ### 3.8 Nordic accounting systems and Pakistani practice
 
@@ -364,7 +381,7 @@ where all five answers are "none".
 | I17, X3 | SE, DK, FI | None | Intrastat: CN8, net mass, origin, supplementary unit, above thresholds (GK) | Intrastat values vs EU purchases and sales on the VAT return | Intrastat draft (later) | Draft from posted documents |
 | I17, X3 | NO, IS | None | No Intrastat (EEA, not EU); customs declarations carry the commodity code (GK) | — | — | — |
 | I5 | NO, SE, DK, FI | Deposit amounts settled with the national deposit scheme (GK) | Deposit is outside VAT or taxed per country rule (GK) | Deposits charged vs deposits paid to the scheme | Deposit report | Add the deposit line from the item |
-| S1, C10 | All | None | Year-end stock value in the annual accounts and the tax return | Stock ledger value = GL balance of INVENTORY-role accounts, per company and location, daily | Valuation with GL beside it (R3) | Daily tie-out job; alert on any difference (roadmap:173) |
+| S1, C10 | All | None | Year-end stock value in the annual accounts and the tax return | Stock ledger value = GL balance of INVENTORY-role accounts, per company and account, daily; value per location is a report (decision 7) | Valuation with GL beside it (R3); value per location | Daily tie-out job; alert on any difference (roadmap:173) |
 | S1, C10 | NO | None | SAF-T Financial carries GL lines only, no stock section (https://www.skatteetaten.no/en/business-and-organisation/start-and-run/best-practices-accounting-and-cash-register-systems/saf-t-financial/questions-and-answers---saf-t-financial/); stock for tax at FIFO cost without write-downs (skatteloven § 14-5 (2) b, c, https://lovdata.no/lov/1999-03-26-14/§14-5) | Books vs tax stock difference | R10 | Difference computed at year end |
 | S1, C10 | SE | None | SIE 4 carries stock as GL lines only (GK); 97 % rule must match the books (https://skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag/varulager.4.1df9c71e181083ce6f6371.html) | Provision (97 % or NRV) vs valuation report | R10 | Proposed 97 % journal at year end, a person approves |
 | S1, C10 | DK | None | SAF-T from 2027-01-01 with GL lines (roadmap:141); stock accounts mapped to the standard chart (`accounts-packs-2026-2.md:307`, `:336`) | Day-price write-down vs books (https://tax.dk/jv/cc/C_C_2_3_1_6_1.htm) | R10 | — |
@@ -397,9 +414,11 @@ where all five answers are "none".
 | C8 | PK | Duty and sales tax paid at import (GK) | Imported Third Schedule goods valued at the declared retail price (FBR Circular 01 of 2019, https://download1.fbr.gov.pk/Docs/201972615718450CIRCULARNO.01OF2019.pdf) | As NO | As NO | As NO |
 | I17 (retail price) | PK | None | Retail price printed on each unit or pack, tax 18 % of retail price for Third Schedule goods (s.3(2)(a); STGO 08 of 2026, https://download1.fbr.gov.pk/Docs/202673875133134STGO08OF2026.pdf) | Invoice tax vs retail price × quantity | Third Schedule items without a retail price | Retail price per unit and variant copied to the line |
 | S10, P1, P3 | All | None (orders pay later, Purchase) | — | — | Below-reorder list (R6) | Nightly suggestions; low-stock alert; draft purchase orders with Purchase |
+| X8 | PK | None | Annex-J / Annex-H1 stock statements with the monthly return (SRO 55(I)/2025, per the Fable settlement, for ERP-Q1) | Opening + purchases − sales = closing by HS code | Annex-J / H1 draft | Draft from posted moves by HS code |
+| X5 | PK | None | FED per item on invoices (`accounts-b.md:1008`) | FED on invoices vs item fact | Items without FED data where needed | FED copied to the line |
 | X4 | All | None | Retention per country (`packs/2026.2/retention-rules.csv`) | — | — | Purge only through retention controls (roadmap:160) |
 | I26 | All | None | Item changes are audit events (bookkeeping trail) | — | Item change history | — |
-| All other features: I2-I4, I7-I9, I11-I16, I18-I25, I27, I28, L1-L9, S6, S11, S14-S16, P2, P4-P12, C1, C4, C5, C9, R1-R9, X5-X7 | All | None (P7 drop ship pays through Sales and Purchase) | None beyond the rows above | Covered by S1 / C10 where they post | Their own report rows in §3.6 | None in v1 |
+| All other features: I2-I4, I7-I9, I11-I16, I18-I25, I27, I28, L1-L10, S6, S11, S14-S20, P2, P4-P15, C1, C4, C5, C9, R1-R9, R11-R15, X6, X7, X9 | All | None (P7 drop ship pays through Sales and Purchase) | None beyond the rows above | Covered by S1 / C10 where they post | Their own report rows in §3.6 | None in v1 |
 
 ## 4. The eleven stock features (Jabran's list)
 
@@ -533,7 +552,8 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
 
 ### 4.9 Valuation and revaluation
 
-- **In v1:** FIFO and moving weighted average; one method per company, chosen at Inventory setup and fixed once the
+- **In v1:** FIFO and moving weighted average; the method is stored on the item, inherited from the company and
+  category (decision 5), and v1 offers one method per company, chosen at Inventory setup and fixed once the
   first move posts (a change later is a dated revaluation event, by an accountant, with a reason). Valuation pool is
   item × company (decision 7). Standard cost comes with Manufacturing; LIFO is not offered (C5).
 - **Country rules (source per country; for ERP-Q1):**
@@ -620,7 +640,7 @@ All rows are GK unless a repo source is named; each needs the country accountant
 | DK | 25 %; from the pack | SAF-T from 2027-01-01 (ACC-R2, roadmap:141) carries GL lines; stock accounts mapped to the standard chart (1460 → 6140; stock movement 1770 still *(verify)*: `accounts-packs-2026-2.md:307`, `:336`) | OIOUBL / Peppol BIS lines as SE | Only FIFO fully accepted for tax, average assumed acceptable, method per goods group; write-down to day price (https://tax.dk/jv/cc/C_C_2_3_1_6_1.htm) | Intrastat (Danmarks Statistik); deposit; VAT group (fællesregistrering, GK) |
 | FI | Standard and reduced rates; from the pack | No SAF-T; tax authority reads the books | Finvoice / Peppol lines | KPL 4:5.4 allows FIFO, LIFO or average (https://www.kuntaliitto.fi/sites/default/files/media/file/Lausunto-10-1997.pdf); tax rule not verified; lowest value (GK) | Intrastat (Tulli); VAT group (arvonlisäverotusryhmä, GK) |
 | IS | Standard and reduced rates; from the pack | No SAF-T today | Peppol lines | FIFO or average | No Intrastat (EEA); VAT-group rule not checked (GK) |
-| PK | Sales tax on goods (standard rate, further tax for unregistered buyers, Third Schedule retail-price tax); `retailPrice`, `saleType`, `scheduleRef` on lines (`accounts-b.md:1438`) | Annex-C sales register with HS code per invoice line (`accounts-h-design.md:215`) | FBR Digital Invoicing: HS code, FBR unit, quantity, SRO schedule and item serial, fixed notified value or retail price per line (FBR DI technical document v1.12, https://download1.fbr.gov.pk/Docs/20257301172130815TechnicalDocumentationforDIAPIV1.12.pdf; `accounts-b.md:1005`, `:2051`; FBR reference cache `HS_CODES`, `UOM`, `accounts-docout.md:300`). Until Inventory exists the line text stands in and the export warns (`accounts-h-design.md:221-222`) | IAS 2 (FIFO or weighted average); registered persons keep records of goods and stock (Sales Tax Act s.22) | Tier-1 retailer POS integration with FBR (with POS); provincial sales tax is on services, not goods |
+| PK | Sales tax on goods (standard rate, further tax for unregistered buyers, Third Schedule retail-price tax); `retailPrice`, `saleType`, `scheduleRef` on lines (`accounts-b.md:1438`) | Annex-C sales register with HS code per invoice line (`accounts-h-design.md:215`) | FBR Digital Invoicing: HS code, FBR unit, quantity, SRO schedule and item serial, fixed notified value or retail price per line (FBR DI technical document v1.12, https://download1.fbr.gov.pk/Docs/20257301172130815TechnicalDocumentationforDIAPIV1.12.pdf; `accounts-b.md:1005`, `:2051`; FBR reference cache `HS_CODES`, `UOM`, `accounts-docout.md:300`). Until Inventory exists the line text stands in and the export warns (`accounts-h-design.md:221-222`) | IAS 2 (FIFO or weighted average); registered persons keep records of goods and stock (Sales Tax Act s.22) | Tier-1 retailer POS integration with FBR (with POS); provincial sales tax is on services, not goods; Annex-J / H1 stock statements with the monthly return (X8); FED per item (X5) |
 
 What Inventory owes each country in v1: the item fields (I17), units mapped to Rec 20 and FBR units (§4.8), a tax
 class per item and category (§2.2), valuation methods allowed per country (decision 5), the count records and their
@@ -639,7 +659,7 @@ retention (X4). Return files and Intrastat stay in Accounts E (roadmap:140).
   location is protected, `stock-locations.md:53-54`).
 - **Volumes (assumed large tenant, to confirm):** 30 companies (the ADR-023 D14 tenant, `ADR-023:135`), 100,000 items
   with variants, 300 locations, 20 million stock moves a year in retail. Consequences:
-  - stored balances per item × location and per valuation layer (ADR-024 stored totals, `ADR-024-data-at-scale.md:17`);
+  - stored balances per item × location and per valuation layer, able to carry a lot (decision 14) (ADR-024 stored totals, `ADR-024-data-at-scale.md:17`);
   - keyset paging and capped counts on items, moves and counts (ADR-024 D3, `:60`); trigram search on item number,
     name and barcode (ADR-024 Stage 1, `:85`); UUID v7 on moves (`:81`);
   - stock moves partitioned by year only on a measured trigger (ADR-024 D7, `:64`);
@@ -699,7 +719,8 @@ retention (X4). Return files and Intrastat stay in Accounts E (roadmap:140).
 Accounts C posts the bill side (PI, GRNI and price variance); Accounts B posts revenue and tax only (`ADR-018:40`).
 Granularity: one journal per source document by default; a daily summary per company × location × account ×
 dimension set for high-volume sources, with the stock ledger keeping the detail and the journal linking back
-(decision 12).
+(decision 12). On a summarised source, COGS carries no item (category at most) and a late move for a summarised day
+posts as a further summary (decisions 12, 17).
 
 ### 8.3 Dimensions (ADR-021)
 
@@ -757,7 +778,8 @@ receives foreign-currency purchases into stock.
   (`App/docs/design/specs/accounts-integrations.md:165-166`).
 - **Recommendation:** once a company has posted its first Inventory move, manual journals on INVENTORY-role accounts
   are refused, as GRNI already does once used (`accounts-c.md:218`); corrections go through Inventory adjustments.
-- A daily invariant check ties stock value to the GL per company and location; it joins the money invariant checks
+- A daily invariant check ties stock value to the GL per company and account (value per location is a report, because
+  one company cost pool cannot tie per location, decision 7); it joins the money invariant checks
   (roadmap G.5, `:173`) and blocks push like the other money guardrails.
 
 ## 9. Dependencies and proposed slice order
@@ -774,6 +796,8 @@ receives foreign-currency purchases into stock.
 | Account rules per account (4.14) and a pack edition: item tag on COGS-type accounts, write-down role | roadmap:98; §8.3, §4.5 | Item on P&L lines; NRV |
 | Multi-currency (5.9) | roadmap:117 | Only for foreign purchases into stock |
 | Year-end item buckets | `accounts-a3.md:1234` | Before item rides on P&L lines |
+| Tax class mapping per country in the packs (Accounts lead) | decision 23 | Before INV-1 |
+| Catalogue: hide `BATCH_SERIAL` in the module grid until INV-9 | `EntitlementCatalog.kt:30`, `:175`; decision 14 | INV-0 |
 | Org catalog flips `INVENTORY` to implemented | `org.md:1521-1524` | Agreements can then include it |
 | ADR-018 amendment: Inventory posts receipts and COGS from Accounts bill and invoice lines, stock first in the approval; accounts-service calls inventory-service synchronously during approval (new internal scope, ADR-016); Inventory down → approval refused, retried with the same key; refused, cancelled or FBR-rejected documents reverse their move by the same key | `ADR-018:40`, `:76`; `accounts-a1.md:65`; backlog:276; decision 8 | Document-driven stock before Purchase and Sales |
 | B/C contract change: `itemId` and `stockLocationId` on lines a person enters; stock bill lines post to GRNI (C-6 exception); INVENTORY-sourced client beside PURCHASING; Items reachable with FINANCE | `accounts-b.md:524`; `accounts-c.md:191`, `:218`; decisions 1, 8 | Same |
