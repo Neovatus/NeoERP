@@ -178,3 +178,11 @@ Status: **approved by Jabran 2026-11-21** with Fable's conditions (own meaning a
 Jabran: "we already have one formatting based on the country, decide based on that." **Decided:** both `{month}` and `{period}` render with the company's country format that the App's NeoFormat uses (same month and month-year patterns), not a fixed English form; this supersedes the ledger-language part of D-180 for these two tokens; contract test BE output = NeoFormat pattern per country.
 Clarified (lead, from the App code 2026-11-21): NeoFormat month-year is "<short month> <year>", {month} the full name; names come from the language tables `core_fmt_months_short/long` (en, nb, sv, da; no dots); the country changes only numbers. Stored memo text uses the ledger language (D-180): NO → nb, SE → sv, DK → da, PK/FI/IS → en. QA's "nov./des." came from Java's locale. App mirror test to add in an App lane.
 Status: acted (sent to the FIX-BE builder)
+
+## D-20 Migration numbers V73/V75 (approval limits S5) vs FIX-BE V76 — 2026-11-21
+Question: FIX-BE adds accounts V76 (R30 b CHECK, `NOT VALID`). V73 and V75 were reserved for approval limits S5, which Jabran put after QA batch 2, so V76 would merge first and a later V73/V75 would be refused by Flyway (outOfOrder is off).
+Options: (a) S5 takes the next free numbers when built (V77 on); V73 and V75 stay permanent gaps; (b) turn on `outOfOrder`; (c) hold V76 until S5 merges.
+Pick: (a).
+Why: no branch holds a V73/V75 file (checked all remotes: only the old `phase/4-sec1` V73, merged as V72); S5 is not built; Flyway accepts gaps; outOfOrder weakens the order guarantee for every later migration; holding V76 blocks a money-invariant fix for no gain.
+Class: small (lead), no money or schema meaning changes.
+Status: acted; PROJECT-STATE AL-1 row updated; the S5 brief must use the next free number.
