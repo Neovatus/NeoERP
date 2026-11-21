@@ -18,7 +18,7 @@ country accountant (gate ERP-Q1, roadmap:178) must check every GK line before it
   include it yet (`BE/docs/api/org.md:1513`, `:1521-1524`). Its features are already catalogued, all off by default:
   `STOCK_BY_WAREHOUSE` (branch), `BATCH_SERIAL`, `INTER_BRANCH_TRANSFERS`, `INVENTORY_VALUATION` (company),
   `STOCK_COUNT` (branch) (`BE/services/org-service/src/main/resources/db/migration/V41__fe_upgrade_entitlement_rows.sql:116-120`).
-  Purchasing is its own module now, with `GOODS_RECEIPT` as a branch feature (same file, `:131-134`).
+  Purchasing is its own module now, with `GOODS_RECEIPT` as a branch feature (same file, `:127-130`).
 - The ownership rules are already decided by ADR-018: Inventory owns the item master, stock moves and stock valuation;
   Sales and Purchasing read items; Accounts owns the journal and Inventory supplies the content of stock value, COGS
   and GRNI journals as a machine client on journal type IV (`BE/docs/adr/ADR-018-parties-and-ledger-documents.md:31-33`,
@@ -47,7 +47,7 @@ numbers.
 | Non-stock item | Goods bought or sold but not counted (consumables, office supplies, drop-shipped goods) | No | Only through the bill or invoice line's account | Yes |
 | Service | Work or a fee (installation, consulting, freight charge) | No | Only through the bill or invoice line's account | Yes |
 | Kit (sales bundle) | A sales item made of components; selling it issues the components | No (components are stock) | COGS of the components | Later, with Sales (needs a sales document to explode) |
-| Assembly (bill of materials) | Made from components into new stock | Yes | Production costing | Later, Manufacturing (`V41:136-140`) |
+| Assembly (bill of materials) | Made from components into new stock | Yes | Production costing | Later, Manufacturing (`V41:131-135`) |
 | Fixed-asset item | Bought as an item but goes to the asset register, not to stock | No | Asset register (AC-FA) | Later, with fixed assets (roadmap:134); the asset spec keeps barcodes and stocktake out of v1 (`App/docs/design/specs/accounts-fixed-assets.md:40`) |
 | Deposit item (Nordic bottle deposit) | A linked charge added to a beverage line | No | Its own account and tax | Later, with Sales (GK: SE, NO, DK, FI deposit schemes) |
 
@@ -199,7 +199,7 @@ the reason says when to revisit.
 |---|---|---|---|
 | I1 | Item types: stock, non-stock, service | v1 | Every business needs them (§2.1) |
 | I2 | Kits / sales bundles | With Sales | Needs a sales document to explode into components |
-| I3 | Assemblies, bills of material | With Manufacturing | Catalogued as Manufacturing features (`V41:136-140`) |
+| I3 | Assemblies, bills of material | With Manufacturing | Catalogued as Manufacturing features (`V41:131-135`) |
 | I4 | Fixed-asset items | With fixed assets (roadmap:134) | Register is Accounts AC-FA |
 | I5 | Deposit items (bottle deposit) | With Sales | Linked charge on a sales line (GK) |
 | I6 | Category tree with defaults (roles, unit, tax class, valuation) | v1 | §2.2 |
@@ -271,7 +271,7 @@ the reason says when to revisit.
 | P6 | MRP (material planning) | With Manufacturing | Needs bills of material |
 | P7 | Drop shipment and special orders | With Sales and Purchase | Goods never touch our stock |
 | P8 | Pick, pack and ship | With Sales | Delivery is Sales' document (`ADR-018:29`) |
-| P9 | Multi-step receiving (receive, inspect, put away) | With Purchase and quality | Goods receipt is a Purchasing feature (`V41:132`) |
+| P9 | Multi-step receiving (receive, inspect, put away) | With Purchase and quality | Goods receipt is a Purchasing feature (`V41:128`) |
 | P10 | Camera barcode scanning on phones | Later | Hardware scanners work in v1 as typed input; camera needs platform work |
 | P11 | Barcode label printing | Later, with document output | Uses the PDF pipeline of 5.1 |
 | P12 | Wave and batch picking | Not planned | High-volume warehouse only; revisit with bins |
@@ -283,7 +283,7 @@ the reason says when to revisit.
 | C1 | Perpetual stock postings (stock value, COGS) | v1 | `ADR-018:40-41`; decision 6 for the off case |
 | C2 | GRNI at receipt, cleared by the bill | v1 (Accounts side built) | `BE/docs/api/accounts-c.md:218` |
 | C3 | FIFO and moving weighted average | v1 | §4.9, decision 5 |
-| C4 | Standard cost with variances | With Manufacturing | Needs routings and production costing (`V41:140`) |
+| C4 | Standard cost with variances | With Manufacturing | Needs routings and production costing (`V41:135`) |
 | C5 | LIFO | Not planned | Not allowed under IAS 2 and not used in our countries (GK) |
 | C6 | Revaluation of an item's cost | v1 | §4.9 |
 | C7 | Net realisable value write-down | v1 | §4.5 |
@@ -316,3 +316,180 @@ the reason says when to revisit.
 | X5 | Excise duty (alcohol, tobacco, sugar), bonded warehouses | Not planned | Specialist; revisit on a customer ask (GK) |
 | X6 | E-commerce stock sync, EDI stock messages | Later (§5) | Needs an outside-system API |
 | X7 | Stock in SAF-T / SIE files | No work in v1 | Stock appears only as GL lines in our countries' files (§6) |
+
+## 4. The eleven stock features (Jabran's list)
+
+Every posting below goes through the posting connection of roadmap 5.13 (AccountsPostingV2 core, roadmap:121), as
+journal type **IV** "Stock" (`ADR-018:33`; type list `BE/docs/api/accounts-a1.md:108`, label `:1065`), by the
+Inventory machine client with scope `accounts.posting.write`, pinned to journal type IV and control kinds INVENTORY
+and GRNI (`accounts-a1.md:65`, `:73`; `accounts-c.md:218`). Inventory is our own module, so it posts directly, not as
+a draft (the draft default of ADR-021 Q14 is for outside systems, `ADR-021:235`). Idempotency follows ADR-018 §5
+(`{MOVE_TYPE}:{moveId}:{n}`, `ADR-018:65`). The move date sets the period; a move into a closed period is refused
+(§8.7). Account roles are those of §2.2. Dimensions on each line follow §8.3.
+
+### 4.1 Stock on hand per item, location and company
+
+- **In v1.** Quantity per item × stock location, rolled up to branch and company; value per item × company (§4.9 and
+  decision 7). Stored balances updated in the move transaction, never summed from all moves on a read (ADR-024
+  "stored totals", `WS/docs/drafts/ADR-024-data-at-scale.md:17`).
+- **Why:** it is the first question every user asks, and ADR-023 keeps "stock on hand" as a level 1 module report
+  (`ADR-023:26`).
+- **Posting:** none of its own. The stock value equals the GL balance of the INVENTORY-role accounts, checked daily
+  (§8.8).
+
+### 4.2 Receipts and issues
+
+- **In v1:** goods in from a purchase, goods out to a sale, issues to internal use and to projects, and both kinds of
+  return. Before Purchasing and Sales exist, the source document is an Accounts bill or invoice line that names an
+  item and a location (decision 8).
+- **Why:** without receipts and issues there is no stock; ADR-018 fixes who posts what (`ADR-018:40-41`).
+
+| Move | When | Journal (IV unless named) |
+|---|---|---|
+| Goods receipt (Purchasing, or a bill line with a stock item) | On receipt date | DR INVENTORY (branch, location) / CR GRNI (party supplier), at the order or bill price in company currency (`ADR-018:41`) |
+| Bill for that receipt | On bill posting, by Accounts C (journal PI) | DR GRNI `receivedValue`, DR / CR PURCHASE_PRICE_VARIANCE the difference (`accounts-c.md:218`); decision 9 for the variance |
+| Issue to a sale (Sales delivery, or an invoice line with a stock item) | On delivery date, or invoice date when invoice-driven | DR COGS (item and the line's dimensions) / CR INVENTORY, at FIFO or average cost (`ADR-018:40`) |
+| Sales return (credit note line with `sourceLineId`) | On return | DR INVENTORY / CR COGS at the original cost (`ADR-018:40`) |
+| Purchase return (debit note) | On return | DR GRNI / CR INVENTORY; the debit note credits GRNI (`accounts-c.md:1205`) |
+| Issue to internal use | On issue | DR the reason's expense account (cost centre) / CR INVENTORY |
+| Issue to a project | On issue | DR the project cost account with the project dimension / CR INVENTORY |
+
+GK: in SE, NO, DK and FI, taking goods for own use outside the business can be a taxable withdrawal for VAT. v1 posts
+the cost only; the VAT, where due, is a manual Accounts entry until a reason carries a tax rule (§6).
+
+### 4.3 Transfers
+
+| Kind | Phase | Why | Journal |
+|---|---|---|---|
+| Between locations of one branch | v1 | Daily shop and warehouse work | IV: DR INVENTORY (location B) / CR INVENTORY (location A), same value; only when the account carries the location tag (1460 does: `se-bas.csv:29`). No posting when it does not |
+| Between branches of one company, through an in-transit location (requested → in transit → received) | v1 | Feature `INTER_BRANCH_TRANSFERS` (`V41:118`); the state model is the one ADR-007 and ADR-009 require for stores (`ADR-007:88`, `BE/docs/adr/ADR-009-edge-sync-endpoint-routing-and-idempotent-posting.md:94`) | IV at dispatch: DR INVENTORY (in-transit, branch B) / CR INVENTORY (branch A); at receipt: DR INVENTORY (location in B) / CR INVENTORY (in-transit). Transit loss on receipt goes to INVENTORY_ADJUSTMENT. Branch P&L is untouched; the balance sheet shows stock per branch |
+| Between companies of a group, at a transfer price, both books | Phase 7 | Two legal entities: a sale in one company and a purchase in the other, with VAT and inter-company balances; one company never posts into another's books (`RULES.md:126-127`; `ADR-018:49`); profit in unsold stock is eliminated on consolidation (roadmap:151) | Company A: invoice through Accounts B (revenue, INTERCOMPANY receivable, VAT) and IV DR COGS / CR INVENTORY at cost. Company B: bill through Accounts C and IV DR INVENTORY / CR GRNI at the transfer price. Both legs linked by one transfer id. Decision 13 |
+
+### 4.4 Stock counts
+
+- **In v1:** full count (year end), cycle counts (a subset by location, category or ABC class later), count sheets on
+  a phone with hardware-scanner input, count approval, variance posting, and the period-close link. Feature
+  `STOCK_COUNT` per branch (`V41:120`).
+- **Flow:** create a count (scope, cut-off time) → the system freezes the expected quantity per line at cut-off →
+  counters enter quantities (blind by default: expected quantity hidden) → recount lines over a tolerance → review
+  the differences (quantity and value) → approve → post. Moves after cut-off are kept apart, so counting does not
+  stop the shop.
+- **Approval:** the counter cannot approve their own count's variances; above a company value limit a second
+  approver signs, on the shared approval-limit model (roadmap:91-95 shows the AL slices). Decision 15.
+- **Journal:** IV at the count date: DR or CR INVENTORY against INVENTORY_ADJUSTMENT (4395 base, 4969 SE:
+  `accounts-packs-2026-2.md:280`, `se-bas.csv:176`), with location and branch.
+- **Close link:** an open or unposted count dated in a period shows on that period's close checklist; for the last
+  period of the year a missing full or cycle-complete count is a warning, and a company may make it blocking
+  (decision 15). The checklist itself is Accounts A2 C-14 (`BE/docs/api/accounts-a2.md:87`).
+- **Phone screens:** count entry is a top phone task. It uses the number keyboard with Done and refuses letters (ux
+  §25 touch entry, `UX1/ux-principles.md:283`); quantities are never cut (`UX1/ux-principles.md:276`); checked at the
+  QA sizes 375×667, 667×375, 874×402, 744, 1032, 1376, 1440 (`UX1/screen-standard.md:342-361`).
+
+### 4.5 Adjustments and write-downs
+
+- **In v1:** adjustments with a reason from a company list (damage, shrinkage, theft, samples, own use, found stock,
+  expiry), each reason mapped to an account role or account; write-downs to net realisable value for slow, damaged or
+  obsolete stock, from the ageing report (§4.11). Every adjustment asks a reason (ux §5) and goes to approval above a
+  company value limit.
+- **Why:** stock that never shrinks is wrong stock; IAS 2 and the Nordic acts want stock at the lower of cost and net
+  realisable value (GK).
+- **Journals (IV):** adjustment: DR the reason's account (default INVENTORY_ADJUSTMENT) / CR INVENTORY (or the
+  reverse for found stock). NRV write-down: DR a write-down expense / CR the inventory provision account (1490
+  "Provision for obsolete inventory", type INVENTORY_PROVISION, in the base and PK charts:
+  `packs/2026.2/base-ifrs.csv:41`, `packs/2026.2/pk.csv:42`). SE and DK charts have no such account and no role
+  exists for it; a pack edition adds a role and the accounts (decision 16). The provision is reviewed each close and
+  released when the stock is sold or scrapped.
+
+### 4.6 Reservations: allocated versus available
+
+- **In v1 (model):** each item × location shows on hand, reserved and available (= on hand − reserved). In v1 the
+  only reservations are transfer requests. Sales orders reserve with Sales; production with Manufacturing. No
+  manual reservations in v1.
+- **Why:** the three numbers must exist from the start, or every later module adds its own idea of "available".
+- **Posting:** none.
+
+### 4.7 Batch / lot, serial numbers, expiry
+
+- **Later (INV-9)**, feature `BATCH_SERIAL` (`V41:117`). Every stock move carries nullable lot and serial ids from
+  v1, so turning it on later needs no change to the move table.
+- **Why later:** it touches every move screen (pick a lot, scan a serial) and every count; the first customers in the
+  sources (Swedish retail and trading, roadmap:18) can start without it. Food, pharma and electronics customers need it,
+  so it is the first slice after v1 (decision 14).
+- **Posting:** none extra; FIFO by expiry (FEFO) changes which lot is issued, not the journal.
+
+### 4.8 Units of measure and conversions
+
+- **In v1:** one base unit per item, from the UN/ECE Recommendation 20 list Accounts already uses (`accounts-b.md:1437`;
+  31 codes in `packs/2026.2/units-of-measure.csv`, all UNCHECKED); alternate units with a fixed factor per item (box of
+  12, pallet of 40 boxes), each optionally a purchase or sales default and with its own barcode. Pakistan lines map
+  each unit to FBR's unit list (FBR reference cache `UOM`, `BE/docs/api/accounts-docout.md:300`).
+- **Why:** wholesale buys by the case and sells by the piece; FBR and e-invoices require a unit per line.
+- Stock is always kept in the base unit. Quantities carry up to the unit's decimals (piece 0, kg 3). Catch weight is
+  later (I12).
+- **Posting:** none.
+
+### 4.9 Valuation and revaluation
+
+- **In v1:** FIFO and moving weighted average; one method per company, chosen at Inventory setup and fixed once the
+  first move posts (a change later is a dated revaluation event, by an accountant, with a reason). Valuation pool is
+  item × company (decision 7). Standard cost comes with Manufacturing; LIFO is not offered (C5).
+- **Country rules (GK, check per country):** SE and NO tax rules lean on FIFO (first in, first out) with the lowest
+  value rule; FI, DK and IS accept FIFO or weighted average; PK follows IAS 2 (FIFO or weighted average). So FIFO is
+  the safe default for SE and NO, and average is allowed elsewhere (decision 5).
+- **Revaluation (v1):** a person with the revalue right sets a new unit cost for an item from a date, with a reason;
+  journal IV DR / CR INVENTORY against INVENTORY_ADJUSTMENT (or a revaluation account by setting) for the quantity on
+  hand. Under FIFO it revalues the open cost layers.
+- **Currency:** stock is valued in company currency only; a foreign receipt is converted at the receipt date's rate
+  (needs multi-currency, roadmap:117). The bill's rate difference is Accounts' realised FX, not stock.
+
+### 4.10 Reorder points, minimum stock and purchase suggestions
+
+- **In v1:** per item × location a reorder point, a minimum and a maximum (or order-up-to level); a "Below reorder
+  point" list with a suggested quantity (up to maximum, in the purchase unit). Export to Excel. With Purchase the
+  list becomes "Create purchase orders" (P2); transfer suggestions between locations come later (P3).
+- **Why:** it is the most-used planning tool in small and mid-size ERPs (GK), and it needs only Inventory data.
+- **Posting:** none.
+
+### 4.11 Stock reports and the reporting layer
+
+| Report | Level (ADR-023 D1, `ADR-023:24-31`) | Phase |
+|---|---|---|
+| Stock list: on hand, reserved, available, value, by item, category, location, branch | 1, Inventory, live | v1 |
+| Movement history per item and location, drill to the source document and journal | 1 | v1 |
+| Valuation report as of any date, per account and location, with the GL balance beside it and the difference | 1 | v1 |
+| Ageing (by receipt date or FIFO layer) and slow-moving stock | 1 | v1 |
+| Count variances, below-reorder list | 1 | v1 |
+| Gross margin by item and category; stock value by dimension across companies | 2, reporting-service | Later (roadmap:155, L.6) |
+| KPI tiles: stock value, days of stock, turnover | 3 | Later |
+| Self-service pivot over stock facts | 4 (`ANALYTICS` add-on, `ADR-023:175`) | Later |
+
+- Level 1 reports are the book of record and stay in Inventory (`ADR-023:33`). For levels 2-4, Inventory writes a
+  short reporting contract (events and facts per move, valuation and count) as ADR-023 D2 asks (`ADR-023:44`).
+- Big lists use keyset paging and capped counts (ADR-024 D3, `ADR-024-data-at-scale.md:60`); large exports run as
+  background jobs with a notification (ux §14).
+
+## 5. Cross-module map
+
+Features that touch Inventory but belong to another module. Inventory leaves the hooks named here.
+
+| Feature | Owner | Inventory provides | Depends on | Phase |
+|---|---|---|---|---|
+| Price lists, customer price levels, quantity and date prices, discounts, campaigns, bundles pricing, price override rights, tax on discounts (incl. PK retail-price tax) | Sales | Base price, units, variants, tax class (§2.7, §2.8) | Sales scope | With Sales |
+| Supplier prices and discounts, supplier item numbers, lead times | Purchase | Units, item ids | Purchase scope | With Purchase |
+| Purchase requests and orders; goods receipt document; three-way matching | Purchase (`ADR-018:30`) | Receipt move and GRNI posting (§4.2) | Purchase v1; GRNI owner row move (backlog:242) | With Purchase |
+| Quotes, sales orders, deliveries, pick / pack / ship | Sales (`ADR-018:29`) | Reservations, issue move and COGS (§4.2, §4.6) | Sales v1 | With Sales |
+| Returns and RMA (authorisation, inspection, restock or scrap) | Sales (customer side), Purchase (supplier side) | Returns locations, return moves at original cost | Sales, Purchase | With Sales / Purchase |
+| Landed costs (freight, duty, insurance) | Purchase (charges on bills), Accounts C | Revaluation of the receipt's layers | Purchase v1; decision 9 | With Purchase |
+| Bills of material, assembly, production orders, standard cost, MRP | Manufacturing (catalogued, `V41:131-135`) | Component issue and output receipt moves | A Manufacturing module decision | With Manufacturing |
+| Quality inspection, quarantine release | Manufacturing `QUALITY_CONTROL` (`V41:133`) / Purchase receiving | Returns-type locations now; stock status later | Manufacturing or Purchase | Later |
+| Project issues and project stock | Projects (future; project dimension today, `ADR-021:224`) | Issue to project (§4.2) | Project dimension (built) | v1 issue; project module later |
+| Fixed-asset items | Accounts AC-FA (roadmap:134) | Item type I4 hands the receipt to the register | AC-FA | With fixed assets |
+| Budgets by product (quantity × price) | Accounts budgets (`ADR-022:77`) | Quantity actuals by item (Q14, `ADR-022:267`) | Budgets stage 1 (roadmap:101) | Later |
+| Budget check on stock purchases | Purchase calls ADR-022 stage 2 (`ADR-022:193`) | Nothing: "stock purchases go through Purchasing's check point" | ADR-022 stage 2 (roadmap:154) | With Purchase |
+| Warehouse mobile scanning (camera), label printing | Inventory (later) | — | Document output 5.1 | Later |
+| Point of sale and offline stores | POS (`SALES.POINT_OF_SALE`, `V41:123`; ADR-007, ADR-009 Proposed) | Append-only moves, so a store server can own on-hand later (`ADR-009:39`) | ADR-007 accepted | With POS |
+| E-commerce stock and item sync | Integration API (outside systems) | Item and on-hand read API, stock move write API | Machine-client model (`ADR-021:178-186`) | Later |
+| EDI (orders, despatch advice, price catalogues) | Sales and Purchase | Item ids, GTINs | Peppol access point choice (roadmap:262) | Later |
+| Intrastat | Accounts E with Sales and Purchase | CN8, net mass, origin, supplementary unit on items | E (roadmap:140) | Later |
+| Inter-company transfers and consolidation | Accounts Phase 7 (roadmap:151) | Transfer id linking both legs | Phase 7, group catalogue | Phase 7 |
+| Expense claims with goods | HR / Accounts (`large-customer-roadmap.md:52`) | None (non-stock) | — | Not linked |
