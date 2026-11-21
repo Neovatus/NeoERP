@@ -24,6 +24,20 @@
         "NeoERP-App/docs/design/design-system"
       ],
       "port": 8766
+    },
+    {
+      "name": "render-check",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8767",
+        "--bind",
+        "127.0.0.1",
+        "--directory",
+        "/Users/jabransiddiqui/Offices/Neovatus/NeoERP-worktrees/render-check"
+      ],
+      "port": 8767
     }
   ]
 }
