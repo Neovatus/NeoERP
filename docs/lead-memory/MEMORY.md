@@ -39,7 +39,7 @@
 - [Second reviewer independent](second-reviewer-independent.md) — /security-review or Codex gets diff + brief only, not the first review (Jabran 2026-11-21)
 - [Regression test per finding](regression-test-per-finding.md) — HIGH/MEDIUM fixes proven old FAIL / new PASS; big LOWs to a fix-lane row (Jabran 2026-11-21)
 - [Lane-ready docs pages](lane-ready-docs-pages.md) — every lane-ready lists user-guide + developer pages changed or "none: reason"; missing = FIX (Jabran 2026-11-21)
-- [New-Mac lead: effort + decisions](new-mac-lead-effort-decisions.md) — NEW MAC ONLY: sub-agents High effort; my recommended decisions need written reasons + Fable 5.2 high approval; open/critical to Jabran (2026-11-21)
+- [Account models/effort + new-Mac decisions](new-mac-lead-effort-decisions.md) — BOTH leads (this account): model table, sub-agents High (Opus medium for docs/design from specs); NEW MAC ONLY: decisions need reasons + Fable approval (2026-11-22)
 - [No pilot decided](no-pilot-decided.md) — no pilot customer or first country decided (Jabran 2026-11-21); first market group = Pakistan + Nordic together, then EU, then others
 - [No GitHub CI in dev](no-github-ci-dev.md) — Actions off on all 3 repos (2026-11-21); never enable Actions or add a workflow without Jabran OK
 - [Fable budget](fable-budget.md) — Fable ≤50% of weekly limit (plan <40%, stop new at 45%); security reviews + batched decision checks only (2026-11-21)

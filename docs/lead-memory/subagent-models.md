@@ -8,7 +8,7 @@ metadata:
   modified: 2026-10-13T08:38:37.349Z
 ---
 
-**Current rule (Jabran 2026-11-15, final): Opus is the default builder.** Anthropic's dev-workflow test for Sonnet is "the design decisions are made"; our screen batches usually leave decisions open (A4 P2's Sonnet builder made 8 on its own) and the I18N trial favoured Opus. So: **Opus builds** full screen batches and anything where the spec leaves decisions open; **Sonnet builds** only fully decided work (review fixes, wording, copying an existing pattern, data layers from a fixed contract); **fresh Opus review after every build**, whichever model built it. Rest of the dev-workflow roles below still apply.
+**Model and effort per role on this account: see [[new-mac-lead-effort-decisions]] rule 1 (both leads, Jabran 2026-11-22); it overrides "Medium effort default" below.** Current rule (Jabran 2026-11-15, final): Opus is the default builder. Anthropic's dev-workflow test for Sonnet is "the design decisions are made"; our screen batches usually leave decisions open (A4 P2's Sonnet builder made 8 on its own) and the I18N trial favoured Opus. So: **Opus builds** full screen batches and anything where the spec leaves decisions open; **Sonnet builds** only fully decided work (review fixes, wording, copying an existing pattern, data layers from a fixed contract); **fresh Opus review after every build**, whichever model built it. Rest of the dev-workflow roles below still apply.
 
 **Anthropic dev-workflow roles (reference):**
 - **Opus 5.5:** plans, contracts, every review (fresh session, read-only), and implementing anything needing decisions or in risky areas (money/posting/tax, security/auth, locking/concurrency, migrations, tricky merges). Unblocks Sonnet when a task turns open-ended.
