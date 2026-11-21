@@ -866,7 +866,7 @@ guardrails: a test per finding, invariant checks before push, a second different
 4. **Variants (non-critical).** **Recommend:** variants with attributes in the item master from v1; each variant is
    its own item id; grid editor as INV-1b. Why: retail and textiles need size and colour from the first day; the lead
    leans the same way.
-5. **Valuation methods (critical: money, statutory).** **Recommend:** FIFO and moving weighted average in v1, one per
+5. **Valuation methods (critical: money, statutory).** **Approved by Jabran 2026-11-21 as recommended, with Fable's change.** **Recommend:** FIFO and moving weighted average in v1, one per
    company, fixed after the first move. **FIFO is the default in every Nordic country**; average is offered there only
    after the country accountant's check (ERP-Q1), because NO and SE tax rest on FIFO and DK only "assumes" average
    acceptable (§4.9 sources). PK keeps the choice under IAS 2. Standard cost with Manufacturing; no LIFO (FI law
