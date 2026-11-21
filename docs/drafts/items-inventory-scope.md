@@ -175,7 +175,8 @@ Lead's decision (2026-11-21): full pricing is not in this draft. The item master
 invoice and customer discounts; campaigns and offers (buy 3 pay 2, bundles, kit pricing); price override rights
 under the approval-limit model; tax-on-discount rules, including Pakistan's retail-price sales tax on Third Schedule
 goods, where tax follows the printed retail price, not the selling price (`BE/docs/api/accounts-b.md:1438` carries
-`retailPrice` on the line; rule itself GK).
+`retailPrice` on the line; rule: Sales Tax Act s.3(2)(a), 18 % of the retail price printed on each unit, STGO 08
+of 2026, https://download1.fbr.gov.pk/Docs/202673875133134STGO08OF2026.pdf).
 
 **Purchase scope will add:** supplier prices and price lists, supplier discounts, supplier item numbers and lead
 times (ADR-018 §3, `ADR-018:53`).
@@ -299,7 +300,7 @@ the reason says when to revisit.
 | C2 | GRNI at receipt, cleared by the bill | v1 (Accounts side built) | `BE/docs/api/accounts-c.md:218` |
 | C3 | FIFO and moving weighted average | v1 | §4.9, decision 5 |
 | C4 | Standard cost with variances | With Manufacturing | Needs routings and production costing (`V41:135`) |
-| C5 | LIFO | Not planned | Not allowed under IAS 2 (GK); FI bookkeeping law allows it (KPL 4:5.4, review 1 spot-check 7), but no customer need is known |
+| C5 | LIFO | Not planned | Not allowed under IAS 2 (GK); FI bookkeeping law allows it (KPL 4:5.4, https://www.kuntaliitto.fi/sites/default/files/media/file/Lausunto-10-1997.pdf), but no customer need is known |
 | C6 | Revaluation of an item's cost | v1 | §4.9 |
 | C7 | Net realisable value write-down | v1 | §4.5 |
 | C8 | Landed costs (freight, duty, insurance into stock value) | With Purchase | Charges arrive on bills; decision 9 |
@@ -350,14 +351,14 @@ Tier-1 retailers must link their POS to FBR; textile and pharma firms track lots
 Answers the common brief's five questions (`docs/agents/design-brief-common.md`, "Not only an ERP"). **Payments:**
 stock moves move no money, so the column says "none" except where money really moves (landed costs, import VAT and
 duty, deposits, inter-company settlement). Country cells marked GK need ERP-Q1; sources are named where the review
-checked them. Every catalogue feature is in exactly one row; the last row lists those where all five answers are
+checked them. Every catalogue feature is in at least one row; country rows split a feature; the last row lists those where all five answers are
 "none".
 
 | # | Country | Payments | Tax / statutory | Reconciliation | Report | Automation |
 |---|---|---|---|---|---|---|
 | I1, I6 | All | None | Tax class on item or category picks the VAT or sales-tax code per country; rates stay in the packs (`accounts-a0.md:160`) | — | Items without a tax class | New item inherits category tax class and accounts |
 | I10, X2 | NO, SE, DK, FI, IS | None | E-invoice line ids: seller id, GTIN, classification (EN 16931; from the frozen snapshot, `accounts-docout.md:205`); NO B2B from 2027-01-01 (roadmap:110) | — | Items without GTIN where a customer needs it | Fill line ids from the item |
-| I17, X1 | PK | None | HS (PCT) code, FBR unit, quantity, sale type, SRO schedule and item serial (reduced and exempt goods), fixed notified value or retail price per line (`accounts-b.md:1005`, `:1438`; FBR DI fields per review 1, https://download1.fbr.gov.pk/Docs/20257301172130815TechnicalDocumentationforDIAPIV1.12.pdf); Annex-C lists the HS code (`accounts-h-design.md:215-222`) | Annex-C lines vs posted invoices (Accounts E) | PK items missing HS code, unit or SRO data (refused at approval otherwise, `accounts-b.md:2541`) | Fill line fields from the item; warn at item save |
+| I17, X1 | PK | None | HS (PCT) code, FBR unit, quantity, sale type, SRO schedule and item serial (reduced and exempt goods), fixed notified value or retail price per line (`accounts-b.md:1005`, `:1438`; "FBR DI technical document v1.12, https://download1.fbr.gov.pk/Docs/20257301172130815TechnicalDocumentationforDIAPIV1.12.pdf); Annex-C lists the HS code (`accounts-h-design.md:215-222`) | Annex-C lines vs posted invoices (Accounts E) | PK items missing HS code, unit or SRO data (refused at approval otherwise, `accounts-b.md:2541`) | Fill line fields from the item; warn at item save |
 | I17, X3 | SE, DK, FI | None | Intrastat: CN8, net mass, origin, supplementary unit, above thresholds (GK) | Intrastat values vs EU purchases and sales on the VAT return | Intrastat draft (later) | Draft from posted documents |
 | I17, X3 | NO, IS | None | No Intrastat (EEA, not EU); customs declarations carry the commodity code (GK) | — | — | — |
 | I5 | NO, SE, DK, FI | Deposit amounts settled with the national deposit scheme (GK) | Deposit is outside VAT or taxed per country rule (GK) | Deposits charged vs deposits paid to the scheme | Deposit report | Add the deposit line from the item |
@@ -384,7 +385,7 @@ checked them. Every catalogue feature is in exactly one row; the last row lists 
 | S5, C7 | DK | None | Write-down to day price (Juridisk vejledning C.C.2.3.1.6.1) | Provision vs valuation | R4 | As NO |
 | S5, C7 | FI, IS, PK | None | Lowest value in the books; tax not verified (GK) | Provision vs valuation | R4 | As NO |
 | S7 | PK, all | None | Pharma lot and expiry duties (DRAP, GK); food traceability (GK) | Lot quantities = item quantity | Expiry list | Expiry alert; FEFO issue |
-| S8 | PK | None | FBR unit depends on the HS code (review 1 finding 9) | — | Items whose unit does not fit their HS code | Propose the FBR unit from the HS code (FBR reference cache `HS_CODES`, `UOM`, `accounts-docout.md:300`) |
+| S8 | PK | None | FBR unit depends on the HS code ("HS Code with UOM" reference method in the FBR DI technical document v1.12, https://download1.fbr.gov.pk/Docs/20257301172130815TechnicalDocumentationforDIAPIV1.12.pdf) | — | Items whose unit does not fit their HS code | Propose the FBR unit from the HS code (FBR reference cache `HS_CODES`, `UOM`, `accounts-docout.md:300`) |
 | S8 | All others | None | Rec 20 unit code on e-invoice lines (`accounts-b.md:1437`) | — | — | Default unit from the category |
 | S9, C3, C6 | All | None | Method per country (§4.9) | Revaluation journal = change in valuation report | Valuation per method | — |
 | S12 | All | None | — | Negative stock corrected at the next receipt's cost; difference to INVENTORY_ADJUSTMENT | Negative items, daily | Alert on any negative balance |
@@ -396,7 +397,7 @@ checked them. Every catalogue feature is in exactly one row; the last row lists 
 | S10, P1, P3 | All | None (orders pay later, Purchase) | — | — | Below-reorder list (R6) | Nightly suggestions; low-stock alert; draft purchase orders with Purchase |
 | X4 | All | None | Retention per country (`packs/2026.2/retention-rules.csv`) | — | — | Purge only through retention controls (roadmap:160) |
 | I26 | All | None | Item changes are audit events (bookkeeping trail) | — | Item change history | — |
-| All other features: I2-I4, I7-I9, I11-I16, I18-I25, I27, I28, L1-L9, S6, S11, S14-S16, P2, P4-P12, C1, C4, C5, C9, R1-R10, X5-X7 | All | None (P7 drop ship pays through Sales and Purchase) | None beyond the rows above | Covered by S1 / C10 where they post | Their own report rows in §3.6 | None in v1 |
+| All other features: I2-I4, I7-I9, I11-I16, I18-I25, I27, I28, L1-L9, S6, S11, S14-S16, P2, P4-P12, C1, C4, C5, C9, R1-R9, X5-X7 | All | None (P7 drop ship pays through Sales and Purchase) | None beyond the rows above | Covered by S1 / C10 where they post | Their own report rows in §3.6 | None in v1 |
 
 ## 4. The eleven stock features (Jabran's list)
 
@@ -479,7 +480,7 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
   obsolete stock, from the ageing report (§4.11). Every adjustment asks a reason (ux §5) and goes to approval above a
   company value limit.
 - **Why:** stock that never shrinks is wrong stock; IAS 2 and the Nordic acts want stock in the books at the lower
-  of cost and net realisable value (GK for the accounting rule). **Tax differs by country** (review 1 spot-check):
+  of cost and net realisable value (GK for the accounting rule). **Tax differs by country** (source per country below):
   - **NO:** for tax, write-ups and write-downs of stock are ignored; stock for tax is cost by FIFO (skatteloven
     § 14-5 (2) b and c, https://lovdata.no/lov/1999-03-26-14/§14-5). A write-down in the books therefore creates a difference between stock in the
     books and stock for tax, which the tax return needs. Inventory shows it in a report (R10) and the year-end
@@ -530,7 +531,7 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
 - **In v1:** FIFO and moving weighted average; one method per company, chosen at Inventory setup and fixed once the
   first move posts (a change later is a dated revaluation event, by an accountant, with a reason). Valuation pool is
   item × company (decision 7). Standard cost comes with Manufacturing; LIFO is not offered (C5).
-- **Country rules (review 1 spot-check; for ERP-Q1):**
+- **Country rules (source per country; for ERP-Q1):**
   - **NO:** FIFO for tax, no write-downs for tax (skatteloven § 14-5 (2) b and c, https://lovdata.no/lov/1999-03-26-14/§14-5).
   - **SE:** FIFO and lowest value; 97 % rule (IL 17 kap. 4 §) (https://skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag/varulager.4.1df9c71e181083ce6f6371.html).
   - **DK:** only FIFO is fully accepted for tax; average "is assumed acceptable"; the method may be chosen per goods
@@ -611,7 +612,7 @@ All rows are GK unless a repo source is named; each needs the country accountant
 | DK | 25 %; from the pack | SAF-T from 2027-01-01 (ACC-R2, roadmap:141) carries GL lines; stock accounts mapped to the standard chart (1460 → 6140; stock movement 1770 still *(verify)*: `accounts-packs-2026-2.md:307`, `:336`) | OIOUBL / Peppol BIS lines as SE | Only FIFO fully accepted for tax, average assumed acceptable, method per goods group; write-down to day price (https://tax.dk/jv/cc/C_C_2_3_1_6_1.htm) | Intrastat (Danmarks Statistik); deposit; VAT group (fællesregistrering, GK) |
 | FI | Standard and reduced rates; from the pack | No SAF-T; tax authority reads the books | Finvoice / Peppol lines | KPL 4:5.4 allows FIFO, LIFO or average (https://www.kuntaliitto.fi/sites/default/files/media/file/Lausunto-10-1997.pdf); tax rule not verified; lowest value (GK) | Intrastat (Tulli); VAT group (arvonlisäverotusryhmä, GK) |
 | IS | Standard and reduced rates; from the pack | No SAF-T today | Peppol lines | FIFO or average | No Intrastat (EEA); VAT-group rule not checked (GK) |
-| PK | Sales tax on goods (standard rate, further tax for unregistered buyers, Third Schedule retail-price tax); `retailPrice`, `saleType`, `scheduleRef` on lines (`accounts-b.md:1438`) | Annex-C sales register with HS code per invoice line (`accounts-h-design.md:215`) | FBR Digital Invoicing: HS code, FBR unit, quantity, SRO schedule and item serial, fixed notified value or retail price per line (review 1 spot-check 10; `accounts-b.md:1005`, `:2051`; FBR reference cache `HS_CODES`, `UOM`, `accounts-docout.md:300`). Until Inventory exists the line text stands in and the export warns (`accounts-h-design.md:221-222`) | IAS 2 (FIFO or weighted average); registered persons keep records of goods and stock (Sales Tax Act s.22) | Tier-1 retailer POS integration with FBR (with POS); provincial sales tax is on services, not goods |
+| PK | Sales tax on goods (standard rate, further tax for unregistered buyers, Third Schedule retail-price tax); `retailPrice`, `saleType`, `scheduleRef` on lines (`accounts-b.md:1438`) | Annex-C sales register with HS code per invoice line (`accounts-h-design.md:215`) | FBR Digital Invoicing: HS code, FBR unit, quantity, SRO schedule and item serial, fixed notified value or retail price per line (FBR DI technical document v1.12, https://download1.fbr.gov.pk/Docs/20257301172130815TechnicalDocumentationforDIAPIV1.12.pdf; `accounts-b.md:1005`, `:2051`; FBR reference cache `HS_CODES`, `UOM`, `accounts-docout.md:300`). Until Inventory exists the line text stands in and the export warns (`accounts-h-design.md:221-222`) | IAS 2 (FIFO or weighted average); registered persons keep records of goods and stock (Sales Tax Act s.22) | Tier-1 retailer POS integration with FBR (with POS); provincial sales tax is on services, not goods |
 
 What Inventory owes each country in v1: the item fields (I17), units mapped to Rec 20 and FBR units (§4.8), a tax
 class per item and category (§2.2), valuation methods allowed per country (decision 5), the count records and their
@@ -649,7 +650,11 @@ retention (X4). Return files and Intrastat stay in Accounts E (roadmap:140).
   company switches one off as a feature override (RULES §3). Reorder, variants and reservations need no feature row
   in v1 (always on with the module). Two **new** catalogue rows are proposed, both company scope and **off by
   default**, as large-customer features are (`large-customer-roadmap.md:11`): `GROUP_CATALOGUE` (decision 3) and
-  `INTERCOMPANY_TRANSFERS` (decision 13). The real default for `BATCH_SERIAL` being on matters little because
+  `INTERCOMPANY_TRANSFERS` (decision 13). Each spans companies, so the rule says whose switch counts: the
+  **parent's** `GROUP_CATALOGUE` for a group catalogue (a member company follows it, a franchise opts in), and
+  **both companies'** `INTERCOMPANY_TRANSFERS` for a transfer. Both rows belong to the INVENTORY module. The item
+  master itself is not a feature row: it resolves on from any of FINANCE, INVENTORY, SALES or PURCHASING (decision
+  1). So a group on Finance only keeps one catalogue per company and cannot share one until it takes INVENTORY. The real default for `BATCH_SERIAL` being on matters little because
   INV-9 builds it later; until then the feature has nothing to switch.
 - **Franchise:** a franchise is its own company and keeps its own items unless it opts into a group catalogue
   (`RULES.md:154-167`).
@@ -804,7 +809,8 @@ per finding, invariant checks before push, a second different reviewer. Each sli
    tax class, base price, accounts, country fields) on B and C lines; **stock items and every stock feature need
    INVENTORY**. Why: sold by module, one item list for every module, and NeoERP is a regnskap system too. This is an
    entitlement-chain rule (RULES §3: the Items area resolves on from any of the four modules) and a note on ADR-018
-   (`ADR-018:31`: Inventory owns the master, Accounts B and C read it even without the INVENTORY module).
+   (`ADR-018:31`: Inventory owns the master, Accounts B and C read it even without the INVENTORY module). The
+   group catalogue is an INVENTORY feature, so a group on Finance only cannot share a catalogue (§7).
 2. **Chart of items: how a company starts (critical: product direction).** Options: no templates, fixed industry
    charts, or starter sets. **Recommend:** starter category sets by business type, chosen at setup, copied and then
    the company's own (§2.3); the country decides units, tax classes and statutory fields; category defaults point
