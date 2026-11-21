@@ -34,6 +34,8 @@ Integration owner for every row: **Jabran** (decides scope, approves). The lead 
 
 ## Done since last update (16 Sep 2026)
 
+- Draft Phase 4 PRs opened (2026-11-21, Jabran): BackEnd #8 and App (`NeoERP-FrontEnd`) #5, `phase/4` → `main`; they grow with batch 2 and are marked ready after roadmap 4.1–4.18 and a final verify. ISO-R1 merged to BE `phase/4` (`6f5481a3`).
+
 - GitHub Actions switched off on all three repos (2026-11-21, Jabran: dev mode, no CI yet; WORKFLOW guardrails line).
 
 - GATE-0 BE (verify.sh, pre-push hook, risk-check, money invariants, tenant ratchet) merged to BE `phase/4` 5e00b131 (2026-11-21); DOCS-2a merged to App `phase/4` f19a101b; ROADMAP-A and ISO-1 drafts merged to workspace master.
