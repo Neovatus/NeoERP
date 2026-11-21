@@ -3,12 +3,13 @@
 What only Jabran can do or decide, with when it is needed. The lead keeps this list current (adds new items, ticks
 done ones with the date) every batch. Details and drafts are linked; nothing here holds a password or token.
 
-**Last updated:** 2026-11-21 (new-Mac lead).
+**Last updated:** 2026-11-22 (new-Mac lead).
 
 ## Now (waiting on you)
 | # | What | Why it waits on you | Details |
 |---|---|---|---|
 | N1 | S4 last step (simulator shut down 2026-11-21; boot it again when you want to run it): turn on the iPad simulator's hardware keyboard (the keyboard switch in the simulator panel of the Claude app; this Mac has no separate Simulator app), then the lead finishes S4 (S1–S3 passed) | The lead's tool cannot switch it | `NeoERP-App/docs/agents/fix-app-a/builder-report.md` "Needs a simulator" |
+| N4 | **Read the ARCH-1 gap map** (and the capacity model), then tell the lead to resume step 2 (the missing ADRs) | Step 2 is paused until you have read step 1 (your request 2026-11-21) | workspace branch `phase/4-b2-arch1`: `docs/agents/arch1/gap-map.md` (`9323add`), `capacity-model.md` (`1de5b7e`) |
 | N3 | Switch the **lead session to High effort** in the app (it still shows medium) | Only you can change the session setting | claims.md "New-Mac lead rules" 1 |
 
 ## Before Phase 5 starts (after the Phase 4 PR merges)

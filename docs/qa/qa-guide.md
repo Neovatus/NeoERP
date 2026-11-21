@@ -242,7 +242,8 @@ The current rule (WORKFLOW "Test scope"; BackEnd and App verify.md). It supersed
 suite before every push" text that was in lead-agent-structure §3a and main-agent-handover §2.
 
 1. **Builders** run targeted tests per step: new and changed tests, the changed classes' tests and their dependants,
-   through the Gradle lock (`lockf`, one Gradle run per machine). Wording lanes compile only. Docs only: no tests.
+   through the Gradle locks (`lockf`; two locks, one per repo: App first, then BackEnd; whole-suite and `--parallel` runs
+   take both and run alone; WORKFLOW "Test scope", L33). Wording lanes compile only. Docs only: no tests.
 2. **Reviewers** re-run the builder's tests from clean only on money and security lanes.
 3. **The lead** runs `scripts/verify.sh` once per merge batch (at most 3 related slices) in each repo the batch
    touches, before the push to `phase/<N>` or `main`: BackEnd runs every service, `shared/*`,
@@ -250,7 +251,7 @@ suite before every push" text that was in lead-agent-structure §3a and main-age
    needs the two review files (`--reviews`).
 4. **The pre-push hook** refuses a push to `phase/<N>` or `main` without the marker `build/verify/<sha>.ok` for that
    commit and range. Lane branches pass the hook. Never `--no-verify`.
-   **Approved, being built (GATE-LITE-1, Jabran 2026-11-21):** a lane that changes only docs (`docs/**`, `*.md`) or a
+   **Approved, being built in TEST-SPEED-1 (BackEnd) and TEST-SPEED-APP (App) (Jabran 2026-11-21):** a lane that changes only docs (`docs/**`, `*.md`) or a
    dev-only script on the fixed list gets a light marker without a full run, if an ancestor commit has a full-run
    marker. Code, build files, migrations, tests and the gate's own files always need the full run.
 5. **Layout lanes: an iOS look before the merge.** When an App lane changes the page frame, scrolling, the top bar,

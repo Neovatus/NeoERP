@@ -17,7 +17,7 @@
 - [Check approved decisions](check-approved-decisions.md) — grep the plan Q&A before any lead call that narrows scope; never override Jabran-approved answers
 - [App languages](app-languages.md) — en/nb/sv/da, all steps (I18N-1..4); old modules (hr, payroll, ess, HR reports, inbox) skipped until rebuilt (Jabran 2026-11-10)
 - [Quick add from pickers](quick-add-pickers.md) — app-wide "Add “x”" panel in form pickers; setup data link-only; QA-1 before I18N-1 (Jabran 2026-11-08)
-- [Gradle one at a time](gradle-one-at-a-time.md) — one lane at a time, no helper agents, Gradle through lockf; builders compile only, lead tests once (Jabran 2026-11-10)
+- [Gradle one at a time](gradle-one-at-a-time.md) — two locks since 2026-11-21 (App first, then BackEnd; one job per repo; whole-suite runs take both, L33); no helper agents; builders compile only, lead tests once (Jabran 2026-11-10)
 - [One repo per builder](one-repo-per-builder.md) — app builders see only NeoERP-App, backend only BackEnd; briefs inside the repo; Codex too (Jabran 2026-11-10; move after I18N round)
 - [No AI co-author](no-claude-coauthor.md) — never Co-Authored-By Claude or Codex, nor AI attribution, in commits/PRs/comments; tell all builders incl. Codex (Jabran 2026-11-12)
 - [Branch per phase](branch-per-phase.md) — slices → lane → phase/N → main (one PR per phase per repo); Phase 3 fixes on fix/phase3-test-fixes; Phase 4 lanes in worktrees; FMT-T after the fix merge (2026-11-15)

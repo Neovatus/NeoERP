@@ -32,7 +32,7 @@
 ## Handoff — 2026-11-21 night — new-Mac lead (read this first)
 
 **Jabran's direction (2026-11-21, ~23:00): complete Phase 4 first.** Tooling lanes BE-JDK21 (brief drafted in the
-lead's scratchpad, `be-jdk21-brief.md`; copy into a lane when it starts) and TEST-SPEED-1 wait until after the Phase 4 PR.
+lead's scratchpad, `be-jdk21-brief.md`; copy into a lane when it starts) and TEST-SPEED-1 were moved ahead on 2026-11-21 ~23:20 (see the update below).
 
 **In flight:**
 - **BE-RUN-1** (opt-in jar mode, `NEOERP_RUN_MODE=jar`): Jabran said **MERGE**. Lane `phase/4-b2-be-run-1` head
@@ -58,11 +58,12 @@ F1–F10, App A reviews' LOWs), App lane on App `phase/4` `324d3039`.
 line so we can work in parallel"):**
 1. BE-RUN-1 merge (gate running) → BE-DOCS-1 lane ready, rides on the next BackEnd full run.
 2. **App B1** (App, Opus) and **BE-JDK21** (BackEnd, Opus; brief in the lead's scratchpad `be-jdk21-brief.md`) run as
-   two builders in parallel, Gradle still one job at a time through the lock; full gates one after the other
+   two builders in parallel; Gradle: two locks, one per repo, App lock first then BackEnd, whole-suite runs take both
+   (WORKFLOW "Test scope", L33); full gates one after the other
    (BE-JDK21 + BE-DOCS-1 in one BackEnd run, then App B1). Go back to one lane if reviews or tests suffer.
 3. **R34i** (hooks guard `phase/hrp-v2`) with or before App B1.
-4. After App B1 merges: merge App `phase/4` into `phase/hrp-v2` → clean HR base. HR v2 H1 then runs on the **old Mac
-   from Monday** (own Gradle lock), in parallel with the rest of Phase 4 here.
+4. After App B1 merges: merge App `phase/4` into `phase/hrp-v2` → clean HR base. HR/Payroll v2 **H1 runs on the old Mac from Monday 2026-11-23**, on `phase/hrp-v2`, once App B1 has merged and App `phase/4` is merged into `phase/hrp-v2` (the clean HR base); the old Mac uses its own Gradle locks; the new Mac hands the HR stream over then (Jabran 2026-11-21); in parallel with the rest of
+   Phase 4 here.
 5. Rest of Phase 4 on this Mac: App B2, App C, R34-App, R29b, retest, 4.18, AL S5 → P2/S6 → small reads → owner
    switch, DOCS-2c, Phase 4 PR.
 
