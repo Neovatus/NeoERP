@@ -263,7 +263,7 @@ graph LR
    ship it with Phase 5; other countries' E and H follow their launch order.
 10. **Vendor choices with no owner:** **Decided by Jabran 2026-11-21:** Jabran decides each vendor; the lead prepares a fresh comparison for all three now (official sources first, then vendors; cost, EU/EEA hosting and DPA, onboarding time, a pick with reasons), so they are decided before Phase 5 starts; the Pakistan FBR/PRAL sandbox paperwork starts early. Comparisons in `docs/agents/vendor-choices/`. Peppol access point (D-121/D-123) and PK FBR route (D-125). **Recommend:**
     decide D-121/D-123 before NO e-invoicing (5.2) starts; D-125 before PK work (PK is third in launch order).
-11. **Go-live items with no slot or owner:** company-local today, control-difference alerts, read-only off pages,
+11. **Go-live items with no slot or owner:** **Decided by Jabran 2026-11-21: as recommended, with Fable's date rule** — one go-live hardening lane (G.5–G.8) owned by the ERP lead, built before the hosted stage; ACC-R19 in Phase 5, due before the first production customer or 2027-07-01, whichever comes first. company-local today, control-difference alerts, read-only off pages,
     FE-2 check, D-202 removal, Hikari leak, ACC-R19 (deadline 2027-07-01). **Recommend:** one go-live hardening lane
     (G.5–G.8) owned by the ERP lead, built before the hosted stage; ACC-R19 in Phase 5.
 12. **Stale file.** `BE/docs/post-release-backlog.md` (April 2026). **Recommend:** mark it superseded by this roadmap and
