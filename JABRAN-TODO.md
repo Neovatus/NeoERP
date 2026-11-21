@@ -8,8 +8,7 @@ done ones with the date) every batch. Details and drafts are linked; nothing her
 ## Now (waiting on you)
 | # | What | Why it waits on you | Details |
 |---|---|---|---|
-| N1 | Verdict on **FIX-APP-A** (verify OK, 3905 tests, 0 failed; both reviews ACCEPT), OK to delete its stale remote branch, and the iOS simulator checks S1–S4 for R05/R06 (or let the lead run them) | Merge to App `phase/4` needs your MERGE | `.review-channel/lane-ready-fix-app-a.md` |
-| N2 | Decide whether the **building-blocks short-heights paragraph** proposed by App A goes into the approved design pages | Changes an approved design rule | `NeoERP-worktrees/fix-app-a/docs/agents/fix-app-a/builder-report.md` (round 3) |
+| N1 | iOS simulator checks S1–S4 for R05/R06 (typed text lost), or let the lead run them on the simulator | Needs a device run | `NeoERP-App/docs/agents/fix-app-a/builder-report.md` "Needs a simulator" |
 | N3 | Switch the **lead session to High effort** in the app (it still shows medium) | Only you can change the session setting | claims.md "New-Mac lead rules" 1 |
 
 ## Before Phase 5 starts (after the Phase 4 PR merges)
@@ -46,4 +45,5 @@ done ones with the date) every batch. Details and drafts are linked; nothing her
 ## Done
 | Date | What |
 |---|---|
+| 2026-11-21 | FIX-APP-A merged (App `phase/4` `324d3039`) and its short-heights design paragraph approved |
 | 2026-11-21 | All 21 Items/Inventory decisions; all 16 Accounts roadmap decisions; ADR-024/025 accepted with the ADR-025 additions; vendor picks D-121/D-123/D-125; MERGE verdicts for FIX-BE, HRP-SPECS, INV-SCOPE, VENDORS, the Accounts roadmap; payroll approval-limit holders; OK to delete the stale FIX-BE branch and to fast-forward the checkouts |
