@@ -8,7 +8,7 @@ done ones with the date) every batch. Details and drafts are linked; nothing her
 ## Now (waiting on you)
 | # | What | Why it waits on you | Details |
 |---|---|---|---|
-| N1 | Verdict on **FIX-APP-A** (App fix lane A) once its full verify passes, and the iOS simulator checks for R05/R06 | Merge to App `phase/4` needs your MERGE | `.review-channel/lane-ready-fix-app-a.md` (written when the verify passes) |
+| N1 | Verdict on **FIX-APP-A** (verify OK, 3905 tests, 0 failed; both reviews ACCEPT), OK to delete its stale remote branch, and the iOS simulator checks S1–S4 for R05/R06 (or let the lead run them) | Merge to App `phase/4` needs your MERGE | `.review-channel/lane-ready-fix-app-a.md` |
 | N2 | Decide whether the **building-blocks short-heights paragraph** proposed by App A goes into the approved design pages | Changes an approved design rule | `NeoERP-worktrees/fix-app-a/docs/agents/fix-app-a/builder-report.md` (round 3) |
 | N3 | Switch the **lead session to High effort** in the app (it still shows medium) | Only you can change the session setting | claims.md "New-Mac lead rules" 1 |
 
