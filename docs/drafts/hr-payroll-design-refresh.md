@@ -99,7 +99,7 @@ These apply to every spec; the per-spec sections below only add the lines.
 | # | Spec section:line | What changes | Why (decision + source) | Recommendation | Class | Size |
 |---|---|---|---|---|---|---|
 | PY.1 | Scope P0 `WS docs/agents/payroll/scope.md:11, :16-18`; inventory PC-1 to PC-5 `payroll-p.md:939-943`, PC-12 interim calculator `:950`, PC-13 legacy runs `:951`, PC-15 "existing NUMERIC(14,2)" `:953`, P1-1 to P1-3 `:965-967`, P1-20 "non-legacy" `:984`, P3-1 `:1049`, P4-1 `:1099`, P4-18 `:1130` | **Payroll P0 becomes "new schema", not "migrate v1".** The signed-off scope says "Data: kept through new migrations" and "V6 (nullable) → backfill job → V7"; with D9 the first migration creates all v2 tables with `company_id NOT NULL`, composite keys, RLS and `NUMERIC(19,4)` money; no interim calculator (P1's engine is the first calculator), no legacy runs, no v1 conversion, no seed rows copied (the demo seed creates per-company rows). P0 keeps four eyes, `@Version`, idempotency, the audit outbox and tier 2. | X.1; ADR-026 R4, D9; the scope is Jabran's (`scope.md:3`). | Amend scope §1 P0 and the "Data" line with a dated note; P0 and P1 contracts follow. Decision 3. | critical | M |
-| PY.2 | Scope P1 "the Pakistan pack" `WS docs/agents/payroll/scope.md:29, :43-47`; P4–P9 order "PK → NO → SE → DK → FI → IS" `:66, :72-79`; demo data `payroll-p.md:90-98` | **Country order against the launch order.** Payroll builds and checks Pakistan first and Sweden third; the launch order is SE → NO → PK → FI → IS → DK, so the first customer is Swedish. A country is ready only after its pack is CHECKED and a pilot runs in parallel, so the first checked pack should be the first launch country. | Launch order (`BE docs/api/accounts-roadmap.md:92`; `WS docs/drafts/accounts-roadmap.md:18`); product direction, large Swedish pilot (`WS docs/drafts/accounts-roadmap.md:240`); country readiness rule (`scope.md:70`). The engine is designed against Norway either way (`scope.md:30`). | Order the country slices SE → NO → PK → FI → IS → DK: P1 ships the engine with the SE pack and SE filings (AGI) as the first statutory slice; PK keeps its demo companies and moves to third. Decision 4. | critical | M |
+| PY.2 | Scope P1 "the Pakistan pack" `WS docs/agents/payroll/scope.md:29, :43-47`; P4–P9 order "PK → NO → SE → DK → FI → IS" `:66, :72-79`; demo data `payroll-p.md:90-98` | **Country order against the launch order.** Payroll builds and checks Pakistan first and Sweden third; the launch order is SE → NO → PK → FI → IS → DK, so the first customer is Swedish. A country is ready only after its pack is CHECKED and a pilot runs in parallel, so the first checked pack should be the first launch country. | Launch order (`BE docs/api/accounts-roadmap.md:92`; `WS docs/drafts/accounts-roadmap.md:18`); product direction, large Swedish pilot (`WS docs/drafts/accounts-roadmap.md:241`); country readiness rule (`scope.md:70`). The engine is designed against Norway either way (`scope.md:30`). | Order the country slices SE → NO → PK → FI → IS → DK: P1 ships the engine with the SE pack and SE filings (AGI) as the first statutory slice; PK keeps its demo companies and moves to third. Decision 4. | critical | M |
 | PY.3 | §6.4 journal preview `payroll-p.md:189`; P2 lines `BE docs/api/payroll-v2-p2.md:78, :417`; A5 `BE docs/api/accounts-a5.md:93, :152` | **Payroll posting carries the shared dimensions.** P0 lines already hold the full `DimensionSetV1` (`BE docs/api/payroll-v2-p0.md:465`), but the P2 body and `AccountsPostingV2` carry only `branchId` and `costCentreId`, so department, project and the company's free dimensions are lost on the way to the ledger. The preview shows the dimensions the company uses. P2 also reads ADR-021 account rules (required / not allowed per dimension) at calculate, as for branch. | ADR-021 accepted 2026-11-03 (`BE docs/adr/ADR-021-shared-dimensions.md:5`), after A5 (2026-10-10, `accounts-a5.md:3`) and P2 were written; gap check D2, D6, D9 (`WS docs/drafts/hr-payroll/large-customer-gap-check.md:51, :55, :58`). | A numbered amendment to P2 and to A5 before CP-P2. Decision 7. | critical | S |
 | PY.4 | §6.3 Approve `payroll-p.md:176-186` | **Pay run approval stays one approver with four eyes in v2** (calculator ≠ approver, Owner's own only when nobody else holds a payroll calculate or approve right, fresh check that fails closed). Multi-level approval for large runs (payroll, then finance above an amount) comes later on the shared approval model. | Scope rule 4 (`scope.md:95-99`); L-1, L-2 (`hr-payroll-open-decisions.md:34-35`); approval limits names "large pay runs" as a later adopter (`accounts-approval-limits.md:43-44`); gap check priority 2 (`large-customer-gap-check.md:41`). | Keep; record "multi-level run approval" as a later row. Decision 6. | critical | S |
 | PY.5 | §6.5 bank file `payroll-p.md:203`; §6.6–§7 payslip PDF `:243`; §6.7 filing files `:225`; P3 interim document store | **Files on the shared file store from the start**: bank files, payslip PDFs, filing files and receipts go through `:shared:file-store`; no interim `PayrollDocumentStore`. Payment files stay one shared PF-1 piece with Accounts' payment files (5.8). | ADR-020 D14 (`BE docs/adr/ADR-020-file-store.md:55, :169-177`); `BE settings.gradle.kts:14`; PF-1 shared with Payroll (`WS docs/drafts/accounts-roadmap.md:116`). | Yes. Decision 8. | critical | S |
@@ -126,3 +126,103 @@ These apply to every spec; the per-spec sections below only add the lines.
 |---|---|---|---|---|---|---|
 | PA.1 | §1.5 `people-access.md:245-248`; §6.2 item 10 `:828-832` | Written against v1 HR ("`hr.employees.user_id NOT NULL` today", "becomes nullable", "designation"). In v2 the employee table is created with a nullable login link and positions; the link endpoint is the H1 one. | X.1; hr-h1 words (`hr-h1.md:23`). | Rewrite both to the v2 shape; the approved rules (employees without a login, Employee role with app access) stay. | non-critical | S |
 | PA.2 | People list and person page `people-access.md:301, :580, :820` | "EMP-0042 · Store lead" is the designation; v2 names it the position (`employee: { id, code, position }`). | `hr-h1.md:23`. | Yes. | non-critical | S |
+
+## Counts
+
+| Spec | Items | Critical | Non-critical |
+|---|---|---|---|
+| All six (X) | 14 | 3 | 11 |
+| hr-h1 | 10 | 5 | 5 |
+| hr-h2-h3 | 9 | 2 | 7 |
+| hr-h4 | 6 | 1 | 5 |
+| payroll-p | 10 | 6 | 4 |
+| ess | 6 | 1 | 5 |
+| people-access | 2 | 0 | 2 |
+| **Total** | **57** | **18** | **39** |
+
+The 39 non-critical items are for Fable to settle. Two of them choose between contradicting texts that are already in the
+specs: H1.7 (wizard or quick-add panel) and H4.4 (the O1 and O5 rows). X.8 follows D-10, which is still marked for
+Jabran's confirmation.
+
+## Decisions for Jabran
+
+Each groups the critical items it settles.
+
+1. **Start HR v2 and Payroll v2 on a new schema** (X.1, X.2, H1.1, H23.1, H4.1): company column, composite keys and
+   row-level security from the first migration, old tables dropped, no backfill. This is ADR-026 D1 (option B) and D9.
+   **Recommend: yes.** Dev holds no customer data (ADR-026:166), and adding the wall later means a second migration of
+   every table and a backfill nobody needs.
+2. **v1 HR, Payroll and ESS stop working from the first v2 migration** (H1.2); their menu entries are hidden until each v2
+   area ships. **Recommend: yes.** They are already out of QA and i18n (PROJECT-STATE HRP-2); keeping them alive would
+   need the backfill decision 1 removes.
+3. **Amend the signed-off Payroll scope P0** (PY.1): new schema, no interim calculator, no legacy runs, no seed copies.
+   **Recommend: yes.** It follows from 1; P0 keeps four eyes, `@Version`, idempotency, the audit outbox and tier 2.
+4. **Payroll country order SE → NO → PK → FI → IS → DK**, with the SE pack and AGI as the first statutory slice (PY.2).
+   **Recommend: yes.** The first customer is Swedish and a country is ready only after its own pack is checked and a
+   pilot has run in parallel; checking Pakistan first delays the first sale. Pakistan keeps its demo companies.
+5. **HR approvals on the shared approval model from H2** (H23.2): one band, one step, shared stand-ins; multi-step later.
+   **Recommend: yes.** The model and its `LINE_MANAGER` step type are built; HR-own approval tables would be rebuilt when
+   large customers ask for chains (priority 1 in the gap check).
+6. **Pay run approval stays one approver with four eyes in v2** (PY.4). **Recommend: yes.** It is scope rule 4 as
+   decided; multi-level run approval adds money risk now for a priority-2 need.
+7. **Payroll posting carries the shared dimensions** (PY.3, H1.4): amend P2 and A5 (`AccountsPostingV2`) to carry the
+   full dimension set; HR adds department to employee-facts segments, department validity and the
+   `hr.department.changed` event. **Recommend: yes, before the H1 build and CP-P2.** ADR-021 is accepted, and a frozen
+   posting contract costs more to change once built.
+8. **Shared file store and field cipher from the start** (H1.3, PY.5) for HR documents, sensitive fields, payslip PDFs,
+   bank and filing files. **Recommend: yes.** Both are built and used by Accounts; interim stores would need ADR-020's
+   copy job later.
+9. **Guardrails package for the whole HR/Payroll build** (X.3): risk paths, second reviewer, regression test per finding,
+   state-transition matrices, payroll money invariants, golden files per country, accountant sign-off. **Recommend: yes.**
+   These are the 2026-11-20 guardrails applied to payroll money, statutory files and personal data.
+10. **A5 is an Accounts lane that lands before Payroll P2** (PY.6); P0 and P1 do not wait for it. **Recommend: yes.** It
+    matches Accounts roadmap decision 16 ("A5 and L.1 follow Payroll v2's own progress").
+11. **ESS bank changes serve a customer only once the bank-change notice is really e-mailed** (ES.1), as ACC-R15 for
+    suppliers. **Recommend: yes.** The notice is the employee's only warning of a fraudulent change.
+12. **Cross-company reads stay one company per call** (H1.5): employer lists from IAM, HR facts per employer under its
+    own scope. **Recommend: yes.** It is ADR-026 D4 and keeps a franchise's employees out of the group's reach (RULES §8).
+
+## Not changed, checked
+
+These still hold against the later decisions:
+
+- **Four eyes and Owner's own** (scope rule 4, `WS docs/agents/payroll/scope.md:95-99`; L-1, L-2, L-3): consistent with
+  approval limits, which keeps HR's own Owner rule (`accounts-approval-limits.md:55`).
+- **Bank-details pattern** (building blocks rules 1–7, `UX-1 bb:394-407`): hire bank details as the first request (L-7),
+  requester can't make the bank file (L-5), Mark as paid one-way (L-6, L-11, `payroll-p.md:209-215`).
+- **No pack, no payroll; effective-dated rows; parallel runs only until a pack is CHECKED** (P1-6, P1-7, P1-25,
+  `payroll-p.md:970-971, :989`; L-10): matches L29 and accountant sign-off (X.3).
+- **Money on the wire and in the engine:** decimal strings at the currency scale (ISK 0), `NUMERIC(19,4)`, `BigDecimal`
+  scale 4, rounding only where the pack says (PC-15, P1-12, `payroll-p.md:953, :976`): matches L24 (no Double).
+- **Packs are platform reference data** (P1-4, H2-3, `payroll-p.md:968`, `hr-h2-h3.md:1516`): matches ADR-026 M1
+  (reference tables get no RLS; R2 revokes writes on them).
+- **Start in another company is two saves in two companies, nothing rolled back across companies**
+  (`hr-h4.md:341-351`): matches ADR-026 M3 and D4 (one company per transaction).
+- **"Also an employee at …" only where the viewer can read both** (H1-21): matches RLS; the list comes from IAM, which
+  ADR-026 leaves on application checks (M8).
+- **Enter-company sees no payroll unless granted** (PC-8, D5): matches ADR-026 M7 (an Enter-company session gets a normal
+  company scope; nothing new).
+- **HR records facts, Payroll calculates amounts** (encashment H0-17, final settlement `hr-h4.md:273-302`).
+- **Sick leave without diagnosis; health types "Away"** (`hr-h2-h3.md:465, :515-517`): matches ADR-025, which never
+  streams HR sensitive subjects (`ADR-025:54`).
+- **IAM code migrations still needed** (U-split, U-defaults, U-h2h3, `hr-h2-h3.md:842`): D9 drops only HR and Payroll
+  tables; user-service data stays, so rule 7 (nobody's rights change) still applies.
+- **ESS design pass** (five tabs, open points 1–16 decided 2026-10-30, `ess.md:240`) and the **people-access approvals**
+  (employees without a login, Employee role with app access, `people-access.md:250-268`).
+- **One employment per company, re-hire is a new record, franchise is its own employer** (D4, O13; RULES §8,
+  `WS docs/domain/RULES.md:154`).
+- **Pay lines already carry the full dimension set** (P0-A9, `BE docs/api/payroll-v2-p0.md:4, :465`): only the posting
+  step (PY.3) and HR's segments (H1.4) are missing.
+- **Budget control (ADR-022)** asks nothing of v2: the personnel-cost feed is stage 2 (`accounts-budgets.md:239`).
+- **Sweden sick-pay protection** has its HR card (`hr-h2-h3.md:1640`), so the SE payroll path is not blocked by HR
+  (PY.10 only fixes the stale line).
+
+## Not verified
+
+- ADR-026 is not accepted; decisions 1–3 and every R4/D9 item depend on Jabran's D1 and D9.
+- That no non-local environment holds HR or Payroll data (D9's condition, ADR-026:166) was taken from the ADR and
+  PROJECT-STATE, not checked on any server.
+- What IAM's employee links hold (code, position) for the ESS switcher (H1.5) was not read in user-service code.
+- The rig was not opened; layout items come from the spec text and the UX-1 rules, not from screenshots.
+- The Nordic country flows (`docs/drafts/hr-payroll/payroll-p5…p9-*.md`) and the P5–P9 contracts were read only for
+  order and status, not row by row.
