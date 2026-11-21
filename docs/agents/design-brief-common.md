@@ -49,3 +49,7 @@ Use these meanings, and say them in plain words when writing to Jabran:
 - **v2** (only "HR v2", "Payroll v2"): the **second design** of HR and Payroll (approved 2026-10-21, refreshed again 2026-11-21 in HRP-DES), which replaces the first design and its old code. It is not a release number; for customers it is still the first HR and Payroll.
 - **What a customer release contains** (which modules, features and countries) is **not decided** for any module. Jabran decides it in the one product roadmap (ROADMAP-P); scope drafts only propose.
 Every scope draft defines its phase labels once, near the top, with this meaning.
+
+## Features Jabran named for later scope drafts (2026-11-21)
+Every later scope draft checks this list and places each item it owns.
+- **Sales:** pricing (price levels, price lists per branch/store/customer group, discounts, offers and campaigns); **near-expiry offers** (a markdown rule by days to expiry per item/category/store, or a manual markdown with a reason; POS picks the batch by FEFO and applies the price; shelf labels), using Inventory's batch/expiry data (inventory decision 14); point of sale (tills, offline, daily till close and reconciliation).
