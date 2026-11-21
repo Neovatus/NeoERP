@@ -975,7 +975,7 @@ guardrails: a test per finding, invariant checks before push, a second different
     correctly in each set of books before consolidation exists (Fable). **Change (Fable):** INV-4b covers pairs of
     companies **in the same country** first; cross-border pairs (customs, EU reverse charge, EC sales list) are a
     named later step (S3c-1x), not "normal rules otherwise".
-14. **Batch, serial and expiry (critical: statutory for pharma and food customers).** **Recommend:** INV-9, the first
+14. **Batch, serial and expiry (critical: statutory for pharma and food customers).** **Approved by Jabran 2026-11-21: option (A)**, INV-9 inside Inventory's first build round (its last slice), with Fable's two changes (lot and serial on moves, stock balances and cost layers from INV-2; `BATCH_SERIAL` not shown as available until INV-9 is built). Pharmacy, food and electronics retail are covered from the start on the same Inventory + Sales/POS base (pharmacy prescriptions only by integration). **Recommend:** INV-9, the first
     slice after v1, with nullable lot and serial on every move from v1. Why: batch and expiry tracking is a legal duty
     for pharma (PK DRAP, GK) and food traceability customers, so no such customer can go live before INV-9; the earlier reason ("the first Swedish customers likely do not need it") is withdrawn: no pilot customer or first
     country is decided (lead, 2026-11-21). **Change (Fable):** nullable ids on moves are not enough; the stored
