@@ -757,9 +757,9 @@ receives foreign-currency purchases into stock.
 | Multi-currency (5.9) | roadmap:117 | Only for foreign purchases into stock |
 | Year-end item buckets | `accounts-a3.md:1234` | Before item rides on P&L lines |
 | Org catalog flips `INVENTORY` to implemented | `org.md:1521-1524` | Agreements can then include it |
-| ADR-018 amendment: Inventory posts receipts and COGS from Accounts bill and invoice lines, stock first in the approval | `ADR-018:40`, `:76`; decision 8 | Document-driven stock before Purchase and Sales |
+| ADR-018 amendment: Inventory posts receipts and COGS from Accounts bill and invoice lines, stock first in the approval; accounts-service calls inventory-service synchronously during approval (new internal scope, ADR-016); Inventory down → approval refused, retried with the same key; refused, cancelled or FBR-rejected documents reverse their move by the same key | `ADR-018:40`, `:76`; `accounts-a1.md:65`; backlog:276; decision 8 | Document-driven stock before Purchase and Sales |
 | B/C contract change: `itemId` and `stockLocationId` on lines a person enters; stock bill lines post to GRNI (C-6 exception); INVENTORY-sourced client beside PURCHASING; Items reachable with FINANCE | `accounts-b.md:524`; `accounts-c.md:191`, `:218`; decisions 1, 8 | Same |
-| Invariant checks: GRNI per receipt line never debit; one issue per stock invoice line; stock value = GL | decision 8; §8.8; roadmap:173 | Money guardrail before push |
+| Invariant checks: GRNI per receipt line never debit; one issue per stock invoice line; no stock move without a live source document; stock value = GL | decision 8; §8.8; roadmap:173 | Money guardrail before push |
 
 ### 9.2 Slices
 
@@ -843,12 +843,26 @@ per finding, invariant checks before push, a second different reviewer. Each sli
      IV DR COGS / CR INVENTORY), then B posts revenue and tax. A failed B posting leaves a delivered-not-invoiced
      issue that the retry invoices; the same order Sales will use (delivery, then invoice).
    - Plus manual goods in and out inside Inventory.
+   - **Reversal rule.** A document whose stock move already ran but which then does not post (a person rejects or
+     discards it, it is cancelled, or FBR rejects a PK invoice, where nothing is posted and the person fixes and
+     approves again, backlog:276) has its move reversed by the same idempotency key: Accounts calls Inventory's
+     reverse, and Inventory reverses its IV journal through the A1 reverse endpoint (`accounts-a1.md:65`) and writes
+     a compensating move (receipt reversed: DR GRNI / CR INVENTORY; issue reversed: DR INVENTORY / CR COGS, at the
+     same cost), dated like the original if its period is open, else on the first open date. A re-approval then runs
+     the stock move again with a new key. A document that has **posted** is never reversed this way; it is corrected
+     by a credit or debit note, whose return lines move stock as returns (§4.2).
+   - **Who runs it, and when Inventory is down.** accounts-service runs the approval and calls inventory-service
+     synchronously as a pinned machine client (a new internal scope, which needs Jabran's approval under ADR-016).
+     If Inventory does not answer, the approval is refused with "Stock could not be updated. Try again." and nothing
+     is stored; the approver retries with the same key. A crash between the two calls is caught by the invariant
+     "no stock move without a live source document": a job reverses any document-driven move whose source has not
+     posted or been rejected within a set time, and alerts.
    Why: Inventory is useful to an Accounts-only company, and the INVENTORY account stays posted only by Inventory.
    Needs three changes (§9.1): the ADR-018 amendment; a B/C contract change (lines a person enters may carry
    `itemId` and `stockLocationId`, today null until Inventory exists, `accounts-b.md:524`; a stock line on a bill posts
    to GRNI, an exception to C-6, which refuses INVENTORY accounts on bill lines, `accounts-c.md:191`; an
    INVENTORY-sourced client next to PURCHASING, `accounts-c.md:218`); and an invariant check (GRNI per receipt line
-   never debit; every stock invoice line has exactly one issue).
+   never debit; every stock invoice line has exactly one issue; no stock move without a live source document).
 9. **Price variance and landed costs (critical: money).** C posts the bill's difference to PURCHASE_PRICE_VARIANCE
    (`accounts-c.md:218`). **Recommend:** keep that in v1 (variance is a cost); landed costs and actual-cost
    correction of the on-hand share come with Purchase v1. Why: built path, small variances; full IAS 2 actual cost
