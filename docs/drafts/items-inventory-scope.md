@@ -2,7 +2,9 @@
 
 Status: **Draft, 2026-11-21 (docs lane c, Opus drafter).** It approves nothing. Jabran decides §10.
 Brief: `docs/agents/inv-scope/brief.md`, plus three additions from Jabran on 2026-11-21 sent through the lead (the
-eleven named features, the item master structure, the pricing boundary).
+eleven named features, the item master structure, the pricing boundary, the full catalogue, payments and tax).
+Round 2 fixes for review 1 are listed in §12. **Final home:** once Jabran signs it off, the approved scope moves to
+`docs/agents/inventory/scope.md`, as the module loop asks (`App/docs/module-sequence.md:29-31`).
 
 Short names: **BE** = `NeoERP-BackEnd`, **App** = `NeoERP-App`, **WS** = this workspace, **UX1** =
 `NeoERP-worktrees/ux1/docs/design` (UX-1 revision of the design docs). `roadmap:N` = `WS/docs/drafts/accounts-roadmap.md`
@@ -15,9 +17,13 @@ country accountant (gate ERP-Q1, roadmap:178) must check every GK line before it
 ## 1. What this module is and where it stands
 
 - Inventory is a commercial module (`INVENTORY`) in the Org catalog with `implemented: false`, so no agreement may
-  include it yet (`BE/docs/api/org.md:1513`, `:1521-1524`). Its features are already catalogued, all off by default:
-  `STOCK_BY_WAREHOUSE` (branch), `BATCH_SERIAL`, `INTER_BRANCH_TRANSFERS`, `INVENTORY_VALUATION` (company),
-  `STOCK_COUNT` (branch) (`BE/services/org-service/src/main/resources/db/migration/V41__fe_upgrade_entitlement_rows.sql:116-120`).
+  include it yet (`BE/docs/api/org.md:1513`, `:1521-1524`). Its five features are already catalogued as included
+  features that are **on by default once the module is on**: `STOCK_BY_WAREHOUSE` (branch), `BATCH_SERIAL`,
+  `INTER_BRANCH_TRANSFERS`, `INVENTORY_VALUATION` (company), `STOCK_COUNT` (branch)
+  (`BE/shared/entitlement-catalog/src/main/kotlin/com/neovatus/entitlement/catalog/EntitlementCatalog.kt:173-178`,
+  `default = true`). The same codes and scopes are in Org's migration
+  (`BE/services/org-service/src/main/resources/db/migration/V41__fe_upgrade_entitlement_rows.sql:116-120`); its
+  `FALSE` column there means "not statutory", not "off" (column list `V41:19-26`).
   Purchasing is its own module now, with `GOODS_RECEIPT` as a branch feature (same file, `:127-130`).
 - The ownership rules are already decided by ADR-018: Inventory owns the item master, stock moves and stock valuation;
   Sales and Purchasing read items; Accounts owns the journal and Inventory supplies the content of stock value, COGS
@@ -68,7 +74,7 @@ a shop mostly stock items). Kits and assemblies need documents that do not exist
 - Why roles: one starter category set then works on every country chart, and a chart change keeps working through
   "Used for", as A0 already does for tax codes (`accounts-a0.md:50`).
 - Defaults are copied onto the item when it is created and frozen, like dimension defaults (ADR-021 D4,
-  `BE/docs/adr/ADR-021-shared-dimensions.md:104`). A later category change asks "apply to the 214 items in this
+  `BE/docs/adr/ADR-021-shared-dimensions.md:103`). A later category change asks "apply to the 214 items in this
   category?" rather than changing them silently (ux §3, `UX1/ux-principles.md:38`).
 - Categories are also the natural budget and report grouping (ADR-022 product lines,
   `BE/docs/adr/ADR-022-budget-control.md:77`).
@@ -356,8 +362,8 @@ Every posting below goes through the posting connection of roadmap 5.13 (Account
 journal type **IV** "Stock" (`ADR-018:33`; type list `BE/docs/api/accounts-a1.md:108`, label `:1065`), by the
 Inventory machine client with scope `accounts.posting.write`, pinned to journal type IV and control kinds INVENTORY
 and GRNI (`accounts-a1.md:65`, `:73`; `accounts-c.md:218`). Inventory is our own module, so it posts directly, not as
-a draft (the draft default of ADR-021 Q14 is for outside systems, `ADR-021:235`). Idempotency follows ADR-018 §5
-(`{MOVE_TYPE}:{moveId}:{n}`, `ADR-018:65`). The move date sets the period; a move into a closed period is refused
+a draft (the draft default of ADR-021 Q14 is for outside systems, `ADR-021:235`). Idempotency follows the ADR-018 §5
+pattern `{SOURCE_DOCUMENT_TYPE}:{sourceDocumentId}:{n}` (`ADR-018:65`), for example `STOCK_MOVE:{moveId}:{n}`. The move date sets the period; a move into a closed period is refused
 (§8.7). Account roles are those of §2.2. Dimensions on each line follow §8.3.
 
 ### 4.1 Stock on hand per item, location and company
@@ -453,7 +459,7 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
 ### 4.8 Units of measure and conversions
 
 - **In v1:** one base unit per item, from the UN/ECE Recommendation 20 list Accounts already uses (`accounts-b.md:1437`;
-  31 codes in `packs/2026.2/units-of-measure.csv`, all UNCHECKED); alternate units with a fixed factor per item (box of
+  30 codes in `packs/2026.2/units-of-measure.csv`, all UNCHECKED); alternate units with a fixed factor per item (box of
   12, pallet of 40 boxes), each optionally a purchase or sales default and with its own barcode. Pakistan lines map
   each unit to FBR's unit list (FBR reference cache `UOM`, `BE/docs/api/accounts-docout.md:300`).
 - **Why:** wholesale buys by the case and sells by the piece; FBR and e-invoices require a unit per line.
@@ -564,14 +570,18 @@ retention (X4). Return files and Intrastat stay in Accounts E (roadmap:140).
   - load test with a generated large tenant before the first large customer (gate G.12, roadmap:180).
 - **Permissions:** reserved roles Inventory Manager and Stock Clerk; the Location Manager gains stock moves and counts
   (`BE/docs/security/standard-roles.md:264`), scoped to a branch or a stock location (`standard-roles.md:78`). Codes
-  are decided in the contract step, one per action (`App/docs/design/module-sequence.md:36-43`). Proposed principles:
+  are decided in the contract step, one per action (`App/docs/module-sequence.md:36-43`). Proposed principles:
   separate codes for moves, counts, approve counts, adjustments, approve adjustments, revalue, item maintenance,
   category maintenance, settings; **values visible only with a value-read code** (decision 18); approvals use the
   shared approval-limit model; branch-limited access follows the platform lane (backlog:361).
 - **Entitlement:** Inventory's five catalogued features map to the catalogue: `STOCK_BY_WAREHOUSE` → S1 per
   location, `INTER_BRANCH_TRANSFERS` → S3b, `INVENTORY_VALUATION` → C1 (decision 6), `STOCK_COUNT` → S4,
-  `BATCH_SERIAL` → S7 (`V41:116-120`). Reorder, variants and reservations need no feature row in v1 (they are always
-  on with the module). Everything large-customer stays off by default (`large-customer-roadmap.md:11`).
+  `BATCH_SERIAL` → S7. All five are on by default once the module is on (`EntitlementCatalog.kt:173-178`); a
+  company switches one off as a feature override (RULES §3). Reorder, variants and reservations need no feature row
+  in v1 (always on with the module). Two **new** catalogue rows are proposed, both company scope and **off by
+  default**, as large-customer features are (`large-customer-roadmap.md:11`): `GROUP_CATALOGUE` (decision 3) and
+  `INTERCOMPANY_TRANSFERS` (decision 13). The real default for `BATCH_SERIAL` being on matters little because
+  INV-9 builds it later; until then the feature has nothing to switch.
 - **Franchise:** a franchise is its own company and keeps its own items unless it opts into a group catalogue
   (`RULES.md:154-167`).
 
@@ -654,8 +664,9 @@ receives foreign-currency purchases into stock.
   `TODO(Inventory)` in `YearEnd.plan`). The Inventory slice that puts item on P&L lines must first let closing lines
   carry item. A frozen valuation report at the year-end date is kept with the count records.
 - Opening stock at go-live: the opening-balance import may already have put a balance on 1460. Inventory adopts it:
-  quantities and costs are imported, their total must equal the GL balance per location, and no second journal posts;
-  a difference needs one adjustment journal with a reason (decision 10).
+  quantities and costs are imported, their total must equal the GL balance per account, and per location only where
+  the opening balance carries the location tag; no second journal posts; a difference needs one adjustment journal
+  with a reason (decision 10).
 
 ### 8.8 Control and reconciliation
 
@@ -729,7 +740,7 @@ per finding, invariant checks before push, a second different reviewer. Each sli
 5. **Valuation methods (critical: money, statutory).** **Recommend:** FIFO and moving weighted average in v1, one per
    company, fixed after the first move; FIFO is the default and the only offer in SE and NO until the accountants
    confirm average is allowed there (GK); standard cost with Manufacturing; no LIFO.
-6. **Valuation off (critical: money).** Feature `INVENTORY_VALUATION` exists (`V41:119`). Many Nordic small-company
+6. **Valuation off (critical: money).** Feature `INVENTORY_VALUATION` exists and is on by default (`EntitlementCatalog.kt:177`). Many Nordic small-company
    systems book purchases straight to cost and adjust stock once a year (GK, §3.8). **Recommend:** on = perpetual
    (stock journals per move, §8.2); off = quantities only, no stock journals, purchases stay costs, and a period-end
    "stock value change" journal from the valuation of the count. Default on for new Inventory companies. Why: serves
@@ -748,7 +759,8 @@ per finding, invariant checks before push, a second different reviewer. Each sli
    correction of the on-hand share come with Purchase v1. Why: built path, small variances; full IAS 2 actual cost
    needs charges that only Purchase brings (GK on IAS 2).
 10. **Opening stock (critical: money).** **Recommend:** adopt the GL balance: import quantities and costs, refuse unless
-    the total equals the GL balance per location, no second journal; a difference needs one adjustment journal with a
+    the total equals the GL balance per account (per location only where the opening balance carries the location
+    tag, which the opening-balance import may not have set), no second journal; a difference needs one adjustment journal with a
     reason. Why: the opening-balance import may already hold 1460; a second journal would double it.
 11. **Negative stock (critical: money).** **Recommend:** refused by default; a company may allow it on Store
     locations only, with the cost corrected when the receipt arrives and a daily list of negative items. Why: shops
@@ -787,7 +799,7 @@ per finding, invariant checks before push, a second different reviewer. Each sli
 - Every GK line: country tax, valuation and count rules; e-invoice item terms; Intrastat scope; the ERP and Nordic
   system comparison (vendor documents were not read).
 - The brief names `NeoERP-BackEnd/docs/adr/ADR-024-data-at-scale.md`; the file is at
-  `WS/docs/drafts/ADR-024-data-at-scale.md` and still says Draft there (line 4), although backlog:385 records the
-  approval.
+  `WS/docs/drafts/ADR-024-data-at-scale.md` and its line 4 still says "Not accepted", although roadmap:96 records
+  ADR-024 and ADR-025 as moved to accepted after the lead's summary (backlog:385 is the action, not the acceptance).
 - The volume figures in §7 are assumptions, not customer data.
 - Pack accounts and units are UNCHECKED against official sources (backlog:74).
