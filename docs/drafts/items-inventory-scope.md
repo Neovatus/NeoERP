@@ -290,7 +290,7 @@ the reason says when to revisit.
 | C2 | GRNI at receipt, cleared by the bill | v1 (Accounts side built) | `BE/docs/api/accounts-c.md:218` |
 | C3 | FIFO and moving weighted average | v1 | §4.9, decision 5 |
 | C4 | Standard cost with variances | With Manufacturing | Needs routings and production costing (`V41:135`) |
-| C5 | LIFO | Not planned | Not allowed under IAS 2 and not used in our countries (GK) |
+| C5 | LIFO | Not planned | Not allowed under IAS 2 (GK); FI bookkeeping law allows it (KPL 4:5.4, review 1 spot-check 7), but no customer need is known |
 | C6 | Revaluation of an item's cost | v1 | §4.9 |
 | C7 | Net realisable value write-down | v1 | §4.5 |
 | C8 | Landed costs (freight, duty, insurance into stock value) | With Purchase | Charges arrive on bills; decision 9 |
@@ -310,6 +310,7 @@ the reason says when to revisit.
 | R7 | KPI tiles: stock value, days of stock, turnover | Later (ADR-023 level 3) | `BE/docs/adr/ADR-023-reporting-layer.md:28` |
 | R8 | Gross margin by item and category | Later (ADR-023 level 2) | Needs Sales or B invoice facts plus COGS |
 | R9 | Budget vs actual quantity by product | Later | ADR-022 Q14 waits for quantity actuals from Inventory (`ADR-022:267`) |
+| R10 | Stock in the books versus stock for tax (NO: no write-downs for tax; SE: 97 % rule) | v1 | Needed for the tax return (§4.5) |
 
 ### 3.7 Integrations and compliance
 
@@ -430,14 +431,24 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
   expiry), each reason mapped to an account role or account; write-downs to net realisable value for slow, damaged or
   obsolete stock, from the ageing report (§4.11). Every adjustment asks a reason (ux §5) and goes to approval above a
   company value limit.
-- **Why:** stock that never shrinks is wrong stock; IAS 2 and the Nordic acts want stock at the lower of cost and net
-  realisable value (GK).
+- **Why:** stock that never shrinks is wrong stock; IAS 2 and the Nordic acts want stock in the books at the lower
+  of cost and net realisable value (GK for the accounting rule). **Tax differs by country** (review 1 spot-check):
+  - **NO:** for tax, write-ups and write-downs of stock are ignored; stock for tax is cost by FIFO (skatteloven
+    § 14-5 (2) b and c, https://lovdata.no/lov/1999-03-26-14/§14-5). A write-down in the books therefore creates a difference between stock in the
+    books and stock for tax, which the tax return needs. Inventory shows it in a report (R10) and the year-end
+    reconciliation; for ERP-Q1.
+  - **SE:** lowest value (FIFO cost or net sales value) applies; the **97 % rule** (alternativregeln, IL 17 kap. 4 §)
+    lets a company carry stock at 97 % of total cost, and the value must be the same in the books, so it is a
+    year-end write-down journal, not a tax-return entry (https://skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag/varulager.4.1df9c71e181083ce6f6371.html).
+  - **DK:** write-down for tax to the day price (replacement cost) (Juridisk vejledning C.C.2.3.1.6.1, https://tax.dk/jv/cc/C_C_2_3_1_6_1.htm).
+  - **FI, IS, PK:** accounting rule as above; tax treatment not checked (GK, for ERP-Q1).
 - **Journals (IV):** adjustment: DR the reason's account (default INVENTORY_ADJUSTMENT) / CR INVENTORY (or the
-  reverse for found stock). NRV write-down: DR a write-down expense / CR the inventory provision account (1490
-  "Provision for obsolete inventory", type INVENTORY_PROVISION, in the base and PK charts:
-  `packs/2026.2/base-ifrs.csv:41`, `packs/2026.2/pk.csv:42`). SE and DK charts have no such account and no role
-  exists for it; a pack edition adds a role and the accounts (decision 16). The provision is reviewed each close and
-  released when the stock is sold or scrapped.
+  reverse for found stock). NRV write-down (and the SE 97 % write-down): DR a write-down expense / CR the inventory provision
+  account. **Every chart except SE has one:** 1490 "Provision for obsolete inventory", type INVENTORY_PROVISION, in
+  base, PK, DK, FI and IS (`packs/2026.2/base-ifrs.csv:41`, `pk.csv:42`, `dk.csv:41`, `fi.csv:41`, `is.csv:41`) and
+  1498 in NO (`no-ns4102.csv:36`). **No role points to any of them** (the role column is empty). The next pack edition
+  adds the role and an SE account (decision 16). The provision is reviewed each close and released when the stock is
+  sold or scrapped.
 
 ### 4.6 Reservations: allocated versus available
 
@@ -472,9 +483,17 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
 - **In v1:** FIFO and moving weighted average; one method per company, chosen at Inventory setup and fixed once the
   first move posts (a change later is a dated revaluation event, by an accountant, with a reason). Valuation pool is
   item × company (decision 7). Standard cost comes with Manufacturing; LIFO is not offered (C5).
-- **Country rules (GK, check per country):** SE and NO tax rules lean on FIFO (first in, first out) with the lowest
-  value rule; FI, DK and IS accept FIFO or weighted average; PK follows IAS 2 (FIFO or weighted average). So FIFO is
-  the safe default for SE and NO, and average is allowed elsewhere (decision 5).
+- **Country rules (review 1 spot-check; for ERP-Q1):**
+  - **NO:** FIFO for tax, no write-downs for tax (skatteloven § 14-5 (2) b and c, https://lovdata.no/lov/1999-03-26-14/§14-5).
+  - **SE:** FIFO and lowest value; 97 % rule (IL 17 kap. 4 §) (https://skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag/varulager.4.1df9c71e181083ce6f6371.html).
+  - **DK:** only FIFO is fully accepted for tax; average "is assumed acceptable"; the method may be chosen per goods
+    group; write-down to the day price (https://tax.dk/jv/cc/C_C_2_3_1_6_1.htm).
+  - **FI:** bookkeeping law KPL 4:5.4 allows FIFO, LIFO or weighted average (https://www.kuntaliitto.fi/sites/default/files/media/file/Lausunto-10-1997.pdf); the tax rule (EVL 14 §)
+    is not verified.
+  - **IS:** not checked (GK).
+  - **PK:** IAS 2, FIFO or weighted average (GK).
+  - So **FIFO is the default in every Nordic country**; average is offered there only after the country
+    accountant's check (ERP-Q1); PK keeps the choice (decision 5). A goods-group choice of method (DK) is not in v1.
 - **Revaluation (v1):** a person with the revalue right sets a new unit cost for an item from a date, with a reason;
   journal IV DR / CR INVENTORY against INVENTORY_ADJUSTMENT (or a revaluation account by setting) for the quantity on
   hand. Under FIFO it revalues the open cost layers.
@@ -539,10 +558,10 @@ All rows are GK unless a repo source is named; each needs the country accountant
 
 | Country | VAT / sales tax on goods | Statutory files | E-invoice item data | Stock rules | Other |
 |---|---|---|---|---|---|
-| SE | Standard and reduced rates by goods type (food, books); rates from the tax pack (`packs/2026.2/tax-codes.csv`), the item holds only a tax class | SIE 4 has no stock records; stock shows as GL lines on group 14 accounts (`se-bas.csv:29`) | Peppol BIS / Svefaktura line: item name, seller id, GTIN, unit (Rec 20); optional at SE launch (roadmap:110) | FIFO and lowest value for tax; year-end count and stock list kept as accounting records (BFL retention) | Intrastat (SCB) above threshold; own-use withdrawal VAT |
-| NO | 25 % standard, 15 % food, 12 % lower rate; from the pack | SAF-T Financial carries GL lines only, no stock section; SAF-T Cash Register is for POS, not Inventory | EHF / Peppol BIS lines as SE; required for B2B from 2027-01-01 (roadmap:110, gate L-1) | FIFO for tax; year-end stock specification (bokføringsforskriften) | No Intrastat (EEA, not EU); customs on imports; bottle deposit |
-| DK | 25 %; from the pack | SAF-T from 2027-01-01 (ACC-R2, roadmap:141) carries GL lines; stock accounts mapped to the standard chart (1460 → 6140; stock movement 1770 still *(verify)*: `accounts-packs-2026-2.md:307`, `:336`) | OIOUBL / Peppol BIS lines as SE | FIFO or average; lowest value | Intrastat (Danmarks Statistik); deposit |
-| FI | Standard and reduced rates; from the pack | No SAF-T; tax authority reads the books | Finvoice / Peppol lines | FIFO or average (KPL); lowest value | Intrastat (Tulli) |
+| SE | Standard and reduced rates by goods type (food, books); rates from the tax pack (`packs/2026.2/tax-codes.csv`), the item holds only a tax class | SIE 4 has no stock records; stock shows as GL lines on group 14 accounts (`se-bas.csv:29`) | Peppol BIS / Svefaktura line: item name, seller id, GTIN, unit (Rec 20); optional at SE launch (roadmap:110) | FIFO and lowest value; **97 % rule** (IL 17 kap. 4 §) as a booked year-end write-down; year-end count and stock list kept as accounting records (https://skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag/varulager.4.1df9c71e181083ce6f6371.html) | Intrastat (SCB) above threshold; own-use withdrawal VAT |
+| NO | 25 % standard, 15 % food, 12 % lower rate; from the pack | SAF-T Financial carries GL lines only, no stock section; SAF-T Cash Register is for POS, not Inventory | EHF / Peppol BIS lines as SE; required for B2B from 2027-01-01 (roadmap:110, gate L-1) | FIFO for tax, **no write-down for tax** (skatteloven § 14-5 (2) b, c, https://lovdata.no/lov/1999-03-26-14/§14-5), so books and tax stock can differ; yearly count with a list per item (kind, quantity, value), kept 5 years (bokføringsforskriften § 6-1 per a secondary source, https://revisorforeningen.no/revisornytt/varetelling1120) | No Intrastat (EEA, not EU); customs on imports; bottle deposit |
+| DK | 25 %; from the pack | SAF-T from 2027-01-01 (ACC-R2, roadmap:141) carries GL lines; stock accounts mapped to the standard chart (1460 → 6140; stock movement 1770 still *(verify)*: `accounts-packs-2026-2.md:307`, `:336`) | OIOUBL / Peppol BIS lines as SE | Only FIFO fully accepted for tax, average assumed acceptable, method per goods group; write-down to day price (https://tax.dk/jv/cc/C_C_2_3_1_6_1.htm) | Intrastat (Danmarks Statistik); deposit |
+| FI | Standard and reduced rates; from the pack | No SAF-T; tax authority reads the books | Finvoice / Peppol lines | KPL 4:5.4 allows FIFO, LIFO or average (https://www.kuntaliitto.fi/sites/default/files/media/file/Lausunto-10-1997.pdf); tax rule not verified; lowest value (GK) | Intrastat (Tulli) |
 | IS | Standard and reduced rates; from the pack | No SAF-T today | Peppol lines | FIFO or average | No Intrastat (EEA) |
 | PK | Sales tax on goods (standard rate, further tax for unregistered buyers, Third Schedule retail-price tax); `retailPrice`, `saleType`, `scheduleRef` on lines (`accounts-b.md:1438`) | Annex-C sales register with HS code per invoice line (`accounts-h-design.md:215`) | FBR Digital Invoicing: HS code, FBR unit, quantity per line (`accounts-b.md:1005`, `:2051`; FBR reference cache `HS_CODES`, `UOM`, `accounts-docout.md:300`). Until Inventory exists the line text stands in and the export warns (`accounts-h-design.md:221-222`) | IAS 2 (FIFO or weighted average); registered persons keep records of goods and stock (Sales Tax Act s.22) | Tier-1 retailer POS integration with FBR (with POS); provincial sales tax is on services, not goods |
 
@@ -738,8 +757,10 @@ per finding, invariant checks before push, a second different reviewer. Each sli
    its own item id; grid editor as INV-1b. Why: retail and textiles need size and colour from the first day; the lead
    leans the same way.
 5. **Valuation methods (critical: money, statutory).** **Recommend:** FIFO and moving weighted average in v1, one per
-   company, fixed after the first move; FIFO is the default and the only offer in SE and NO until the accountants
-   confirm average is allowed there (GK); standard cost with Manufacturing; no LIFO.
+   company, fixed after the first move. **FIFO is the default in every Nordic country**; average is offered there only
+   after the country accountant's check (ERP-Q1), because NO and SE tax rest on FIFO and DK only "assumes" average
+   acceptable (§4.9 sources). PK keeps the choice under IAS 2. Standard cost with Manufacturing; no LIFO (FI law
+   allows it, no need known).
 6. **Valuation off (critical: money).** Feature `INVENTORY_VALUATION` exists and is on by default (`EntitlementCatalog.kt:177`). Many Nordic small-company
    systems book purchases straight to cost and adjust stock once a year (GK, §3.8). **Recommend:** on = perpetual
    (stock journals per move, §8.2); off = quantities only, no stock journals, purchases stay costs, and a period-end
@@ -777,9 +798,12 @@ per finding, invariant checks before push, a second different reviewer. Each sli
 15. **Counts and close (critical: statutory).** **Recommend:** blind counting; counter cannot approve own variances;
     automatic posting under a company value limit, approval above it; unposted moves block the period close; a
     missing year-end count is a warning a company can make blocking. Why: the count is the year-end evidence (GK).
-16. **Write-downs (critical: money).** **Recommend:** NRV write-downs through a provision account and a new pack role
-    (base and PK have 1490 `INVENTORY_PROVISION`, SE and DK have none: `base-ifrs.csv:41`, `pk.csv:42`); in the next
-    pack edition. Why: keeps cost and write-down visible apart and reversible.
+16. **Write-downs (critical: money).** **Recommend:** NRV write-downs, and the Swedish 97 % rule (IL 17 kap. 4 §),
+    as journals on a provision account. Every chart except SE has one (1490 in base, PK, DK, FI, IS; 1498 in NO:
+    `base-ifrs.csv:41`, `pk.csv:42`, `dk.csv:41`, `fi.csv:41`, `is.csv:41`, `no-ns4102.csv:36`), but no role points to
+    it; the next pack edition adds the role and an SE account. In NO the write-down is ignored for tax (skatteloven
+    § 14-5 (2) c), so Inventory reports the books-versus-tax stock difference (R10). Why: keeps cost and write-down
+    apart and reversible, and gives the Swedish customer the 97 % rule in its first year.
 17. **Item on journal lines (critical: posting).** **Recommend:** item on COGS, adjustment and variance lines only,
     not on INVENTORY and GRNI; a pack edition allows the item tag on those accounts; measure the set count (Q18) in
     INV-2. Why: margin and product budgets need it; balance lines would multiply sets for no use (§8.3).
