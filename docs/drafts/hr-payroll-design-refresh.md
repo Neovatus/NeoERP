@@ -191,6 +191,11 @@ Each groups the critical items it settles.
    the first sale. **Recommend:** if J-8 holds, keep D1 (option c); if Payroll may launch per country, reorder only the
    filing slices P4–P9 with Sweden first and keep P1 on the PK pack (option a); move the SE pack into P1 (option b,
    rewrites P1 and P6) only if a Swedish pilot needs payroll before the PK pack is done. Size L for (a) or (b).
+   **Fable's updated view (with the Markets decision):** your 2026-11-21 rule "No single first country and no pilot
+   customer. The first market group is Pakistan and the Nordic countries (SE, NO, DK, FI, IS) together"
+   (`WS docs/agents/design-brief-common.md:32-33`, master `7d2e987`) removes "the first customer is Swedish" and the
+   Swedish pilot that PY.2 leaned on. Fable now favours **keeping D1's order (option c)** while still letting each
+   country go ready on its own. With that rule, the drafter agrees: (c). (Fable)
 5. **HR approvals on the shared approval model from H2, with company-set steps** (H23.2). **This amends hr-h2-h3 §24,
    which you approved at G-4** (multi-step approvals out of v2). Your AL-D5 (2026-11-15) put the relation step types in
    the model now and has the new HR supply the people from its start; it does not by itself decide multi-step HR chains
@@ -261,20 +266,36 @@ Each groups the critical items it settles.
     | Offline clock-in queue | Later | Lead decision 2026-10-09: no offline clock-in in v2 (`hr-h2-h3.md:947`) |
     | Direct device connection | Later | File import first |
 
-    **Recommend: the four v2 modes above.** Options: (a) these four (size L); (b) phone clock and supervisor sheet only,
+    **Recommend: the four v2 modes above.** Options: (a) these four (size more than L, Fable); (b) phone clock and supervisor sheet only,
     project time later (size M; leaves the IT company without project hours); (c) all modes in v2 (size L+, adds two
     security reviews). It amends §24's out list and the H3 contract (record sources, the device-time exception, the
     sheet and timesheet endpoints). Changes: hr-h2-h3 §11–§16, §19, §24; ess §8; payroll-p §6.4 and P1/P2 (project split).
+    **With four changes (Fable):** (1) **one source of worked hours per person per day**, set per branch with an
+    override per pay basis; a project timesheet is either that source or only a split of hours recorded another way,
+    and the spec says which, so hours are never counted twice. (2) **A second person** for the supervisor sheet and the
+    device import: each is one item approved by someone other than the person who recorded it (Standard, shared model);
+    nobody records their own row; an import keeps the file's hash, row count and "Imported by". (3) Build order inside
+    v2: supervisor sheet with the H3 base; project timesheets and device import as their own slices after it; the pay
+    split (PY.11) only after the plain P2 posting passes the money invariants. (4) Sizes: decision 14 as a whole is more
+    than L, and PY.11 is L. (Fable)
 15. **Sick-pay refunds and follow-up** (critical: statutory; H23.15, PY.13). Today both are out (`hr-h2-h3.md:912`),
     though Payroll already receives the `refundClaim` flag (`:300, :659`) and P7 drafts Denmark's refund deadlines
     (`payroll-p.md:494`). Options: (a) **in each country's v2 slice**: a refund-claim worksheet in Payroll (what can be
     claimed, for whom, how much, by when; Claimed and Received recorded; the claim made in the authority's portal or by
     file, D7) and follow-up plans as HR statutory tasks with due dates (content not stored); (b) later, after launch.
     **Recommend: (a).** An employer that advances sick pay and misses the claim deadline loses the money, and follow-up
-    duties (NO oppfølgingsplan and dialogue meeting, SE rehabilitation) carry sanctions; both reuse built patterns
-    (statutory tasks `hr-h4.md:143-150`, worksheets). All rules *to verify* with each country's practitioner (J-8).
-    Changes: hr-h2-h3 §7.4, §24; payroll-p §6.5, country slices P4–P9.
-16. **Collective agreements** (critical: statutory; H23.14, PY.12). Today the agreement is a code and name on the job row
+    plans are **legal duties with dates** (NO: plan within 4 weeks, dialogue meeting within 7 weeks). Corrections
+    (Fable): **Sweden's general refund ("ersättning för höga sjuklönekostnader") was repealed from 1 July 2024**
+    (regeringen.se press release 2024-03); only the special high-risk protection for a named employee remains, the
+    employee applies and the employer claims in Försäkringskassan's e-service within 12 months of the month the sick pay
+    was paid (forsakringskassan.se, "särskilt högriskskydd"), tied to the unapproved protection card (PY.10).
+    **Pakistan** PESSI/SESSI sickness benefit looks like a benefit paid to the worker, not a refund to the employer, so it
+    stays out until the practitioner confirms. A case can have more than one deadline (Denmark: report the absence, then
+    ask for the refund), and Norway has a bill pending on its refund deadline, so deadlines are pack rows with source and
+    check state, never constants. Follow-up tasks are health data: they show only to people who may see the sick report.
+    (Fable) All rules *to verify* with each country's practitioner (J-8). Changes: hr-h2-h3 §7.4, §24; payroll-p §6.5,
+    country slices P4–P9.
+16. **Collective agreements** (critical: payroll money and approved scope, not statute (Fable); H23.14, PY.12). Today the agreement is a code and name on the job row
     (H1-12) and only extra leave days are held (`hr-h2-h3.md:353`); full agreement libraries are out of scope
     (`WS docs/agents/payroll/scope.md:87`), and rule 8 puts agreement rules on top of the pack, never below the minimum.
     Options: (a) **agreement profiles the company defines**: overtime categories and thresholds, unsocial-hours and shift
@@ -283,6 +304,11 @@ Each groups the critical items it settles.
     **Recommend: (a) in v2, (c) later as templates copied into a profile.** In the Nordics most pay rules come from
     agreements, so (b) cannot run a Nordic payroll beyond the legal minimum; (c) needs maintaining dozens of agreements
     and their yearly changes. Changes: hr-h1 §5 (agreement field), hr-h2-h3 §5, §15.3; payroll-p §9; P1-15.
+    **With changes (Fable):** Sweden shows why (a) is needed: the law sets working-time limits but no overtime pay rate, so
+    without profiles Swedish overtime cannot be priced at all. One profile has one code and one set of validity dates,
+    HR owning its structure and Payroll its rates; a category with no rate stops that employee's calculation with fixed
+    copy, never priced at zero; time-of-day windows need start and end times, so they do not work on duration-only
+    project timesheets (decision 14). H23.14 and PY.12 together are size L. (Fable)
 17. **Business type at enrollment** (critical: product direction, cross-module; X.18). The company, and each franchise
     or branch, picks a business type at enrollment (IT/services, retail store, factory, restaurant, construction,
     wholesale…). Options: (a) **the type only pre-fills a starter setup**, copied, then the company's own and editable
@@ -296,6 +322,17 @@ Each groups the critical items it settles.
     company and branch level from Org's facts, and nothing else; HR and Payroll ship starter sets per type (time modes,
     calendars and shift templates, leave extras, pay-group template, agreement-profile examples). Changes: org.md
     enrollment (Org lane), hr-h1 setup, hr-h2-h3 §11–§12, payroll-p §9.
+    **With five changes (Fable):** (1) the type never reaches entitlement, billing or permissions (RULES §2, no plan
+    field), and a build rule lets only setup code read it, so "no code branches on it" is a check, not a promise.
+    (2) Enrollment and branches are created by Super Admin (RULES §1, §6), who picks the type; changing it later changes
+    nothing already set up. (3) One type does not fit a business that does two things: each module's setup shows its
+    starter sets with the type's set preselected, and the person may pick another, several or none. (4) **Starter sets
+    hold names and structure only, no figures**: versioned, pack-like data per country and type, copied only into an
+    empty setup, with no rates, thresholds or extra-leave figures; figures come from the country pack or the company.
+    (5) HR v2 does not wait for Org: Org has no business-type field today, so HR and Payroll setup offer the sets
+    themselves and the preselection arrives with the Org change. Inventory's sets are "chosen at setup"
+    (`items-inventory-scope.md:91`) and do not read an enrollment type yet: reading it is the plan, not the state.
+    (Fable)
 
 **Before the build can start:** ADR-026 accepted (D1–D11) and its R1 (shared binder and the four flag functions) built,
 plus Jabran's approval of this list. (Fable) Whether the first HR/Payroll migration also waits for Accounts R2–R3
