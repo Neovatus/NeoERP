@@ -1,6 +1,6 @@
 # Items and Inventory scope (draft for Jabran)
 
-Status: **Draft, 2026-11-21 (docs lane c, Opus drafter).** It approves nothing. Jabran decides §9.
+Status: **Draft, 2026-11-21 (docs lane c, Opus drafter).** It approves nothing. Jabran decides §10.
 Brief: `docs/agents/inv-scope/brief.md`, plus three additions from Jabran on 2026-11-21 sent through the lead (the
 eleven named features, the item master structure, the pricing boundary).
 
@@ -43,7 +43,7 @@ numbers.
 
 | Type | What it is | Stock kept | Posts | In v1 |
 |---|---|---|---|---|
-| Stock item | Goods bought, held and sold or used | Yes, per location | Stock value, COGS (§5) | Yes |
+| Stock item | Goods bought, held and sold or used | Yes, per location | Stock value, COGS (§4, §8) | Yes |
 | Non-stock item | Goods bought or sold but not counted (consumables, office supplies, drop-shipped goods) | No | Only through the bill or invoice line's account | Yes |
 | Service | Work or a fee (installation, consulting, freight charge) | No | Only through the bill or invoice line's account | Yes |
 | Kit (sales bundle) | A sales item made of components; selling it issues the components | No (components are stock) | COGS of the components | Later, with Sales (needs a sales document to explode) |
@@ -58,7 +58,7 @@ a shop mostly stock items). Kits and assemblies need documents that do not exist
 
 - Each company has a **category tree** (for example Food → Dairy → Cheese). Every item sits in exactly one category.
 - A category carries **defaults** that new items inherit and may override per item: item type, base unit, valuation
-  method (where the company allows more than one, §5.3), tax class (§3), and account **roles** for stock, cost of
+  method (where the company allows more than one, §4.9), tax class (§6), and account **roles** for stock, cost of
   sales, sales revenue, purchase, adjustments and write-downs.
 - Defaults point to **account roles**, not account numbers, the same way "Used for" links roles to accounts in the
   chart (`App/docs/design/specs/accounts-a0.md:133`). Roles already in every pack: `INVENTORY`, `GRNI`, `COGS`,
@@ -94,12 +94,12 @@ Pakistan flavour where units or tax differ:
 | Wholesale | Goods by product family; units in cases and pallets with conversions | — |
 | Manufacturing | Raw materials, Work in progress, Finished goods, Packaging | Matches chart groups 1410 / 1440 / 1450 (`se-bas.csv` group 14) |
 | Pakistan textiles | Raw cotton, Yarn, Greige fabric, Dyed and printed fabric, Garments, Waste | Units kg, metre, piece, dozen; HS codes by chapter (GK: chapters 52, 54, 55, 60-63) |
-| Services | Services only, no stock categories | Inventory module not needed (see decision 1) |
+| Services | Services only, no stock categories | Inventory module not needed (see decision 1, §10) |
 | Construction | Materials, Tools (non-stock), Subcontracted services | Issues to projects (§4.2) |
 | Restaurant | Ingredients (stock), Beverages, Menu items (kits later) | Nordic restaurant VAT rules differ by on-site and take-away (GK) |
 
 The lead leans the same way. One adjustment from the sources: the **country** decides units, tax classes and the
-statutory item fields (§3), the **business type** decides only the starting tree. That mirrors A0, where the country
+statutory item fields (§6), the **business type** decides only the starting tree. That mirrors A0, where the country
 picks the chart and tax codes never come from the chart (`accounts-a0.md:50`, `:160`).
 
 ### 2.4 Group or company: who owns the item list
@@ -134,7 +134,7 @@ the same when a company joins a group catalogue later, so nothing is re-keyed (t
 - Separate items without a parent work for small ranges but make a 6 × 8 size-colour range 48 unrelated items with no
   roll-up.
 - **Recommendation:** variants in the item master from v1 (retail and textiles need them on day one); attributes are a
-  company list. The variant grid editor can be its own slice (INV-1b). Watch the dimension-set count (§6.2, ADR-021
+  company list. The variant grid editor can be its own slice (INV-1b). Watch the dimension-set count (§8.3, ADR-021
   Q18).
 
 ### 2.6 Item numbering
@@ -151,7 +151,7 @@ the same when a company joins a group catalogue later, so nothing is re-keyed (t
 ### 2.7 Base price and cost on the item
 
 - The item's company settings hold a **base sales price** and the **costs** Inventory knows: last purchase cost and
-  the current valuation cost (FIFO or average, §5.3). Standard cost comes later with Manufacturing.
+  the current valuation cost (FIFO or average, §4.9). Standard cost comes later with Manufacturing.
 - Price data attaches to: the **company** (each legal entity sets its own; a group catalogue never shares prices),
   the **currency** (the base price is in company currency; other currencies come from Sales price lists, as Accounts
   keeps one company currency, `ADR-022:106`), the **unit** (price per base unit; an alternate unit may carry its own
@@ -173,3 +173,146 @@ times (ADR-018 §3, `ADR-018:53`).
 
 **The item master keeps:** the base sales price and costs (§2.7), the units and conversions those prices refer to,
 and the tax class and Pakistan retail price as item facts the documents copy.
+
+## 3. Full feature catalogue
+
+Jabran asked for every feature a broad ERP offers in this area, each placed in a phase, nothing silently left out.
+
+**Comparison used (all GK):** the inventory feature lists of Dynamics 365 Business Central (items, variants,
+categories and attributes, locations and bins, transfer orders, physical inventory orders, item tracking, costing
+methods, item charges, reservations, requisition planning, assembly), SAP Business One (item master, warehouses, bin
+locations, batch and serial, inventory transfer, counting and posting, revaluation, pick and pack, MRP, landed costs),
+NetSuite (item types incl. kits and assemblies, matrix items, multi-location, bins, transfer and inter-company transfer
+orders, cycle counts, ABC classes, demand planning, landed cost, drop ship), Odoo (routes, multi-step receipts,
+put-away rules, packages, lots and serials with expiry, reordering rules, valuation FIFO / average / standard,
+barcode app, scrap, quality), Visma Business NXT and Fortnox Lager (articles, stock per location, stocktaking, stock
+value; Fortnox as the small-company baseline). These were not read from vendor documents in this lane. They set the
+**structure and completeness** only; our design system and ux §21-22 decide the look.
+
+**Phases:** **v1** = Inventory v1. **Later** = a named later Inventory slice. **With X** = arrives with module X, which
+owns it (§5). **Phase 7** = Accounts inter-company and consolidation (roadmap:151). **Not planned** = on no roadmap;
+the reason says when to revisit.
+
+### 3.1 Item master
+
+| # | Feature | Phase | Why |
+|---|---|---|---|
+| I1 | Item types: stock, non-stock, service | v1 | Every business needs them (§2.1) |
+| I2 | Kits / sales bundles | With Sales | Needs a sales document to explode into components |
+| I3 | Assemblies, bills of material | With Manufacturing | Catalogued as Manufacturing features (`V41:136-140`) |
+| I4 | Fixed-asset items | With fixed assets (roadmap:134) | Register is Accounts AC-FA |
+| I5 | Deposit items (bottle deposit) | With Sales | Linked charge on a sales line (GK) |
+| I6 | Category tree with defaults (roles, unit, tax class, valuation) | v1 | §2.2 |
+| I7 | Starter category sets by business type | v1 | §2.3, decision 2 |
+| I8 | Attributes and variants (size, colour, grade) | v1 (grid editor INV-1b) | §2.5, decision 4 |
+| I9 | Item numbering: typed or series per category | v1 | §2.6 |
+| I10 | Several barcodes per item and unit (GTIN-8/13/14) | v1 | Scanning and e-invoice ids (§6) |
+| I11 | Units and conversions | v1 | §4.8 |
+| I12 | Catch weight (piece count and actual weight both tracked) | Later | Meat, fish, cloth rolls; needs two quantities on every move |
+| I13 | Item status: active, blocked for purchase, blocked for sale, phase-out, inactive | v1 | Lifecycle without deleting used items (ux §18) |
+| I14 | Item names in several languages | Later, with document output (roadmap:109) | Customer-language line text is folded into 5.1 (roadmap:109); app UI is en/nb/sv/da |
+| I15 | Item pictures and documents (data sheets) | Later, with attachments (roadmap:113) | Needs the file store and virus scan |
+| I16 | Weight, volume, size per unit | v1 (fields) | Intrastat net mass, shipping later |
+| I17 | Country fields: HS / PCT code, FBR unit, Third Schedule retail price, CN8, country of origin, tax class | v1 (fields) | §6; PK invoices need them today (`BE/docs/api/accounts-h-design.md:221-222`) |
+| I18 | Item import and export (CSV / Excel, check then confirm, per-row refusals) | v1 | Large customers start with thousands of items; same pattern as OBI and ADR-021 D10 (`ADR-021:165-167`) |
+| I19 | Bulk change with review step | Later | Large-customer item (`large-customer-roadmap.md:48` names it for HR; same need) |
+| I20 | New-item request and approval | Later | Large groups control master data; not needed for a first customer |
+| I21 | Item defaults for cost centre or project | Later | ADR-021 D4 names it as "later" (`ADR-021:97`) |
+| I22 | Substitutes and alternatives | Later, with Sales | Offered when an item is out of stock |
+| I23 | Customer and supplier item numbers | With Sales / With Purchase | ADR-018 §3 extension tables (`ADR-018:53`) |
+| I24 | Group catalogue shared by owned companies | Later, after a scope ADR | §2.4, decision 3 |
+| I25 | Hazardous-goods data (UN numbers, classes) | Not planned | No customer type in the sources needs it; revisit with shipping |
+
+### 3.2 Locations and structure
+
+| # | Feature | Phase | Why |
+|---|---|---|---|
+| L1 | Stock locations (Warehouse, Store, Returns) per branch | v1 (exists in Org) | `BE/docs/modules/org/stock-locations.md:9-17`; backend must accept Returns first (backlog:141, :195) |
+| L2 | Per item × location settings (reorder levels, default receipt location) | v1 | §4.10 |
+| L3 | In-transit locations for transfers | v1 | §4.3 |
+| L4 | Bins (shelves) inside a location | Later | Word reserved (`App/docs/design/specs/stock-locations.md:12`); needs put-away and pick rules |
+| L5 | Zones, put-away and pick rules | Later, after bins | Warehouse operations (§5) |
+| L6 | Consignment stock (ours at a customer, or a supplier's in our store) | Not planned | Ownership split per move; revisit on a customer ask |
+| L7 | Outside warehouse (3PL) feeds | Later, through an integration API | Same idea as ADR-021 D10 for postings |
+| L8 | Store-server stock for offline POS | With POS (ADR-007 Proposed) | Store owns on-hand; moves stream up (`BE/docs/adr/ADR-007-store-edge-topology-for-offline-retail.md:86-88`) |
+
+### 3.3 Stock movements and control (the eleven features, detail in §4)
+
+| # | Feature | Phase | Why |
+|---|---|---|---|
+| S1 | Stock on hand per item, location, company (quantity and value) | v1 | §4.1 |
+| S2 | Receipts and issues (purchase, sale, internal use, projects, returns) | v1 | §4.2 |
+| S3a | Transfers between locations of one branch | v1 | §4.3 |
+| S3b | Transfers between branches of one company (in transit) | v1 | §4.3; feature `INTER_BRANCH_TRANSFERS` |
+| S3c | Transfers between companies of a group (transfer price, both books) | Phase 7 | §4.3, decision 13 |
+| S4 | Stock counts: full, cycle, phone count sheets, approval, variance posting, close link | v1 | §4.4 |
+| S5 | Adjustments and write-downs (damage, shrinkage, obsolescence, NRV) with reason and approval | v1 | §4.5 |
+| S6 | Reservations: on hand, reserved, available | v1 (model; reservations from transfers) | §4.6 |
+| S7 | Batch / lot, serial numbers, expiry | Later (INV-9); fields on moves from v1 | §4.7, decision 14 |
+| S8 | Units of measure and conversions | v1 | §4.8 |
+| S9 | Valuation FIFO and moving average; standard cost; revaluation | v1 (FIFO, average, revaluation); standard with Manufacturing | §4.9 |
+| S10 | Reorder points, minimum stock, purchase suggestions | v1 (suggestions list); orders with Purchase | §4.10 |
+| S11 | Stock reports and their place in the reporting layer | v1 (level 1); level 2-3 later | §4.11 |
+| S12 | Negative stock rules | v1 | Decision 11 |
+| S13 | Opening stock at go-live | v1 | Decision 10 |
+| S14 | Stock status (available, quarantine, blocked) | v1 via Returns locations; status per batch later | Returns type text: "kept apart until checked" (`App/docs/design/specs/stock-locations.md:30`) |
+| S15 | Specific-identification cost (cost per serial) | Later, with serials | Needed for high-value serial goods only |
+| S16 | Packages, pallets, SSCC labels | Not planned | Shipping and EDI first |
+
+### 3.4 Planning and warehouse work
+
+| # | Feature | Phase | Why |
+|---|---|---|---|
+| P1 | Reorder point, min / max per item × location | v1 | §4.10 |
+| P2 | Purchase suggestions turned into purchase orders | With Purchase | Orders are Purchasing's (`ADR-018:30`) |
+| P3 | Transfer suggestions (refill a store from the warehouse) | Later | Same engine as P1 across locations |
+| P4 | Demand forecast from sales history | Later, with ADR-022 forecast and reporting | Budget driver lines by product already planned (`ADR-022:77`) |
+| P5 | ABC classification | Later (report) | Ranks items by value moved; feeds cycle counts |
+| P6 | MRP (material planning) | With Manufacturing | Needs bills of material |
+| P7 | Drop shipment and special orders | With Sales and Purchase | Goods never touch our stock |
+| P8 | Pick, pack and ship | With Sales | Delivery is Sales' document (`ADR-018:29`) |
+| P9 | Multi-step receiving (receive, inspect, put away) | With Purchase and quality | Goods receipt is a Purchasing feature (`V41:132`) |
+| P10 | Camera barcode scanning on phones | Later | Hardware scanners work in v1 as typed input; camera needs platform work |
+| P11 | Barcode label printing | Later, with document output | Uses the PDF pipeline of 5.1 |
+| P12 | Wave and batch picking | Not planned | High-volume warehouse only; revisit with bins |
+
+### 3.5 Costing and Accounts
+
+| # | Feature | Phase | Why |
+|---|---|---|---|
+| C1 | Perpetual stock postings (stock value, COGS) | v1 | `ADR-018:40-41`; decision 6 for the off case |
+| C2 | GRNI at receipt, cleared by the bill | v1 (Accounts side built) | `BE/docs/api/accounts-c.md:218` |
+| C3 | FIFO and moving weighted average | v1 | §4.9, decision 5 |
+| C4 | Standard cost with variances | With Manufacturing | Needs routings and production costing (`V41:140`) |
+| C5 | LIFO | Not planned | Not allowed under IAS 2 and not used in our countries (GK) |
+| C6 | Revaluation of an item's cost | v1 | §4.9 |
+| C7 | Net realisable value write-down | v1 | §4.5 |
+| C8 | Landed costs (freight, duty, insurance into stock value) | With Purchase | Charges arrive on bills; decision 9 |
+| C9 | Late bill price corrects stock cost (actual costing) | Later, with landed costs | Decision 9 |
+| C10 | Stock value ties to the GL every day | v1 | §8.8, money guardrail |
+
+### 3.6 Reports and analysis
+
+| # | Feature | Phase | Why |
+|---|---|---|---|
+| R1 | Stock list (on hand, reserved, available, value) | v1 | §4.11 |
+| R2 | Movement history per item and location | v1 | §4.11 |
+| R3 | Valuation report as of any date, tied to the GL | v1 | §4.11 |
+| R4 | Stock ageing and slow-moving stock | v1 | NRV review needs it (§4.5) |
+| R5 | Count variance report | v1 | §4.4 |
+| R6 | Below-reorder list | v1 | §4.10 |
+| R7 | KPI tiles: stock value, days of stock, turnover | Later (ADR-023 level 3) | `BE/docs/adr/ADR-023-reporting-layer.md:28` |
+| R8 | Gross margin by item and category | Later (ADR-023 level 2) | Needs Sales or B invoice facts plus COGS |
+| R9 | Budget vs actual quantity by product | Later | ADR-022 Q14 waits for quantity actuals from Inventory (`ADR-022:267`) |
+
+### 3.7 Integrations and compliance
+
+| # | Feature | Phase | Why |
+|---|---|---|---|
+| X1 | Item and stock fields for FBR Digital Invoicing (HS, unit, retail price) | v1 | §6 |
+| X2 | Item ids on e-invoice lines (seller id, GTIN, classification) | v1 (fields); writer with 5.2 | §6 |
+| X3 | Intrastat arrivals and dispatches | Later, with Sales and Purchase | §6; fields in v1 |
+| X4 | Stock records kept for the retention period | v1 | Retention rules are pack data (`packs/2026.2/retention-rules.csv`) |
+| X5 | Excise duty (alcohol, tobacco, sugar), bonded warehouses | Not planned | Specialist; revisit on a customer ask (GK) |
+| X6 | E-commerce stock sync, EDI stock messages | Later (§5) | Needs an outside-system API |
+| X7 | Stock in SAF-T / SIE files | No work in v1 | Stock appears only as GL lines in our countries' files (§6) |
