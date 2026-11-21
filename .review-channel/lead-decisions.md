@@ -33,7 +33,7 @@ Pick: (b). A tap on the disabled primary scrolls to the needed-line.
 Why: On tall screens the pinned balance is the live feedback while typing lines (losing it costs every user); on short heights the pinned parts are what hid the fields. Scoping to the failing case keeps both.
 Sources: App `phase/4-b2-ux1` at 77982304: `docs/design/ux-principles.md` §16, §20, §25 (lines 260-285); `docs/design/screen-standard.md` §4 (:85), §8 (:236, :244), back link (:185), §9 (:325-334); `docs/design/specs/building-blocks.md` (:110, :115, :117, :118, :126); QA evidence `git show 76968648:docs/agents/ux1/qa-evidence/` (SIZES.md, SIZES-iphone-se.md, larger-text.md, G37-larger-text.md, G05-G17-G26-G31-G32-G33-input.md); code `composeApp/.../NeoBreakpointTokens`, `NeoInputKind.kt`.
 Fable 5.2 (high): APPROVE — (b) is the smallest change to the 2026-11-13 footer rule (screen-standard.md:231-236) that still gives the one-row footer the brief asks for, and the code already drops these lines while the keyboard is up (NeoStickyFooter.kt:104-111). Conditions: "short" is the D-7 trigger (it also fires on phones in portrait: 64 + about 240 pt journal footer), the scroll-to-line on the disabled primary works by keyboard and screen reader (ux §20), and the change is written as a dated amendment and named to Jabran, since the rule is his.
-Status: approved (Fable); goes into the UX-1 fix round as a dated amendment to a Jabran rule, named to Jabran.
+Status: approved (Fable); goes into the UX-1 fix round as a dated amendment to a Jabran rule, named to Jabran. **Jabran 2026-11-21: confirmed.** The "for his confirmation" marker is removed in the UX-1 round-3 wording fixes.
 
 ## D-3 UX-1: wizard footer second row — 2026-11-21
 Question: building-blocks:126 lets a wizard footer put the primary on a second row; §25 requires a one-row footer.
@@ -60,7 +60,7 @@ Pick: (a).
 Why: Without the exception the two rules cannot both hold at 375–402 pt with the keyboard up; the exception is bounded and the action is one key away.
 Sources: App `phase/4-b2-ux1` at 77982304: `docs/design/ux-principles.md` §16, §20, §25 (lines 260-285); `docs/design/screen-standard.md` §4 (:85), §8 (:236, :244), back link (:185), §9 (:325-334); `docs/design/specs/building-blocks.md` (:110, :115, :117, :118, :126); QA evidence `git show 76968648:docs/agents/ux1/qa-evidence/` (SIZES.md, SIZES-iphone-se.md, larger-text.md, G37-larger-text.md, G05-G17-G26-G31-G32-G33-input.md); code `composeApp/.../NeoBreakpointTokens`, `NeoInputKind.kt`.
 Fable 5.2 (high): APPROVE — at 667×375 with the keyboard up about 160 pt is left (SE 3: 145 pt head + 14 pt strip); the top bar (64) and a one-row footer (76) leave less than one 44 pt field, so §16 and the focused-field rule cannot both hold and (b) cannot be built. §16 is Jabran's (ux-principles.md:120, :151): write it as a dated amendment and name it to him; the trigger is the one from D-7.
-Status: approved (Fable); goes into the UX-1 fix round as a dated amendment to a Jabran rule, named to Jabran.
+Status: approved (Fable); goes into the UX-1 fix round as a dated amendment to a Jabran rule, named to Jabran. **Jabran 2026-11-21: confirmed.** The "for his confirmation" marker is removed in the UX-1 round-3 wording fixes.
 
 ## D-6 UX-1: button labels wrap — 2026-11-21
 Question: screen-standard §4 says button labels never wrap; §25 lets buttons wrap their label to two lines at Larger Text.
