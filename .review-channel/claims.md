@@ -10,6 +10,7 @@ Write a line before starting, remove it when done. Never touch work the other le
 ## New-Mac lead rules (Jabran 2026-11-21; this lead only, the old-Mac lead's process is unchanged)
 1. The new-Mac lead session and every sub-agent it starts run at **High** effort (lead session: set by Jabran in the app, since a session cannot raise its own effort).
 2. An open decision where the lead has a recommendation is written to [lead-decisions.md](lead-decisions.md): question, options, pick and **why**. A fresh Fable 5.2 reviewer at high effort (given the entry and its sources only) approves or rejects it. APPROVE → the lead acts. REJECT or still open → Jabran. Critical decisions (money, security, approved scope, product direction) go to Jabran directly, with the Fable view attached. Decisions Jabran already owns stay his.
+3. **Fable budget (Jabran 2026-11-21):** Fable uses at most 50 % of the weekly limit (plan below 40 %, nothing new at 45 %). Fable does the independent security reviews of gate, money and security lanes and **batched** decision checks (one call per lane or batch); small fix confirmations go to Sonnet or Opus as the second, different reviewer.
 
 ## Merged lanes
 - 2026-11-21 Lane 0 BE: fast-forward of BE `phase/4` to `5e00b131` (verdict MERGE). `scripts/install-hooks.sh` run in this Mac's BE checkout; old Mac: run it after pulling.
