@@ -34,7 +34,7 @@ Result: all 39 points (one row each) folded. Three were folded with a correction
 
 | Point | Result | Where | Check and note |
 |---|---|---|---|
-| Q1 "untouched" and "dropped" cannot both hold | Folded | Q1 note; D9 | Q1's recorded answer is kept word for word. A dated note below it says that its RLS order ("Accounts first (R1–R3), then Payroll/HR (R4)") is replaced by Fable's order in §4. **For Jabran:** that order was part of the answer recorded as yours on 2026-11-21 (commit 4145549), so please confirm the change when you decide. |
+| Q1 "untouched" and "dropped" cannot both hold | Folded | Q1 note; D9 | Q1's recorded answer is kept word for word. Its RLS order was recorded as Jabran's (commit 4145549), so the draft does not replace it: Q5 asks him how to read it (see the fold check below). |
 | Q2 do not depend on the provider admin; per-service owner role | Folded | Status line; M5; Q2; R6a | Design point. Whether the provider lets us create such roles is still unchecked in provider docs (R6a). |
 | Q3 no branch-level RLS | Folded | Q3 | Agree. |
 | Q4 group consolidation loops per company | Folded | Q4 | ADR-023 D13 is at `NeoERP-BackEnd/docs/adr/ADR-023-reporting-layer.md:129-131`. |
@@ -70,3 +70,15 @@ Result: all 39 points (one row each) folded. Three were folded with a correction
 | Point | Where | Evidence |
 |---|---|---|
 | The audit dispatcher runs single statements outside any transaction, so a `SET LOCAL` system bind needs one. `bindSystemJob` opens a transaction as the company aspect does. | M6 | `AuditOutboxJdbcAdapter.kt:15-20` (class comment). |
+
+## Fold check fixes (`docs/agents/iso1/fable-fold-check.md`, FIX, text only)
+
+| Fix | Where | What changed |
+|---|---|---|
+| F1 | Summary; §4 intro and R2+R3, R4 rows; D10; Q1 note; new Q5 | Jabran's recorded order is no longer called "replaced"; Q5 asks him (a) build sequence or (b) "Accounts finished first", (b) recommended, and his order stands until he answers. |
+| F2 | M3 no-mixing bullet; R1 | The shared inbox processor binds the company at the start of the handler's transaction; the consumer inbox gets company `SELECT` and `UPDATE` for the DONE mark (confirmed `InboxProcessor.kt:105-115`). |
+| F3 | Summary; M8; R7; D2 | R7 narrowed to `audit_events`; notifications and workflow items stay on application checks (one inbox per user); R7 resized to S. |
+| F4 | §5 test 5; §6 Positive; M5 | Catalog test names each company policy (`company_isolation`, `company_audit_insert`, event outbox insert plus select); Positive says error or nothing; `FORCE` no longer "only" one purpose. |
+| F5 | Summary; M4; §5 test 2 | The error comes when a query meets a row; empty reads return nothing; test 2 seeds a row in every table. |
+| F6 | M5 roles table | Backup role dumps only; restore is a runbook step with its own tested path (P-7, P-22). |
+| F7 | M6 bank bullet; M3 append bullet | Before an old bank key is retired, the checks role confirms "0 remaining"; the shared `DomainEventWriter` binds from its scope. |
