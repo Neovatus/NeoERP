@@ -23,8 +23,8 @@ Options: (a) §25 wins, §8 points to §25; (b) keep §8, drop the give-way rule
 Pick: (a), plus a code row (fix list) so scroll insets include the keyboard.
 Why: QA shows fields hidden under the keyboard and footer on iOS (G32, SE 1, SE 3); §8's statement is disproved on a real device. Docs follow evidence; the code gap becomes a tracked row instead of a silent mismatch.
 Sources: App `phase/4-b2-ux1` at 77982304: `docs/design/ux-principles.md` §16, §20, §25 (lines 260-285); `docs/design/screen-standard.md` §4 (:85), §8 (:236, :244), back link (:185), §9 (:325-334); `docs/design/specs/building-blocks.md` (:110, :115, :117, :118, :126); QA evidence `git show 76968648:docs/agents/ux1/qa-evidence/` (SIZES.md, SIZES-iphone-se.md, larger-text.md, G37-larger-text.md, G05-G17-G26-G31-G32-G33-input.md); code `composeApp/.../NeoBreakpointTokens`, `NeoInputKind.kt`.
-Fable 5.2 (high): pending
-Status: pending
+Fable 5.2 (high): APPROVE — §8's sentence (screen-standard.md:244) is disproved on builds that already had the G32 fix (10ef469d; QA G32 "partly fixed", SE 1, SE 3), so §8 points to §25. Word the code row as the outcome (the focused field is in view when the keyboard opens, in every editor), not "insets include the keyboard": the root is already padded by safeDrawing (NeoSafeArea.kt:40, MainViewController.kt:19-22), so the cause is still to be found.
+Status: approved (Fable); goes into the UX-1 fix round with Fable's conditions.
 
 ## D-2 UX-1: needed-line and totals in the footer — 2026-11-21
 Question: §25 moves the needed-line and totals out of the pinned footer; §8 keeps the needed-line `above` the footer and the journal balance pinned.
@@ -32,8 +32,8 @@ Options: (a) move them always; (b) move them only on short heights (when the roo
 Pick: (b). A tap on the disabled primary scrolls to the needed-line.
 Why: On tall screens the pinned balance is the live feedback while typing lines (losing it costs every user); on short heights the pinned parts are what hid the fields. Scoping to the failing case keeps both.
 Sources: App `phase/4-b2-ux1` at 77982304: `docs/design/ux-principles.md` §16, §20, §25 (lines 260-285); `docs/design/screen-standard.md` §4 (:85), §8 (:236, :244), back link (:185), §9 (:325-334); `docs/design/specs/building-blocks.md` (:110, :115, :117, :118, :126); QA evidence `git show 76968648:docs/agents/ux1/qa-evidence/` (SIZES.md, SIZES-iphone-se.md, larger-text.md, G37-larger-text.md, G05-G17-G26-G31-G32-G33-input.md); code `composeApp/.../NeoBreakpointTokens`, `NeoInputKind.kt`.
-Fable 5.2 (high): pending
-Status: pending
+Fable 5.2 (high): APPROVE — (b) is the smallest change to the 2026-11-13 footer rule (screen-standard.md:231-236) that still gives the one-row footer the brief asks for, and the code already drops these lines while the keyboard is up (NeoStickyFooter.kt:104-111). Conditions: "short" is the D-7 trigger (it also fires on phones in portrait: 64 + about 240 pt journal footer), the scroll-to-line on the disabled primary works by keyboard and screen reader (ux §20), and the change is written as a dated amendment and named to Jabran, since the rule is his.
+Status: approved (Fable); goes into the UX-1 fix round as a dated amendment to a Jabran rule, named to Jabran.
 
 ## D-3 UX-1: wizard footer second row — 2026-11-21
 Question: building-blocks:126 lets a wizard footer put the primary on a second row; §25 requires a one-row footer.
@@ -41,8 +41,8 @@ Options: (a) one row, Cancel folds under ⋯/More; (b) allow two rows for wizard
 Pick: (a), and building-blocks:126 is amended.
 Why: building-blocks already contradicts screen-standard §8 ("never stacked full-width buttons"); a second row is exactly the height lost at 375–402 pt (SIZE, SE 3).
 Sources: App `phase/4-b2-ux1` at 77982304: `docs/design/ux-principles.md` §16, §20, §25 (lines 260-285); `docs/design/screen-standard.md` §4 (:85), §8 (:236, :244), back link (:185), §9 (:325-334); `docs/design/specs/building-blocks.md` (:110, :115, :117, :118, :126); QA evidence `git show 76968648:docs/agents/ux1/qa-evidence/` (SIZES.md, SIZES-iphone-se.md, larger-text.md, G37-larger-text.md, G05-G17-G26-G31-G32-G33-input.md); code `composeApp/.../NeoBreakpointTokens`, `NeoInputKind.kt`.
-Fable 5.2 (high): pending
-Status: pending
+Fable 5.2 (high): APPROVE — one row is what the brief sets and what §8 already says twice (screen-standard.md:179, :237); building-blocks.md:126 is the outlier and is amended. Keep its rule that the primary's label is never what gives way: the order becomes further actions under ⋯, Back as its arrow, then Cancel under ⋯.
+Status: approved (Fable); goes into the UX-1 fix round with Fable's conditions.
 
 ## D-4 UX-1: which text may end in "…" — 2026-11-21
 Question: building-blocks lets table headings (:118), the last breadcrumb (:110), card-line labels (:115) and any cell after two lines (:117) end in "…"; §25 lists what may and may not be cut, and review finding 4 shows a cut account name losing the distinguishing word ("…høy sats").
@@ -50,8 +50,8 @@ Options: (a) one list in §25, other rules aligned to it: never cut amounts, cod
 Pick: (a).
 Why: One list removes the contradictions; the evidence (Trial balance, SE 7 search placeholders, LT) shows where cutting lost meaning; the existing tight-grid → cards trigger already gives tables a way out without cutting headings.
 Sources: App `phase/4-b2-ux1` at 77982304: `docs/design/ux-principles.md` §16, §20, §25 (lines 260-285); `docs/design/screen-standard.md` §4 (:85), §8 (:236, :244), back link (:185), §9 (:325-334); `docs/design/specs/building-blocks.md` (:110, :115, :117, :118, :126); QA evidence `git show 76968648:docs/agents/ux1/qa-evidence/` (SIZES.md, SIZES-iphone-se.md, larger-text.md, G37-larger-text.md, G05-G17-G26-G31-G32-G33-input.md); code `composeApp/.../NeoBreakpointTokens`, `NeoInputKind.kt`.
-Fable 5.2 (high): pending
-Status: pending
+Fable 5.2 (high): APPROVE — one list in §25 with building-blocks.md:110-118 aligned to it is right, and the tight grid → cards exit already exists (:118). Two conditions: the list keeps dates, status words and toast text as never cut (G37 step 7, LT toast; ux-principles.md:275), and "or always with the account number" covers pickers and lists only, while reports wrap account names in full; otherwise the Trial balance cut (SIZES.md, 1032: "sats" lost) stays allowed.
+Status: approved (Fable); goes into the UX-1 fix round with Fable's conditions.
 
 ## D-5 UX-1: §16 main action reachable — 2026-11-21
 Question: §16 keeps the main action reachable while scrolling; §25 lets the footer give way while the keyboard is up on a short screen.
@@ -59,8 +59,8 @@ Options: (a) narrow exception in §16: only while the keyboard is up on a short 
 Pick: (a).
 Why: Without the exception the two rules cannot both hold at 375–402 pt with the keyboard up; the exception is bounded and the action is one key away.
 Sources: App `phase/4-b2-ux1` at 77982304: `docs/design/ux-principles.md` §16, §20, §25 (lines 260-285); `docs/design/screen-standard.md` §4 (:85), §8 (:236, :244), back link (:185), §9 (:325-334); `docs/design/specs/building-blocks.md` (:110, :115, :117, :118, :126); QA evidence `git show 76968648:docs/agents/ux1/qa-evidence/` (SIZES.md, SIZES-iphone-se.md, larger-text.md, G37-larger-text.md, G05-G17-G26-G31-G32-G33-input.md); code `composeApp/.../NeoBreakpointTokens`, `NeoInputKind.kt`.
-Fable 5.2 (high): pending
-Status: pending
+Fable 5.2 (high): APPROVE — at 667×375 with the keyboard up about 160 pt is left (SE 3: 145 pt head + 14 pt strip); the top bar (64) and a one-row footer (76) leave less than one 44 pt field, so §16 and the focused-field rule cannot both hold and (b) cannot be built. §16 is Jabran's (ux-principles.md:120, :151): write it as a dated amendment and name it to him; the trigger is the one from D-7.
+Status: approved (Fable); goes into the UX-1 fix round as a dated amendment to a Jabran rule, named to Jabran.
 
 ## D-6 UX-1: button labels wrap — 2026-11-21
 Question: screen-standard §4 says button labels never wrap; §25 lets buttons wrap their label to two lines at Larger Text.
@@ -68,8 +68,8 @@ Options: (a) §4 holds at default sizes; two-line wrap only at accessibility siz
 Pick: (a).
 Why: Keeps today's look at normal sizes, follows G37/LT evidence (cut dialog buttons) at accessibility sizes, and matches the platform's own alert behaviour.
 Sources: App `phase/4-b2-ux1` at 77982304: `docs/design/ux-principles.md` §16, §20, §25 (lines 260-285); `docs/design/screen-standard.md` §4 (:85), §8 (:236, :244), back link (:185), §9 (:325-334); `docs/design/specs/building-blocks.md` (:110, :115, :117, :118, :126); QA evidence `git show 76968648:docs/agents/ux1/qa-evidence/` (SIZES.md, SIZES-iphone-se.md, larger-text.md, G37-larger-text.md, G05-G17-G26-G31-G32-G33-input.md); code `composeApp/.../NeoBreakpointTokens`, `NeoInputKind.kt`.
-Fable 5.2 (high): pending
-Status: pending
+Fable 5.2 (high): APPROVE — keeps screen-standard.md:85 at default sizes and fixes the cut dialog button (G37 step 4). Make the triggers explicit: the primary never moves into More (secondary actions fold first, then the primary wraps), and dialog actions stack whenever they do not fit on one row; also correct §25's "about three times" (ux-principles.md:272), since the app caps text at 2× (NeoPlatformFontScale.kt:17, ux §20 at :172).
+Status: approved (Fable); goes into the UX-1 fix round with Fable's conditions.
 
 ## D-7 UX-1: room left for the form — 2026-11-21
 Question: The builder wrote "at least half the visible height is left to the form"; two QA findings (SE 1 ≈ 61 %, G37 step 3 ≈ 53 % left) would pass it.
@@ -77,8 +77,8 @@ Options: (a) at least half; (b) pinned parts (top bar, pinned head, footer) take
 Pick: (b), and the same figure is the trigger for the short-height rules (review finding 1).
 Why: A rule both failing screens pass is no rule; one third is reachable (375 pt: top bar ~64 + one-row footer ~64 leaves ~66 %); measuring height fixes that 667×375 and 874×402 get tablet layouts by width.
 Sources: App `phase/4-b2-ux1` at 77982304: `docs/design/ux-principles.md` §16, §20, §25 (lines 260-285); `docs/design/screen-standard.md` §4 (:85), §8 (:236, :244), back link (:185), §9 (:325-334); `docs/design/specs/building-blocks.md` (:110, :115, :117, :118, :126); QA evidence `git show 76968648:docs/agents/ux1/qa-evidence/` (SIZES.md, SIZES-iphone-se.md, larger-text.md, G37-larger-text.md, G05-G17-G26-G31-G32-G33-input.md); code `composeApp/.../NeoBreakpointTokens`, `NeoInputKind.kt`.
-Fable 5.2 (high): pending
-Status: pending
+Fable 5.2 (high): REJECT — measuring height with the keyboard counted is right, but "at most a third" cannot be met at the sizes it is written for: top bar 64/60 (NeoSmartTopBar.kt:113-116) plus a one-row footer of 76 (44 touch floor + 2×16, NeoStickyFooter.kt:100) is 140 of 375 (37 %) and 136 of 402 (34 %), the entry's own 64 + 64 is 34 %, and with the keyboard up the top bar alone, which §17 keeps pinned (ux-principles.md:157), is over a third. Change: one third is the trigger only, and the rule is what may stay pinned once it fires: the top bar and a one-row footer with the keyboard down, the top bar only with it up (SE 1 and G37 step 3 both trigger it).
+Status: to Jabran (Fable REJECT). Lead agrees with Fable's change: one third is the trigger for the short-height rules, not a floor; once it fires, only the top bar and a one-row footer stay pinned with the keyboard down, the top bar only with it up. Builder writes this version marked pending Jabran.
 
 ## D-8 UX-1: rig review sizes — 2026-11-21
 Question: The rig row becomes the QA sizes 375×667, 667×375, 874×402, 744, 1032, 1376, 1440, dropping 1280, 1024, 768, 390.
@@ -86,8 +86,8 @@ Options: (a) accept; (b) keep 1280 too.
 Pick: (a).
 Why: Jabran named these sizes (2026-11-21); 1032 shows the rail band and 1376 the full sidebar; the 20 dp screenshot sweep covers 1280 exactly.
 Sources: App `phase/4-b2-ux1` at 77982304: `docs/design/ux-principles.md` §16, §20, §25 (lines 260-285); `docs/design/screen-standard.md` §4 (:85), §8 (:236, :244), back link (:185), §9 (:325-334); `docs/design/specs/building-blocks.md` (:110, :115, :117, :118, :126); QA evidence `git show 76968648:docs/agents/ux1/qa-evidence/` (SIZES.md, SIZES-iphone-se.md, larger-text.md, G37-larger-text.md, G05-G17-G26-G31-G32-G33-input.md); code `composeApp/.../NeoBreakpointTokens`, `NeoInputKind.kt`.
-Fable 5.2 (high): pending
-Status: pending
+Fable 5.2 (high): APPROVE — the six QA sizes are Jabran's (WORKFLOW.md:313-315) plus 1440 from the brief, the replaced list was the lead's own (screen-standard.md:325), 1032 is the rail and 1376 the full sidebar (NeoBreakpointTokens.kt:20-26), and the 20 dp sweep lands on 1280 (screen-standard.md:352). Dropping 1024 loses nothing: the drawer layout is still reviewed at 744.
+Status: approved (Fable); goes into the UX-1 fix round with Fable's conditions.
 
 ## D-9 UX-1: icons at Larger Text — 2026-11-21
 Question: Sialkot Larger Text: icons did not scale with text. Builder kept the 44 pt touch floor and fixed icons.
@@ -95,5 +95,5 @@ Options: (a) icons beside text scale with the text up to a cap (1.5×); standalo
 Pick: (a).
 Why: Platform look (apple-platform-look.md, SF Symbols follow Dynamic Type) argues for scaling icons that belong to a text line; a cap keeps rows from blowing up; standalone buttons already meet the touch floor.
 Sources: App `phase/4-b2-ux1` at 77982304: `docs/design/ux-principles.md` §16, §20, §25 (lines 260-285); `docs/design/screen-standard.md` §4 (:85), §8 (:236, :244), back link (:185), §9 (:325-334); `docs/design/specs/building-blocks.md` (:110, :115, :117, :118, :126); QA evidence `git show 76968648:docs/agents/ux1/qa-evidence/` (SIZES.md, SIZES-iphone-se.md, larger-text.md, G37-larger-text.md, G05-G17-G26-G31-G32-G33-input.md); code `composeApp/.../NeoBreakpointTokens`, `NeoInputKind.kt`.
-Fable 5.2 (high): pending
-Status: pending
+Fable 5.2 (high): APPROVE — (a) is sound: icons in a text line grow with it up to 1.5× (16 → 24) while text itself caps at 2× (NeoPlatformFontScale.kt:17), and bar icons stay fixed. Correct the reason: apple-platform-look.md says nothing about SF Symbols and its sections 2–7 are not adopted (:3-8), so ground it in ux §20; and state that most icons QA named (bell, search, ⋯, ×; larger-text.md "Page") are standalone and stay as they are by decision.
+Status: approved (Fable); goes into the UX-1 fix round with Fable's conditions.
