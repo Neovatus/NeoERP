@@ -880,7 +880,7 @@ guardrails: a test per finding, invariant checks before push, a second different
    count. Default on for new Inventory companies. Why: serves both a large perpetual customer and a small shop.
    **Change (Fable):** the switch may change only at the start of a period, with a tie-out journal; and cost per item
    is still captured while it is off, because the period-end journal needs it.
-7. **Valuation pool (critical: money).** **Recommend:** cost per item per company, with quantities per location; a
+7. **Valuation pool (critical: money).** **Approved by Jabran 2026-11-21: option (a)**, the daily tie-out per company and account, value per location a report; **plus (Jabran)**: cost layers carry a pool key that can hold a location from v1, so "cost per location" (option b) can be added later as a company setting without a data change. v1 ships one pool per item per company. **Recommend:** cost per item per company, with quantities per location; a
    transfer moves cost unchanged. Why: the books are the company's (`RULES.md:121-128`); per-location cost makes
    every transfer a revaluation. **Conflict fixed (Fable):** with one company pool, value per location cannot tie
    exactly to a location-tagged GL balance (a receipt at one location changes the average for stock at every other
