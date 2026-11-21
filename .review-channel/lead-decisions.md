@@ -186,3 +186,13 @@ Pick: (a).
 Why: no branch holds a V73/V75 file (checked all remotes: only the old `phase/4-sec1` V73, merged as V72); S5 is not built; Flyway accepts gaps; outOfOrder weakens the order guarantee for every later migration; holding V76 blocks a money-invariant fix for no gain.
 Class: small (lead), no money or schema meaning changes.
 Status: acted; PROJECT-STATE AL-1 row updated; the S5 brief must use the next free number.
+
+## D-21 FIX-BE R29 NotificationDeliveryAttemptRepository — 2026-11-21
+Question: PlatformWide needs a PlatformTenantAccess-first method rule; audit-service has no resolver or gateway, and save() is machine-called.
+Options: (a) back on the baseline for R29b with a note (platform read PLATFORM.AUDIT.READ + every company, pin to NotificationService; split machine save from platform read once audit-service has a resolver), cap 44; (b) build the audit resolver/gateway now; (c) PlatformWide with a method-rule exemption.
+Pick: (a). Why: (b) is new security wiring beyond a fix lane; (c) weakens the rule; (a) matches review 1's own alternative and keeps the ratchet honest (44 still below the original 60).
+Class: small (lead). Status: acted (sent to FIX-BE).
+
+## D-22 FIX-APP-A builder questions — 2026-11-21
+Fold order: UX-1 merged with Jabran's MERGE (87ae114c), so its fold order is approved. R22 "Leave without saving?": keep it in all six editors that share the Cancel rule (one behaviour). iPad mini grid row growth: fix in this lane (R14 named it), caption moved, size test at 744.
+Class: small (lead). Status: acted (sent to App A).
