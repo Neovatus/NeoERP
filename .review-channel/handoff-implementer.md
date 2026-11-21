@@ -52,6 +52,18 @@ App C, R34-App incl. R34i, retest; 4.3 R29b; 4.5 DOCS-2c screenshots; 4.18 repor
 **Next for the lead:** App B1 brief (from `docs/agents/qa-round1-retest/fix-list.md`, `simulator-checks-2026-11-21.md`
 F1–F10, App A reviews' LOWs), App lane on App `phase/4` `324d3039`.
 
+**Baseline plan for parallel work (Jabran 2026-11-21, ~23:00: "finish the pending things and Phase 4, and the base
+line so we can work in parallel"):**
+1. BE-RUN-1 merge (gate running) → BE-DOCS-1 lane ready, rides on the next BackEnd full run.
+2. **App B1** (App, Opus) and **BE-JDK21** (BackEnd, Opus; brief in the lead's scratchpad `be-jdk21-brief.md`) run as
+   two builders in parallel, Gradle still one job at a time through the lock; full gates one after the other
+   (BE-JDK21 + BE-DOCS-1 in one BackEnd run, then App B1). Go back to one lane if reviews or tests suffer.
+3. **R34i** (hooks guard `phase/hrp-v2`) with or before App B1.
+4. After App B1 merges: merge App `phase/4` into `phase/hrp-v2` → clean HR base. HR v2 H1 then runs on the **old Mac
+   from Monday** (own Gradle lock), in parallel with the rest of Phase 4 here.
+5. Rest of Phase 4 on this Mac: App B2, App C, R34-App, R29b, retest, 4.18, AL S5 → P2/S6 → small reads → owner
+   switch, DOCS-2c, Phase 4 PR.
+
 **Today's other outcomes:** QA guide additions (scroll-then-search check, iOS look before layout merges L31, clean-up
 L32 incl. "never `gradlew --stop` on /tmp/gradle-home while the backend runs"); Jabran's App checkout fast-forwarded
 to `324d3039`; Kotlin Multiplatform plugin installed in Android Studio 2026.2 (needed the marketplace plugin).
