@@ -323,3 +323,28 @@ plus `HR-PAYROLL-LEAD-REVIEW.md` (D1) and `payroll-v2-p1.md` (J-8).
 - Finding 4 (cost centre): X.17 gives rule 5's reason: the value lives in accounts-service and HR does not create Accounts records; not setup data (fd886c0).
 - Finding 5 (PY.10): made conditional on Sweden moving earlier (fd886c0).
 - Finding 6 (order): X items sorted X.1 to X.17 (823ee0d).
+
+**Fable settlement** (`docs/agents/hrp-des/fable-settlement.md`; changes marked "(Fable)" in the text):
+
+- Fable: X.5 rig tables at D-8 sizes, default text only; accessibility checks in screenshot tests and on a simulator (49a1d53).
+- Fable: X.6 becomes an app-wide screen-standard rule through a lead decision, not an HR-only rule (49a1d53).
+- Fable: X.7 digits keyboard only where the country format is digits only; mask adds separators; AM/PM choice for 12-hour companies (49a1d53).
+- Fable: X.10 approval-card labels wrap before buttons stack; BT-4 amended as PS-4; code rows for `NeoTabs` and `NeoWizardStepper` (49a1d53).
+- Fable: X.12 "when ADR-025 is accepted"; RT-7 sentence removed; push before ESS approvals is Jabran's call with ADR-025 (49a1d53).
+- Fable: X.14 dated "not re-runnable" line now, new script in the App repo (49a1d53).
+- Fable: X.17 quick-added department valid from today, never a header node; "Add it in Accounts" only with Accounts and the right (49a1d53).
+- Fable: H1.10 reason-length fix in every place, strings take the number as a parameter (49a1d53).
+- Fable: H23.4 Add / Remove in the leave type's unit (49a1d53).
+- Fable: H4.4 O5 row rewritten now; O1 waits for decision 13a (49a1d53).
+- Fable: ES.3 re-measure at default text; accessibility check in the build (49a1d53).
+- Fable: PA.2 spec word "position"; wire names change with CP-H1.6, backend first (49a1d53).
+- Fable: PY.10 relabelled critical; the Sweden sick-pay card is an unapproved post-gate draft (2026-10-22); row and "Not changed" bullet corrected (6090b68).
+- Fable: X.3 (b) follows `risk-paths.txt` and the risk script (L16); UI and wording lanes keep one review (6090b68).
+- Fable: H1.2 backend v1 code goes with the tables; App hides routes and gives employee-only users a "being rebuilt" state (6090b68).
+- Fable: H23.2 and decision 5 one band per HR kind in v2, chains behind `APPROVAL_CHAINS`, HR policy screen its own slice (6090b68, 0132c44).
+- Fable: decision 1 states it reverses "Data is kept" (2026-10-09) and clears v1-derived data in other services (0132c44).
+- Fable: decision 3 test-only fixture calculator for P0 (0132c44).
+- Fable: decision 6a total run cost added as an option with trade-offs beside net pay; (b) one-step reality and payroll confirm code (0132c44).
+- Fable: decision 13a and H1.7 the O1 line is not provably stale (one commit, App `a09fc826`); Jabran chooses (6090b68, 0132c44).
+- Fable: "Before the build can start" line: ADR-026 accepted and R1 built, plus Jabran's approval (0132c44).
+- Fable: smaller corrections: which specs were approved when; IAM link fields answered (0132c44).
