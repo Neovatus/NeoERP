@@ -7,9 +7,10 @@ Round 2 fixes for review 1 are listed in §12. **Final home:** once Jabran signs
 `docs/agents/inventory/scope.md`, as the module loop asks (`App/docs/module-sequence.md:29-31`).
 
 Short names: **BE** = `NeoERP-BackEnd`, **App** = `NeoERP-App`, **WS** = this workspace, **UX1** =
-`NeoERP-worktrees/ux1/docs/design` (UX-1 revision of the design docs). `roadmap:N` = `WS/docs/drafts/accounts-roadmap.md`
-line N. `backlog:N` = `WS/docs/backlog.md` line N. `packs/` = `BE/services/accounts-service/src/main/resources/packs/`.
-Code repos read at BE `phase/4` `d0dd5441` and App checkout as found, read only.
+`NeoERP-worktrees/ux1/docs/design` (UX-1 revision of the design docs). `roadmap:N` =
+`WS/docs/drafts/accounts-roadmap.md` line N. `backlog:N` = `WS/docs/backlog.md` line N. `packs/` =
+`BE/services/accounts-service/src/main/resources/packs/`. Code repos read at BE `phase/4` `d0dd5441` and App checkout
+as found, read only.
 
 **GK** marks a country or practice statement taken from general knowledge, not from a repo source. A reviewer or the
 country accountant (gate ERP-Q1, roadmap:178) must check every GK line before it drives a build.
@@ -181,9 +182,10 @@ of 2026, https://download1.fbr.gov.pk/Docs/202673875133134STGO08OF2026.pdf).
 **Purchase scope will add:** supplier prices and price lists, supplier discounts, supplier item numbers and lead
 times (ADR-018 §3, `ADR-018:53`).
 
-**The item master keeps:** the base sales price and costs (§2.7), the units and conversions those prices refer to,
-and the tax class and Pakistan retail price as item facts the documents copy. The Pakistan retail price is kept per
-unit and per variant, because it is printed on each unit or pack (STGO 08 of 2026, https://download1.fbr.gov.pk/Docs/202673875133134STGO08OF2026.pdf).
+**The item master keeps:** the base sales price and costs (§2.7), the units and conversions those prices refer to, and
+the tax class and Pakistan retail price as item facts the documents copy. The Pakistan retail price is kept per unit
+and per variant, because it is printed on each unit or pack (STGO 08 of 2026,
+https://download1.fbr.gov.pk/Docs/202673875133134STGO08OF2026.pdf).
 
 ## 3. Full feature catalogue
 
@@ -351,8 +353,8 @@ Tier-1 retailers must link their POS to FBR; textile and pharma firms track lots
 Answers the common brief's five questions (`docs/agents/design-brief-common.md`, "Not only an ERP"). **Payments:**
 stock moves move no money, so the column says "none" except where money really moves (landed costs, import VAT and
 duty, deposits, inter-company settlement). Country cells marked GK need ERP-Q1; sources are named where the review
-checked them. Every catalogue feature is in at least one row; country rows split a feature; the last row lists those where all five answers are
-"none".
+checked them. Every catalogue feature is in at least one row; country rows split a feature; the last row lists those
+where all five answers are "none".
 
 | # | Country | Payments | Tax / statutory | Reconciliation | Report | Automation |
 |---|---|---|---|---|---|---|
@@ -406,8 +408,9 @@ journal type **IV** "Stock" (`ADR-018:33`; type list `BE/docs/api/accounts-a1.md
 Inventory machine client with scope `accounts.posting.write`, pinned to journal type IV and control kinds INVENTORY
 and GRNI (`accounts-a1.md:65`, `:73`; `accounts-c.md:218`). Inventory is our own module, so it posts directly, not as
 a draft (the draft default of ADR-021 Q14 is for outside systems, `ADR-021:235`). Idempotency follows the ADR-018 §5
-pattern `{SOURCE_DOCUMENT_TYPE}:{sourceDocumentId}:{n}` (`ADR-018:65`), for example `STOCK_MOVE:{moveId}:{n}`. The move date sets the period; a move into a closed period is refused
-(§8.7). Account roles are those of §2.2. Dimensions on each line follow §8.3.
+pattern `{SOURCE_DOCUMENT_TYPE}:{sourceDocumentId}:{n}` (`ADR-018:65`), for example `STOCK_MOVE:{moveId}:{n}`. The
+move date sets the period; a move into a closed period is refused (§8.7). Account roles are those of §2.2. Dimensions
+on each line follow §8.3.
 
 ### 4.1 Stock on hand per item, location and company
 
@@ -481,17 +484,19 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
   company value limit.
 - **Why:** stock that never shrinks is wrong stock; IAS 2 and the Nordic acts want stock in the books at the lower
   of cost and net realisable value (GK for the accounting rule). **Tax differs by country** (source per country below):
-  - **NO:** for tax, write-ups and write-downs of stock are ignored; stock for tax is cost by FIFO (skatteloven
-    § 14-5 (2) b and c, https://lovdata.no/lov/1999-03-26-14/§14-5). A write-down in the books therefore creates a difference between stock in the
-    books and stock for tax, which the tax return needs. Inventory shows it in a report (R10) and the year-end
-    reconciliation; for ERP-Q1.
+  - **NO:** for tax, write-ups and write-downs of stock are ignored; stock for tax is cost by FIFO (skatteloven § 14-5
+    (2) b and c, https://lovdata.no/lov/1999-03-26-14/§14-5). A write-down in the books therefore creates a difference
+    between stock in the books and stock for tax, which the tax return needs. Inventory shows it in a report (R10) and
+    the year-end reconciliation; for ERP-Q1.
   - **SE:** lowest value (FIFO cost or net sales value) applies; the **97 % rule** (alternativregeln, IL 17 kap. 4 §)
-    lets a company carry stock at 97 % of total cost, and the value must be the same in the books, so it is a
-    year-end write-down journal, not a tax-return entry (https://skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag/varulager.4.1df9c71e181083ce6f6371.html).
-  - **DK:** write-down for tax to the day price (replacement cost) (Juridisk vejledning C.C.2.3.1.6.1, https://tax.dk/jv/cc/C_C_2_3_1_6_1.htm).
+    lets a company carry stock at 97 % of total cost, and the value must be the same in the books, so it is a year-end
+    write-down journal, not a tax-return entry
+    (https://skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag/varulager.4.1df9c71e181083ce6f6371.html).
+  - **DK:** write-down for tax to the day price (replacement cost) (Juridisk vejledning C.C.2.3.1.6.1,
+    https://tax.dk/jv/cc/C_C_2_3_1_6_1.htm).
   - **FI, IS, PK:** accounting rule as above; tax treatment not checked (GK, for ERP-Q1).
-- **Journals (IV):** adjustment: DR the reason's account (default INVENTORY_ADJUSTMENT) / CR INVENTORY (or the
-  reverse for found stock). NRV write-down (and the SE 97 % write-down): DR a write-down expense / CR the inventory provision
+- **Journals (IV):** adjustment: DR the reason's account (default INVENTORY_ADJUSTMENT) / CR INVENTORY (or the reverse
+  for found stock). NRV write-down (and the SE 97 % write-down): DR a write-down expense / CR the inventory provision
   account. **Every chart except SE has one:** 1490 "Provision for obsolete inventory", type INVENTORY_PROVISION, in
   base, PK, DK, FI and IS (`packs/2026.2/base-ifrs.csv:41`, `pk.csv:42`, `dk.csv:41`, `fi.csv:41`, `is.csv:41`) and
   1498 in NO (`no-ns4102.csv:36`). **No role points to any of them** (the role column is empty). The next pack edition
@@ -532,12 +537,15 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
   first move posts (a change later is a dated revaluation event, by an accountant, with a reason). Valuation pool is
   item × company (decision 7). Standard cost comes with Manufacturing; LIFO is not offered (C5).
 - **Country rules (source per country; for ERP-Q1):**
-  - **NO:** FIFO for tax, no write-downs for tax (skatteloven § 14-5 (2) b and c, https://lovdata.no/lov/1999-03-26-14/§14-5).
-  - **SE:** FIFO and lowest value; 97 % rule (IL 17 kap. 4 §) (https://skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag/varulager.4.1df9c71e181083ce6f6371.html).
+  - **NO:** FIFO for tax, no write-downs for tax (skatteloven § 14-5 (2) b and c,
+    https://lovdata.no/lov/1999-03-26-14/§14-5).
+  - **SE:** FIFO and lowest value; 97 % rule (IL 17 kap. 4 §)
+    (https://skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag/varulager.4.1df9c71e181083ce6f6371.html).
   - **DK:** only FIFO is fully accepted for tax; average "is assumed acceptable"; the method may be chosen per goods
     group; write-down to the day price (https://tax.dk/jv/cc/C_C_2_3_1_6_1.htm).
-  - **FI:** bookkeeping law KPL 4:5.4 allows FIFO, LIFO or weighted average (https://www.kuntaliitto.fi/sites/default/files/media/file/Lausunto-10-1997.pdf); the tax rule (EVL 14 §)
-    is not verified.
+  - **FI:** bookkeeping law KPL 4:5.4 allows FIFO, LIFO or weighted average
+    (https://www.kuntaliitto.fi/sites/default/files/media/file/Lausunto-10-1997.pdf); the tax rule (EVL 14 §) is not
+    verified.
   - **IS:** not checked (GK).
   - **PK:** IAS 2, FIFO or weighted average (GK).
   - So **FIFO is the default in every Nordic country**; average is offered there only after the country
@@ -644,18 +652,18 @@ retention (X4). Return files and Intrastat stay in Accounts E (roadmap:140).
   separate codes for moves, counts, approve counts, adjustments, approve adjustments, revalue, item maintenance,
   category maintenance, settings; **values visible only with a value-read code** (decision 18); approvals use the
   shared approval-limit model; branch-limited access follows the platform lane (backlog:361).
-- **Entitlement:** Inventory's five catalogued features map to the catalogue: `STOCK_BY_WAREHOUSE` → S1 per
-  location, `INTER_BRANCH_TRANSFERS` → S3b, `INVENTORY_VALUATION` → C1 (decision 6), `STOCK_COUNT` → S4,
-  `BATCH_SERIAL` → S7. All five are on by default once the module is on (`EntitlementCatalog.kt:173-178`); a
-  company switches one off as a feature override (RULES §3). Reorder, variants and reservations need no feature row
-  in v1 (always on with the module). Two **new** catalogue rows are proposed, both company scope and **off by
-  default**, as large-customer features are (`large-customer-roadmap.md:11`): `GROUP_CATALOGUE` (decision 3) and
-  `INTERCOMPANY_TRANSFERS` (decision 13). Each spans companies, so the rule says whose switch counts: the
-  **parent's** `GROUP_CATALOGUE` for a group catalogue (a member company follows it, a franchise opts in), and
-  **both companies'** `INTERCOMPANY_TRANSFERS` for a transfer. Both rows belong to the INVENTORY module. The item
-  master itself is not a feature row: it resolves on from any of FINANCE, INVENTORY, SALES or PURCHASING (decision
-  1). So a group on Finance only keeps one catalogue per company and cannot share one until it takes INVENTORY. The real default for `BATCH_SERIAL` being on matters little because
-  INV-9 builds it later; until then the feature has nothing to switch.
+- **Entitlement:** Inventory's five catalogued features map to the catalogue: `STOCK_BY_WAREHOUSE` → S1 per location,
+  `INTER_BRANCH_TRANSFERS` → S3b, `INVENTORY_VALUATION` → C1 (decision 6), `STOCK_COUNT` → S4, `BATCH_SERIAL` → S7.
+  All five are on by default once the module is on (`EntitlementCatalog.kt:173-178`); a company switches one off as a
+  feature override (RULES §3). Reorder, variants and reservations need no feature row in v1 (always on with the
+  module). Two **new** catalogue rows are proposed, both company scope and **off by default**, as large-customer
+  features are (`large-customer-roadmap.md:11`): `GROUP_CATALOGUE` (decision 3) and `INTERCOMPANY_TRANSFERS` (decision
+  13). Each spans companies, so the rule says whose switch counts: the **parent's** `GROUP_CATALOGUE` for a group
+  catalogue (a member company follows it, a franchise opts in), and **both companies'** `INTERCOMPANY_TRANSFERS` for a
+  transfer. Both rows belong to the INVENTORY module. The item master itself is not a feature row: it resolves on from
+  any of FINANCE, INVENTORY, SALES or PURCHASING (decision 1). So a group on Finance only keeps one catalogue per
+  company and cannot share one until it takes INVENTORY. The real default for `BATCH_SERIAL` being on matters little
+  because INV-9 builds it later; until then the feature has nothing to switch.
 - **Franchise:** a franchise is its own company and keeps its own items unless it opts into a group catalogue
   (`RULES.md:154-167`).
 
@@ -744,8 +752,9 @@ receives foreign-currency purchases into stock.
 
 ### 8.8 Control and reconciliation
 
-- INVENTORY is a protected control kind (`accounts-a1.md:73`); bill lines refuse INVENTORY accounts (`accounts-c.md:191`);
-  outside systems never post to stock control accounts (`App/docs/design/specs/accounts-integrations.md:165-166`).
+- INVENTORY is a protected control kind (`accounts-a1.md:73`); bill lines refuse INVENTORY accounts
+  (`accounts-c.md:191`); outside systems never post to stock control accounts
+  (`App/docs/design/specs/accounts-integrations.md:165-166`).
 - **Recommendation:** once a company has posted its first Inventory move, manual journals on INVENTORY-role accounts
   are refused, as GRNI already does once used (`accounts-c.md:218`); corrections go through Inventory adjustments.
 - A daily invariant check ties stock value to the GL per company and location; it joins the money invariant checks
@@ -792,9 +801,8 @@ receives foreign-currency purchases into stock.
 | With other modules | Purchase v1 (orders, goods receipt, landed costs), Sales v1 (orders, deliveries, kits, pricing), Manufacturing, POS, Phase 7 inter-company | — |
 
 Order: INV-0 → INV-1 → INV-1b → INV-1c → INV-2 → INV-3 → INV-5 → INV-6 → INV-4 → INV-4b → INV-8 → INV-7 → INV-9,
-then Purchase v1 and
-Sales v1 replace the document-driven moves with their own documents. Money slices get the money guardrails: a test
-per finding, invariant checks before push, a second different reviewer. Each slice designs its screens at the QA sizes
+then Purchase v1 and Sales v1 replace the document-driven moves with their own documents. Money slices get the money
+guardrails: a test per finding, invariant checks before push, a second different reviewer. Each slice designs its screens at the QA sizes
 (§4.4) before build, as the module loop asks (`module-sequence.md:32-34`).
 
 ## 10. Decisions for Jabran
@@ -832,11 +840,11 @@ per finding, invariant checks before push, a second different reviewer. Each sli
    after the country accountant's check (ERP-Q1), because NO and SE tax rest on FIFO and DK only "assumes" average
    acceptable (§4.9 sources). PK keeps the choice under IAS 2. Standard cost with Manufacturing; no LIFO (FI law
    allows it, no need known).
-6. **Valuation off (critical: money).** Feature `INVENTORY_VALUATION` exists and is on by default (`EntitlementCatalog.kt:177`). Many Nordic small-company
-   systems book purchases straight to cost and adjust stock once a year (GK, §3.8). **Recommend:** on = perpetual
-   (stock journals per move, §8.2); off = quantities only, no stock journals, purchases stay costs, and a period-end
-   "stock value change" journal from the valuation of the count. Default on for new Inventory companies. Why: serves
-   both a large perpetual customer and a small shop.
+6. **Valuation off (critical: money).** Feature `INVENTORY_VALUATION` exists and is on by default
+   (`EntitlementCatalog.kt:177`). Many Nordic small-company systems book purchases straight to cost and adjust stock
+   once a year (GK, §3.8). **Recommend:** on = perpetual (stock journals per move, §8.2); off = quantities only, no
+   stock journals, purchases stay costs, and a period-end "stock value change" journal from the valuation of the
+   count. Default on for new Inventory companies. Why: serves both a large perpetual customer and a small shop.
 7. **Valuation pool (critical: money).** **Recommend:** cost per item per company, with quantities per location; a
    transfer moves cost unchanged. Why: the books are the company's (`RULES.md:121-128`); per-location cost makes
    every transfer a revaluation.
@@ -878,10 +886,11 @@ per finding, invariant checks before push, a second different reviewer. Each sli
    (`accounts-c.md:218`). **Recommend:** keep that in v1 (variance is a cost); landed costs and actual-cost
    correction of the on-hand share come with Purchase v1. Why: built path, small variances; full IAS 2 actual cost
    needs charges that only Purchase brings (GK on IAS 2).
-10. **Opening stock (critical: money).** **Recommend:** adopt the GL balance: import quantities and costs, refuse unless
-    the total equals the GL balance per account (per location only where the opening balance carries the location
-    tag, which the opening-balance import may not have set), no second journal; a difference needs one adjustment journal with a
-    reason. Why: the opening-balance import may already hold 1460; a second journal would double it.
+10. **Opening stock (critical: money).** **Recommend:** adopt the GL balance: import quantities and costs, refuse
+    unless the total equals the GL balance per account (per location only where the opening balance carries the
+    location tag, which the opening-balance import may not have set), no second journal; a difference needs one
+    adjustment journal with a reason. Why: the opening-balance import may already hold 1460; a second journal would
+    double it.
 11. **Negative stock (critical: money).** **Recommend:** refused by default; a company may allow it on Store
     locations only, with the cost corrected when the receipt arrives and a daily list of negative items. Why: shops
     sell before goods are booked in; warehouses must not.
@@ -899,10 +908,10 @@ per finding, invariant checks before push, a second different reviewer. Each sli
     **Recommend:** both parts as above. Note roadmap decision 15 (no owned-group pilot before Phase 7,
     roadmap:273-274, not yet approved): if Jabran keeps it, S3c-1 can wait for Phase 7 too without harm; if not,
     S3c-1 lets a group move stock between its companies correctly in each set of books before consolidation exists.
-14. **Batch, serial and expiry (critical: statutory for pharma and food customers).** **Recommend:** INV-9, the first slice after v1, with nullable lot and
-    serial on every move from v1. Why: batch and expiry tracking is a legal duty for pharma (PK DRAP, GK) and food
-    traceability customers, so no such customer can go live before INV-9; the first Swedish customers likely do
-    not need it.
+14. **Batch, serial and expiry (critical: statutory for pharma and food customers).** **Recommend:** INV-9, the first
+    slice after v1, with nullable lot and serial on every move from v1. Why: batch and expiry tracking is a legal duty
+    for pharma (PK DRAP, GK) and food traceability customers, so no such customer can go live before INV-9; the first
+    Swedish customers likely do not need it.
 15. **Counts and close (critical: statutory).** **Recommend:** blind counting; counter cannot approve own variances;
     automatic posting under a company value limit, approval above it; unposted moves block the period close; a
     missing year-end count is a warning a company can make blocking. Why: the count is the year-end evidence (GK).
@@ -918,13 +927,14 @@ per finding, invariant checks before push, a second different reviewer. Each sli
 18. **Who sees stock values (non-critical).** **Recommend:** a separate value-read code; Stock Clerk and store staff
     see quantities only by default. Why: large customers hide cost prices from shop floors (GK).
 19. **Country item fields in v1 (critical: statutory).** **Recommend:** HS / PCT code, FBR unit, sale type, SRO
-    schedule and item serial defaults, and the fixed notified value or retail price per unit and variant (PK); GTIN, CN8, net mass, country of origin (Nordic) on the item in v1; Intrastat reports later with
-    Sales and Purchase. Why: PK invoices need them now (`accounts-h-design.md:221-222`); fields are cheap, reports
-    need documents.
+    schedule and item serial defaults, and the fixed notified value or retail price per unit and variant (PK); GTIN,
+    CN8, net mass, country of origin (Nordic) on the item in v1; Intrastat reports later with Sales and Purchase. Why:
+    PK invoices need them now (`accounts-h-design.md:221-222`); fields are cheap, reports need documents.
 20. **Build order (critical: approved scope).** Brief order is Inventory, then Purchase, then Sales scope drafts.
     **Recommend:** build Inventory INV-0 to INV-8 first (variants INV-1b straight after INV-1, because the variant id
-    is the key on stock moves) with the document-driven path (decision 8), then Purchase v1 and Sales v1. Why: Accounts documents already carry item, unit, quantity and location fields (`ADR-018:66`), so
-    Inventory works alone, and Purchase and Sales then plug into a working stock ledger.
+    is the key on stock moves) with the document-driven path (decision 8), then Purchase v1 and Sales v1. Why:
+    Accounts documents already carry item, unit, quantity and location fields (`ADR-018:66`), so Inventory works
+    alone, and Purchase and Sales then plug into a working stock ledger.
 21. **Camera scanning for counts (non-critical).** **Recommend:** in INV-6, phones only (Android and iOS camera
     work, an M-size piece, GK); hardware scanners work everywhere from INV-1. Why: Jabran asked for scanning on a
     phone for counts; most people mean the camera.
