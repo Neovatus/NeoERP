@@ -8,7 +8,7 @@ done ones with the date) every batch. Details and drafts are linked; nothing her
 ## Now (waiting on you)
 | # | What | Why it waits on you | Details |
 |---|---|---|---|
-| N1 | iOS simulator checks S1–S4 for R05/R06 (typed text lost), or let the lead run them on the simulator | Needs a device run | `NeoERP-App/docs/agents/fix-app-a/builder-report.md` "Needs a simulator" |
+| N1 | S4 last step: turn on the iPad simulator's hardware keyboard (Simulator menu I/O ▸ Keyboard ▸ Connect Hardware Keyboard, or the pane), then the lead finishes S4 (S1–S3 passed) | The lead's tool cannot switch it | `NeoERP-App/docs/agents/fix-app-a/builder-report.md` "Needs a simulator" |
 | N3 | Switch the **lead session to High effort** in the app (it still shows medium) | Only you can change the session setting | claims.md "New-Mac lead rules" 1 |
 
 ## Before Phase 5 starts (after the Phase 4 PR merges)
