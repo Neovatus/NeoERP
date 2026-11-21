@@ -231,7 +231,7 @@ the reason says when to revisit.
 | I17 | Country fields: HS / PCT code, FBR unit, sale type, SRO schedule and item serial (reduced and exempt goods), fixed notified value or retail price (per unit and variant), CN8, net mass, country of origin, tax class | v1 (fields) | §6; PK invoices need them today (`BE/docs/api/accounts-h-design.md:221-222`); FBR DI line fields `sroScheduleNo`, `sroItemSerialNo`, `fixedNotifiedValueOrRetailPrice` (https://download1.fbr.gov.pk/Docs/20257301172130815TechnicalDocumentationforDIAPIV1.12.pdf); retail price printed on each unit or pack (STGO 08 of 2026, https://download1.fbr.gov.pk/Docs/202673875133134STGO08OF2026.pdf) |
 | I18 | Item import and export (CSV / Excel, check then confirm, per-row refusals) | v1 | Large customers start with thousands of items; same pattern as OBI and ADR-021 D10 (`ADR-021:165-167`) |
 | I19 | Bulk change with review step | Later | Large-customer item (`large-customer-roadmap.md:48` names it for HR; same need) |
-| I20 | New-item request and approval | Later | Large groups control master data; not needed for a first customer |
+| I20 | New-item request and approval | Later | Large groups control master data; placement to review with the group catalogue (INV-1c), lead 2026-11-21: "not needed for a first customer" withdrawn (no pilot decided) |
 | I21 | Item defaults for cost centre or project | Later | ADR-021 D4 names it as "later" (`ADR-021:97`) |
 | I22 | Substitutes and alternatives | Later, with Sales | Offered when an item is out of stock |
 | I23 | Customer and supplier item numbers | With Sales / With Purchase | ADR-018 §3 extension tables (`ADR-018:53`) |
@@ -534,9 +534,9 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
 
 - **Later (INV-9)**, feature `BATCH_SERIAL` (`V41:117`). Every stock move carries nullable lot and serial ids from
   v1, so turning it on later needs no change to the move table.
-- **Why later:** it touches every move screen (pick a lot, scan a serial) and every count; the first customers in the
-  sources (Swedish retail and trading, roadmap:18) can start without it. Food, pharma and electronics customers need it,
-  so it is the first slice after v1 (decision 14).
+- **Why later:** it touches every move screen (pick a lot, scan a serial) and every count; no pilot customer or first
+  country is decided (Jabran 2026-11-21; first market group Pakistan + Nordics), and food, pharma and electronics
+  customers need it by law or practice; its timing is decision 14.
 - **Posting:** none extra; FIFO by expiry (FEFO) changes which lot is issued, not the journal.
 
 ### 4.8 Units of measure and conversions
@@ -977,8 +977,8 @@ guardrails: a test per finding, invariant checks before push, a second different
     named later step (S3c-1x), not "normal rules otherwise".
 14. **Batch, serial and expiry (critical: statutory for pharma and food customers).** **Recommend:** INV-9, the first
     slice after v1, with nullable lot and serial on every move from v1. Why: batch and expiry tracking is a legal duty
-    for pharma (PK DRAP, GK) and food traceability customers, so no such customer can go live before INV-9; the first
-    Swedish customers likely do not need it. **Change (Fable):** nullable ids on moves are not enough; the stored
+    for pharma (PK DRAP, GK) and food traceability customers, so no such customer can go live before INV-9; the earlier reason ("the first Swedish customers likely do not need it") is withdrawn: no pilot customer or first
+    country is decided (lead, 2026-11-21). **Change (Fable):** nullable ids on moves are not enough; the stored
     balances and cost layers built in INV-2 can carry a lot. And `BATCH_SERIAL` is on by default
     (`EntitlementCatalog.kt:175`) while only the module has an "implemented" flag (`EntitlementCatalog.kt:30`), so
     until INV-9 the module grid must not show batch and serial as available (a catalogue change in INV-0).
@@ -993,7 +993,7 @@ guardrails: a test per finding, invariant checks before push, a second different
     `base-ifrs.csv:41`, `pk.csv:42`, `dk.csv:41`, `fi.csv:41`, `is.csv:41`, `no-ns4102.csv:36`), but no role points to
     it; the next pack edition adds the role and an SE account. In NO the write-down is ignored for tax (skatteloven
     § 14-5 (2) c), so Inventory reports the books-versus-tax stock difference (R10). Why: keeps cost and write-down
-    apart and reversible, and gives the Swedish customer the 97 % rule in its first year. **Change (Fable):** the
+    apart and reversible, and gives Swedish companies the 97 % rule from their first year. **Change (Fable):** the
     Swedish 97 % journal is a **company choice**, never automatic. **Unconfirmed, for ERP-Q1:** whether a K3 company
     (most large Swedish customers) may book the 97 % write-down; neither the drafter nor Fable could confirm it.
 17. **Item on journal lines (critical: posting).** **Recommend:** item on COGS, adjustment and variance lines only,
