@@ -19,7 +19,7 @@ GitHub renderer + script: clean. Browser-pane look: not done.
 ## Docs pages
 User guide: none: a design change list. Developer pages: none: no code; the specs change when the list is approved.
 
-## For Jabran: 13 decisions (all recommended yes unless noted; Fable's view per item in `fable-settlement.md`)
+## For Jabran: 17 decisions — **1–3 answered 2026-11-21: old HR/Payroll/ESS code deleted, data not kept**; (all recommended yes unless noted; Fable's view per item in `fable-settlement.md`)
 1. HR v2 and Payroll v2 on a new schema (company column, composite keys, RLS from the first migration). **This reverses your 2026-10-09 "data is kept".**
 2. v1 HR, Payroll and ESS stop working from the first v2 migration; hidden until each v2 area ships.
 3. Amend the signed-off Payroll P0 scope: new schema, no interim calculator, no legacy runs.
