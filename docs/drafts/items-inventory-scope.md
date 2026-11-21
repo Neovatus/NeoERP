@@ -317,17 +317,19 @@ the reason says when to revisit.
 | X6 | E-commerce stock sync, EDI stock messages | Later (§5) | Needs an outside-system API |
 | X7 | Stock in SAF-T / SIE files | No work in v1 | Stock appears only as GL lines in our countries' files (§6) |
 
-**Nordic accounting systems and Pakistani practice (all GK, structure only).** NeoERP is also a payments, tax and
+### 3.8 Nordic accounting systems and Pakistani practice
+
+All GK, structure only. NeoERP is also a payments, tax and
 "regnskap" system, so the catalogue was also held against Tripletex, Fiken, PowerOffice Go and Visma eAccounting /
 eEkonomi (NO), Fortnox (SE), e-conomic and Dinero (DK). Their shape: a product (vare) register with units, VAT code and
 accounts per product group; stock as quantity per product with a simple stocktake; many small users book purchases
 straight to cost and post one stock-change journal at year end (the periodic way), while the larger ones post stock
 value per move. Everything ties back to the ledger, the VAT return and the statutory file (SAF-T NO, SIE SE). That
-supports decision 6 (valuation can be off) and §3.8's reconciliation column. Pakistani practice (GK): mid-size firms
+supports decision 6 (valuation can be off) and §3.9's reconciliation column. Pakistani practice (GK): mid-size firms
 run local ERPs, Odoo or SAP Business One with HS (PCT) codes and units on every item because FBR invoices need them;
 Tier-1 retailers must link their POS to FBR; textile and pharma firms track lots. That supports I17 and decision 14.
 
-### 3.8 Tax, reconciliation, report and automation per feature
+### 3.9 Tax, reconciliation, report and automation per feature
 
 Only features where something applies are listed. Tax facts are GK unless a source is named.
 
@@ -524,3 +526,180 @@ Features that touch Inventory but belong to another module. Inventory leaves the
 | Intrastat | Accounts E with Sales and Purchase | CN8, net mass, origin, supplementary unit on items | E (roadmap:140) | Later |
 | Inter-company transfers and consolidation | Accounts Phase 7 (roadmap:151) | Transfer id linking both legs | Phase 7, group catalogue | Phase 7 |
 | Expense claims with goods | HR / Accounts (`large-customer-roadmap.md:52`) | None (non-stock) | — | Not linked |
+
+## 6. Country needs
+
+All rows are GK unless a repo source is named; each needs the country accountant's check (ERP-Q1, roadmap:178).
+
+| Country | VAT / sales tax on goods | Statutory files | E-invoice item data | Stock rules | Other |
+|---|---|---|---|---|---|
+| SE | Standard and reduced rates by goods type (food, books); rates from the tax pack (`packs/2026.2/tax-codes.csv`), the item holds only a tax class | SIE 4 has no stock records; stock shows as GL lines on group 14 accounts (`se-bas.csv:29`) | Peppol BIS / Svefaktura line: item name, seller id, GTIN, unit (Rec 20); optional at SE launch (roadmap:110) | FIFO and lowest value for tax; year-end count and stock list kept as accounting records (BFL retention) | Intrastat (SCB) above threshold; own-use withdrawal VAT |
+| NO | 25 % standard, 15 % food, 12 % lower rate; from the pack | SAF-T Financial carries GL lines only, no stock section; SAF-T Cash Register is for POS, not Inventory | EHF / Peppol BIS lines as SE; required for B2B from 2027-01-01 (roadmap:110, gate L-1) | FIFO for tax; year-end stock specification (bokføringsforskriften) | No Intrastat (EEA, not EU); customs on imports; bottle deposit |
+| DK | 25 %; from the pack | SAF-T from 2027-01-01 (ACC-R2, roadmap:141) carries GL lines; stock accounts mapped to the standard chart (1460 → 6140; stock movement 1770 still *(verify)*: `accounts-packs-2026-2.md:307`, `:331`) | OIOUBL / Peppol BIS lines as SE | FIFO or average; lowest value | Intrastat (Danmarks Statistik); deposit |
+| FI | Standard and reduced rates; from the pack | No SAF-T; tax authority reads the books | Finvoice / Peppol lines | FIFO or average (KPL); lowest value | Intrastat (Tulli) |
+| IS | Standard and reduced rates; from the pack | No SAF-T today | Peppol lines | FIFO or average | No Intrastat (EEA) |
+| PK | Sales tax on goods (standard rate, further tax for unregistered buyers, Third Schedule retail-price tax); `retailPrice`, `saleType`, `scheduleRef` on lines (`accounts-b.md:1438`) | Annex-C sales register with HS code per invoice line (`accounts-h-design.md:215`) | FBR Digital Invoicing: HS code, FBR unit, quantity per line (`accounts-b.md:1005`, `:2051`; FBR reference cache `HS_CODES`, `UOM`, `accounts-docout.md:300`). Until Inventory exists the line text stands in and the export warns (`accounts-h-design.md:221-222`) | IAS 2 (FIFO or weighted average); registered persons keep records of goods and stock (Sales Tax Act s.22) | Tier-1 retailer POS integration with FBR (with POS); provincial sales tax is on services, not goods |
+
+What Inventory owes each country in v1: the item fields (I17), units mapped to Rec 20 and FBR units (§4.8), a tax
+class per item and category (§2.2), valuation methods allowed per country (decision 5), the count records and their
+retention (X4). Return files and Intrastat stay in Accounts E (roadmap:140).
+
+## 7. Large multi-company needs
+
+- **Shared item master or per-company items:** §2.4 and decision 3. v1 per company, model ready for a group catalogue.
+- **Inter-company stock:** §4.3 and decision 13. Phase 7, because both books and VAT are involved.
+- **Many warehouses and locations:** locations are Org's, counted against the agreement's `WAREHOUSES` limit, either
+  as a company pool or per branch (`BE/docs/modules/org/stock-locations.md:41-44`). Inventory adds per-location
+  settings (L2) and, later, bins (L4). Org cannot know whether a location holds stock, so **deactivating a location
+  with stock on hand must be refused**: Org asks Inventory before deactivating (new rule; today only the default
+  location is protected, `stock-locations.md:53-54`).
+- **Volumes (assumed large tenant, to confirm):** 30 companies (the ADR-023 D14 tenant, `ADR-023:135`), 100,000 items
+  with variants, 300 locations, 20 million stock moves a year in retail. Consequences:
+  - stored balances per item × location and per valuation layer (ADR-024 stored totals, `ADR-024-data-at-scale.md:17`);
+  - keyset paging and capped counts on items, moves and counts (ADR-024 D3, `:60`); trigram search on item number,
+    name and barcode (ADR-024 Stage 1, `:85`); UUID v7 on moves (`:81`);
+  - stock moves partitioned by year only on a measured trigger (ADR-024 D7, `:64`);
+  - 20 million moves must not become 20 million journal lines (the D14 tenant plans 2 million a year,
+    `ADR-023:135`): high-volume sources post daily summaries (decision 12);
+  - load test with a generated large tenant before the first large customer (gate G.12, roadmap:180).
+- **Permissions:** reserved roles Inventory Manager and Stock Clerk; the Location Manager gains stock moves and counts
+  (`BE/docs/security/standard-roles.md:264`), scoped to a branch or a stock location (`standard-roles.md:78`). Codes
+  are decided in the contract step, one per action (`App/docs/design/module-sequence.md:36-43`). Proposed principles:
+  separate codes for moves, counts, approve counts, adjustments, approve adjustments, revalue, item maintenance,
+  category maintenance, settings; **values visible only with a value-read code** (decision 18); approvals use the
+  shared approval-limit model; branch-limited access follows the platform lane (backlog:361).
+- **Entitlement:** Inventory's five catalogued features map to the catalogue: `STOCK_BY_WAREHOUSE` → S1 per
+  location, `INTER_BRANCH_TRANSFERS` → S3b, `INVENTORY_VALUATION` → C1 (decision 6), `STOCK_COUNT` → S4,
+  `BATCH_SERIAL` → S7 (`V41:116-120`). Reorder, variants and reservations need no feature row in v1 (they are always
+  on with the module). Everything large-customer stays off by default (`large-customer-roadmap.md:11`).
+- **Franchise:** a franchise is its own company and keeps its own items unless it opts into a group catalogue
+  (`RULES.md:154-167`).
+
+## 8. Links to Accounts
+
+### 8.1 The posting connection (roadmap 5.13)
+
+- Inventory posts through AccountsPostingV2 core (roadmap:121; decision 6 there recommends Phase 5 after D,
+  roadmap:253-254). Inventory therefore cannot post before 5.13 lands.
+- A real machine client needs the posting endpoints' compile-time pin to the test client changed to config
+  (backlog:81), and IV's `machine_allowed` flag is not enough on its own (backlog:86).
+- The Inventory client is pinned to source module INVENTORY, journal type IV and control kinds INVENTORY and GRNI
+  (`accounts-a1.md:65`; GRNI pinning `accounts-c.md:218`). Every call checks module FINANCE and INVENTORY fresh
+  (`ADR-018:89`).
+- The GRNI owner row and the reclassification of the GRNI accounts move with the first Purchasing / Inventory
+  migration (backlog:242; `accounts-b.md:2860-2861`; roadmap L.12, `:161`).
+
+### 8.2 Journals Inventory posts (all type IV)
+
+| Event | DR | CR | Section |
+|---|---|---|---|
+| Goods receipt | INVENTORY | GRNI | §4.2 |
+| Purchase return | GRNI | INVENTORY | §4.2 |
+| Issue to sale | COGS | INVENTORY | §4.2 |
+| Sales return | INVENTORY | COGS | §4.2 |
+| Internal use / project issue | Reason's expense / project cost account | INVENTORY | §4.2 |
+| Transfer (location or branch, via in transit) | INVENTORY (to) | INVENTORY (from) | §4.3 |
+| Count variance, adjustment | INVENTORY_ADJUSTMENT or reason's account (or reverse) | INVENTORY (or reverse) | §4.4, §4.5 |
+| NRV write-down / release | Write-down expense / provision | Provision / write-down expense | §4.5 |
+| Revaluation | INVENTORY or INVENTORY_ADJUSTMENT | the other | §4.9 |
+| Opening stock | none if adopted (decision 10) | — | §8.7 |
+
+Accounts C posts the bill side (PI, GRNI and price variance); Accounts B posts revenue and tax only (`ADR-018:40`).
+Granularity: one journal per source document by default; a daily summary per company × location × account ×
+dimension set for high-volume sources, with the stock ledger keeping the detail and the journal linking back
+(decision 12).
+
+### 8.3 Dimensions (ADR-021)
+
+- The stock move valuation line carries `DimensionSetV1` from the start (`ADR-021:80`); dimensions are copied from the
+  source line unless a person changed them (`ADR-021:85`); Inventory, as the producing module, resolves defaults and
+  sends explicit values (ADR-021 D4, `ADR-021:100`).
+- The Inventory slice fills `dimension_sets.item_id` and runs the Q18 set-count measurement (`ADR-021:7`, `:239`). The
+  B and C lines' own `item_id` columns then move into the set (`accounts-b.md:32`, `:524`).
+- Account rules decide where item may go. Today the SE stock account allows branch and stock location only, and COGS
+  allows branch, cost centre and project (`se-bas.csv:29`, `:174`): item is allowed nowhere yet. **Recommendation:**
+  item on P&L stock lines (COGS, adjustment, price variance) for margin and product budgets; not on INVENTORY and
+  GRNI lines, whose item detail is the stock ledger. That needs a pack edition and the per-account rules of roadmap
+  4.14 (`:98`). Decision 17.
+
+### 8.4 Budgets (ADR-022)
+
+- Inventory feeds no budget and runs no check: stock purchases are checked at Purchasing's check point
+  (`ADR-022:193`).
+- Inventory supplies quantity actuals by item, which ADR-022 Q14 waits for (`ADR-022:267`), so product plans
+  (quantity × price, `ADR-022:77`; budgets spec B7, `App/docs/design/specs/accounts-budgets.md:234`) compare with real
+  quantities. Through the reporting contract, later (R9).
+
+### 8.5 Stock locations
+
+- Org owns locations; Inventory holds ids and a display cache (ADR-021 D2). Location and branch must be active and in
+  the company, as A1 already checks for the location tag (`accounts-a1.md:76`).
+- Open Org items that block Inventory: Returns type refused by the backend (backlog:141, :195); create a location under
+  another company's branch (ORG-SEC-1, backlog:139); create under an inactive branch (backlog:142). Plus the new
+  "location with stock cannot be deactivated" rule (§7).
+
+### 8.6 Multi-currency
+
+Stock is in company currency; foreign receipts use the receipt-date rate. Needs AC-FX (roadmap:117) before a customer
+receives foreign-currency purchases into stock.
+
+### 8.7 Period close and year end
+
+- Inventory posts only into open periods (ADR-005 rule, today enforced through engine status reads, backlog:77). A
+  move dated in a closed period is refused with the reason and the first open date.
+- The A2 close checklist (`accounts-a2.md:87`) gains, for companies with Inventory: blocking "stock moves not yet
+  posted for the period"; warnings "stock value differs from the GL", "counts open in the period", "GRNI older than N
+  days"; for the year-end period "no full count or completed cycle count" (decision 15).
+- Year end: the year-end plan stops today on a bucket holding an item (`BE/docs/api/accounts-a3.md:1234`,
+  `TODO(Inventory)` in `YearEnd.plan`). The Inventory slice that puts item on P&L lines must first let closing lines
+  carry item. A frozen valuation report at the year-end date is kept with the count records.
+- Opening stock at go-live: the opening-balance import may already have put a balance on 1460. Inventory adopts it:
+  quantities and costs are imported, their total must equal the GL balance per location, and no second journal posts;
+  a difference needs one adjustment journal with a reason (decision 10).
+
+### 8.8 Control and reconciliation
+
+- INVENTORY is a protected control kind (`accounts-a1.md:73`); bill lines refuse INVENTORY accounts (`accounts-c.md:191`);
+  outside systems never post to stock control accounts (`App/docs/design/specs/accounts-integrations.md:165-166`).
+- **Recommendation:** once a company has posted its first Inventory move, manual journals on INVENTORY-role accounts
+  are refused, as GRNI already does once used (`accounts-c.md:218`); corrections go through Inventory adjustments.
+- A daily invariant check ties stock value to the GL per company and location; it joins the money invariant checks
+  (roadmap G.5, `:173`) and blocks push like the other money guardrails.
+
+## 9. Dependencies and proposed slice order
+
+### 9.1 Before the first Inventory slice
+
+| Needed | Source | Why |
+|---|---|---|
+| AccountsPostingV2 core (5.13), machine client config | roadmap:121; backlog:81, :86 | Every stock journal |
+| Domain-event relay consumers | ADR-019 accepted (`BE/docs/adr/ADR-019-domain-event-relay.md:5`) | Item display caches; invoice- and bill-driven moves (`ADR-018:76-78`) |
+| ADR-026 row-level security decided | roadmap:90 | A new service should start with it |
+| Org fixes: Returns type, ORG-SEC-1, inactive-branch create | backlog:139, :141-142 | Locations are Inventory's base |
+| Account rules per account (4.14) and a pack edition: item tag on COGS-type accounts, write-down role | roadmap:98; §8.3, §4.5 | Item on P&L lines; NRV |
+| Multi-currency (5.9) | roadmap:117 | Only for foreign purchases into stock |
+| Year-end item buckets | `accounts-a3.md:1234` | Before item rides on P&L lines |
+| Org catalog flips `INVENTORY` to implemented | `org.md:1521-1524` | Agreements can then include it |
+
+### 9.2 Slices
+
+| Slice | Holds | Risk |
+|---|---|---|
+| INV-0 | Contract: service, permission manifest and defaults, events, reporting contract, entitlement mapping; this scope's decisions applied | security |
+| INV-1 | Item master: types, categories with defaults, starter sets, numbering, barcodes, units, country fields, tax class, import; item events; item picker on Accounts B / C lines | statutory |
+| INV-1b | Variants and attributes grid | none |
+| INV-2 | Stock ledger: moves, balances, valuation (FIFO, average), opening stock adoption, IV posting through 5.13, daily GL tie-out | **money** |
+| INV-3 | Receipts and issues: bill- and invoice-driven moves (decision 8), manual goods in and out, internal use, projects, returns | **money** |
+| INV-4 | Transfers inside a company (location, branch, in transit); reservations model | money |
+| INV-5 | Adjustments, write-downs, revaluation, approval | **money** |
+| INV-6 | Stock counts (full, cycle, phone sheets, approval, variance posting), close checklist rows, year-end items | **money**, statutory |
+| INV-7 | Reorder points and suggestions; low-stock alerts (notification service, roadmap:96) | none |
+| INV-8 | Reports (stock list, movements, valuation vs GL, ageing, slow-moving, variances) | none |
+| INV-9 | Batch, lot, serial, expiry, FEFO | none |
+| Later | Bins and put-away; camera scanning and labels; catch weight; group catalogue (after its ADR); transfer suggestions; ABC; consignment | — |
+| With other modules | Purchase v1 (orders, goods receipt, landed costs), Sales v1 (orders, deliveries, kits, pricing), Manufacturing, POS, Phase 7 inter-company | — |
+
+Order: INV-0 → INV-1 → INV-2 → INV-3 → INV-5 → INV-6 → INV-4 → INV-8 → INV-7 → INV-1b → INV-9, then Purchase v1 and
+Sales v1 replace the document-driven moves with their own documents. Money slices get the money guardrails: a test
+per finding, invariant checks before push, a second different reviewer. Each slice designs its screens at the QA sizes
+(§4.4) before build, as the module loop asks (`module-sequence.md:32-34`).
