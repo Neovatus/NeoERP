@@ -247,7 +247,7 @@ graph LR
    can start; accept ADR-022 stage 1 before 4.17, ADR-026 after its D1–D11, ADR-023 at the start of Phase 5b.
 4. **Old phase table.** **Decided by Jabran 2026-11-21: as recommended** (a short "superseded" amendment on the old table once this roadmap is approved; ROADMAP-P later merges the roadmap files). roadmap:84-92 still numbers phases the old way. **Recommend:** after you approve this draft,
    add an amendment to `accounts-roadmap.md` that points to it (separate change, outside this brief's scope).
-5. **A5 payroll posting.** Old Phase 4; it needs Payroll v2 (rebuild starts 2026-11-21 in parallel, see decision 16).
+5. **A5 payroll posting.** **Decided by Jabran 2026-11-21: Fable's version, with Jabran's principle "all bases from the start".** A5 is a named Phase 5 item, timed by Payroll v2 P2, and is built regardless of which customers buy Payroll; the AccountsPostingV2 core is built early in Phase 5; the A5 contract is refreshed now with the HR/Payroll v2 work (P0); payroll-payable clearing in D is built in Phase 5 when A5 lands, not later. Launch gate (roadmap:154) becomes: payroll posting built and tested before Payroll is offered to any customer. Nothing waits for a customer to buy a module. Old Phase 4; it needs Payroll v2 (rebuild starts 2026-11-21 in parallel, see decision 16).
    D + D2 (5.6) also lists A5, for clearing payroll, tax and contribution payables (roadmap:125). The launch gate
    (roadmap:154) still says "payroll posting live". **Recommend:** move A5 to Later with Payroll v2; build D v1 in
    Phase 5 without payroll-payable clearing, which arrives with A5; require payroll posting at launch only for
