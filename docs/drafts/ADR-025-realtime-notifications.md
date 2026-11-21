@@ -1,7 +1,7 @@
 # ADR-025: Real-time updates (SSE), action ids, push notifications and one notification service
 
 ## Status
-Draft (ERP lead, 2026-11-14, Opus planner; lead-checked). Not accepted. Waiting on Jabran's answers (Q1–Q17) and review by the ERP, Accounts and HR/Payroll leads. Moves to `NeoERP-BackEnd/docs/adr/` when accepted.
+**Accepted by Jabran** (approved 2026-11-16; the three additions below accepted 2026-11-21, Accounts roadmap decision 3). Moves to `NeoERP-BackEnd/docs/adr/` with the next BackEnd docs change. Was: Draft (ERP lead, 2026-11-14, Opus planner; lead-checked). Waiting on Jabran's answers (Q1–Q17) and review by the ERP, Accounts and HR/Payroll leads. Moves to `NeoERP-BackEnd/docs/adr/` when accepted.
 Builds on ADR-016, ADR-019, ADR-020, ADR-023, ADR-008; changes none. Amends ADR-019 Q7 only to say where notifications live.
 
 ## Direction (Jabran)
@@ -97,6 +97,11 @@ Not real time: reports and dashboards, setup screens, master data lists, audit v
 Order: RT-0 → RT-1 ∥ RT-2 → RT-3 → RT-4 → RT-5; RT-6/RT-7 when vendor answers are in.
 
 Hosting items to add: P-27 proxy idle ≥ 60 s, HTTP/2, no buffering on `/api/stream`; P-28 one dedicated non-pooled LISTEN connection per instance (PgBouncer transaction mode breaks LISTEN); P-29 open-connection capacity from load test; P-30 push credentials in the secret store, Neovatus-owned Apple/Firebase accounts; P-31 egress allowlist for APNs, FCM, mail host; extend H-7 (processors, DPA, PK region) and P-18 (store forms).
+
+## Additions (Jabran 2026-11-21)
+- **A1 Event snapshots.** A stream event may carry a small data snapshot, not only ids: fields defined per module stream contract, permission-checked per person, ids only for sensitive types (pay, health, national ids), a version guard and a size cap.
+- **A2 `Prefer` header.** Writes accept `Prefer: return=representation` (full record), `respond-async` (202 + action id) or `return=minimal` (no body).
+- **A3 Rule after the foundation.** Every new slice returns an action id for async work, declares a stream contract for its live types, and sends all messages through the notification service; old screens move over gradually.
 
 ## Alternatives rejected
 WebSocket (two-way not needed, own auth/replay); faster polling (load, battery, nothing reaches closed apps); stream in the gateway (gateway must stay thin); stream per module (up to 8 connections); Redis now (LISTEN/NOTIFY enough at our size); full records in events (moves permission checks to the client); notifications derived from events (producer knows who to tell; ADR-019 Q7 stays); push aggregators (extra processor that sees recipients); keep in audit-service (different retention and scaling).

@@ -354,7 +354,7 @@ Drafts: `docs/drafts/ADR-024-data-at-scale.md`, `docs/drafts/ADR-025-realtime-no
   - Before the first large customer (release gate): ADR-024 Stage 1 (keyset paging on big lists, trigram search indexes and the global search bar, explicit pool sizes and PgBouncer, journal_lines partition spike, reporting store on Postgres).
   - Only on a measured trigger: ADR-024 Stage 2 (read replica, partitioning, OpenSearch, ClickHouse, archiving closed years).
 - **Rule after the foundation exists:** every new slice returns an action id for async work, declares a stream contract for live types, and sends messages through the notification service; old screens move over gradually.
-- **To discuss at implementation (Jabran 2026-11-14):** events carrying a data snapshot (fields per module stream contract, permission-checked per person, ids only for sensitive types, version guard, size cap) and the request `Prefer` header (`return=representation` / `respond-async` / `return=minimal`). Not written into ADR-025 yet.
+- **To discuss at implementation (Jabran 2026-11-14):** events carrying a data snapshot (fields per module stream contract, permission-checked per person, ids only for sensitive types, version guard, size cap) and the request `Prefer` header (`return=representation` / `respond-async` / `return=minimal`). Written into ADR-025 as additions A1 and A2 (with A3, the rule above) and accepted by Jabran 2026-11-21.
 
 ## Branch choice on documents (Jabran 2026-11-15)
 - **Rule (decided):** every document belongs to one branch. A company with one branch shows no Branch field (filled automatically at posting). With several, the form shows a Branch dropdown prefilled with the person's branch, else head office. No global branch switcher (people book for several branches in one session; a forgotten switch posts silently to the wrong branch).
@@ -382,7 +382,7 @@ country; points ledger as its own module posting to each shop's Accounts; (5) sc
 
 ## Decisions 2026-11-16 (Jabran: "all looks good")
 - Report filters (T7 item 3): one pattern on every report — fiscal year + from/to periods, the same quick chips, "Exact dates" only on General ledger and journal list.
-- ADR-024 and ADR-025: accept after the lead's one-page summary.
+- ADR-024 and ADR-025: **accepted** (Jabran 2026-11-21, with the three ADR-025 additions).
 - Branching: Phase 3 (with the combined Phase 4 work so far) goes to main as one PR once the Codex retest is green; Phase 4 then has its own `phase/4` PR collecting all its work, merging main into phase/4 when needed.
 - Security clean-ups from the legacy sweep: item 7 (legacy scopes, audit transition paths) and item 9 (plaintext bank columns) as one small batch soon.
 - Go-live checklist: demo users never on a hosted stack, or new passwords there (demo passwords are in a committed doc).
