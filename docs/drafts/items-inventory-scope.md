@@ -253,8 +253,8 @@ the reason says when to revisit.
 | L6 | Consignment stock (ours at a customer, or a supplier's in our store) | Not planned | Ownership split per move; revisit on a customer ask |
 | L7 | Outside warehouse (3PL) feeds | Later, through an integration API | Same idea as ADR-021 D10 for postings |
 | L8 | Store-server stock for offline POS | With POS (ADR-007 Proposed) | Store owns on-hand; moves stream up (`BE/docs/adr/ADR-007-store-edge-topology-for-offline-retail.md:86-88`) |
-| L10 | Stock held at an outside processor (textile dyeing and finishing, subcontracting) | Later, with Manufacturing or Purchase | The textile starter set implies it (§2.3); ours while at the processor |
 | L9 | Goods in transit from a supplier (ours before arrival, by Incoterms) | With Purchase | Ownership passes by the delivery term on the order; needs Purchase's documents |
+| L10 | Stock held at an outside processor (textile dyeing and finishing, subcontracting) | Later, with Manufacturing or Purchase | The textile starter set implies it (§2.3); ours while at the processor |
 
 ### 3.3 Stock movements and control (the eleven features, detail in §4)
 
@@ -635,7 +635,7 @@ All rows are GK unless a repo source is named; each needs the country accountant
 
 | Country | VAT / sales tax on goods | Statutory files | E-invoice item data | Stock rules | Other |
 |---|---|---|---|---|---|
-| SE | Standard and reduced rates by goods type (food, books); rates from the tax pack (`packs/2026.2/tax-codes.csv`), the item holds only a tax class | SIE 4 has no stock records; stock shows as GL lines on group 14 accounts (`se-bas.csv:29`) | Peppol BIS / Svefaktura line: item name, seller id, GTIN, unit (Rec 20); optional at SE launch (roadmap:110) | FIFO and lowest value; **97 % rule** (IL 17 kap. 4 §) as a booked year-end write-down; year-end count and stock list kept as accounting records (https://skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag/varulager.4.1df9c71e181083ce6f6371.html) | Intrastat (SCB) above threshold; own-use withdrawal VAT; VAT group (mervärdesskattegrupp, GK) |
+| SE | Standard and reduced rates by goods type (food, books); rates from the tax pack (`packs/2026.2/tax-codes.csv`), the item holds only a tax class | SIE 4 has no stock records; stock shows as GL lines on group 14 accounts (`se-bas.csv:29`) | Peppol BIS / Svefaktura line: item name, seller id, GTIN, unit (Rec 20); optional at SE launch (roadmap:110) | FIFO and lowest value; **97 % rule** (IL 17 kap. 4 §) as a booked year-end write-down, a company choice; whether a K3 company may book it is unconfirmed (ERP-Q1); year-end count and stock list kept as accounting records (https://skatteverket.se/foretag/drivaforetag/foretagsformer/aktiebolag/varulager.4.1df9c71e181083ce6f6371.html) | Intrastat (SCB) above threshold; own-use withdrawal VAT; VAT group (mervärdesskattegrupp, GK) |
 | NO | 25 % standard, 15 % food, 12 % lower rate; from the pack | SAF-T Financial carries GL lines only, no stock section; SAF-T Cash Register is for POS, not Inventory | EHF / Peppol BIS lines as SE; required for B2B from 2027-01-01 (roadmap:110, gate L-1) | FIFO for tax, **no write-down for tax** (skatteloven § 14-5 (2) b, c, https://lovdata.no/lov/1999-03-26-14/§14-5), so books and tax stock can differ; yearly count with a list per item (kind, quantity, value), kept 5 years (bokføringsforskriften § 6-1 per a secondary source, https://revisorforeningen.no/revisornytt/varetelling1120) | No Intrastat (EEA, not EU); customs on imports; bottle deposit; VAT group (fellesregistrering, mval § 2-2 (3)): no VAT between its companies (https://www.skatteetaten.no/en/rettskilder/type/uttalelser/bfu/fellesregistrering---omsetning-fra-utenlandsk-hovedkontor-til-norsk-filial-og-omsetning-mellom-filial-og-fellesregistrerte-selskaper/) |
 | DK | 25 %; from the pack | SAF-T from 2027-01-01 (ACC-R2, roadmap:141) carries GL lines; stock accounts mapped to the standard chart (1460 → 6140; stock movement 1770 still *(verify)*: `accounts-packs-2026-2.md:307`, `:336`) | OIOUBL / Peppol BIS lines as SE | Only FIFO fully accepted for tax, average assumed acceptable, method per goods group; write-down to day price (https://tax.dk/jv/cc/C_C_2_3_1_6_1.htm) | Intrastat (Danmarks Statistik); deposit; VAT group (fællesregistrering, GK) |
 | FI | Standard and reduced rates; from the pack | No SAF-T; tax authority reads the books | Finvoice / Peppol lines | KPL 4:5.4 allows FIFO, LIFO or average (https://www.kuntaliitto.fi/sites/default/files/media/file/Lausunto-10-1997.pdf); tax rule not verified; lowest value (GK) | Intrastat (Tulli); VAT group (arvonlisäverotusryhmä, GK) |
@@ -1053,6 +1053,8 @@ guardrails: a test per finding, invariant checks before push, a second different
   `WS/docs/drafts/ADR-024-data-at-scale.md` and its line 4 still says "Not accepted", although roadmap:96 records
   ADR-024 and ADR-025 as moved to accepted after the lead's summary (backlog:385 is the action, not the acceptance).
 - The volume figures in §7 are assumptions, not customer data.
+- For the accountant check (ERP-Q1): whether a K3 company may book the Swedish 97 % write-down, and the 97 % rule's
+  exact conditions; Pakistan Annex-J / Annex-H1 (SRO 55(I)/2025), named by the Fable settlement and not opened here.
 - Pack accounts and units are UNCHECKED against official sources (backlog:74).
 
 ## 12. Round 2 (review 1, `docs/agents/inv-scope/review-1-opus.md`)
@@ -1091,3 +1093,28 @@ guardrails: a test per finding, invariant checks before push, a second different
 | 6 MINOR count rule | "At least one row; country rows split a feature"; R10 out of the last row | 5136151 |
 | 7 MINOR cross-company switches | Parent's `GROUP_CATALOGUE`, both companies' `INTERCOMPANY_TRANSFERS`; both INVENTORY rows; Finance-only groups cannot share a catalogue (§7, decision 1) | 5136151 |
 | 8 MINOR style | Long lines reflowed, mid-sentence break fixed; words unchanged | f2d6ecd |
+
+### Fable settlement (`docs/agents/inv-scope/fable-settlement.md`)
+
+| Change | Where | Commit |
+|---|---|---|
+| Fable: decision 1, stock-free approvals never depend on inventory-service; own RULES §3 and ADR-018 wording | §10 | 0f463a1 |
+| Fable: decision 2, starter sets as versioned pack-like data | §10 | 0f463a1 |
+| Fable: decision 3, country fields held per country | §10, §2.4 | 0f463a1, 5e6c126 |
+| Fable: decision 5, method stored on the item | §10, §4.9 | 0f463a1, 5e6c126 |
+| Fable: decision 6, switch only at a period start with a tie-out journal; cost captured when off | §10 | 0f463a1 |
+| Fable: decision 7 vs §8.8, tie-out per company and account, location value as a report (option b: per-location layers) | §10, §8.8, §3.9 | 0f463a1, 5e6c126 |
+| Fable: decision 8, option (b) Inventory-owned receipt and delivery with trade-offs; Jabran chooses | §10 | 0f463a1 |
+| Fable: decision 9, landed-cost gap for importers noted | §10 | 0f463a1 |
+| Fable: decision 12 vs 17, no item on summarised COGS; late moves as a further summary | §10, §8.2 | c23837d, 5e6c126 |
+| Fable: decision 13, hedge removed; same-country pairs first, cross-border later | §10 | c23837d |
+| Fable: decision 14, balances and layers carry a lot; `BATCH_SERIAL` hidden until INV-9 | §10, §7, §9.1 | c23837d, 5e6c126 |
+| Fable: decision 15, auto-post limit defaults to zero; report per counter | §10 | c23837d |
+| Fable: decision 16, 97 % a company choice; K3 unconfirmed for ERP-Q1 | §10, §6, §11 | c23837d, this commit |
+| Fable: decision 17, summarised COGS without item | §10 | c23837d |
+| Fable: decision 18, backend leaves values out | §10 | c23837d |
+| Fable: decision 19, per-country fields and PK FED fact | §10, X5 | c23837d, 5e6c126 |
+| Fable: decision 20, the document-driven path is permanent | §10 | c23837d |
+| Fable: decision 21, size confirmed and decoder chosen in INV-6 design | §10 | c23837d |
+| Fable: flags 9-11, new decisions 22 (manual-journal lock), 23 (tax class), 24 (back-dated moves), 25 (locations with stock) | §10 | c23837d |
+| Fable: flags 7-8 and catalogue gaps, X5 Later with PK FED fact, X8 Annex-J / H1, X9, S17-S20, L10, P13-P15, R11-R15 | §3, §3.9, §6, §9.1 | 5e6c126 |
