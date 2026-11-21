@@ -26,4 +26,5 @@ Also confirmed on iOS: the side-menu leave guard (R22) asks "Leave without savin
 | F6 | LOW | Bill line Description | The first letter is not capitalised automatically (other iOS text fields start in Shift). |
 | F7 | LOW, unconfirmed | Recurring editor Name | Text typed right after opening the page was stored but not drawn until the next tap (seen once, with hardware-keyboard input). |
 | F8 | LOW, unconfirmed | Journals list | "Drafts 2" did not change after creating JV-DRAFT-000025 (count may not refresh; not checked further). |
+| F9 | MEDIUM | Top-bar search opened on a scrolled editor page, iPhone portrait (seen by Jabran, recurring editor) | The open search field is boxed in the middle of the bar with the menu button still beside it, and the page head ("Accounts" and the breadcrumb, F1) is drawn through it. building-blocks.md "Search": on a phone the field opens **across the bar** and ×, Esc or Back closes it. Fix with F1 (same layer order); check the open field covers the whole bar and nothing from the page draws over it. |
 | — | known | Accrual panel Balance account | Still defaults to 2950 Påløpt rente (R07, App part planned in App B). |
