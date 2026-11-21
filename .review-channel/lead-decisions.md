@@ -113,8 +113,8 @@ Options: (a) per-pair ratchet: one baseline line per existing pair with its line
 Pick: (a). Whether composition pairs should become allowed (b) is an architecture change for Jabran later (e.g. moving shared pieces into `core/` or a composition module), and goes to the backlog as a question, not into this gate.
 Why: (a) fits the 40-line stop (31 lines), stops new coupling at once, keeps the documented rule unchanged and only shrinks; (b) changes an architecture rule, which per WORKFLOW is the lead's proposal for Jabran to approve, not a gate-lane call; (c) is noise that reviewers cannot check.
 Sources: App `phase/4-b2-lane0-app` at 48e72d5b: `docs/agents/lane0-gates/builder-report.md:24,44-48`; `.claude/CLAUDE.md:64-70`; `ARCHITECTURE.md:47,110`; the brief `docs/agents/lane0-gates/brief-app.md` item 4; `composeApp/src/commonMain/kotlin/**/features/**` imports.
-Fable 5.2 (high): pending
-Status: pending
+Fable 5.2 (high): APPROVE — my count confirms 289 import lines, in 30 pairs (not 31), plus 24 fully qualified lines; (a) stops growth and leaves `.claude/CLAUDE.md:64` as written. Conditions: count fully qualified references with the imports, since two pairs exist only that way (accounts→entitlement 9, e.g. `JournalWording.kt:442`; platform→entitlement 1), giving 32 baseline lines; a count below its frozen number must fail as stale, so no headroom builds up; verify.md states the frozen total; the composition question (b) goes to the backlog for Jabran. Not critical: no rule text changes.
+Status: approved (Fable) with its conditions; goes into the App Lane 0 builder round.
 
 ## D-12 App Lane 0: scope of the toDouble()/toFloat() refusal — 2026-11-21
 Question: The brief refuses `toDouble()`, `toFloat()` "on user text outside NeoFormat/NeoNumericInput in features/**". The builder refuses them only on text or money receivers (string literals, String function results, names with a text word or a money word), always refuses `toDoubleOrNull`, `toFloatOrNull`, `toBigDecimal*`, `String.format`, `"…".format(`, `DecimalFormat`, `java.text`, and does not refuse `toIntOrNull`/`toLongOrNull`. Refusing every call would freeze 7 layout `Int.toFloat()` lines.
@@ -122,5 +122,5 @@ Options: (a) accept the builder's receiver-based scope; (b) refuse every `toDoub
 Pick: (a).
 Why: it matches the brief's "on user text" and L24 (no money parse outside NeoFormat), catches the R12 class of fault (typed text parsed to Double), and avoids freezing harmless layout maths; the always-refused list closes the common bypasses. (c) needs data-flow analysis a scan test cannot do reliably.
 Sources: App `phase/4-b2-lane0-app` at 48e72d5b: `docs/agents/lane0-gates/builder-report.md` "Decisions the brief left open"; `composeApp/src/jvmTest/**/buildrules/**` (BuildRules.moneyWords); `docs/operations/verify.md`; workspace `docs/lessons.md` L03, L24; fix-list R12.
-Fable 5.2 (high): pending
-Status: pending
+Fable 5.2 (high): APPROVE — (a) over (b) and (c): `features/**` holds 7 `toFloat()` lines, all layout, and no `toDouble()` at all. Conditions: refuse every `toDouble()` (0 lines frozen; layout needs only Float), which closes the name gap (`value.toDouble()`, `it.toDouble()`, `parts[0].toDouble()` pass today); refuse `toLong()`/`toLongOrNull()` on text receivers too, since money is Long minor units and that is the real hand-parse path (`MockA3Fixtures.kt:90` `text.replace(".", "").toLong()` passes today; my simulation freezes 2 lines, one a false hit at `OpeningImportPageScreen.kt:158`), or log it as a fix-lane row. Money guardrail, but within the brief's wording and only tightened: not critical.
+Status: approved (Fable) with its conditions; goes into the App Lane 0 builder round.
