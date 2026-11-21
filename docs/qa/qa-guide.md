@@ -156,6 +156,11 @@ Per [screen-standard.md](../../NeoERP-App/docs/design/screen-standard.md) and
   action), focused field never under the footer or the page bar.
 - ux §25 short heights (375 and 402 pt tall): only the top bar and a one-row footer stay pinned; with the keyboard up
   the footer gives way.
+- **Scroll, then open search** (every round, on a phone and on an iPad, portrait and landscape): on each page, scroll
+  down, check nothing from the page (page head, breadcrumb, cards) draws over the top bar, then open the top-bar
+  search and check it covers the whole bar ([building-blocks.md](../../NeoERP-App/docs/design/specs/building-blocks.md)
+  "Search") with nothing drawn through it; close it with ×. Screenshot the bar before and after (findings F1, F9 of
+  2026-11-21 were missed this way).
 - ux §25 Larger Text: what may end in "…" and what never may (amounts, dates, numbers, codes, status words, buttons,
   toasts, column headings, account names); dialog actions stack; split buttons keep ▾.
 - Touch targets at least **44 pt**.
@@ -245,7 +250,12 @@ suite before every push" text that was in lead-agent-structure §3a and main-age
    needs the two review files (`--reviews`).
 4. **The pre-push hook** refuses a push to `phase/<N>` or `main` without the marker `build/verify/<sha>.ok` for that
    commit and range. Lane branches pass the hook. Never `--no-verify`.
-5. Read `verify: OK, marker …` (and "0 failed") in a separate step before pushing
+5. **Layout lanes: an iOS look before the merge.** When an App lane changes the page frame, scrolling, the top bar,
+   the footer, keyboard handling or sizes, the lead (or a QA tester) runs the "Scroll, then open search" check (§3
+   "Layout and buttons") and one keyboard-up form on one iPhone and one iPad simulator before the merge, and writes the
+   result in the lane-ready file. verify.sh runs on the JVM and does not see iOS drawing (F1 and F9 of 2026-11-21 most
+   likely came in with FIX-APP-A's R03 and passed 3,905 tests).
+6. Read `verify: OK, marker …` (and "0 failed") in a separate step before pushing
    ([check-test-result-before-push.md](../lead-memory/check-test-result-before-push.md)).
 
 ## 6. Report format
