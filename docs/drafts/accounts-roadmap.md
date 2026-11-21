@@ -115,7 +115,7 @@ Own PR to `main` (4.20). Order: platform lane, account dimension rules, spreadin
 
 | # | Item | Why here | Depends on | Size | Risk |
 |---|---|---|---|---|---|
-| 4.12 | Platform lane: ADR-025 RT-0..RT-2, ADR-024 Stage 0 (backlog:347) | First in Phase 4b (decisions 1 and 3) | ADR-024 and ADR-025 accepted, with ADR-025 additions A1 event snapshots, A2 `Prefer` header, A3 the rule after the foundation (decision 3; backlog:385; state:26) | L | security (notifications carry data) |
+| 4.12 | Platform lane: ADR-025 RT-0..RT-2, ADR-024 Stage 0 (backlog:347) | Phase 4b, in parallel with the account-dimension chain (approved order, backlog:389; decisions 1 and 3) | ADR-024 and ADR-025 accepted, with ADR-025 additions A1 event snapshots, A2 `Prefer` header, A3 the rule after the foundation (decision 3; backlog:385; state:26) | L | security (notifications carry data) |
 | 4.13 | RT-3..RT-5: SSE hub, app realtime, first Accounts screens (backlog:348) | Follows RT-0..RT-2 in the platform lane | 4.12 | M | none |
 | 4.14 | Company dimensions per account: D6 Required/Optional/Not used, range rules, branch default cost centre (backlog:320) | Allocations and budgets read these rules | SB2d (done) | M | money (posting refusals) |
 | 4.15 | Spreading schedules (prepaid costs, deferred income) | Approved order (roadmap:68). No spec yet | 4.14; reuse `domain/recurring` | M | money |
@@ -250,8 +250,8 @@ when its own gates are green ("Phases 1–6 for that country", roadmap:154).
 
 1. Close Phase 4: GATE-0 → QA-B2 (R01–R34) → AL S5 → AL P2 and S6 → owner switch → Phase 4 PR (4.19), with DOCS-2
    and the follow-ups beside them. ADR-026 is accepted (2026-11-21).
-2. Phase 4b on its own PR (4.20): platform lane (4.12, 4.13) → account dimension rules → spreading → allocations →
-   budgets (ADR-022 stage 1 accepted first).
+2. Phase 4b on its own PR (4.20): the platform lane (4.12, 4.13) **in parallel with** account dimension rules → spreading →
+   allocations → budgets (ADR-022 stage 1 accepted first), as in the approved order (backlog:389).
 3. Vendor choices (D-121/D-123, D-125) decided by Jabran before Phase 5 starts.
 4. Phase 5 from the Phase 4 merge: document output (5.1) → NO e-invoice send and receive (5.2, 5.3); PK FBR (5.4) and
    the other Peppol countries on the same base; posting core (5.13a) early, then A5 (5.15) when Payroll v2 P2 is
@@ -272,7 +272,8 @@ graph LR
   P2 --> OWN["4.11 Owner switch"] --> PR4["4.19 Phase 4 PR"]
   QA --> DOCS2["4.5 DOCS-2"] --> PR4
   QA --> FUP["4.10 + 4.18 follow-ups"] --> PR4
-  PLAT["4.12 + 4.13 Platform lane"] --> DIM["4.14 Account dimension rules"] --> SPR["4.15 Spreading"]
+  OWN --> PLAT["4.12 + 4.13 Platform lane"] --> PR4B
+  OWN --> DIM["4.14 Account dimension rules"] --> SPR["4.15 Spreading"]
   SPR --> ALC["4.16 Allocations"] --> BUD["4.17 Budgets"] --> PR4B["4.20 Phase 4b PR"]
   ADR22["ADR-022 stage 1"] --> BUD
   VEND["Vendor choices decided"] --> DO
@@ -310,6 +311,8 @@ graph LR
 - State unclear: 0.
 
 ## 7. Decisions for Jabran
+
+> **How to read this section (lead, 2026-11-21):** each decision carries a bold "Decided by Jabran 2026-11-21" line. Where the older "Recommend:" text after it differs (for example "SE first", "Swedish pilot", "A5 to Later", "PK is third"), the Decided line wins; §1–§6 already follow the decisions.
 > **Correction (Jabran 2026-11-21):** no pilot customer and no first country have been decided. Every "pilot", "Swedish pilot" or "SE first" in this draft is the drafter's assumption, not a decision; the launch order in older docs (SE → NO → PK) also conflicts with the payroll decisions D1/J-8 (Pakistan first). Decisions 2, 13 and 15 are re-read as: **which country, and what kind of first customer, comes first?** — a decision for Jabran, not an input. **Decided (Jabran 2026-11-21): no single first country.** The first market group is **Pakistan and the Nordic countries (SE, NO, DK, FI, IS) together**; then other EU countries; then other countries. No pilot customer is chosen. So decisions 2, 13 and 15 no longer pick a country: country work (packs, tax returns, e-invoicing, payroll, accountant sign-off ERP-Q1) is planned for all six in the first group, each country's sign-off before its first customer.
 
 
