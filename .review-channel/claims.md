@@ -7,6 +7,10 @@ Write a line before starting, remove it when done. Never touch work the other le
 | New Mac (Ultra) | lead on probation | QA batch 2: Lane 0, fix lanes R01–R30, retest; DOCS-1 (merged), ISO-1 ADR-026 draft, DOCS-2a/2b/2c, Accounts roadmap draft | `phase/4-b2-*` lane branches only (now: lane0-app; docs2-be merging) | 2026-11-21 |
 | Old Mac (Team) | overseeing lead | Reviews each new-Mac lane before it merges; reconciles state | none | 2026-11-21 |
 
+## New-Mac lead rules (Jabran 2026-11-21; this lead only, the old-Mac lead's process is unchanged)
+1. Every sub-agent the new-Mac lead starts runs at **High** effort.
+2. An open decision where the lead has a recommendation is written to [lead-decisions.md](lead-decisions.md): question, options, pick and **why**. A fresh Fable 5.2 reviewer at high effort (given the entry and its sources only) approves or rejects it. APPROVE → the lead acts. REJECT or still open → Jabran. Critical decisions (money, security, approved scope, product direction) go to Jabran directly, with the Fable view attached. Decisions Jabran already owns stay his.
+
 ## Merged lanes
 - 2026-11-21 Lane 0 BE: fast-forward of BE `phase/4` to `5e00b131` (verdict MERGE). `scripts/install-hooks.sh` run in this Mac's BE checkout; old Mac: run it after pulling.
 - 2026-11-21 DOCS-2a: fast-forward of App `phase/4` to `f19a101b`.
