@@ -248,6 +248,9 @@ Each groups the critical items it settles.
     **Recommend: the wizard replaces the panel when H4 ships** (one way to add an employee; "Add now, finish later" is
     as quick). (Fable) (b) Young-worker checks: J-9's "every country" note is aligned to your G-6 (six full countries
     only, no school-term limits). **Recommend: yes**, text only.
+   **Answered (Jabran 2026-11-21): yes — the old HR, Payroll and ESS code is deleted** (backend services' v1 code and tables, and the App's v1 `hr`, `payroll` and `ess` features), not only hidden: the rebuild replaces them from the new design. Old data is not kept (dev only).
+   **Answered (Jabran 2026-11-21): yes — the old HR, Payroll and ESS code is deleted** (backend services' v1 code and tables, and the App's v1 `hr`, `payroll` and `ess` features), not only hidden: the rebuild replaces them from the new design. Old data is not kept (dev only).
+   **Answered (Jabran 2026-11-21): yes — the old HR, Payroll and ESS code is deleted** (backend services' v1 code and tables, and the App's v1 `hr`, `payroll` and `ess` features), not only hidden: the rebuild replaces them from the new design. Old data is not kept (dev only).
 
 14. **Time recording modes** (critical: approved scope; H23.10–H23.13, ES.7, PY.11). Jabran 2026-11-21: an IT company logs
     time per project, a store keeps a check-in/out sheet; it should fit all businesses. Today hr-h2-h3 §24 leaves
