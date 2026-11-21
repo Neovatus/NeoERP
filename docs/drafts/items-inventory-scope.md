@@ -833,7 +833,7 @@ guardrails: a test per finding, invariant checks before push, a second different
 
 **Critical** = money or posting, statutory, product direction, or approved scope. **Non-critical** = everything else.
 
-1. **Who can use items (critical: product direction).** ADR-018 gives the item master to Inventory (`ADR-018:31`),
+1. **Who can use items (critical: product direction).** **Approved by Jabran 2026-11-21 as recommended, with Fable's changes.** ADR-018 gives the item master to Inventory (`ADR-018:31`),
    but a services firm with Sales and no stock needs items too, and so does a company on **Finance only** that
    invoices from Accounts B: Tripletex, Fiken, Fortnox and e-conomic all keep a product register inside invoicing
    (§3.8). **Recommend:** Items live in the inventory service and are reachable when any of FINANCE, INVENTORY,
