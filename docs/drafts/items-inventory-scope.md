@@ -125,8 +125,11 @@ picks the chart and tax codes never come from the chart (`accounts-a0.md:50`, `:
 type, base unit, attributes and variants, GTIN, HS/CN codes). The company settings hold what each legal entity
 decides: active, bought / sold / stocked flags, category and accounts, tax class, base price and cost (§2.7),
 locations and reorder levels. In v1 each company is its own catalogue owner (catalogue scope = company), which is the
-ADR-018 rule. A **group catalogue** (one catalogue owned by the parent, used by its owned companies) switches on per
-group after a short ADR on cross-company scope (ADR-012 / ADR-013 / ADR-026 row-level security, roadmap:90). A
+ADR-018 rule. A **group catalogue** (one catalogue owned by the parent, used by its owned companies) is a company
+feature `GROUP_CATALOGUE`, **off by default**, built in **INV-1c** before INV-2. Its cross-company scope ADR
+(ADR-012 / ADR-013 tenant scope, next to ADR-026 row-level security, roadmap:90) is written in **INV-0**, so the
+feature has a slot from day one, as the product direction asks (`large-customer-roadmap.md:7`). The default stays one
+catalogue per company. A
 franchise keeps its own catalogue unless it opts in, because RULES §8 treats it as a separate business. Item ids stay
 the same when a company joins a group catalogue later, so nothing is re-keyed (the ADR-021 Q3 pattern for projects,
 `ADR-021:224`).
@@ -226,7 +229,7 @@ the reason says when to revisit.
 | I21 | Item defaults for cost centre or project | Later | ADR-021 D4 names it as "later" (`ADR-021:97`) |
 | I22 | Substitutes and alternatives | Later, with Sales | Offered when an item is out of stock |
 | I23 | Customer and supplier item numbers | With Sales / With Purchase | ADR-018 §3 extension tables (`ADR-018:53`) |
-| I24 | Group catalogue shared by owned companies | Later, after a scope ADR | §2.4, decision 3 |
+| I24 | Group catalogue shared by owned companies | v1 (INV-1c), feature off by default; scope ADR in INV-0 | §2.4, decision 3 |
 | I25 | Hazardous-goods data (UN numbers, classes) | Not planned | No customer type in the sources needs it; revisit with shipping |
 
 ### 3.2 Locations and structure
@@ -250,7 +253,8 @@ the reason says when to revisit.
 | S2 | Receipts and issues (purchase, sale, internal use, projects, returns) | v1 | §4.2 |
 | S3a | Transfers between locations of one branch | v1 | §4.3 |
 | S3b | Transfers between branches of one company (in transit) | v1 | §4.3; feature `INTER_BRANCH_TRANSFERS` |
-| S3c | Transfers between companies of a group (transfer price, both books) | Phase 7 | §4.3, decision 13 |
+| S3c-1 | Linked inter-company transfer: one transfer id, each company posts only its own documents, transfer price, stock in transit | Later (INV-4b), after INV-4 and the scope ADR; feature off by default | §4.3, decision 13 |
+| S3c-2 | Inter-company reconciliation and elimination of unrealised profit in group stock | Phase 7 | §4.3, decision 13 |
 | S4 | Stock counts: full, cycle, phone count sheets, approval, variance posting, close link | v1 | §4.4 |
 | S5 | Adjustments and write-downs (damage, shrinkage, obsolescence, NRV) with reason and approval | v1 | §4.5 |
 | S6 | Reservations: on hand, reserved, available | v1 (model; reservations from transfers) | §4.6 |
@@ -348,7 +352,7 @@ Only features where something applies are listed. Tax facts are GK unless a sour
 | S1, C10 | Year-end stock value in the annual accounts and tax return in every country; NO SAF-T and SIE SE carry stock only as GL lines on stock accounts (GK) | Stock ledger value = GL balance of INVENTORY-role accounts, per company and location, daily | Valuation report with GL beside it (R3) | Daily tie-out job; alert on any difference (money guardrail, roadmap:173) |
 | S2, C2 | VAT on the bill and invoice, not on the move; own-use withdrawals can carry output VAT (GK, SE / NO / DK / FI) | GRNI balance = received-not-billed receipt lines; bills clear by `receivedValue` (`accounts-c.md:218`) | GRNI ageing by supplier and receipt | Auto-receipt from a supplier e-invoice or ASN that matches an order (with Purchase; Peppol receive, roadmap:111); COGS posted on delivery without a person |
 | S3b | None inside one company | In-transit stock = dispatched not received | Transfers in transit and their age | Receipt reminder after N days |
-| S3c | Two sales: VAT (cross-border rules), PK sales tax; transfer pricing documentation (GK) | Inter-company receivable = payable; unrealised profit in group stock | Inter-company stock and margin | Phase 7 |
+| S3c-1, S3c-2 | Two sales: VAT (cross-border rules), PK sales tax; transfer pricing documentation (GK) | Inter-company receivable = payable; unrealised profit in group stock | Inter-company stock and margin | Phase 7 |
 | S4 | Year-end count list is an accounting record kept for the retention period (GK; SE, NO bookkeeping rules); count needed for the annual stock value | Counted value vs book value, per count, before posting | Count variance report (R5) | Post variances under a company value limit automatically; above it, to approval; recount over tolerance |
 | S5, C7 | Write-downs reduce taxable profit under each country's lowest-value rules (GK) | Provision account balance vs provision report | Ageing and slow-moving (R4) | Suggested write-down from ageing rules, a person approves |
 | S7 | Pharma and food traceability (GK) | Lot quantities = item quantity | Expiry list | Expiry alert; FEFO issue |
@@ -404,7 +408,8 @@ the cost only; the VAT, where due, is a manual Accounts entry until a reason car
 |---|---|---|---|
 | Between locations of one branch | v1 | Daily shop and warehouse work | IV: DR INVENTORY (location B) / CR INVENTORY (location A), same value; only when the account carries the location tag (1460 does: `se-bas.csv:29`). No posting when it does not |
 | Between branches of one company, through an in-transit location (requested → in transit → received) | v1 | Feature `INTER_BRANCH_TRANSFERS` (`V41:118`); the state model is the one ADR-007 and ADR-009 require for stores (`ADR-007:88`, `BE/docs/adr/ADR-009-edge-sync-endpoint-routing-and-idempotent-posting.md:94`) | IV at dispatch: DR INVENTORY (in-transit, branch B) / CR INVENTORY (branch A); at receipt: DR INVENTORY (location in B) / CR INVENTORY (in-transit). Transit loss on receipt goes to INVENTORY_ADJUSTMENT. Branch P&L is untouched; the balance sheet shows stock per branch |
-| Between companies of a group, at a transfer price, both books | Phase 7 | Two legal entities: a sale in one company and a purchase in the other, with VAT and inter-company balances; one company never posts into another's books (`RULES.md:126-127`; `ADR-018:49`); profit in unsold stock is eliminated on consolidation (roadmap:151) | Company A: invoice through Accounts B (revenue, INTERCOMPANY receivable, VAT) and IV DR COGS / CR INVENTORY at cost. Company B: bill through Accounts C and IV DR INVENTORY / CR GRNI at the transfer price. Both legs linked by one transfer id. Decision 13 |
+| S3c-1 Between companies of a group, linked (each company posts its own books) | Later (INV-4b), before Phase 7 | Two legal entities: a sale in one company and a purchase in the other, with VAT; "intercompany is a link, not a share" (`ADR-018:49`), so each company posts only its own documents and one company never posts into another's books (`RULES.md:126-127`). With decision 8 the invoice and bill exist before Sales and Purchase. Transfer price set per group (cost, cost plus %, later a price list) | Company A at dispatch: invoice through Accounts B (revenue, INTERCOMPANY receivable via `linkedCompanyId`, VAT) and IV DR COGS / CR INVENTORY at cost. Company B at receipt: IV DR INVENTORY / CR GRNI at the transfer price, then the bill through Accounts C clears GRNI. Stock in transit between the two dates. Both legs linked by one transfer id. Decision 13 |
+| S3c-2 Inter-company reconciliation and unrealised profit | Phase 7 | Postings into the other company, reconciliation and eliminations are roadmap L.2 (roadmap:151) | Consolidation entries in Accounts; Inventory supplies the transfer-price margin still in B's stock |
 
 ### 4.4 Stock counts
 
@@ -550,7 +555,8 @@ Features that touch Inventory but belong to another module. Inventory leaves the
 | E-commerce stock and item sync | Integration API (outside systems) | Item and on-hand read API, stock move write API | Machine-client model (`ADR-021:178-186`) | Later |
 | EDI (orders, despatch advice, price catalogues) | Sales and Purchase | Item ids, GTINs | Peppol access point choice (roadmap:262) | Later |
 | Intrastat | Accounts E with Sales and Purchase | CN8, net mass, origin, supplementary unit on items | E (roadmap:140) | Later |
-| Inter-company transfers and consolidation | Accounts Phase 7 (roadmap:151) | Transfer id linking both legs | Phase 7, group catalogue | Phase 7 |
+| Linked inter-company transfers (S3c-1) | Inventory with Accounts B and C | Transfer document, both companies' moves, transfer id | INV-4, scope ADR (INV-0), decision 8 path | Later (INV-4b) |
+| Inter-company reconciliation, eliminations, consolidation (S3c-2) | Accounts Phase 7 (roadmap:151) | Margin on transferred stock still on hand | Phase 7 | Phase 7 |
 | Expense claims with goods | HR / Accounts (`large-customer-roadmap.md:52`) | None (non-stock) | — | Not linked |
 
 ## 6. Country needs
@@ -706,6 +712,7 @@ receives foreign-currency purchases into stock.
 | AccountsPostingV2 core (5.13), machine client config | roadmap:121; backlog:81, :86 | Every stock journal |
 | Domain-event relay consumers | ADR-019 accepted (`BE/docs/adr/ADR-019-domain-event-relay.md:5`) | Item display caches; invoice- and bill-driven moves (`ADR-018:76-78`) |
 | ADR-026 row-level security decided | roadmap:90 | A new service should start with it |
+| Cross-company scope ADR for the group catalogue and linked transfers (written in INV-0) | decision 3, 13; `ADR-018:96` | Opens the company boundary for item data only, never for books |
 | Org fixes: Returns type, ORG-SEC-1, inactive-branch create | backlog:139, :141-142 | Locations are Inventory's base |
 | Account rules per account (4.14) and a pack edition: item tag on COGS-type accounts, write-down role | roadmap:98; §8.3, §4.5 | Item on P&L lines; NRV |
 | Multi-currency (5.9) | roadmap:117 | Only for foreign purchases into stock |
@@ -722,15 +729,17 @@ receives foreign-currency purchases into stock.
 | INV-0 | Contract: service, permission manifest and defaults, events, reporting contract, entitlement mapping; this scope's decisions applied | security |
 | INV-1 | Item master: types, categories with defaults, starter sets, numbering, barcodes, units, country fields, tax class, import; item events; item picker on Accounts B / C lines | statutory |
 | INV-1b | Variants and attributes grid | none |
+| INV-1c | Group catalogue (feature `GROUP_CATALOGUE`, off by default): parent-owned catalogue, per-company settings, franchise opt-in | security |
 | INV-2 | Stock ledger: moves, balances, valuation (FIFO, average), opening stock adoption, IV posting through 5.13, daily GL tie-out | **money** |
 | INV-3 | Receipts and issues: bill- and invoice-driven moves (decision 8), manual goods in and out, internal use, projects, returns | **money** |
 | INV-4 | Transfers inside a company (location, branch, in transit); reservations model | money |
+| INV-4b | Linked inter-company transfers (feature `INTERCOMPANY_TRANSFERS`, off by default), transfer price | **money**, statutory |
 | INV-5 | Adjustments, write-downs, revaluation, approval | **money** |
 | INV-6 | Stock counts (full, cycle, phone sheets, approval, variance posting), close checklist rows, year-end items | **money**, statutory |
 | INV-7 | Reorder points and suggestions; low-stock alerts (notification service, roadmap:96) | none |
 | INV-8 | Reports (stock list, movements, valuation vs GL, ageing, slow-moving, variances) | none |
 | INV-9 | Batch, lot, serial, expiry, FEFO | none |
-| Later | Bins and put-away; camera scanning and labels; catch weight; group catalogue (after its ADR); transfer suggestions; ABC; consignment | — |
+| Later | Bins and put-away; camera scanning outside counts and labels; catch weight; transfer suggestions; ABC; consignment | — |
 | With other modules | Purchase v1 (orders, goods receipt, landed costs), Sales v1 (orders, deliveries, kits, pricing), Manufacturing, POS, Phase 7 inter-company | — |
 
 Order: INV-0 → INV-1 → INV-2 → INV-3 → INV-5 → INV-6 → INV-4 → INV-8 → INV-7 → INV-1b → INV-9, then Purchase v1 and
@@ -758,10 +767,12 @@ per finding, invariant checks before push, a second different reviewer. Each sli
    `accounts-a0.md:50`, `:133`, `:210`) and avoids a tier-like industry ladder (`RULES.md:41-54`). This agrees with
    the lead's leaning, with the country and business-type split made explicit.
 3. **Group or company item master (critical: product direction).** **Recommend:** model a catalogue plus per-company
-   settings from v1; in v1 each company owns its catalogue (ADR-018 §2 rule, `ADR-018:44-49`); a group catalogue for
-   owned companies switches on after a short cross-company scope ADR; franchises keep their own unless they opt in.
-   Why: large groups need one item id across companies, but crossing the company boundary needs an ADR today
-   (`ADR-018:96`). Agrees with the lead's leaning except that it is gated, not on in v1.
+   settings from v1. The default is one catalogue per company (ADR-018 §2 rule, `ADR-018:44-49`). The **group
+   catalogue** for owned companies gets a slot: its cross-company scope ADR is written in INV-0, and it ships in
+   INV-1c, before INV-2, as company feature `GROUP_CATALOGUE`, off by default. Franchises keep their own unless they
+   opt in (RULES §8). Why: large multi-company customers from day one (`large-customer-roadmap.md:7`) need one item id
+   across companies, and crossing the company boundary needs an ADR (`ADR-018:96`); doing the ADR first keeps the
+   slot without risking the boundary. Agrees with the lead's leaning.
 4. **Variants (non-critical).** **Recommend:** variants with attributes in the item master from v1; each variant is
    its own item id; grid editor as INV-1b. Why: retail and textiles need size and colour from the first day; the lead
    leans the same way.
@@ -812,9 +823,15 @@ per finding, invariant checks before push, a second different reviewer. Each sli
 12. **Posting detail (critical: posting).** **Recommend:** one journal per source document by default; a company
     switch per source (POS, deliveries, counts) to post one daily summary per location, account and dimension set,
     with drill-down to the moves. Why: 20 million moves would swamp a ledger sized for 2 million lines (`ADR-023:135`).
-13. **Inter-company transfers (critical: money, statutory).** **Recommend:** Phase 7; until then a sale in one company
-    and a purchase in the other, linked by a transfer id once Sales and Purchase exist. Why: two books, VAT and
-    unrealised profit (`RULES.md:126-127`; roadmap:151).
+13. **Inter-company transfers (critical: money, statutory).** Two parts:
+    - **S3c-1 linked transfer, before Phase 7 (INV-4b):** one transfer id; each company posts only its own invoice or
+      bill and IV journals (decision 8 path), a transfer-price setting, stock in transit; feature
+      `INTERCOMPANY_TRANSFERS`, off by default; after INV-4 and the scope ADR (decision 3). "Intercompany is a link,
+      not a share" (`ADR-018:49`), so it does not need Phase 7.
+    - **S3c-2 reconciliation and unrealised-profit elimination:** Phase 7 (roadmap:151).
+    **Recommend:** both parts as above. Note roadmap decision 15 (no owned-group pilot before Phase 7,
+    roadmap:273-274, not yet approved): if Jabran keeps it, S3c-1 can wait for Phase 7 too without harm; if not,
+    S3c-1 lets a group move stock between its companies correctly in each set of books before consolidation exists.
 14. **Batch, serial and expiry (non-critical).** **Recommend:** INV-9, the first slice after v1, with nullable lot and
     serial on every move from v1. Why: food, pharma and Pakistani textile and pharma firms need it (GK), the first
     Swedish customers likely do not.
