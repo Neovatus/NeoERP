@@ -996,7 +996,7 @@ guardrails: a test per finding, invariant checks before push, a second different
     apart and reversible, and gives Swedish companies the 97 % rule from their first year. **Change (Fable):** the
     Swedish 97 % journal is a **company choice**, never automatic. **Unconfirmed, for ERP-Q1:** whether a K3 company
     (most large Swedish customers) may book the 97 % write-down; neither the drafter nor Fable could confirm it.
-17. **Item on journal lines (critical: posting).** **Recommend:** item on COGS, adjustment and variance lines only,
+17. **Item on journal lines (critical: posting).** **Approved by Jabran 2026-11-21 as recommended, with Fable's change.** Reports roll up by any level of the category tree and, with the group catalogue, by item across a group's companies (Jabran's question, 2026-11-21). **Recommend:** item on COGS, adjustment and variance lines only,
     not on INVENTORY and GRNI; a pack edition allows the item tag on those accounts; measure the set count (Q18) in
     INV-2. Why: margin and product budgets need it; balance lines would multiply sets for no use (§8.3).
     **Change (Fable):** for sources posted as daily summaries (decision 12), COGS carries no item (or the category
