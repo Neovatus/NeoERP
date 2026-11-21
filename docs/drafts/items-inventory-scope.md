@@ -1029,7 +1029,7 @@ guardrails: a test per finding, invariant checks before push, a second different
     **Recommend:** once a company has posted its first Inventory move, manual journals on INVENTORY-role accounts are
     refused, as GRNI already is once used (`accounts-c.md:218`); corrections go through Inventory adjustments. Why:
     otherwise the stock ledger and the GL drift apart.
-23. **Tax class (critical: statutory).** Used in §2.2 and decisions 1, 3 and 19 without a number (Fable flag 10). No
+23. **Tax class (critical: statutory).** **Approved by Jabran 2026-11-21 as recommended.** Used in §2.2 and decisions 1, 3 and 19 without a number (Fable flag 10). No
     Accounts A0, B or E document defines a tax class today. **Recommend:** a tax class is a short country list (for
     example standard, reduced food, zero, exempt, Third Schedule) kept in the country pack beside the tax codes; the
     pack maps each class to a sales and a purchase tax code; the company may only pick a class, never edit the
