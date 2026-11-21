@@ -955,7 +955,7 @@ guardrails: a test per finding, invariant checks before push, a second different
 11. **Negative stock (critical: money).** **Approved by Jabran 2026-11-21, with the setting per store location:** a company switch (off by default) and, when on, an on/off per Store location; warehouses can never allow it; turning it off later refuses further sales of already-negative items until the receipt is booked; cost corrected on receipt and the daily list of negative items as recommended. **Recommend:** refused by default; a company may allow it on Store
     locations only, with the cost corrected when the receipt arrives and a daily list of negative items. Why: shops
     sell before goods are booked in; warehouses must not.
-12. **Posting detail (critical: posting).** **Recommend:** one journal per source document by default; a company
+12. **Posting detail (critical: posting).** **Approved by Jabran 2026-11-21 as recommended, with Fable's change.** **Recommend:** one journal per source document by default; a company
     switch per source (POS, deliveries, counts) to post one daily summary per location, account and dimension set,
     with drill-down to the moves. Why: 20 million moves would swamp a ledger sized for 2 million lines (`ADR-023:135`).
     **Change (Fable):** for a summarised source, COGS lines carry **no item** (category at most, see decision 17), or
