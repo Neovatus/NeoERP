@@ -46,6 +46,6 @@ Use these meanings, and say them in plain words when writing to Jabran:
 - **First build round** (in drafts "v1", e.g. "Inventory v1"): the slices a scope draft **proposes** to build first. It is a proposal, not a release decision.
 - **Later**: a named later slice of the same module.
 - **With X**: arrives with module X, which owns it.
-- **v2** (only "HR v2", "Payroll v2"): a name meaning the rebuild replaces old code that is deleted. For customers it is still the first HR and Payroll; nothing has been released.
+- **v2** (only "HR v2", "Payroll v2"): the **second design** of HR and Payroll (approved 2026-10-21, refreshed again 2026-11-21 in HRP-DES), which replaces the first design and its old code. It is not a release number; for customers it is still the first HR and Payroll.
 - **What a customer release contains** (which modules, features and countries) is **not decided** for any module. Jabran decides it in the one product roadmap (ROADMAP-P); scope drafts only propose.
 Every scope draft defines its phase labels once, near the top, with this meaning.
