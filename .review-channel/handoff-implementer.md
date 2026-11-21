@@ -52,7 +52,7 @@ App C, R34-App incl. R34i, retest; 4.3 R29b; 4.5 DOCS-2c screenshots; 4.18 repor
 **Next for the lead:** App B1 brief (from `docs/agents/qa-round1-retest/fix-list.md`, `simulator-checks-2026-11-21.md`
 F1–F10, App A reviews' LOWs), App lane on App `phase/4` `324d3039`.
 
-**Update 2026-11-21 ~23:20 (Jabran: "we should fast the testing before testing more"):** the BE-RUN-1 gate was stopped (script/docs lane). Running now: **TEST-SPEED-1** (BackEnd, `NeoERP-worktrees/test-speed-1`, on BE-DOCS-1; its one full run merges BE-RUN-1 + BE-DOCS-1 + itself; includes the light gate and the flaky `SupplierBankEventsTest` fix) and **FIX-APP-B1** (App, `NeoERP-worktrees/fix-app-b1`). Next: TEST-SPEED-APP when the BackEnd speed builder is done, then App B1's gate on it; BE-JDK21 after TEST-SPEED-1 (brief in the lead's scratchpad).
+**Update 2026-11-21 ~23:20 (Jabran: "we should fast the testing before testing more"):** the BE-RUN-1 gate was stopped (script/docs lane). Running now: **TEST-SPEED-1** (BackEnd, `NeoERP-worktrees/test-speed-1`, on BE-DOCS-1; its one full run merges BE-RUN-1 + BE-DOCS-1 + itself; includes the light gate and the flaky `SupplierBankEventsTest` fix) and **FIX-APP-B1** (App, `NeoERP-worktrees/fix-app-b1`). **TEST-SPEED-APP** (App, `NeoERP-worktrees/test-speed-app`, test infrastructure only) runs too (Jabran ~23:30); App B1 is rebased onto it before its gate; BE-JDK21 after TEST-SPEED-1 (brief in the lead's scratchpad).
 
 **Baseline plan for parallel work (Jabran 2026-11-21, ~23:00: "finish the pending things and Phase 4, and the base
 line so we can work in parallel"):**
