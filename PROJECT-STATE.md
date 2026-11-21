@@ -34,6 +34,8 @@ Integration owner for every row: **Jabran** (decides scope, approves). The lead 
 
 ## Done since last update (16 Sep 2026)
 
+- GitHub Actions switched off on all three repos (2026-11-21, Jabran: dev mode, no CI yet; WORKFLOW guardrails line).
+
 - GATE-0 BE (verify.sh, pre-push hook, risk-check, money invariants, tenant ratchet) merged to BE `phase/4` 5e00b131 (2026-11-21); DOCS-2a merged to App `phase/4` f19a101b; ROADMAP-A and ISO-1 drafts merged to workspace master.
 - DOCS-1 docs clean-up merged to workspace master (16112eb, 2026-11-21, verdict FIX 1 applied); memory clean-up 906fa94.
 - AUTH-01 auth accepted live (2026-09-15).
