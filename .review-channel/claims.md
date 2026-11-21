@@ -4,8 +4,8 @@ Write a line before starting, remove it when done. Never touch work the other le
 
 | Mac | Lead | Claimed | Branches | Since |
 |---|---|---|---|---|
-| New Mac (Ultra) | lead on probation | QA batch 2: Lane 0, fix lanes R01–R30, retest; DOCS-1 (merged), ISO-1 ADR-026 draft, DOCS-2a/2b/2c, Accounts roadmap draft | `phase/4-b2-*` lane branches only (now: lane0-app; docs2-be merging) | 2026-11-21 |
-| Old Mac (Team) | overseeing lead | Reviews each new-Mac lane before it merges; reconciles state | none | 2026-11-21 |
+| New Mac (Ultra) | lead on probation | QA batch 2: Lane 0, fix lanes R01–R30, retest; DOCS-1 (merged), ISO-1 ADR-026 draft, DOCS-2a/2b/2c, Accounts roadmap draft; docs lanes UX-1 → HRP-DES (HR/Payroll design refresh) → INV-SCOPE (Items/Inventory scope), then Purchase/Sales/Reports scope one at a time; later ROADMAP-P | `phase/4-b2-*` lane branches only (now: lane0-app, ux1; docs2-be merging; next: hrp-des, inv-scope after UX-1's review) | 2026-11-21 |
+| Old Mac (Team) | overseeing lead | Reviews each new-Mac lane before it merges; reconciles state; HR/Payroll v2 build from Monday (Jabran 2026-11-21, own Gradle lock) | `phase/hrp-v2` (from Monday) | 2026-11-21 |
 
 ## New-Mac lead rules (Jabran 2026-11-21; this lead only, the old-Mac lead's process is unchanged)
 1. Every sub-agent the new-Mac lead starts runs at **High** effort.

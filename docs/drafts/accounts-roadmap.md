@@ -245,7 +245,7 @@ graph LR
    can start; accept ADR-022 stage 1 before 4.17, ADR-026 after its D1–D11, ADR-023 at the start of Phase 5b.
 4. **Old phase table.** roadmap:84-92 still numbers phases the old way. **Recommend:** after you approve this draft,
    add an amendment to `accounts-roadmap.md` that points to it (separate change, outside this brief's scope).
-5. **A5 payroll posting.** Old Phase 4; it needs Payroll v2, whose rebuild status is unconfirmed (state:46, decision 16).
+5. **A5 payroll posting.** Old Phase 4; it needs Payroll v2 (rebuild starts 2026-11-21 in parallel, see decision 16).
    D + D2 (5.6) also lists A5, for clearing payroll, tax and contribution payables (roadmap:125). The launch gate
    (roadmap:154) still says "payroll posting live". **Recommend:** move A5 to Later with Payroll v2; build D v1 in
    Phase 5 without payroll-payable clearing, which arrives with A5; require payroll posting at launch only for
@@ -274,3 +274,6 @@ graph LR
     customers from day one. **Recommend:** no owned-group pilot before Phase 7; single-company pilots first.
 16. **Payroll v2 rebuild.** PROJECT-STATE asks whether it is active or after Phase 4 (state:46). It decides when A5 and
     the D payroll clearing (L.1) can start. **Recommend:** after Phase 4; A5 stays in Later until then.
+    **Answered (Jabran 2026-11-21):** the rebuild has not started; it starts now in parallel with QA batch 2 (design
+    now, build on the old Mac from Monday, branch `phase/hrp-v2`); batch 2 goes first. A5 and L.1 follow Payroll v2's
+    own progress (its P2 posting step), not the end of Phase 4. Decision 5's "A5 to Later" should be re-read with this.
