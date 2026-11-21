@@ -57,6 +57,7 @@ These apply to every spec; the per-spec sections below only add the lines.
 | X.11 | `hr-h2-h3.md:918` ("Translations (English first)"); string-key appendices in every spec | **Four languages from the first slice.** Every new string ships in en, nb, sv and da in the same commit; the build check fails on a missing key. | Jabran 2026-11-08 (`WS docs/backlog.md:312`); old HR/Payroll/ESS were skipped only until rebuilt (PROJECT-STATE HRP-2, `WS PROJECT-STATE.md:25`). | Yes; the appendices stay the English source. | non-critical | S |
 | X.12 | `payroll-p.md:157`; `hr-h2-h3.md:393-397`; `hr-h1.md:220`; `hr-payroll-open-decisions.md:42` (L-9) | **Long jobs and notifications follow ADR-025** once accepted: calculate, bank-file and filing generation, accrual runs and imports answer 202 with an action id and show "Working…" with "Continue in background" (`NeoActionWaiter`); notices to people (L-9 in-app) go through notification-service; payroll results are never streamed (action id only). The rebuild sits on that foundation from day one: leave approvals with push, payroll runs with action ids; mobile push (RT-7: Apple/Firebase accounts, store review) comes with the HR/ESS rebuild. | `WS docs/drafts/ADR-025-realtime-notifications.md:42, :49, :54, :83`; accept after summary (`WS docs/backlog.md:385`); rebuild phasing (`WS docs/backlog.md:351-352`). | Yes, conditional on ADR-025's acceptance; until then the specs' own progress copy stands. RT-7 is a dependency of the ESS approvals slice. | non-critical | S |
 | X.16 | Events and streams from HR and Payroll (`hr-h2-h3.md:898`; `payroll-p.md:359-368`; H0-12, H0-13) | **Sensitive data travels as ids only.** HR and Payroll events, outbox payloads and stream envelopes carry ids, never pay, bank, national-id or health values; readers fetch details through the normal, permission-checked API. | ADR-019 D3 event envelope and payload scan (`BE docs/adr/ADR-019-domain-event-relay.md:48, :121`); ADR-025 D3 "never streamed broadly: payroll per-employee, HR sensitive subjects, bank-detail changes" (`WS docs/drafts/ADR-025-realtime-notifications.md:54`); "sensitive data as ids only" (`WS docs/backlog.md:351`). | Yes; the payload scan test covers the HR and Payroll event types. | critical | S |
+| X.17 | Pickers in forms: `hr-h1.md:151, :205-207`; `hr-h4.md:112-116`; `payroll-p.md:149, :251` | **Quick add from pickers (QA-1).** Every new picker either offers "Add “x”" or says why not. Recommended split: **department** and **position** pickers in the job forms offer quick add (code and name; parent, head and default cost centre on the full record), for holders of `HR.ORG.MANAGE`; **reports to** is an employee, added only through the wizard; **cost centre** is Accounts' dimension value, so the HR job form shows "Not found. Add it in Accounts" (link-only, the value's owner adds it); **pay group**, **pay element**, **payee** and **leave type** are setup data, link-only (payees also carry bank details, which are never quick-added). | Quick add rule and setup-data rule (`UX-1 bb:256-280`, setup data link-only :274, "built once" :275); no bank details in quick add (ADR-018 Q1, `UX-1 bb:271`). | Yes; each spec's picker list says which. | non-critical | S |
 | X.13 | Lists: `hr-h1.md:73`; `hr-h2-h3.md:390, :587, :608`; `payroll-p.md:129, :235` | **Lists at large-customer size.** Keyset paging for lists that can pass about 100,000 rows per company (attendance, payroll lines, payslips), capped counts ("10,000+"), no in-memory paging and no optional-tenant filters `(:companyId IS NULL OR …)`; the large-tenant generator includes 5,000 employees. | ADR-024 F4, F5 (`WS docs/drafts/ADR-024-data-at-scale.md:47-48`), D2 and D3 (:59-60), D4 "F4/F5 in the HR rebuild" (:61); product direction: large multi-company customers from day one (`WS docs/drafts/accounts-roadmap.md:14`); the optional-tenant filters "weaken isolation" (ADR-024 F5, :48). | Yes; the directory's "Count: 28 employees" becomes a capped count. | critical | S |
 | X.14 | `hr-h1.md:413`, `hr-h2-h3.md:1615`, `hr-h4.md:899`, `payroll-p.md:1273` | **Rig evidence must be re-runnable.** The 4,794-visit check ran from `/tmp/hrp-c12-check/final.cjs`, which is not in any repo, so the claim cannot be repeated. | L25 (rules and checks live in the repo, `WS docs/lessons.md:68`); A finding needs evidence (`WS WORKFLOW.md:142-145`). | Move the script into `NeoERP-App/docs/design/reviews/` (or drop the claim) when the rig is next touched. | non-critical | S |
 
@@ -137,32 +138,34 @@ These apply to every spec; the per-spec sections below only add the lines.
 
 | Spec | Items | Critical | Non-critical |
 |---|---|---|---|
-| All six (X) | 14 | 3 | 11 |
-| hr-h1 | 10 | 5 | 5 |
-| hr-h2-h3 | 9 | 2 | 7 |
+| All six (X) | 17 | 6 | 11 |
+| hr-h1 | 10 | 6 | 4 |
+| hr-h2-h3 | 9 | 3 | 6 |
 | hr-h4 | 6 | 1 | 5 |
-| payroll-p | 10 | 6 | 4 |
+| payroll-p | 10 | 7 | 3 |
 | ess | 6 | 1 | 5 |
 | people-access | 2 | 0 | 2 |
-| **Total** | **57** | **18** | **39** |
+| **Total** | **60** | **24** | **36** |
 
-The 39 non-critical items are for Fable to settle. Two of them choose between contradicting texts that are already in the
-specs: H1.7 (wizard or quick-add panel) and H4.4 (the O1 and O5 rows). X.8 follows D-10, which is still marked for
-Jabran's confirmation.
+The 36 non-critical items are for Fable to settle. One of them chooses between contradicting texts already in the specs:
+H4.4 (the O1 and O5 rows); the other such case, H1.7, chooses between two approved specs and goes to Jabran (decision 13).
+X.8 follows D-10, which Jabran confirmed as a trial.
 
 ## Decisions for Jabran
 
 Each groups the critical items it settles.
 
-1. **Start HR v2 and Payroll v2 on a new schema** (X.1, X.2, H1.1, H23.1, H4.1): company column, composite keys and
-   row-level security from the first migration, old tables dropped, no backfill. This is ADR-026 D1 (option B) and D9.
-   **Recommend: yes.** Dev holds no customer data (ADR-026:166), and adding the wall later means a second migration of
-   every table and a backfill nobody needs.
-2. **v1 HR, Payroll and ESS stop working from the first v2 migration** (H1.2); their menu entries are hidden until each v2
-   area ships. **Recommend: yes.** They are already out of QA and i18n (PROJECT-STATE HRP-2); keeping them alive would
-   need the backfill decision 1 removes.
+1. **Start HR v2 and Payroll v2 on a new schema** (X.1, X.2, X.13, H1.1, H23.1, H4.1): company column, composite keys,
+   row-level security and the two database roles per service from the first migration, old tables dropped, no backfill,
+   no optional-tenant filters. This is ADR-026 D1 (option B) and D9, which you have not accepted yet. **Recommend: yes.**
+   Dev holds no customer data (ADR-026:166); your 2026-11-15 rule "We're in dev: target design first"
+   (`WS docs/backlog.md:367-368`) points the same way; adding the wall later means a second migration of every table.
+2. **v1 HR, Payroll and ESS stop working from the first v2 migration** (H1.2). **Recommend: yes.** It follows from D9:
+   keeping v1 running would mean keeping the old tables, which D9 drops. One touch to modules that otherwise "stay
+   untouched" (Q1) is needed: **hide their menu entries** until each v2 area ships. Please confirm that one App change.
 3. **Amend the signed-off Payroll scope P0** (PY.1): new schema, no interim calculator, no legacy runs, no seed copies.
-   **Recommend: yes.** It follows from 1; P0 keeps four eyes, `@Version`, idempotency, the audit outbox and tier 2.
+   **Recommend: yes.** It follows from 1 and "target design first"; P0 keeps four eyes (now inside the approval model,
+   decision 6), `@Version`, idempotency, the audit outbox and tier 2.
 4. **Payroll country order: does it amend your D1 and J-8?** (PY.2). Today Payroll goes PK → NO → SE → DK → FI → IS
    (D1, 2026-10-09) with "all six signed off before launch; PK first" (J-8); Accounts launches SE → NO → PK → FI → IS → DK.
    First question: **does J-8 still hold?** If all six must be signed off before launch, the payroll order does not move
@@ -187,15 +190,22 @@ Each groups the critical items it settles.
    payslip PDFs, bank and filing files, and HR's sensitive fields. **Recommend: yes.** The file store is built; the
    cipher is Accounts' own `BankDetailsCrypto` today, so it moves into a shared module with a security review before
    H1's sensitive fields (copying the scheme into HR is the fallback). Interim stores would need ADR-020's copy job later.
-9. **Guardrails package for the whole HR/Payroll build** (X.3): risk paths, second reviewer, regression test per finding,
-   state-transition matrices, payroll money invariants, golden files per country, accountant sign-off. **Recommend: yes.**
-   These are the 2026-11-20 guardrails applied to payroll money, statutory files and personal data.
+9. **Guardrails package for the whole HR/Payroll build** (X.3, X.4, X.16, PY.7): risk paths, second reviewer,
+   regression test per finding, state-transition matrices, payroll money invariants, golden files per country,
+   accountant sign-off, route tests and no silent skips; money only through `NeoMoney` with the sign from the element
+   kind; sensitive data as ids only in events. **Recommend: yes.** These are the 2026-11-20 guardrails and the
+   ADR-019/025 payload rules applied to payroll money, statutory files and personal data.
 10. **A5 is an Accounts lane that lands before Payroll P2** (PY.6); P0 and P1 do not wait for it. **Recommend: yes.** It
-    matches Accounts roadmap decision 16 ("A5 and L.1 follow Payroll v2's own progress").
+    matches Accounts roadmap decision 16 ("A5 and L.1 follow Payroll v2's own progress"). Whether A5 reuses an AC-IP
+    posting core is that roadmap's decision 6, still pending with you.
 11. **ESS bank changes serve a customer only once the bank-change notice is really e-mailed** (ES.1), as ACC-R15 for
     suppliers. **Recommend: yes.** The notice is the employee's only warning of a fraudulent change.
 12. **Cross-company reads stay one company per call** (H1.5): employer lists from IAM, HR facts per employer under its
     own scope. **Recommend: yes.** It is ADR-026 D4 and keeps a franchise's employees out of the group's reach (RULES §8).
+13. **Two texts aligned to your approved decisions** (H1.7, H23.8). (a) Adding an employee: hr-h1 (G-1) keeps a
+    quick-add panel, hr-h4 (G-4, later) replaces it with the wizard and "Add now, finish later". **Recommend: the
+    wizard**, one way to add an employee. (b) Young-worker checks: J-9's "every country" note is aligned to your G-6
+    (six full countries only, no school-term limits). **Recommend: yes**, text only.
 
 ## Not changed, checked
 
@@ -229,6 +239,10 @@ These still hold against the later decisions:
   `WS docs/domain/RULES.md:154`).
 - **Pay lines already carry the full dimension set** (P0-A9, `BE docs/api/payroll-v2-p0.md:4, :465`): only the posting
   step (PY.3) and HR's segments (H1.4) are missing.
+- **Reporting layer (ADR-023, still proposed)** asks for no v2 contract change now: it expects a payroll cost-line fact,
+  visibility classes (`PAYROLL_PERSONAL`, `PAYROLL_AGGREGATE`, `HR_CONFIDENTIAL`) and HR job facts over time, fetched
+  through a scoped, audited machine read (`BE docs/adr/ADR-023-reporting-layer.md:49, :60, :73, :82`); v2 events already
+  carry no pay (ADR-019 D3, X.16). The cost-line read is designed when ADR-023 is accepted.
 - **Budget control (ADR-022)** asks nothing of v2: the personnel-cost feed is stage 2 (`accounts-budgets.md:239`).
 - **Sweden sick-pay protection** has its HR card (`hr-h2-h3.md:1640`), so the SE payroll path is not blocked by HR
   (PY.10 only fixes the stale line).
