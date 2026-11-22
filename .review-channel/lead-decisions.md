@@ -739,3 +739,12 @@ From the open-source "mobile-agent-testers" template: tester sessions use person
 - **Files that hold a `KNOWN_READS` line or an allowed build line are pinned by blob sha.** Any change to such a file is FULL until the table is updated (a reviewed gate change).
 - **Deliberate evasion is out of scope** for the scan: hand-split strings, building names from parts. The guards for that are the two reviews every gate and test change gets, `:architecture-tests` on every range, and the whole suite at phase → main. `verify.md` states this limit.
 - The same bar applies to the App lane's import scan.
+
+## D-64 T4 R-AL: AL-P6, P7 and O3 are by design; SR-L4 applies to every proposal — 2026-11-22 ~23:10 (Jabran, chat: "Same rule for all")
+- **AL-P6/P7:** AL-6 `KEEP_LATER_STEP`. Kystgruppe has 3 payment approvers, so Kari acting for Ola at step 2 would leave nobody for step 3. Ola does step 2 directly.
+- **AL-O3:** SR-L4. The proposer can't confirm, and the named person and their stand-in in force can't confirm either. The ways out: end the stand-in, a 4th CONFIRM holder, withdraw, or the 14-day expiry.
+- **Jabran:** a switch-only proposal also follows SR-L4. There is no exemption.
+- No fix lane. The old Mac fixes the T4 plan's expected lines.
+- **Rows for after Phase 4** (both repos):
+  - the KEEP_LATER words name the person when acting as a stand-in;
+  - `canConfirm` on every proposal view, plus a "nobody can confirm" message with the ways out for a non-Owner proposer.
