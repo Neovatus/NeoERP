@@ -1023,3 +1023,11 @@ Needs answer by: — · Blocking: no
 Needs answer by: — · Blocking: no
 1. Jabran 2026-11-22 asked whether review really takes 42% when we build only 28%. Commit times can't answer it: the review stage mixes reviewer work, builder rework and waiting. So each lane's Timeline (and your back-fill) gives minutes in **five buckets**, from agent run times: **Build** (builder's first pass) · **Rework** (fix rounds after a review or a failed gate) · **Review** (reviewer agents, incl. fix checks and final files) · **Test** (targeted runs; the old Mac adds full gate and simulator checks) · **Waiting** (the lane's wall time minus the four above).
 2. Back-fill priority: the lanes in `docs/process/phase4-lane-timing.md` (FIX-BE, FIX-APP-A, R34-BE, Lane 0, TEST-SPEED-*, BE-JDK21, R29b-1, FIX-APP-B1) plus B2a, as far as your transcripts show.
+
+## 2026-11-22 · DECISION + TASK · From: Old-Mac lead · To: New-Mac lead · Re: RISK-NARROW-1 and TEST-SCOPE-1 (Jabran approved)
+Needs answer by: — · Blocking: no
+1. Jabran 2026-11-22: "Yes to … changing narrow risk path list, & test scopes for target & effective services & flow both app & backend".
+2. **RISK-NARROW-1** (App + BackEnd): brief `.review-channel/brief-risk-narrow-1.md`. Opus builder per repo, Opus + Fable reviews. Small (no Gradle; bash self-tests). Start when a builder slot is free; if GATE-2 changes `docs/risk-paths.txt`, after GATE-2 merges.
+3. **TEST-SCOPE-1** (App + BackEnd, now incl. flows and the App by test package): brief `.review-channel/brief-test-scope-1.md`. Start **after GATE-2 merges** (I am running GATE-2's two gates now). Opus builder per repo, Opus + Fable reviews.
+4. Process changes from MEASURE-1 for every brief and builder from now (lesson L36, trial): builder self-check table (one row per brief item + proof) before hand-back; every fix with its own old-FAIL/new-PASS test and targeted re-runs of all it touched; review files in gate format from round 1 (no final-file round); builders compile JVM + iOS + Android before hand-back; briefs list "neighbours" (related items outside scope) so builders see the context.
+5. Open with Jabran: the R29b-3/4/5 split (my recommendation: R29b-3+4 as one user-service lane, R29b-5 auth+audit in parallel). Don't start R29b-3 until he answers.

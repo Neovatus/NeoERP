@@ -1,20 +1,19 @@
-# Brief draft: TEST-SCOPE-1 — full runs only for the affected BackEnd modules (2026-11-22)
+# Brief: TEST-SCOPE-1 — gate runs only the affected modules and flows, BackEnd and App (2026-11-22)
+
+**Approved:** Jabran 2026-11-22: "yes to … test scopes for target & effective services & flow, both app & backend". Two twin lanes: `phase/4-b2-test-scope-be` (BackEnd, the rules below) and `phase/4-b2-test-scope-app` (App, section "App" below). Both start **after GATE-2 merges** (all edit `verify.sh`, `risk-check.sh`, the hook).
 
 **Asked:** Jabran 2026-11-22: "make sure duplicates are not running; target and affected places run the test; we should
 only test in full those services that are affected, not all services."
-**Repo / lane:** `NeoERP-BackEnd`, `phase/4-b2-test-scope-1`, cut from TEST-SPEED-1 **after its review fixes** (both
-lanes edit `scripts/verify.sh`, `risk-check.sh` and the hook; nothing is added to a running lane). Copy this file to
-`docs/agents/test-scope-1/brief.md` in the lane.
+**Repo / lane:** BackEnd `phase/4-b2-test-scope-be` and App `phase/4-b2-test-scope-app`, each cut from its `phase/4` after GATE-2 merged. Copy this file to `docs/agents/test-scope-1/brief.md` in each lane.
 **Builder:** Opus 5.5 high (gate lane). **Reviews:** fresh Opus + Fable 5.2 high security review (diff + brief only),
 because it changes what the gate tests. **Gate files changed → RISK → whole-suite run for this lane itself.**
-**Where it runs:** the old Mac (test Mac) runs every full gate; Gradle through `scripts/gradle-job.sh` for targeted
-runs (L34), verify runs with both locks (L33).
+**Where it runs:** builder Mac builds with targeted runs; the old Mac (test Mac) runs the gates (own lock per repo after GATE-2).
 
 ## Goal
 A `phase/4` push needs a passing run of **the modules the range affects**, not the whole BackEnd. Same bar for those
 modules (all their tests, floor, skips allowlist, money invariants); unaffected services are not re-tested.
 
-## Rules (recommended; Jabran approves the brief)
+## Rules (BackEnd; approved 2026-11-22)
 1. **Affected set** = every Gradle project with a changed file in the range, **plus every project that depends on it**
    (computed from the Gradle project graph at the range head, never a hand-kept list), **plus always**
    `:architecture-tests` (tenant ratchet, Lane 0 names) and the money invariants (as today).
@@ -39,8 +38,25 @@ modules (all their tests, floor, skips allowlist, money invariants); unaffected 
    - `--rerun` / no build cache stays as today for the modules that do run (no "UP-TO-DATE" tests in a gate).
 7. Keep `--continue`, the parallel forks and the per-fork databases from TEST-SPEED-1.
 
+## Flows (both repos)
+"Affected" also covers the flows that cross the changed code, not only its module: the BackEnd acceptance/flow scripts
+and route tests of every affected service run with it (a change in accounts-service runs the accounts flows; a change in
+a shared module runs the flows of every dependent service). The plan output names each flow and why.
+
+## App (lane `phase/4-b2-test-scope-app`)
+The App is one Gradle module (`composeApp`), so the affected set is **test packages**, picked with Gradle test filters:
+1. **Affected** = test classes under the same feature package as a changed main file (`features/<x>/**` → tests under
+   `features/<x>/**`), plus tests of any feature that imports a changed file (from a source scan at the range head; unknown
+   → whole suite), plus **always** the build-rule scans, the i18n/string scans, and the screen-size and layout tests of the
+   affected features.
+2. **Whole suite** when the range touches `core/**`, `designsystem/**`, `ui/shell/**`, navigation/routing, DI modules,
+   `commonMain` resources shared by every feature, build files, gate files, or an unknown path; and once before each
+   Phase PR.
+3. The iOS compile (`compileKotlinIosSimulatorArm64`) still runs on every non-light gate (it is a compile, not a test).
+4. Marker, hook, per-scope floor, `--plan`, no-duplicate rule and tests: as for the BackEnd (`gate=affected`, a list of
+   packages instead of modules).
+
 ## Out of scope
-The App: one Gradle module (`composeApp`), 11 min after TEST-SPEED-APP; per-package selection is a later decision.
 No GitHub Actions (off until Jabran approves).
 
 ## Tests (in the lane)
