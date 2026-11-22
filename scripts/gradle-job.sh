@@ -54,5 +54,5 @@ trap 'exit 130' INT TERM
 echo "[gradle-job] $repo slot $slot, home $home, in $dir" >&2
 cd "$dir" || exit 2
 JAVA_HOME="$java_home" GRADLE_USER_HOME="$home" ./gradlew \
-  -Dorg.gradle.jvmargs="${NEOERP_GRADLE_JVMARGS:--Xmx4096M -XX:MaxMetaspaceSize=1g}" \
+  -Dorg.gradle.jvmargs="${NEOERP_GRADLE_JVMARGS:--Xmx6144M -XX:MaxMetaspaceSize=1g}" \
   -Pkotlin.compiler.execution.strategy=in-process "$@"
