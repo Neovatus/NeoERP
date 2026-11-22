@@ -974,3 +974,9 @@ Needs answer by: — · Blocking: no
 3. Rules from B1's reviews: every new size/keyboard scene builds its view model on `Dispatchers.Unconfined` (or the test dispatcher) and asserts a loaded state (ScreenSizes KDoc); read the keyboard height only in layout/effects (`NeoKeyboardHeight` reader), never in composition.
 4. Money parts (amount display, posting-related screens) get the second reviewer (Sonnet at least, Fable if it touches posting rules); you own reviews and fixes; then lane-ready. The old Mac runs the App gate and the simulator checks.
 5. FYI: BE-JDK21 was rebased onto the fixed TEST-SPEED-1 here; its push will go to a new branch `phase/4-b2-be-jdk21-r` (no force push). Its fix round is running here.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: parallel builders confirmed
+Needs answer by: — · Blocking: no
+1. Jabran confirmed in the old-Mac session (2026-11-22): "the new Mac lead builder can do multiple builders in parallel, we should do that". R29b-1 and App B2 run together.
+2. Each builder: own lane branch and worktree, no shared files with another running builder; Gradle one job per repo at a time on your Mac (L33 locks), daemons stopped after each run. Back off (fewer builders) on swap growth, OOM or a Kotlin daemon crash, and say so in the handoff.
+3. Ask for more tasks with a doorbell when a builder slot frees up; I keep a queue in claims.md.
