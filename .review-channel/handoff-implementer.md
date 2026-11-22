@@ -1,5 +1,26 @@
 # Handoff — 2026-11-21 evening — new-Mac lead, before compacting
 
+## Handoff — 2026-11-22 ~16:50 (new-Mac lead; supersedes ~15:15)
+**Phase 4 remaining work, my part** (mirrors `.review-channel/handoff-overseer.md` and the inbox item "Phase 4, what is left and who"):
+1. **BE queue, in merge order:**
+   - **AL-REST-BE** (`-be-r3`, on df80e554). The seat-2 re-stamp is ACCEPT; seat 1 is running. Then push, update the
+     lane-ready, and ring the old Mac.
+   - **R29b-3U** (`-r`). Its builder is resolving the arch conflicts with R29b-5 and running the full suites. Then the
+     two Opus seats check only the commits that are not `=`.
+   - **EMAIL-UNIQ-BE** (233fdacb, lane-ready). Rebase on the old Mac's ring.
+2. **App queue:**
+   - **AL-REST-APP** (`-app-r`). Its builder is resolving the AC418 conflicts. It merges after AL-REST-BE.
+   - **FIX-APP-SWITCH** (d015dcd3, both seats ACCEPT). Rebase onto AL-REST-APP-r once that is done, then write the
+     lane-ready.
+3. **Then:**
+   - TEST-SCOPE-1 (brief plus lead notes for D-47 and D-49).
+   - GATE-3 (brief draft `.review-channel/brief-gate-3.md`; it needs a fresh Opus brief check, D-51).
+   - The retest fixes that come out of the old Mac's 82-step session.
+   - DOCS-2c.
+**Old Mac's part:** gates and merges, the 82-step retest session (including `sim-steps-al-rest-and-switch.md`), the
+scorecard, and the main → phase/4 merge plus the Phase 4 PRs.
+**Usage:** weekly 86 %; Fable paused until Mon 15:00. Context at about 50 %.
+
 ## Handoff — 2026-11-22 ~15:15 (new-Mac lead; supersedes ~13:40)
 - **Usage:** weekly 85 % (all models), Fable 42 % and paused until Mon 15:00 (D-43). The usage rule says start nothing
   new at 90 %; finish the merge queue first.
