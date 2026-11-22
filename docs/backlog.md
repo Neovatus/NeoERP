@@ -420,3 +420,5 @@ Send `confirmedByUserId` per kind in GET /approval-limits so the app needs no Hi
 
 ## App architecture: feature composition pairs (Jabran to decide; from App Lane 0, D-11, 2026-11-21)
 - The rule "features never import from other features" (`NeoERP-App/.claude/CLAUDE.md:64`) has 289 import lines plus 24 fully qualified references in 30 feature pairs, frozen by Lane 0 as a per-pair count ratchet (may only shrink). Largest: organization→entitlement 63, platform→people 40, organization→agreement 34, organization→people 29. Question for Jabran: should composition pairs (organization composing entitlement/agreement/people/roles/audit; platform→people) become an allowed pattern, or be removed by moving shared pieces into `core/` or a composition module? Lead proposes in a spec or ADR; until then the ratchet holds.
+
+- 2026-11-22 · test reliability · `DimensionSetConcurrencyTest.sameNewCombinationFromManyTransactionsGivesOneRow` (accounts-service) timed out (32.7 s, `FutureTask.get` timeout in `race`) during a full gate at load ~200; passed on rerun. Make its wait scale with load or bound the thread pool; seen in R29b-2 gate 1.
