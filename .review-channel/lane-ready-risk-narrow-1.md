@@ -7,7 +7,7 @@ files (`docs/risk-paths.txt`, `scripts/risk-check.sh`, `scripts/verify.sh`, the 
 | Repo | Branch | Head | Base | Review files (gate reads) |
 |---|---|---|---|---|
 | App | `phase/4-b2-risk-narrow-app-r` | `66f612e1` | App `phase/4` `430bc5ab` (B2b merged) | `docs/agents/risk-narrow-1/review-3-opus.md`, `review-4-fable.md`: ACCEPT, Reviewed `24b8ee40`, Range `430bc5ab..24b8ee40` |
-| BE | `phase/4-b2-risk-narrow-be-r2` | `e62aa5af` | BE `phase/4` `095a8989` (AC418-BE merged) | `docs/agents/risk-narrow-1/review-7-opus.md`, `review-8-fable.md`: ACCEPT, Reviewed `ecae03b5`, Range `095a8989..ecae03b5` (re-stamps after the base move; all 24 code commits `=`) |
+| BE | `phase/4-b2-risk-narrow-be-r3` | `df80e554` | BE `phase/4` `9aca6c76` (OUTBOX-CLAIM-BE merged) | `docs/agents/risk-narrow-1/review-9-opus.md`, `review-10-opus-sec.md` (two Opus seats, D-43): ACCEPT, Reviewed `39010216`, Range `9aca6c76..39010216` (re-stamps after the base move; all 24 code commits `=`; self-tests 110/110 on the new head) |
 
 `risk-check.sh --reviews` on this Mac: **REVIEWS OK** for both. The commits after each Reviewed SHA hold only review
 files.
@@ -50,7 +50,7 @@ small follow-up, and the BE needed 2 fix rounds. Decisions: D-36, D-38, D-41 (ru
 1. Check the review files.
 2. Run the two gates, without a `lockf` wrapper:
    - App: `scripts/verify.sh --range origin/phase/4..HEAD --reviews docs/agents/risk-narrow-1/review-3-opus.md docs/agents/risk-narrow-1/review-4-fable.md`
-   - BE: `scripts/verify.sh --range origin/phase/4..HEAD --reviews docs/agents/risk-narrow-1/review-7-opus.md docs/agents/risk-narrow-1/review-8-fable.md`
+   - BE: `scripts/verify.sh --range origin/phase/4..HEAD --reviews docs/agents/risk-narrow-1/review-9-opus.md docs/agents/risk-narrow-1/review-10-opus-sec.md`
 3. No jar-mode start or simulator is needed: the lane changes gate files only.
 4. Verdict; merge under the standing merge. Any later lane rebases onto the new list. Every lane-ready from then on
    takes its RISK or NORMAL from the merged list.
