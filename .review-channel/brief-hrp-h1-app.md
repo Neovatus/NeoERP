@@ -139,11 +139,11 @@ Lane-ready `.review-channel/lane-ready-hrp-h1-app<slice>.md` with the MEASURE-1 
 **Done when** (per slice): items proven, tests 0 failed, iOS + Android compile, flow steps PASS, both seats ACCEPT, docs listed, T3 green, merged.
 
 ## Open questions for the lead (options · recommendation)
-- **OQ-A1 Package names (H0 I3).** (a) Reuse `features.hr` / `features.ess` and rewrite the rule to refuse the v1 class names and paths;
+- **OQ-A1 — DECIDED (a), D-59.** Package names (H0 I3).** (a) Reuse `features.hr` / `features.ess` and rewrite the rule to refuse the v1 class names and paths;
   (b) new packages (`features.hrv2`). **Rec (a):** clean names last; the rule keeps its purpose (no v1 resurrection) by naming v1 symbols.
-- **OQ-A2 Missing components.** (a) Build `NeoApprovalCard` (APP-2) and `NeoBottomTabBar`/`NeoPhoneSheet` (APP-3) with their first consumer,
+- **OQ-A2 — DECIDED (a), D-59.** Missing components.** (a) Build `NeoApprovalCard` (APP-2) and `NeoBottomTabBar`/`NeoPhoneSheet` (APP-3) with their first consumer,
   UX-1 amendment first; (b) a separate design-system lane before H1. **Rec (a):** a component proven by a real screen; one review instead of two.
-- **OQ-A3 Entries for later areas (product scope, Jabran).** (a) Hide record tabs Time/Leave and ESS tabs Pay/Leave/Time and Home cards (payslip,
+- **OQ-A3 — DECIDED (a) by Jabran 2026-11-22, D-59.** Entries for later areas (product scope, Jabran).** (a) Hide record tabs Time/Leave and ESS tabs Pay/Leave/Time and Home cards (payslip,
   leave, clock) until their slice ships; (b) show "comes later" placeholders. **Rec (a):** §12.1 "each area's entry appears when it ships"; no dead taps.
-- **OQ-A4 Start timing.** (a) Each App slice starts at its BE slice's lane-ready (contract frozen), flow-tests after that BE slice merges;
+- **OQ-A4 — DECIDED (a), D-59.** Start timing.** (a) Each App slice starts at its BE slice's lane-ready (contract frozen), flow-tests after that BE slice merges;
   (b) wait for the BE merge. **Rec (a):** overlaps build with BE review/gate; merge order still BE first.

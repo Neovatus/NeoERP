@@ -113,18 +113,18 @@ Review · Test · Waiting minutes, tokens per agent, FIX rounds, changed files, 
 **Done when** (per slice): its items proven, targeted + full suites 0 failed with no unexpected skip, both seats ACCEPT, docs listed, T3 green, merged.
 
 ## Open questions for the lead (options · recommendation; money rules and product scope go to Jabran)
-- **OQ-1 Cost-centre read.** No internal cost-centre read exists in accounts-service. (a) Add it in BE-1 (`/api/internal/accounts/companies/{cid}/cost-centres`,
+- **OQ-1 — DECIDED (a), D-59.** Cost-centre read.** No internal cost-centre read exists in accounts-service. (a) Add it in BE-1 (`/api/internal/accounts/companies/{cid}/cost-centres`,
   scope `accounts.cost-centres.read`, hr client only); (b) an Accounts lane builds it, H1 keeps `costCentreId` null meanwhile. **Rec (a):** the owner
   serves a narrow machine read, as Org facts do; small, read-only; the lead checks no Phase 4 lane touches those files. Without it, §12.7 dimensions stall.
-- **OQ-2 Cipher and Accounts.** (a) Build `shared/field-cipher`, HR uses it, Accounts moves to it in a later small tier-2 lane, with a compatibility test
+- **OQ-2 — DECIDED (a), D-59.** Cipher and Accounts.** (a) Build `shared/field-cipher`, HR uses it, Accounts moves to it in a later small tier-2 lane, with a compatibility test
   now; (b) move Accounts in BE-2 too; (c) copy the scheme into HR. **Rec (a):** one scheme now without touching stored bank ciphertext in a HR lane.
-- **OQ-3 Activity read.** audit-service has only a write endpoint. (a) Add an internal read by company + service + subject (`audit.event.read`, company
+- **OQ-3 — DECIDED (a), D-59.** Activity read.** audit-service has only a write endpoint. (a) Add an internal read by company + service + subject (`audit.event.read`, company
   required) in BE-2; (b) defer the Activity tab. **Rec (a):** the spec and audit catalogue already plan it; read-only, two-company test.
-- **OQ-4 Ending and requests (scope, Jabran).** H0 deleted v1 `status`/`separate`/lifecycle; H4 owns their v2. (a) H1 ships no End employment and no
+- **OQ-4 — DECIDED (a) by Jabran 2026-11-22, D-59.** Ending and requests (scope, Jabran).** H0 deleted v1 `status`/`separate`/lifecycle; H4 owns their v2. (a) H1 ships no End employment and no
   HR-Officer job-change request (actions hidden; the ended demo employee is seeded); (b) pull H4 B4 ending into H1. **Rec (a):** keeps H1 reviewable.
-- **OQ-5 Payroll H0 LOWs.** (a) Shared-module fixes here cover both; payroll's migration rows (column grants) go into P0's first migration; (b) a payroll
+- **OQ-5 — DECIDED (a), D-59.** Payroll H0 LOWs.** (a) Shared-module fixes here cover both; payroll's migration rows (column grants) go into P0's first migration; (b) a payroll
   migration in this lane. **Rec (a):** one repo per lane is kept, and P0's first migration is next anyway.
-- **OQ-6 ESS bank request without `auth_time` (security, Jabran).** (a) Fail closed in H1 as the contract says; the `auth_time` sign-in change is its own
+- **OQ-6 — DECIDED (a) by Jabran 2026-11-22, D-59.** ESS bank request without `auth_time` (security, Jabran).** (a) Fail closed in H1 as the contract says; the `auth_time` sign-in change is its own
   lane for Jabran's approval; (b) add `auth_time` here. **Rec (a):** a sign-in change needs his approval and its own review.
-- **OQ-7 Facts sensitive block and §11.1 match.** (a) Build them with P1 when a consumer exists; (b) now. **Rec (a):** no untested sensitive surface
+- **OQ-7 — DECIDED (a), D-59.** Facts sensitive block and §11.1 match.** (a) Build them with P1 when a consumer exists; (b) now. **Rec (a):** no untested sensitive surface
   without its reader; the non-sensitive facts and headcount read ship now.

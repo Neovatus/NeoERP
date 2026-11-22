@@ -650,3 +650,7 @@ Addendum (Jabran 2026-11-22): the plan covers the whole flow, not only tests: la
 
 ## D-57 Lanes and fixes by feature — 2026-11-22 (Jabran: "yes, if that is efficient")
 Feature work as vertical lanes (one roadmap item = BE lane + App lane, one end-to-end flow test); fixes grouped by feature, not by QA round (small features joined; ≤ 3 retest fix lanes per repo); cross-cutting lanes separate and small. Why: QA-list fix lanes (B2a/B2b) mixed 5–6 features, which widened reviews and flow tests. `.review-channel/phase4-plan.md` "Lanes by feature".
+
+## D-59 HR H1 open questions — 2026-11-22
+**Jabran (in chat, "Yes, all three"):** OQ-4 (a) no End employment / HR-officer job-change request in H1 (H4 owns them; actions hidden); OQ-6 (a) ESS bank-account request fails closed in H1, the `auth_time` sign-in change is its own lane for his approval; OQ-A3 (a) hide Time/Leave/Pay tabs and cards until each area ships.
+**Lead (recommendations, industry practice):** OQ-1 (a) narrow internal cost-centre read in accounts-service in BE-1 (lead checks no Phase 4/4b lane touches those files); OQ-2 (a) `shared/field-cipher` now, Accounts moves later in its own tier-2 lane with a compatibility test; OQ-3 (a) internal audit read by company + service + subject in BE-2; OQ-5 (a) payroll column grants in P0's first migration; OQ-7 (a) sensitive facts block with P1; OQ-A1 (a) reuse `features.hr`/`features.ess`, rule refuses v1 names; OQ-A2 (a) build missing components with their first screen; OQ-A4 (a) each App slice starts at its BE slice's lane-ready, merges after it.
