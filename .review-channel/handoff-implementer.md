@@ -24,7 +24,7 @@
   - D-61 (I run Accounts 4b end to end), D-63 (`docs/PRINCIPLES.md` in every brief, plus Timeline cost and
     first-pass gate), D-65 (resume the same builder for fixes), D-67 (a "Brief:" line in hand-backs), D-69 (an
     automated test per T4 failure; a Compose UI test per 4b lane; an E2E spike);
-  - odd/even D-numbers: mine are even, and my next is D-54? No: D-52 is used; my next is **D-54**.
+  - odd/even D-numbers: mine are even; D-52 is the last I used, so my next is **D-54**.
 - **Lessons today:** read the exit code and the BUILD line, never stale XML; a clean auto-merge can still break the
   code; check that the worktree is on its branch and the remote equals the head before ringing; wait loops need a
   stop on exit and a time limit.
