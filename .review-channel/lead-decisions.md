@@ -522,3 +522,10 @@ effort, sonnet can work with high if needed".
 
 It starts after RISK-NARROW-1 merges and the running lanes are handed back. One builder per repo (Opus, default effort).
 Reviews: Opus high plus Fable, or a fresh Opus once Fable is at 45 % (D-43). The brief is written then.
+GATE-3 scope from the old-Mac suggestions (`.review-channel/gate-3-suggestions.md`, c1fdfca), lead's pick:
+- **In GATE-3:** 1 (check the reviews before Gradle, fail fast), 2 (name the failing tests and mark each inside or outside
+  the lane), 4 (patch-identical rule), 5 (`gradle-job.sh` waits on the gate lock itself; `gate-busy.sh`), 6 (a thin
+  `gradle-job.sh` wrapper in each code repo, or a clear error), 7 (`merge-lane.sh`), 8 (the hook gates every `phase/*`).
+- **Not GATE-3; backlog rows:** 3 (an automatic rerun of flaky tests outside the lane: it weakens the gate, so the flake
+  is fixed instead), 9 (jar start reuses built jars), 10 (`stack-down.sh`), 11 (App `sim-signin.sh`). 9–11 can be a
+  small DEV-TOOLS lane later.
