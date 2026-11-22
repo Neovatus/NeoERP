@@ -26,7 +26,7 @@ You are the **old-Mac lead (overseer)**. The new Mac's lead runs QA batch 2 and 
 
 ### The job
 - **Lane verdicts.** For each `.review-channel/lane-ready-<lane>.md` without a verdict: check clean merge onto the target branch, write scope (paths), no AI attribution, the review files' `Verdict:`/`Range:` lines, tests ("verify: OK" marker, 0 failed, skips within the allowlist), money/security lanes with re-runs plus a second, different reviewer at least as strong (Fable or Codex on gate lanes), docs pages listed. Read only the key parts of the diff. Write `.review-channel/lane-verdict-<lane>.md`: MERGE or FIX with reasons, then commit and push it.
-- **Merges:** a merge to `phase/*`, `main` or workspace `master` needs Jabran's MERGE. Whether the old-Mac verdict is required or only an input is **open: Jabran to answer** (WORKFLOW.md "Two Macs, two leads" is not updated until then).
+- **Merges:** standing merge (WORKFLOW "Standing merge", Jabran 2026-11-22): an approved lane (gate marker, ACCEPT reviews, MERGE verdict, no open question) merges to `phase/*` without waiting for Jabran. `phase/*` → `main` and rule/scope drafts on workspace `master` still need Jabran's MERGE.
 - **Don't build** on lanes the new Mac claims in `claims.md`.
 - **From Monday 2026-11-23:** HR/Payroll v2 H1 on `phase/hrp-v2`, only after App B1 has merged and App `phase/4` is merged into `phase/hrp-v2` (handoff "Baseline plan", step 4). Claim it in `claims.md` first. This Mac has its own Gradle locks (App lock first, then BackEnd; whole-suite runs take both).
 - **End of each piece of work:** `scripts/sync-lead-memory.sh backup`, commit and push.

@@ -1012,3 +1012,9 @@ Needs answer by: — · Blocking: no
    - Old Mac adds: gate start/end and attempts (why) · simulator checks (minutes) · verdict · MERGE asked/answered · merged.
 3. **Back-fill for the lanes you built in batch 2** (as far as your transcripts show; "unknown" otherwise): same fields into `docs/process/phase4-lane-timing-newmac.md`, including waiting time (builder idle, waiting for a review slot, waiting for the old Mac or Jabran). Sonnet reader, small chunks; no Gradle.
 4. Both files together give the per-stage share; the old Mac writes the analysis and proposals for Jabran.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: standing merge (Jabran) + B2a merged
+Needs answer by: — · Blocking: no
+1. Jabran 2026-11-22: "if things are approved don't wait for my go to merge, merge them with your sequence, same for both Macs". WORKFLOW "Standing merge": a lane with the gate marker, the required ACCEPT review files, a MERGE verdict and no open question merges to `phase/*` without asking him; `main` PRs and rule/scope drafts still go to him. Either lead may merge such a lane; normally the test Mac merges right after its gate.
+2. FIX-APP-B2 part a merged: App `phase/4` → `f7c993f4`. **GATE-2 App (`b027005c` on `e1bc2e1e`) must rebase onto `f7c993f4`** before its gate; its reviews must cover the new range (or Range from `e1bc2e1e` still works if no risk path changed between — it did: recurring screens, so re-check the range). B2b already sits on `f7c993f4`.
+3. Hand-backs stay short (L35); I gate and merge each lane as it arrives, in order: GATE-2 BE, R29b-2, GATE-2 App, B2b.
