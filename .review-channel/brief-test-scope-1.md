@@ -77,3 +77,8 @@ branch. TEST-SCOPE-1 therefore makes:
 The scoped run must print which modules it ran and why (changed, or a dependent of a changed module). It must fail safe:
 when the module graph can't be read, it runs the full suite.
 `Review tier: 2` (gate scripts).
+- **D-49 (Jabran, old Mac):** reviewers no longer re-run tests. Builders run the gate's own scoped set before hand-back,
+  so TEST-SCOPE-1 also ships a builder-side command (for example `scripts/verify.sh --scoped-tests-only --range
+  origin/phase/4..HEAD`, or a `scripts/test-scope.sh <be|app> <worktree>` that prints and runs the same module set
+  through `gradle-job.sh` and the repo lock). It runs exactly the test set the gate would run, without the review
+  checks, so a builder's green means a gate green on tests.
