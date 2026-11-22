@@ -491,4 +491,7 @@ Lead decisions (rule 2):
    The safe choice over "ADR says identify by producer".
 3. Fable L3 (scope-all staff `?orgId=` reads unrecorded, inside D-25): row for R7 / the pen-test list.
 4. R29b-5-F1: gated "before the pen test and before R7 is switched on"; extended to concrete use-case classes.
+Builder follow-up (lead confirms): only `service = audit-service` (or producer `audit-service`) is refused, 400
+`RESERVED_AUDIT_SOURCE`; `resource = platform-access` stays allowed because user- and org-service send their own
+platform-access events on this path (refusing them would stall their outboxes). Fix head `8f77a276`.
 Re-check: Fable (said FIX). Opus re-stamps and checks the L2 code delta.
