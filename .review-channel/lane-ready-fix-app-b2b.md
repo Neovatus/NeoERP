@@ -1,6 +1,6 @@
 # Lane ready: FIX-APP-B2 part b (reports, accruals, opening balances, imports, FIX-BE App items) — 2026-11-22
 
-**Repo / branch:** `NeoERP-App`, `phase/4-b2-fix-app-b2b-r` (pushed, head `56b6ba03`). It sits on App `phase/4` `8d7e8a96`
+**Repo / branch:** `NeoERP-App`, `phase/4-b2-fix-app-b2b-r` (pushed, head `430bc5ab`; was `56b6ba03` before the gate fix). It sits on App `phase/4` `8d7e8a96`
 (GATE-2 merged): rebased from part a, and all 29 commits are `=` in the range-diff. Built and reviewed on the
 **builder Mac**: JVM targeted tests and the iOS compile only.
 **Brief:** `docs/agents/fix-app-b2b/brief.md`. Approved by Jabran 2026-11-21 and 2026-11-22 (D-15, D-16, D-19); assigned
@@ -10,10 +10,22 @@ by the old Mac (inbox "App B2", lead cut into part a and part b). **Builder:** O
 and accept after one fix round. Fable checked the lead decisions (D-33: no REJECT). Decisions: D-33 (with Fable's
 conditions), D-35. The range touches the Accounts data layer and API models: **RISK**.
 
+## Gate fix round (old-Mac verdict FIX, workspace `6124907`)
+- The full gate on `56b6ba03` failed `A4ScreenSizeTest.importCreated` (66 overlaps of the created-journal links).
+- Fix `a5e2d19f`: each created journal is its own full-width row, at least the touch floor tall (`neoTouchFloor()`),
+  with the link centred in it. The row itself is not clickable, so there is no second tap target. Test tags and the R17
+  target are unchanged; no strings changed. Report: `builder-report.md`, section "Gate fix round".
+- Builder (Sonnet 5.5): **every size test of the screens the lane touched, run in full**. A4ScreenSizeTest 18/0,
+  Batch2ScreenSizeTest 8/0, ReportFilterScreenSizeTest 9/0, KeyboardInViewTest 10/0, GeneralLedgerDimensionSizeTest
+  1/0, DeleteDraftMenuSizeTest 2/0, BillInvoiceAllocationSizeTest 1/0, Qa1LayoutSizeTest 3/0. JournalImport* 18/0. The
+  iOS and Android compiles: 0 errors.
+- Opus fix check re-ran A4ScreenSizeTest 18/0 and JournalImport* 18/0. Two LOWs went to follow-up rows (below).
+
 ## Review files (gate format; the gate reads these two)
-- `docs/agents/fix-app-b2b/review-3-opus.md` (Opus 5.5) and `review-4-sonnet.md` (Sonnet 5.5): Verdict ACCEPT,
-  Reviewed `262744f8`, Range `8d7e8a96..262744f8`. The one commit after it holds only these two files.
+- `docs/agents/fix-app-b2b/review-5-opus.md` (Opus 5.5) and `review-6-sonnet.md` (Sonnet 5.5): Verdict ACCEPT,
+  Reviewed `c3837e72`, Range `8d7e8a96..c3837e72`. The one commit after it holds only these two files.
   `risk-check.sh --reviews` on this Mac: **REVIEWS OK**.
+- Earlier: `review-3-opus.md` / `review-4-sonnet.md` (ACCEPT up to `262744f8`).
 - History: `review-1-opus.md` (FIX: 1 HIGH for the BackEnd, 2 MEDIUM, 6 LOW; 806/0; old FAIL proven for R04, N2, R09,
   R07) and `review-2-sonnet.md` (FIX: 3 MEDIUM, 5 LOW).
 
@@ -45,7 +57,7 @@ conditions), D-35. The range touches the Accounts data layer and API models: **R
 
 ## For the old Mac (test Mac)
 1. Check the two review files.
-2. `scripts/verify.sh --range origin/phase/4..HEAD --reviews docs/agents/fix-app-b2b/review-3-opus.md docs/agents/fix-app-b2b/review-4-sonnet.md`
+2. `scripts/verify.sh --range origin/phase/4..HEAD --reviews docs/agents/fix-app-b2b/review-5-opus.md docs/agents/fix-app-b2b/review-6-sonnet.md`
    (no `lockf` wrapper).
 3. Simulator steps in the builder report, "Simulator checks for the old Mac": numbered, with Expected per step. It
    includes the R11 restart step and the GL table vs cards at iPad Pro 13 portrait.
@@ -73,6 +85,9 @@ conditions), D-35. The range touches the Accounts data layer and API models: **R
   - A transient GL reload failure also drops saved filters: limit that to 404 (Sonnet N1).
   - An older server's GL line shows no cost centre once the column drops (Sonnet N3).
   - Changing GL filters during the stale-filter reload can jump the route back to the defaults (Opus N1).
+  - Gate fix LOWs: restore a small gap between created-journal rows on desktop, where the touch floor is 0 and the
+    links now touch (`JournalImportWizardScreen.kt:487`); the report's cited `RolesIndexUi` row is clickable,
+    unlike this one (wording only).
 - **BackEnd:**
   - Refuse or warn on a second receivables opening-items entry, plus a durable link between the two imports and
     `FILE_ALREADY_IMPORTED` acknowledged at confirm (N10, go-live gate; Opus H1, logged in
@@ -91,3 +106,8 @@ conditions), D-35. The range touches the Accounts data layer and API models: **R
 - **Size:** 118 files changed (+2,780 / −173) over the base; 15 items; 1 fix round (both reviewers said FIX in round 1
   and accept after it); 0 fix-caused MEDIUMs; 4 new LOWs passed to follow-up rows.
 - **Tokens:** builder 749 k; Opus 356 k; Sonnet 296 k; Fable (D-33) 133 k.
+- **Gate fix round (after the old-Mac FIX at 09:35):**
+  - Rework: Sonnet builder 14.5 m (85 k), including the full size-test runs.
+  - Review: Opus fix check 4.2 m (92 k), Sonnet re-stamp 0.3 m (64 k).
+  - Escaped into the gate: one size test outside the targeted set.
+  - Files: 120 changed (+2,873 / −173). Fix rounds: 2 (1 review, 1 gate).
