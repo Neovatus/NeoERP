@@ -480,3 +480,15 @@ adopted for the R29b-3U build step:
     `CustomerService`.
   - Each gets a self-test assertion, plus a replay.
   - Re-check: Opus (it said FIX) plus a Fable re-stamp of the delta.
+
+## D-42 R29b-5 review round 1 — 2026-11-22
+**Opus** ACCEPT `7439b8f1` (after its docs LOWs), with LOW 1 as row R29b-5-F1 (pins check ports only). Audit 56/0, auth
+10/0 and arch 89/0 re-run. **Fable** FIX `7439b8f1`: one text-only MEDIUM; the code holds on every focus point.
+Lead decisions (rule 2):
+1. Fable M1: ADR-012 §3 and D-25 Q5 get both D-40 item 3 conditions (auth adapter with the first platform-wide read;
+   what enforces it).
+2. Fable L2: refuse audit-service-shaped records on the machine append path (typed 4xx), with an old-FAIL/new-PASS test.
+   The safe choice over "ADR says identify by producer".
+3. Fable L3 (scope-all staff `?orgId=` reads unrecorded, inside D-25): row for R7 / the pen-test list.
+4. R29b-5-F1: gated "before the pen test and before R7 is switched on"; extended to concrete use-case classes.
+Re-check: Fable (said FIX). Opus re-stamps and checks the L2 code delta.
