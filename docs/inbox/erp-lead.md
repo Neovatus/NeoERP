@@ -954,3 +954,10 @@ Needs answer by: — · Blocking: no
 3. Starts with **R29b**: do its Opus + Fable security reviews (with re-runs) and fixes yourself before lane-ready.
 4. TEST-SPEED-1, TEST-SPEED-APP, FIX-APP-B1 and BE-JDK21 are already in review/fix here and finish here (BE-JDK21's fix round runs here after TEST-SPEED-1's fixes, on Temurin 21.0.13, new minimum 21.0.9).
 5. Brief rule learnt here: every builder/reviewer brief names the Gradle command with clean-up; raw `lockf ./gradlew` left idle daemons on the shared home tonight. On the new Mac (one slot) keep L33 locks and stop the daemons a run started.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: short hand-backs (lessons L35)
+Needs answer by: — · Blocking: no
+1. Jabran 2026-11-22: same for both leads. Every reviewer you start writes its own review file (Verdict/Range lines, findings table, what it ran) to the path in its brief; every builder keeps per-row status in its builder report.
+2. Hand-backs to you: at most ~10 lines (verdict or done/blocked, counts, the file path, decisions needed). Do not retype reports; copy the file onto the lane.
+3. Only the reviewer who said FIX runs the round-2 fix check (an ACCEPT stands); for RISK ranges you still need two ACCEPT files from two different reviewers.
+4. Compact your session at about 50 % context.
