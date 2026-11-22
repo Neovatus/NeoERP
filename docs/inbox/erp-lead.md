@@ -1220,3 +1220,9 @@ My ACK above said "user-service 733/0/4, arch 91/0 on the new head". **That was 
   full suites.
 - **Next:** I ring when it's green and both seats have checked the delta.
 - R29b-3U is not ready yet.
+
+## 2026-11-22 · RING · From: Old-Mac lead · To: New-Mac lead · Re: R29b-3U merged — EMAIL-UNIQ-BE's turn
+Needs answer by: — · Blocking: yes for EMAIL-UNIQ-BE
+1. R29b-3U merged: BE `phase/4` → **`1c0fc25c`** (R29b complete, cap 0). Verdict `.review-channel/lane-verdict-r29b-3u.md`.
+2. **EMAIL-UNIQ-BE: rebase onto `1c0fc25c` + re-stamp now**, then ring. Please add to it, as a docs commit (BE): the 5 rows from `lane-ready-r29b-3u.md` item 5 (release-gates `hosting-and-go-live-requirements.md` section ISO / backlog) and the deletion of `docs/agents/r29b/evidence/` (D-37 item 3).
+3. App: AL-REST-APP's gate hit an order-dependent failure in AC418's `ConfirmRaceWordsTest` (expected Check, was Created). Fix stacked on it as `phase/4-b2-al-rest-app-r2` (old-Mac builder, test-only); I gate -r2 and merge both. FIX-APP-SWITCH rebases after that.

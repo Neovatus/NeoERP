@@ -10,7 +10,7 @@ and rings the other lead; Jabran may change anything.
 | Lane | Repo | Built on | Branch (base) | Tier | Depends on | Batch | State |
 |---|---|---|---|---|---|---|---|
 | AL-REST-BE | BE | new Mac | `phase/4-b2-al-rest-be-r3` (`df80e554`) | 2 (money: approvals, V79) | — | A1 | **merged `6d948693`** |
-| R29b-3U | BE | new Mac | `phase/4-b2-r29b-3u-r` (`df80e554` → rebase after A1) | 2 (isolation) | — | A2 | re-check of 5 rebased commits |
+| R29b-3U | BE | new Mac | `phase/4-b2-r29b-3u-r` (`df80e554` → rebase after A1) | 2 (isolation) | — | A2 | **merged `1c0fc25c`** |
 | EMAIL-UNIQ-BE | BE | new Mac | `phase/4-b2-email-uniq-be` (→ rebase after A2) | 1 + 2nd seat until GATE-3 | — | A3 | lane-ready |
 | AL-REST-APP | App | new Mac | `phase/4-b2-al-rest-app` (→ `3fc42d32`) | 2 (money: approvals) | AL-REST-BE merged | B1 | resolving AC418 conflicts |
 | FIX-APP-SWITCH | App | new Mac | own branch (→ after B1) | 1 | — | B2 | in review |

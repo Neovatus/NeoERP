@@ -19,6 +19,7 @@ Write a line before starting, remove it when done. Never touch work the other le
 3. **Fable budget (Jabran 2026-11-21):** Fable uses at most 50 % of the weekly limit (plan below 40 %, nothing new at 45 %). Fable does substantial work only: independent security reviews of gate, money and security lanes, batched checks of substantial decisions, and views on Jabran's critical lists. Few-line reviews, small fix confirmations and small decisions go to the lead, Opus or Sonnet.
 
 ## Merged lanes
+- 2026-11-22 R29b-3U: BE `phase/4` → `1c0fc25c` (user + org isolation; **R29b complete, cap 0**; gate OK, money OK; semantic merge break caught and fixed before the gate).
 - 2026-11-22 AL-REST-BE: BE `phase/4` → `6d948693` (accounts V79; gate OK, money OK; two Opus re-stamps). AL-REST-APP may follow.
 - 2026-11-22 RISK-NARROW-1: BE `phase/4` → `df80e554`, App `phase/4` → `3fc42d32` (narrower risk paths; gates OK; WORKFLOW Review sentence updated).
 - 2026-11-22 AC418-APP: App `phase/4` → `267270de` (4.18 App; gates OK; simulator 17/20 then step 15 fixed and passed; step 16 retest → retest round). Backlog MEDIUM: wrong-company journal request after a switch (before the Phase 4 PRs).
