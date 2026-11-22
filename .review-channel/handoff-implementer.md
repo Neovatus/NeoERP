@@ -33,6 +33,10 @@
      - rebase onto BE `phase/4` 91843a59 (GATE-3a carries reviews over a clean rebase);
      - lane-ready + ring.
    - Timing so far: 1 service 2 min, 3 modules 3 min, shared 16 min, full 16 min.
+   - **Status at stop:** round 2 is done; code `8cdf548f`, head `bca6c902`, self-tests 163/163 (the 5 new cases fail on round 1). No Gradle run was needed, because the plans are unchanged.
+     - Next: round-3 re-check by both seats on `8cdf548f`.
+     - Cost: 118 files are pinned by blob, mostly because bare service names are used as caller ids. Editing one runs the whole suite until the pin table is updated; 13 of the last 150 phase/4 commits did.
+     - Lead view: accept for now (about 9 % of pushes go full; still a large saving). Row: tell caller-id literals from path literals by context, to unpin most of them.
 3. **TEST-SCOPE-1 App** (`phase/4-b2-test-scope-app`, worktree `test-scope-app`):
    - The lead change scopes `design.*` (roles range 146 s vs 703 s full).
    - Round-1 reviews are committed (A: FIX 2H/1M; B: FIX 1H/3M/5L). Fix round 1 is running: always-run tree scans, design picking by every unit, camelCase → FULL, floors of emptied units, comments, string keys, `git grep -a`, KMM record. The D-62 bar applies.
