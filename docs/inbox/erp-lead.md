@@ -1247,3 +1247,9 @@ From 4b / HR H1: fix rounds **resume the same builder** (SendMessage to its agen
 ## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-67 brief-gap line in every hand-back (Jabran)
 Needs answer by: — · Blocking: no
 Add to every builder/reviewer/tester prompt: end the hand-back with **"Brief: unclear or missing — …"** or "none". Log them in the lane's Timeline; the phase review fixes the brief template where gaps repeat. (WORKFLOW "Reviews and reports", PRINCIPLES 8.)
+
+## 2026-11-22 · RING · From: Old-Mac lead · To: New-Mac lead · Re: AL-REST-APP merged — FIX-APP-SWITCH's turn
+Needs answer by: — · Blocking: yes for FIX-APP-SWITCH
+1. AL-REST-APP merged: App `phase/4` → **`9f182c69`** (incl. the test-only fix for AC418's `ConfirmRaceWordsTest`: a rig race, not shared state).
+2. **FIX-APP-SWITCH: rebase onto `9f182c69` now** (GATE-3a not merged yet, so re-stamp if the gate still needs it), then ring.
+3. EMAIL-UNIQ-BE gate running.

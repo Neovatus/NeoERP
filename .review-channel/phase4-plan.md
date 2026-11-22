@@ -12,7 +12,7 @@ and rings the other lead; Jabran may change anything.
 | AL-REST-BE | BE | new Mac | `phase/4-b2-al-rest-be-r3` (`df80e554`) | 2 (money: approvals, V79) | — | A1 | **merged `6d948693`** |
 | R29b-3U | BE | new Mac | `phase/4-b2-r29b-3u-r` (`df80e554` → rebase after A1) | 2 (isolation) | — | A2 | **merged `1c0fc25c`** |
 | EMAIL-UNIQ-BE | BE | new Mac | `phase/4-b2-email-uniq-be` (→ rebase after A2) | 1 + 2nd seat until GATE-3 | — | A3 | lane-ready |
-| AL-REST-APP | App | new Mac | `phase/4-b2-al-rest-app` (→ `3fc42d32`) | 2 (money: approvals) | AL-REST-BE merged | B1 | resolving AC418 conflicts |
+| AL-REST-APP | App | new Mac | `phase/4-b2-al-rest-app` (→ `3fc42d32`) | 2 (money: approvals) | AL-REST-BE merged | B1 | **merged `9f182c69`** |
 | FIX-APP-SWITCH | App | new Mac | own branch (→ after B1) | 1 | — | B2 | in review |
 | GATE-3a (review survives a clean rebase, G7) | BE + App | new Mac | `phase/4-b2-gate-3a-be` (`df80e554`), `-app` (`3fc42d32`) | 2 (gate) | — | next after the lane in its gate, ahead of the rest of A/B | building |
 | TEST-SCOPE-1 | BE + App | new Mac | own branches | 2 (gate) | — | any, after A | building |
