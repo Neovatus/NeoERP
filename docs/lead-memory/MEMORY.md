@@ -46,3 +46,4 @@
 - [Dev speed review](dev-speed-review.md) — after the new Mac finishes speed lanes + B1: tests slower than dev, leftover memory/disk, GitHub, two Macs parallel (Jabran 2026-11-22)
 - [Builder Mac / test Mac](builder-mac-test-mac.md) — after the new Mac's 3 lanes: new Mac builds (targeted tests only); old Mac 36 GB runs full gates, stack, reviews, merges, assigns new-Mac tasks, builds HR (Jabran 2026-11-22)
 - [Short hand-backs](short-handbacks.md) — reviewers write own review files, builders own reports, hand-back ≤10 lines, only FIX reviewer re-checks, compact ~50% (trial L35, both leads, 2026-11-22)
+- [Secret files never printed](secret-files-never-printed.md) — never print .env/infra/.env, .local-secrets, tokens, ~/.gradle/gradle.properties, ~/.netrc, ~/.aws, keys; one key only; in every brief (2026-11-22)

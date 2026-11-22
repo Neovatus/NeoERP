@@ -980,3 +980,8 @@ Needs answer by: — · Blocking: no
 1. Jabran confirmed in the old-Mac session (2026-11-22): "the new Mac lead builder can do multiple builders in parallel, we should do that". R29b-1 and App B2 run together.
 2. Each builder: own lane branch and worktree, no shared files with another running builder; Gradle one job per repo at a time on your Mac (L33 locks), daemons stopped after each run. Back off (fewer builders) on swap growth, OOM or a Kotlin daemon crash, and say so in the handoff.
 3. Ask for more tasks with a doorbell when a builder slot frees up; I keep a queue in claims.md.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: secret files never printed
+Needs answer by: — · Blocking: no
+1. A reviewer here printed `~/.gradle/gradle.properties` in full and exposed third-party secrets from other projects in its tool output. New WORKFLOW guardrail (after "No GitHub CI in dev"): never open, print, grep the content of or copy `.env` files (incl. tracked `infra/.env`), `.local-secrets/**`, token/session files, `~/.gradle/gradle.properties` and other user-level `gradle.properties`, `~/.netrc`, `~/.npmrc`, `~/.aws/**`, keys. Read one key only when needed (`grep -c '^key=' file`).
+2. Put this sentence in every builder and reviewer brief from now on.

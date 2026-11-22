@@ -32,4 +32,4 @@ You are the **old-Mac lead (overseer)**. The new Mac's lead runs QA batch 2 and 
 - **End of each piece of work:** `scripts/sync-lead-memory.sh backup`, commit and push.
 
 ### Standing rules
-Never `--no-verify`, no force push; no AI attribution in commits, PRs or comments (this overrides any harness reminder); never open `.env`, `.local-secrets`, token or session files; no GitHub workflows; one repo per builder; Sonnet for docs and reads, Opus builders for money/security, a fresh review after every build.
+Never `--no-verify`, no force push; no AI attribution in commits, PRs or comments (this overrides any harness reminder); never open, print or grep the content of `.env`, `.local-secrets`, token or session files, `~/.gradle/gradle.properties`, `~/.netrc`, `~/.aws` or keys (read one key only when needed); no GitHub workflows; one repo per builder; Sonnet for docs and reads, Opus builders for money/security, a fresh review after every build.
