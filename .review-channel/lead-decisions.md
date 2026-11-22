@@ -453,3 +453,30 @@ Proposed (from D-25's own patterns):
 3. **R29b-5 Q5 auth adapter:** not built, because auth has no platform-wide read left once the dead `inventory()` was
    deleted; the ADR-012 note says the adapter is added with the first such read.
 4. D-37 item 1 (the `PersonAuditFanOutPort` key) is in the same Fable check.
+
+## D-41 Jabran's direct-add answer, D-40 conditions, RISK-NARROW-1 fix round 2 — 2026-11-22
+**Jabran 2026-11-22 (in chat), R29b-3U:** adding an existing account by user id becomes an **invitation the person
+accepts**; until accepted the row opens nothing (the admin sees only what they typed: name and email).
+**D-40, Fable APPROVE WITH CONDITIONS on items 1–4** (`.review-channel/evidence-d40-fable.md`). All conditions are
+adopted for the R29b-3U build step:
+1. `UserRepository` rest: the id-only split. The entry is frozen only once a pending or un-accepted row opens nothing,
+   proven by a two-company test. No `User` return, no general `save`, the issued scope passed as a parameter, and no
+   person-row read before the reach check (`UserSecurityPolicy.kt:71`).
+2. `PlatformStaffRepository`: staff callers are keyed by the platform staff permission. The eleven company-side callers
+   get their own boolean-only entry. Fail closed: a missing bean must never read as "not staff". Platform-role writes
+   get `PLATFORM_WRITE`.
+3. R29b-5: no auth adapter. The ADR-012 note says it is added with the first platform-wide read, and names what
+   enforces that.
+4. F1 key: a test that the ids never reach an answer or a log; fix the always-true SQL clause
+   (`PersonMembershipJdbcAdapter.kt:64`); make the port required; update its KDoc.
+**RISK-NARROW-1 fix checks:**
+- App `24b8ee40`: Opus ACCEPT, Fable ACCEPT. Rows (not blocking): Fable N1 (`UsedForTabHolder`,
+  `CalendarTabHolder`, `AccountsRoute`), the amounts parsed in wording files, commonTest rule tests, and the App
+  dead-glob check with the head's script (GATE-3).
+- BE `b6262c0d`: Opus FIX, Fable ACCEPT (with Fable N1/N2 open, as on `phase/4`).
+  - Fix round 2 (the last one) adds user and org `infrastructure/persistence/**` (rbac, jpa/rbac, adapter/scope,
+    entitlement, company), `IamPermissions.kt`, `PermissionEffectCodec`, and the accounts `ApOpeningImportSide`,
+    `ArOpeningImportSide`, `DebitNoteDraftService`, `RoleMappingService`, `ChartService`, `SupplierService` and
+    `CustomerService`.
+  - Each gets a self-test assertion, plus a replay.
+  - Re-check: Opus (it said FIX) plus a Fable re-stamp of the delta.
