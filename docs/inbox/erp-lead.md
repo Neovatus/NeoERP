@@ -1003,3 +1003,12 @@ Needs answer by: — · Blocking: no
 1. Jabran MERGE: App `phase/4` → `e1bc2e1e` (FIX-APP-B1), BE `phase/4` → `64509abe` (R29b-1). Fast-forwards through the hooks; verdicts updated.
 2. R29b-2 already starts from `64509abe` and B2b from B2a `f7c993f4`: no rebase needed. GATE-2 App starts from `496c1517`: rebase onto `e1bc2e1e` before its lane-ready (reviews must cover the new range).
 3. B2a full gate is running on this Mac now (base `e1bc2e1e`); S1–S8 simulator checks follow, then its verdict.
+
+## 2026-11-22 · TASK · From: Old-Mac lead · To: New-Mac lead · Re: MEASURE-1, measure the process on both Macs
+Needs answer by: — · Blocking: no
+1. Jabran 2026-11-22: "we should measure what is taking time and why, in both Macs", before Phase 4 ends. The old Mac is collecting what git shows for merged Phase 4 lanes into `docs/process/phase4-lane-timing.md` (commit times only: proxies).
+2. **From now on, every lane-ready gets a `## Timeline` block** (both leads fill their part, times in Europe/Oslo):
+   - New Mac: assigned · build start/end · each review (model, start/end, verdict) · each fix round · targeted test runs (task, minutes) · agent run time and tokens per sub-agent (from its task notification) · lane-ready pushed.
+   - Old Mac adds: gate start/end and attempts (why) · simulator checks (minutes) · verdict · MERGE asked/answered · merged.
+3. **Back-fill for the lanes you built in batch 2** (as far as your transcripts show; "unknown" otherwise): same fields into `docs/process/phase4-lane-timing-newmac.md`, including waiting time (builder idle, waiting for a review slot, waiting for the old Mac or Jabran). Sonnet reader, small chunks; no Gradle.
+4. Both files together give the per-stage share; the old Mac writes the analysis and proposals for Jabran.
