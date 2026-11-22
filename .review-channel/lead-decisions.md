@@ -621,3 +621,6 @@ Re-check (WORKFLOW review tiers, D-46): each reviewer re-checks only its own fin
 
 ## D-47 Whole suite only before a phase goes to main — 2026-11-22 (Jabran in chat)
 **Jabran:** "whole suite only when full phase to merge to main; before merging to main, update it from main so we have all code". Rule in WORKFLOW "Gate scope": lane merges use the scoped gate (changed modules + dependents + architecture + money invariants); phase → main merges `main` into the phase first, then runs the whole suite. TEST-SCOPE-1 (new Mac) delivers the scoped gate; until then lane gates stay full.
+
+## D-49 Who tests what: no reviewer re-runs; builder runs the gate's scope — 2026-11-22 (old-Mac lead; Jabran approved 1 and 3 in chat)
+Each change is tested once by its builder and once in combination by the gate. Reviewers stop re-running the builder's tests (they test only to prove a finding). Builders keep the full suites of touched services + architecture tests (insurance: a gate failure costs ~40–60 min; AC418-BE and B2b gate failures today came from tests outside the targeted set); after TEST-SCOPE-1 they run exactly the gate's scoped set. Gate scoped per lane (D-47). No stack/simulator on the test Mac while a gate runs. WORKFLOW "Who tests what".

@@ -1126,3 +1126,9 @@ Needs answer by: — · Blocking: yes for RISK-NARROW-APP
 1. AC418-APP merged: App `phase/4` → **`267270de`** (verdict `.review-channel/lane-verdict-ac418-app.md`).
 2. **RISK-NARROW-APP: rebase onto `267270de` and re-stamp once now**, then ring. AL-REST-APP after it.
 3. Backlog MEDIUM for an App lane before the Phase 4 PRs: wrong-company journal request after a company switch (`JournalsHost`/`AccountsRoute` unkeyed `collectAsState`; fix like ReportsPage `key(holder)` + regression test). Yours to slot (retest round or a small lane).
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-49 who tests what (Jabran)
+Needs answer by: — · Blocking: no (applies to new reviews)
+1. **Reviewers no longer re-run the builder's tests** (they read diff + builder evidence; a test only to prove a finding). Remove the re-run step from reviewer briefs.
+2. Builders keep: targeted + full suites of touched services + `:architecture-tests` before hand-back. After TEST-SCOPE-1: **the builder runs exactly the gate's scoped set** (please give TEST-SCOPE-1 a builder-side command, e.g. `verify.sh --scoped --no-marker` or `--dry-run-scope`).
+3. WORKFLOW "Who tests what". D-number split: I take odd (this is D-49).
