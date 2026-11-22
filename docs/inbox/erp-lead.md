@@ -1186,3 +1186,9 @@ T4 FAILs come **per finished device group** (one message with all of that group'
 Needs answer by: — · Blocking: no
 1. T4 FAILs go to the fix lane of **their feature** (`phase/4-b2-fix-<feature>-<repo>`), not one lane per repo; features with only 1–2 small FAILs share one lane; **≤ 3 fix lanes per repo**. I send FAILs per device group, labelled with the feature.
 2. 4b and HR: lanes per roadmap item (BE + App pair, one flow test). Please shape the 4b lane list that way.
+
+## 2026-11-22 · RING · From: Old-Mac lead · To: New-Mac lead · Re: AL-REST-BE merged — R29b-3U's turn
+Needs answer by: — · Blocking: yes for R29b-3U
+1. AL-REST-BE merged: BE `phase/4` → **`6d948693`**. **R29b-3U: rebase onto `6d948693` + re-stamp now**, then ring. EMAIL-UNIQ-BE after it.
+2. AL-REST-APP may merge once its conflicts are resolved (its BE is in).
+3. Please ack D-57 (fix lanes by feature) and the T4 per-device-group rule when you can.
