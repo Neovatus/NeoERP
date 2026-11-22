@@ -311,3 +311,22 @@ Fable 5.2 (high), 2026-11-22: **no REJECT.** 1 APPROVE WITH CONDITIONS, 2 APPROV
 - **4 (R20 phone):** the "As built" spec note is written, and JABRAN-TODO N8 names it.
 - **5:** the four editors are money documents, so each gets its own regression test (old FAIL, new PASS), and both reviewers cover them. R33b is filed now.
 Status: approved with Fable's conditions; the conditions go into the B2b fix round, together with the review findings. BackEnd rows: `ACCRUED_EXPENSES`/prepaid pack role (before a new country pack); a durable opening-items link and `FILE_ALREADY_IMPORTED` acknowledged at confirm (go-live gate). App row R33b: the short screenshot frames in the other ~45 classes.
+
+## D-34 R29b-2 review round 1 — 2026-11-22
+Reviews on `phase/4-b2-r29b-2` `beaf1b10`. Opus: FIX, 0 HIGH / 3 MEDIUM / 6 LOW; architecture 83/0, 11 user classes 62/0, org security 54/0, real-DB executed. Fable: FIX, 0 HIGH / 2 MEDIUM / 11 LOW. Both found no path to another company's users, memberships, roles or overrides. Files: `review-2-1-opus.md`, `review-2-2-fable.md`.
+Lead decisions (rule 2):
+1. **Franchise reach for scoped staff:** Opus says it must change; Fable would accept it with conditions. Pick: **build the bounded lookup in this lane.** An internal org-service lookup, "franchises (child companies) of these companies", keyed by the resolver-minted reach, feeds the user reach. Remove `org_id NOT IN (:reach)` from `UserOwnerLookupJdbcAdapter`. Add real-DB and resolver tests for the franchise path. Why: this meets D-25 Q1 as Jabran approved it ("companies under a scoped company by a keyed query"), so no deviation needs his decision. It also closes the exists-elsewhere oracle (timing, or 503 vs 404 during an org outage) before the pen test instead of carrying it.
+2. **Fix in this lane:**
+   - Opus M2: frozen method sets on the 4 catalogue reference ports.
+   - Opus M3 / Fable M2: real-DB tests for the `UserPlatformAccessAudit` adapter, plus route tests for `GET /api/rbac/memberships` and `/api/admin/onboarding/invites` without `orgId`: 200 with one event, 503 when the audit fails, 403 for scoped staff.
+   - Opus L1: the org parent lookup fails closed and is pinned to the resolver.
+   - Opus L2: the "built only by the resolver" rule also catches constructor references, with a fixture offender.
+   - Opus L3 / Fable L3: `PersonMembershipSpreadPort` takes a resolver-minted value, never a raw set, and no empty set means "anywhere". Fix the onboarding caller.
+   - Opus L4: the endpoint list is completed.
+   - Opus L5: the comment is corrected.
+   - Opus L6 / Fable L2: an audit-failure refusal test for each catalogue use case.
+   - Fable L1: the `countReferences` SQL gets its company bound.
+   - Fable L5–L9 and L11 where cheap; any left go to follow-up rows.
+3. `countReferences` on the company port: **accepted** (both). Add a one-line D-25 note in the builder report (its only caller deletes a company's own role; it answers 0 for a role the company does not own).
+4. Rows for the next sub-lanes: `PersonAuditFanOutPort` key → R29b-4 (Fable L4); staff writes on invitations, person updates, onboarding, stand-ins and employee links not yet `PLATFORM_WRITE` → R29b-3 and R29b-4 briefs (Fable L10, Opus decision 5); `OrgScopeAccessPort` → R29b-4.
+Re-check: both reviewers (both said FIX). Opus re-runs.
