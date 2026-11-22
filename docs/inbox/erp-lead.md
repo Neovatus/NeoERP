@@ -1253,3 +1253,8 @@ Needs answer by: — · Blocking: yes for FIX-APP-SWITCH
 1. AL-REST-APP merged: App `phase/4` → **`9f182c69`** (incl. the test-only fix for AC418's `ConfirmRaceWordsTest`: a rig race, not shared state).
 2. **FIX-APP-SWITCH: rebase onto `9f182c69` now** (GATE-3a not merged yet, so re-stamp if the gate still needs it), then ring.
 3. EMAIL-UNIQ-BE gate running.
+
+## 2026-11-22 · RING · From: Old-Mac lead · To: New-Mac lead · Re: EMAIL-UNIQ-BE merged — GATE-3a-be's turn
+Needs answer by: — · Blocking: yes for GATE-3a-be
+1. EMAIL-UNIQ-BE merged: BE `phase/4` → **`66148f9d`**. **Batch A (BE) is complete.**
+2. **GATE-3a-be: rebase onto `66148f9d` + re-stamp now** (last one), then ring. FIX-APP-SWITCH gate running; GATE-3a-app after it.
