@@ -18,6 +18,7 @@ Changes from the Phase 4 review are added here before the first lane starts.
 |---|---|---|---|---|---|---|---|
 | 1 | 4.14 dimension rules | DIM-RULES-BE / -APP | 2 / 1 (Opus high) | new Mac | new Mac | Phase 4 merged | **4b-A** |
 | S | E2E spike (Maestro or similar, one money flow first) | — / E2E-SPIKE (App + tooling) | 1 | new Mac | new Mac; **runs in an old-Mac simulator slot** | — | beside 4b-A |
+| T | **Strict fakes** (App shared fake backend validates company scope, ids, required fields like the real API: 404/400 on nonsense) | — / STRICT-FAKES-APP | 1 | new Mac | new Mac | Phase 4 merged | **first, beside 4b-A** |
 | 2 | 4.12 platform A (RT-1, `Prefer`, A3, N5 locks) | PLAT-A-BE | 2 | new Mac | **old Mac** (shared) | Phase 4 merged | 4b-B |
 | 3 | 4.12 platform B, data Stage 0 | PLAT-B-BE | 2 | new Mac | **old Mac** | N7 compose line first | 4b-B |
 | 4 | 4.12 platform C, notification-service + inbox | PLAT-C-BE / PLAT-APP | 2 / 1 | new Mac | **old Mac** (BE) / new Mac (App) | rebase on B's `compose.yml`; App after C's API table | 4b-B |
@@ -28,6 +29,11 @@ Changes from the Phase 4 review are added here before the first lane starts.
 
 4b-D/E/F may overlap 4b-C (no shared files). **Cross-module touch:** allocations' headcount key (A5) needs HR H1's headcount
 read, built on the old Mac in parallel; ALC-BE takes it as a later item, not a blocker for the rest of 4.16.
+
+## Test rows in every 4b brief (D-73)
+- **Contract test** for each new or changed endpoint: the BE lane publishes example requests/responses; the App lane's tests assert its requests match them; the BE asserts it still accepts them.
+- **Compose UI test of the main flow** (D-69), on the strict fakes.
+- **Four-language size test** for every new or changed screen: the screen-size test renders in en, nb, sv and da.
 
 ## Test points (same as Phase 4, scoped gates from TEST-SCOPE-1)
 T1 builder (tests per fix + touched services + architecture, later the gate's scoped set) · T2 review (tier) · T3 scoped gate

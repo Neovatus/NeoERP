@@ -1280,3 +1280,8 @@ Needs answer by: — · Blocking: no
 ## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: Phase 4 closes first (Jabran)
 Needs answer by: — · Blocking: no
 Jabran: finish all of Phase 4 first (T4, fix lanes by feature, short retest, DOCS-2c, review, `main` merge), **then** HR H1 (here) and Accounts 4b (you) start together. GATE-3 remainder and TEST-SCOPE-1 may run beside the fix lanes (tooling). No 4b or HR lane starts before the Phase 4 PRs merge.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-73 seam tests (Jabran)
+Needs answer by: before the 4b briefs · Blocking: no
+1. New 4b lane **STRICT-FAKES-APP** (tier 1, first, beside 4b-A): the App's shared fake backend validates company scope, ids and required fields like the real API (404/400 on nonsense), so existing UI tests catch wrong requests (AC418 step 15 class).
+2. Every 4b brief gets **contract test** rows (BE publishes examples per endpoint; App asserts its requests match) and a **four-language size test** row (en, nb, sv, da) for new/changed screens. `phase4b-plan.md` "Test rows in every 4b brief".

@@ -184,3 +184,6 @@ The App follows each recommendation unless the lead's answer differs; A4, A6, A1
 | seed per slice, two-employer login, zone (H) | Flow steps (users), APP-1b step 9, APP-3 step 8; BE H1-B9 |
 | §8 rig controls, §12.16 starter setup | Out of scope |
 | BE-only rows | `brief-hrp-h1-be.md` table |
+
+## Test rows added (D-73)
+- Every App slice: contract tests against the BE slice's published examples; Compose UI test of the main flow on the strict fakes (once STRICT-FAKES-APP lands; until then the slice's own fakes validate company scope and ids); four-language size test (en, nb, sv, da) for each new screen.

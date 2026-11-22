@@ -172,3 +172,6 @@ Review · Test · Waiting minutes, tokens per agent, FIX rounds, changed files, 
 | size cut (H) | BE-1a / BE-1b / BE-2a / BE-2b / BE-3 |
 | contract freeze (M) | Decided 10 |
 | App-only rows | `brief-hrp-h1-app.md` table |
+
+## Test rows added (D-73)
+- Every BE slice publishes example requests/responses per new endpoint (contract examples) and a test that the endpoint accepts them; the App slice reuses them.

@@ -724,3 +724,6 @@ Weekly all-models usage 90 % (reset **Tue 24 Nov 15:00**, not Monday). Exception
 
 ## D-60 TEST-SCOPE-1 flows = Gradle flow tests only — 2026-11-22 ~20:00 (Jabran, chat: "Gradle flow tests only (Recommended)")
 "Flow" in Jabran's "target & affected services & flow" means the flow and integration tests inside each affected Gradle module. The `*-acceptance.sh` stack scripts are not added to the scoped gate; they stay at phase → main and the T sessions. The brief check's 11 other corrections are the lead's (brief "Lead corrections").
+
+## D-73 Seam tests: strict fakes, contract tests, four-language size tests — 2026-11-22 (Jabran: "yes, if it adds value and reduces time")
+Today's 4 escaped bugs were all seam bugs (wrong data across a flow, role path, release flag, file type); money rules are well covered by unit/integration tests. Add, don't swap: (1) **STRICT-FAKES-APP** lane first in 4b (the App's shared fake backend validates like the real API); (2) **contract tests** per new/changed endpoint in every 4b and HR brief; (3) **four-language size tests** (en, nb, sv, da) for every new/changed screen. Each prevents a bug class that cost a fix lane + gate + retest (~2–4 h per bug).
