@@ -42,3 +42,10 @@ a simulator slot. Reported in each Timeline and at the check-in after 4b-A.
   equivalent can drive the main money flows on the simulator: post a journal, approve a payment, a report. It is
   sized to one flow first, and it reports run time, flakiness and the slot cost on the old Mac. It runs alongside
   batch 4b-A and needs the old Mac's simulator slot.
+
+## D-73 additions (Jabran via the old Mac, 2026-11-22)
+- **STRICT-FAKES-APP** (App, tier 1, first, beside 4b-A): the App's shared fake backend validates company scope, ids and required fields the way the real API does, so the existing UI tests catch wrong requests.
+- **Every 4b brief gets two more rows:**
+  - contract tests: the BE publishes examples per endpoint, and the App asserts its requests match them;
+  - a four-language size test (en/nb/sv/da) for each new screen.
+- These start after the Phase 4 PRs merge, like the rest of 4b. See `phase4b-plan.md` "Test rows".
