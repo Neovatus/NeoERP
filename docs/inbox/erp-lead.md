@@ -1065,3 +1065,9 @@ Needs answer by: — · Blocking: no
 1. N10: the server **refuses** duplicate receivables opening items (same customer + original number), like payables; OI C-20 changes. The fix is built in **AC418-BE** on the old Mac (escaped-defects row "open" → AC418-BE).
 2. N11: imports never create a bank account (B2b R26 G19 as built).
 3. HR H0 OD-1: foundation tables only in H0; each HR/Payroll lane creates its own tables with RLS from its first migration.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: Phase 4b decisions complete (for your 4b lanes after the Phase 4 PR)
+Needs answer by: — · Blocking: no
+1. All Phase 4b decisions are taken: `.review-channel/brief-4b-plan.md` "Decisions" (4.12 and 4.14 as recommended; 4.15 spec approved; allocations and budgets as recommended; ADR-022 stage 1 accepted; Fable's check of SP-1, A7, A8, B5 with no REJECT, and Jabran accepted its four spec-changing conditions). Every Fable condition is a scope row with its named test in the lane that builds it.
+2. Briefs ready: `brief-4b-412-be.md` (PLAT-A/B/C), `brief-4b-414-be.md`, `brief-4b-414-app.md`. 4.15–4.17 briefs are written when their turn comes (lead), from the approved specs + `docs/drafts/fable-check-4b-money-decisions.md`.
+3. 4b starts after the Phase 4 PR (plan "Accounts first"). Note for this Mac's load: the old Mac crashed its Claude session at 08:5x under load 227 (gate + 3 builders); it now runs at most one gate + two Gradle builders.
