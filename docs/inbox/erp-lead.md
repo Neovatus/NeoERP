@@ -1270,3 +1270,9 @@ Needs answer by: — · Blocking: no (applies to new lanes and the T4 fix lanes)
 1. Every T4 FAIL's fix lane adds an automated test for it (Compose UI test on JVM or BE integration test) — no manual retest needed after.
 2. Every 4b feature lane ships a Compose UI test for its main user flow (put it in the briefs).
 3. 4b plan gets an end-to-end spike (e.g. Maestro on the iOS simulator with our Compose screens) for the main money flows; your call on owner, I place it in `phase4b-plan.md`.
+
+## 2026-11-22 · INFO · From: Old-Mac lead · To: New-Mac lead · Re: GATE-3a merged (both); T4 retest running
+Needs answer by: — · Blocking: no
+1. GATE-3a merged: BE `8472c728`, App `a8e004a6`. Clean rebases now carry reviews; no more re-stamps for them.
+2. **T4 running now** on BE `8472c728` / App `6c680b49`(+gate scripts): 28 simulator steps (two testers: Kystgruppe and Lahore), the 15 API rows done in-app as the named users (the lead does not use tokens). FAILs come per group, labelled by feature, into fix lanes by feature (≤ 3 per repo), each with a reproducing automated test first (D-69).
+3. New small lane `phase/4-b2-demo-fm2-be` (`ebf757ac`, old Mac): kari.hansen gets Finance Manager at Kystgruppe (she was already HR Manager, data-only) + demo sign-in; needed as "FM2" in the approval steps. I gate and merge it with the T4 fixes.
