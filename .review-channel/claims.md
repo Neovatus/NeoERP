@@ -18,6 +18,8 @@ Write a line before starting, remove it when done. Never touch work the other le
 3. **Fable budget (Jabran 2026-11-21):** Fable uses at most 50 % of the weekly limit (plan below 40 %, nothing new at 45 %). Fable does substantial work only: independent security reviews of gate, money and security lanes, batched checks of substantial decisions, and views on Jabran's critical lists. Few-line reviews, small fix confirmations and small decisions go to the lead, Opus or Sonnet.
 
 ## Merged lanes
+- 2026-11-22 TEST-SPEED-1 + BE-RUN-1 + BE-DOCS-1: BE `phase/4` → `50ac03dc` (old Mac gate: verify OK 11 min, 4320/0/59, money invariants OK; Opus + Fable ACCEPT; Jabran MERGE). **Every BE checkout: run `scripts/install-hooks.sh` (gate version 4).**
+- 2026-11-22 TEST-SPEED-APP: App `phase/4` → `496c1517` (old Mac gate: verify OK, 3905/0/1, 1786 size shots identical 1 vs 3 forks; Opus + Fable ACCEPT; Jabran MERGE). **Every App checkout: run `scripts/install-hooks.sh`.**
 - 2026-11-21 FIX-BE: BE `phase/4` → `a50eabbb` (verify OK, two reviews; verdict MERGE).
 - 2026-11-21 FIX-APP-A: App `phase/4` → `324d3039` (verify OK, Opus 1c and Sonnet 2c ACCEPT; verdict MERGE; R05/R06 closed by the simulator checks S1–S3).
 - 2026-11-21 R34-BE: BE `phase/4` → `4b924f08` through the hook (bootstrap push). New `install-hooks.sh` run in this Mac's BE clone: `core.hooksPath` is now absolute (`.git/neoerp-hooks`). **Old Mac: after pulling, run `git show origin/phase/4:scripts/install-hooks.sh | bash -s` in your BE clone.**

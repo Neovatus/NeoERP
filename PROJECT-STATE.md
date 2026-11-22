@@ -1,6 +1,6 @@
 # NeoERP project state: active-workstream index
 
-**Updated 2026-11-21.** This is the one current state file. `PROJECT-STATE.claude.md` and
+**Updated 2026-11-22.** This is the one current state file. `PROJECT-STATE.claude.md` and
 `PROJECT-STATE.codex.md` are deprecated (history only).
 Format: [WORKFLOW.md](WORKFLOW.md) "One owner per record". Links, not history; detail lives in the owning plan.
 Most recent detail: the lead's handoff `.review-channel/handoff-implementer.md`.
@@ -10,7 +10,7 @@ Most recent detail: the lead's handoff `.review-channel/handoff-implementer.md`.
 [lessons register](docs/lessons.md).
 
 **Branches (2026-11-20):** both repos work on `phase/4`; one PR per phase to `main`.
-`phase/4` heads: App `324d3039`, BackEnd `a50eabbb` (2026-11-21). `main`: App `370ad7a6` (PR #4), BackEnd `c6d5a6f` (PR #7).
+`phase/4` heads: App `496c1517`, BackEnd `50ac03dc` (2026-11-22: TEST-SPEED-APP; TEST-SPEED-1 + BE-RUN-1 + BE-DOCS-1). `main`: App `370ad7a6` (PR #4), BackEnd `c6d5a6f` (PR #7).
 
 Integration owner for every row: **Jabran** (decides scope, approves). The lead runs the work.
 
