@@ -29,6 +29,12 @@
 # Handoff — ERP lead session (2026-11-16, ~09:00) — STOPPED at 92% weekly (reset 13:00)
 
 
+## Handoff — 2026-11-22 ~02:05 — new-Mac lead (builder Mac; read this first)
+
+Roles (WORKFLOW "Builder Mac and test Mac", inbox DECISIONs 2026-11-22): this Mac owns each lane up to the gate (brief, build, decisions per rule 2, Opus + second-reviewer reviews with re-runs, fix rounds ≤2, push, lane-ready with review files); the old Mac checks files, runs the full gate, merges after Jabran's MERGE and assigns tasks. Parallel builders allowed (own worktree, no shared files, one Gradle job per repo, `scripts/gradle-job.sh` under the L33 lock). Hand-backs ≤10 lines (L35); secret-files sentence in every brief; doorbell the old-Mac lead (`SendMessage`) on each lane-ready or blocker; compact at ~50% context.
+
+In flight: **R29b-1** (org; `phase/4-b2-r29b-1-r` `7b09f97d` on BE-JDK21-r `e872b28f`): built, 10 entries classified, baseline 44→35 (+R34 1→0), arch 70/0; Opus (re-runs) + Fable reviews running; builder open points in `docs/agents/r29b/builder-report-1-org.md`. **FIX-APP-B2 part a** (App `phase/4-b2-fix-app-b2` from B1 `c4da3143`): building (R31 A4 screens, R21, R01, R02, R18, R19, R25 G44, R16/R23); then Opus + Sonnet reviews. Next: R29b-2..5 one at a time (D-25 approved by Jabran 2026-11-22), App B2 part b; ring the old Mac when a slot frees.
+
 ## Handoff — 2026-11-22 ~01:10 — new-Mac lead stopping (read this first)
 
 Jabran asked the lead to stop after the three builders and hand over to a new session. **Nothing is running** (no builder,
