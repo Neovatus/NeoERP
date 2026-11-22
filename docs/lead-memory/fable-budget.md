@@ -15,3 +15,5 @@ Jabran 2026-11-21: "we can only use 50% of our limits with Fable, so use Fable e
 **Why:** Fable is the strongest reviewer but the scarcest; the week's other work must still fit. Related: [[new-mac-lead-effort-decisions]], [[second-reviewer-independent]], [[save-usage-limits]].
 
 **D-43 (Jabran 2026-11-22):** at 45% Fable stops; the second reviewer on gate, money and security lanes is then a fresh, independent Opus until the weekly reset. Fable was at 42% on 2026-11-22 afternoon. Effort: Fable at default (D-44, [[new-mac-lead-effort-decisions]]).
+
+**D-43 tightened (Jabran 2026-11-22 ~13:10):** no NEW Fable work until the weekly reset, starting now (at 42%); running Fable agents may finish. Second reviewer = fresh independent Opus, high effort for security reviews.
