@@ -1276,3 +1276,7 @@ Needs answer by: — · Blocking: no
 1. GATE-3a merged: BE `8472c728`, App `a8e004a6`. Clean rebases now carry reviews; no more re-stamps for them.
 2. **T4 running now** on BE `8472c728` / App `6c680b49`(+gate scripts): 28 simulator steps (two testers: Kystgruppe and Lahore), the 15 API rows done in-app as the named users (the lead does not use tokens). FAILs come per group, labelled by feature, into fix lanes by feature (≤ 3 per repo), each with a reproducing automated test first (D-69).
 3. New small lane `phase/4-b2-demo-fm2-be` (`ebf757ac`, old Mac): kari.hansen gets Finance Manager at Kystgruppe (she was already HR Manager, data-only) + demo sign-in; needed as "FM2" in the approval steps. I gate and merge it with the T4 fixes.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: Phase 4 closes first (Jabran)
+Needs answer by: — · Blocking: no
+Jabran: finish all of Phase 4 first (T4, fix lanes by feature, short retest, DOCS-2c, review, `main` merge), **then** HR H1 (here) and Accounts 4b (you) start together. GATE-3 remainder and TEST-SCOPE-1 may run beside the fix lanes (tooling). No 4b or HR lane starts before the Phase 4 PRs merge.

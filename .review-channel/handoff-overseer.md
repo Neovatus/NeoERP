@@ -50,7 +50,7 @@ TEST-SPEED-1/APP, BE-JDK21, FIX-APP-B1, R29b-1, FIX-APP-B2a, GATE-2, R29b-2, FIX
 | 11 | Scorecard + lessons (MEASURE-1 incl. gate-failure origin and builder test minutes; L36/L37) | old Mac | after 9 |
 | 12 | Merge `main` into `phase/4` (both repos), whole suite, MERGE PR verdicts, merge BackEnd #8 / App #5 | old Mac | last |
 
-## After Phase 4 (Jabran 2026-11-22)
+## After Phase 4 (Jabran 2026-11-22; **Phase 4 closes first**, then HR and 4b start together)
 New Mac: Accounts 4b (4.12 PLAT, 4.14, then 4.15–4.17). Old Mac: HR H1 → H4, then Payroll (H1 brief carries the H0 LOWs + HR `.env`
 passwords step). Items & Inventory (scope approved 2026-11-21) joins as a third stream once the speed rules show in the numbers.
 
