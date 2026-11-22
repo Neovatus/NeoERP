@@ -8,11 +8,11 @@ gates **in parallel** as the first proof.
 |---|---|---|
 | Branch (pushed) | `phase/4-b2-gate-2-be-r` | `phase/4-b2-gate-2-app-r2` |
 | Base | BE `phase/4` `64509abe` (R29b-1 merged; rebased, all 26 commits `=` in range-diff) | App `phase/4` `f7c993f4` (B2a merged; rebased twice, all 23 commits `=`, no gate-file change on the base) |
-| Head | `16d9a3fe` | **pending**: the reviewers are re-stamping for `853c2c81`; the lead updates this row and rings |
-| Self-tests (`GIT_CONFIG_GLOBAL=/dev/null bash scripts/risk-check-test.sh`) | 107/107 on the rebased head (lead); Opus re-run 107/107 before the rebase | 93/93 on `d0d2933b` (lead) and the Opus re-run; the `-r2` run is in progress |
+| Head | `16d9a3fe` | `8d7e8a96` (Reviewed `853c2c81`; the last commit is review files only) |
+| Self-tests (`GIT_CONFIG_GLOBAL=/dev/null bash scripts/risk-check-test.sh`) | 107/107 on the rebased head (lead); Opus re-run 107/107 before the rebase | 93/93 on the `-r2` head (lead); Opus re-run 93/93 on the same commits before the rebase |
 | Holes proven | 12 + 10 cases fail on the base scripts | 16 + 6 cases fail on the base scripts |
 | Final review files | `docs/agents/gate-2/review-final-1-opus.md`, `review-final-2-fable.md` | the same paths |
-| `risk-check.sh --reviews` (lead) | REVIEWS OK | REVIEWS OK on `d0d2933b`; again after the re-stamp |
+| `risk-check.sh --reviews` (lead) | REVIEWS OK | REVIEWS OK |
 | Report | `docs/agents/gate-2/builder-report.md` | the same path |
 
 **RISK:** every changed file except the docs is a gate file. The reviews were Opus fresh plus Fable (security), each
