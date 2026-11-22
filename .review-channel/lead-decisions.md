@@ -590,3 +590,30 @@ GATE-3 scope additions (D-45, from the old-Mac inbox item "D-46 review tiers"):
   of them touches the other reviewer's angle.
 Together with item 4 (patch-identical rebase) these teach the gate the D-46 review tiers. Until then, RISK-flagged
 lanes carry two gate-format files; AL-REST-APP keeps its running Sonnet seat for that reason.
+
+## D-48 AL-REST-APP review round 1 and Jabran's three design answers — 2026-11-22
+Reviews on `bb2aa051` (committed `b1b7560d`):
+- **Opus:** FIX, 2 MEDIUM and 4 LOW; re-ran 52 tests, 0 failed.
+- **Sonnet:** FIX, 2 MEDIUM and 8 LOW.
+- Both: amounts, dates, the four languages, the approve flow, `expectedStep`, the three proposals and the
+  `NeoApprovalSteps` API hold.
+**Jabran 2026-11-22 (in chat):**
+1. Keep the label "Owner's decisions" and add the date filter in this round.
+2. The "1 of 2 approved" tag shows on payments and refunds too, on its own line on narrow phones (spec §4.6).
+3. Follow the spec: wire "Why 2 approvals?" on payments and refunds, and move the stand-in count out of the badge
+   tooltip into the Waiting-for-you list header (§4.7 tooltip unchanged).
+Fix round 1, every item:
+- `OWNER_OWN_NOT_ALLOWED` gets words on one-step (Standard) items, on journal, payment and refund detail and on the
+  editor's "Post my own journal". This is the MEDIUM both reviewers found.
+- An unclear payment or refund step matches by `byUserId`, as journals do (Opus M2).
+- Report rows:
+  - The Item column gets words for Owner-switch rows instead of raw `JOURNAL v4` (Sonnet M2).
+  - Each kind has its own name, not "Other document".
+  - Amounts show their currency.
+  - The Reason column is never cut.
+- Kind names are lower case mid-sentence; the spec §4.5/§9 wording returns (with the step number); the Owner's own
+  list row keeps its "post it as Owner" note.
+- Thin refund tests: `expectedStep` on the last step, a raced step, an unclear step and an Owner's own step. APP-7 is
+  tested on its real editor-draft path.
+- The CSV number and date format: check the BackEnd CSV, and say what it is in the report.
+Re-check (WORKFLOW review tiers, D-46): each reviewer re-checks only its own findings. Opus re-runs the tests.
