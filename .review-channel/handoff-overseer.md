@@ -1,4 +1,4 @@
-# Handoff: old-Mac lead (overseer, test + integration Mac) — 2026-11-22 ~09:40 Europe/Oslo
+# Handoff: old-Mac lead (overseer, test + integration Mac) — 2026-11-22 09:00 Europe/Oslo
 
 Replace, don't append. Read with WORKFLOW.md and `docs/prompts/resume-overseer.md` after a compact.
 
@@ -25,7 +25,8 @@ App `phase/4` `8d7e8a96`, BE `phase/4` `16d9a3fe`; App `phase/hrp-v2` `b91d4abf`
 ## Running (this Mac)
 - Builders: HRP-H0-APP (Sonnet, `NeoERP-worktrees/hrp-h0-app`), HRP-H0-BE (Opus, `hrp-h0-be`), AC418-BE (Opus, `ac418-be`).
 - Gate: R29b-2 BE (`NeoERP-worktrees/r29b-2`, reviews `docs/agents/r29b/review-2-3-opus.md` + `review-2-4-fable.md`).
-- Jar-mode backend stack from `NeoERP-worktrees/be-jdk21` (BE 64509abe, Java 21). B2b iOS app built in scratchpad `ios-dd-b2b`.
+- Jar-mode backend stack: **not running** since the 08:5x session crash (restart from `NeoERP-worktrees/be-jdk21`, move it to BE `phase/4` first). B2b iOS app built in scratchpad `ios-dd-b2b` (stale after B2b's fix).
+- 08:5x: the Claude session went down; the Mac did not reboot (uptime 4 days). Load average peaked 227 on 14 cores (gate with 3 workers + 3 builders + Testcontainers). Keep at most one gate + two Gradle builders at a time on this Mac.
 
 ## Next steps
 1. R29b-2 gate → verdict → merge → doorbell (new Mac cuts R29b-3U + R29b-5; AL-REST-BE rebases).

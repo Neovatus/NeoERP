@@ -8,4 +8,4 @@
 - Simulator checks not run yet (after the fix). AC418-APP waits for B2b's merge.
 
 ## Timeline (old Mac, MEASURE-1)
-- Lane-ready ~09:00; gate 09:04–09:30 (26 min, failed: 1 test); verdict 09:35 Europe/Oslo. Escaped into the gate: a size test outside the targeted set (L36 check item: run every size test of each screen the lane touches before hand-back).
+- Lane-ready 08:27; gate 08:28–08:54 (26 min, failed: 1 test); verdict 08:55 Europe/Oslo. Escaped into the gate: a size test outside the targeted set (L36 check item: run every size test of each screen the lane touches before hand-back).
