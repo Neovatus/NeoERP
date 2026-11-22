@@ -263,3 +263,18 @@ Re-check after round 2: Fable only (the only FIX), diff look; Opus does not re-r
 ## D-30 FIX-APP-B2a fix checks (round 2, the last) — 2026-11-22
 Fix checks on `phase/4-b2-fix-app-b2-r` 5bd38d06: Opus ACCEPT (all ten fixed; 62 tests 0 failed), Sonnet FIX (all its findings fixed; new N1 MEDIUM, N2 LOW). Files `review-3-opus-fixcheck.md`, `review-4-sonnet-fixcheck.md`.
 Lead decisions (rule 2): fix Sonnet N1 in this lane (`AutoReversalListViewModel.read()` compares the query, not the raw filters, so a typed-only date change does not drop an answer; test old FAIL / new PASS). N2 (a version conflict on delete hides Delete draft until reopen) stays: it fails safe; a fix-list row for part b. Re-check: Sonnet only, diff look; the builder runs the changed class plus the JVM compile; the old Mac's gate covers the iOS compile.
+
+## D-31 GATE-2: align the two lanes; the clean-up after --stop — 2026-11-22
+Built: BE `phase/4-b2-gate-2-be` `77cd7eb0` (self-tests 97/97; 12 fail on the base scripts), App `phase/4-b2-gate-2-app` `503e5c4e` (89/89; 12 fail on the base).
+Lead decisions (rule 2; gate scripts, reviewed by Opus + Fable):
+1. The BackEnd report's table "Names and wording the App lane must match" is the shared spelling. The App lane matches
+   it where the item applies to both: the shared-home override `VERIFY_SHARED_GRADLE_HOME` (not a separate seed knob),
+   seed, clean-up and slowest-class console lines, the hook `gate=` rule and refusal texts, git `core.quotePath=false`
+   quoting, `--stop` then TERM after 10 s only for processes on the gate's own `gradle-home*` folder (never the shared
+   home). App-only differences stay where they have a reason (D8 scans code only: a JSON fixture names a docs page in
+   prose), written in its report.
+2. TERM after `--stop` is accepted: it is limited to the gate's own home, under its own lock. Moving the gate to the
+   in-process Kotlin compiler changes how the gate runs: not in GATE-2 (a GATE-3 candidate if daemons still stay behind).
+3. Real-Gradle proof of item 2 and `scripts/gw`: the old Mac's first two full gates in parallel (memory and swap logged,
+   per the brief) plus `scripts/gw --version` showing a 21.0.9+ Daemon JVM; the lane-ready files ask for it.
+Reviews: one Opus and one Fable call, each covering both lanes (and their alignment), each writing a gate file per lane.
