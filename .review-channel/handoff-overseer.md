@@ -1,4 +1,4 @@
-# Handoff: old-Mac lead (overseer, test + integration Mac) — 2026-11-22 19:40 Europe/Oslo
+# Handoff: old-Mac lead (overseer, test + integration Mac) — 2026-11-22 22:50 Europe/Oslo
 
 Replace, don't append. Read with WORKFLOW.md and `docs/prompts/resume-overseer.md` after a compact.
 
@@ -29,20 +29,21 @@ talk through `docs/inbox/erp-lead.md` + one-line SendMessage doorbells.
 - Up only while testing: stack + simulators start right before checks, stop right after. Simulator sign-in needs `simctl keychain reset`.
 
 ## Heads
-App `phase/4` `a8e004a6`; BE `phase/4` `8472c728`; App `phase/hrp-v2` `d91e45cd`; BE `phase/hrp-v2` `f1a6f944`.
+App `phase/4` `d1d7f9d1`; BE `phase/4` `91843a59`; App `phase/hrp-v2` `d91e45cd`; BE `phase/hrp-v2` `f1a6f944`.
 
 ## Merged today
 TEST-SPEED-1/APP, BE-JDK21, FIX-APP-B1, R29b-1, FIX-APP-B2a, GATE-2, R29b-2, FIX-APP-B2b, AC418-BE, HRP-H0-BE, HRP-H0-APP,
 **R29b-5, OUTBOX-CLAIM-BE (escaped defect fixed), AC418-APP, RISK-NARROW-1 (BE+App)**. Verdicts in `.review-channel/lane-verdict-*.md`.
 
-## Phase 4: what is left, and who (19:40)
-Plan: `.review-channel/phase4-plan.md` (lanes table is the source). All feature lanes merged: BE `phase/4` `8472c728`, App `phase/4` `a8e004a6` (GATE-3a in both).
-- **T4 run 1 done** (`t4-results-tester1/2.md`, ledger): 0 real FAIL except OBS-2; AL steps blocked by **APPROVAL_LIMITS released=false** (shared catalog); my data misses: N5 Ola on Lahore, D1, AC418-10a prep. B2b-14 PASS by design (refresh on focus).
-- **Fix lanes (new Mac, batch C):** FIX-AL-RELEASE-BE (shared catalog → **I am 2nd seat: fresh Opus here, brief + diff; I gate + merge**), FIX-OB-IMPORT-BE (real .xlsx template, D-58) → FIX-OB-IMPORT-APP (OBS-2 + held-out offer + B2a-S6 "Untick it to go on." string), DEMO-FM2-BE (`ebf757ac`, kari.hansen FM2; mine, gate with C).
-- Tooling beside C: TEST-SCOPE-1, then GATE-3 remainder.
-- Then: **T4 short retest** (blocked + failed steps only; **do data N5/D1/AC418-10a/fresh OB import first**; kari session: password file from docs via temp file, never printed), DOCS-2c, Phase 4 review (`phase4-review.md`, rule keep/change/drop), merge `main` into `phase/4`, whole suite both repos in parallel, MERGE PR verdicts, merge BackEnd #8 / App #5.
-- **Then** HR H1 (here; briefs `brief-hrp-h1-be/app.md` READY, D-59 all answered; HR `.env` passwords step with Jabran) and Accounts 4b (new Mac, D-61; I write `phase4b-plan.md` from `4b-lane-list.md` incl. e2e spike).
-- Usage: weekly ~90 %, reset **Tue 24 Nov 15:00**; stop line **99 %** (D-56).
+## Phase 4: what is left, and who (22:50, usage 98 % weekly, reset Tue 24 Nov 15:00)
+Heads: BE `phase/4` `91843a59`, App `phase/4` `d1d7f9d1`. All feature lanes + T4 fix lanes merged (AL release, OB import BE/App, demo FM2 + Ola on Lahore, GATE-3a).
+- **T4b done** (`t4b-results-tester1/2.md`, ledger): OB fixes PASS; AL works end to end; AL-P6/P7/O3 PASS by design (D-64 SR-L4 no exemption); stack and simulators DOWN.
+- **Open:** FIX-B2A-REFRESH-APP (new Mac building; editor must follow `recurringFeatureOn` on return-to-front) → I gate + merge (App, tier 1).
+- **Asked Jabran (no answer yet):** turn 6 uncovered steps (SW-B6, AL-R3, AL-Lang sv/da, B2a-S3.3 RV post, AC418-10b, B2b-3) into automated tests in the first 4b/HR lanes instead of another simulator run (new Mac agrees).
+- Tooling beside: TEST-SCOPE-1 (new Mac; yields the Gradle lock to fix lanes), then GATE-3 remainder.
+- **Then close:** DOCS-2c screenshots → `phase4-review.md` (rule keep/change/drop D-43…D-75, MEASURE-1 incl. cost + first-pass) → merge `main` into `phase/4` both repos → whole suite BE + App in parallel → MERGE PR verdicts → merge BackEnd #8 / App #5.
+- **Then:** HR H1 here (briefs READY incl. D-73 rows) and Accounts 4b on the new Mac (`phase4b-plan.md` waits for Jabran's review: lane order, E2E spike with Maestro + AXe).
+- **Stop rule:** at 99 % weekly: finish the current step, write handoffs, stop (both Macs, D-56; Jabran repeated it 22:45).
 
 ## After Phase 4 (Jabran 2026-11-22; **Phase 4 closes first**, then HR and 4b start together)
 New Mac: Accounts 4b (4.12 PLAT, 4.14, then 4.15–4.17). Old Mac: HR H1 → H4, then Payroll (H1 brief carries the H0 LOWs + HR `.env`
