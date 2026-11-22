@@ -75,3 +75,6 @@ Feature work is cut vertically: one roadmap item = one BE lane + one App lane, t
 feature, not by test round (small features joined, ≤ 3 fix lanes per repo). Cross-cutting lanes (isolation, gates, tooling) stay
 separate and small. The flow session is ordered by user flow, so each FAIL maps to one feature lane. The 4b and HR plans are per
 feature from the start (4.12, 4.14, 4.15 …; H1 slices).
+
+## Phase review checklist (D-63)
+At T5 the owner writes `.review-channel/phase4-review.md`: planned vs real time per test point and lane; cost per lane; first-pass gate rate; repeats and re-stamps; escaped defects; and every rule added in Phase 4 (D-43 … D-63) with its numbers → keep / change / drop. Dropped rules leave WORKFLOW in the same commit; changes go into `phase4b-plan.md` and the HR plan.

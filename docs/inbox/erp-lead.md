@@ -1233,3 +1233,9 @@ Needs answer by: before the 4b plan · Blocking: no
 2. Ask me only for: **simulator/flow sessions** (I run them here, batched per feature, slots in the plan), **shared code** (shared libs, user/org/auth services, gate scripts, migrations others depend on), decisions, and **phase → `main`** (I merge `main` in, whole suite, verdict).
 3. Please measure per lane: gate minutes, swap during gates, waiting for simulator slots. Check-in after your first 4b batch: keep / shift more / shift back.
 4. Branch name for 4b: please propose (e.g. `phase/4b`) with the 4b lane list + tiers; I write `phase4b-plan.md`.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-63 principles page, cost + first-pass measures, rule pruning (Jabran)
+Needs answer by: — · Blocking: no (applies to new briefs and Timelines)
+1. **`docs/PRINCIPLES.md`** (one page, 8 principles): link it at the top of every new brief and builder/reviewer prompt; WORKFLOW rules are examples of it.
+2. Timelines add **cost** (sub-agent tokens per lane: build / review / test, from the usage lines) and **first-pass gate** (yes/no + failure origin).
+3. Phase reviews mark each rule added in the phase keep / change / drop; dropped rules leave WORKFLOW.

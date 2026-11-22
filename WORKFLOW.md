@@ -1,5 +1,7 @@
 # NeoERP shared workflow and state maintenance
 
+> **Start with [docs/PRINCIPLES.md](docs/PRINCIPLES.md)** (one page, D-63). The rules below are examples of those principles; when a rule does not cover a case, apply the principles.
+
 This is the tool-neutral process contract for Codex, Claude and other agents.
 Read it on every task start/resume. Repository skills retain their technical
 checks; this document owns shared stage, approval, coordination and state-maintenance
@@ -130,6 +132,7 @@ How sessions split and run work. It applies on top of the stages above.
   5. **Plan tests per batch, not per agent; one test ledger.** Before any tester or reviewer starts, the lead merges every lane's planned checks, removes duplicates and marks what is already covered in [`.review-channel/test-ledger.md`](.review-channel/test-ledger.md) (both leads read it first and append after). Common flows (sign-in, company switch, post a journal, approve and pay) run once per batch on the combined code. Several lanes needing simulator checks share one stack session, one sign-in and one tester with the merged step list. Reviewer briefs say what is already tested.
   6. **One phase plan (Jabran 2026-11-22, D-53).** The old-Mac lead (test + integration Mac) owns one plan per phase for the whole flow (`.review-channel/phase<N>-plan.md`): the lanes, who builds each, branch and base, order, review tier, merge batches and the test points. Jabran reviews it; both leads follow it; changes go through the owner, who rings the other lead.
 - **Accounts on the new Mac (Jabran 2026-11-22, D-61, trial from Phase 4b).** New-Mac lead: Accounts end to end (build, review, its own scoped gates and merges into the Accounts phase branch) from the old-Mac phase plan; asks the old Mac for simulator sessions, shared-code changes, decisions and phase → `main`. Old-Mac lead: HR & Payroll end to end, simulator sessions for both, every phase → `main`. Check-in after the first 4b batch.
+- **Measure and prune (Jabran 2026-11-22, D-63).** Every lane's Timeline (MEASURE-1) adds two fields: **cost** (sub-agent tokens per lane, from the agents' usage lines, split build / review / test) and **first-pass gate** (yes/no, and the failure origin when no). Each phase review lists every rule added during the phase with its numbers and marks it **keep / change / drop**; dropped rules are removed from WORKFLOW in the same commit.
 - **The lead stays responsive.** The main agent talks with Jabran, plans, delegates, reviews and reports. Real work goes to sub-agents or background jobs, so Jabran's questions are answered while work runs. Keep a visible task list with progress.
 - **Parallel by files.** Run independent work as parallel workers, split so no two workers edit the same file. The lead integrates shared files.
 - **Models (Claude):**
