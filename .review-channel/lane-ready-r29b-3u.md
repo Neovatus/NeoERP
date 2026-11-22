@@ -1,6 +1,7 @@
 # Lane ready: R29b-3U (company isolation for the rest of user-service; the R29b cap reaches 0) — 2026-11-22
 
-**Repo / branch:** `NeoERP-BackEnd`, `phase/4-b2-r29b-3u-r`, pushed, head `f2f469f9`, on BE `phase/4` `df80e554`
+**Repo / branch (current):** `NeoERP-BackEnd`, `phase/4-b2-r29b-3u-r2`, pushed, head `1c0fc25c`, on BE `phase/4` `6d948693` (AL-REST-BE merged). The rebase was all `=`, but it was a **semantic merge break**: AL-REST-BE's `CompanyHolderReader.companyRoles` called the old unscoped `findUsersByIds`, so it did not compile. Both seats caught it. Fixed in `81b9f591` (scoped `findByIds(scope, ids)`). That run's own Gradle output: BUILD SUCCESSFUL, exit 0, user-service 737/0/4 (incl. DecideRolesTest), `:architecture-tests` 92/0. Gate files: `review-3u-7-opus.md` + `review-3u-8-opus-sec.md`, ACCEPT, Reviewed `81b9f591`, Range `6d948693..81b9f591`, REVIEWS OK.
+**Was:** `phase/4-b2-r29b-3u-r`, head `f2f469f9`, on BE `phase/4` `df80e554`
 (R29b-5, OUTBOX-CLAIM-BE and RISK-NARROW-BE merged). The rebase rewrote 5 commits, mostly to merge R29b-5's
 architecture lists, and added one test fix. Both seats checked those commits, and the rest are `=`.
 **Brief:** `docs/agents/r29b/brief-3u-user-rest.md`. Approved by Jabran 2026-11-22 (D-25 with Fable's conditions;
@@ -55,7 +56,7 @@ after one fix round and after the rebase.
 
 ## For the old Mac
 1. Check the two review files.
-2. Run `scripts/verify.sh --range origin/phase/4..HEAD --reviews docs/agents/r29b/review-3u-5-opus.md docs/agents/r29b/review-3u-6-opus-sec.md`
+2. Run `scripts/verify.sh --range origin/phase/4..HEAD --reviews docs/agents/r29b/review-3u-7-opus.md docs/agents/r29b/review-3u-8-opus-sec.md`
    with no wrapper.
 3. Jar-mode start: 8 healthy. **Org-service starts before user-service** (N2).
 4. Give the verdict and merge. **After the merge**, the lead deletes `docs/agents/r29b/evidence/` (D-37 item 3).
