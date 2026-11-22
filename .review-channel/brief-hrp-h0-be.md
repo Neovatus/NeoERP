@@ -44,7 +44,7 @@ on, and its machine jobs work one company per transaction. H1 and P0 then add bu
 7. "No environment holds real HR data" is **checked** on any hosted stack before the drop (D9), not assumed.
 
 ## Decisions
-**OD-1 goes to Jabran** (it changes approved spec text hr-h1 §12.1 "the first v2 migration creates every v2 table"); build the rest first and OD-1's part last, as recommended, unless he answers otherwise. **OD-2 decided by the old-Mac lead 2026-11-22 as recommended** (dev data only, reversible by re-seeding; Jabran: "whichever is efficient, go for it").
+**OD-1 decided by Jabran 2026-11-22 ("go with industry standards & recommendations"): as recommended**: H0 creates only the foundation tables; each later lane creates its own business tables in its own first migration, RLS from that migration (hr-h1 §12.1 is read that way; the H1 brief amends the spec text). **OD-2 decided by the old-Mac lead 2026-11-22 as recommended** (dev data only, reversible by re-seeding; Jabran: "whichever is efficient, go for it").
 - **OD-1 What H0 creates.** Rec: the foundation tables only: hr `audit_outbox`, `workflow_outbox`, `idempotency_keys`; payroll the same,
   each with company RLS and the M6 dispatcher policies, plus the **audit and workflow outbox dispatchers** (H0-12, H0-13). Business tables
   (employees, departments, runs…) come in H1/P0's own first migrations with RLS. Why: RLS, role and M6 tests need real company tables to

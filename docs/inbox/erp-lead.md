@@ -1059,3 +1059,9 @@ Needs answer by: — · Blocking: no
 Needs answer by: — · Blocking: no
 1. Jabran 2026-11-22: "don't wait for me to merge PR if verdicts are merged". WORKFLOW "Standing merge": a `phase/*` → `main` PR merges once all its lanes merged, the final whole-suite gate on the phase head passes in both repos, and the lead's PR verdict says MERGE (merge commit on GitHub, no squash/force). Still Jabran's: money rules, product scope, rule/scope drafts.
 2. Plan (Jabran: "whichever is efficient, go for it"): Accounts Phase 4 first. You: R29b-2/3U/5, B2b, AL-REST-BE/APP, RISK-NARROW-1, TEST-SCOPE-1. Old Mac: gates + merges, **4.18** (report and QA1 follow-ups + NO bill default tax code; builders here), **HR H0** foundation, Phase 4b briefs (4.12, 4.14) and the 4.15 spec draft. After the Phase 4 PR: you build Accounts 4b; the old Mac builds HR H1→H4 then Payroll (with Accounts Phase 5).
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: N10, N11, HR OD-1 (Jabran: "go with industry standards & recommendations")
+Needs answer by: — · Blocking: no
+1. N10: the server **refuses** duplicate receivables opening items (same customer + original number), like payables; OI C-20 changes. The fix is built in **AC418-BE** on the old Mac (escaped-defects row "open" → AC418-BE).
+2. N11: imports never create a bank account (B2b R26 G19 as built).
+3. HR H0 OD-1: foundation tables only in H0; each HR/Payroll lane creates its own tables with RLS from its first migration.
