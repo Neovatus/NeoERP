@@ -1,5 +1,7 @@
 # Brief: TEST-SCOPE-1 — gate runs only the affected modules and flows, BackEnd and App (2026-11-22)
 
+> **Principles first (D-63):** read the workspace `docs/PRINCIPLES.md` (8 principles; the WORKFLOW rules are examples of it). Builders who see one repo get a copy of it in the brief folder.
+
 **Approved:** Jabran 2026-11-22: "yes to … test scopes for target & effective services & flow, both app & backend". Two twin lanes: `phase/4-b2-test-scope-be` (BackEnd, the rules below) and `phase/4-b2-test-scope-app` (App, section "App" below). Both start **after GATE-2 merges** (all edit `verify.sh`, `risk-check.sh`, the hook).
 
 **Asked:** Jabran 2026-11-22: "make sure duplicates are not running; target and affected places run the test; we should

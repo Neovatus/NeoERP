@@ -1,5 +1,7 @@
 # GATE-3: the App gate catches up, review tiers in the gate, faster gate runs — brief (both repos)
 
+> **Principles first (D-63):** read the workspace `docs/PRINCIPLES.md` (8 principles; the WORKFLOW rules are examples of it). Builders who see one repo get a copy of it in the brief folder.
+
 **Approved:** Jabran 2026-11-22 (D-45, "after what you're doing"). Scope: D-45, its additions, and the old-Mac
 suggestions (`.review-channel/gate-3-suggestions.md`, items 1, 2, 4–8). **Two lanes, one per repo:** `phase/4-b2-gate-3-be` and
 `phase/4-b2-gate-3-app`, each cut from its repo's `phase/4` at start. **Review tier: 2** (gate scripts). The reviewers
