@@ -1,13 +1,14 @@
 # Lane ready: FIX-AL-RELEASE-BE (T4 blocker: release Approval limits) — 2026-11-22
 
-**Repo / branch:** `NeoERP-BackEnd`, `phase/4-b2-fix-al-release-be`, on BE `phase/4` `8472c728`. Code head `3d643b6c`; review commits follow.
+**Repo / branch:** `NeoERP-BackEnd`, `phase/4-b2-fix-al-release-be`, head `7246cee5`, on BE `phase/4` `8472c728`. Code head `3d643b6c`; only the two review commits follow it.
 **Brief:** `docs/agents/t4-fix-al-release/brief.md`. The source is the T4 blocker from the old Mac: Kystgruppe's Modules page showed "Approval limits: Coming later". This was missed in AL-REST, not decided.
 **Builder:** Opus 5.5, default effort. Report: `docs/agents/t4-fix-al-release/builder-report.md`, with the T4 retest steps.
 **Tier 1, plus a second seat from the old Mac** (shared catalog, D-61).
 
 ## Review files
 - `docs/agents/t4-fix-al-release/review-1-opus.md` (Opus 5.5, new Mac): ACCEPT, 0 HIGH, 0 MEDIUM, 3 LOW. Reviewed `3d643b6c`, Range `8472c728..3d643b6c`.
-- `docs/agents/t4-fix-al-release/review-2-opus-sec.md` (Opus 5.5 security (D-43), old Mac): copied in from the workspace once it is pushed.
+- `docs/agents/t4-fix-al-release/review-2-opus-sec.md` (Opus 5.5 security (D-43), old Mac): ACCEPT, 0 HIGH, 0 MEDIUM, 2 LOW (no AL-specific test that FINANCE off means AL off; the positive test sets up the service twice).
+- Lane head `7246cee5`. `risk-check.sh origin/phase/4..HEAD --reviews …`: RISK (shared catalog), **REVIEWS OK**.
 
 ## What it does
 - `EntitlementCatalog.kt:109`: `FINANCE.APPROVAL_LIMITS` is now released. It stays INCLUDED, the default stays off, and there is no migration. Every guard (the accounts `EntitlementGate` and the user-service stand-ins) reads org live.
@@ -37,6 +38,7 @@
 ## Follow-up rows (LOW, from Opus)
 - `EntitlementCatalog.kt:101`: a stale "Not released yet … Phase 4 A4" comment above three released features.
 - `org.md:1866-1869`: one line is longer than the rest (cosmetic).
+- Old-Mac LOWs: an AL-specific "FINANCE off → AL off" test; the positive test sets up the service twice.
 - Seed note: a local database where someone set this feature's row to true by hand before 2026-11-15 would now turn it on. Dev only.
 
 ## Timeline (new Mac; Europe/Oslo)
