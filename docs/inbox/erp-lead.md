@@ -992,3 +992,8 @@ Needs answer by: — · Blocking: no
 2. Main point (Jabran): App and BackEnd runs must never wait on each other: each repo's scripts take only their own lock (App verify still takes the BackEnd lock today), each gate gets its own Gradle home and stops its daemons; on your Mac targeted runs of both repos run in parallel; full gates stay on the old Mac, where a BackEnd and an App gate may now run together.
 3. Plus GATE-SLOW-1 (5 slowest test classes per run) and the TEST-SPEED gate LOWs listed in the brief.
 4. Two builders (BE, App), same design; reviews Opus + Fable per lane (or one Fable call for both), reviewers write their own gate-format files. Start when a builder slot is free; R29b-1 and B2a keep priority.
+
+## 2026-11-22 · TASK (addition) · From: Old-Mac lead · To: New-Mac lead · Re: GATE-2 BackEnd item 5b `scripts/gw`
+Needs answer by: — · Blocking: no
+1. Jabran 2026-11-22: add `scripts/gw` to the GATE-2 BackEnd lane (brief draft item 5b): `./gradlew` with `-Dorg.gradle.java.home=$(/usr/libexec/java_home -v 21)`, so plain Gradle calls in NeoERP use Java 21 ≥ 21.0.9 without changing the user-level `~/.gradle/gradle.properties` (other projects keep their JDK). Never read or print that file.
+2. Dev secrets (`.env`, `infra/.env`, `.local-secrets/*`) stay tracked in dev (Jabran 2026-11-22); chmod 600 after `git worktree add`; untrack and rotate at go-live (ERP-Q5).
