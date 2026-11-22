@@ -1,3 +1,67 @@
+# Handoff — 2026-11-22 ~23:20 (new Mac; STOP at 98-99 % weekly; reset Tue 24 Nov 15:00)
+
+**Read this section first after the reset.** Older sections below are history.
+
+## State
+- **Phase 4:** all feature lanes and all T4 fix lanes are merged.
+  - BE `phase/4` 91843a59: AL-RELEASE 7246cee5, OB-IMPORT-BE, DEMO-FM2 + Ola.
+  - App `phase/4` d1d7f9d1: OB-IMPORT-APP.
+- **T4/T4b are done** (old Mac):
+  - both OB fixes confirmed;
+  - AL-P6/P7/O3 by design (D-64; Jabran: SR-L4 applies to every proposal);
+  - B2b-14 by design (refresh on focus).
+  - The 6 uncovered steps are proposed as automated tests in the first 4b/HR lanes (old Mac asking Jabran).
+- **Decisions tonight:**
+  - D-56: usage stop line 99 %.
+  - D-58: OBS-2 xlsx.
+  - D-60: TEST-SCOPE-1 flows = Gradle only.
+  - D-62: read-scan bar — natural forms, pin files, evasion out of scope.
+  - D-64: R-AL by design.
+  - From the old Mac: D-71, D-73 (STRICT-FAKES-APP, contract + 4-language rows), D-75 (E2E spike Maestro vs AXe; a11y findings by feature).
+
+## In flight (resume these first)
+1. **FIX-B2A-REFRESH-APP** (`phase/4-b2-fix-b2a-refresh-app`, worktree `fix-b2a-refresh-app`, brief `16b626db`). The last Phase 4 fix.
+   - The bug: an open journal editor doesn't follow "Recurring off" on return-to-front (T4b B2a-S6).
+   - Builder `b2a-refresh-builder` (Opus). Tier 1; add a 2nd seat if `risk-check` says RISK (App gate, pre-GATE-3).
+   - Then lane-ready + ring the old Mac to gate.
+   - If the builder's report isn't in when you resume: check the branch head and `builder-report.md`. If it's missing, resume the builder (SendMessage `b2a-refresh-builder`) or start a fresh one on the brief.
+2. **TEST-SCOPE-1 BE** (`phase/4-b2-test-scope-be`, worktree `test-scope-be`):
+   - Round 1 fixed; round 2 is running (D-62: bare names, more patterns, pin KNOWN_READS/allowed-build files by blob, scan the whole project folder, non-text files, joined lines). Round-2 reviews are committed as `review-be-3-opus.md` / `review-be-4-opus-sec.md` (both FIX).
+   - Next:
+     - the builder finishes round 2;
+     - seats A (`ts-be-review-a`) and B (`ts-be-review-b`) re-check;
+     - rebase onto BE `phase/4` 91843a59 (GATE-3a carries reviews over a clean rebase);
+     - lane-ready + ring.
+   - Timing so far: 1 service 2 min, 3 modules 3 min, shared 16 min, full 16 min.
+3. **TEST-SCOPE-1 App** (`phase/4-b2-test-scope-app`, worktree `test-scope-app`):
+   - The lead change scopes `design.*` (roles range 146 s vs 703 s full).
+   - Round-1 reviews are committed (A: FIX 2H/1M; B: FIX 1H/3M/5L). Fix round 1 is running: always-run tree scans, design picking by every unit, camelCase → FULL, floors of emptied units, comments, string keys, `git grep -a`, KMM record. The D-62 bar applies.
+   - Next:
+     - the builder finishes;
+     - both seats (`ts-app-review-a`, `ts-app-review-b`) re-check;
+     - rebase onto App `phase/4` d1d7f9d1;
+     - lane-ready + ring.
+   - The builder agents may be gone after the reset: start fresh builders on the brief plus the round files if SendMessage fails.
+
+## Queue after the reset
+- GATE-3 remainder: `brief-gate-3.md` minus G7, plus rows. Starts after TEST-SCOPE-1 merges, because both touch the same gate files. Add: the hook runs the working tree's own pre-push (row from the TS-App review).
+- DOCS-2c.
+- Phase 4 close: review, phase → main PRs (old Mac).
+- **Then** 4b (Accounts, me) and HR H1 (old Mac) start together. See `4b-lane-list.md` with D-69, D-73 and D-75; STRICT-FAKES-APP comes first.
+
+## Rules in force
+- **One Gradle job on the whole Mac at a time.** Wait with `pgrep -f '[g]radle-job.sh|[v]erify.sh'`. Swap peaked at 9.4/10 GB.
+- **Fix lanes take the lock before tooling lanes.**
+- **Usage:** start new work until 99 % (D-56); at 99 % write the handoff and stop.
+- **Rows for after Phase 4:**
+  - AL KEEP_LATER words for stand-ins;
+  - AL `canConfirm` on the proposal view;
+  - OB detail load (extra evaluation);
+  - OB App LOWs (long caption, Back label, crumbs, importId check);
+  - iOS commonTest needs `kotlinx-coroutines-test`;
+  - the untick sentence shown twice;
+  - escaped-defect: email clear without the Keycloak sync.
+
 # Handoff — 2026-11-21 evening — new-Mac lead, before compacting
 
 ## Handoff — 2026-11-22 ~18:40 (new-Mac lead; supersedes ~16:50)
