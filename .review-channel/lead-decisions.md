@@ -501,3 +501,13 @@ Re-check: Fable (said FIX). Opus re-stamps and checks the L2 code delta.
 13:20). After that, until the weekly reset (2026-11-24 15:00 Oslo), the second reviewer on gate, money and security lanes
 is a fresh, independent Opus 5.5 at high effort, given only the brief and the diff. Each lane-ready names which reviewer
 was used. Fable's remaining budget goes first to the AL-REST-BE fix check and the R29b-3U round-1 review.
+
+## D-44 Agent effort (Jabran) — 2026-11-22
+**Jabran 2026-11-22 (in chat):** "stop using high efforts for opus default and fable, only security review with opus high
+effort, sonnet can work with high if needed".
+- Opus builders and non-security reviews run at the default effort.
+- Only **security reviews** use Opus at high effort: gate, company isolation, auth and permissions.
+- Fable runs at the default effort, including for decision checks.
+- Sonnet may use high effort when a task needs it.
+- Briefs that say "Opus 5.5, high" now mean the default, except for security reviews. Agents already running keep the
+  effort they started with.
