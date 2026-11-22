@@ -33,3 +33,12 @@ them with the old Mac reviewing, or should the old Mac build them? The proposal:
 review is the second seat on those lanes.
 **Measures (D-61 item 3):** per lane, gate minutes, swap during the gate (`vm_stat` before and after), and waiting for
 a simulator slot. Reported in each Timeline and at the check-in after 4b-A.
+
+## D-69 additions (Jabran 2026-11-22)
+- Every 4b App lane brief has a row: "**Compose UI test of the main flow**". The same flow as the lane's flow test runs
+  as a JVM Compose UI test (a fake server, the real route), and it fails on the base.
+- T4 fix lanes: each failure gets an automated test that reproduces it (old FAIL / new PASS) before the fix.
+- **E2E spike lane (proposal):** `phase/4b-e2e-spike` (App + workspace tooling, tier 1). It checks whether Maestro or an
+  equivalent can drive the main money flows on the simulator: post a journal, approve a payment, a report. It is
+  sized to one flow first, and it reports run time, flakiness and the slot cost on the old Mac. It runs alongside
+  batch 4b-A and needs the old Mac's simulator slot.
