@@ -1,7 +1,7 @@
 # Lane ready: EMAIL-UNIQ-BE (unique, case-insensitive email on iam.users) — 2026-11-22
 
-**Repo / branch:** `NeoERP-BackEnd`, `phase/4-b2-email-uniq-be`, pushed, head `233fdacb`. It sits on BE `phase/4`
-`9aca6c76`. **Rebase pending:** `phase/4` is now `df80e554`, after RISK-NARROW-BE. The lead rebases it once, on the old
+**Repo / branch (current):** `NeoERP-BackEnd`, `phase/4-b2-email-uniq-be-r`, pushed, on BE `phase/4` `1c0fc25c` (R29b-3U merged). The rebase moved the V50 mapping into R29b-3U's new ports (3 commits changed; no port wider) and adds the docs commit with R29b-3U's 5 release-gate rows and the deletion of `docs/agents/r29b/evidence/`. That run's own output on `5ae6e01d`: BUILD SUCCESSFUL, exit 0, user-service 745/0/4, arch 92/0. Gate files: `review-4-opus.md` + `review-5-opus-sec.md`, ACCEPT, Reviewed `5ae6e01d`, Range `1c0fc25c..5ae6e01d`, REVIEWS OK. **At merge, please amend gate row R29b-3U-5:** a losing inviter gets a 500 only when the winner commits between `adoptInvitedAccount` and the `createInvitedAccount` pre-check (UserRepositoryAdapter.kt:163); the one-line fix (throw `EmailTakenException` there) can ride with the row's decision.
+**Was:** `phase/4-b2-email-uniq-be`, head `233fdacb`, on `9aca6c76`. **Rebase pending:** `phase/4` is now `df80e554`, after RISK-NARROW-BE. The lead rebases it once, on the old
 Mac's ring, after R29b-3U and AL-REST-BE. The base move touches no user-service file.
 **Brief:** `docs/agents/email-uniq/brief.md`. Approved by Jabran (D-46u item 2; migration V50 approved).
 **Review tier 1.** The lane is RISK because it touches user persistence. Until GATE-3 the gate needs two gate files, so
@@ -9,7 +9,7 @@ a second Opus seat was added. Decisions: D-50.
 **Builder:** Opus 5.5, default effort. Report: `docs/agents/email-uniq/builder-report.md`.
 
 ## Review files (gate format)
-- `docs/agents/email-uniq/review-2-opus.md` (Opus 5.5, fix check) and `review-3-opus-sec.md` (Opus 5.5 security,
+- `docs/agents/email-uniq/review-2-opus.md` (Opus 5.5, fix check) and `review-3-opus-sec.md` (before the rebase; now `review-4-opus.md` + `review-5-opus-sec.md`) (Opus 5.5 security,
   D-43). Both say ACCEPT, Reviewed `19068976`, Range `9aca6c76..19068976`. `risk-check.sh --reviews`: **REVIEWS OK**.
 - History: `review-1-opus.md` asked for one fix (1 MEDIUM: a same-id create race gave a 500), and it is closed.
 
