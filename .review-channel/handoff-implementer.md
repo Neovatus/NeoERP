@@ -334,3 +334,14 @@ Fable process review: docs/reviews/process-review-fable-2026-11-20.md; lessons L
 5. One Sonnet retest of changed screens only; scorecard + lessons update.
 Omar's role: resolved (same role, doc fixed).
 - PROJECT-STATE: resolved 2026-11-20 — refreshed to today (7b0eb44); .claude/.codex copies deprecated; lead updates it every batch.
+
+## 20:30 update (new Mac)
+- D-56 (99 % usage), D-58 (OBS-2 xlsx), D-60 (TEST-SCOPE-1 flows = Gradle only).
+- Builders running:
+  - OB-IMPORT-BE (tier 2; item 2 matches drafts like the C-20 rule, OK'd)
+  - OB-IMPORT-APP (tier 1)
+  - TEST-SCOPE-1 BE and App (tier 2)
+  - FIX-AL-RELEASE-BE (tier 1; the old Mac is the second seat; catalog `released = false` was missed)
+- **Queued for OB-IMPORT-APP at its hand-back (item 3):** T4 B2a-S6. The greyed Submit note lacks "Untick it to go on.". The string `accounts_journal_error_auto_reverse_feature_off` already has it, so the screen uses another string or path. Reproducing test first.
+- B2b-14 is a PASS by design (the re-read happens on focus; live push is RT-3).
+- GATE-3 remainder waits for TEST-SCOPE-1 to merge (same files).
