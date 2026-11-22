@@ -695,3 +695,6 @@ From Accounts 4b (after the Phase 4 PR): the **new-Mac lead** runs Accounts end 
 
 ## D-65 Fewer sub-agents where a hand-off costs more than it gives (trial from 4b / HR H1) — 2026-11-22 (Jabran: "if it makes us efficient for development and limits")
 After Anthropic's "single agent vs subagents" guidance. **Keep sub-agents** for reviewers (independence: brief + diff only), builders (large context) and parallel testers. **Fold:** (1) fix rounds **resume the same builder** (SendMessage) instead of a new one; (2) small planning tasks (merging step lists, verdicts, plan edits, ≤ 3 files to read) are done by the lead directly; (3) re-stamps after clean rebases go away with GATE-3a. Measured with D-63 (cost per lane, first-pass gate); a fold whose numbers get worse is undone at the phase review.
+
+## D-67 Agents report brief gaps in every hand-back — 2026-11-22 (Jabran: "Yes add")
+Closes the "easy feedback" tip: every builder, reviewer and tester hand-back ends with "Brief: unclear or missing — …" or "none". Leads log them per lane (Timeline) and, at the phase review, fix the brief template and the brief check for gaps that repeat.

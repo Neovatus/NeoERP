@@ -307,7 +307,7 @@ The full repo stays checked out: the build, the shared modules, the architecture
 ## Reviews and reports (2026-11-20)
 - The `.review-channel/to-*.md` files and the cloud Cowork reviewer are retired (history in `.review-channel/archive/`, read only when someone refers to an old entry).
 - Reviews are fresh Opus sub-agents plus Codex or `/security-review` where the Working mode requires it. Reviewers report findings to the lead.
-- Builders end with one short report to the lead: commits or range, test scope run with counts, rulings needed, review verdict. Keep it to decisions and instructions, no restated history.
+- Builders end with one short report to the lead: commits or range, test scope run with counts, rulings needed, review verdict. Every hand-back (builder, reviewer, tester) ends with **"Brief: unclear or missing — …"** or "none" (D-67); the lead logs them in the lane's Timeline. Keep it to decisions and instructions, no restated history.
 - `.review-channel/handoff-<role>.md` stays, for handoffs.
 
 ## Canonical state and reference

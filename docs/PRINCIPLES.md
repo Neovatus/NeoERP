@@ -37,3 +37,4 @@ contradict them, follow the rule and tell your lead. Jabran 2026-11-22 (D-63).
    came from. Each phase review keeps, changes or drops every rule added during the phase based on those numbers. Rules that
    don't help are removed.
    *Examples: MEASURE-1, the phase plan review (D-55, D-63).*
+   Every builder, reviewer and tester hand-back ends with one line **"Brief: unclear or missing — …"** (or "none"). The lead counts these per lane and fixes the brief template and the brief check where they repeat (D-67).

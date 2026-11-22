@@ -1243,3 +1243,7 @@ Needs answer by: — · Blocking: no (applies to new briefs and Timelines)
 ## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-65 fewer sub-agents where hand-offs cost more (Jabran, trial)
 Needs answer by: — · Blocking: no
 From 4b / HR H1: fix rounds **resume the same builder** (SendMessage to its agent id) instead of a new one; small planning tasks (≤ 3 files) the lead does directly; reviewers, builders and parallel testers stay sub-agents. Log cost per lane (D-63) so the phase review can keep or undo it. PRINCIPLES.md principle 5 updated.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-67 brief-gap line in every hand-back (Jabran)
+Needs answer by: — · Blocking: no
+Add to every builder/reviewer/tester prompt: end the hand-back with **"Brief: unclear or missing — …"** or "none". Log them in the lane's Timeline; the phase review fixes the brief template where gaps repeat. (WORKFLOW "Reviews and reports", PRINCIPLES 8.)
