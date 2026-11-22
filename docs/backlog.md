@@ -438,3 +438,5 @@ Send `confirmedByUserId` per kind in GET /approval-limits so the app needs no Hi
 
 - **Retest round items from AC418-APP (2026-11-22):** step 16 on a quiet machine (Bjørn sends his own bill for approval, tries Approve → "You sent this for approval, so someone else must approve it."); check **bill submit** ("We couldn't confirm that this went through" seen under load ~570 with 503 AUTHZ_UNAVAILABLE; rule out a real fault); step 10 menu badges and the other lists (refunds, write-offs, receipts, payments, supplier refunds).
 - **Load rule (2026-11-22):** never run a simulator tester or the backend stack while a gate runs on this Mac (gate + stack + tester → load ~570, 503s, 20–60 s screens).
+
+- **Flaky: `S3ContractTest.gigabyteRoundTripUnderBoundedHeap`** (shared/file-store, 2026-11-22): `SocketTimeoutException: Read timed out` in the DEMO-FM2-BE gate (lane touches no file-store code; load ~13). A 1 GB round trip against the local MinIO in every gate is slow and load-sensitive. Fix: tag it as a slow contract test run only in the phase gate (T5) or with a smaller payload plus a streaming assertion, and a longer, explicit timeout. Do not rerun-until-green.
