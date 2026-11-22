@@ -18,6 +18,7 @@ Write a line before starting, remove it when done. Never touch work the other le
 3. **Fable budget (Jabran 2026-11-21):** Fable uses at most 50 % of the weekly limit (plan below 40 %, nothing new at 45 %). Fable does substantial work only: independent security reviews of gate, money and security lanes, batched checks of substantial decisions, and views on Jabran's critical lists. Few-line reviews, small fix confirmations and small decisions go to the lead, Opus or Sonnet.
 
 ## Merged lanes
+- 2026-11-22 HRP-H0-BE: BE `phase/hrp-v2` → `f1a6f944` (HR/Payroll v2 foundation; gate OK 4323/0/45; Opus + Fable ACCEPT; LOWs carried to H1-BE). Built on the old Mac.
 - 2026-11-22 FIX-APP-B2 part b: App `phase/4` → `430bc5ab` (gate OK 3992/0 after a size-test FIX round; simulator checks 0 FAIL, data-missing items to the retest; Opus + Sonnet ACCEPT; standing merge). QA-B2 App fix lanes complete.
 - 2026-11-22 R29b-2: BE `phase/4` → `409f45e5` (user-service resolver + RBAC; gate OK on rerun, 4481/0/59, money OK; Opus + Fable ACCEPT; standing merge). First gate's only failure was a load timeout in `DimensionSetConcurrencyTest` (accounts-service, untouched).
 - 2026-11-22 GATE-2: BE `phase/4` → `16d9a3fe`, App `phase/4` → `8d7e8a96` (both gates in parallel on the old Mac, 13 min each, 4438/0/59 and 3959/0/0, money invariants OK; Opus + Fable ACCEPT; standing merge). **Every checkout: run `scripts/install-hooks.sh`.** Gates now take only their own repo's lock.
