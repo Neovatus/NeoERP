@@ -1,7 +1,7 @@
 # Lane ready: AL-REST-APP (approval steps on journals, payments and refunds; Owner switch; self-approval report; S6) — 2026-11-22
 
-**Repo / branch:** `NeoERP-App`, `phase/4-b2-al-rest-app`, pushed, head `4da0be01`. It sits on App `phase/4` `430bc5ab`.
-**Rebase pending:** AC418-APP has merged, so `phase/4` is now `267270de`. The lead rebases the lane once, when the old
+**Repo / branch (rebased):** `NeoERP-App`, `phase/4-b2-al-rest-app-r`, pushed, on App `phase/4` `3fc42d32` (AC418-APP + RISK-NARROW-APP). The code merged on its own; only `journal-screens.md` conflicted (both sections kept). Builder after the rebase: every size-test class + `features.accounts.*` 2366/0 (one AC418 test, `ConfirmRaceWordsTest`, failed once and passed alone and on the full rerun: order-dependent, a row for AC418), JVM + iOS + Android OK. Gate files now: `review-app-5-opus.md` + `review-app-6-sonnet.md`, ACCEPT, Reviewed `c13df21b`, Range `3fc42d32..c13df21b`, REVIEWS OK. AL-REST-BE is merged (6d948693).
+**Was (before rebase):** AC418-APP has merged, so `phase/4` is now `267270de`. The lead rebases the lane once, when the old
 Mac rings for its turn; the re-stamps follow D-46 review tiers.
 **Merge order:** after AL-REST-BE. The App calls AL-REST-BE's new endpoints and the V79 rules.
 **Brief:** `docs/agents/al-rest/brief-app.md`, including the lead note: the API table OK'd, V79, Jabran's rules.
