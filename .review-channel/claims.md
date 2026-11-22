@@ -19,6 +19,7 @@ Write a line before starting, remove it when done. Never touch work the other le
 3. **Fable budget (Jabran 2026-11-21):** Fable uses at most 50 % of the weekly limit (plan below 40 %, nothing new at 45 %). Fable does substantial work only: independent security reviews of gate, money and security lanes, batched checks of substantial decisions, and views on Jabran's critical lists. Few-line reviews, small fix confirmations and small decisions go to the lead, Opus or Sonnet.
 
 ## Merged lanes
+- 2026-11-22 FIX-AL-RELEASE-BE: BE `phase/4` → `7246cee5` (Approval limits releasable; gate OK). DEMO-FM2-BE rebased as `-r`, gate running.
 - 2026-11-22 GATE-3a-app: App `phase/4` → `a8e004a6` (reviews carry over a clean rebase in both repos now).
 - 2026-11-22 GATE-3a-be: BE `phase/4` → `8472c728` (reviews carry over a clean rebase; seat 2 closed a short-sha tag forgery; gate OK). No more BE re-stamps after clean rebases.
 - 2026-11-22 FIX-APP-SWITCH: App `phase/4` → `6c680b49` (wrong-company journal request after a switch; gate OK). Batch B complete. GATE-3a-app next.
