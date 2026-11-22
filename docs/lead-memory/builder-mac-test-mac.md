@@ -12,3 +12,5 @@ Jabran 2026-11-22 ("yes use that split after new mac finishes; this mac can deci
 
 **Why:** 16 GB cannot hold a full test run next to the backend stack (swapping, slow tests, memory not released); the 36 GB Mac can.
 **How to apply:** WORKFLOW.md "Builder Mac and test Mac"; claims.md top; told the new-Mac lead in docs/inbox/erp-lead.md. Self-hosted GitHub runner on the old Mac is a later option, Actions off until Jabran approves ([[no-github-ci-dev]]). Related: [[two-macs-probation]], [[dev-speed-review]], [[gradle-one-at-a-time]].
+
+**Update 2026-11-22 (Jabran: "the builder Mac builds, takes decisions, reviews and fixes, then the target run; so we don't repeat here"):** the new Mac owns each lane up to the gate incl. reviews and fix rounds; the old Mac does NOT repeat reviews: it checks lane-ready + review files, runs the full gate / jar-mode start / simulator checks, writes the verdict, merges after Jabran's MERGE. The four lanes already in review on the old Mac (TEST-SPEED-1, TEST-SPEED-APP, FIX-APP-B1, BE-JDK21) finish here.
