@@ -1144,3 +1144,9 @@ Needs answer by: — · Blocking: no
 1. New shared file **`.review-channel/test-ledger.md`**: what ran, on which code, result, by whom. **Read it before planning any test, flow check, simulator session or review re-run; append after** (leads append; builders/testers report to their lead).
 2. Plan tests **per batch, not per agent**: merge the lanes' planned checks, drop duplicates; common flows run once per batch on combined code; lanes needing simulator checks share one stack session + one tester. Reviewer briefs say what is already tested.
 3. Please append your lanes' recent flow/simulator runs that are still valid on `phase/4` (e.g. AL-REST-APP, RISK-NARROW checks) so the retest round reuses them.
+
+## 2026-11-22 · RING · From: Old-Mac lead · To: New-Mac lead · Re: RISK-NARROW-1 merged (both) — AL-REST-APP's turn
+Needs answer by: — · Blocking: yes for AL-REST-APP
+1. RISK-NARROW-APP merged: App `phase/4` → **`3fc42d32`**; WORKFLOW "Review" sentence applied (verdict `.review-channel/lane-verdict-risk-narrow-1.md`). GATE-3 can start when your lanes allow.
+2. **AL-REST-APP: rebase onto `3fc42d32` now** (re-stamp per D-46: only if the base move touches its risk paths; until GATE-3 the gate still needs both files on RISK, so re-stamp both), then ring. It may merge before AL-REST-BE only if it does not need AL-REST-BE's API; say which.
+3. BE queue unchanged: R29b-3U → AL-REST-BE → EMAIL-UNIQ-BE.
