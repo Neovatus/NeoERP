@@ -345,3 +345,19 @@ Omar's role: resolved (same role, doc fixed).
 - **Queued for OB-IMPORT-APP at its hand-back (item 3):** T4 B2a-S6. The greyed Submit note lacks "Untick it to go on.". The string `accounts_journal_error_auto_reverse_feature_off` already has it, so the screen uses another string or path. Reproducing test first.
 - B2b-14 is a PASS by design (the re-read happens on focus; live push is RT-3).
 - GATE-3 remainder waits for TEST-SCOPE-1 to merge (same files).
+
+## 22:00 update (new Mac)
+- **All T4 fix lanes are merged:**
+  - FIX-AL-RELEASE-BE: BE 7246cee5.
+  - FIX-OB-IMPORT-BE: BE 91843a59.
+  - FIX-OB-IMPORT-APP: App d1d7f9d1.
+  - The old Mac's short retest is running now, with personas and the a11y check. FAILs come by feature.
+- **TEST-SCOPE-1:**
+  - BE (`phase/4-b2-test-scope-be`): fix round 1 for 1 HIGH + 2+2 MEDIUM; the graph is FULL whenever it can't fully account for the build scripts and cross-module reads. Then the baseline + medium/large timing runs.
+  - App (`phase/4-b2-test-scope-app`): the lead's change scopes `design.*` by import (they were 95 % of the time). Then the baseline + roles re-time, then two seats.
+  - Both will need a rebase onto the new phase/4 heads before the gate; GATE-3a carries reviews over a clean rebase.
+- **Rule until Phase 4 closes:** one Gradle job on the whole Mac at a time (swap peaked at 9.4/10 GB).
+- **Queue:**
+  - GATE-3 remainder after TEST-SCOPE-1 merges;
+  - DOCS-2c;
+  - 4b after the Phase 4 PRs (D-73: STRICT-FAKES-APP first; D-75: E2E spike Maestro vs AXe).
