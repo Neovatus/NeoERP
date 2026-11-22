@@ -624,3 +624,15 @@ Re-check (WORKFLOW review tiers, D-46): each reviewer re-checks only its own fin
 
 ## D-49 Who tests what: no reviewer re-runs; builder runs the gate's scope — 2026-11-22 (old-Mac lead; Jabran approved 1 and 3 in chat)
 Each change is tested once by its builder and once in combination by the gate. Reviewers stop re-running the builder's tests (they test only to prove a finding). Builders keep the full suites of touched services + architecture tests (insurance: a gate failure costs ~40–60 min; AC418-BE and B2b gate failures today came from tests outside the targeted set); after TEST-SCOPE-1 they run exactly the gate's scoped set. Gate scoped per lane (D-47). No stack/simulator on the test Mac while a gate runs. WORKFLOW "Who tests what".
+
+## D-50 EMAIL-UNIQ-BE review round 1 — 2026-11-22
+Opus (tier 1, high) on `bbca0748`: FIX, 1 MEDIUM and 3 LOW. V50, the partial index, the mapping and the invitations
+hold.
+Lead picks (rule 2):
+1. **M1, option (a):** when two creates race for the same email they reuse the same provisioned identity id. The loser's
+   `users_pkey` / `uq_users_idp_subject` collision now answers the same 409 "email taken", and a same-id race test
+   proves it. Only those named constraints map; any other violation stays a 500.
+2. **LOW 2:** the db-design duplicate query adds `AND btrim(email) <> ''`.
+3. **LOW 3:** `findByEmailIgnoreCase` matches what the index sees (`lower(btrim(email))`), so an invite for a stored row
+   with spaces finds the account instead of a 409. A test covers it.
+Re-check: the same Opus, on its findings only (D-46).
