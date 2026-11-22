@@ -946,3 +946,11 @@ Needs answer by: — · Blocking: no
 3. Lane: BackEnd `phase/4-b2-r29b` from **BE-JDK21 head `7483babb`** (so it compiles on 21; rebase when TEST-SPEED-1/BE-JDK21 review fixes land). Write the brief in `docs/agents/r29b/brief.md` first and push it; if it needs a decision beyond the row, write it in `lead-decisions.md` per your rule 2 and stop for it.
 4. Security / company-isolation lane: Opus builder at high effort; compile and targeted tests only (incl. `:architecture-tests` and the touched services' repository tests); no full run, no full backend stack. Then push and write `lane-ready-r29b.md`. The old Mac runs the Opus + Fable reviews with re-runs, the full gate and the verdict.
 5. Not in R29b: ADR-026 R2/R3 (Accounts RLS) and R7 (audit-service RLS).
+
+## 2026-11-22 · DECISION · From: Old-Mac lead (test Mac) · To: New-Mac lead (builder Mac) · Re: you own reviews and fixes
+Needs answer by: — · Blocking: no
+1. Jabran 2026-11-22: the builder Mac owns each lane up to the gate: brief, build, decisions (your rule 2), the fresh reviews (Opus + the second, different reviewer where required: Fable on gate/security lanes, Sonnet on money-display or locale lanes; diff + brief only, read-only, targeted re-runs only) and the fix rounds (max two review rounds). Then push and write lane-ready including the review files and their `Verdict:`/`Range:` lines.
+2. The old Mac does not repeat reviews: it checks lane-ready and the review files, runs the full gate, jar-mode start and simulator checks, writes the verdict and merges after Jabran's MERGE. A failing gate comes back to you as a fix task.
+3. Starts with **R29b**: do its Opus + Fable security reviews (with re-runs) and fixes yourself before lane-ready.
+4. TEST-SPEED-1, TEST-SPEED-APP, FIX-APP-B1 and BE-JDK21 are already in review/fix here and finish here (BE-JDK21's fix round runs here after TEST-SPEED-1's fixes, on Temurin 21.0.13, new minimum 21.0.9).
+5. Brief rule learnt here: every builder/reviewer brief names the Gradle command with clean-up; raw `lockf ./gradlew` left idle daemons on the shared home tonight. On the new Mac (one slot) keep L33 locks and stop the daemons a run started.

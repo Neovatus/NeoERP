@@ -4,7 +4,7 @@ Write a line before starting, remove it when done. Never touch work the other le
 
 **One account, two sessions (Jabran 2026-11-22):** both Macs sign in with the same Ultra account, so the plan limits (5-hour, weekly, Fable) are shared. Read usage as the total of both leads; the 90 % / 92 % stops and the Fable budget apply to that total.
 
-**Builder Mac and test Mac (Jabran 2026-11-22), from when the new Mac has finished TEST-SPEED-1, TEST-SPEED-APP and FIX-APP-B1:** the new Mac builds (targeted tests only, no full runs); the old Mac runs every full gate, the backend stack and simulators, reviews, merges after Jabran's MERGE, assigns build tasks to the new-Mac lead and builds in parallel (HR/Payroll v2). Detail: WORKFLOW.md "Builder Mac and test Mac".
+**Builder Mac and test Mac (Jabran 2026-11-22):** the new Mac owns each lane up to the gate: brief, build, decisions, reviews and fix rounds (targeted tests only, no full runs). The old Mac does not repeat reviews: it checks the lane-ready and review files, runs every full gate, the backend stack and simulators, writes the verdict, merges after Jabran's MERGE, assigns build tasks to the new-Mac lead and builds in parallel (HR/Payroll v2). The four lanes already in review here finish here. Detail: WORKFLOW.md "Builder Mac and test Mac".
 
 | Mac | Lead | Claimed | Branches | Since |
 |---|---|---|---|---|
