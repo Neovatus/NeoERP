@@ -20,6 +20,7 @@ talk through `docs/inbox/erp-lead.md` + one-line SendMessage doorbells.
   whole suite only phase → main); **D-49 who tests what** (no reviewer test re-runs; builder runs touched services + arch, later
   the gate's scoped set); **D-51 speed rules** (batch fixes, flow test before review, Opus brief check, check first / don't repeat /
   ask, **test ledger** `.review-channel/test-ledger.md`, plan tests per batch). D-numbers: old Mac odd, new Mac even.
+- **Gate worktrees are detached: always pass `--range origin/phase/<N>..HEAD` to `verify.sh`** (without it the base is `origin/main` and reviews are refused after the full run; cost 16 min on AL-REST-APP).
 - Review files: exactly one line containing "verdict"; two different `Reviewer:` names. Run `scripts/risk-check.sh <base>..HEAD
   --reviews f1 f2` before `verify.sh` (fail fast until GATE-3).
 - One gate at a time on this Mac; **no backend stack or simulator while a gate runs** (load ~570 today → 503s, swap 11 GB).
@@ -58,6 +59,7 @@ Platform audit log self-reads; audit claim never counts attempts; journal detail
 hand entry of original number (**Jabran's scope call**); retest items; load rule; DimensionSetConcurrencyTest flake.
 
 ## Open with Jabran
+- **HR/Payroll DB passwords:** before the first HR flow test, tell Jabran: add 4 lines to `NeoERP-BackEnd/.env` (`HR_DB_PASSWORD`, `HR_FLYWAY_PASSWORD`, `PAYROLL_DB_PASSWORD`, `PAYROLL_FLYWAY_PASSWORD`), or allow me once to append random values unread; then I run `scripts/hr-payroll-db-roles.sh` on the hrp-v2 BE checkout.
 - Opening items: add a hand-entry editor with the original number, or import-only? (not blocking)
 - Spotlight: exclude `~/Offices/Neovatus/NeoERP-worktrees` and `~/Offices/Neovatus/NeoERP` (System Settings → Spotlight Privacy) on both Macs.
 - JABRAN-TODO N3, N8; HR `.env` passwords for hrp-v2 later.
