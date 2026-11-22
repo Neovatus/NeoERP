@@ -18,3 +18,5 @@ Jabran 2026-11-22 ("yes use that split after new mac finishes; this mac can deci
 **Parallel builders (Jabran 2026-11-22):** "the new Mac lead builder can do multiple builders in parallel, we should do that". Several builders at once on the builder Mac, each its own lane/worktree, no shared files; Gradle one job per repo (L33) on 16 GB; back off on swap/OOM. Supersedes "one builder at a time" in [[save-usage-limits]] and [[builder-batching]] for the builder Mac. Keep a task queue in claims.md so a freed slot gets work.
 
 **Backend stack on demand (Jabran 2026-11-22):** start the local stack only right before simulator checks or Jabran's own testing, stop it after; gates and builders use Testcontainers and never need it.
+
+**D-61 (Jabran 2026-11-22, trial from Accounts 4b):** new Mac (16 GB) runs Accounts end to end incl. its own scoped gates and merges into the Accounts phase branch; asks the old Mac for simulator sessions (run here on 36 GB), shared-code changes, decisions and phase → main. Old Mac: HR & Payroll end to end + all simulator sessions + every phase → main. Check-in after the first 4b batch.
