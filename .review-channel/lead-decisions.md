@@ -711,3 +711,9 @@ Weekly usage reached 90 % (the stop line) at 18:40. **Jabran (in chat): "Start f
 
 ## D-71 Usage at 90 %: Phase 4 fix lanes only, until the reset — 2026-11-22 ~19:00 (Jabran: "Start fixes now", on the new Mac)
 Weekly all-models usage 90 % (reset **Tue 24 Nov 15:00**, not Monday). Exception to the 90 % "start nothing new" rule: the T4 fix lanes start as FAILs arrive (≤ 3 per repo, one builder + one review each, default effort, reproducing test first). Nothing else new before the reset (no HR H1, no 4b, no other reviews). At 92 % both Macs finish the current step, write handoffs and stop. The running T4 testers (Sonnet) finish.
+
+## D-56 Full plan usage allowed; replaces the 90 % / 92 % stop (D-71 widened) — 2026-11-22 ~19:20 (Jabran, on the new Mac: "i think we can use full usage in as that my pernsonal subscrption")
+- The plan is Jabran's own subscription, so both Macs may use it fully (weekly and 5-hour).
+- Jabran, follow-up: "at lteast 99% should be used". New work may start until **99 %**. At **99 %** both Macs start nothing new, finish the current step, write handoffs and stop (the handoff fits in the last 1 %).
+- So the D-71 hold ends: the queue resumes now — T4 fix lanes first, then GATE-3 remainder, TEST-SCOPE-1, DOCS-2c; 4b after Jabran reviews `phase4b-plan.md`.
+- Unchanged: effort rules (D-44), review tiers (D-46), no new Fable (D-43), one Gradle job per repo lock.

@@ -303,7 +303,7 @@ The full repo stays checked out: the build, the shared modules, the architecture
 - A fresh session is only needed when compaction has happened several times and quality drops.
 - Don't wait for automatic compaction in the middle of a wave or a review: details get lost and mistakes repeat.
 - Hand off at natural boundaries (end of a wave, a checkpoint or a review) even below the threshold when the next piece of work is large.
-- At 90 % of the plan limit (5-hour or weekly) start nothing new and finish what runs; at 92 % stop and hand off.
+- Start new work until 99 % of the plan limit (5-hour or weekly); at 99 % start nothing new, finish the current step, write handoffs and stop (D-56, Jabran 2026-11-22; was 90 % / 92 %).
 
 ## Reviews and reports (2026-11-20)
 - The `.review-channel/to-*.md` files and the cloud Cowork reviewer are retired (history in `.review-channel/archive/`, read only when someone refers to an old entry).
