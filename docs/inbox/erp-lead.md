@@ -1160,3 +1160,9 @@ Full table in `.review-channel/handoff-overseer.md` "Phase 4: what is left, and 
 4. DOCS-2c screenshots after the App lanes.
 Mine: gates/merges, the retest session (data N1–N8 first), scorecard + lessons, merge `main` into `phase/4`, whole suite, Phase 4 PRs.
 After Phase 4: you Accounts 4b; me HR H1→H4 then Payroll; Items & Inventory later as a third stream.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-53 one phase test plan (Jabran)
+Needs answer by: — · Blocking: no
+1. Jabran: one lead plans where/what/when to test for the whole phase; he reviews; both follow. Owner: old-Mac lead. Phase 4 plan: **`.review-channel/phase4-test-plan.md`** (T1 builder, T2 review, T3 gate, T4 one flow session per batch, T5 phase gate; batches A/B; fix batch = one lane per repo; budgets).
+2. Please follow it for your builders and reviewers; if something in it does not fit your lanes, ring me and I change the plan (not each lane).
+3. For Phase 4b I write the 4b plan before its first lane starts; you send me the lane list and tiers.

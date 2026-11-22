@@ -639,3 +639,6 @@ Re-check: the same Opus, on its findings only (D-46).
 
 ## D-51 Speed rules: batch, flow test before review, brief check, check-first-don't-repeat — 2026-11-22 (Jabran in chat)
 Jabran approved the three process changes (bigger lanes merged in batches; simulator/flow test before review; Opus brief check before building) and added: "we must be smart, so we don't repeat; test only when needed, and ask each other, leads or sub-agents". WORKFLOW "Speed rules". Measured on the first Phase 4b and HR lanes against the Phase 4 MEASURE-1 baseline (build 28 %, review+fix 42 %, gate 19 %, waiting 12 %; 17 of 25 review runs repeats on 2026-11-22).
+
+## D-53 One phase test plan, owned by the old-Mac lead — 2026-11-22 (Jabran in chat)
+Jabran: "one lead fully decides and plans where to test for the full phase; I might review; both follow in sequence". Owner: the old-Mac lead (test + integration Mac). First plan: `.review-channel/phase4-test-plan.md` (test points T1–T5, merge batches A/B, flow session, fix batch, phase gate, budgets). WORKFLOW Speed rules item 6.
