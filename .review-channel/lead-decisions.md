@@ -374,3 +374,20 @@ Lead decisions (rule 2; each item is one a reviewer proposed, and the fix checks
 4. **BE, widen now (Fable HIGH + MEDIUM, Opus MEDIUM):** add `services/*/src/main/kotlin/com/neovatus/*/delivery/**`, `services/*/src/main/kotlin/com/neovatus/*/application/port/**`, accounts `domain/**`, `infrastructure/iam/**`, `infrastructure/org/**`, `infrastructure/persistence/**`, `application/service/setup/**`, `shared/file-store/**`, `shared/domain-events/**`, plus the security test folders and `src/test/resources/fe3/**` from Fable's list. Reason: these hold endpoint permissions, wire amount parsing, company keys and crypto. Leaving them NORMAL lets a one-reviewer lane change them. The replay states how many of the last Phase 4 BE lanes would change from NORMAL to RISK. Fix `verify.md:387-389` to say what is covered.
 5. **LOWs:** the WORKFLOW text says "host" correctly; BE notes that wording under the resources catch-all stays RISK; the App amount-text code in `JournalLineGrid.kt:464` is covered by item 1.
 Re-check: Opus and Fable (both said FIX), Opus re-runs the self-tests and the replay.
+
+## D-37 R29b-3U and R29b-5 briefs (trial B) — 2026-11-22
+Context: R29b-2 merged (BE `phase/4` `409f45e5`, workspace `fbf3cf9`). Trial B (Jabran): R29b-3U (18 user-service
+entries + R29b-2 follow-ups F1–F5, Fable N1–N3, Opus N1) and R29b-5 (4 audit + 1 auth) in parallel from `409f45e5`.
+Briefs: `docs/agents/r29b/brief-3u-user-rest.md` (`r29b-3u` worktree) and `brief-5-audit-auth.md` (`r29b-5`).
+Lead decisions (rule 2):
+1. **F1 `PersonAuditFanOutPort` key** (D-25 left it open): a system entry keyed by "a person change that
+   `UserAdminAuthorization` already allowed", pinned to `UserAdminService`, frozen; the company ids only feed the audit
+   events and never reach a caller or a read (arch rule or test). Why: it widens no read; the events are what the
+   companies' own audit trails need. **Fable checks this item explicitly in the R29b-3U round-1 review** (approval or
+   not recorded there); if Fable does not approve, it goes to Jabran.
+2. Fable N1 (limit org's `franchisesOf` to user-service's machine client) is an org change, allowed in R29b-3U because
+   it is the R29b-2 wire; R29b-5 touches neither user nor org.
+3. `MAX_UNCLASSIFIED`: each lane lowers it by its own count (23 → 5 and 23 → 18); the second to merge rebases, and the
+   cap meets at 0. The lead deletes `docs/agents/r29b/evidence/` in a docs commit after both merge.
+4. Start: both builders start together once the two AL-REST-BE builders free their BackEnd slots (at most 2 BE
+   builders on this Mac); the wait is logged in each Timeline.
