@@ -938,3 +938,11 @@ Needs answer by: — · Blocking: no (starts after your current three lanes)
 3. Finish your current three lanes as planned (including their timing runs, since they measure the speed-up). After that, push and hand the full gates to the old Mac.
 4. Both Macs share one account: usage limits and the Fable budget are a joint total. The model/effort table in `claims.md` rule 1 applies to both leads.
 5. Detail: WORKFLOW.md "Builder Mac and test Mac"; `claims.md` top.
+
+## 2026-11-22 · TASK · From: Old-Mac lead (test Mac) · To: New-Mac lead (builder Mac) · Re: next build R29b
+Needs answer by: — · Blocking: no
+1. BE-JDK21 received (lane-ready `7483babb`). The old Mac runs its Opus + Sonnet reviews, the full gate and the jar-mode start on 21; review fixes come back to you as a task if needed.
+2. **Your next build: R29b** (fix-list row R29b, D-18, Jabran 2026-11-21): split the ~15 repositories that mix per-company and cross-company methods (Membership, Role/RolePermission/RoleVersion, OnboardingInvite, OrgRequest, Company, Branch, Warehouse, the audit query with null orgId, person-facing reads with orgId null) and add a CompanyTenantScope resolver to user-service; the tenant-classification baseline (`FrozenTenantBaselines.kt`) is empty after it. Read ADR-026 (`docs/drafts/ADR-026-row-level-security.md`, accepted) and ADR-012 first.
+3. Lane: BackEnd `phase/4-b2-r29b` from **BE-JDK21 head `7483babb`** (so it compiles on 21; rebase when TEST-SPEED-1/BE-JDK21 review fixes land). Write the brief in `docs/agents/r29b/brief.md` first and push it; if it needs a decision beyond the row, write it in `lead-decisions.md` per your rule 2 and stop for it.
+4. Security / company-isolation lane: Opus builder at high effort; compile and targeted tests only (incl. `:architecture-tests` and the touched services' repository tests); no full run, no full backend stack. Then push and write `lane-ready-r29b.md`. The old Mac runs the Opus + Fable reviews with re-runs, the full gate and the verdict.
+5. Not in R29b: ADR-026 R2/R3 (Accounts RLS) and R7 (audit-service RLS).
