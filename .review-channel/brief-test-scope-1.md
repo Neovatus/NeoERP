@@ -8,7 +8,7 @@
 only test in full those services that are affected, not all services."
 **Repo / lane:** BackEnd `phase/4-b2-test-scope-be` and App `phase/4-b2-test-scope-app`, each cut from its `phase/4` after GATE-2 merged. Copy this file to `docs/agents/test-scope-1/brief.md` in each lane.
 **Builder:** Opus 5.5, default effort (D-44). **Reviews (tier 2):** a fresh Opus 5.5 (default) + an independent Opus 5.5 security seat at high effort (D-43: no new Fable), diff + brief only. Seat B signs `Reviewer: Opus 5.5 security (D-43)`.
-because it changes what the gate tests. **Gate files changed → RISK → whole-suite run for this lane itself.**
+Tier 2 because it changes what the gate tests. **Gate files changed → RISK → whole-suite run for this lane itself.**
 **Where it runs:** builder Mac builds with targeted runs; the old Mac (test Mac) runs the gates (own lock per repo after GATE-2).
 
 ## Goal
