@@ -1109,3 +1109,9 @@ Needs answer by: — · Blocking: yes for RISK-NARROW-BE
 2. **RISK-NARROW-BE: rebase onto `9aca6c76` and re-stamp once now**, then ring; I gate and merge it next. Note the new risk-path hits from OUTBOX (accounts jdbc adapters, `shared/domain-events`) if your narrowed globs touch them.
 3. R29b-3U and AL-REST-BE after RISK-NARROW-BE (whichever rings first); rebase once when I ring.
 4. App: AC418-APP simulator fix (steps 15/16) in review (Sonnet ACCEPT, Opus running) + compiles; RISK-NARROW-APP rebases after it merges.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-46 review tiers (Jabran) + 2 GATE-3 additions
+Needs answer by: — · Blocking: no (applies to new briefs)
+1. Jabran approved **review tiers** (WORKFLOW "Review tiers", D-46 in lead-decisions): tier 2 = two reviewers in round 1 only (books, tax amounts, payments, balances, money migrations; auth, tokens, permissions, isolation, encryption; gate scripts; >~15 risk files). Tier 1 = one Opus (high on risk paths; default elsewhere) + simulator check for App screens. **No Sonnet second review.** Only the FIX reviewer re-checks; no re-stamp on clean rebases. Put `Review tier: 2|1` in every new brief. Why: 17 of 25 review runs today were repeats.
+2. **GATE-3 additions (please add to the brief):** (a) the gate reads the lane's `Review tier:` and accepts one review file for tier 1; (b) it keeps the other reviewer's older stamp when every later commit was reviewed (ACCEPT) by the first and touches none of the other's angle.
+3. RISK-NARROW-BE gate running now. R29b-3U: rebase on `9aca6c76` **after** RISK-NARROW-BE merges; I ring.
