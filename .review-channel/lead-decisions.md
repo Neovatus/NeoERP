@@ -357,3 +357,20 @@ Lead decisions (rule 2):
 3. **Rows:** R33b (short screenshot frames for the other ~45 classes); BackEnd `ACCRUED_EXPENSES`/prepaid pack role; BackEnd durable opening-items link (N10); BackEnd per-row reason for `creatable=false` (so the App can be specific).
 
 Re-check: both reviewers (both said FIX). Opus re-runs.
+
+## D-36 RISK-NARROW-1 review round 1 — 2026-11-22
+Reviews (both lanes, gate format, committed in the worktrees as `2c7f65c0` App, `9d20e59a` BE):
+- **App `da221f03`:** Opus FIX (2 MEDIUM, 4 LOW); Fable FIX (4 MEDIUM from the range, 1 MEDIUM not from it, 2 LOW). Runs 95/95.
+- **BE `a29e0ac9`:** Opus FIX (1 MEDIUM, 1 LOW); Fable FIX (1 HIGH, 1 MEDIUM, both there before the range; 1 LOW). Runs 108/108.
+- Both: nothing in the BE range makes a RISK path NORMAL; the App replay results hold.
+
+Lead decisions (rule 2; each item is one a reviewer proposed, and the fix checks confirm it):
+1. **App, keep RISK (the union of both lists):** `PaymentsHost`, `PayablesHost`, `ReceiptsHost`, `ReceivablesHost`, `RefundsHost`, `ObImportHost`, `SupplierRefundsScreen`, the Payment, Receipt and Refund editor screens, `SalesDocumentDetailScreen`, `AllocateSheet`, `WriteOffSheetScreen`, `journals/editor/JournalLineGrid.kt` with `TouchNumberKeyboardTest` and `JournalGridKeyboardTest`. They build view models with company, currency and access, or decide amounts, sides or owner actions. The new NORMAL self-test case must not pin any of them.
+2. **App, unlisted deciding files (Fable 5, Opus LOW):** add `Suppliers.kt`, `Customers.kt`, `GoLiveReviewViewModel.kt`, `AdvanceDeductionPlan.kt` and `journals/route/**`. This widens the list (safe direction).
+3. **Guard for narrowed folders (both MEDIUM):**
+   - `risk-check.sh`: a file **added or renamed into** any folder whose folder glob this lane replaced with file names is RISK until it is listed (diff status A/R). One self-test for each case (added, renamed in, modified unlisted file stays NORMAL).
+   - `verify.sh` runs the dead-glob check (`--unmatched-globs`), so a glob that matches nothing fails the gate. In both repos.
+   - Opus's alternative (a buildrules jvmTest on view-model shapes) is not taken: the diff-status rule is simpler and also catches `BillEditor.kt`-style names.
+4. **BE, widen now (Fable HIGH + MEDIUM, Opus MEDIUM):** add `services/*/src/main/kotlin/com/neovatus/*/delivery/**`, `services/*/src/main/kotlin/com/neovatus/*/application/port/**`, accounts `domain/**`, `infrastructure/iam/**`, `infrastructure/org/**`, `infrastructure/persistence/**`, `application/service/setup/**`, `shared/file-store/**`, `shared/domain-events/**`, plus the security test folders and `src/test/resources/fe3/**` from Fable's list. Reason: these hold endpoint permissions, wire amount parsing, company keys and crypto. Leaving them NORMAL lets a one-reviewer lane change them. The replay states how many of the last Phase 4 BE lanes would change from NORMAL to RISK. Fix `verify.md:387-389` to say what is covered.
+5. **LOWs:** the WORKFLOW text says "host" correctly; BE notes that wording under the resources catch-all stays RISK; the App amount-text code in `JournalLineGrid.kt:464` is covered by item 1.
+Re-check: Opus and Fable (both said FIX), Opus re-runs the self-tests and the replay.
