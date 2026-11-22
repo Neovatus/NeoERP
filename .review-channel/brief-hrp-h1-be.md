@@ -134,17 +134,17 @@ Review · Test · Waiting minutes, tokens per agent, FIX rounds, changed files, 
 **Done when** (per slice): its items proven, targeted + full suites 0 failed with no unexpected skip, both seats ACCEPT, docs listed, T3 green, merged.
 
 ## Open questions (OQ-1…OQ-7 decided in D-59, all (a), written into the items above). New ones from the brief check:
-- **OQ-8 Job-change `kind` (lead).** (a) Optional in the body, server derives it from the changed fields, App sends none in H1; (b) App adds a kind picker.
+- **OQ-8 — DECIDED (a), D-59.** Job-change `kind` (lead).** (a) Optional in the body, server derives it from the changed fields, App sends none in H1; (b) App adds a kind picker.
   **Rec (a):** the spec panel has no such field; a derived, stored value keeps Payroll's reading; a picker can come with H4's lifecycle types.
-- **OQ-9 Attachments (product scope, Jabran).** (a) In H1: optional document on HR bank changes (B13) and ESS change requests (`POST /me/documents`,
+- **OQ-9 — DECIDED (a) by Jabran 2026-11-22, D-59.** Attachments (product scope, Jabran).** (a) In H1: optional document on HR bank changes (B13) and ESS change requests (`POST /me/documents`,
   24 h purge of unlinked uploads, B17); (b) out until a later slice. **Rec (a):** spec §5/§7 and the contract have it; evidence on a bank change is
   standard practice against payment fraud, and the file store is ready.
-- **OQ-10 Directory status options (lead).** (a) H1: Active · Ended · All (default Active); H2 adds "Active and on leave" and "On leave"; (b) show the leave
+- **OQ-10 — DECIDED (a), D-59.** Directory status options (lead).** (a) H1: Active · Ended · All (default Active); H2 adds "Active and on leave" and "On leave"; (b) show the leave
   options empty now. **Rec (a):** `ON_LEAVE` is derived by H2 (H1-22); no option that can never match.
-- **OQ-11 Non-bank pay-details fields (money rule, Jabran).** Tax residence, pension, union, holiday-pay route, PK EOBI/PESSI refs: (a) direct
+- **OQ-11 — DECIDED (a) by Jabran 2026-11-22, D-59.** Non-bank pay-details fields (money rule, Jabran).** Tax residence, pension, union, holiday-pay route, PK EOBI/PESSI refs: (a) direct
   `SENSITIVE.UPDATE` edit with reason, audited, takes effect on save; only the bank account waits for a second person; (b) every pay-details change waits.
   **Rec (a):** J-3 covers bank changes (the redirect-pay fraud path); the others are audited sensitive edits, as CA-14 does for national ids.
-- **OQ-12 Overview probation and contract end (lead).** (a) In H1 from the job row (H1-26, HR-5), shown when set; (b) later. **Rec (a):** the
+- **OQ-12 — DECIDED (a), D-59.** Overview probation and contract end (lead).** (a) In H1 from the job row (H1-26, HR-5), shown when set; (b) later. **Rec (a):** the
   columns ship in V13 anyway; the spec lists them on Overview.
 
 ## Brief-check rows → where applied (`brief-check-hrp-h1.md`)
