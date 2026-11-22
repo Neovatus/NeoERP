@@ -636,3 +636,6 @@ Lead picks (rule 2):
 3. **LOW 3:** `findByEmailIgnoreCase` matches what the index sees (`lower(btrim(email))`), so an invite for a stored row
    with spaces finds the account instead of a 409. A test covers it.
 Re-check: the same Opus, on its findings only (D-46).
+
+## D-51 Speed rules: batch, flow test before review, brief check, check-first-don't-repeat — 2026-11-22 (Jabran in chat)
+Jabran approved the three process changes (bigger lanes merged in batches; simulator/flow test before review; Opus brief check before building) and added: "we must be smart, so we don't repeat; test only when needed, and ask each other, leads or sub-agents". WORKFLOW "Speed rules". Measured on the first Phase 4b and HR lanes against the Phase 4 MEASURE-1 baseline (build 28 %, review+fix 42 %, gate 19 %, waiting 12 %; 17 of 25 review runs repeats on 2026-11-22).

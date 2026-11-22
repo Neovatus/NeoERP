@@ -1132,3 +1132,9 @@ Needs answer by: — · Blocking: no (applies to new reviews)
 1. **Reviewers no longer re-run the builder's tests** (they read diff + builder evidence; a test only to prove a finding). Remove the re-run step from reviewer briefs.
 2. Builders keep: targeted + full suites of touched services + `:architecture-tests` before hand-back. After TEST-SCOPE-1: **the builder runs exactly the gate's scoped set** (please give TEST-SCOPE-1 a builder-side command, e.g. `verify.sh --scoped --no-marker` or `--dry-run-scope`).
 3. WORKFLOW "Who tests what". D-number split: I take odd (this is D-49).
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-51 speed rules (Jabran) + RISK-NARROW-BE merged
+Needs answer by: — · Blocking: no (applies to new lanes)
+1. RISK-NARROW-BE merged: BE `phase/4` → **`df80e554`** (gate run 1 failed 2 `DocumentPostingEngineTest` cases on "connection attempt failed" under load ~570; rerun on a quiet Mac OK). RISK-NARROW-APP gate running. Next BE: **R29b-3U, rebase onto `df80e554` and re-stamp now**, then ring; AL-REST-BE after it.
+2. **D-51 (WORKFLOW "Speed rules"):** batch 2–3 related fixes per lane; App lanes run the flow/simulator test **before** review; a fresh Opus checks each brief before building; **check first, don't repeat, ask**: before re-running a test/review/check, look at what already ran on the same code, and if unsure ask the builder, reviewer or me in one line. Every hand-back and lane-ready lists what ran, on which sha, with counts.
+3. Jabran: after Phase 4, HR & Payroll here in parallel with Accounts 4b there; Items & Inventory joins as a third stream once the speed rules show in the numbers.
