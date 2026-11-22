@@ -529,3 +529,7 @@ GATE-3 scope from the old-Mac suggestions (`.review-channel/gate-3-suggestions.m
 - **Not GATE-3; backlog rows:** 3 (an automatic rerun of flaky tests outside the lane: it weakens the gate, so the flake
   is fixed instead), 9 (jar start reuses built jars), 10 (`stack-down.sh`), 11 (App `sim-signin.sh`). 9–11 can be a
   small DEV-TOOLS lane later.
+D-43 tightened (Jabran 2026-11-22, in chat): "currents those was running, and the fable we should not use it". The
+Fable agents already running finish (the AL-REST-BE fix check); **no new Fable work** until the weekly reset, starting
+now (Fable at 42 %). The second reviewer on gate, money and security lanes is a fresh, independent Opus (high effort for
+security reviews), starting with R29b-3U and GATE-3.
