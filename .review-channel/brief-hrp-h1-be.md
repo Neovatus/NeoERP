@@ -34,46 +34,65 @@ fresh Opus checks this brief for gaps (D-51 rule 3); its findings go into this f
 2. **Tests run as `neoerp_hr_app`** with the binder on; Docker-backed tests never skip silently (§12.4 i); no tenant-baseline entries.
 3. **Events and outbox payloads carry ids only** (§12.5); readers fetch details through the permission-checked API. Secrets from config, no defaults.
 4. **Documents go straight to `:shared:file-store`** (ADR-020); no `HrDocumentStore` port, no `hr.document_blobs` (§12.6, decision 8).
-5. **One shared field cipher** from Accounts' Tink scheme, built and security-reviewed before any HR sensitive field (§12.6); no own AES-GCM.
+5. **One shared field cipher** from Accounts' Tink scheme, built and security-reviewed (its own review batch, BE-2a) before any HR sensitive field.
 6. **Every bank change needs a second person** (J-3): HR changes are WAITING `employee_pay_details` versions (H4-26); `hr.change_requests` is ESS only.
 7. **Cost centre is an Accounts id, never free text** (H1-10); **pay group is Payroll's** ("Set in Payroll", H1-11). Keyset paging, capped counts,
    no `(:companyId IS NULL OR …)` (§12.9). Cross-company facts one call per company (§12.8). Migrations freeze once applied (Testcontainers only).
+8. **D-59 (2026-11-22), all OQs as (a):** no End employment and no HR-officer job-change request in H1 (Jabran); ESS bank request fails closed, `auth_time`
+   is its own lane (Jabran); cost-centre read in accounts-service; `shared/field-cipher` now, Accounts moves later; audit read in BE-2b; payroll column
+   grants in P0; sensitive facts block and §11.1 match with P1.
+9. **Ended employments are read-only** except documents and activity: every other write on an `EXITED` employee → 422 `EMPLOYEE_NOT_ACTIVE`; `actions` say `ENDED`.
+10. **Contract freeze:** a slice's shapes freeze at its lane-ready. A later shape change (a review fix) = a dated note in `hrms-v2-h1.md` + a ring to the
+    App builder, who tests against the note.
 
-## Batching (D-51): three slices, in order, one lane branch
+## Batching (D-51): five slices, in order, one lane branch; migrations in slice order
 Each slice is its own commit set and its own **review batch + gate**: build → T1 → hand-back → two seats → fixes → lane-ready → T3 → merge to
-`phase/hrp-v2`; the next slice continues on the merged head (no rebase of a reviewed slice). The App slice of the same number follows it.
+`phase/hrp-v2`; the next slice continues on the merged head (no rebase of a reviewed slice). App slices follow (twin, OQ-A4).
+Order: **BE-1a** (V12) → **BE-1b** (V13) → **BE-2a** (cipher, no migration) → **BE-2b** (V14) → **BE-3** (V15). Each slice adds its own
+`docs/risk-paths.txt` lines in the commit that adds the code (§12.4 a) and grows the demo seed (H1-B9) for its tables.
 
-### Slice BE-1 — Employment and organisation (migration V12)
+### Slice BE-1a — Contract, codes, H0 LOWs (migration V12)
 | ID | Item | Acceptance test (old FAIL / new PASS where a behaviour changes) |
 |---|---|---|
-| H1-B1 | Dated D9 amendment of `hrms-v2-h1.md` (first commit after the brief): new tables per slice (V12/V13/V14), no backfill/quarantine/V13 guard/legal-name job/history_v1, file store, shared cipher, department validity + header, `departmentId` in segments, headcount read, v1 `status`/`separate`/lifecycle rows removed (deleted in H0), Q3/Q4/Q14 closed as obsolete. | Doc skim by both seats; every §17 test name it keeps exists or is listed as later. |
-| H1-B2 | user-service **U-split** + **U-defaults** (H0 §6.2–6.3) as next free numbers: v2 HR codes incl. `ALL_TEAMS`, `SENSITIVE.*`, `PAY_DETAILS.APPROVE`, `ORG.READ/MANAGE`; rule 7 (nobody loses a right). | Migration test: every v1 HR code holder keeps an equal v2 set; role catalog lists the codes; no Payroll code changes meaning. |
-| H1-B3 | hr **V12 `hrv2_employment_org`**: `employees`, `job_assignments` (full snapshots, exclusive `valid_to`, `changed_fields`, `retroactive`, `probation_end_date`, `fixed_term_end`, `work_calendar_id` reserved), `departments` (tree, `valid_from`/`valid_to`, `is_header`), `positions`, `country_job_defaults` (reference, no RLS, UNVERIFIED), domain-event outbox; partial unique on non-cancelled `(company_id, employee_id, valid_from)`. | Catalog test (ENABLE, FORCE, policy names, composite FKs) generated per table; Flyway V1→V12 fresh as owner; missing app role raises; two-company RLS kit (§5.1–5.5). |
-| H1-B4 | Employees API (§6.1–6.4, 6.8): list (keyset, capped count, filters, team scope H0-10), record with `actions`/`blockedBy` (H1-24), quick add (no sensitive fields yet), `/job`, `POST /job-changes` (§5.1 order, between-rows rule CA-1), cancel latest upcoming, `HrCompanyClock` (Org time zone, else UTC), reports-to walk with lock, `CurrentJobRefreshJob` as an M6 job (`SYSTEM_JOB_BINDERS` row with reason). | `JobChangeRulesTest` (each §5.1 refusal in order, nothing written), Jan/Oct/Nov between-rows example, `ManagerCycleTest`, team-scope web test, paging test at 5,000 employees, refresh job per company. |
-| H1-B5 | Organisation API (§6.1, §5.5): department tree (cycle, depth ≤ 10, header never on a job row), positions, deactivate refusals with counts (current + upcoming), reactivate; `hr.department.changed` through the ADR-019 relay (dispatcher M6, ids only). | `DepartmentTreeTest`, `PositionLifecycleTest`, `OrgWebTest` (two companies), payload scan on the new event, "Weaving with 4 employees" refused with the count. |
-| H1-B6 | References: branch checked through Org facts (H0-19), `OrgBranchFactsV1` for display (null when absent); **cost-centre internal read** per OQ-1 with `accounts.cost-centres.read` for the hr client; Accounts down → 503 `ACCOUNTS_UNAVAILABLE` on writes, `name: null` on reads. | Client tests with a stub; a cost centre of company B refused (422 `REFERENCE_NOT_IN_COMPANY`); scope pinning test on the producer. |
-| H1-B7 | Gateway v2 routes `/api/hr/**`; the H0-B8 generated cross-company test covers every new route (A-token, B-id → refused); `docs/risk-paths.txt` adds the new hr tenant, persistence and delivery paths. | Cross-company route test **fails** on the H0 head with a new uncovered route (old FAIL), passes with the cases; `gateway-route-check-test.sh`, `risk-check-test.sh`. |
-| H1-B8 | **H0 LOWs carried** (verdict list): column grants on hr outboxes (no UPDATE of `company_id`/payload; F2, O2); `RlsPolicyCheck` compares policy expressions (F3, O3); views `security_invoker`, definer-function check, `neoerp.migration` not settable by the app role (F4); ADR §5.2 system-job test on the real outboxes (F5); refusal before listeners/schedulers start, workflow `orgId`, audit `reason` (F6, F7); `DatabaseRoleContract` binder-off guard back for accounts (O1); workflow order tie-break (O5); role script detects a re-grant of DELETE (F1); `verify-test-floor.txt` 4150 → measured count (~4300, O4). Payroll's own migration rows: OQ-5. | One old-FAIL/new-PASS test per item (F1–F7, O1–O5), each named in the self-check. |
-| H1-B9 | Demo data: `scripts/seed-demo-hr.sh` + `docs/local-demo-data.md` (hr-h1 §3 on the seeded companies Lahore Textiles, Sialkot Mills, Kystgruppe Nordic, Stockholm Handel): department trees, positions, ~30/8/25/6 employees, a future job change, a branch move across AGA zones, one ended employee (seeded directly, OQ-4); one **employee-only login** and one **line manager with a team** with demo sign-in; two holders of `HR.PAY_DETAILS.APPROVE` at Lahore. No passwords in the doc beyond the existing convention line. | `seed-demo-hr.sh` idempotent (run twice, same counts); local-only guard. |
+| H1-B1 | Dated D9 + D-59 amendment of `hrms-v2-h1.md` (first commit after the brief): (1) new tables per slice V13/V14/V15, no backfill/quarantine/guard/legal-name job/history_v1, file store, shared cipher; (2) §3.1-4 `employees` columns as H1-B3; (3) **`kind`**: optional in the body, the server derives it when absent (position → `PROMOTION`, branch/department/manager → `TRANSFER`, FTE/hours → `CHANGE_OF_HOURS`, else `OTHER`; OQ-8), §5.1 step 4a amended; (4) **§6.2 paging**: `cursor`/`nextCursor`, `count` + `countCapped` (cap 10,000), `size` 1–200, no `page`/`totalElements`; (5) **§6.3 `actions`**: no `end`, no `requestJobChange`; not allowed = not drawn, `blockedBy` only feeds the "Only {role}…" line; (6) v1 `status`/`separate`/lifecycle rows and the `HR.EMPLOYEE.END/REQUEST/APPROVE` endpoint rows deleted (codes stay, no H1 endpoint); (7) departments: validity, header flag, `employeeCount` + `employeeCountWithSubDepartments` (HR-11); (8) `departmentId` in segments, headcount read; (9) Q3/Q4/Q14 closed as obsolete; (10) the product rows of OQ-9…OQ-12 once decided. | Doc skim by both seats; every §17 test name kept exists or is listed as later. App A3 cites (3)–(5). |
+| H1-B2 | user-service **U-split** + **U-defaults** (H0 §6.2–6.3), next free numbers: v2 HR codes incl. `ALL_TEAMS`, `SENSITIVE.*`, `ORG.READ/MANAGE`; **`HR.PAY_DETAILS.APPROVE` defaults Owner + HR Admin** (spec §9); rule 7. | Migration test: every v1 HR code holder keeps an equal v2 set, **including a customised company role copy** (bilal.ahmed's "HR Manager (Lahore)"); no Payroll code changes meaning. |
+| H1-B8 | **H0 LOWs carried:** hr **V12 `hrv2_outbox_column_grants`** (no UPDATE of `company_id`/payload on hr outboxes; F2, O2); `RlsPolicyCheck` compares policy expressions (F3, O3); views `security_invoker`, definer-function check, `neoerp.migration` not settable by the app role (F4); ADR §5.2 system-job test on the real outboxes (F5); refusal before listeners/schedulers start, workflow `orgId`, audit `reason` (F6, F7); `DatabaseRoleContract` binder-off guard back for accounts (O1); workflow order tie-break (O5); role script detects a re-grant of DELETE (F1); `verify-test-floor.txt` 4150 → measured (~4300, O4). Payroll's column grants: P0 (D-59). | One old-FAIL/new-PASS test per item (F1–F7, O1–O5), each named in the self-check. |
 
-### Slice BE-2 — Personal and sensitive data (migration V13)
+### Slice BE-1b — Employment and organisation (migration V13)
 | ID | Item | Acceptance test |
 |---|---|---|
-| H1-B10 | **Shared field cipher** (`shared/field-cipher`, per OQ-2): Tink AEAD, `key_id` rotation, HMAC blind index with its own key, keys from config with no default (start-up fails), never logged. Reviewed as its own commit set first. | Round trip, wrong key fails, old `key_id` still reads, blind index stable per company and differs across companies, start-up refused without keys, Accounts ciphertext compatibility test (OQ-2). |
-| H1-B11 | hr **V13 `hrv2_personal_sensitive`**: `employee_personal`, `emergency_contacts` (≤ 5), `employee_sensitive` (+ `national_id_type`, blind index, `last4`), `national_id_claims` (partial unique among non-ended), `employee_pay_details` (append-only versions, H4-26 `approval_status`, `requested_by_user_id`, `social_security_refs`), `employee_documents` (file-store refs). Personal API with `FULL`/`WORK_ONLY`/platform views (H1-19, §4.4), emergency contacts. | Catalog + RLS kit for each table; `PersonalViewTest` (owner, HR officer, manager, Enter-company); sixth contact 422. |
-| H1-B12 | Sensitive API: masked GET, `PUT /sensitive` (direct edit with reason, CA-14), `POST /sensitive/reveal` (audit row in the same transaction, fields only, `revealSeconds: 30`, `no-store`, 60/h `REVEAL_LIMIT`), `NationalIdRules` per country and type (§9, all UNVERIFIED with source), quick add gains national id/DOB with `NATIONAL_ID_TAKEN`. | `RevealAuditTest` (one row per reveal, no values, 429, platform 403), `NationalIdRulesTest` (synthetic valid/invalid per country), `SensitiveNeverLoggedTest` (log capture), payload scan. |
-| H1-B13 | Pay details: `GET`, `POST` (WAITING version, `effectiveFrom` ≥ today, own pay refused), H4-26 `approve` (`confirmedWithEmployee`) · `reject` · `withdraw` · `reveal`; Owner's own only when no other active holder; IBAN and local account checks. | **State-transition matrix test** (§12.4 d: every transition × maker, approver, employee, Owner, platform, holder count); `PayDetailsVersionTest` (history masked, requested/approved by). |
-| H1-B14 | Documents on `:shared:file-store`: upload (≤ 10 MB, PDF/JPEG/PNG sniffed, ADR-020 scan hook), list (`hiddenCount` for sensitive kinds), download (audited for `IDENTITY`/`BANK`), soft delete with reason, purge job as M6. | `DocumentUploadTest` (size 413, type 415 by content, sensitive kinds need the code), two-company download refused, purge job per company. |
-| H1-B15 | `GET /employees/export` (no sensitive or private column ever, audited with filters and count) and Activity read (§8.3) through an audit-service internal read per OQ-3; §8.2 catalogue rows. | Export column test (a sensitive field never appears); activity two-company test; audit down → degraded, no other company's rows. |
+| H1-B3 | hr **V13 `hrv2_employment_org`**. `employees`: `id`, `company_id`, `employee_code` (unique per company), `legal_name NOT NULL`, `user_id` NULL + unique `(company_id, user_id)` (H0-7, H0-10), `start_date`, `end_date`, `end_reason` (no `V1_UNKNOWN`), `status`, `country_code NOT NULL`, `work_email`, `work_phone`, `job_facts_complete`, projection columns (H1-4), `version`. **`employee_code_sequences`** (company_id, next value; RLS). `job_assignments` (full snapshots, exclusive `valid_to`, `changed_fields`, `retroactive`, `probation_end_date`, `fixed_term_end`, `work_calendar_id` reserved, `kind`; `source` ∈ `HR_DIRECT` now, `CHANGE_REQUEST`/`LIFECYCLE_REQUEST` later; `change_kind` ∈ `START`, `JOB_CHANGE`; `lifecycle_request_id` NULL **without FK** until H4; CHECKs without any v1 escape). `departments` (tree, `valid_from`/`valid_to`, `is_header`), `positions`, `country_job_defaults` (reference, no RLS, UNVERIFIED), domain-event outbox. | Catalog test (ENABLE, FORCE, policy names, composite FKs) generated per table incl. the sequence table; Flyway V1→V13 fresh as owner; missing app role raises; two-company RLS kit (§5.1–5.5); two companies draw codes independently. |
+| H1-B4 | Employees API (§6.1–6.4, 6.8 as amended): list (keyset, capped count, filters incl. `appAccess` from `user_id` + IAM invite state, team scope H0-10), record with `actions` (H1-24), quick add (no sensitive fields yet; next `employee_code`), `/job`, `POST /job-changes` (§5.1 order, CA-1, derived `kind`), cancel latest upcoming, `HrCompanyClock`, reports-to walk with lock, `CurrentJobRefreshJob` (M6, `SYSTEM_JOB_BINDERS` row). **Audit**: §8.2 rows CREATE, JOB_CHANGE, JOB_CHANGE_CANCEL. | `JobChangeRulesTest` (each refusal in order, nothing written), Jan/Oct/Nov between-rows example, `ManagerCycleTest`, team-scope web test, 5,000-employee paging, ended-employee writes 422, **one audit row per write in the same transaction (rollback test)**. |
+| H1-B5 | Organisation API (§6.1, §5.5): department tree (cycle, depth ≤ 10, header never on a job row, both counts), positions, deactivate refusals with counts (current + upcoming), reactivate; `hr.department.changed` via the ADR-019 relay (M6, ids only). **Audit**: hr-department / hr-position create, change, deactivate rows. | `DepartmentTreeTest`, `PositionLifecycleTest`, `OrgWebTest` (two companies), event payload scan, "Weaving with 4 employees" refused with the count, audit row per write. |
+| H1-B6 | References: branch via Org facts (H0-19), `OrgBranchFactsV1` for display (null when absent); **cost-centre internal read** in accounts-service (D-59: `/api/internal/accounts/companies/{cid}/cost-centres`, `accounts.cost-centres.read`, hr client only); Accounts down → 503 on writes, `name: null` on reads. | Stub client tests; company B's cost centre refused (422 `REFERENCE_NOT_IN_COMPANY`); producer scope-pinning and two-company test. |
+| H1-B7 | Gateway v2 routes `/api/hr/**`; the H0-B8 cross-company test covers every new route; risk paths for hr tenant, persistence, delivery. | Route test fails on the H0 head with an uncovered new route (old FAIL), passes with its cases; `gateway-route-check-test.sh`, `risk-check-test.sh`. |
+| H1-B9 | **Demo seed, grows per slice** (`scripts/seed-demo-hr.sh`, `docs/local-demo-data.md`, local-only guard, idempotent). BE-1b: hr-h1 §3 job/org data on Lahore Textiles, Sialkot Mills, Kystgruppe Nordic, Stockholm Handel; a future job change; one ended employee (seeded directly, D-59); a **zone-1 branch fact** added to the Org seed so a zone 1 → `ZONE_4A` move exists; an **employee-only login** and a **line manager with a team** (demo sign-in, `user_id` + `iam.employee_links`); two `PAY_DETAILS.APPROVE` holders at Lahore. BE-2b: national ids, sensitive rows, bank versions (one approved, one WAITING). BE-3: Omar Farooq's waiting ESS bank request (spec §3) and a **two-employer login** (spec's Sara Malik: Lahore + Sialkot, new IAM user). Kystgruppe Danmark: **out of the H1 seed** (no such company in the tenant seed). | Run twice → same counts; each slice's part tested with that slice. |
 
-### Slice BE-3 — Self-service, links, facts (migration V14)
+### Slice BE-2a — Shared field cipher (no migration; own review batch)
 | ID | Item | Acceptance test |
 |---|---|---|
-| H1-B16 | hr **V14 `hrv2_change_requests`** + HR side (§5.7, §6.6): one WAITING per kind, approve applies in the same transaction, reject with reason, `BANK_ACCOUNT` only by `HR.PAY_DETAILS.APPROVE` with the tick, per-kind queue (CA-4), `/change-requests/{id}/reveal`; workflow items through the workflow outbox (ids only). | `ChangeRequestFlowTest` and its matrix (§12.4 d), decider = employee or submitter 403, stale version, invalid value on approve 422 stays WAITING. |
-| H1-B17 | ESS `/api/hr/me/**` (§6.7, §5.8; employee = scope company + caller, H0-7): profile, job, direct contact and emergency-contact edits (audited), change requests create/withdraw; user-service **U-h1** `HR.ESS.PROFILE`; `BANK_ACCOUNT` per OQ-6 (no `auth_time` today: fail closed, 401 `REAUTH_REQUIRED`), notice recorded in-app only (ess §6.1, decision 11). | `/me` two-company test (company B's id with A's token), no sensitive values in `/me`, bank request 401 without sign-in time, other kinds pass. |
-| H1-B18 | App access and links (§10): `GET /app-access` with `otherEmployments` (only where the viewer holds `HR.EMPLOYEE.READ`, degraded when user-service is down), `PUT`/`DELETE /employees/{id}/user`, new PA-1 link outbox (RLS, M6 dispatcher, `positionName`), user-service `employments[]` on `/api/users/me` + bootstrap and the internal `employee-links?viewerUserId=` read (`iam.employee-links.read`); dev links re-seeded (OD-2). | Viewer without HR read at Sialkot sees no Sialkot row (old: n/a, new test); link outbox per company; user-service two-company test. |
-| H1-B19 | Internal reads: employee facts §11 (non-sensitive block, segments with `branchId`, `costCentreId`, `departmentId`, `retroactiveFrom`, `payDetailsChangedBy/At`; sensitive block and §11.1 per OQ-7) and the **headcount read** §12.7 (`hr.headcount.read`, accounts client only; counts and FTE per cost centre, department, branch on a date). | Facts: payroll client only, one company per answer, `REPEATABLE READ`; headcount: accounts client only, ended do not count, mid-period move counted on the date, no names. |
-| H1-B20 | `scripts/h1-acceptance.sh` (contract §17 overall acceptance, local only) and the docs (below). | Script green on the local stack (lead runs it with T4). |
+| H1-B10 | `shared/field-cipher`: Tink AEAD, `key_id` rotation, HMAC blind index with its own key, keys from config with no default (start-up fails), never logged; risk path `shared/field-cipher/**`. | Round trip, wrong key fails, old `key_id` reads, blind index stable per company and differs across companies, start-up refused without keys, Accounts ciphertext compatibility test (D-59). |
+
+### Slice BE-2b — Personal and sensitive data (migration V14)
+**Every `*_cipher` column in V14 and V15** (`national_id_cipher`, `date_of_birth_cipher`, `legal_sex_cipher`, `bank_account_cipher`,
+`social_security_refs_cipher`, `change_requests.new_value_cipher`) uses `shared/field-cipher` with its `key_id`; masks (`last4`, `DD-MM`, masked JSON)
+are stored separately; the payload and log scans cover every one.
+| ID | Item | Acceptance test |
+|---|---|---|
+| H1-B11 | hr **V14 `hrv2_personal_sensitive`**: `employee_personal`, `emergency_contacts` (≤ 5), `employee_sensitive` (+ `national_id_type`, blind index, `last4`), `national_id_claims` (partial unique among non-ended), `employee_pay_details` (append-only, H4-26 `approval_status`, `requested_by_user_id`), `employee_documents` (file-store refs). Personal API with `FULL`/`WORK_ONLY`/platform views (H1-19, §4.4), emergency contacts (team-only → 403 `TEAM_SCOPE`). | Catalog + RLS kit per table; `PersonalViewTest` (owner, HR officer, manager, Enter-company); sixth contact 422. |
+| H1-B12 | Sensitive API: masked GET, `PUT /sensitive` (direct edit with reason, CA-14), reveal (audit in the same transaction, fields only, 30 s, `no-store`, 60/h), `NationalIdRules` (§9, UNVERIFIED with source), quick add gains national id/DOB (`NATIONAL_ID_TAKEN`). | `RevealAuditTest`, `NationalIdRulesTest` (synthetic per country), `SensitiveNeverLoggedTest`, payload scan. |
+| H1-B13 | Pay details: `GET`, `POST` (version, `effectiveFrom` ≥ today, own pay refused), H4-26 `approve` (`confirmedWithEmployee`) · `reject` · `withdraw` · `reveal`; Owner's own only when no other active holder; IBAN/local checks. **Non-bank fields** (tax residence, pension, union, holiday-pay route, PK EOBI/PESSI refs, H1-27) per OQ-11; optional supporting document per OQ-9. | **State-transition matrix test** (§12.4 d: transition × maker, approver, employee, Owner, platform, holder count; bank and non-bank versions); `PayDetailsVersionTest`. |
+| H1-B14 | Documents on `:shared:file-store` (its envelope encryption is the at-rest scheme for every kind; object keys carry `service/companyId`): upload (≤ 10 MB, sniffed type, ADR-020 scan hook), list (`hiddenCount`), download (audited for `IDENTITY`/`BANK`), soft delete with reason, purge job (M6). | Size 413, type 415, sensitive kinds need the code, **company B cannot fetch A's content** by id or ref, purge per company. |
+| H1-B15 | Export CSV (no sensitive or private column, audited) and Activity via an audit-service internal read by company + service + subject (`audit.event.read`, company required, D-59); §8.2 rows for BE-2b writes and reveals. | Export column test; activity two-company test; audit down → degraded. |
+
+### Slice BE-3 — Self-service, links, facts (migration V15)
+| ID | Item | Acceptance test |
+|---|---|---|
+| H1-B16 | hr **V15 `hrv2_change_requests`** + HR side (§5.7, §6.6): one WAITING per kind, approve applies in the same transaction, reject with reason, `BANK_ACCOUNT` only by `PAY_DETAILS.APPROVE` with the tick, per-kind queue (CA-4), `/change-requests/{id}/reveal`; workflow items (ids only); risk paths for the change-request packages. | **Catalog + RLS kit (§5.1–5.5) for V15 tables**; `ChangeRequestFlowTest` + matrix; decider = employee or submitter 403; stale version; invalid value on approve 422 stays WAITING. |
+| H1-B17 | ESS `/api/hr/me/**` (§6.7, §5.8; H0-7): profile, job, direct contact and emergency-contact edits (audited), change requests create/withdraw; `POST /me/documents` + 24 h purge (OQ-9); user-service **U-h1** `HR.ESS.PROFILE`; `BANK_ACCOUNT` fails closed (401 `REAUTH_REQUIRED`, D-59), notice recorded in-app only. | `/me` two-company test, no sensitive values in `/me`, bank 401, other kinds pass. |
+| H1-B18 | App access (§10): `GET /app-access` (`otherEmployments` only where the viewer holds HR read; degraded), `PUT`/`DELETE /employees/{id}/user`, PA-1 link outbox (RLS, M6, `positionName`), user-service `employments[]` on `/api/users/me` + bootstrap, internal `employee-links?viewerUserId=` (`iam.employee-links.read`); dev links re-seeded (OD-2). | Viewer without HR read at Sialkot sees no Sialkot row; link outbox per company; user-service two-company test. |
+| H1-B19 | Employee facts §11 (non-sensitive, segments with `branchId`, `costCentreId`, `departmentId`, `retroactiveFrom`, `payDetailsChangedBy/At`) and the headcount read §12.7 (`hr.headcount.read`, accounts client only). | Payroll client only, one company per answer; headcount counts on the date, ended excluded, no names. |
+| H1-B20 | `scripts/h1-acceptance.sh` (§17 overall acceptance, local only) and the docs. | Script green on the local stack (lead, with T4). |
 
 ## Out of scope
 Payroll (P0+: runs, pay group, time windows, salary line P2); H2 leave and `ON_LEAVE`; H3 time, calendars, shifts, time zones beyond the Org read;
@@ -89,8 +108,8 @@ managed key service (go-live gate); App code (twin lane).
 - Docker-backed RLS/role/migration tests: an unexpected skip fails the run.
 
 ## Docs (part of done; lane-ready lists each page or "none: reason")
-- Developer (new): `docs/modules/hr/employees.md`, `organisation.md`, `sensitive-data.md` (BE-2), `self-service-and-links.md` (BE-3);
-  `docs/modules/shared/field-cipher.md` (BE-2); `docs/api/hrms-v2-h1.md` (H1-B1 + per slice); `audit-catalogue.md`, `permission-actions.md`,
+- Developer (new): `docs/modules/hr/employees.md`, `organisation.md`, `sensitive-data.md` (BE-2b), `self-service-and-links.md` (BE-3);
+  `docs/modules/shared/field-cipher.md` (BE-2a); `docs/api/hrms-v2-h1.md` (H1-B1 + per slice); `audit-catalogue.md`, `permission-actions.md`,
   `standard-roles.md`; `db-design.md`; `docs/local-demo-data.md`; `tenant-binder.md` (new system jobs).
 - User guide: none in this repo: HR user-guide pages live in NeoERP-App and ship with the App twin.
 
@@ -99,11 +118,13 @@ managed key service (go-live gate); App code (twin lane).
 - No AI attribution: no Co-Authored-By, no "Generated with", in commits, PRs or comments.
 - Never open, print or grep `.env`, `infra/.env`, `.local-secrets/*`, token or session files, `~/.gradle/gradle.properties`, `~/.netrc`, `~/.aws` or keys.
 - One repo per builder: NeoERP-BackEnd only (App is the twin lane).
-- Gradle only via the workspace `scripts/gradle-job.sh be <dir> <args>`; log to a file, one watcher; never `gradlew --stop` outside your slot; don't start the stack.
-- Migrations V12–V14 apply only in Testcontainers until merged; a fix after merge is a new migration (ask). user-service numbers: next free, renumber own unpushed on a clash.
-- **Local stack before H1 testing (Jabran, by hand, never printed):** HR/PAYROLL DB + FLYWAY passwords in `.env`, then `scripts/hr-payroll-db-roles.sh`,
-  restart, `NEOERP_CONFIRM_HR_V1_CLEAR=yes scripts/hr-v1-dev-clear.sh`, then `scripts/seed-demo-hr.sh`. The builder writes these steps; it never runs them.
-- Stop and ask: an applied migration; a change to Accounts bank or posting code beyond OQ-1/OQ-2; a money rule; a scope item not listed here.
+- Gradle only via the workspace `scripts/gradle-job.sh be <dir> <args>`; log to a file, one watcher; `--stop` only inside your slot via the script; don't start the stack.
+- Migrations V12–V15 apply only in Testcontainers until merged; a fix after merge is a new migration (ask). user-service numbers: next free, renumber own unpushed on a clash.
+- **Local stack before H1 testing (Jabran, by hand; values never printed; the builder documents variable names only, in `local-demo-data.md`):**
+  BE-1a/1b: HR/PAYROLL DB + FLYWAY passwords in `.env`, `scripts/hr-payroll-db-roles.sh`, restart, `NEOERP_CONFIRM_HR_V1_CLEAR=yes scripts/hr-v1-dev-clear.sh`,
+  `scripts/seed-demo-hr.sh`. **BE-2a/2b add:** the hr field-cipher key, the blind-index key and the hr file-store key (KEK) in `.env` (names from H1-B10/B14),
+  then restart; hr-service refuses to start without them. The builder writes these steps; it never runs them.
+- Stop and ask: an applied migration; a change to Accounts bank or posting code beyond H1-B6/H1-B10; a money rule; a scope item not listed here.
 
 ## Self-check, reviews, report
 Self-check table (L36) in `docs/agents/hrp-h1/builder-report-be-<slice>.md`: one row per H1-B item (proof: test class.method, file:line; status).
@@ -112,19 +133,42 @@ the asking seat re-checks). Lane-ready: `.review-channel/lane-ready-hrp-h1-be<sl
 Review · Test · Waiting minutes, tokens per agent, FIX rounds, changed files, items). Hand-back ≤ 10 lines (L35).
 **Done when** (per slice): its items proven, targeted + full suites 0 failed with no unexpected skip, both seats ACCEPT, docs listed, T3 green, merged.
 
-## Open questions for the lead (options · recommendation; money rules and product scope go to Jabran)
-- **OQ-1 — DECIDED (a), D-59.** Cost-centre read.** No internal cost-centre read exists in accounts-service. (a) Add it in BE-1 (`/api/internal/accounts/companies/{cid}/cost-centres`,
-  scope `accounts.cost-centres.read`, hr client only); (b) an Accounts lane builds it, H1 keeps `costCentreId` null meanwhile. **Rec (a):** the owner
-  serves a narrow machine read, as Org facts do; small, read-only; the lead checks no Phase 4 lane touches those files. Without it, §12.7 dimensions stall.
-- **OQ-2 — DECIDED (a), D-59.** Cipher and Accounts.** (a) Build `shared/field-cipher`, HR uses it, Accounts moves to it in a later small tier-2 lane, with a compatibility test
-  now; (b) move Accounts in BE-2 too; (c) copy the scheme into HR. **Rec (a):** one scheme now without touching stored bank ciphertext in a HR lane.
-- **OQ-3 — DECIDED (a), D-59.** Activity read.** audit-service has only a write endpoint. (a) Add an internal read by company + service + subject (`audit.event.read`, company
-  required) in BE-2; (b) defer the Activity tab. **Rec (a):** the spec and audit catalogue already plan it; read-only, two-company test.
-- **OQ-4 — DECIDED (a) by Jabran 2026-11-22, D-59.** Ending and requests (scope, Jabran).** H0 deleted v1 `status`/`separate`/lifecycle; H4 owns their v2. (a) H1 ships no End employment and no
-  HR-Officer job-change request (actions hidden; the ended demo employee is seeded); (b) pull H4 B4 ending into H1. **Rec (a):** keeps H1 reviewable.
-- **OQ-5 — DECIDED (a), D-59.** Payroll H0 LOWs.** (a) Shared-module fixes here cover both; payroll's migration rows (column grants) go into P0's first migration; (b) a payroll
-  migration in this lane. **Rec (a):** one repo per lane is kept, and P0's first migration is next anyway.
-- **OQ-6 — DECIDED (a) by Jabran 2026-11-22, D-59.** ESS bank request without `auth_time` (security, Jabran).** (a) Fail closed in H1 as the contract says; the `auth_time` sign-in change is its own
-  lane for Jabran's approval; (b) add `auth_time` here. **Rec (a):** a sign-in change needs his approval and its own review.
-- **OQ-7 — DECIDED (a), D-59.** Facts sensitive block and §11.1 match.** (a) Build them with P1 when a consumer exists; (b) now. **Rec (a):** no untested sensitive surface
-  without its reader; the non-sensitive facts and headcount read ship now.
+## Open questions (OQ-1…OQ-7 decided in D-59, all (a), written into the items above). New ones from the brief check:
+- **OQ-8 Job-change `kind` (lead).** (a) Optional in the body, server derives it from the changed fields, App sends none in H1; (b) App adds a kind picker.
+  **Rec (a):** the spec panel has no such field; a derived, stored value keeps Payroll's reading; a picker can come with H4's lifecycle types.
+- **OQ-9 Attachments (product scope, Jabran).** (a) In H1: optional document on HR bank changes (B13) and ESS change requests (`POST /me/documents`,
+  24 h purge of unlinked uploads, B17); (b) out until a later slice. **Rec (a):** spec §5/§7 and the contract have it; evidence on a bank change is
+  standard practice against payment fraud, and the file store is ready.
+- **OQ-10 Directory status options (lead).** (a) H1: Active · Ended · All (default Active); H2 adds "Active and on leave" and "On leave"; (b) show the leave
+  options empty now. **Rec (a):** `ON_LEAVE` is derived by H2 (H1-22); no option that can never match.
+- **OQ-11 Non-bank pay-details fields (money rule, Jabran).** Tax residence, pension, union, holiday-pay route, PK EOBI/PESSI refs: (a) direct
+  `SENSITIVE.UPDATE` edit with reason, audited, takes effect on save; only the bank account waits for a second person; (b) every pay-details change waits.
+  **Rec (a):** J-3 covers bank changes (the redirect-pay fraud path); the others are audited sensitive edits, as CA-14 does for national ids.
+- **OQ-12 Overview probation and contract end (lead).** (a) In H1 from the job row (H1-26, HR-5), shown when set; (b) later. **Rec (a):** the
+  columns ship in V13 anyway; the spec lists them on Overview.
+
+## Brief-check rows → where applied (`brief-check-hrp-h1.md`)
+| Row | Applied in |
+|---|---|
+| employees columns + code sequence (H) | H1-B3 (V13), H1-B1 (2) |
+| job_assignments v1 columns (M) | H1-B3 |
+| `kind` (H) | H1-B1 (3), H1-B4, OQ-8 |
+| paging shape (H) | H1-B1 (4), H1-B4 |
+| `actions` / v1 rows (H) | H1-B1 (5)(6), Decided 8 |
+| PAY_DETAILS.APPROVE defaults, customised role (M) | H1-B2 |
+| BE-1 audit rows (H) | H1-B4, H1-B5 (B15 keeps BE-2b rows) |
+| sub-department count (M) | H1-B1 (7), H1-B5 |
+| column grants location (M) | H1-B8 (V12 in BE-1a) |
+| seed per slice, two-employer login, zone, Danmark (H) | H1-B9 |
+| B10 order (M) | Slice BE-2a, Decided 5 |
+| cipher naming (H) | BE-2b intro line |
+| file-store at rest + company key (M) | H1-B14 |
+| attachments (M) | H1-B13, H1-B17, OQ-9 |
+| non-bank pay fields (M) | H1-B13, OQ-11 |
+| V15 RLS kit (H) | H1-B16 |
+| risk paths per slice (L) | Batching line, H1-B10, H1-B16 |
+| ended record read-only (M) | Decided 9, H1-B4 test |
+| cipher keys in stack steps (H) | Rules, local stack |
+| size cut (H) | BE-1a / BE-1b / BE-2a / BE-2b / BE-3 |
+| contract freeze (M) | Decided 10 |
+| App-only rows | `brief-hrp-h1-app.md` table |
