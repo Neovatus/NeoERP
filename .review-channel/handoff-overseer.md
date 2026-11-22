@@ -25,28 +25,21 @@ talk through `docs/inbox/erp-lead.md` + one-line SendMessage doorbells.
 - HR lanes: the hook does not gate `phase/hrp-v2`; run verify.sh by rule before merging there.
 
 ## Heads
-App `phase/4` `8d7e8a96`, BE `phase/4` `409f45e5` (R29b-2 merged); App `phase/hrp-v2` `b91d4abf`, BE `phase/hrp-v2` `16d9a3f`.
+App `phase/4` `430bc5ab` (B2b), BE `phase/4` `095a8989` (AC418-BE); App `phase/hrp-v2` `d91e45cd` (H0-APP), BE `phase/hrp-v2` `f1a6f944` (H0-BE).
 
 ## Running now
-- **B2b simulator checks** (gate OK 3992/0 on `430bc5ab`, reviews `review-5-opus.md` + `review-6-sonnet.md`): Ola (iPad Pro 13)
-  12, 13 PASS; Anna (iPhone `45AD3FD4`) 1,2,4,8,9,11,15,12-phone running; Ayesha (iPad Air 13 `E946C073`) 5,6,7,17,16 running
-  (re-signed after keychain reset). Results in scratchpad `b2b-sim-*.md`. Deferred to retest: 3, 10, 14; observation: lists stayed
-  on skeleton rows until a tap (iPad Pro 13). Then: **stop backend + shut simulators**, verdict, merge B2b (App `phase/4`), start AC418-APP.
-- Backend stack running (jar mode, BE `409f45e5`, from worktree `be-jdk21`) only for these checks.
-- AC418-BE fix round 1 (builder, worktree `ac418-be`, head `62b6e1f` + fixes): Fable F1 HIGH (N10 for hand entry: DB unique index +
-  409 at submit/approve), F2, Opus L2, L3. Then **Fable fix check** only, then gate (BE), merge. V78 provisional vs AL-REST-BE V77.
-- HRP-H0-APP fix (builder): hide People "link employee" + Org headcount, remove dead `/api/hr/employees` calls; pushed `52ce3e31`
-  before the fix. Then Opus review, App gate on `phase/hrp-v2` base, merge into App `phase/hrp-v2`.
-- HRP-H0-BE: built `f78da66` (pushed); Opus + Fable reviews running (scratchpad `hrp-h0-be-review-*.md`). Builder open points: test
-  floor 4300→4150 (confirm at gate); `.env` needs HR/PAYROLL DB + FLYWAY passwords before an hrp-v2 stack runs (local, never printed:
-  decide with Jabran when H1 testing needs it); no hosted stack (confirmed). Merge into BE `phase/hrp-v2` after gate.
+- **AC418-APP builder** (Opus, worktree `NeoERP-worktrees/ac418-app`, from App `430bc5ab`; API reference = AC418-BE report; A13 covers 409 at submit/approve). On hand-back: reviews (Opus fresh + Sonnet if money display), gate (App), simulator checks if the brief lists them (backend + simulators up only for them), merge.
+- Nothing else here. Backend stack and simulators **stopped**.
+
+## Merged today (this Mac's gates)
+TEST-SPEED-1/APP, BE-JDK21, FIX-APP-B1, R29b-1, FIX-APP-B2a, GATE-2 (BE+App), R29b-2, FIX-APP-B2b, AC418-BE (V78), HRP-H0-BE, HRP-H0-APP. Verdict files in `.review-channel/lane-verdict-*.md`.
 
 ## Next steps
-1. Finish B2b (above). 2. AC418-BE → Fable fix check → gate → merge. 3. H0-APP and H0-BE → reviews → gates → merge to `phase/hrp-v2`.
-4. Suspected escaped defect: Accounts `AuditOutboxJdbcAdapter` claim query (LIMIT inside `UPDATE … FROM (… FOR UPDATE SKIP LOCKED)`):
-   prove with a test (3 due, limit 1), then fix in a small BE lane (assign to the new Mac or here).
-5. AC418-APP after B2b merges. 6. Retest round brief (origin lane per defect). Then DOCS-2c, scorecard, Phase 4 PRs.
-7. New Mac: AL-REST-BE, RISK-NARROW-1 reviews, R29b-3U + R29b-5 (trial B), TEST-SCOPE-1 after RISK-NARROW-1.
+1. AC418-APP (above). 2. New Mac lanes as they ring: AL-REST-BE (must renumber V77 → V79, rebase on `095a8989`), RISK-NARROW-1 (BE+App), R29b-3U + R29b-5, TEST-SCOPE-1, AL-REST-APP. Gate, checks, merge each.
+3. Suspected escaped defect: Accounts `AuditOutboxJdbcAdapter` claim query: prove with a test (3 due, limit 1), fix in a small BE lane.
+4. H1 brief (after R29b-3U + AL-REST-BE merge): carry H0 LOWs (column grants on outboxes, RlsPolicyCheck expression compare, binder-off guard, floor 4150 → ~4300, Dashboard bounce, wording) + HR `.env` passwords step.
+5. Retest round brief (origin lane per defect; data-missing items from B2a/B2b: S4, S5, S6, S2 soft keyboard, S3.3, B2b 1-italic rows, 3, 5, 6, 10, 14, 16a, 17; skeleton-rows-until-tap; template .csv name). Then DOCS-2c, scorecard, final gates, Phase 4 PRs (merge without Jabran after MERGE PR verdict).
+6. L36 addition into `docs/lessons.md`: full suite of every touched service + `:architecture-tests` before hand-back; both reviewers re-stamp when a fix changes risk paths.
 
 ## Open with Jabran
 - Nothing blocking. JABRAN-TODO N3, N8, N9 (GATE-3). Later: HR `.env` passwords for the hrp-v2 stack.
