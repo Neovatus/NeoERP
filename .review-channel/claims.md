@@ -18,6 +18,7 @@ Write a line before starting, remove it when done. Never touch work the other le
 3. **Fable budget (Jabran 2026-11-21):** Fable uses at most 50 % of the weekly limit (plan below 40 %, nothing new at 45 %). Fable does substantial work only: independent security reviews of gate, money and security lanes, batched checks of substantial decisions, and views on Jabran's critical lists. Few-line reviews, small fix confirmations and small decisions go to the lead, Opus or Sonnet.
 
 ## Merged lanes
+- 2026-11-22 R29b-5: BE `phase/4` → `1560d0d6` (audit + auth company isolation, last R29b sub-lane; gate OK, REVIEWS OK; Opus + Fable ACCEPT; jar-mode audit check PASS). Release-gate rows F1/F3/N1 ride on OUTBOX-CLAIM-BE.
 - 2026-11-22 AC418-BE: BE `phase/4` → `095a8989` (4.18 backend + N10 duplicate refusal on every path; gate OK 4513/0/59, money OK; Fable + Opus ACCEPT). **AL-REST-BE: renumber V77 → V79.** Built on the old Mac.
 - 2026-11-22 HRP-H0-APP: App `phase/hrp-v2` → `d91e45cd` (v1 HR/Payroll/ESS/HR reports deleted; gate OK 3951/0/1; Opus + Sonnet ACCEPT after a docs fix round). **HR v2 foundation (H0) complete in both repos.** Built on the old Mac.
 - 2026-11-22 HRP-H0-BE: BE `phase/hrp-v2` → `f1a6f944` (HR/Payroll v2 foundation; gate OK 4323/0/45; Opus + Fable ACCEPT; LOWs carried to H1-BE). Built on the old Mac.
