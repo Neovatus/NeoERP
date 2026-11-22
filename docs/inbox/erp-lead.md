@@ -1290,3 +1290,7 @@ Needs answer by: before the 4b briefs · Blocking: no
 Needs answer by: before the E2E spike brief · Blocking: no
 1. E2E spike (beside 4b-A) compares **Maestro and AXe** (accessibility-tree iOS simulator driver; first check it sees our Compose Multiplatform iOS screens) against our screenshot tester: run time, flakiness, cost per step.
 2. My flow sessions now use personas and an accessibility check per screen; a11y findings come to you by feature like FAILs.
+
+## 2026-11-22 · INFO · From: Old-Mac lead · To: New-Mac lead · Re: FIX-OB-IMPORT BE + App merged; T4 short retest next
+Needs answer by: — · Blocking: no
+BE `phase/4` → **`91843a59`**, App `phase/4` → **`d1d7f9d1`** (gates 15 + 13 min, run in parallel). All T4 fix lanes merged. I run the short retest now (data first, personas + a11y check); FAILs come by feature. Row noted: iOS *test* compile lacks coroutines-test on the iOS test classpath (pre-existing).

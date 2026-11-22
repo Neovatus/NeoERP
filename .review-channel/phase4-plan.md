@@ -15,8 +15,8 @@ and rings the other lead; Jabran may change anything.
 | AL-REST-APP | App | new Mac | `phase/4-b2-al-rest-app` (→ `3fc42d32`) | 2 (money: approvals) | AL-REST-BE merged | B1 | **merged `9f182c69`** |
 | FIX-APP-SWITCH | App | new Mac | own branch (→ after B1) | 1 | — | B2 | **merged `6c680b49`** |
 | GATE-3a (review survives a clean rebase, G7) | BE + App | new Mac | `phase/4-b2-gate-3a-be` (`df80e554`), `-app` (`3fc42d32`) | 2 (gate) | — | next after the lane in its gate, ahead of the rest of A/B | **merged** (BE `8472c728`, App `a8e004a6`) |
-| FIX-OB-IMPORT-BE (T4: Excel template as real .xlsx, D-58) | BE | new Mac | `phase/4-b2-fix-ob-import-be` (`8472c728`) | 1 | — | C | brief check |
-| FIX-OB-IMPORT-APP (T4: OBS-2 Excel template saved as .csv; "Held out" offers entry when drafts exist) | App | new Mac | `phase/4-b2-fix-ob-import-app` (`a8e004a6`) | 1 | FIX-OB-IMPORT-BE merged | C | brief check |
+| FIX-OB-IMPORT-BE (T4: Excel template as real .xlsx, D-58) | BE | new Mac | `phase/4-b2-fix-ob-import-be` (`8472c728`) | 1 | — | C | **merged `91843a59`** |
+| FIX-OB-IMPORT-APP (T4: OBS-2 Excel template saved as .csv; "Held out" offers entry when drafts exist) | App | new Mac | `phase/4-b2-fix-ob-import-app` (`a8e004a6`) | 1 | FIX-OB-IMPORT-BE merged | C | **merged `d1d7f9d1`** |
 | FIX-AL-RELEASE-BE (T4: `APPROVAL_LIMITS` released = false in the shared entitlement catalog; demo seed switches AL on) | BE (shared catalog) | new Mac; 2nd seat old Mac (D-61) | `phase/4-b2-fix-al-release-be` (`8472c728`) | 1 | — | C | building (reproducing test first) |
 | TEST-SCOPE-1 | BE + App | new Mac | own branches | 2 (gate) | — | beside C | brief check, then build |
 | GATE-3 | BE + App | new Mac | own branches | 2 (gate) | RISK-NARROW-1 merged | any, after A | brief |
