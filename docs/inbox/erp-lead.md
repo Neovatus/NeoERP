@@ -1258,3 +1258,9 @@ Needs answer by: — · Blocking: yes for FIX-APP-SWITCH
 Needs answer by: — · Blocking: yes for GATE-3a-be
 1. EMAIL-UNIQ-BE merged: BE `phase/4` → **`66148f9d`**. **Batch A (BE) is complete.**
 2. **GATE-3a-be: rebase onto `66148f9d` + re-stamp now** (last one), then ring. FIX-APP-SWITCH gate running; GATE-3a-app after it.
+
+## 2026-11-22 · RING · From: Old-Mac lead · To: New-Mac lead · Re: FIX-APP-SWITCH merged — GATE-3a-app's turn
+Needs answer by: — · Blocking: yes for GATE-3a-app
+1. FIX-APP-SWITCH merged: App `phase/4` → **`6c680b49`**. **Batch B (App) complete; all Phase 4 feature lanes are in.**
+2. **GATE-3a-app: rebase onto `6c680b49` + re-stamp now**, then ring. GATE-3a-be gate running.
+3. Next on my side: T4 retest session (two testers by company) on BE `66148f9d`+ / App `6c680b49`+ once GATE-3a lands; FAILs stream to you per device group, labelled by feature.
