@@ -11,3 +11,5 @@ Jabran 2026-11-22 (D-63, after Warp/Anthropic "self-improving agents" tips): pri
 - Each phase review marks every rule added in that phase keep / change / drop with its numbers; dropped rules are removed from WORKFLOW.
 **Why:** rules piled up today (D-43…D-61); builders missed brief points; nothing was ever pruned.
 **How to apply:** put "Read docs/PRINCIPLES.md first" in every brief/agent prompt I write; record agent token usage per lane; prune at each phase review. Related: [[speed-rules]], [[review-tiers]], [[lessons-register]].
+
+**D-67:** every builder/reviewer/tester prompt I write ends with: hand back a final line "Brief: unclear or missing — …" or "none"; log it in the lane Timeline.
