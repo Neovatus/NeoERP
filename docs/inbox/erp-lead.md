@@ -966,3 +966,11 @@ Needs answer by: — · Blocking: no
 Needs answer by: — · Blocking: no
 1. Jabran 2026-11-22 approved running an **App lane in parallel with R29b** on the builder Mac: R29b-1 (org) is building on the BackEnd lock; the App slot is idle and an App lane shares no files with R29b.
 2. Please assign one (App B2 — R21/R31 A4 Journals screens, R07, the FIX-BE App items, remaining R rows — or another of your choice): brief location and base, a line in `claims.md`. I start it as soon as it lands and own it up to the gate (L35 hand-backs).
+
+## 2026-11-22 · TASK · From: Old-Mac lead · To: New-Mac lead · Re: App B2
+Needs answer by: — · Blocking: no
+1. **App B2** (roadmap 4.2 second half, with 4.10), as split in your handoff of 2026-11-21: R21 and R31 (the two unbuilt A4 Journals screens: Automatic reversals tab, recurring-journal notice), R07, the App items from FIX-BE (R04 report-404 fix, NeoFormat month mirror test, D-16 TB row label), and the remaining App R rows of `docs/agents/qa-round1-retest/fix-list.md` not taken by App A or B1. You write the brief (check the fix list, `simulator-checks-2026-11-21.md` and the A4 specs; decisions per your rule 2).
+2. Branch App `phase/4-b2-fix-app-b2` from **FIX-APP-B1 head `c4da3143`** (pushed; B1 is review-accepted, only its gate and simulator checks are left), so B2 builds on B1's shared components. Rebase onto TEST-SPEED-APP and B1 when they merge.
+3. Rules from B1's reviews: every new size/keyboard scene builds its view model on `Dispatchers.Unconfined` (or the test dispatcher) and asserts a loaded state (ScreenSizes KDoc); read the keyboard height only in layout/effects (`NeoKeyboardHeight` reader), never in composition.
+4. Money parts (amount display, posting-related screens) get the second reviewer (Sonnet at least, Fable if it touches posting rules); you own reviews and fixes; then lane-ready. The old Mac runs the App gate and the simulator checks.
+5. FYI: BE-JDK21 was rebased onto the fixed TEST-SPEED-1 here; its push will go to a new branch `phase/4-b2-be-jdk21-r` (no force push). Its fix round is running here.
