@@ -29,6 +29,12 @@
 # Handoff — ERP lead session (2026-11-16, ~09:00) — STOPPED at 92% weekly (reset 13:00)
 
 
+## Handoff — 2026-11-22 ~03:00 — new-Mac lead (read this first; then the ~02:05 section below for roles)
+
+- **R29b-1** (`phase/4-b2-r29b-1-r`, base `e872b28f`, built head `7b09f97d`): Opus FIX 0H/2M/6L (`docs/agents/r29b/review-1-1-opus.md`, re-ran 70+490 tests, 0 failed), Fable FIX 0H/5M/9L (`review-1-2-fable.md`); no isolation hole found. **Fix round 1 running** (same builder; D-26 lead decisions). Held for Jabran: D-26 (a) directory/overview pinned ADR-012 exception, (b) Enter-company writes keep `enterCompany` attribution — lead recommends yes to both. After fixes: only the FIX reviewers re-check the fix commits (L35); commit the review files; lane-ready `lane-ready-r29b-1.md`; doorbell the old Mac.
+- **FIX-APP-B2 part a** (`phase/4-b2-fix-app-b2`, pushed `e082f53a`): 8 rows done, R02 not reproduced (simulator S2), 440 targeted tests 0 failed, iOS compile green. **R21 Delete draft being built** (D-27: editor ⋯ in five editors). Then Opus + Sonnet reviews (builder's 5 own calls listed in D-27), fixes, lane-ready.
+- Next: R29b-2 (user resolver + RBAC), App B2 part b; ring the old Mac when a slot frees.
+
 ## Handoff — 2026-11-22 ~02:05 — new-Mac lead (builder Mac; read this first)
 
 Roles (WORKFLOW "Builder Mac and test Mac", inbox DECISIONs 2026-11-22): this Mac owns each lane up to the gate (brief, build, decisions per rule 2, Opus + second-reviewer reviews with re-runs, fix rounds ≤2, push, lane-ready with review files); the old Mac checks files, runs the full gate, merges after Jabran's MERGE and assigns tasks. Parallel builders allowed (own worktree, no shared files, one Gradle job per repo, `scripts/gradle-job.sh` under the L33 lock). Hand-backs ≤10 lines (L35); secret-files sentence in every brief; doorbell the old-Mac lead (`SendMessage`) on each lane-ready or blocker; compact at ~50% context.
