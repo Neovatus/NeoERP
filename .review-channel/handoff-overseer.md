@@ -28,7 +28,7 @@ talk through `docs/inbox/erp-lead.md` + one-line SendMessage doorbells.
 App `phase/4` `430bc5ab` (B2b), BE `phase/4` `095a8989` (AC418-BE); App `phase/hrp-v2` `d91e45cd` (H0-APP), BE `phase/hrp-v2` `f1a6f944` (H0-BE).
 
 ## Running now
-- **AC418-APP builder** (Opus, worktree `NeoERP-worktrees/ac418-app`, from App `430bc5ab`; API reference = AC418-BE report; A13 covers 409 at submit/approve). On hand-back: reviews (Opus fresh + Sonnet if money display), gate (App), simulator checks if the brief lists them (backend + simulators up only for them), merge.
+- **AC418-APP** (worktree `NeoERP-worktrees/ac418-app`, branch `phase/4-b2-ac418-app`, base App `430bc5ab`): round 1 reviews FIX (Opus, Sonnet) → fixed `33068f15`; round 2: Sonnet ACCEPT (`review-4-sonnet.md`), Opus FIX N1 (NeoChip weight → 0-width text in scrolling `NeoFilterRail`) + N2 (debit note clears typed tax) → **last narrow fix round running** (builder agent a26c8a2…). Next: Opus re-check (review-5-opus), Sonnet re-stamp (review-6-sonnet; shared NeoChip change), App gate with those two files, then the 20 simulator steps in `docs/agents/ac418/builder-report.md` (backend + simulators up only for them; simulator sign-in needs keychain reset), verdict, merge. Lead decisions: A10 per-role sentences, A5 shared ellipsis + 180 dp memo, A9 follow-up in backlog, credit rows use their own type word.
 - Nothing else here. Backend stack and simulators **stopped**.
 
 ## Merged today (this Mac's gates)
