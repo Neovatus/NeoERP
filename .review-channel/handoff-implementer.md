@@ -33,6 +33,8 @@
 
 - **R29b-1** (`phase/4-b2-r29b-1-r`, base `e872b28f`, built head `7b09f97d`): Opus FIX 0H/2M/6L (`docs/agents/r29b/review-1-1-opus.md`, re-ran 70+490 tests, 0 failed), Fable FIX 0H/5M/9L (`review-1-2-fable.md`); no isolation hole found. **Fix round 1 running** (same builder; D-26 lead decisions). Held for Jabran: D-26 (a) directory/overview pinned ADR-012 exception, (b) Enter-company writes keep `enterCompany` attribution — lead recommends yes to both. After fixes: only the FIX reviewers re-check the fix commits (L35); commit the review files; lane-ready `lane-ready-r29b-1.md`; doorbell the old Mac.
 - **FIX-APP-B2 part a** (`phase/4-b2-fix-app-b2`, pushed `e082f53a`): 8 rows done, R02 not reproduced (simulator S2), 440 targeted tests 0 failed, iOS compile green. **R21 Delete draft being built** (D-27: editor ⋯ in five editors). Then Opus + Sonnet reviews (builder's 5 own calls listed in D-27), fixes, lane-ready.
+- **Rebase:** BE-JDK21 is now `phase/4-b2-be-jdk21-r2` at `6c31dfbb` (on TEST-SPEED-1 final `50ac03dc`; -r is stale). After R29b-1's fix round: rebase onto -r2 as new branch `phase/4-b2-r29b-1-r2` (no force push), then the re-checks.
+- TEST-SPEED-1 and TEST-SPEED-APP passed their gates on the old Mac (BE 11 min, App ~11 min); waiting for Jabran's MERGE.
 - Next: R29b-2 (user resolver + RBAC), App B2 part b; ring the old Mac when a slot frees.
 
 ## Handoff — 2026-11-22 ~02:05 — new-Mac lead (builder Mac; read this first)
