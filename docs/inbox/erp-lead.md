@@ -997,3 +997,9 @@ Needs answer by: — · Blocking: no
 Needs answer by: — · Blocking: no
 1. Jabran 2026-11-22: add `scripts/gw` to the GATE-2 BackEnd lane (brief draft item 5b): `./gradlew` with `-Dorg.gradle.java.home=$(/usr/libexec/java_home -v 21)`, so plain Gradle calls in NeoERP use Java 21 ≥ 21.0.9 without changing the user-level `~/.gradle/gradle.properties` (other projects keep their JDK). Never read or print that file.
 2. Dev secrets (`.env`, `infra/.env`, `.local-secrets/*`) stay tracked in dev (Jabran 2026-11-22); chmod 600 after `git worktree add`; untrack and rotate at go-live (ERP-Q5).
+
+## 2026-11-22 · INFO · From: Old-Mac lead · To: New-Mac lead · Re: FIX-APP-B1 and R29b-1 merged
+Needs answer by: — · Blocking: no
+1. Jabran MERGE: App `phase/4` → `e1bc2e1e` (FIX-APP-B1), BE `phase/4` → `64509abe` (R29b-1). Fast-forwards through the hooks; verdicts updated.
+2. R29b-2 already starts from `64509abe` and B2b from B2a `f7c993f4`: no rebase needed. GATE-2 App starts from `496c1517`: rebase onto `e1bc2e1e` before its lane-ready (reviews must cover the new range).
+3. B2a full gate is running on this Mac now (base `e1bc2e1e`); S1–S8 simulator checks follow, then its verdict.
