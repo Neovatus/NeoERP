@@ -1,8 +1,27 @@
-# Phase 4 test plan (rest of the phase) — owner: old-Mac lead · for Jabran's review · 2026-11-22
+# Phase 4 plan (rest of the phase): lanes, builders, branches, order, reviews, tests — owner: old-Mac lead · for Jabran's review · 2026-11-22
 
-One plan for where, when and what is tested until Phase 4 merges to `main`. Both leads follow it in this order. Rules behind it:
+One plan for the whole delivery flow until Phase 4 merges to `main`: which lanes, who builds them, branch and base, order, review tier, merge batches and where each is tested. Both leads follow it in this order. Rules behind it:
 D-46 review tiers, D-47 gate scope, D-49 who tests what, D-51 speed rules + test ledger. Changes to this plan: the owner edits it
 and rings the other lead; Jabran may change anything.
+
+## Lanes (the only lanes left in Phase 4; a new lane needs this table first)
+| Lane | Repo | Built on | Branch (base) | Tier | Depends on | Batch | State |
+|---|---|---|---|---|---|---|---|
+| AL-REST-BE | BE | new Mac | `phase/4-b2-al-rest-be-r3` (`df80e554`) | 2 (money: approvals, V79) | — | A1 | gate running (old Mac) |
+| R29b-3U | BE | new Mac | `phase/4-b2-r29b-3u-r` (`df80e554` → rebase after A1) | 2 (isolation) | — | A2 | re-check of 5 rebased commits |
+| EMAIL-UNIQ-BE | BE | new Mac | `phase/4-b2-email-uniq-be` (→ rebase after A2) | 1 + 2nd seat until GATE-3 | — | A3 | lane-ready |
+| AL-REST-APP | App | new Mac | `phase/4-b2-al-rest-app` (→ `3fc42d32`) | 2 (money: approvals) | AL-REST-BE merged | B1 | resolving AC418 conflicts |
+| FIX-APP-SWITCH | App | new Mac | own branch (→ after B1) | 1 | — | B2 | in review |
+| TEST-SCOPE-1 | BE + App | new Mac | own branches | 2 (gate) | — | any, after A | building |
+| GATE-3 | BE + App | new Mac | own branches | 2 (gate) | RISK-NARROW-1 merged | any, after A | brief |
+| Retest fix batch | BE / App | new Mac | one lane per repo `phase/4-b2-retest-fix-<repo>` | per defect, highest wins | T4 | C | after T4 |
+| DOCS-2c | App | new Mac (Sonnet) | `phase/4-b2-docs2c` | 1 (docs) | B, C | D | waits |
+| Phase 4 PR | BE + App | old Mac | `phase/4` ← merge `main` | T5 | all above | E | last |
+
+**Branching rules:** every lane branches from the current `phase/4` head of its repo; one repo per lane (cross-repo = two lanes);
+a lane rebases **once**, when the owner rings its turn; a rebased lane is pushed as a new `-r`/`-rN` branch (no force push);
+no in-between batch branches (lane → `phase/4` → `main` only). Builders: Opus default effort; Sonnet only for fully decided work.
+Briefs carry `Review tier:` and the D-51 rules; a fresh Opus checks each new brief before the builder starts.
 
 ## Test points (each code change is tested at these points and nowhere else)
 | Point | Where | What runs | Who |
