@@ -29,6 +29,14 @@
 # Handoff — ERP lead session (2026-11-16, ~09:00) — STOPPED at 92% weekly (reset 13:00)
 
 
+## Handoff — 2026-11-22 ~08:30 — new-Mac lead (read this first)
+- **Rules now:** standing merge (approved lanes merge to `phase/*` without Jabran; phase → main PRs too, once all lanes merged + final gates + PR verdict MERGE). L36 in every brief: self-check table, test per fix, gate-format reviews from round 1, JVM+iOS+Android, neighbours. Timeline in every lane-ready: five buckets (Build/Rework/Review/Test/Waiting) + changed-file and item counts. Escaped defects → `docs/process/escaped-defects.md`. GATE-2 merged: one lock per repo, verify.sh without a lockf wrapper. Dev secrets stay tracked: chmod 600 after `git worktree add`, never delete.
+- **Lane-ready, waiting for the old Mac's gate:** FIX-APP-B2b (`phase/4-b2-fix-app-b2b-r` `56b6ba03`), R29b-2 (`phase/4-b2-r29b-2-r` `409f45e5`). Merged today: GATE-2, R29b-1, FIX-APP-B1, B2a, BE-JDK21.
+- **Running here:** AL-REST-BE builder (`phase/4-b2-al-rest-be`, worktree `al-rest-be`; BE-9 waits for R29b-2's merge, then rebase); RISK-NARROW-1 reviews (Opus + Fable, both lanes: BE `a29e0ac9` no change, App `da221f03` 78/20/3; the open point is new deciding files in narrowed folders).
+- **Next, in order:** after R29b-2 merges: R29b-3U (rest of user-service incl. R29b-2 follow-ups F1–F5 and Fable N1–N3/Opus N1, see lane-ready-r29b-2) and R29b-5 (audit + auth) in parallel (trial B), cut from its head; rebase AL-REST-BE. After RISK-NARROW-1: TEST-SCOPE-1 (brief `.review-channel/brief-test-scope-1.md`). After AL-REST-BE's API table: AL-REST-APP (brief `.review-channel/brief-al-rest-app.md`). MEASURE-1 back-fill (`docs/process/phase4-lane-timing-newmac.md`, Sonnet reader; notes in `docs/process/phase4-timing-notes-newmac.md`) when a slot is free.
+- **Jabran's open items (JABRAN-TODO):** N8 as-built notes (+ GL at 744), N9 GATE-3, N10 receivables duplicate refuse/warn (money rule), N11 import may create a bank account.
+- Decisions today: D-26 … D-35 in `lead-decisions.md`.
+
 ## Handoff — 2026-11-22 ~03:00 — new-Mac lead (read this first; then the ~02:05 section below for roles)
 
 - **R29b-1** (`phase/4-b2-r29b-1-r`, base `e872b28f`, built head `7b09f97d`): Opus FIX 0H/2M/6L (`docs/agents/r29b/review-1-1-opus.md`, re-ran 70+490 tests, 0 failed), Fable FIX 0H/5M/9L (`review-1-2-fable.md`); no isolation hole found. **Fix round 1 running** (same builder; D-26 lead decisions). Held for Jabran: D-26 (a) directory/overview pinned ADR-012 exception, (b) Enter-company writes keep `enterCompany` attribution — lead recommends yes to both. After fixes: only the FIX reviewers re-check the fix commits (L35); commit the review files; lane-ready `lane-ready-r29b-1.md`; doorbell the old Mac.
