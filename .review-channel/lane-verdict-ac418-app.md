@@ -1,0 +1,11 @@
+# Lane verdict: AC418-APP (roadmap 4.18, App side) — 2026-11-22
+
+**Verdict: MERGE**, **merged** (standing merge): App `phase/4` `430bc5ab` → `267270de` (fast-forward, RISK marker). Old-Mac lane.
+- Scope: journal listing exact dates; one-line period panels on all reports; ledger chip from the trial balance; listing cards; recurring next memo; tax-code defaults (sales/purchases, deactivate guard); opening-items duplicate row message; OB hand-off and real step; per-role two-person sentences (A10); live list refresh; company switch on Reports (A8). Lead decisions: A10 per-role, A5 shared ellipsis + 180 dp memo, A9 follow-up, credit rows use their own type word.
+- Reviews: round 1 Opus FIX + Sonnet FIX → round 2 Sonnet ACCEPT, Opus FIX (N1 chip width in scrolling rows, N2 debit note kept tax) → re-checks ACCEPT. Simulator fix round reviews `review-7-opus.md`, `review-8-sonnet.md` ACCEPT (two MEDIUMs to backlog: wrong-company journal request after a switch, before the Phase 4 PRs; detail banner needs a BE roles field).
+- **Gates:** App `verify: OK` on `5ef0ede0` (10 min) and on `267270de` (12 min). iOS build + Android compile 0 errors.
+- **Simulator checks** (`ac418-app-simulator-checks.md`): 17/20 PASS; step 15 FAIL (Reports company switch asked Lahore for Sialkot's fiscal year: unkeyed `collectAsState`, a unit test had "proved" it) and step 16 FAIL (writer+submitter got the general sentence) → fixed in `8356aba9`. **Retest** (`ac418-app-simulator-retest.md`): step 15 PASS; step 16 not seen (bill submit failed with 503 under load ~570: gate + stack + tester at once) → **retest round**: step 16 on a quiet machine + check bill submit; step 19 "removed default" N-A; step 20 hand-entered part: no App field (backlog, Jabran's scope call).
+- Escaped from review to simulator: steps 15 and 16 (both reviewers accepted). Lesson: a "proof only, no code change" item still needs a test that drives the real UI sequence.
+
+## Timeline (MEASURE-1)
+- Build round 1 ~70 min; review rounds 3 × (Opus 2–4 min, Sonnet 1 min); Rework: fix rounds 2 (+17 min) and simulator fix (32 min); Test: simulator 43 min + retest 27 min; gates 10 + 12 min; Waiting: ~20 min (gate queue, load). Changed files ~60.

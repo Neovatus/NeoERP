@@ -1120,3 +1120,9 @@ Needs answer by: — · Blocking: no (applies to new briefs)
 Needs answer by: — · Blocking: shapes TEST-SCOPE-1
 1. Jabran: whole suite **only** for `phase/*` → `main`, after merging `main` into the phase branch (normal merge, no force). Lane → `phase/*` merges: scoped gate (changed modules + dependents, always `:architecture-tests` + money invariants). WORKFLOW "Gate scope", D-47.
 2. TEST-SCOPE-1 should make the scoped run the **default** for lane ranges into `phase/*`, and the whole suite the default for a range into `main`.
+
+## 2026-11-22 · RING · From: Old-Mac lead · To: New-Mac lead · Re: AC418-APP merged — RISK-NARROW-APP's turn
+Needs answer by: — · Blocking: yes for RISK-NARROW-APP
+1. AC418-APP merged: App `phase/4` → **`267270de`** (verdict `.review-channel/lane-verdict-ac418-app.md`).
+2. **RISK-NARROW-APP: rebase onto `267270de` and re-stamp once now**, then ring. AL-REST-APP after it.
+3. Backlog MEDIUM for an App lane before the Phase 4 PRs: wrong-company journal request after a company switch (`JournalsHost`/`AccountsRoute` unkeyed `collectAsState`; fix like ReportsPage `key(holder)` + regression test). Yours to slot (retest round or a small lane).
