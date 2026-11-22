@@ -1,5 +1,34 @@
 # Handoff — 2026-11-21 evening — new-Mac lead, before compacting
 
+## Handoff — 2026-11-22 ~18:40 (new-Mac lead; supersedes ~16:50)
+- **Usage: weekly 90 % (all models), the stop line. Start nothing new until the reset (Mon 2026-11-24 15:00 Oslo).**
+  Running work may finish. Fable is at 42 % and paused (D-43).
+- **Phase 4 feature lanes are all merged:**
+  - BE: AL-REST-BE, R29b-3U (R29b complete, cap 0) and EMAIL-UNIQ-BE (BE `phase/4` 66148f9d);
+  - App: AL-REST-APP, FIX-APP-SWITCH (App `phase/4` 6c680b49).
+- **In the old Mac's gates, lane-ready:** GATE-3a-be (`phase/4-b2-gate-3a-be-r` 8472c728) and GATE-3a-app (`-app-r`
+  a8e004a6). These carry the last re-stamps; once merged, a clean rebase keeps its reviews.
+- **No agents running.** A stale 2-hour wait loop (a GATE-3a builder's watcher on a crashed self-test run) was killed at
+  18:40.
+- **Next, after the reset or when the old Mac rings:**
+  1. The T4 retest: failures come per device group, labelled by feature. Make fix lanes
+     `phase/4-b2-fix-<feature>-<repo>`, at most 3 per repo, each with a reproducing test first (D-57, D-69).
+  2. GATE-3 remainder: the brief `.review-channel/brief-gate-3.md`, minus G7. Add the rows: App `same_at`, the 7-hex
+     ancestor path, BE newline/case tests, App hook G2. Needs a fresh Opus brief check (D-51).
+  3. TEST-SCOPE-1 (brief and lead notes D-47/D-49), then DOCS-2c.
+  4. 4b: once the old Mac's `phase4b-plan.md` is reviewed by Jabran (lane list `.review-channel/4b-lane-list.md`).
+     Under D-61 I gate and merge the Accounts lanes; the old Mac gates the shared ones (PLAT, RT-3).
+- **Rules added today (all in memory):**
+  - D-43 (no Fable), D-44 (effort), D-46 (review tiers), D-47 (gate scope), D-49 (who tests);
+  - D-51 (speed rules and the test ledger), D-53 (one phase plan), D-55, D-57 (fix lanes by feature);
+  - D-61 (I run Accounts 4b end to end), D-63 (`docs/PRINCIPLES.md` in every brief, plus Timeline cost and
+    first-pass gate), D-65 (resume the same builder for fixes), D-67 (a "Brief:" line in hand-backs), D-69 (an
+    automated test per T4 failure; a Compose UI test per 4b lane; an E2E spike);
+  - odd/even D-numbers: mine are even, and my next is D-54? No: D-52 is used; my next is **D-54**.
+- **Lessons today:** read the exit code and the BUILD line, never stale XML; a clean auto-merge can still break the
+  code; check that the worktree is on its branch and the remote equals the head before ringing; wait loops need a
+  stop on exit and a time limit.
+
 ## Handoff — 2026-11-22 ~16:50 (new-Mac lead; supersedes ~15:15)
 **Phase 4 remaining work, my part** (mirrors `.review-channel/handoff-overseer.md` and the inbox item "Phase 4, what is left and who"):
 1. **BE queue, in merge order:**
