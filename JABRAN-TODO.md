@@ -10,6 +10,8 @@ done ones with the date) every batch. Details and drafts are linked; nothing her
 |---|---|---|---|
 | N1 | S4 last step (simulator shut down 2026-11-21; boot it again when you want to run it): turn on the iPad simulator's hardware keyboard (the keyboard switch in the simulator panel of the Claude app; this Mac has no separate Simulator app), then the lead finishes S4 (S1–S3 passed) | The lead's tool cannot switch it | `NeoERP-App/docs/agents/fix-app-a/builder-report.md` "Needs a simulator" |
 | N4 | **Read the ARCH-1 gap map** (and the capacity model), then tell the lead to resume step 2 (the missing ADRs) | Step 2 is paused until you have read step 1 (your request 2026-11-21) | workspace branch `phase/4-b2-arch1`: `docs/agents/arch1/gap-map.md` (`9323add`), `capacity-model.md` (`1de5b7e`) |
+| N5 | App B1 questions: (a) "Saving…" while a menu pick waits — info toast (built) or a line in the editor footer? (b) mono tabular figures on **every** Amount field app-wide (built; Inter Tight's thin no-break space was invisible) or only the accrual panel? | Design choices only you make | `NeoERP-App` `docs/agents/fix-app-b1/builder-report.md` "Questions" |
+| N6 | Answer the old Mac's merge-rule question (`WORKFLOW.md:328`), and decide the two-Mac split (coding on the new Mac; full runs and merges on the old Mac, 34 GB) | Process rules are yours | handoff 2026-11-22 |
 | N3 | Switch the **lead session to High effort** in the app (it still shows medium) | Only you can change the session setting | claims.md "New-Mac lead rules" 1 |
 
 ## Before Phase 5 starts (after the Phase 4 PR merges)

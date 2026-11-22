@@ -29,6 +29,52 @@
 # Handoff — ERP lead session (2026-11-16, ~09:00) — STOPPED at 92% weekly (reset 13:00)
 
 
+## Handoff — 2026-11-22 ~01:10 — new-Mac lead stopping (read this first)
+
+Jabran asked the lead to stop after the three builders and hand over to a new session. **Nothing is running** (no builder,
+no Gradle, no backend; Docker infra up). All three lanes are **built, committed and pushed as lane branches**; none is
+reviewed, verified or merged.
+
+### Lanes built tonight (each: next = two reviews → lead `verify.sh` → lane-ready → Jabran MERGE)
+| Lane | Repo / branch / worktree | Head | Builder result | Range |
+|---|---|---|---|---|
+| TEST-SPEED-1 | BackEnd `phase/4-b2-test-speed-1`, `NeoERP-worktrees/test-speed-1`, on BE-DOCS-1 `32b07dac` (on BE-RUN-1 `e3009697`) | `2825c64d` | Full run **54 → ~15 min** (3 workers, both locks): 4320 tests, 0 failed, money invariants OK. Year-end test 17 min → 14 s (stale statistics; prod preview/close ~1.2 s at 100,001 lines). accounts in 3 forks (own Postgres per fork; `tmpdir` classes alone first). `--continue`. Light gate (73 risk-check cases). Flaky `SupplierBankEventsTest` fixed (+2 tests). | RISK: two reviews |
+| TEST-SPEED-APP | App `phase/4-b2-test-speed-app`, `NeoERP-worktrees/test-speed-app`, from `324d3039` | `280f6b73` | Full run **36 → 11¼ min** (3 forks; timed at 768m, committed 512m: the lead's verify is its first full run): 3905 tests, 0 failed, 1 allowlisted skip; 1786 shot files byte-identical. Size-test 25 ms sleep removed; PNGs encoded off-thread. Light gate (66 cases; `docs/design/**` never light). | RISK: two reviews |
+| FIX-APP-B1 | App `phase/4-b2-fix-app-b1`, `NeoERP-worktrees/fix-app-b1`, from `324d3039` | `692b8697` | F1/F1+/F9/F10/F5 (top bar on top, phone search across the bar, side menu), F2/F3/F4 (side panels handle the keyboard; Return/tap ends typing; amounts mono tabular), R32 (`neoKeepInViewWithKeyboard`, all editors/panels/wizards size-tested except Review and go live), F6, F7 not reproduced, F8 partly, A-L1–A-L4. 24 new/changed tests pass, 92-test regression 0 failed. **iOS compile NOT done: Gradle daemon OOM at 2 GiB heap — rerun with `-Dorg.gradle.jvmargs=-Xmx4096M`.** Simulator checks C1–C7 in its builder report. | Opus + Sonnet reviews (amount display) |
+
+**Order for the next lead:**
+1. Start the reviews: TEST-SPEED-1 and TEST-SPEED-APP (each Opus fresh + a second, different reviewer, diff + brief only;
+   compare the two light gates: script names, marker fields `gate=full|light`, hook rule; they must match before either
+   merges). FIX-APP-B1: Opus fresh + Sonnet, after its iOS compile passes.
+2. **BE-JDK21:** Jabran approved starting it right after the TEST-SPEED-1 builder (2026-11-21 "Yes, start it then"),
+   on the TEST-SPEED-1 head, while TEST-SPEED-1 is in review; rebase onto its review fixes. Brief draft:
+   `.review-channel/brief-draft-be-jdk21.md` (copy into BackEnd `docs/agents/be-jdk21/brief.md` in the lane).
+3. Full runs (lead): BackEnd `verify.sh --range a50eabbb..HEAD --reviews <f1> <f2>` on TEST-SPEED-1 merges BE-RUN-1
+   (Jabran MERGE) + BE-DOCS-1 (old-Mac MERGE, `lane-verdict-be-docs-1.md`) + TEST-SPEED-1 in one fast-forward. App:
+   TEST-SPEED-APP first; then rebase FIX-APP-B1 onto it (both touch `docs/design/screen-standard.md`) and run its
+   gate. Full runs take both locks: `lockf -k /private/tmp/neoerp-gradle-app.lock scripts/verify.sh …`.
+4. FIX-APP-B1 needs the lead's iOS simulator look (C1–C7) before its merge (QA guide "Layout lanes").
+5. Then GATE-SLOW-1 (5 slowest classes per full run, approved), App B2, the rest of Phase 4 (see the night section
+   below), HR v2 H1 on the old Mac from Monday.
+
+**Questions for Jabran (from the builders; also on JABRAN-TODO):** A-L2 "Saving…" as an info toast or in the
+editors' footer (ux §24 says toasts are for finished actions); F4 mono tabular figures on every Amount field app-wide
+(cause: Inter Tight's thin no-break space) or only the accrual panel; the old Mac's merge-rule question for
+`WORKFLOW.md:328` (answer not known to this lead); the old-Mac split (coding here, full runs + merges there): not
+decided yet.
+
+**Findings for a fix row (not built):** five more "7947 in text with random UUIDs" flakes (`SupplierBankNoticeTest:39`,
+`BankChangeSignalsTest:59`, `BankNoticeHttpSenderTest:60`, `BankDetailsCryptoTest:32`, `BankSignalsTest:58`);
+`EncryptedFileNeoErpTokenStoreTest` clears the real `~/.neoerp` token store on every App run (signs a developer out);
+`CreditNoteEditor` `s.customer!!` on an on-account credit note with no customer (guard in `persist`); App test floor
+`min_tests=3500` vs 3905 measured (raise = RISK gate change); verify's 4 GB Gradle + 3 GB Kotlin daemon heaps make
+every full-run compile swap on 16 GB (separate decision); `-PaccountsTestForks=<n>` and `-Pneoerp.jvmTest.forks=<n>`
+are new overrides.
+
+**Gradle (trial L33):** two locks, App first then BackEnd; whole-suite runs take both. Swap episodes tonight only when
+a full-size run ran beside another job or with 4 BackEnd workers. Worker count could follow machine memory (old Mac
+34 GB) — suggested for the speed lanes' review fixes.
+
 ## Handoff — 2026-11-21 night — new-Mac lead (read this first)
 
 **Jabran's direction (2026-11-21, ~23:00): complete Phase 4 first.** Tooling lanes BE-JDK21 (brief drafted in the
