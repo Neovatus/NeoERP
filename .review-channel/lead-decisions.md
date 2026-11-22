@@ -547,3 +547,35 @@ R29b-3U head `e6ac1344` classifies all 18 entries (cap 23 → 5; the 5 left are 
    on `lower(email)`) with a test. It is queued after the current BE lanes.
 Reviews for R29b-3U (D-43, no Fable): Opus high plus a fresh, independent Opus high, each given only the brief and the
 diff.
+
+## D-47 R29b-3U review round 1 — 2026-11-22
+Two independent Opus reviews (high; no Fable, D-43) on `e6ac1344` (committed):
+- **A:** FIX, 0 HIGH / 2 MEDIUM / 6 LOW. Re-runs: arch 85/0, real-DB two-company 13/0, user 155/0.
+- **B:** FIX, 0 HIGH / 3 MEDIUM / 5 LOW.
+Lead decisions (rule 2; each item a reviewer proposed or named; the fix checks confirm them):
+1. **B M1 (a write into company A):** withdrawing an invitation closes the shared account only when the account has no
+   other membership of any status in any company. That check is a boolean-only port keyed by the account, pinned to the
+   withdraw use case. Test: a real-DB two-company case.
+2. **B M2 (a scoped staff read):** platform People for scoped staff shows another company's person through a pending
+   invitation only as the invitation's typed name and email, never the account's current data or last sign-in, as the
+   company People list already does. Test: two companies.
+3. **B M3:** the enrollment-owner add is keyed by the checked platform permission (machine client or staff), and
+   `enrollmentAccountExists` uses its scope. `MembershipUseCases.createAs` has no production caller, so delete it (or
+   pin and refuse it).
+4. **A M1 + B LOW:** Super Admin grant and revoke run under the same advisory lock, write `PLATFORM_WRITE` in the same
+   transaction, answer 503 on an audit failure, and are listed in ADR-012 §3. Test the race and the refusal.
+5. **A M2:** HTTP-level tests that compile on both trees prove each answer change (F5 403→404, the company-access end,
+   F4 503, the hr push 422, the added `PLATFORM_WRITE` events): old FAIL on `409f45e5`, new PASS.
+6. **LOWs, all in this round:**
+   - the platform-write audit is required, not optional (no silent skip); `record` asserts that a transaction is active;
+   - `PlatformPersonPort.save` and the staff and role write ports are pinned by method, and the key is tied to the
+     write; the adapter's public `save` and `findById` are removed;
+   - the caller's own platform access checks that the user id is the token's identity;
+   - refusal tests for staff add and Enter-company start;
+   - the invitee adopt and create use SQL guards, and the scope they take is checked;
+   - **account-existence signals:** the refusal text and code for "not found", "already a member" and "is Neovatus
+     staff" are the same to a company admin, so they reveal nothing (the industry-standard no-oracle answer; Fable D-40
+     condition 5);
+   - the ADR-012 notes and the stale report sections are updated.
+7. Before hand-back: the full user-service and org-service suites plus `:architecture-tests`.
+Re-check: both reviewers (both said FIX). Reviewer A re-runs the tests. This is fix round 1 of at most 2.
