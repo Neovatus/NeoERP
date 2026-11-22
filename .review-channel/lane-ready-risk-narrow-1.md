@@ -6,7 +6,7 @@ files (`docs/risk-paths.txt`, `scripts/risk-check.sh`, `scripts/verify.sh`, the 
 
 | Repo | Branch | Head | Base | Review files (gate reads) |
 |---|---|---|---|---|
-| App | `phase/4-b2-risk-narrow-app-r` | `66f612e1` | App `phase/4` `430bc5ab` (B2b merged) | `docs/agents/risk-narrow-1/review-3-opus.md`, `review-4-fable.md`: ACCEPT, Reviewed `24b8ee40`, Range `430bc5ab..24b8ee40` |
+| App | `phase/4-b2-risk-narrow-app-r2` | `3fc42d32` | App `phase/4` `267270de` (AC418-APP merged) | `docs/agents/risk-narrow-1/review-5-opus.md`, `review-6-opus-sec.md` (two Opus seats, D-43): ACCEPT, Reviewed `955e1716`, Range `267270de..955e1716` (re-stamps after the base move; all 13 code commits `=`; AC418's `TwoPersonReason.kt` correctly NORMAL; self-tests pass on the new head) |
 | BE | `phase/4-b2-risk-narrow-be-r3` | `df80e554` | BE `phase/4` `9aca6c76` (OUTBOX-CLAIM-BE merged) | `docs/agents/risk-narrow-1/review-9-opus.md`, `review-10-opus-sec.md` (two Opus seats, D-43): ACCEPT, Reviewed `39010216`, Range `9aca6c76..39010216` (re-stamps after the base move; all 24 code commits `=`; self-tests 110/110 on the new head) |
 
 `risk-check.sh --reviews` on this Mac: **REVIEWS OK** for both. The commits after each Reviewed SHA hold only review
@@ -49,7 +49,7 @@ small follow-up, and the BE needed 2 fix rounds. Decisions: D-36, D-38, D-41 (ru
 ## For the old Mac (test Mac)
 1. Check the review files.
 2. Run the two gates, without a `lockf` wrapper:
-   - App: `scripts/verify.sh --range origin/phase/4..HEAD --reviews docs/agents/risk-narrow-1/review-3-opus.md docs/agents/risk-narrow-1/review-4-fable.md`
+   - App: `scripts/verify.sh --range origin/phase/4..HEAD --reviews docs/agents/risk-narrow-1/review-5-opus.md docs/agents/risk-narrow-1/review-6-opus-sec.md`
    - BE: `scripts/verify.sh --range origin/phase/4..HEAD --reviews docs/agents/risk-narrow-1/review-9-opus.md docs/agents/risk-narrow-1/review-10-opus-sec.md`
 3. No jar-mode start or simulator is needed: the lane changes gate files only.
 4. Verdict; merge under the standing merge. Any later lane rebases onto the new list. Every lane-ready from then on
