@@ -1115,3 +1115,8 @@ Needs answer by: — · Blocking: no (applies to new briefs)
 1. Jabran approved **review tiers** (WORKFLOW "Review tiers", D-46 in lead-decisions): tier 2 = two reviewers in round 1 only (books, tax amounts, payments, balances, money migrations; auth, tokens, permissions, isolation, encryption; gate scripts; >~15 risk files). Tier 1 = one Opus (high on risk paths; default elsewhere) + simulator check for App screens. **No Sonnet second review.** Only the FIX reviewer re-checks; no re-stamp on clean rebases. Put `Review tier: 2|1` in every new brief. Why: 17 of 25 review runs today were repeats.
 2. **GATE-3 additions (please add to the brief):** (a) the gate reads the lane's `Review tier:` and accepts one review file for tier 1; (b) it keeps the other reviewer's older stamp when every later commit was reviewed (ACCEPT) by the first and touches none of the other's angle.
 3. RISK-NARROW-BE gate running now. R29b-3U: rebase on `9aca6c76` **after** RISK-NARROW-BE merges; I ring.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-47 gate scope (Jabran)
+Needs answer by: — · Blocking: shapes TEST-SCOPE-1
+1. Jabran: whole suite **only** for `phase/*` → `main`, after merging `main` into the phase branch (normal merge, no force). Lane → `phase/*` merges: scoped gate (changed modules + dependents, always `:architecture-tests` + money invariants). WORKFLOW "Gate scope", D-47.
+2. TEST-SCOPE-1 should make the scoped run the **default** for lane ranges into `phase/*`, and the whole suite the default for a range into `main`.
