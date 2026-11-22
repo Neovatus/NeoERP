@@ -38,7 +38,7 @@ area uses the new reads; the Owner switch and the self-approval report are on sc
    (NO and PK formats). Feature off (AL-D13): steps read-only, snapshot shown as stored.
 5. Reminders and "Reminded 8 Oct" wait for ADR-025 (AL-D17): not built; no placeholder text.
 
-## Open decisions for Jabran
+## Decisions (Jabran 2026-11-22: "od oa as recommended": OA-1, OA-2 decided as recommended below; build them)
 - **OA-1 Steps card component.** Rec: a shared `NeoApprovalSteps` in `designsystem/components` (plan P3: reusable by
   HR), Opus check of the component API. Why: HR H2–H4 need the same ladder; a second copy would drift. (A shared
   component change is a stop-and-ask in P1's brief; this asks it once, up front.)

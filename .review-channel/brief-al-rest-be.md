@@ -48,7 +48,7 @@ report of every Owner's-own decision.
    `ACCOUNTS.APPROVAL_LIMIT.UPDATE` or `.CONFIRM`, answer `{items:[{roleId,name,canDecide:[kinds]}]}`, kinds limited
    to ACCOUNTS (SR-M2) (backlog 2026-11-16, security review). `confirmedByUserId` per kind in `GET /approval-limits`.
 
-## Open decisions for Jabran (ask before building 4.11; S5 and 4.9 do not wait)
+## Decisions (Jabran 2026-11-22: "od oa as recommended": OD-1, OD-2, OD-3 decided as recommended below; build them)
 - **OD-1 What the switch covers.** Rec: one company switch "The Owner may not approve their own items" for all three
   limit kinds (journals, supplier payments, customer refunds). Why: the Owner's own exists in all three (A1 C-7, C R2-6,
   B P3-30); a journal-only switch leaves the same self-approval open through a payment.
