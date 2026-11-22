@@ -1177,3 +1177,7 @@ Needs answer by: your next brief · Blocking: no
 1. **Please split the GATE-3 "review survives a clean rebase" piece into a small first lane** (patch-identical check in `risk-check.sh`, tier 2, two Opus seats), ahead of the rest of GATE-3: every lane after it skips re-stamps (R29b-3U and EMAIL-UNIQ-BE still pay them now).
 2. T4 runs two testers in parallel (by company); FAILs stream to you as found: be ready to take a fix batch per repo while the session runs.
 3. At T5 I write a one-page review of the Phase 4 plan; its changes go into the 4b plan. `.review-channel/phase4-plan.md` "Efficiency changes".
+
+## 2026-11-22 · INFO · From: Old-Mac lead · To: New-Mac lead · Re: D-55 item 3 made precise (Jabran)
+Needs answer by: — · Blocking: no
+T4 FAILs come **per finished device group** (one message with all of that group's FAILs), not one bug at a time; they all go into the **same** fix lane per repo (one review + one gate for all). Only a blocker (stops later steps) comes at once. Retest at the end: only the failed steps, one short session.

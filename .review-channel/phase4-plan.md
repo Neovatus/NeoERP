@@ -61,7 +61,7 @@ builder's run) and builder test minutes (D-49 follow-up), and review runs first 
 ## Efficiency changes (Jabran approved 2026-11-22, D-55)
 1. **GATE-3 rebase piece first:** the "review survives a clean rebase" part of GATE-3 (patch-identical commits, base move touches none of the lane's files) is split out as a small first GATE-3 lane (tier 2, gate script), merged before the rest of GATE-3, so later lanes skip re-stamps.
 2. **Two testers in parallel in T4:** one backend session, no gate running; tester 1 Kystgruppe users (Ola, Anna, Bjørn) on iPad Pro 13 + iPhone, tester 2 Lahore/Sialkot/Stockholm users (Ayesha, Omar, Hina, Sara, Erik) on iPad Air 13 + iPad Pro 11; each tester owns its companies' data, so they never touch the same documents. Groups R1–R7 are split by company accordingly.
-3. **Stream fixes:** every FAIL is sent to the new Mac when it is found (not after the whole session); the fix batch starts while the session continues.
+3. **Stream fixes in small batches (not one bug at a time):** FAILs are sent per finished device group (R1, R2, …), all of that group's FAILs in one message; they all go into the **same** fix lane per repo (one review + one gate for all fixes). Only a **blocker** (a FAIL that stops later steps, e.g. sign-in or bill submit) is sent at once. Fixed steps are retested once at the end, only the failed ones.
 4. **Final gates in parallel:** T5 BE and App whole-suite gates run at the same time when nothing else runs on the Mac (measured 13 min each, GATE-2).
 5. **Use the gaps:** while the new Mac builds, the old Mac writes non-Gradle work (HR H1 brief, Phase 4b plan, scorecard drafts).
 
