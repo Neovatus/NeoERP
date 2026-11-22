@@ -1,5 +1,34 @@
 # Handoff — 2026-11-21 evening — new-Mac lead, before compacting
 
+## Handoff — 2026-11-22 ~15:15 (new-Mac lead; supersedes ~13:40)
+- **Usage:** weekly 85 % (all models), Fable 42 % and paused until Mon 15:00 (D-43). The usage rule says start nothing
+  new at 90 %; finish the merge queue first.
+- **Rules since 13:40:**
+  - D-46 review tiers (Jabran; old Mac): `Review tier: 2|1` in every brief, no Sonnet second review, only the reviewer
+    who said FIX re-checks.
+  - D-47 gate scope (Jabran): the whole suite runs only phase → main; phase lanes get the scoped gate.
+  - D-numbers: the old Mac takes odd numbers and the new Mac even; mine continue at D-50.
+  - The second Opus seat signs `Reviewer: Opus 5.5 security (D-43)`.
+- **Merged today:** R29b-2, B2b, AC418-BE, R29b-5, OUTBOX-CLAIM-BE, AC418-APP, HR H0. In the old Mac's gates now:
+  RISK-NARROW-BE (`-be-r3` df80e554) and RISK-NARROW-APP (`-app-r2` 3fc42d32).
+- **Lane-ready, waiting for the ring to rebase once and re-stamp:**
+  - **R29b-3U:** `phase/4-b2-r29b-3u` 5f6d65b6 on 409f45e5. Both Opus seats accepted fa045702. The rebase will
+    conflict in the baseline file and cap with R29b-5; after it the cap is 0. Re-check that conflict resolution and
+    write the lane-ready. Add the release-gates and backlog rows: "the owner accepts before go-live" (D-46u), arch
+    rule for internal save/findById, the staff-email signals on the pen-test list.
+  - **AL-REST-BE:** `-be-r2` b7c8a123 on 095a8989. Both accept. Check overlap with OUTBOX (db-design §1), and fix
+    the "before V77" text in the report.
+  - **AL-REST-APP:** `phase/4-b2-al-rest-app` 4da0be01 on 430bc5ab. Opus and Sonnet accept;
+    `lane-ready-al-rest-app.md` is written. It merges after AL-REST-BE.
+- **Next lanes, when usage allows:**
+  - **FIX-APP-SWITCH:** backlog MEDIUM, wrong-company journal after a company switch; `key(holder)` plus a test; tier
+    1; after AL-REST-APP merges.
+  - **EMAIL-UNIQ-BE:** a unique index on `lower(email)` (Jabran D-46u).
+  - **GATE-3** (D-45 scope plus the additions) and **TEST-SCOPE-1** (lead note: Jabran's D-47 scope): after
+    RISK-NARROW-1 merges.
+  - **DEV-TOOLS:** suggestions 9–11.
+  - After R29b-3U merges: delete `docs/agents/r29b/evidence/`.
+
 ## Handoff — 2026-11-22 ~13:40 (new-Mac lead)
 - **Rules added today:**
   - D-43: no new Fable work until the weekly reset (Mon 2026-11-24, 15:00 Oslo); the second reviewer is a fresh,
