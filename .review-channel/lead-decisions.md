@@ -617,3 +617,6 @@ Fix round 1, every item:
   tested on its real editor-draft path.
 - The CSV number and date format: check the BackEnd CSV, and say what it is in the report.
 Re-check (WORKFLOW review tiers, D-46): each reviewer re-checks only its own findings. Opus re-runs the tests.
+
+## D-47 Whole suite only before a phase goes to main — 2026-11-22 (Jabran in chat)
+**Jabran:** "whole suite only when full phase to merge to main; before merging to main, update it from main so we have all code". Rule in WORKFLOW "Gate scope": lane merges use the scoped gate (changed modules + dependents + architecture + money invariants); phase → main merges `main` into the phase first, then runs the whole suite. TEST-SCOPE-1 (new Mac) delivers the scoped gate; until then lane gates stay full.
