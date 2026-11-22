@@ -655,3 +655,32 @@ Feature work as vertical lanes (one roadmap item = BE lane + App lane, one end-t
 **Jabran (in chat, "Yes, all three"):** OQ-4 (a) no End employment / HR-officer job-change request in H1 (H4 owns them; actions hidden); OQ-6 (a) ESS bank-account request fails closed in H1, the `auth_time` sign-in change is its own lane for his approval; OQ-A3 (a) hide Time/Leave/Pay tabs and cards until each area ships.
 **Lead (recommendations, industry practice):** OQ-1 (a) narrow internal cost-centre read in accounts-service in BE-1 (lead checks no Phase 4/4b lane touches those files); OQ-2 (a) `shared/field-cipher` now, Accounts moves later in its own tier-2 lane with a compatibility test; OQ-3 (a) internal audit read by company + service + subject in BE-2; OQ-5 (a) payroll column grants in P0's first migration; OQ-7 (a) sensitive facts block with P1; OQ-A1 (a) reuse `features.hr`/`features.ess`, rule refuses v1 names; OQ-A2 (a) build missing components with their first screen; OQ-A4 (a) each App slice starts at its BE slice's lane-ready, merges after it.
 **D-59 addendum (after the brief check):** Jabran: OQ-9 (a) attachments in H1 (optional document on HR bank changes and ESS change requests, 24 h purge of unlinked uploads); OQ-11 (a) non-bank pay-details fields are direct sensitive edits with reason and audit; only the bank account waits for a second person. Lead: OQ-8 (a) server derives job-change `kind`; OQ-10 (a) directory status Active · Ended · All; OQ-12 (a) probation and contract end on Overview.
+
+## D-52 GATE-3a review round 1 — 2026-11-22
+Two Opus seats (high; D-43):
+- **BE `4621e84a`:** seat 1 FIX (1 MEDIUM parity, 2 LOW); seat 2 ACCEPT (7 LOW).
+- **App `caeb1a60`:** seat 1 FIX (MEDIUM parity, 4 LOW); seat 2 FIX (**MEDIUM 1, a real bypass**: `commit_of` reads refs
+  before short SHAs and `Range:` takes any name, so a fetched tag named like the short SHA can point at a forged chain
+  that is patch-identical and passes; MEDIUM 2 parity; 6 LOW).
+Lead decisions (rule 2), applied in both repos so the scripts match:
+1. **The carry path takes full 40-hex SHAs only**, for both `Reviewed:` and `Range:`, resolved with
+   `^{commit}`-checked object IDs and never as ref names. Port BE's `sha_of_text` and the `Range` regex to the App. Set
+   `GIT_NO_REPLACE_OBJECTS=1` for the gate.
+2. **Fail closed:** `set -o pipefail` in the carry code. An empty patch-id, an empty commit list or an empty lane-path
+   list refuses the carry.
+3. **One wording, using BE's:** the same messages, the same self-test names and the same five-condition list in both
+   `verify.md` files. Correct App `verify.md:416`.
+4. **App:**
+   - a NUL-safe tail check (`-z`), so a path with a newline can't pass as a review file;
+   - case folding in condition 3, as BE does;
+   - an explicit check that the base is an ancestor of the head;
+   - the after-NORMAL run on the carry branch.
+5. **BE:** `patch-id` with `--root --no-color` (as the App has it).
+6. **New self-tests in both repos:** merge refusal, base not an ancestor of head, no commits, mode-bit change, short
+   SHA refused, tag or ref name refused, empty patch-id refused. Each must fail on the round-1 head.
+7. **Rows, not this lane:**
+   - the App hook re-running `--reviews` with the remote copy (GATE-3 G2);
+   - rule 3 being path-only, so a semantic merge break can pass (by design; GATE-3a only skips re-stamps, while
+     builders and the gate still run the tests);
+   - `$range` resolved twice (pre-existing, fails closed).
+Re-check: both seats, on their own findings.
