@@ -49,3 +49,7 @@ a simulator slot. Reported in each Timeline and at the check-in after 4b-A.
   - contract tests: the BE publishes examples per endpoint, and the App asserts its requests match them;
   - a four-language size test (en/nb/sv/da) for each new screen.
 - These start after the Phase 4 PRs merge, like the rest of 4b. See `phase4b-plan.md` "Test rows".
+
+## D-75 (Jabran via the old Mac, 2026-11-22)
+- **E2E spike scope** (`phase/4b-e2e-spike`): compare Maestro and AXe against our screenshot tester on run time, flakiness and cost per step. AXe drives the iOS simulator through the accessibility tree; first check that it can see our Compose Multiplatform iOS screens. No GitHub Actions.
+- **Accessibility findings:** the old Mac's flow sessions now use personas (device × language × text size × dark mode) and run an accessibility check on each screen. Its findings arrive by feature, like failures, and go into the fix lanes by feature.
