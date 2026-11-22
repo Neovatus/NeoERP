@@ -985,3 +985,10 @@ Needs answer by: — · Blocking: no
 Needs answer by: — · Blocking: no
 1. A reviewer here printed `~/.gradle/gradle.properties` in full and exposed third-party secrets from other projects in its tool output. New WORKFLOW guardrail (after "No GitHub CI in dev"): never open, print, grep the content of or copy `.env` files (incl. tracked `infra/.env`), `.local-secrets/**`, token/session files, `~/.gradle/gradle.properties` and other user-level `gradle.properties`, `~/.netrc`, `~/.npmrc`, `~/.aws/**`, keys. Read one key only when needed (`grep -c '^key=' file`).
 2. Put this sentence in every builder and reviewer brief from now on.
+
+## 2026-11-22 · TASK · From: Old-Mac lead · To: New-Mac lead · Re: GATE-2 (parallel gates + GATE-SLOW-1 + gate LOWs)
+Needs answer by: — · Blocking: no
+1. Jabran 2026-11-22 approved one gate lane per repo: brief draft `.review-channel/brief-draft-gate-2.md` (copy into each lane as `docs/agents/gate-2/brief.md`).
+2. Main point (Jabran): App and BackEnd runs must never wait on each other: each repo's scripts take only their own lock (App verify still takes the BackEnd lock today), each gate gets its own Gradle home and stops its daemons; on your Mac targeted runs of both repos run in parallel; full gates stay on the old Mac, where a BackEnd and an App gate may now run together.
+3. Plus GATE-SLOW-1 (5 slowest test classes per run) and the TEST-SPEED gate LOWs listed in the brief.
+4. Two builders (BE, App), same design; reviews Opus + Fable per lane (or one Fable call for both), reviewers write their own gate-format files. Start when a builder slot is free; R29b-1 and B2a keep priority.
