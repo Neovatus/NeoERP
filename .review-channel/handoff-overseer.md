@@ -21,6 +21,7 @@ talk through `docs/inbox/erp-lead.md` + one-line SendMessage doorbells.
   the gate's scoped set); **D-51 speed rules** (batch fixes, flow test before review, Opus brief check, check first / don't repeat /
   ask, **test ledger** `.review-channel/test-ledger.md`, plan tests per batch). D-numbers: old Mac odd, new Mac even.
 - **Gate worktrees are detached: always pass `--range origin/phase/<N>..HEAD` to `verify.sh`** (without it the base is `origin/main` and reviews are refused after the full run; cost 16 min on AL-REST-APP).
+- **Never let a reviewer write into a worktree while its gate runs** (gate ends "tree is not clean" → no marker; 13 min lost on DEMO-FM2-BE). Reviewers write to `.review-channel/<lane>/` or wait for the gate.
 - Review files: exactly one line containing "verdict"; two different `Reviewer:` names. Run `scripts/risk-check.sh <base>..HEAD
   --reviews f1 f2` before `verify.sh` (fail fast until GATE-3).
 - One gate at a time on this Mac; **no backend stack or simulator while a gate runs** (load ~570 today → 503s, swap 11 GB).
