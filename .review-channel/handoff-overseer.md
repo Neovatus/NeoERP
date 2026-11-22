@@ -17,7 +17,7 @@ talk through `docs/inbox/erp-lead.md` + one-line SendMessage doorbells.
   screens); L37 A/B/C comparison on real lanes; MEASURE-1 five-bucket Timeline + changed files + item count; escaped-defects (table rows).
 - One Gradle lock per repo; `verify.sh` without a lockf wrapper, pass `--reviews <f1> <f2>`; builders via `scripts/gradle-job.sh`
   (zsh: pass task names as separate words). At most one gate + two Gradle builders on this Mac (load 227 crashed the session 08:5x).
-  Reviewers/builders run Gradle only when `pgrep -f 'gradle-home-verify-'` is 0. chmod 700/600 `.local-secrets` after `git worktree add`.
+  Reviewers/builders run Gradle only when `pgrep -f '[b]in/java .*gradle-home-verify' | wc -l` is 0 (a plain 'gradle-home-verify' pattern matches the waiting shells themselves and deadlocks: 3 agents stuck ~30 min on 2026-11-22). chmod 700/600 `.local-secrets` after `git worktree add`.
 - **Up only while testing (both leads):** backend stack and simulators start right before simulator checks or Jabran's testing,
   stop right after (`pkill -f 'services/.*/build/libs/.*\.jar'`; `xcrun simctl shutdown all`). Docker infra stays.
 - Simulator sign-in: `simctl uninstall` + `simctl keychain <dev> reset` + install + `tools/dev-session-to-simulator.sh <user>` + launch
