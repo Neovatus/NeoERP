@@ -18,6 +18,7 @@ Write a line before starting, remove it when done. Never touch work the other le
 3. **Fable budget (Jabran 2026-11-21):** Fable uses at most 50 % of the weekly limit (plan below 40 %, nothing new at 45 %). Fable does substantial work only: independent security reviews of gate, money and security lanes, batched checks of substantial decisions, and views on Jabran's critical lists. Few-line reviews, small fix confirmations and small decisions go to the lead, Opus or Sonnet.
 
 ## Merged lanes
+- 2026-11-22 BE-JDK21: BE `phase/4` → `6c31dfbb` (Java 21, floor 21.0.9; old Mac gate on Java 21: verify OK 10 min, 4332/0/59, money invariants OK, jar mode healthy; Opus + Sonnet ACCEPT; Jabran MERGE). **Every Mac: Java 21 ≥ 21.0.9 as the Gradle JVM.**
 - 2026-11-22 TEST-SPEED-1 + BE-RUN-1 + BE-DOCS-1: BE `phase/4` → `50ac03dc` (old Mac gate: verify OK 11 min, 4320/0/59, money invariants OK; Opus + Fable ACCEPT; Jabran MERGE). **Every BE checkout: run `scripts/install-hooks.sh` (gate version 4).**
 - 2026-11-22 TEST-SPEED-APP: App `phase/4` → `496c1517` (old Mac gate: verify OK, 3905/0/1, 1786 size shots identical 1 vs 3 forks; Opus + Fable ACCEPT; Jabran MERGE). **Every App checkout: run `scripts/install-hooks.sh`.**
 - 2026-11-21 FIX-BE: BE `phase/4` → `a50eabbb` (verify OK, two reviews; verdict MERGE).

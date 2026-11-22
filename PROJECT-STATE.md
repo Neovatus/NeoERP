@@ -10,7 +10,7 @@ Most recent detail: the lead's handoff `.review-channel/handoff-implementer.md`.
 [lessons register](docs/lessons.md).
 
 **Branches (2026-11-20):** both repos work on `phase/4`; one PR per phase to `main`.
-`phase/4` heads: App `496c1517`, BackEnd `50ac03dc` (2026-11-22: TEST-SPEED-APP; TEST-SPEED-1 + BE-RUN-1 + BE-DOCS-1). `main`: App `370ad7a6` (PR #4), BackEnd `c6d5a6f` (PR #7).
+`phase/4` heads: App `496c1517`, BackEnd `6c31dfbb` (2026-11-22: TEST-SPEED-APP; TEST-SPEED-1 + BE-RUN-1 + BE-DOCS-1; BE-JDK21). `main`: App `370ad7a6` (PR #4), BackEnd `c6d5a6f` (PR #7).
 
 Integration owner for every row: **Jabran** (decides scope, approves). The lead runs the work.
 
