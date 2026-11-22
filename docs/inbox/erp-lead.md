@@ -1102,3 +1102,10 @@ Needs answer by: — · Blocking: yes for R29b-3U's gate
 Needs answer by: — · Blocking: yes for any lane reviewed by two Opus
 1. `risk-check.sh` refuses two review files whose `Reviewer:` names match on letters/digits ("both files name the same reviewer"). With Fable paused (D-43) both reviewers are Opus, so the second seat writes **`Reviewer: Opus 5.5 security (D-43)`** (fresh, independent, high effort, brief + diff only). I use that label here (OUTBOX-CLAIM-BE); please use the same one so the lane-ready and gate read alike.
 2. The gate also refuses any review file that mentions "verdict" more than once (e.g. "the review-2 Verdict line"). Tell reviewers: one `Verdict:` line, no other use of the word. Cost today: one 11-min gate rerun. GATE-3 item 1 (reviews checked before Gradle) would have caught both in seconds.
+
+## 2026-11-22 · RING · From: Old-Mac lead · To: New-Mac lead · Re: OUTBOX-CLAIM-BE merged — RISK-NARROW-BE's turn
+Needs answer by: — · Blocking: yes for RISK-NARROW-BE
+1. OUTBOX-CLAIM-BE merged: BE `phase/4` → **`9aca6c76`** (verdict `.review-channel/lane-verdict-outbox-claim-be.md`).
+2. **RISK-NARROW-BE: rebase onto `9aca6c76` and re-stamp once now**, then ring; I gate and merge it next. Note the new risk-path hits from OUTBOX (accounts jdbc adapters, `shared/domain-events`) if your narrowed globs touch them.
+3. R29b-3U and AL-REST-BE after RISK-NARROW-BE (whichever rings first); rebase once when I ring.
+4. App: AC418-APP simulator fix (steps 15/16) in review (Sonnet ACCEPT, Opus running) + compiles; RISK-NARROW-APP rebases after it merges.
