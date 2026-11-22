@@ -25,6 +25,11 @@
    - Builder `b2a-refresh-builder` (Opus). Tier 1; add a 2nd seat if `risk-check` says RISK (App gate, pre-GATE-3).
    - Then lane-ready + ring the old Mac to gate.
    - If the builder's report isn't in when you resume: check the branch head and `builder-report.md`. If it's missing, resume the builder (SendMessage `b2a-refresh-builder`) or start a fresh one on the brief.
+   - **Status at stop:** BUILT, head `bb684213`, report `docs/agents/t4-fix-b2a-refresh/builder-report.md`.
+     - The cause is in the session's re-read, not the editor. `AppSession.reread()` dropped a failed or empty re-read but still stamped the 5 s gap, so the entitlements stayed stale until a cold restart.
+     - The fix: one retry after 1.5 s; only a real answer stamps the gap.
+     - Tests: 3 old FAILs now pass; jvm 2389/0; Android compile OK.
+     - **Not reviewed** (stopped at 98 %). After the reset: run `risk-check`. If RISK (app/session), use two Opus seats; otherwise one. Then lane-ready + ring the old Mac. The retest steps are in the report (Home, 5 s, return, ×3).
 2. **TEST-SCOPE-1 BE** (`phase/4-b2-test-scope-be`, worktree `test-scope-be`):
    - Round 1 fixed; round 2 is running (D-62: bare names, more patterns, pin KNOWN_READS/allowed-build files by blob, scan the whole project folder, non-text files, joined lines). Round-2 reviews are committed as `review-be-3-opus.md` / `review-be-4-opus-sec.md` (both FIX).
    - Next:
