@@ -409,3 +409,47 @@ Lead decisions (rule 2):
   4. BE: add accounts `application/service/books/**`, `sie/**`, `obimport/**`, `journalimport/**` (Fable named them;
      they create journals and opening items). hr, payroll and audit main code wait for their rebuild (verify.md line).
 - Re-check: Opus and Fable fix checks on the final heads (both said FIX); they check D-36 and D-38 items. Opus re-runs.
+
+## D-39 AL-REST-BE review round 1 and Jabran's two money answers — 2026-11-22
+Reviews on `phase/4-b2-al-rest-be-r` `c226151b` (committed `e5161f79`): **Opus FIX** (0 HIGH, 1 MEDIUM, 4 LOW;
+accounts 519/0, user 28/0, arch 84/0); **Fable FIX** (0 HIGH, 1 MEDIUM, 6 LOW). Both: no path for one person to create and
+decide an over-limit payment or refund; scoping, permissions, `expectedStep`, replay, races and V77 hold.
+**Jabran 2026-11-22 (in chat):**
+- Fable F1 (the Owner turns the Owner's-own switch back on alone): **a lone confirm only when no other person in the
+  company holds `APPROVAL_LIMIT.CONFIRM`**; recorded as an Owner's-own row in the self-approval report and in the
+  audit trail; written into the contract.
+- Opus decision 2 (switch off on a no-limits kind stores a version): **don't change deciders**: a no-limits kind keeps
+  today's approvers (branch level included); the switch only blocks the Owner deciding their own items.
+Lead decisions (rule 2) for the fix round:
+1. Opus M1: tests for the Owner switch on the payment and refund earlier-step endpoints and with the limits feature
+   off (the three tests the review names), each old FAIL / new PASS where the guard can be removed.
+2. Opus LOW: the Owner's own counts on payments as on refunds (contract §10.7 "Owner: own ones too").
+3. Opus/Fable LOW: `forMe` and the summaries take the **oldest** 500 and compute the capped flag before filtering
+   (Fable F4); the API table matches the code exactly (the three rows Opus names).
+4. Fable F2: the V70 proposals guard covers `owner_own_allowed` (in the new migration). Fable F5 (report loses an
+   Owner's-own earlier step when the draft is deleted), F7 (bank-details editor hint): fix if small, else rows.
+5. Rows, not this lane: the snapshot currency next to `amount_base` and foreign-currency payment tests (multi-currency
+   lane, Opus/Fable LOW + decision 5); F6 one company switch = three proposals (AL-REST-APP sends all three).
+6. Rebase (old-Mac doorbell): AC418-BE merged with accounts V78, so this lane's V77 becomes **V79** with its
+   migration-head tests; new branch `phase/4-b2-al-rest-be-r2` on `095a8989`; check overlaps in receivables opening
+   items and tax codes. L36 addition (old Mac): before hand-back, the full suites of accounts-service and user-service
+   plus `:architecture-tests`.
+Re-check: both reviewers (both said FIX); Opus re-runs.
+
+## D-40 R29b-3U and R29b-5 builder questions (proposed; Fable checks before the builders continue) — 2026-11-22
+R29b-3U `2473b616`: 16 of 18 classified (cap 23 → 7), user 704/0/4, org 194/0/6, arch 84/0. R29b-5 `4cf2ee1a`: 5 of 5
+(cap 23 → 18), arch 89/0, audit 104/0/6, auth 31/0.
+Proposed (from D-25's own patterns):
+1. **`UserRepository` rest** (a person not yet the company's): split by use, each id-only or boolean-only, frozen and
+   pinned, keyed by "an action `UserAdminAuthorization` or the invite rule already allowed at a company in the
+   caller's reach": (a) invite by email and add-existing-account by id return the user id only, pinned to the invite /
+   add use cases; (b) the People "an account exists" check and the email-uniqueness check return a boolean only, pinned
+   to those callers; (c) the security policy's target read is the D-25 owner-point (4) boolean port. No person data
+   from another company is returned.
+2. **`PlatformStaffRepository`:** the caller's own staff mark and platform access are caller identity (Q6 pattern); a
+   staff mark of another person is boolean-only, keyed by the checked platform staff permission; the platform role
+   catalogue is `@PlatformReferenceRepository` (frozen, no-write); staff-table writes are company-less staff writes
+   with `PLATFORM_WRITE` in the same transaction (Q2).
+3. **R29b-5 Q5 auth adapter:** not built, because auth has no platform-wide read left once the dead `inventory()` was
+   deleted; the ADR-012 note says the adapter is added with the first such read.
+4. D-37 item 1 (the `PersonAuditFanOutPort` key) is in the same Fable check.
