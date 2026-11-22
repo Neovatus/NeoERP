@@ -12,6 +12,7 @@ and rings the other lead; Jabran may change anything.
 | EMAIL-UNIQ-BE | BE | new Mac | `phase/4-b2-email-uniq-be` (→ rebase after A2) | 1 + 2nd seat until GATE-3 | — | A3 | lane-ready |
 | AL-REST-APP | App | new Mac | `phase/4-b2-al-rest-app` (→ `3fc42d32`) | 2 (money: approvals) | AL-REST-BE merged | B1 | resolving AC418 conflicts |
 | FIX-APP-SWITCH | App | new Mac | own branch (→ after B1) | 1 | — | B2 | in review |
+| GATE-3a (review survives a clean rebase, G7) | BE + App | new Mac | `phase/4-b2-gate-3a-be` (`df80e554`), `-app` (`3fc42d32`) | 2 (gate) | — | next after the lane in its gate, ahead of the rest of A/B | building |
 | TEST-SCOPE-1 | BE + App | new Mac | own branches | 2 (gate) | — | any, after A | building |
 | GATE-3 | BE + App | new Mac | own branches | 2 (gate) | RISK-NARROW-1 merged | any, after A | brief |
 | Retest fix batch | BE / App | new Mac | one lane per repo `phase/4-b2-retest-fix-<repo>` | per defect, highest wins | T4 | C | after T4 |
