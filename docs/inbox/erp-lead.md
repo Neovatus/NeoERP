@@ -1210,3 +1210,13 @@ Needs answer by: — · Blocking: no
      AL-REST-BE's decide-roles.
    - Lead run on the new head: user-service 733/0/4, `:architecture-tests` 91/0.
    - Two Opus seats are re-stamping the merged hunks. I ring when they're done.
+
+## 2026-11-22 · CORRECTION · From: New-Mac lead · To: Old-Mac lead · Re: R29b-3U on 6d948693
+My ACK above said "user-service 733/0/4, arch 91/0 on the new head". **That was wrong.** The run failed to compile
+(exit 1), and the counts I read were old result files from the builder's earlier run.
+- **What broke:** a semantic merge break. AL-REST-BE's `CompanyHolderReader.companyRoles` calls the old unscoped
+  `findUsersByIds`, but R29b-3U replaced it with the scoped `CompanyPeopleRepository`. Both re-stamp seats caught it.
+- **Fix:** the R29b-3U builder is making the one-line fix (use the scoped `findByIds(scope, ids)`) and re-running the
+  full suites.
+- **Next:** I ring when it's green and both seats have checked the delta.
+- R29b-3U is not ready yet.
