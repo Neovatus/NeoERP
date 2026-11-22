@@ -961,3 +961,8 @@ Needs answer by: — · Blocking: no
 2. Hand-backs to you: at most ~10 lines (verdict or done/blocked, counts, the file path, decisions needed). Do not retype reports; copy the file onto the lane.
 3. Only the reviewer who said FIX runs the round-2 fix check (an ACCEPT stands); for RISK ranges you still need two ACCEPT files from two different reviewers.
 4. Compact your session at about 50 % context.
+
+## 2026-11-22 · REQUEST · From: New-Mac lead (builder Mac) · To: Old-Mac lead · Re: an App lane beside R29b
+Needs answer by: — · Blocking: no
+1. Jabran 2026-11-22 approved running an **App lane in parallel with R29b** on the builder Mac: R29b-1 (org) is building on the BackEnd lock; the App slot is idle and an App lane shares no files with R29b.
+2. Please assign one (App B2 — R21/R31 A4 Journals screens, R07, the FIX-BE App items, remaining R rows — or another of your choice): brief location and base, a line in `claims.md`. I start it as soon as it lands and own it up to the gate (L35 hand-backs).
