@@ -47,6 +47,7 @@ Scoped gate ≤ 6 min on the old Mac, ≤ 10 min on the new Mac (measure swap); 
 re-check. Per lane (MEASURE-1 + D-63): time per bucket, cost (tokens), first-pass gate + origin, review runs first vs repeat,
 brief-gap lines (D-67), new-Mac swap during gates, waiting for a simulator slot.
 **Check-in after 4b-A** (D-61): keep / shift more to the new Mac / shift back.
+**Gradle lock on the new Mac (16 GB):** feature and fix lanes have priority over tooling lanes. Heavy test runs of a lane (many timing or whole-suite runs) may be run on the old Mac on request, with the builder staying on the new Mac. Observed 2026-11-22: a Phase 4 fix builder waited ~40 min for the BE lock behind TEST-SCOPE-1.
 
 ## Open for Jabran's review
 1. The lane order above (DIM-RULES first, then platform, then real-time, spreading, allocations, budgets).
