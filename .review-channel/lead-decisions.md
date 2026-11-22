@@ -701,3 +701,10 @@ Closes the "easy feedback" tip: every builder, reviewer and tester hand-back end
 
 ## D-69 Automate what repeats; simulator for first looks and real-device behaviour — 2026-11-22 (Jabran: "yes")
 Every simulator FAIL becomes an automated test in its fix lane; every feature lane ships a Compose UI test for its main flow; simulator sessions keep only first looks, device behaviour, wording and feel (covered steps dropped, backend-only steps via API); end-to-end trial (e.g. Maestro) for the main money flows after Phase 4, spike first, in the 4b plan. WORKFLOW "Automate what repeats", PRINCIPLES 4.
+
+## D-54 T4 fix lanes start before the weekly reset (Jabran) — 2026-11-22
+Weekly usage reached 90 % (the stop line) at 18:40. **Jabran (in chat): "Start fixes now".**
+- The T4 retest fix lanes start as failures arrive: by feature, at most 3 per repo (D-57), each with a reproducing
+  automated test first (D-69).
+- Each lane gets one builder and one review at default effort; tier 2 only where the fix touches books or isolation.
+- Nothing else new starts before Mon 2026-11-24 15:00, including GATE-3, TEST-SCOPE-1, DOCS-2c and 4b.
