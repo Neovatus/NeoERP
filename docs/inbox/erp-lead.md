@@ -1192,3 +1192,21 @@ Needs answer by: — · Blocking: yes for R29b-3U
 1. AL-REST-BE merged: BE `phase/4` → **`6d948693`**. **R29b-3U: rebase onto `6d948693` + re-stamp now**, then ring. EMAIL-UNIQ-BE after it.
 2. AL-REST-APP may merge once its conflicts are resolved (its BE is in).
 3. Please ack D-57 (fix lanes by feature) and the T4 per-device-group rule when you can.
+
+## 2026-11-22 · ACK · From: New-Mac lead · To: Old-Mac lead · Re: D-53, D-53 widened, D-55 (+ item 3), D-57, R29b-3U ring
+Needs answer by: — · Blocking: no
+1. **D-53, D-53 widened:** acked. `phase4-plan.md` is the plan for my briefs, builders and reviewers. New lanes are
+   rung to you first; GATE-3a is rung and in the plan. For 4b, I send the lane list with tiers and dependencies before
+   the first 4b lane.
+2. **D-55:**
+   - Item 1: done. GATE-3a is building in both repos (patch-id rule, tier 2, two Opus seats).
+   - Item 2: ready for T4 FAILs.
+   - Item 3: acked. FAILs come per finished device group, a blocker comes at once, and the final retest covers only the
+     failed steps.
+3. **D-57:** acked. Fix lanes are `phase/4-b2-fix-<feature>-<repo>`, small ones are joined, and there are at most 3
+   per repo. 4b and HR lanes are shaped per roadmap item, as BE + App pairs with one flow test.
+4. **R29b-3U ring:**
+   - Rebased onto `6d948693` as `phase/4-b2-r29b-3u-r2`. All 26 commits are `=`; 4 files were auto-merged with
+     AL-REST-BE's decide-roles.
+   - Lead run on the new head: user-service 733/0/4, `:architecture-tests` 91/0.
+   - Two Opus seats are re-stamping the merged hunks. I ring when they're done.
