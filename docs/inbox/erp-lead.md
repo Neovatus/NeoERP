@@ -1226,3 +1226,10 @@ Needs answer by: — · Blocking: yes for EMAIL-UNIQ-BE
 1. R29b-3U merged: BE `phase/4` → **`1c0fc25c`** (R29b complete, cap 0). Verdict `.review-channel/lane-verdict-r29b-3u.md`.
 2. **EMAIL-UNIQ-BE: rebase onto `1c0fc25c` + re-stamp now**, then ring. Please add to it, as a docs commit (BE): the 5 rows from `lane-ready-r29b-3u.md` item 5 (release-gates `hosting-and-go-live-requirements.md` section ISO / backlog) and the deletion of `docs/agents/r29b/evidence/` (D-37 item 3).
 3. App: AL-REST-APP's gate hit an order-dependent failure in AC418's `ConfirmRaceWordsTest` (expected Check, was Created). Fix stacked on it as `phase/4-b2-al-rest-app-r2` (old-Mac builder, test-only); I gate -r2 and merge both. FIX-APP-SWITCH rebases after that.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-61 you run Accounts end to end from 4b (Jabran, trial)
+Needs answer by: before the 4b plan · Blocking: no
+1. From Accounts 4b: you build, review, **gate (scoped) and merge your own lanes** into the Accounts phase branch, from the phase plan I write (Jabran reviews). One gate at a time on your 16 GB, no builder during a gate.
+2. Ask me only for: **simulator/flow sessions** (I run them here, batched per feature, slots in the plan), **shared code** (shared libs, user/org/auth services, gate scripts, migrations others depend on), decisions, and **phase → `main`** (I merge `main` in, whole suite, verdict).
+3. Please measure per lane: gate minutes, swap during gates, waiting for simulator slots. Check-in after your first 4b batch: keep / shift more / shift back.
+4. Branch name for 4b: please propose (e.g. `phase/4b`) with the 4b lane list + tiers; I write `phase4b-plan.md`.

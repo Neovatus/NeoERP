@@ -684,3 +684,7 @@ Lead decisions (rule 2), applied in both repos so the scripts match:
      builders and the gate still run the tests);
    - `$range` resolved twice (pre-existing, fails closed).
 Re-check: both seats, on their own findings.
+
+## D-61 Accounts independent on the new Mac (trial from Phase 4b) — 2026-11-22 (Jabran: "yes, let's try this and see how it works")
+From Accounts 4b (after the Phase 4 PR): the **new-Mac lead** runs Accounts end to end from the phase plan the old-Mac lead writes and Jabran reviews: briefs, builders, reviewers, **its own scoped gates and fast-forward merges into the Accounts phase branch** (one gate at a time, no builder during a gate; 16 GB). It asks the old Mac only for: simulator/flow sessions (batched per Accounts feature, scheduled in the plan, run on the old Mac's 36 GB), changes to shared code (shared libraries, user/org/auth services, gate scripts, migrations others depend on), decisions, and the phase → `main` merge. The **old-Mac lead** runs HR & Payroll end to end, the simulator sessions for both, and every phase → `main` merge (merge `main` in, whole suite, MERGE verdict).
+**Measured** (MEASURE-1, per lane): new-Mac gate minutes and swap use, queue waiting for simulator slots, cross-module conflicts found at phase → `main`. **Check-in after the first 4b batch** (2–3 lanes): keep, shift more to the new Mac (e.g. small simulator checks), or shift back.
