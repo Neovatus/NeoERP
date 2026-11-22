@@ -10,7 +10,7 @@ Most recent detail: the lead's handoff `.review-channel/handoff-implementer.md`.
 [lessons register](docs/lessons.md).
 
 **Branches (2026-11-20):** both repos work on `phase/4`; one PR per phase to `main`.
-`phase/4` heads: App `f7c993f4`, BackEnd `64509abe` (2026-11-22: TEST-SPEED-APP; TEST-SPEED-1 + BE-RUN-1 + BE-DOCS-1; BE-JDK21; FIX-APP-B1; R29b-1; FIX-APP-B2 part a). **Standing merge from 2026-11-22** (WORKFLOW): approved lanes merge to `phase/*` without waiting for Jabran; `main` PRs still his. `main`: App `370ad7a6` (PR #4), BackEnd `c6d5a6f` (PR #7).
+`phase/4` heads: App `8d7e8a96`, BackEnd `16d9a3fe` (2026-11-22 GATE-2; 2026-11-22: TEST-SPEED-APP; TEST-SPEED-1 + BE-RUN-1 + BE-DOCS-1; BE-JDK21; FIX-APP-B1; R29b-1; FIX-APP-B2 part a). **Standing merge from 2026-11-22** (WORKFLOW): approved lanes merge to `phase/*` without waiting for Jabran; `main` PRs still his. `main`: App `370ad7a6` (PR #4), BackEnd `c6d5a6f` (PR #7).
 
 Integration owner for every row: **Jabran** (decides scope, approves). The lead runs the work.
 

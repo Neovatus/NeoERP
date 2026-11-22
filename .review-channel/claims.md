@@ -18,6 +18,7 @@ Write a line before starting, remove it when done. Never touch work the other le
 3. **Fable budget (Jabran 2026-11-21):** Fable uses at most 50 % of the weekly limit (plan below 40 %, nothing new at 45 %). Fable does substantial work only: independent security reviews of gate, money and security lanes, batched checks of substantial decisions, and views on Jabran's critical lists. Few-line reviews, small fix confirmations and small decisions go to the lead, Opus or Sonnet.
 
 ## Merged lanes
+- 2026-11-22 GATE-2: BE `phase/4` → `16d9a3fe`, App `phase/4` → `8d7e8a96` (both gates in parallel on the old Mac, 13 min each, 4438/0/59 and 3959/0/0, money invariants OK; Opus + Fable ACCEPT; standing merge). **Every checkout: run `scripts/install-hooks.sh`.** Gates now take only their own repo's lock.
 - 2026-11-22 FIX-APP-B2 part a: App `phase/4` → `f7c993f4` (old Mac gate: verify OK 9 min, 3959/0/0; S1, S2, S3, S7, S8 pass; Opus + Sonnet ACCEPT; first merge under the standing merge rule, Jabran 2026-11-22). GATE-2 App must rebase onto `f7c993f4`; B2b already sits on it.
 - 2026-11-22 R29b-1: BE `phase/4` → `64509abe` (org company scope; old Mac gate: verify OK 12 min, 4438/0/59, money invariants OK; Opus + Fable ACCEPT; Jabran MERGE). Wrong callers now get 404/503 (lane-ready table).
 - 2026-11-22 FIX-APP-B1: App `phase/4` → `e1bc2e1e` (old Mac gate: verify OK, 3921/0/1; iOS look iPhone + iPad; Opus + Sonnet ACCEPT; Jabran MERGE). B2a gate now running on this base.

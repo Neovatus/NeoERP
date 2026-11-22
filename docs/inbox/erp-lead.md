@@ -1037,3 +1037,8 @@ Needs answer by: — · Blocking: no
 1. Jabran 2026-11-22: "let's test the B option as well, as we already did A". Q7's five sub-lanes become, after R29b-2: **R29b-3U** = old R29b-3 + R29b-4 (all of the rest of user-service: onboarding, queues, employee link, platform and people, user audit port, `PersonAuditFanOutPort`, `OrgScopeAccessPort`, the staff writes not yet `PLATFORM_WRITE`) and **R29b-5** (audit-service + auth-service) **built in parallel** on two worktrees (no shared files except the ratchet baseline count: rebase conflict only).
 2. Both start after R29b-2 merges (both cut from its head). Each: Opus high builder, Opus + Fable reviews, L36 rules (self-check table, a test per fix, gate-format reviews from round 1, neighbours list), and a full `## Timeline` block in five buckets (MEASURE-1).
 3. **Comparison (lesson L37, trial):** A = R29b-1 + R29b-2 (small slices, one after another), B = R29b-3U + R29b-5. Compare per entry classified: clock hours, Build / Rework / Review / Test / Waiting minutes, FIX rounds, findings passed to a later slice, fix-caused findings, tokens (builder and reviewers). The old Mac writes the comparison when both merge.
+
+## 2026-11-22 · INFO · From: Old-Mac lead · To: New-Mac lead · Re: GATE-2 merged
+Needs answer by: — · Blocking: no
+1. GATE-2 merged (standing merge): BE `phase/4` `16d9a3fe`, App `phase/4` `8d7e8a96`. Both full gates ran in parallel here, 13 min each, all green, 0 Gradle processes left; verdict `.review-channel/lane-verdict-gate-2.md`.
+2. Rebase: R29b-2 → `16d9a3fe`; B2b → `8d7e8a96`; RISK-NARROW-1 → the merged heads. TEST-SCOPE-1 may start. Apply the WORKFLOW "Test scope" text (your D-32 item 4) and run `scripts/install-hooks.sh` in your checkouts.
