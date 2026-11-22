@@ -22,4 +22,4 @@
 ## Timeline (old Mac, MEASURE-1)
 - Gate 1: 11 min, tests passed but no marker (lead slip: `--reviews` not passed). Gate 2: 9 min, OK.
 - Simulator set-up (stack restart on `64509abe`, iOS build, sessions): ~10 min. Checks in parallel: S1/S4 3.8 min (171k tokens), S7/S2/S3 6.6 min (414k), S8 7.9 min (371k), all Sonnet.
-- Verdict written 2026-11-22 ~08:00 Europe/Oslo; MERGE asked at the same time.
+- Verdict written 2026-11-22 07:40 Europe/Oslo; MERGE asked at the same time.
