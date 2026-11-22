@@ -495,3 +495,9 @@ Builder follow-up (lead confirms): only `service = audit-service` (or producer `
 `RESERVED_AUDIT_SOURCE`; `resource = platform-access` stays allowed because user- and org-service send their own
 platform-access events on this path (refusing them would stall their outboxes). Fix head `8f77a276`.
 Re-check: Fable (said FIX). Opus re-stamps and checks the L2 code delta.
+
+## D-43 Second reviewer when Fable reaches 45 % — 2026-11-22
+**Jabran 2026-11-22 (in chat):** "fable only goes to 45, other opus". Fable stops at 45 % of its weekly limit (42 % at
+13:20). After that, until the weekly reset (2026-11-24 15:00 Oslo), the second reviewer on gate, money and security lanes
+is a fresh, independent Opus 5.5 at high effort, given only the brief and the diff. Each lane-ready names which reviewer
+was used. Fable's remaining budget goes first to the AL-REST-BE fix check and the R29b-3U round-1 review.
