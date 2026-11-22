@@ -63,3 +63,9 @@ worktrees `NeoERP-worktrees/<lane>`, merge lane → `phase/4b` → one PR per re
 Money or security lanes: fresh Opus (whole diff) + Fable (diff + brief only, independent; Fable budget ≤ 50 % weekly,
 security reviews and batched decision checks only). Others: fresh Opus. Only a FIX reviewer re-checks. Builders:
 Opus 5.5 high on the builder Mac, targeted tests only; the old Mac runs `verify.sh` before each merge to `phase/4b`.
+
+## Decisions (Jabran 2026-11-22)
+- 4.12 (PLAT-A/B/C) and 4.14 (dimension rules) recommendations: **decided as recommended** ("go with industry standards & recommendations").
+- 4.15 spec draft approved with SP-2..SP-10 as recommended; 4.16 A1–A6, A9 as recommended; 4.17 ADR-022 stage 1 **accepted**, B1–B4, B6–B8 as recommended ("go with your suggestion").
+- **SP-1, A7, A8, B5** (posting/approval rules): decided as recommended **subject to a Fable check** (`docs/drafts/fable-check-4b-money-decisions.md`); its conditions go into the 4.15/4.16/4.17 briefs; a REJECT comes back to Jabran.
+- A5 (headcount key) needs HR H1's endpoint: 4.16's headcount key waits for H1 (other keys do not).
