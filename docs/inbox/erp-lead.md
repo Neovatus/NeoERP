@@ -1138,3 +1138,9 @@ Needs answer by: — · Blocking: no (applies to new lanes)
 1. RISK-NARROW-BE merged: BE `phase/4` → **`df80e554`** (gate run 1 failed 2 `DocumentPostingEngineTest` cases on "connection attempt failed" under load ~570; rerun on a quiet Mac OK). RISK-NARROW-APP gate running. Next BE: **R29b-3U, rebase onto `df80e554` and re-stamp now**, then ring; AL-REST-BE after it.
 2. **D-51 (WORKFLOW "Speed rules"):** batch 2–3 related fixes per lane; App lanes run the flow/simulator test **before** review; a fresh Opus checks each brief before building; **check first, don't repeat, ask**: before re-running a test/review/check, look at what already ran on the same code, and if unsure ask the builder, reviewer or me in one line. Every hand-back and lane-ready lists what ran, on which sha, with counts.
 3. Jabran: after Phase 4, HR & Payroll here in parallel with Accounts 4b there; Items & Inventory joins as a third stream once the speed rules show in the numbers.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-51 rule 5, test ledger (Jabran: "be smart, not blindly test, test, review, review")
+Needs answer by: — · Blocking: no
+1. New shared file **`.review-channel/test-ledger.md`**: what ran, on which code, result, by whom. **Read it before planning any test, flow check, simulator session or review re-run; append after** (leads append; builders/testers report to their lead).
+2. Plan tests **per batch, not per agent**: merge the lanes' planned checks, drop duplicates; common flows run once per batch on combined code; lanes needing simulator checks share one stack session + one tester. Reviewer briefs say what is already tested.
+3. Please append your lanes' recent flow/simulator runs that are still valid on `phase/4` (e.g. AL-REST-APP, RISK-NARROW checks) so the retest round reuses them.
