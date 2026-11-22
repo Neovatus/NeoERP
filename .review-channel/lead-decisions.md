@@ -389,5 +389,6 @@ Lead decisions (rule 2):
    it is the R29b-2 wire; R29b-5 touches neither user nor org.
 3. `MAX_UNCLASSIFIED`: each lane lowers it by its own count (23 → 5 and 23 → 18); the second to merge rebases, and the
    cap meets at 0. The lead deletes `docs/agents/r29b/evidence/` in a docs commit after both merge.
-4. Start: both builders start together once the two AL-REST-BE builders free their BackEnd slots (at most 2 BE
-   builders on this Mac); the wait is logged in each Timeline.
+4. Start (amended same day): R29b-3U started when AL-REST-BE's fork builder finished and freed a BackEnd slot
+   (at most 2 BE builders on this Mac); R29b-5 starts when the next BE slot frees (AL-REST-BE). Each Timeline logs its
+   wait, and the L37 comparison counts R29b-5's later start as Waiting.
