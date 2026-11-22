@@ -534,7 +534,8 @@ Fable agents already running finish (the AL-REST-BE fix check); **no new Fable w
 now (Fable at 42 %). The second reviewer on gate, money and security lanes is a fresh, independent Opus (high effort for
 security reviews), starting with R29b-3U and GATE-3.
 
-## D-46 R29b-3U build step 2 results and Jabran's two answers — 2026-11-22
+## D-46u R29b-3U build step 2 results and Jabran's two answers — 2026-11-22
+(Numbered D-46 at first; renamed D-46u because the old Mac's D-46 "Review tiers" below took that number.)
 R29b-3U head `e6ac1344` classifies all 18 entries (cap 23 → 5; the 5 left are R29b-5's). Suites: user 709/0/4, org
 626/0/6, arch 85/0. The 13 real-DB two-company cases ran. A pending invitation opens nothing (proven).
 **Jabran 2026-11-22 (in chat):**
@@ -582,3 +583,10 @@ Re-check: both reviewers (both said FIX). Reviewer A re-runs the tests. This is 
 
 ## D-46 Review tiers instead of a second reviewer on every money/security lane — 2026-11-22 (old-Mac lead, Jabran approved in chat)
 **Jabran 2026-11-22:** "let go with your recommendation, but 2nd review based on the severity, not all time". Data: 25 review runs on four lanes today, 8 first reviews, 17 repeats (68%); all findings came from first reviews; the second reviewer found the AC418-BE HIGH and the R29b-5 MEDIUM. Rule in WORKFLOW "Review tiers": tier 2 (two reviewers, round 1 only) for books/isolation/auth/gate/large changes; tier 1 (one Opus, high on risk paths) for the rest; simulator check for App screens; no Sonnet second review; only the FIX reviewer re-checks; no re-stamp for clean rebases. **GATE-3 additions:** a `Review tier:` line the gate reads (one file allowed for tier 1), and keeping the other reviewer's stamp when later commits were reviewed by the first and touch none of its angle.
+
+GATE-3 scope additions (D-45, from the old-Mac inbox item "D-46 review tiers"):
+- (a) The gate reads the lane's `Review tier:` line and accepts one review file for tier 1.
+- (b) It keeps the other reviewer's older stamp when the first reviewer reviewed (ACCEPT) every later commit and none
+  of them touches the other reviewer's angle.
+Together with item 4 (patch-identical rebase) these teach the gate the D-46 review tiers. Until then, RISK-flagged
+lanes carry two gate-format files; AL-REST-APP keeps its running Sonnet seat for that reason.
