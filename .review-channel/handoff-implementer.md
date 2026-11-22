@@ -1,5 +1,35 @@
 # Handoff — 2026-11-21 evening — new-Mac lead, before compacting
 
+## Handoff — 2026-11-22 ~13:40 (new-Mac lead)
+- **Rules added today:**
+  - D-43: no new Fable work until the weekly reset (Mon 2026-11-24, 15:00 Oslo); the second reviewer is a fresh,
+    independent Opus.
+  - D-44: Opus and Fable run at the default effort; Opus high only for security reviews; Sonnet high if needed.
+  - L36 addition: before hand-back, run the full suites of every touched service (App: every size test plus the
+    accounts package).
+  - The `pgrep` bracket form for wait loops.
+  - "Up only while testing": no stack, simulators or idle daemons left running.
+- **Merged today:** R29b-2 (BE 409f45e5), B2b (App 430bc5ab), AC418-BE (BE 095a8989, V78), HR H0.
+- **Lane-ready, waiting on the old Mac's merge queue** (BE: R29b-5 → OUTBOX-CLAIM-BE → RISK-NARROW-BE; App: AC418-APP
+  → RISK-NARROW-APP):
+  - **R29b-5:** `phase/4-b2-r29b-5-r` 1560d0d6 on 095a8989.
+  - **RISK-NARROW-1:** App `phase/4-b2-risk-narrow-app-r` 66f612e1; BE `-be-r2` e62aa5af. Rebase and re-stamp once,
+    when the old Mac rings.
+- **AL-REST-BE:** `phase/4-b2-al-rest-be-r2` b7c8a123 on 095a8989, V79. Opus and Fable fix checks accept it; the API
+  table is OK'd. Next: when the old Mac rings (after R29b-5, OUTBOX and RISK-NARROW-BE merge), rebase once, check the
+  OUTBOX overlap (db-design §1), fix the "before V77" text in the report, re-stamp with a fresh Opus pair, then write
+  the lane-ready.
+- **Running:**
+  - **R29b-3U builder:** the D-40/D-41 step (the direct add becomes an invite, Jabran). Then reviews: Opus high plus a
+    fresh, independent Opus (no Fable). Then a rebase onto the then-current BE phase/4.
+  - **AL-REST-APP builder:** started on App 430bc5ab. Reviews: Opus plus Sonnet. Rebase after AC418-APP merges.
+- **Next:**
+  - **GATE-3** (approved, D-45 scope): starts after RISK-NARROW-1 merges.
+  - **TEST-SCOPE-1:** after RISK-NARROW-1.
+  - **DEV-TOOLS:** backlog items 9–11.
+  - **Lead after R29b-3U merges:** delete `docs/agents/r29b/evidence/`.
+- **Decisions today:** D-36 to D-45.
+
 **Merged today (through the hooks):** BE `phase/4` = `4b924f08` (Lane 0 BE, DOCS-2b, ISO-R1, R34-BE). App `phase/4` = `69a5deb0` (DOCS-2a, Lane 0 App). Workspace master: ROADMAP-A and ISO-1/ISO-1b drafts (ADR-026 **accepted**, Q5 = b), HRP-DES (**approved**, all 17 decisions + PY.10), INV-SCOPE lane-ready. Draft Phase 4 PRs: BE #8, App #5. Jabran's checkouts: BE at `4b924f08`, App at `69a5deb0`, both clean. BE hook: absolute `core.hooksPath` (`.git/neoerp-hooks`); App hook: relative `.githooks` until R34-App.
 **Running (background):** FIX-BE builder (`phase/4-b2-fix-be`, Opus high; R04 cause reported, R07/R08/R09/R10/R13/R17/R19/R20/R25/R29/R30; decisions D-15..D-19 answered, D3/D5 = D-16/D-18 approved by Jabran → building). App A builder (`phase/4-b2-fix-app-a`, Opus high; R03, R05, R06, R12, R14, R15, R22, to UX-1 §25). UX-1 `verify.sh` (`/private/tmp/.../scratchpad/ux1-verify.sh`, NORMAL, then fast-forward App `phase/4` through the hook; verdict MERGE given).
 **Next:** UX-1 push after its verify → cut `phase/hrp-v2` from App `phase/4` and start the HR/Payroll spec-update lane (apply HRP-DES to hr-h1, hr-h2-h3, hr-h4, payroll-p, ess, people-access; Opus high + one review) → H1 build with ADR-026 R4 (RLS in the first migration, v1 HR/Payroll/ESS code deleted). FIX-BE and App A: reviews (Opus + Fable security for money/security), lead verify, lane-ready, Jabran verdict. Then App B (incl. R31–R33 and the App items from FIX-BE: R04 report-404 fix, R07 2960, NeoFormat month mirror test, D-16 TB row label), App C, R34-App, R29b, DOCS-2c, retest.
