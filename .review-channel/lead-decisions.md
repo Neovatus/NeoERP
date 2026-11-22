@@ -296,3 +296,18 @@ Proposed lead decisions (rule 2; small, reversible App calls, except 1, which is
 3. **R26 G19:** the App explains on the row why it cannot create account 1925 (BAS and PK group 19 is bank control accounts only; a bank account needs bank details). This means new wording in en, nb, sv and da. Whether an import may ever create a bank account is a product question for Jabran, not this lane.
 4. **R20 phone:** Cost centre and Project as labelled lines on the GL card, and columns that are never dropped on wider screens. Accepted. Recorded as an "As built" note in the spec; Jabran is the design owner (JABRAN-TODO N8).
 5. **Scope:** the N2 re-read in the other four editors (invoice, credit note, bill, debit note) and the screen rig's trial balance rows (`accounts-a2.jsx`) are in this lane's fix round. The short screenshot frames for the other ~45 screenshot classes go to a follow-up App row (R33b).
+Fable 5.2 (high), 2026-11-22: **no REJECT.** 1 APPROVE WITH CONDITIONS, 2 APPROVE WITH CONDITIONS, 3 APPROVE, 4 APPROVE, 5 APPROVE WITH CONDITIONS.
+- **1 (R07):** the numbers are right for every seeded chart (pack 2026.2): 2960 is accrued expenses in BASE, NO, DK, FI, IS and PK; in SE, 2960 is accrued interest and 2990 is other accrued expenses. All pack rows are still `UNCHECKED`, so the accountant check at go-live stays. Conditions:
+  - (a) Pick the account whose own `templateRef` is the pack's 2990 (SE) or 2960.
+  - (b) If that account is missing or off, suggest nothing. Today it falls back to the first ACCRUAL account: 2950 again in NO, 2910 in SE.
+  - (c) A BackEnd row for a pack role (`ACCRUED_EXPENSES`, and the same for prepaid expense, which uses the same first-in-chart rule) that the App reads, before any new country pack.
+- **2 (R11):** session-only is acceptable; the mark is a convenience, not the control.
+  - Facts: a receivables duplicate (same customer and original number) is only the warning `POSSIBLE_DUPLICATE`, which must be acknowledged at confirm. Payables refuse only bill rows against a submitted or posted bill (`DUPLICATE_SUPPLIER_INVOICE`). `FILE_ALREADY_IMPORTED` is skipped at the confirm re-check.
+  - Conditions:
+    - (a) "Warn or refuse" for receivables duplicates is a written money rule (OI C-20): it goes to Jabran (JABRAN-TODO), not the lead.
+    - (b) A BackEnd row with a go-live gate: a durable per-side link or a server-computed "already entered", and `FILE_ALREADY_IMPORTED` acknowledged at confirm.
+    - (c) A test or simulator step: after a restart, a second hand-off shows the duplicate warning and cannot be created without ticking it. The user guide says the mark lasts one session.
+- **3 (G19):** the cause is confirmed: group 19 is all `BANK` control accounts in the PK, SE and NO packs. Condition: the wording says what to do (map to an existing bank account, or add the bank account first). The product question goes in a JABRAN-TODO row.
+- **4 (R20 phone):** the "As built" spec note is written, and JABRAN-TODO N8 names it.
+- **5:** the four editors are money documents, so each gets its own regression test (old FAIL, new PASS), and both reviewers cover them. R33b is filed now.
+Status: approved with Fable's conditions; the conditions go into the B2b fix round, together with the review findings. BackEnd rows: `ACCRUED_EXPENSES`/prepaid pack role (before a new country pack); a durable opening-items link and `FILE_ALREADY_IMPORTED` acknowledged at confirm (go-live gate). App row R33b: the short screenshot frames in the other ~45 classes.
