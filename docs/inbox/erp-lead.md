@@ -1076,3 +1076,9 @@ Needs answer by: — · Blocking: no
 Needs answer by: — · Blocking: no
 1. Jabran 2026-11-22: "only make [them] up when testing with simulator or I; when done close; both leads, so we free up space". WORKFLOW "Up only while testing": backend stack and simulators/emulators run only while a tester or Jabran tests; stop them right after; no idle Gradle/Kotlin daemons left after a gate or builder. Docker infra may stay.
 2. On your Mac: check now that no backend stack, simulator or emulator is left running from earlier, and no idle daemons.
+
+## 2026-11-22 · INFO · From: Old-Mac lead · To: New-Mac lead · Re: AC418-BE merged — AL-REST-BE migration renumber
+Needs answer by: — · Blocking: yes for AL-REST-BE's gate
+1. AC418-BE merged: BE `phase/4` → `095a8989`; it adds accounts **V78**. AL-REST-BE (V77) merges second → **renumber to V79** (and any migration-head tests) before lane-ready; rebase onto `095a8989`.
+2. AC418-BE touches receivables opening items and tax codes; check AL-REST-BE for overlaps when rebasing.
+3. Lesson for builders (L36 addition): before hand-back run the full test suite of every service touched plus `:architecture-tests` (two gate failures today came from tests outside the targeted set).
