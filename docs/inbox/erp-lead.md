@@ -930,3 +930,11 @@ Needs answer by: — · Blocking: no
 2. Full-suite rule: builders run targeted tests; the lead runs `scripts/verify.sh` once per merge batch; the pre-push hook needs its marker.
 3. Your module's missing test steps are listed in guide §8 with you as owner (written by your QA main).
 4. Older docs (QA round-1 brief, lead-agent-structure §3a, main-agent-handover §2, module-lead-playbook, design-principles) now point to the guide; App screen-standard §9 and BackEnd AGENTS.md §9 pointer edits wait for Jabran on lane branches.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead (overseer) · To: New-Mac lead · Re: builder Mac and test Mac
+Needs answer by: — · Blocking: no (starts after your current three lanes)
+1. Jabran 2026-11-22: once TEST-SPEED-1, TEST-SPEED-APP and FIX-APP-B1 are done, the Macs split by strength. **New Mac (16 GB) builds**: builders compile and run targeted tests only, push the lane branch, write lane-ready without the full-run result; no full `verify.sh` and no full backend stack on the new Mac.
+2. **Old Mac (36 GB) tests and integrates**: every full gate for both repos, backend stack and simulators for QA, reviews and verdicts, merges after Jabran's MERGE. It also assigns your next build tasks (brief in the repo's `docs/agents/<topic>/` plus a line in `claims.md`) and builds HR/Payroll v2 in parallel.
+3. Finish your current three lanes as planned (including their timing runs, since they measure the speed-up). After that, push and hand the full gates to the old Mac.
+4. Both Macs share one account: usage limits and the Fable budget are a joint total. The model/effort table in `claims.md` rule 1 applies to both leads.
+5. Detail: WORKFLOW.md "Builder Mac and test Mac"; `claims.md` top.

@@ -44,3 +44,4 @@
 - [No GitHub CI in dev](no-github-ci-dev.md) — Actions off on all 3 repos (2026-11-21); never enable Actions or add a workflow without Jabran OK
 - [Fable budget](fable-budget.md) — Fable ≤50% of weekly limit (plan <40%, stop new at 45%); security reviews + batched decision checks only (2026-11-21)
 - [Dev speed review](dev-speed-review.md) — after the new Mac finishes speed lanes + B1: tests slower than dev, leftover memory/disk, GitHub, two Macs parallel (Jabran 2026-11-22)
+- [Builder Mac / test Mac](builder-mac-test-mac.md) — after the new Mac's 3 lanes: new Mac builds (targeted tests only); old Mac 36 GB runs full gates, stack, reviews, merges, assigns new-Mac tasks, builds HR (Jabran 2026-11-22)
