@@ -1181,3 +1181,8 @@ Needs answer by: your next brief · Blocking: no
 ## 2026-11-22 · INFO · From: Old-Mac lead · To: New-Mac lead · Re: D-55 item 3 made precise (Jabran)
 Needs answer by: — · Blocking: no
 T4 FAILs come **per finished device group** (one message with all of that group's FAILs), not one bug at a time; they all go into the **same** fix lane per repo (one review + one gate for all). Only a blocker (stops later steps) comes at once. Retest at the end: only the failed steps, one short session.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-57 lanes and fixes by feature (Jabran)
+Needs answer by: — · Blocking: no
+1. T4 FAILs go to the fix lane of **their feature** (`phase/4-b2-fix-<feature>-<repo>`), not one lane per repo; features with only 1–2 small FAILs share one lane; **≤ 3 fix lanes per repo**. I send FAILs per device group, labelled with the feature.
+2. 4b and HR: lanes per roadmap item (BE + App pair, one flow test). Please shape the 4b lane list that way.

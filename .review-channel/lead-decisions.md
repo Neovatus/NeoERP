@@ -647,3 +647,6 @@ Addendum (Jabran 2026-11-22): the plan covers the whole flow, not only tests: la
 
 ## D-55 Phase 4 plan efficiency changes + phase review feeds the next plan — 2026-11-22 (Jabran approved)
 1 GATE-3 rebase piece first; 2 two parallel testers by company in T4; 3 stream fixes from T4; 4 final BE + App gates in parallel; 5 old Mac uses gaps for non-Gradle work. Each phase ends with a one-page plan review whose changes go into the next phase plan. `.review-channel/phase4-plan.md` "Efficiency changes".
+
+## D-57 Lanes and fixes by feature — 2026-11-22 (Jabran: "yes, if that is efficient")
+Feature work as vertical lanes (one roadmap item = BE lane + App lane, one end-to-end flow test); fixes grouped by feature, not by QA round (small features joined; ≤ 3 retest fix lanes per repo); cross-cutting lanes separate and small. Why: QA-list fix lanes (B2a/B2b) mixed 5–6 features, which widened reviews and flow tests. `.review-channel/phase4-plan.md` "Lanes by feature".

@@ -17,7 +17,7 @@ and rings the other lead; Jabran may change anything.
 | GATE-3a (review survives a clean rebase, G7) | BE + App | new Mac | `phase/4-b2-gate-3a-be` (`df80e554`), `-app` (`3fc42d32`) | 2 (gate) | — | next after the lane in its gate, ahead of the rest of A/B | building |
 | TEST-SCOPE-1 | BE + App | new Mac | own branches | 2 (gate) | — | any, after A | building |
 | GATE-3 | BE + App | new Mac | own branches | 2 (gate) | RISK-NARROW-1 merged | any, after A | brief |
-| Retest fix lane (one per repo) | BE / App | new Mac | one lane per repo `phase/4-b2-retest-fix-<repo>` | per defect, highest wins | T4 | C | after T4 |
+| Retest fix lanes (by feature) | BE / App | new Mac | `phase/4-b2-fix-<feature>-<repo>`; small features joined; ≤ 3 per repo | per defect, highest wins | T4 | C | after T4 |
 | DOCS-2c | App | new Mac (Sonnet) | `phase/4-b2-docs2c` | 1 (docs) | B, C | D | waits |
 | Phase 4 PR | BE + App | old Mac | `phase/4` ← merge `main` | T5 | all above | E | last |
 
@@ -45,7 +45,7 @@ code this batch does not change.
    replaced for these two by T4, because they need AL-REST-BE merged to run end to end.
 3. **T4 run 1 + run 2** on the merged heads: `.review-channel/sim-session-phase4-retest.md` (82 steps, 7 device groups,
    ~3.5 h; data N1–N8 set up first, reusing hina.rauf, erik.sand, jonas.moe). Results → test ledger.
-4. **Retest fix lane (one per repo):** every T4 FAIL goes to its origin lane's builder on the new Mac, **one batch lane per repo** (not one lane per
+4. **Retest fix lanes by feature (D-57):** every T4 FAIL goes to its origin lane's builder on the new Mac, **one batch lane per repo** (not one lane per
    defect), T1 → T2 → T3; then **only the failed steps** are rerun (T4-lite), with the stack up for that only.
 5. **DOCS-2c** screenshots (new Mac) — docs only, T2 one review, no T3 tests beyond the docs check.
 6. **TEST-SCOPE-1 and GATE-3** may merge at any point after batch A (gate files; tier 2). From their merge on, T3 is scoped.
@@ -63,9 +63,15 @@ builder's run) and builder test minutes (D-49 follow-up), and review runs first 
 ## Efficiency changes (Jabran approved 2026-11-22, D-55)
 1. **GATE-3 rebase piece first:** the "review survives a clean rebase" part of GATE-3 (patch-identical commits, base move touches none of the lane's files) is split out as a small first GATE-3 lane (tier 2, gate script), merged before the rest of GATE-3, so later lanes skip re-stamps.
 2. **Two testers in parallel in T4:** one backend session, no gate running; tester 1 Kystgruppe users (Ola, Anna, Bjørn) on iPad Pro 13 + iPhone, tester 2 Lahore/Sialkot/Stockholm users (Ayesha, Omar, Hina, Sara, Erik) on iPad Air 13 + iPad Pro 11; each tester owns its companies' data, so they never touch the same documents. Groups R1–R7 are split by company accordingly.
-3. **Stream fixes in small batches (not one bug at a time):** FAILs are sent per finished device group (R1, R2, …), all of that group's FAILs in one message; they all go into the **same** fix lane per repo (one review + one gate for all fixes). Only a **blocker** (a FAIL that stops later steps, e.g. sign-in or bill submit) is sent at once. Fixed steps are retested once at the end, only the failed ones.
+3. **Stream fixes in small batches (not one bug at a time):** FAILs are sent per finished device group (R1, R2, …), all of that group's FAILs in one message; each goes into the fix lane of **its feature** (AL-REST, company switch, B2a/B2b areas, …); features with only 1–2 small FAILs share one lane; at most 3 fix lanes per repo. Only a **blocker** (a FAIL that stops later steps, e.g. sign-in or bill submit) is sent at once. Fixed steps are retested once at the end, only the failed ones.
 4. **Final gates in parallel:** T5 BE and App whole-suite gates run at the same time when nothing else runs on the Mac (measured 13 min each, GATE-2).
 5. **Use the gaps:** while the new Mac builds, the old Mac writes non-Gradle work (HR H1 brief, Phase 4b plan, scorecard drafts).
 
 ## Phase review → next plan
 At T5 the owner writes a one-page review of this plan (planned vs real times per test point and lane, re-stamps, repeats, gate failures and their origin, what to change). Its changes go into the next phase plan (`phase4b-plan.md`, HR plan) before their first lane starts. Lessons that hold for two phases become WORKFLOW rules (lessons register).
+
+## Lanes by feature (Jabran 2026-11-22, D-57)
+Feature work is cut vertically: one roadmap item = one BE lane + one App lane, tested as one end-to-end user flow. Fixes are grouped by
+feature, not by test round (small features joined, ≤ 3 fix lanes per repo). Cross-cutting lanes (isolation, gates, tooling) stay
+separate and small. The flow session is ordered by user flow, so each FAIL maps to one feature lane. The 4b and HR plans are per
+feature from the start (4.12, 4.14, 4.15 …; H1 slices).
