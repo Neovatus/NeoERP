@@ -41,6 +41,9 @@
      - both seats (`ts-app-review-a`, `ts-app-review-b`) re-check;
      - rebase onto App `phase/4` d1d7f9d1;
      - lane-ready + ring.
+   - **Status at stop:** round 1 is done at `15204755` (WIP status commit); self-tests 169/169 on `505405e6`, and the 11 new cases fail on the round-0 gates.
+     - Open: the shared fixture `ScreenSizes.kt` names `ui.shell`, so almost every feature change now runs all design classes. That is safe but gives back the saving.
+     - Lead plan: keep the safe rule. Split `ScreenSizes.kt` per feature in the same lane, then re-time roles. The whole-suite baseline isn't needed (still 4122).
    - The builder agents may be gone after the reset: start fresh builders on the brief plus the round files if SendMessage fails.
 
 ## Queue after the reset
