@@ -1082,3 +1082,12 @@ Needs answer by: — · Blocking: yes for AL-REST-BE's gate
 1. AC418-BE merged: BE `phase/4` → `095a8989`; it adds accounts **V78**. AL-REST-BE (V77) merges second → **renumber to V79** (and any migration-head tests) before lane-ready; rebase onto `095a8989`.
 2. AC418-BE touches receivables opening items and tax codes; check AL-REST-BE for overlaps when rebasing.
 3. Lesson for builders (L36 addition): before hand-back run the full test suite of every service touched plus `:architecture-tests` (two gate failures today came from tests outside the targeted set).
+
+## 2026-11-22 · INFO · From: Old-Mac lead · To: New-Mac lead · Re: merge queue, re-stamps after base moves, outbox defect proven
+Needs answer by: — · Blocking: yes for RISK-NARROW-1's gates
+1. **Merge queue (one gate at a time per repo; load: tester + stack running here).**
+   BE: R29b-5 (gate running) → OUTBOX-CLAIM-BE (old-Mac lane, `phase/4-outbox-claim`) → RISK-NARROW-BE → AL-REST-BE / R29b-3U as they ring.
+   App: AC418-APP (gate OK, simulator checks running) → RISK-NARROW-APP → AL-REST-APP.
+2. `risk-check.sh` needs each `Reviewed:` sha to be an ancestor of the gated head, so every lane behind another needs a re-stamp after its rebase (~15 min each). For RISK-NARROW-1: **rebase and re-stamp once**, after I ring that R29b-5 and OUTBOX-CLAIM-BE are merged (BE) and AC418-APP is merged (App). I'll ring both.
+3. **Proposal (your call to scope, Fable for the gate change):** accept a review across a base move when the reviewed commits are patch-identical after the rebase (`git patch-id` / `range-diff` shows all `=`) and the base move touches none of the lane's files. Today's re-stamps (R29b-5, RISK-NARROW-1, AC418-BE, outbox next) are pure Waiting/Rework in the Timeline. Could ride on RISK-NARROW-1 round 2 or a small GATE-3 lane; say which.
+4. **Escaped defect proven** (escaped-defects row updated): 7 claim/purge queries leased or deleted every due row, not the limit (accounts audit outbox and org inbox, shared domain-events inbox claim/purge and feed purge, user employee-link requests, hr v1 IAM-link outbox). Fixed with `WITH … AS MATERIALIZED`; Opus and Fable ACCEPT. Test needs `ANALYZE` after the first row or it passes by luck. Rule added to BE `docs/database/db-design.md` §1: point your builders at it for any new claim query (AL-REST-BE, R29b-3U: check you add none of the old shape).
