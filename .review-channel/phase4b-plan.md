@@ -17,7 +17,7 @@ Changes from the Phase 4 review are added here before the first lane starts.
 | # | Item | Lanes (BE / App) | Tier BE / App | Built by | Gate + merge | Depends on | Batch |
 |---|---|---|---|---|---|---|---|
 | 1 | 4.14 dimension rules | DIM-RULES-BE / -APP | 2 / 1 (Opus high) | new Mac | new Mac | Phase 4 merged | **4b-A** |
-| S | E2E spike (Maestro or similar, one money flow first) | — / E2E-SPIKE (App + tooling) | 1 | new Mac | new Mac; **runs in an old-Mac simulator slot** | — | beside 4b-A |
+| S | E2E spike: **Maestro and AXe** (AXe drives the iOS simulator through the accessibility tree; check it sees our Compose Multiplatform iOS screens), one money flow first; compare run time, flakiness, cost per step against the screenshot tester | — / E2E-SPIKE (App + tooling) | 1 | new Mac | new Mac; **runs in an old-Mac simulator slot** | — | beside 4b-A |
 | T | **Strict fakes** (App shared fake backend validates company scope, ids, required fields like the real API: 404/400 on nonsense) | — / STRICT-FAKES-APP | 1 | new Mac | new Mac | Phase 4 merged | **first, beside 4b-A** |
 | 2 | 4.12 platform A (RT-1, `Prefer`, A3, N5 locks) | PLAT-A-BE | 2 | new Mac | **old Mac** (shared) | Phase 4 merged | 4b-B |
 | 3 | 4.12 platform B, data Stage 0 | PLAT-B-BE | 2 | new Mac | **old Mac** | N7 compose line first | 4b-B |
@@ -51,3 +51,6 @@ brief-gap lines (D-67), new-Mac swap during gates, waiting for a simulator slot.
 ## Open for Jabran's review
 1. The lane order above (DIM-RULES first, then platform, then real-time, spreading, allocations, budgets).
 2. The E2E spike beside 4b-A (one flow first; decide after it whether E2E tests join the gates).
+
+## Simulator sessions: personas and accessibility (D-75)
+Every flow session (T4) runs with **personas** instead of one default device: at least (1) iPhone small screen · Norwegian · largest text, (2) iPad · Swedish · dark mode, (3) iPhone · Danish · default, (4) iPad Pro · English · default; each persona covers the batch's look/feel/wording steps. On **every screen visited**, the tester runs an **accessibility check**: unnamed buttons/controls, touch targets under 44 pt, text cut at large text. Findings go to the lane by feature like any FAIL. Idea source: the open-source "mobile-agent-testers" template (personas, a11y pass); we run it locally (no GitHub Actions).

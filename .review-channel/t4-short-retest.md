@@ -24,3 +24,6 @@ Runs after these merge: FIX-AL-RELEASE-BE, FIX-OB-IMPORT-BE, FIX-OB-IMPORT-APP, 
 
 ## 2. After the run
 Every FAIL → its feature's fix lane with an automated test first (D-69). A step failing twice comes to Jabran with a one-line reason (phase plan budget).
+
+## Personas and accessibility (D-75, from this retest on)
+R-AL and R-SW run on persona devices (tester 1: iPad Pro 13 English default; iPhone Norwegian largest text for AL-Lang). Every screen visited gets the accessibility check (unnamed controls, targets < 44 pt, cut text at large size); findings logged by feature.

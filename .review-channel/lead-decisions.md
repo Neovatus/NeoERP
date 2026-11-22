@@ -727,3 +727,6 @@ Weekly all-models usage 90 % (reset **Tue 24 Nov 15:00**, not Monday). Exception
 
 ## D-73 Seam tests: strict fakes, contract tests, four-language size tests — 2026-11-22 (Jabran: "yes, if it adds value and reduces time")
 Today's 4 escaped bugs were all seam bugs (wrong data across a flow, role path, release flag, file type); money rules are well covered by unit/integration tests. Add, don't swap: (1) **STRICT-FAKES-APP** lane first in 4b (the App's shared fake backend validates like the real API); (2) **contract tests** per new/changed endpoint in every 4b and HR brief; (3) **four-language size tests** (en, nb, sv, da) for every new/changed screen. Each prevents a bug class that cost a fix lane + gate + retest (~2–4 h per bug).
+
+## D-75 Simulator personas + accessibility pass; AXe in the E2E spike — 2026-11-22 (Jabran: "yes add")
+From the open-source "mobile-agent-testers" template: tester sessions use personas (device × language × text size × dark mode) and an accessibility check per screen; AXe is trialled beside Maestro in the 4b E2E spike (must see Compose Multiplatform iOS screens); run locally, no GitHub Actions. WORKFLOW rule; `phase4b-plan.md`; T4 short retest.

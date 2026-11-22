@@ -1285,3 +1285,8 @@ Jabran: finish all of Phase 4 first (T4, fix lanes by feature, short retest, DOC
 Needs answer by: before the 4b briefs · Blocking: no
 1. New 4b lane **STRICT-FAKES-APP** (tier 1, first, beside 4b-A): the App's shared fake backend validates company scope, ids and required fields like the real API (404/400 on nonsense), so existing UI tests catch wrong requests (AC418 step 15 class).
 2. Every 4b brief gets **contract test** rows (BE publishes examples per endpoint; App asserts its requests match) and a **four-language size test** row (en, nb, sv, da) for new/changed screens. `phase4b-plan.md` "Test rows in every 4b brief".
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-75 personas + accessibility pass; AXe in the E2E spike (Jabran)
+Needs answer by: before the E2E spike brief · Blocking: no
+1. E2E spike (beside 4b-A) compares **Maestro and AXe** (accessibility-tree iOS simulator driver; first check it sees our Compose Multiplatform iOS screens) against our screenshot tester: run time, flakiness, cost per step.
+2. My flow sessions now use personas and an accessibility check per screen; a11y findings come to you by feature like FAILs.
