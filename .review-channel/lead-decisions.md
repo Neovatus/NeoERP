@@ -730,3 +730,12 @@ Today's 4 escaped bugs were all seam bugs (wrong data across a flow, role path, 
 
 ## D-75 Simulator personas + accessibility pass; AXe in the E2E spike — 2026-11-22 (Jabran: "yes add")
 From the open-source "mobile-agent-testers" template: tester sessions use personas (device × language × text size × dark mode) and an accessibility check per screen; AXe is trialled beside Maestro in the 4b E2E spike (must see Compose Multiplatform iOS screens); run locally, no GitHub Actions. WORKFLOW rule; `phase4b-plan.md`; T4 short retest.
+
+## D-62 TEST-SCOPE-1: the bar for the cross-module read scan — 2026-11-22 ~22:45 (lead; both seats asked in round 2)
+- The scan must catch **every natural code form** of a read outside the project's own folder, and anything unsure is FULL:
+  - relative and absolute paths, walk-ups, `user.dir` and `PWD`, NIO `resolveSibling`, `Path.of(".")` and `Paths.get(".")`;
+  - bare literals naming another project's folder or a repo-root folder;
+  - reads in files outside `src/`, and non-text files.
+- **Files that hold a `KNOWN_READS` line or an allowed build line are pinned by blob sha.** Any change to such a file is FULL until the table is updated (a reviewed gate change).
+- **Deliberate evasion is out of scope** for the scan: hand-split strings, building names from parts. The guards for that are the two reviews every gate and test change gets, `:architecture-tests` on every range, and the whole suite at phase → main. `verify.md` states this limit.
+- The same bar applies to the App lane's import scan.
