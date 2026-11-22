@@ -4,6 +4,8 @@ One plan for the whole delivery flow until Phase 4 merges to `main`: which lanes
 D-46 review tiers, D-47 gate scope, D-49 who tests what, D-51 speed rules + test ledger. Changes to this plan: the owner edits it
 and rings the other lead; Jabran may change anything.
 
+**Terms:** a **lane** = one branch, one builder, one review round, one gate; it may hold several fixes (commits). A **batch** = a group of lanes that merge one after another (batch A = BE lanes, batch B = App lanes). One batch has several lanes; one lane has several fixes.
+
 ## Lanes (the only lanes left in Phase 4; a new lane needs this table first)
 | Lane | Repo | Built on | Branch (base) | Tier | Depends on | Batch | State |
 |---|---|---|---|---|---|---|---|
@@ -15,7 +17,7 @@ and rings the other lead; Jabran may change anything.
 | GATE-3a (review survives a clean rebase, G7) | BE + App | new Mac | `phase/4-b2-gate-3a-be` (`df80e554`), `-app` (`3fc42d32`) | 2 (gate) | — | next after the lane in its gate, ahead of the rest of A/B | building |
 | TEST-SCOPE-1 | BE + App | new Mac | own branches | 2 (gate) | — | any, after A | building |
 | GATE-3 | BE + App | new Mac | own branches | 2 (gate) | RISK-NARROW-1 merged | any, after A | brief |
-| Retest fix batch | BE / App | new Mac | one lane per repo `phase/4-b2-retest-fix-<repo>` | per defect, highest wins | T4 | C | after T4 |
+| Retest fix lane (one per repo) | BE / App | new Mac | one lane per repo `phase/4-b2-retest-fix-<repo>` | per defect, highest wins | T4 | C | after T4 |
 | DOCS-2c | App | new Mac (Sonnet) | `phase/4-b2-docs2c` | 1 (docs) | B, C | D | waits |
 | Phase 4 PR | BE + App | old Mac | `phase/4` ← merge `main` | T5 | all above | E | last |
 
@@ -43,7 +45,7 @@ code this batch does not change.
    replaced for these two by T4, because they need AL-REST-BE merged to run end to end.
 3. **T4 run 1 + run 2** on the merged heads: `.review-channel/sim-session-phase4-retest.md` (82 steps, 7 device groups,
    ~3.5 h; data N1–N8 set up first, reusing hina.rauf, erik.sand, jonas.moe). Results → test ledger.
-4. **Fix batch:** every T4 FAIL goes to its origin lane's builder on the new Mac, **one batch lane per repo** (not one lane per
+4. **Retest fix lane (one per repo):** every T4 FAIL goes to its origin lane's builder on the new Mac, **one batch lane per repo** (not one lane per
    defect), T1 → T2 → T3; then **only the failed steps** are rerun (T4-lite), with the stack up for that only.
 5. **DOCS-2c** screenshots (new Mac) — docs only, T2 one review, no T3 tests beyond the docs check.
 6. **TEST-SCOPE-1 and GATE-3** may merge at any point after batch A (gate files; tier 2). From their merge on, T3 is scoped.
@@ -51,7 +53,7 @@ code this batch does not change.
    merge BackEnd #8 and App #5. Scorecard + lessons written from the MEASURE-1 timelines.
 
 ## Budgets (to catch drift)
-- Gate ≤ 15 min (whole suite) / ≤ 6 min (scoped). Flow session ≤ 4 h in two runs. Fix batch ≤ 1 review round + 1 re-check.
+- Gate ≤ 15 min (whole suite) / ≤ 6 min (scoped). Flow session ≤ 4 h in two runs. Retest fix lane ≤ 1 review round + 1 re-check.
 - A lane that fails T3 twice, or a T4 step that fails twice, comes to Jabran with a one-line reason before a third try.
 
 ## Measurements kept per lane (MEASURE-1)
