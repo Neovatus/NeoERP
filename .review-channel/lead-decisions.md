@@ -533,3 +533,17 @@ D-43 tightened (Jabran 2026-11-22, in chat): "currents those was running, and th
 Fable agents already running finish (the AL-REST-BE fix check); **no new Fable work** until the weekly reset, starting
 now (Fable at 42 %). The second reviewer on gate, money and security lanes is a fresh, independent Opus (high effort for
 security reviews), starting with R29b-3U and GATE-3.
+
+## D-46 R29b-3U build step 2 results and Jabran's two answers — 2026-11-22
+R29b-3U head `e6ac1344` classifies all 18 entries (cap 23 → 5; the 5 left are R29b-5's). Suites: user 709/0/4, org
+626/0/6, arch 85/0. The 13 real-DB two-company cases ran. A pending invitation opens nothing (proven).
+**Jabran 2026-11-22 (in chat):**
+1. The company admin's add-by-id already refuses a non-member (404), so D-41's invitation rule already holds there.
+   The org-service company-enrollment owner (platform staff create a company and name an existing account as owner, who
+   is ACTIVE at once) **stays as is, audited** (`PLATFORM_WRITE`), plus a backlog / release-gates row: "owner accepts
+   before go-live".
+2. `iam.users.email` has no unique index (checked in code only, so a race is possible): **its own small BE lane**
+   EMAIL-UNIQ-BE. It starts with a read-only duplicate check of the local data, then adds one migration (a unique index
+   on `lower(email)`) with a test. It is queued after the current BE lanes.
+Reviews for R29b-3U (D-43, no Fable): Opus high plus a fresh, independent Opus high, each given only the brief and the
+diff.
