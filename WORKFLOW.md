@@ -111,8 +111,8 @@ How sessions split and run work. It applies on top of the stages above.
 
 - **Who does what.** Lead sessions (one per Mac; see "Two Macs, two leads") plan, delegates, integrates, tests once per merge batch and pushes. Every lead reads the [QA guide](docs/qa/qa-guide.md) before planning a QA round or a test batch. Builders (Claude or Codex) build one repo each and commit. Reviewers are fresh Opus sub-agents; the cloud Cowork reviewer is retired (2026-11-20).
 - **Review.** Every build gets a fresh independent Opus review before it lands. This review is the Independent Reviewer stage, not self-review.
-  - **Money and security lanes** means any change touching money posting, numbering, security/auth, locking or concurrency, migrations, or company isolation (the paths in `risk-paths.txt`). They get the re-runs and the second, different reviewer:
-  - On those lanes the reviewer re-runs the builder's targeted tests from clean and writes a failing test or reproduction per finding. A second, different reviewer (Codex or `/security-review`) checks before merge.
+  - **Money and security lanes** means any change touching money posting, numbering, security/auth, locking or concurrency, migrations, or company isolation (the paths in `risk-paths.txt`). They get the re-runs; the second, different reviewer follows **Review tiers** below (D-46):
+  - On those lanes the reviewer re-runs the builder's targeted tests from clean and writes a failing test or reproduction per finding. A second, different reviewer checks before merge on tier-2 lanes only (Review tiers, D-46).
   - Every review: `git fetch` first and list new migration files against the latest origin. Test re-runs only on money and security lanes (above).
   - UI and wording lanes: one review, no re-runs.
 - **Review tiers (Jabran 2026-11-22, D-46; replaces "every money/security lane gets a second reviewer" and the Sonnet second review on App lanes).** The lead sets the tier in the brief (`Review tier: 2` or `1`); a single reviewer may escalate to tier 2 (a HIGH found, or "needs a second view").
@@ -183,7 +183,7 @@ enough to be worth their cost.
   1. **One** independent Opus review of the whole checkpoint diff, scoped to the
      contract sections that diff touches.
   2. The implementer fixes the findings and sends the lead **one** report: the range, the test scope run with counts, the review verdict, and any rulings needed.
-  3. **Money and security checkpoints** (as defined in Working mode, Review) also get the second reviewer and the test re-runs (see Working mode, Review). **UI and wording checkpoints** are accepted on test names and the one review, with no re-runs.
+  3. **Money and security checkpoints** (as defined in Working mode, Review) also get the test re-runs, and the second reviewer on tier 2 (Review tiers, D-46) (see Working mode, Review). **UI and wording checkpoints** are accepted on test names and the one review, with no re-runs.
   4. After the lead's full run, the lead pushes. Jabran clicks through user-visible checkpoints.
 - **Docs are part of done (Jabran, 2026-10-09).** A checkpoint is accepted only when, in the same diff:
   - its **developer page** is updated: `NeoERP-BackEnd/docs/modules/{module}/{feature}.md` (flows, server rules, data,
@@ -217,7 +217,7 @@ enough to be worth their cost.
   - Testcontainers and load tests run in the background and report only their result.
 - **Cost rules for reviews:**
   - Read the diff and the named contract sections only, never the whole repo.
-  - One reviewer per checkpoint, not one per slice or one per dimension (plus the second reviewer on money and security).
+  - One reviewer per checkpoint, not one per slice or one per dimension (plus the second reviewer on tier-2 lanes, D-46).
   - Re-review only the fixes (the two-round rule above still applies).
   - Docs-only or mechanical changes are accepted on a skim.
 - **Design reviews:** a design is reviewed once before Jabran approves it, and again only if it
@@ -328,7 +328,7 @@ Jabran's OK for that change. No repository initialization is authorized.
 - **Guardrails for money, security and statutory work (Jabran 2026-11-20, not trials):**
   1. Every money or security finding gets an automated test before it is closed.
   2. Money invariant checks run after every seed and full test run: debits = credits per journal, ledger = sum of postings, subledgers = control accounts, no double post or double pay under retry, rounding per currency. A break stops the push.
-  3. Money and security changes (as defined in Working mode, Review) get a second, different reviewer (Opus plus Codex or `/security-review`) before merge, with the re-runs described in Working mode, Review. Nothing is merged uncompiled. Test runs fail on unexpected skips (e.g. Docker-skipped tests).
+  3. Money and security changes (as defined in Working mode, Review) get a second, different reviewer on tier 2 (D-46) (Opus plus Codex or `/security-review`) before merge, with the re-runs described in Working mode, Review. Nothing is merged uncompiled. Test runs fail on unexpected skips (e.g. Docker-skipped tests).
   4. Posting rules and statutory files are signed off by a human accountant before go-live; pen test and production invariant checks are go-live gates; owners: accountant sign-off and pen test = Jabran, production invariant checks = the lead (BackEnd `hosting-and-go-live-requirements.md` ERP-Q1–Q3).
   5. Company isolation (review C3): the tenant architecture test covers every service; database row-level security follows by ADR before the first customer; Payroll's rebuild must carry the company column.
 - **Two Macs, two leads (Jabran 2026-11-21):** each lead writes what it works on in `.review-channel/claims.md` first; work on different branches; pull before work, push right after; usage thresholds apply per account. **Probation:** until Jabran says the new Mac's lead behaves as expected, it builds only on `phase/4-b2-*` lane branches and does **not** merge to `phase/*` or `main`; after each lane it writes `.review-channel/lane-ready-<lane>.md` (diff range, brief, review files, targeted and full test results with "BUILD SUCCESSFUL" and "0 failed", write-scope check, user-guide and developer pages changed or "none: <reason>"). The old Mac's lead reviews process and result against this file and lessons, writes `.review-channel/lane-verdict-<lane>.md` (MERGE / FIX: list), and the merge to `phase/4` happens only after MERGE. Both leads back up memory to `docs/lead-memory/` (no deletes, newer wins).
