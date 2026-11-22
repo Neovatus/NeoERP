@@ -549,7 +549,8 @@ R29b-3U head `e6ac1344` classifies all 18 entries (cap 23 → 5; the 5 left are 
 Reviews for R29b-3U (D-43, no Fable): Opus high plus a fresh, independent Opus high, each given only the brief and the
 diff.
 
-## D-47 R29b-3U review round 1 — 2026-11-22
+## D-47u R29b-3U review round 1 — 2026-11-22
+(Numbered D-47 at first and named so in the R29b-3U builder report and reviews; renamed because the old Mac's D-47 "Whole suite only before a phase goes to main" took that number.)
 Two independent Opus reviews (high; no Fable, D-43) on `e6ac1344` (committed):
 - **A:** FIX, 0 HIGH / 2 MEDIUM / 6 LOW. Re-runs: arch 85/0, real-DB two-company 13/0, user 155/0.
 - **B:** FIX, 0 HIGH / 3 MEDIUM / 5 LOW.

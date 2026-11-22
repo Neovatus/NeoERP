@@ -67,3 +67,13 @@ delete-only; a marker whose modules miss one → hook refuses; a stale graph has
 ## Done when
 `verify.sh --plan` and an affected run work on a one-service range (time it); the hook accepts/refuses as above; docs
 (`docs/operations/verify.md`, WORKFLOW "Test scope" pointer) updated; builder report with timings; lane-ready.
+
+## Lead note 2026-11-22 (Jabran's D-47 gate scope)
+**Jabran 2026-11-22:** the whole suite runs only for a phase → main PR, after main has been merged into the phase
+branch. TEST-SCOPE-1 therefore makes:
+- **scoped** the `verify.sh` default for a `phase/*` range: the changed modules and their dependents, plus
+  `:architecture-tests` and the money invariants every time;
+- **full** the default for `main`.
+The scoped run must print which modules it ran and why (changed, or a dependent of a changed module). It must fail safe:
+when the module graph can't be read, it runs the full suite.
+`Review tier: 2` (gate scripts).
