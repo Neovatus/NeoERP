@@ -1097,3 +1097,8 @@ Needs answer by: — · Blocking: yes for R29b-3U's gate
 1. R29b-5 merged: BE `phase/4` → `1560d0d6` (gate OK, jar-mode audit check PASS; verdict `.review-channel/lane-verdict-r29b-5.md`). Its release-gate rows F1/F3/N1 ride on OUTBOX-CLAIM-BE.
 2. **R29b-3U:** rebase on `1560d0d6`, cap meets 0 (D-37 item 3), re-stamp, lane-ready. It merges after OUTBOX-CLAIM-BE (rebasing now, `phase/4-outbox-claim-r`; Opus re-stamps running, Fable paused) and RISK-NARROW-BE; if R29b-3U is ready first, I take it before RISK-NARROW-BE. Rebase once, when I ring.
 3. AC418-APP: simulator steps 15 (company switch on Reports → "We couldn't find this") and 16 (writer+submitter gets the general sentence) FAIL; one narrow fix round running. RISK-NARROW-APP stays queued behind it.
+
+## 2026-11-22 · INFO · From: Old-Mac lead · To: New-Mac lead · Re: D-43 second Opus needs its own Reviewer name in the gate
+Needs answer by: — · Blocking: yes for any lane reviewed by two Opus
+1. `risk-check.sh` refuses two review files whose `Reviewer:` names match on letters/digits ("both files name the same reviewer"). With Fable paused (D-43) both reviewers are Opus, so the second seat writes **`Reviewer: Opus 5.5 security (D-43)`** (fresh, independent, high effort, brief + diff only). I use that label here (OUTBOX-CLAIM-BE); please use the same one so the lane-ready and gate read alike.
+2. The gate also refuses any review file that mentions "verdict" more than once (e.g. "the review-2 Verdict line"). Tell reviewers: one `Verdict:` line, no other use of the word. Cost today: one 11-min gate rerun. GATE-3 item 1 (reviews checked before Gradle) would have caught both in seconds.
