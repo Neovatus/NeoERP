@@ -10,3 +10,5 @@ Every Gradle command through `JAVA_HOME=<JDK 21> GRADLE_USER_HOME=/tmp/gradle-ho
 **Lives in:** WORKFLOW.md:202.
 
 **Update 2026-11-21 (Jabran, "yes we can run 2 i think?"), trial L33:** two locks, one per repo: BackEnd `/private/tmp/neoerp-gradle.lock`, App `/private/tmp/neoerp-gradle-app.lock`; at most one job per repo at once. Full verify runs take both locks (`lockf -k /private/tmp/neoerp-gradle-app.lock scripts/verify.sh …`) and run alone. OOM / Kotlin daemon crash / swapping → back to one lock.
+
+**Old Mac trial L34 (Jabran 2026-11-22):** targeted Gradle jobs run through `scripts/gradle-job.sh <app|be> <dir> <args>`: 2 slots per repo, own lock + own GRADLE_USER_HOME per slot, Kotlin in-process, `--stop` on that home on exit and a "processes left" check. Full verify runs keep both L33 locks. New Mac stays on L33. Put this command in every builder/reviewer brief on the old Mac instead of the raw lockf line.
