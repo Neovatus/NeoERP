@@ -56,3 +56,13 @@ code this batch does not change.
 ## Measurements kept per lane (MEASURE-1)
 Five buckets (Build, Rework, Review, Test, Waiting), changed files, items; plus gate-failure origin (inside/outside the
 builder's run) and builder test minutes (D-49 follow-up), and review runs first vs repeat (D-46 follow-up).
+
+## Efficiency changes (Jabran approved 2026-11-22, D-55)
+1. **GATE-3 rebase piece first:** the "review survives a clean rebase" part of GATE-3 (patch-identical commits, base move touches none of the lane's files) is split out as a small first GATE-3 lane (tier 2, gate script), merged before the rest of GATE-3, so later lanes skip re-stamps.
+2. **Two testers in parallel in T4:** one backend session, no gate running; tester 1 Kystgruppe users (Ola, Anna, Bjørn) on iPad Pro 13 + iPhone, tester 2 Lahore/Sialkot/Stockholm users (Ayesha, Omar, Hina, Sara, Erik) on iPad Air 13 + iPad Pro 11; each tester owns its companies' data, so they never touch the same documents. Groups R1–R7 are split by company accordingly.
+3. **Stream fixes:** every FAIL is sent to the new Mac when it is found (not after the whole session); the fix batch starts while the session continues.
+4. **Final gates in parallel:** T5 BE and App whole-suite gates run at the same time when nothing else runs on the Mac (measured 13 min each, GATE-2).
+5. **Use the gaps:** while the new Mac builds, the old Mac writes non-Gradle work (HR H1 brief, Phase 4b plan, scorecard drafts).
+
+## Phase review → next plan
+At T5 the owner writes a one-page review of this plan (planned vs real times per test point and lane, re-stamps, repeats, gate failures and their origin, what to change). Its changes go into the next phase plan (`phase4b-plan.md`, HR plan) before their first lane starts. Lessons that hold for two phases become WORKFLOW rules (lessons register).

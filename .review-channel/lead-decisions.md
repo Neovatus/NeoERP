@@ -644,3 +644,6 @@ Jabran approved the three process changes (bigger lanes merged in batches; simul
 Jabran: "one lead fully decides and plans where to test for the full phase; I might review; both follow in sequence". Owner: the old-Mac lead (test + integration Mac). First plan: `.review-channel/phase4-plan.md` (test points T1–T5, merge batches A/B, flow session, fix batch, phase gate, budgets). WORKFLOW Speed rules item 6.
 
 Addendum (Jabran 2026-11-22): the plan covers the whole flow, not only tests: lanes, builders, branches and bases, order, tiers, batches, test points. File renamed `.review-channel/phase4-plan.md`.
+
+## D-55 Phase 4 plan efficiency changes + phase review feeds the next plan — 2026-11-22 (Jabran approved)
+1 GATE-3 rebase piece first; 2 two parallel testers by company in T4; 3 stream fixes from T4; 4 final BE + App gates in parallel; 5 old Mac uses gaps for non-Gradle work. Each phase ends with a one-page plan review whose changes go into the next phase plan. `.review-channel/phase4-plan.md` "Efficiency changes".

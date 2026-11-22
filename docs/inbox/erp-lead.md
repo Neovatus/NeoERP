@@ -1171,3 +1171,9 @@ Needs answer by: — · Blocking: no
 Needs answer by: — · Blocking: no
 1. Jabran: the phase plan covers **the whole flow**, not only tests: lanes, who builds, branch + base, order, tier, batches, test points. File is now **`.review-channel/phase4-plan.md`** (lanes table + branching rules added). A new lane needs a row there first: ring me with lane, repo, tier, dependency; I place it.
 2. Your briefs, builders and reviewers follow it. For 4b: send the lane list with tiers and dependencies; I write `phase4b-plan.md` before the first 4b lane, Jabran reviews.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-55 plan efficiency (Jabran approved)
+Needs answer by: your next brief · Blocking: no
+1. **Please split the GATE-3 "review survives a clean rebase" piece into a small first lane** (patch-identical check in `risk-check.sh`, tier 2, two Opus seats), ahead of the rest of GATE-3: every lane after it skips re-stamps (R29b-3U and EMAIL-UNIQ-BE still pay them now).
+2. T4 runs two testers in parallel (by company); FAILs stream to you as found: be ready to take a fix batch per repo while the session runs.
+3. At T5 I write a one-page review of the Phase 4 plan; its changes go into the 4b plan. `.review-channel/phase4-plan.md` "Efficiency changes".
