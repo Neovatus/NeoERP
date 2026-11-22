@@ -19,7 +19,7 @@ contradict them, follow the rule and tell your lead. Jabran 2026-11-22 (D-63).
 
 4. **Find problems as early and as cheaply as possible.** A brief gap found before building costs minutes; the same gap found by
    a gate or a tester costs a round trip. Check briefs before building, run flow tests before review, check reviews before a gate.
-   *Examples: Speed rules 1–3, GATE-3.*
+   *Examples: Speed rules 1–3, GATE-3.* A check that repeats belongs in an automated test; the simulator is for first looks and real-device behaviour (D-69).
 
 5. **Cut work by feature and keep it small.** One feature = one backend lane + one App lane, tested as one user flow. Small,
    proven fixes travel together; cross-cutting work stays separate.

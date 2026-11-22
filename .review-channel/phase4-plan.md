@@ -78,3 +78,6 @@ feature from the start (4.12, 4.14, 4.15 …; H1 slices).
 
 ## Phase review checklist (D-63)
 At T5 the owner writes `.review-channel/phase4-review.md`: planned vs real time per test point and lane; cost per lane; first-pass gate rate; repeats and re-stamps; escaped defects; and every rule added in Phase 4 (D-43 … D-63) with its numbers → keep / change / drop. Dropped rules leave WORKFLOW in the same commit; changes go into `phase4b-plan.md` and the HR plan.
+
+## T4 trimmed (D-69)
+Before T4 runs, the step list drops steps already covered by automated tests on the merged code (screen-size, screenshot, Compose UI tests) and checks backend-only steps through the API (lead, local stack). Every T4 FAIL's fix lane adds an automated test for it. Target: ~1–1¼ h with two testers.

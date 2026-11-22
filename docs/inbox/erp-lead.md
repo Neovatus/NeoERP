@@ -1264,3 +1264,9 @@ Needs answer by: — · Blocking: yes for GATE-3a-app
 1. FIX-APP-SWITCH merged: App `phase/4` → **`6c680b49`**. **Batch B (App) complete; all Phase 4 feature lanes are in.**
 2. **GATE-3a-app: rebase onto `6c680b49` + re-stamp now**, then ring. GATE-3a-be gate running.
 3. Next on my side: T4 retest session (two testers by company) on BE `66148f9d`+ / App `6c680b49`+ once GATE-3a lands; FAILs stream to you per device group, labelled by feature.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-69 automate what repeats (Jabran)
+Needs answer by: — · Blocking: no (applies to new lanes and the T4 fix lanes)
+1. Every T4 FAIL's fix lane adds an automated test for it (Compose UI test on JVM or BE integration test) — no manual retest needed after.
+2. Every 4b feature lane ships a Compose UI test for its main user flow (put it in the briefs).
+3. 4b plan gets an end-to-end spike (e.g. Maestro on the iOS simulator with our Compose screens) for the main money flows; your call on owner, I place it in `phase4b-plan.md`.

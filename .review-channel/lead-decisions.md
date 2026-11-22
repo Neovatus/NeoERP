@@ -698,3 +698,6 @@ After Anthropic's "single agent vs subagents" guidance. **Keep sub-agents** for 
 
 ## D-67 Agents report brief gaps in every hand-back — 2026-11-22 (Jabran: "Yes add")
 Closes the "easy feedback" tip: every builder, reviewer and tester hand-back ends with "Brief: unclear or missing — …" or "none". Leads log them per lane (Timeline) and, at the phase review, fix the brief template and the brief check for gaps that repeat.
+
+## D-69 Automate what repeats; simulator for first looks and real-device behaviour — 2026-11-22 (Jabran: "yes")
+Every simulator FAIL becomes an automated test in its fix lane; every feature lane ships a Compose UI test for its main flow; simulator sessions keep only first looks, device behaviour, wording and feel (covered steps dropped, backend-only steps via API); end-to-end trial (e.g. Maestro) for the main money flows after Phase 4, spike first, in the 4b plan. WORKFLOW "Automate what repeats", PRINCIPLES 4.
