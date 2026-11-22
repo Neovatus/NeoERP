@@ -330,3 +330,30 @@ Lead decisions (rule 2):
 3. `countReferences` on the company port: **accepted** (both). Add a one-line D-25 note in the builder report (its only caller deletes a company's own role; it answers 0 for a role the company does not own).
 4. Rows for the next sub-lanes: `PersonAuditFanOutPort` key → R29b-4 (Fable L4); staff writes on invitations, person updates, onboarding, stand-ins and employee links not yet `PLATFORM_WRITE` → R29b-3 and R29b-4 briefs (Fable L10, Opus decision 5); `OrgScopeAccessPort` → R29b-4.
 Re-check: both reviewers (both said FIX). Opus re-runs.
+
+## D-35 FIX-APP-B2b review round 1 — 2026-11-22
+Reviews on `phase/4-b2-fix-app-b2b` `a511cb24`:
+- **Opus: FIX**, 1 HIGH (BackEnd), 2 MEDIUM, 6 LOW. Targeted 806/0. Old FAIL proven for R04, B2a N2, R09, R07.
+- **Sonnet: FIX**, 3 MEDIUM, 5 LOW.
+- Both: D-16, the control-reason codes, the new fields and all four languages are right.
+
+Lead decisions (rule 2):
+1. **Opus H1** (the server does not refuse a second receivables opening-items entry; drafts on the payables side only warn) is the BackEnd rule already put to Jabran as **N10** (Fable D-33: a written money rule, OI C-20, Jabran's call). It is not App code. It goes on a BackEnd row with a go-live gate (durable link + refusal or acknowledged warning, as Jabran decides). Lane-ready states it does not block this App lane.
+2. **Fix in this lane:**
+   - **Opus M1:** Cost centre and Project columns may drop on a narrow table (drop order per spec §4.3), so the ledger keeps its table down to 720 px and turns into cards only below that. The size test checks the mode (table vs cards) at 744 and 1032, not only the text. This replaces D-33 item 4's "never dropped".
+   - **Opus M2 / Sonnet F2:** the R11 mark lasts for the app session (a session-scoped holder, not the route), across module and company switches. The user guide says "until you close the app". Fable condition (c): a test that a second hand-off still shows the duplicate warning, plus a simulator step after a restart.
+   - **Sonnet F1:** the G19 row wording, general because `creatable=false` has more than one cause. "This account can't be created from an import. Map the row to an existing account, or create the account first (a bank account needs its bank details)." In en, nb, sv and da.
+   - **Sonnet F3:** `importedAt` and `discardedAt` show in the company's local date (`formats::localDate`), with a boundary test (00:30 Oslo).
+   - **Fable D-33 conditions:**
+     - R07: pick by the pack `templateRef` (2990 SE, 2960 others); if it is missing or off, suggest nothing (no first-ACCRUAL fallback; covers Sonnet's 2910 LOW).
+     - The N2 re-read in the invoice, credit note, bill and debit note editors, each with its own regression test.
+     - The screen rig's trial balance rows.
+   - **The cheap LOWs:**
+     - Opus L1: a test for G41.
+     - Opus L3: every field message shows, not only the reason's.
+     - Opus L4: a GL account 404 drops only that account's saved filter.
+     - Opus L5: the simulator steps.
+     - Sonnet: the toast plural ("Approval limits were"), the stale spec lines `accounts-a2-a3.md:255, :867` and the rig label, the byAt edge.
+3. **Rows:** R33b (short screenshot frames for the other ~45 classes); BackEnd `ACCRUED_EXPENSES`/prepaid pack role; BackEnd durable opening-items link (N10); BackEnd per-row reason for `creatable=false` (so the App can be specific).
+
+Re-check: both reviewers (both said FIX). Opus re-runs.
