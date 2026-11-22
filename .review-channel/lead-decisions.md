@@ -579,3 +579,6 @@ Lead decisions (rule 2; each item a reviewer proposed or named; the fix checks c
    - the ADR-012 notes and the stale report sections are updated.
 7. Before hand-back: the full user-service and org-service suites plus `:architecture-tests`.
 Re-check: both reviewers (both said FIX). Reviewer A re-runs the tests. This is fix round 1 of at most 2.
+
+## D-46 Review tiers instead of a second reviewer on every money/security lane — 2026-11-22 (old-Mac lead, Jabran approved in chat)
+**Jabran 2026-11-22:** "let go with your recommendation, but 2nd review based on the severity, not all time". Data: 25 review runs on four lanes today, 8 first reviews, 17 repeats (68%); all findings came from first reviews; the second reviewer found the AC418-BE HIGH and the R29b-5 MEDIUM. Rule in WORKFLOW "Review tiers": tier 2 (two reviewers, round 1 only) for books/isolation/auth/gate/large changes; tier 1 (one Opus, high on risk paths) for the rest; simulator check for App screens; no Sonnet second review; only the FIX reviewer re-checks; no re-stamp for clean rebases. **GATE-3 additions:** a `Review tier:` line the gate reads (one file allowed for tier 1), and keeping the other reviewer's stamp when later commits were reviewed by the first and touch none of its angle.
