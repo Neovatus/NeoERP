@@ -7,7 +7,7 @@
 **Asked:** Jabran 2026-11-22: "make sure duplicates are not running; target and affected places run the test; we should
 only test in full those services that are affected, not all services."
 **Repo / lane:** BackEnd `phase/4-b2-test-scope-be` and App `phase/4-b2-test-scope-app`, each cut from its `phase/4` after GATE-2 merged. Copy this file to `docs/agents/test-scope-1/brief.md` in each lane.
-**Builder:** Opus 5.5 high (gate lane). **Reviews:** fresh Opus + Fable 5.2 high security review (diff + brief only),
+**Builder:** Opus 5.5, default effort (D-44). **Reviews (tier 2):** a fresh Opus 5.5 (default) + an independent Opus 5.5 security seat at high effort (D-43: no new Fable), diff + brief only. Seat B signs `Reviewer: Opus 5.5 security (D-43)`.
 because it changes what the gate tests. **Gate files changed → RISK → whole-suite run for this lane itself.**
 **Where it runs:** builder Mac builds with targeted runs; the old Mac (test Mac) runs the gates (own lock per repo after GATE-2).
 
@@ -84,3 +84,10 @@ when the module graph can't be read, it runs the full suite.
   origin/phase/4..HEAD`, or a `scripts/test-scope.sh <be|app> <worktree>` that prints and runs the same module set
   through `gradle-job.sh` and the repo lock). It runs exactly the test set the gate would run, without the review
   checks, so a builder's green means a gate green on tests.
+
+## Lead note 2026-11-22 ~19:45 (start; current rules)
+- **Base:** BE `phase/4` `8472c728`, App `phase/4` `a8e004a6` (GATE-2 and GATE-3a merged). Reviews carry over a clean rebase (GATE-3a): keep the lane's commits patch-identical on a rebase, so no re-stamp is needed.
+- **Runs beside the T4 fix lanes** (Jabran via the old Mac, "Phase 4 closes first": tooling may). **GATE-3's remainder waits** until this lane merges: both edit `verify.sh`, `risk-check.sh` and the hook.
+- Never open, print, grep the content of or copy `.env` files (incl. tracked `infra/.env`), `.local-secrets/**`, token/session files, `~/.gradle/gradle.properties` and other user-level `gradle.properties`, `~/.netrc`, `~/.npmrc`, `~/.aws/**`, or keys. Read one key only when needed (`grep -c '^key=' file`).
+- No force push, never `--no-verify`, no AI attribution in commits, no GitHub workflows. Gradle only through the repo lock (`lockf -k /private/tmp/neoerp-gradle.lock` BE / `neoerp-gradle-app.lock` App + `scripts/gradle-job.sh`); `verify.sh` itself without a `lockf` wrapper. Read the exit code and BUILD line; delete old test results first; wait loops stop when the job exits and have a time limit.
+- Hand-back: `docs/agents/test-scope-1/builder-report.md` with what ran on which sha (counts from that run's own output), timings, docs pages changed. Final line: `Brief: unclear or missing — …` or `Brief: none`.
