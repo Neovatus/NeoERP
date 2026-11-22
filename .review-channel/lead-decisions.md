@@ -392,3 +392,20 @@ Lead decisions (rule 2):
 4. Start (amended same day): R29b-3U started when AL-REST-BE's fork builder finished and freed a BackEnd slot
    (at most 2 BE builders on this Mac); R29b-5 starts when the next BE slot frees (AL-REST-BE). Each Timeline logs its
    wait, and the L37 comparison counts R29b-5's later start as Waiting.
+
+## D-38 RISK-NARROW-1 fix round 1 results, rebase and small follow-up — 2026-11-22
+- Fix round 1 done in both lanes. App `2bb4355b`: self-tests 100/100; replay: only QA1 size fix moves RISK→NORMAL, none
+  NORMAL→RISK; keep 83 / narrow 15 / drop 3. BE `bc63769c`: 118→129 globs; self-tests 110/110; replay: no Phase 4 BE
+  lane moves NORMAL→RISK; R29b-1 +44 paths, FIX-BE +9, ISO-R1 +2.
+- Rebased after the merges (all commits `=`, base moves touch no gate script, dead-glob check OK): App
+  `phase/4-b2-risk-narrow-app-r` on `430bc5ab` (B2b), BE `phase/4-b2-risk-narrow-be-r` on `409f45e5` (R29b-2).
+- Lead decisions (rule 2), so the fix checks see one final state:
+  1. App item 3: the builder guards all 23 old globs (incl. the payables/receivables prefix globs and the three
+     dropped folders): accepted, it is the stricter reading.
+  2. App: chart, dimensions and templates view models that write company data are listed (the reason used for
+     Suppliers/Customers). `SalesDocumentsList`, ageing/statement, commonTest route tests and reports view models stay
+     NORMAL: display only, figures computed by the server; one-line reason each in the report.
+  3. App: B2b's new `ControlReasonRules.kt` and `OpeningItemsEnteredMarks.kt` must be RISK.
+  4. BE: add accounts `application/service/books/**`, `sie/**`, `obimport/**`, `journalimport/**` (Fable named them;
+     they create journals and opening items). hr, payroll and audit main code wait for their rebuild (verify.md line).
+- Re-check: Opus and Fable fix checks on the final heads (both said FIX); they check D-36 and D-38 items. Opus re-runs.
