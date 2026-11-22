@@ -91,3 +91,24 @@ when the module graph can't be read, it runs the full suite.
 - Never open, print, grep the content of or copy `.env` files (incl. tracked `infra/.env`), `.local-secrets/**`, token/session files, `~/.gradle/gradle.properties` and other user-level `gradle.properties`, `~/.netrc`, `~/.npmrc`, `~/.aws/**`, or keys. Read one key only when needed (`grep -c '^key=' file`).
 - No force push, never `--no-verify`, no AI attribution in commits, no GitHub workflows. Gradle only through the repo lock (`lockf -k /private/tmp/neoerp-gradle.lock` BE / `neoerp-gradle-app.lock` App + `scripts/gradle-job.sh`); `verify.sh` itself without a `lockf` wrapper. Read the exit code and BUILD line; delete old test results first; wait loops stop when the job exits and have a time limit.
 - Hand-back: `docs/agents/test-scope-1/builder-report.md` with what ran on which sha (counts from that run's own output), timings, docs pages changed. Final line: `Brief: unclear or missing — …` or `Brief: none`.
+
+## Lead corrections 2026-11-22 ~20:00 (fresh Opus brief check; these win over everything above)
+1. **Whole suite:** the phase → main default is full (D-47). Rule 2's triggers (build files, gate files, unknown path) **stay as the fail-safe** for a `phase/*` range too.
+2. **No Gradle in the hook.** The pre-push hook never runs the pushed tree's code. The graph is read **as text** from the push base's script: parse the `include(...)` literals in `settings.gradle.kts` and `project(":…")` literals in every `build.gradle.kts`; any non-literal form → full. `graph=` = sha256 of the sorted edge list. (`architecture-tests` depends on all 7 services, so it is a dependent of every service: fine.)
+3. **Where the logic lives:** in `risk-check.sh` as `--scope` (the hook reads only the base's `risk-check.sh`). If you split it into a new script, add it to the hard-coded gate globs, NEVER_LIGHT and `risk-paths.txt`.
+4. **Marker:** a new `<sha>.scoped` file (never `.ok`: `.ok` stays "always full"). One word throughout: **scoped**. It carries `risk=`, `reviews=`, `modules=`, `graph=`, `base=` (and `kmm_network=` on the App). The hook refuses it for `main`, for a new remote branch, and when `base=` ≠ the remote tip.
+5. **No duplicate runs:** check for a valid marker **before** verify deletes HEAD's markers. Valid = same HEAD, same `base=` = remote tip, same `graph=`, covers the planned modules, `risk=`/`reviews=` still true. `--force-rerun` skips the check.
+6. **Floor:** per-module syntax `:services:x min_tests=N`, and `class=` lines tagged with their module (26 classes today, 11 in architecture).
+7. **Flows (Jabran 2026-11-22: "Gradle flow tests only"):** "flow" = the flow/integration tests inside each affected Gradle module, which run with its tests. The stack scripts (`*-acceptance.sh`) are **not** added to the gate; they stay at phase → main and the T sessions. No gate time added.
+8. **Builder command:** `scripts/verify.sh --scoped-tests-only [--range …]`, using verify's own lock and Gradle home, writing **no** marker. It runs exactly the scoped test set. (`gradle-job.sh` is workspace-only; it is not in either repo, so the lines above that name it are replaced by this.)
+9. **Wording:** verify uses `--no-build-cache` and deletes old results, not `--rerun`; describe what it really does.
+10. **App:**
+    - Time an `features/accounts` range too (574 of 1150 main files, 343 of 676 test files).
+    - The import scan must handle wildcard imports and generated `Res`; unsure → the feature's whole package, or full.
+    - Strings are per feature (`values*/strings_<feature>_*.xml`) → that feature. "Shared resources" = the rest (fonts, drawable, `files/`) → full.
+    - Always run `design.*`, `buildrules.*`, `i18n.*` (screen-size tests sit in `app/design/` by batch).
+    - Skip a `--tests` filter that matches nothing (Gradle fails the task on an empty filter).
+    - A KMM-Network commit change → full.
+    - DI, navigation, session, shell paths → full: list the real ones in the script (`app/di`, `ui/shell`, `app/session`, check each exists).
+11. **GATE-3a carry-over:** this lane is RISK and runs the whole suite. Commit `builder-report.md` **before** the review files (only `review-*.md` may follow the reviewed commits). If a T4 lane later touches `risk-paths.txt` or `verify.md`, the carry-over fails and a re-stamp is due: keep edits to those small.
+12. **Tests to add:** scoped marker refused on `main` and on a new branch; `base=` ≠ tip refused; transitive shared → shared → service; non-literal `project()` → full; a valid marker skipped and `--force-rerun`; `--plan` output; per-module floor; App strings mapping and an empty filter. **Docs:** `docs/operations/verify.md` in **both** repos. The WORKFLOW "Test scope" pointer is in the workspace, and the lead writes it, not the builder.

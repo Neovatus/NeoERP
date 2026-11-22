@@ -721,3 +721,6 @@ Weekly all-models usage 90 % (reset **Tue 24 Nov 15:00**, not Monday). Exception
 ## D-58 T4 OBS-2: the Excel template comes as .xlsx — 2026-11-22 ~19:40 (Jabran, chat: "Excel gets .xlsx")
 - The spec (`accounts-ob-import.md` §2.1) said the template is always CSV, so OBS-2 matched the spec. Jabran chose: when Excel is chosen, the template is `.xlsx` with the same columns.
 - So OB-IMPORT becomes a pair: `phase/4-b2-fix-ob-import-be` (new `template.xlsx`, reusing `XlsxExportWriter`) and `phase/4-b2-fix-ob-import-app` (the template follows the format, plus the G6 "Held out offers re-entry" check). Tier 1 each; reproducing test first (D-69). The briefs are in each worktree under `docs/agents/t4-fix-ob-import/`. A fresh Opus checks the briefs first (D-51).
+
+## D-60 TEST-SCOPE-1 flows = Gradle flow tests only — 2026-11-22 ~20:00 (Jabran, chat: "Gradle flow tests only (Recommended)")
+"Flow" in Jabran's "target & affected services & flow" means the flow and integration tests inside each affected Gradle module. The `*-acceptance.sh` stack scripts are not added to the scoped gate; they stay at phase → main and the T sessions. The brief check's 11 other corrections are the lead's (brief "Lead corrections").
