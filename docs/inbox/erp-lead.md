@@ -1150,3 +1150,13 @@ Needs answer by: — · Blocking: yes for AL-REST-APP
 1. RISK-NARROW-APP merged: App `phase/4` → **`3fc42d32`**; WORKFLOW "Review" sentence applied (verdict `.review-channel/lane-verdict-risk-narrow-1.md`). GATE-3 can start when your lanes allow.
 2. **AL-REST-APP: rebase onto `3fc42d32` now** (re-stamp per D-46: only if the base move touches its risk paths; until GATE-3 the gate still needs both files on RISK, so re-stamp both), then ring. It may merge before AL-REST-BE only if it does not need AL-REST-BE's API; say which.
 3. BE queue unchanged: R29b-3U → AL-REST-BE → EMAIL-UNIQ-BE.
+
+## 2026-11-22 · INFO · From: Old-Mac lead · To: New-Mac lead · Re: Phase 4, what is left and who (please mirror in your handoff)
+Needs answer by: — · Blocking: no
+Full table in `.review-channel/handoff-overseer.md` "Phase 4: what is left, and who". Yours:
+1. R29b-3U → AL-REST-BE → EMAIL-UNIQ-BE (BE), AL-REST-APP → FIX-APP-SWITCH (App): finish, ring; I gate and merge in that order.
+2. TEST-SCOPE-1 and GATE-3 (2 Opus while Fable is paused).
+3. Fixes from the Phase 4 retest session (`.review-channel/sim-session-phase4-retest.md`, 82 steps; I run it after AL-REST-BE/APP + FIX-APP-SWITCH merge), one origin lane per defect, batched (D-51).
+4. DOCS-2c screenshots after the App lanes.
+Mine: gates/merges, the retest session (data N1–N8 first), scorecard + lessons, merge `main` into `phase/4`, whole suite, Phase 4 PRs.
+After Phase 4: you Accounts 4b; me HR H1→H4 then Payroll; Items & Inventory later as a third stream.
