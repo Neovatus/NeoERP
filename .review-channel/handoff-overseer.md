@@ -1,4 +1,4 @@
-# Handoff: old-Mac lead (overseer, test + integration Mac) — 2026-11-22 16:40 Europe/Oslo
+# Handoff: old-Mac lead (overseer, test + integration Mac) — 2026-11-22 19:40 Europe/Oslo
 
 Replace, don't append. Read with WORKFLOW.md and `docs/prompts/resume-overseer.md` after a compact.
 
@@ -28,27 +28,20 @@ talk through `docs/inbox/erp-lead.md` + one-line SendMessage doorbells.
 - Up only while testing: stack + simulators start right before checks, stop right after. Simulator sign-in needs `simctl keychain reset`.
 
 ## Heads
-App `phase/4` `3fc42d32` (RISK-NARROW-APP); BE `phase/4` `df80e554` (RISK-NARROW-BE); App `phase/hrp-v2` `d91e45cd`; BE `phase/hrp-v2` `f1a6f944`.
+App `phase/4` `a8e004a6`; BE `phase/4` `8472c728`; App `phase/hrp-v2` `d91e45cd`; BE `phase/hrp-v2` `f1a6f944`.
 
 ## Merged today
 TEST-SPEED-1/APP, BE-JDK21, FIX-APP-B1, R29b-1, FIX-APP-B2a, GATE-2, R29b-2, FIX-APP-B2b, AC418-BE, HRP-H0-BE, HRP-H0-APP,
 **R29b-5, OUTBOX-CLAIM-BE (escaped defect fixed), AC418-APP, RISK-NARROW-1 (BE+App)**. Verdicts in `.review-channel/lane-verdict-*.md`.
 
-## Phase 4: what is left, and who
-| # | Item | Who | State |
-|---|---|---|---|
-| 1 | R29b-3U (BE) | new Mac builds; old Mac gates/merges | rebasing on `df80e554` (arch conflicts with R29b-5 resolved) |
-| 2 | AL-REST-BE (BE, accounts V79) | same | `-r3` on `df80e554`, arch tests + re-stamps running; **merges before AL-REST-APP** |
-| 3 | EMAIL-UNIQ-BE (BE, user V50, escaped defect) | same | lane-ready on `9aca6c76`; rebase on my ring after 1–2 |
-| 4 | AL-REST-APP | same | resolving conflicts with AC418-APP (6 files); after AL-REST-BE |
-| 5 | FIX-APP-SWITCH (App MEDIUM: wrong-company journal request) | same | built, two Opus reviewing; after AL-REST-APP |
-| 6 | TEST-SCOPE-1 (scoped gate) | new Mac | building |
-| 7 | GATE-3 (fail fast, failing-test names, patch-identical rebase, review tiers in gate, kept stamp, gate-busy, merge helper, hook gates every phase/*) | new Mac brief → build; Fable paused so 2 Opus | brief being written |
-| 8 | **Phase 4 retest session**: `.review-channel/sim-session-phase4-retest.md` (82 steps, 7 device groups, ~3.5 h in two runs) | **old Mac** | after 2, 4, 5 merge; set up data N1–N8 first (reuse hina.rauf, erik.sand, jonas.moe; new demo users only if unavoidable, tell Jabran) |
-| 9 | Fixes from the retest (origin lane per defect) | new Mac builds | after 8 |
-| 10 | DOCS-2c screenshots | new Mac | after the App lanes |
-| 11 | Scorecard + lessons (MEASURE-1 incl. gate-failure origin and builder test minutes; L36/L37) | old Mac | after 9 |
-| 12 | Merge `main` into `phase/4` (both repos), whole suite, MERGE PR verdicts, merge BackEnd #8 / App #5 | old Mac | last |
+## Phase 4: what is left, and who (19:40)
+Plan: `.review-channel/phase4-plan.md` (lanes table is the source). All feature lanes merged: BE `phase/4` `8472c728`, App `phase/4` `a8e004a6` (GATE-3a in both).
+- **T4 run 1 done** (`t4-results-tester1/2.md`, ledger): 0 real FAIL except OBS-2; AL steps blocked by **APPROVAL_LIMITS released=false** (shared catalog); my data misses: N5 Ola on Lahore, D1, AC418-10a prep. B2b-14 PASS by design (refresh on focus).
+- **Fix lanes (new Mac, batch C):** FIX-AL-RELEASE-BE (shared catalog → **I am 2nd seat: fresh Opus here, brief + diff; I gate + merge**), FIX-OB-IMPORT-BE (real .xlsx template, D-58) → FIX-OB-IMPORT-APP (OBS-2 + held-out offer + B2a-S6 "Untick it to go on." string), DEMO-FM2-BE (`ebf757ac`, kari.hansen FM2; mine, gate with C).
+- Tooling beside C: TEST-SCOPE-1, then GATE-3 remainder.
+- Then: **T4 short retest** (blocked + failed steps only; **do data N5/D1/AC418-10a/fresh OB import first**; kari session: password file from docs via temp file, never printed), DOCS-2c, Phase 4 review (`phase4-review.md`, rule keep/change/drop), merge `main` into `phase/4`, whole suite both repos in parallel, MERGE PR verdicts, merge BackEnd #8 / App #5.
+- **Then** HR H1 (here; briefs `brief-hrp-h1-be/app.md` READY, D-59 all answered; HR `.env` passwords step with Jabran) and Accounts 4b (new Mac, D-61; I write `phase4b-plan.md` from `4b-lane-list.md` incl. e2e spike).
+- Usage: weekly ~90 %, reset **Tue 24 Nov 15:00**; stop line **99 %** (D-56).
 
 ## After Phase 4 (Jabran 2026-11-22; **Phase 4 closes first**, then HR and 4b start together)
 New Mac: Accounts 4b (4.12 PLAT, 4.14, then 4.15–4.17). Old Mac: HR H1 → H4, then Payroll (H1 brief carries the H0 LOWs + HR `.env`
