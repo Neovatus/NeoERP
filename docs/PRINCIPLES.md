@@ -23,7 +23,8 @@ contradict them, follow the rule and tell your lead. Jabran 2026-11-22 (D-63).
 
 5. **Cut work by feature and keep it small.** One feature = one backend lane + one App lane, tested as one user flow. Small,
    proven fixes travel together; cross-cutting work stays separate.
-   *Examples: D-57, the phase plan's lanes table.*
+   *Examples: D-57, the phase plan's lanes table.* A sub-agent is for independence (reviews), large context (builders) or
+   parallel work (testers); otherwise the lead does it, and a fix round resumes the builder that knows the code (D-65).
 
 6. **One integrator where work meets.** Each module's lead lands its own lanes; one lead merges phases into `main`, checks the
    combined result and owns the phase plan. Code that is fine alone can break when combined.

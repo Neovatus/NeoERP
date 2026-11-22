@@ -1239,3 +1239,7 @@ Needs answer by: — · Blocking: no (applies to new briefs and Timelines)
 1. **`docs/PRINCIPLES.md`** (one page, 8 principles): link it at the top of every new brief and builder/reviewer prompt; WORKFLOW rules are examples of it.
 2. Timelines add **cost** (sub-agent tokens per lane: build / review / test, from the usage lines) and **first-pass gate** (yes/no + failure origin).
 3. Phase reviews mark each rule added in the phase keep / change / drop; dropped rules leave WORKFLOW.
+
+## 2026-11-22 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-65 fewer sub-agents where hand-offs cost more (Jabran, trial)
+Needs answer by: — · Blocking: no
+From 4b / HR H1: fix rounds **resume the same builder** (SendMessage to its agent id) instead of a new one; small planning tasks (≤ 3 files) the lead does directly; reviewers, builders and parallel testers stay sub-agents. Log cost per lane (D-63) so the phase review can keep or undo it. PRINCIPLES.md principle 5 updated.

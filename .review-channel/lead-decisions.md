@@ -692,3 +692,6 @@ From Accounts 4b (after the Phase 4 PR): the **new-Mac lead** runs Accounts end 
 
 ## D-63 Principles first, measure cost and first-pass, prune rules — 2026-11-22 (Jabran: "Yes", after the self-improving-agents tips)
 `docs/PRINCIPLES.md` (8 principles, one page) is read first and linked from every brief; WORKFLOW rules become examples of them. MEASURE-1 adds cost per lane and first-pass gate. Each phase review marks every rule added in the phase keep / change / drop and removes dropped ones.
+
+## D-65 Fewer sub-agents where a hand-off costs more than it gives (trial from 4b / HR H1) — 2026-11-22 (Jabran: "if it makes us efficient for development and limits")
+After Anthropic's "single agent vs subagents" guidance. **Keep sub-agents** for reviewers (independence: brief + diff only), builders (large context) and parallel testers. **Fold:** (1) fix rounds **resume the same builder** (SendMessage) instead of a new one; (2) small planning tasks (merging step lists, verdicts, plan edits, ≤ 3 files to read) are done by the lead directly; (3) re-stamps after clean rebases go away with GATE-3a. Measured with D-63 (cost per lane, first-pass gate); a fold whose numbers get worse is undone at the phase review.
