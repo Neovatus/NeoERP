@@ -708,3 +708,6 @@ Weekly usage reached 90 % (the stop line) at 18:40. **Jabran (in chat): "Start f
   automated test first (D-69).
 - Each lane gets one builder and one review at default effort; tier 2 only where the fix touches books or isolation.
 - Nothing else new starts before Mon 2026-11-24 15:00, including GATE-3, TEST-SCOPE-1, DOCS-2c and 4b.
+
+## D-71 Usage at 90 %: Phase 4 fix lanes only, until the reset — 2026-11-22 ~19:00 (Jabran: "Start fixes now", on the new Mac)
+Weekly all-models usage 90 % (reset **Tue 24 Nov 15:00**, not Monday). Exception to the 90 % "start nothing new" rule: the T4 fix lanes start as FAILs arrive (≤ 3 per repo, one builder + one review each, default effort, reproducing test first). Nothing else new before the reset (no HR H1, no 4b, no other reviews). At 92 % both Macs finish the current step, write handoffs and stop. The running T4 testers (Sonnet) finish.
