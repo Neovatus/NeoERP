@@ -511,3 +511,14 @@ effort, sonnet can work with high if needed".
 - Sonnet may use high effort when a task needs it.
 - Briefs that say "Opus 5.5, high" now mean the default, except for security reviews. Agents already running keep the
   effort they started with.
+
+## D-45 GATE-3 approved (Jabran) — 2026-11-22
+**Jabran 2026-11-22 (in chat):** GATE-3, "after what you're doing". Scope:
+- the three App gate rules Fable found in GATE-2 (finding 8): non-ASCII or control-character paths are RISK; the push
+  hook re-runs `--reviews` with the remote's `risk-check.sh`; review-file checks as strict as the BackEnd's;
+- the App dead-glob check uses the base's script (RISK-NARROW-1 Opus LOW);
+- the patch-identical rule (old-Mac proposal, ea3b7d7 item 3): a review still counts across a rebase when the reviewed
+  commits are patch-identical (`git patch-id`) and the base move touches none of the lane's files.
+
+It starts after RISK-NARROW-1 merges and the running lanes are handed back. One builder per repo (Opus, default effort).
+Reviews: Opus high plus Fable, or a fresh Opus once Fable is at 45 % (D-43). The brief is written then.
