@@ -8,6 +8,7 @@
   - App: AL-REST-APP, FIX-APP-SWITCH (App `phase/4` 6c680b49).
 - **In the old Mac's gates, lane-ready:** GATE-3a-be (`phase/4-b2-gate-3a-be-r` 8472c728) and GATE-3a-app (`-app-r`
   a8e004a6). These carry the last re-stamps; once merged, a clean rebase keeps its reviews.
+- **18:50 update:** GATE-3a merged in both repos (BE 8472c728, App a8e004a6): clean rebases now carry reviews. T4 retest running on the old Mac (2 testers). **D-54 (Jabran): T4 fix lanes start now despite 90 %** (by feature, ≤3/repo, reproducing test first, 1 builder + 1 review, default effort); nothing else new before the reset. DEMO-FM2-BE (old Mac) is gated with the fixes.
 - **No agents running.** A stale 2-hour wait loop (a GATE-3a builder's watcher on a crashed self-test run) was killed at
   18:40.
 - **Next, after the reset or when the old Mac rings:**
