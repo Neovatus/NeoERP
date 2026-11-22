@@ -38,7 +38,7 @@ TEST-SPEED-1/APP, BE-JDK21, FIX-APP-B1, R29b-1, FIX-APP-B2a, GATE-2, R29b-2, FIX
 ## Phase 4: what is left, and who (22:50, usage 98 % weekly, reset Tue 24 Nov 15:00)
 Heads: BE `phase/4` `91843a59`, App `phase/4` `d1d7f9d1`. All feature lanes + T4 fix lanes merged (AL release, OB import BE/App, demo FM2 + Ola on Lahore, GATE-3a).
 - **T4b done** (`t4b-results-tester1/2.md`, ledger): OB fixes PASS; AL works end to end; AL-P6/P7/O3 PASS by design (D-64 SR-L4 no exemption); stack and simulators DOWN.
-- **Open:** FIX-B2A-REFRESH-APP (new Mac building; editor must follow `recurringFeatureOn` on return-to-front) → I gate + merge (App, tier 1).
+- **Open:** FIX-B2A-REFRESH-APP **built, not reviewed** (`bb684213`; cause `AppSession.reread()` stamped the 5 s gap on a failed/empty re-read; fix: one retry after 1.5 s, only a real answer stamps; 3 old FAIL → PASS; JVM 2389/0). After the reset: one Opus review (tier 1) on the new Mac → I gate + merge.
 - **Asked Jabran (no answer yet):** turn 6 uncovered steps (SW-B6, AL-R3, AL-Lang sv/da, B2a-S3.3 RV post, AC418-10b, B2b-3) into automated tests in the first 4b/HR lanes instead of another simulator run (new Mac agrees).
 - Tooling beside: TEST-SCOPE-1 (new Mac; yields the Gradle lock to fix lanes), then GATE-3 remainder.
 - **Then close:** DOCS-2c screenshots → `phase4-review.md` (rule keep/change/drop D-43…D-75, MEASURE-1 incl. cost + first-pass) → merge `main` into `phase/4` both repos → whole suite BE + App in parallel → MERGE PR verdicts → merge BackEnd #8 / App #5.
