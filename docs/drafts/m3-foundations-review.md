@@ -53,3 +53,25 @@ Height classes (Android): compact < 480, medium 480–899, expanded ≥ 900; "ra
 4. **Panes:** adopt list-detail for list → document screens (journals, invoices, bills) and supporting pane for side panels, with M3 widths (360 / 412, side sheet ≤ 400). Check that the JetBrains port has `ListDetailPaneScaffold` / `SupportingPaneScaffold` on all targets; if not, build our own on the size classes.
 5. **Navigation:** keep the ERP sidebar, but map its states to the M3 bands (collapsed rail from 600 or 840, expanded from 1200); bottom navigation bar on compact only if the module list fits.
 6. **Spike first** (one lane): library on iOS, desktop, Android, wasm; the shell plus one list-detail screen; count which of the ~306 checks it removes. Then ux-principles.md, screen-standard.md and the QA sizes are updated to the decided breakpoints.
+
+## 4. Styles and components that matter for NeoERP (read 2026-11-23)
+
+**Spacing:** 8 dp scale (space100 = 8 dp); layouts use 8 dp vertical padding, 8 dp gaps, 24 dp horizontal margins; padding and gaps before margins; no margins on child elements.
+**Typography:** 30 styles (15 baseline + 15 emphasized), tokens for font, line height, size, tracking, weight; line height adapts to script height (relevant for Urdu later).
+**Shape:** corner radius scale up to 20 / 32 / 48 dp ("increased" steps), full rounding as its own token; shapes used sparingly.
+**Elevation:** levels as tokens, shadows only where needed; hover raises one level, consistently.
+**Motion:** emphasized 500 ms (enter 400, exit 200); standard 300 ms (enter 250, exit 200); exits shorter than enters; standard easing is the fallback on iOS and web.
+**Buttons:** one high-emphasis button per area; filled for the final or unblocking action; outlined for important secondary and "change your mind"; text for non-essential; icon buttons for optional actions; extended FAB best on large screens.
+**Navigation:** compact uses a bottom navigation bar; medium and expanded a rail (3–7 items, collapsed rail never hidden; expanded rail standard or modal from a menu icon); **a navigation drawer for 5+ destinations or more than one level** (standard on expanded and larger, modal on compact and medium); never two navigation components at once.
+**Side sheets:** supplementary, right edge (left in RTL), inset 16 dp at most; standard on medium/expanded, modal on compact; resizable.
+**Bottom sheets:** mobile only for modal; full width on compact, max width on larger, swap to a side sheet on desktop; single-pointer alternative to drag.
+**Dialogs:** sparingly, at most two actions, clear headline (no "Are you sure?"), single action only for acknowledgement; low priority → snackbar.
+**Text fields:** label always visible; one variant per section; required = asterisk explained once; error text says how to fix.
+**Toolbars:** page actions; not shown together with a bottom navigation bar; ≥16 dp end padding; 48×48 targets.
+**App bars:** 1–2 actions, primary alters or exits the page (Save, Edit); many actions → toolbar, avoid overflow menus.
+**Menus:** temporary actions; unavailable items disabled, not removed; groups by gap or divider.
+**Tabs:** related, not sequential content; equal sections across the width; no mixing icon-only with text.
+**Search:** search bar for one view, search app bar when search is global, icon button when secondary.
+**Snackbar:** one at a time, ≤2 lines on compact, no icons or inline links, one text button.
+**Date pickers:** full-screen modal on compact, field drop-down on medium/expanded; input mode for distant dates (birth dates).
+**Segmented buttons:** ≤5 segments, single-select to switch views or sort; more choices → chips.
