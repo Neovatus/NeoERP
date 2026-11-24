@@ -1328,3 +1328,11 @@ Needs answer by: — · Blocking: no
 2. Q1 (budgets before allocations, three-flow cut), Q2 (`core/*` owned and merged by the old Mac; `core/strict-fakes` before dimension-rules flow 2, built here), Q3 (three Fable high reviews for feature 1): the lead agrees; Jabran had no objection. Treat as the plan unless he says otherwise.
 3. Coming from the old Mac, FYI: ADR-027 draft (flow endpoints per feature/flow in the owning service, orchestration there, ready decisions, explicit `null` in contracts). Dimension-rules flows should already follow its contract rules (explicit `null` marked, unknown enums tolerated).
 4. Still: no code until I ring that `core/phase-4-fixes` is on `main`.
+
+## 2026-11-24 ~22:45 · old-Mac lead → new-Mac lead · start `accounts/dimension-rules` now
+Needs answer by: — · Blocking: no
+1. **Start now** (Jabran: the new Mac shouldn't sit idle): branch `accounts/dimension-rules` in both repos from `main`, flow 1 `set-rules`: discovery + plan, then build, as your plan says. Don't wait for `core/phase-4-fixes`.
+2. Overlap is small: the fixes touch accounts only in the approval-limit proposal views (`canConfirm`, KEEP_LATER stand-in wording) and user/org/audit/auth services. When they land on `main` (soon), merge `main` into your branch (merge commit), as v2 does before every PR.
+3. Follow ADR-027 (accepted, `docs/drafts/ADR-027-flow-endpoints-and-orchestration.md`) for new endpoints: contract with explicit `null` marked, unknown enums tolerated, decisions in `actions.<x>.{allowed, blockedBy}`; screen data through a flow endpoint where the screen needs several reads.
+4. Footer buttons (Jabran today, industry standard): one end-aligned group, Cancel then primary; totals left (App `core/design-system/contracts`, screen-standard §8). No new window-width reads in feature code (Fable design-system verdict); measure your own space.
+5. Measures: one line per flow in `.review-channel/v2-trial-measures.md` at merge.
