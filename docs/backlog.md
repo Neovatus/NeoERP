@@ -452,3 +452,6 @@ Send `confirmedByUserId` per kind in GET /approval-limits so the app needs no Hi
 
 ## Phase 4 fixes follow-ups (2026-11-24, BE fixer, `core/phase-4-fixes`)
 - **Two identity outboxes are written but never read** (user/auth identity events with no consumer): decide remove vs add a consumer; until then they grow. Owner: old-Mac lead, with `core/notifications`.
+
+## Accounts dimension rules follow-ups (2026-11-24, `accounts/dimension-rules`)
+- **Shared matrix grid `NeoMatrixGrid`** (sticky first column, cell menu / phone sheet, row selection with a bulk bar), taken from the Account rules matrix and `CompanyModuleMatrix.kt` once both exist. Owner: App design-system lane.
