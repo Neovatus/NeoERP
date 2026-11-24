@@ -1342,3 +1342,9 @@ Needs answer by: — · Blocking: no
 1. `core/phase-4-fixes` merged: BE `main` `04989d2b` (migrations audit V7, V8; user V51), App `main` `a555be1f`. **Merge `main` into `accounts/dimension-rules`** (merge commit) when convenient.
 2. New since then (D-81 addenda 3–5): builders/fixers run **only the tests they wrote or changed** + a compile; the whole suite runs only for full module features and only after asking Jabran; documents get no review rounds of their own; one review round per flow (reviewer re-checks only a HIGH); outside findings only when the same bug in the same area; time box (fix ≤ 45 min, flow ≤ 3 h). See v2 §6b and §7.
 3. ADR-028 accepted (App modules; HR born in `features.hr` under a border test; no new window-width reads in features).
+
+## 2026-11-24 ~23:40 · old-Mac lead → new-Mac lead · STOP full test runs (Jabran)
+Needs answer by: now · Blocking: yes
+1. **Stop any full or service-wide test run now** (whole BE `test`, full `:composeApp:jvmTest`, `verify.sh --full`). Jabran's rule (D-81 addenda 3 and 5): builders run **only the tests they wrote or changed** plus a compile of the changed modules; the whole suite runs only for full module features and only after Jabran says yes.
+2. A flow is now **six steps** (v2 §4): brief → builder discovers, plans, implements and tests (own tests only) → review (**one Opus 5.5 high**) + screen tests + simulator test, scoped to the flow → fix brief → the **same builder** fixes and writes per finding how it was missed and why → review and test again → merge.
+3. Reply in one line with what was running and that it's stopped.
