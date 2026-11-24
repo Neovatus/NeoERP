@@ -38,3 +38,19 @@ contradict them, follow the rule and tell your lead. Jabran 2026-11-22 (D-63).
    don't help are removed.
    *Examples: MEASURE-1, the phase plan review (D-55, D-63).*
    Every builder, reviewer and tester hand-back ends with one line **"Brief: unclear or missing — …"** (or "none"). The lead counts these per lane and fixes the brief template and the brief check where they repeat (D-67).
+
+9. **Many leads, one project.** Any lead can take any work (build, review, test, docs, design); no lead is fixed to a role. How
+   many leads, on which Mac or plan, changes; these hold for all of them (Jabran 2026-11-24):
+   - **Claim first, release when done.** The line in `.review-channel/claims.md` decides who owns a piece of work, not the lead's
+     usual job. Never change work another lead has claimed; ask in one line in `.review-channel/` instead.
+   - **Never approve your own work.** The reviewer or verdict comes from another lead or a fresh sub-agent; for tier-2 work
+     prefer a lead on a different plan, so the review is independent and the cost is spread.
+   - **Own space on a shared Mac.** Each lead works in its own worktree under `NeoERP-worktrees/`; the main checkouts are for
+     Jabran's manual testing. Shared machine resources (Gradle, the local stack, ports, the database) are taken through
+     `scripts/gradle-job.sh` locks or a claim line, never assumed free.
+   - **One writer per record.** Each lead keeps its own handoff file; shared files (claims, PROJECT-STATE, memory, lessons) get
+     short edits, pulled right before and pushed right after. Decision numbers carry the lead's tag, so they never clash.
+   - **Shared plan, shared budget.** Leads on the same plan count usage together; the 90 % / 92 % stops and the Fable budget
+     cover all of them. Before starting large work, look at what the other leads on that plan are running.
+   - **Same rules for every lead.** Gates, reviews, guardrails and Jabran's decisions apply whichever lead, Mac or plan does the
+     work.
