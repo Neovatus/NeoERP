@@ -22,9 +22,9 @@ Never open, print or grep `.env`, `infra/.env`, `.local-secrets/**`, token or se
 Severity: HIGH = wrong money or books, cross-company read/write, auth bypass, data loss or duplication; MEDIUM = broken flow or wrong decision in a real case; LOW = the rest.
 
 ## Findings
-| # | Severity (HIGH / MEDIUM / LOW) | Where (file:line, both sides for a seam) | Failure (inputs → wrong result) | Confidence (confirmed / plausible) |
+| # | Severity (HIGH / MEDIUM / LOW) | Where (file:line, both sides for a seam) | Failure (inputs → wrong result) | CONFIRMED (proof: failing test / reproduction / both sides read) or PLAUSIBLE |
 |---|---|---|---|---|
-HIGH and MEDIUM block; LOWs go to the backlog. A finding needs a concrete failure; "could be clearer" is not one.
+Only CONFIRMED HIGH and MEDIUM block; PLAUSIBLE findings go to the builder to check first; LOWs go to the backlog. Prove before you report: no concrete failure, no finding. A finding needs a concrete failure; "could be clearer" is not one.
 
 ## Builder decisions
 | Decision | Judgement | Why |

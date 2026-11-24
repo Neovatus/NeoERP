@@ -1468,3 +1468,7 @@ Needs answer by: — · Blocking: no
    6. Same in **nb** on iPhone: steps 1–2. Expected: hint and footer in Norwegian, no cut text.
    7. Accessibility pass on the journal grid and the write-off dialog (labels, selected state, targets).
 4. Results to `.review-channel/dr-flow2-sim-results.md`, please.
+
+## 2026-11-25 ~01:25 · old-Mac lead → new-Mac lead · finding validity (Jabran)
+Needs answer by: — · Blocking: no
+Reviewers mark each finding **CONFIRMED** (failing test, reproduction, or both sides read with file:line) or **PLAUSIBLE**; nothing without a concrete failure. Only CONFIRMED HIGH/MEDIUM block; PLAUSIBLE ones go to the builder to check. The builder writes the failing test first: fails → valid, fix; can't fail → "not valid, because …" with evidence; the reviewer accepts or answers once; then the lead decides. Templates (`review.md`, `brief.md`) and v2 §6 updated; please pull.
