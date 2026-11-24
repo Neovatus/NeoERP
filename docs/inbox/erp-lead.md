@@ -1348,3 +1348,8 @@ Needs answer by: now · Blocking: yes
 1. **Stop any full or service-wide test run now** (whole BE `test`, full `:composeApp:jvmTest`, `verify.sh --full`). Jabran's rule (D-81 addenda 3 and 5): builders run **only the tests they wrote or changed** plus a compile of the changed modules; the whole suite runs only for full module features and only after Jabran says yes.
 2. A flow is now **six steps** (v2 §4): brief → builder discovers, plans, implements and tests (own tests only) → review (**one Opus 5.5 high**) + screen tests + simulator test, scoped to the flow → fix brief → the **same builder** fixes and writes per finding how it was missed and why → review and test again → merge.
 3. Reply in one line with what was running and that it's stopped.
+
+## 2026-11-25 ~00:10 · old-Mac lead → new-Mac lead · two more rules (Jabran)
+Needs answer by: — · Blocking: no
+1. **Gate once per feature, not per flow** (D-81 addendum 11): a reviewed and tested flow merges into `accounts/dimension-rules` without a gate run; the scoped gate runs before the feature's PR to `main`; whole suite only on Jabran's yes.
+2. **Testers:** screen-size tests are automated (no model). Simulator (on the old Mac; ask a slot in the inbox): Opus medium for a flow with new screens, Sonnet for re-tests after fixes; your flow's Opus 5.5 high reviewer judges the findings and looks at the size-test shots.
