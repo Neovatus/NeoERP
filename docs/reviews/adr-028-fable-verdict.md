@@ -1,9 +1,9 @@
-# ADR-028 (App modules): independent verdict
+# ADR-028 (App modules): independent review
 
 Reviewer: Fable 5.2 (high)
 Verdict: ACCEPT WITH CHANGES
 
-Date: 2026-11-24. Read only. App code: `NeoERP-App` `phase/4` at `4e0ec8c7`. I read the code first (build files, resources, DI, navigation, iOS host, tests, gate), then the draft, the backlog section, ADR-027, the DS-1 verdict and the `core/app-test-speed` brief.
+Date: 2026-11-24. Read only. App code: `NeoERP-App` `phase/4` at `4e0ec8c7`. I read the code first (build files, resources, DI, navigation, iOS host, tests, gate), then the draft, the backlog section, ADR-027, the DS-1 review and the `core/app-test-speed` brief.
 
 **Not checked:** no Gradle, no build, no simulator. Statements about Kotlin/Native, AGP, Compose resources and Hot Reload behaviour are from knowledge, not from a run; each is marked "confirm in M0". Counts below come from scripts over the source tree (import lines and `Res.string.<key>` uses), so they are lower bounds.
 
@@ -62,7 +62,7 @@ The direction and the cut by product area are right, and the draft's counts matc
 | Risk | What the draft says | What is missing |
 |---|---|---|
 | Resources missing at run time | M0 shows a string and a font | A missing resource is a run-time crash, not a compile error, and only the desktop JVM is tested. Every M-step needs a start on the iOS simulator and an Android emulator, one screen of the moved module, in `en` and `nb`. `Res.readBytes("files/org/…")` (`src/features/organization/data/service/MockOrganizationService.kt:416`) needs the same proof as fonts. |
-| Android | Library modules use `com.android.library` | The gate never builds Android (`verify.sh:86` runs `jvmTest` and the iOS compile). With up to 16 Android library modules (namespaces, manifests, assets), add `:composeApp:assembleDebug` to each M-step and to the whole-suite gate. The DS-1 verdict found Android has never been in QA. AGP 9 does not accept the KMP plugin in an application module, as I understand it, so `:composeApp` will later need a thin `:androidApp`; confirm in M0 and note it under Q3. |
+| Android | Library modules use `com.android.library` | The gate never builds Android (`verify.sh:86` runs `jvmTest` and the iOS compile). With up to 16 Android library modules (namespaces, manifests, assets), add `:composeApp:assembleDebug` to each M-step and to the whole-suite gate. The DS-1 review found Android has never been in QA. AGP 9 does not accept the KMP plugin in an application module, as I understand it, so `:composeApp` will later need a thin `:androidApp`; confirm in M0 and note it under Q3. |
 | iOS framework | No `export()`, link once | Agree: Swift uses only `MainViewControllerKt` (`App/iosApp/iosApp/ContentView.swift:10`). Missing: each M-step must link (`linkDebugFrameworkIosSimulatorArm64`), not only compile; the gate compiles a klib and never links. |
 | iOS build time | "The largest compile gain" | Likely true for Xcode debug builds: unchanged klibs keep their native caches (confirm in M0). But Kotlin/Native has no ABI-based compile avoidance: any change in `:core:common` or a strings module recompiles every klib above it, and a feature change always recompiles `:composeApp` for iOS. The draft's sentence on compile avoidance holds for JVM and Android only. |
 | Memory on the 16 GB Mac | Cap workers if M0 shows swap | Today: 3 test JVMs of 512 MB heap, one seen at 3.1 GB (`composeApp/build.gradle.kts:146-162`). With the configuration cache on (`App/gradle.properties:7`) Gradle runs tasks of different projects at once, so several modules' `jvmTest` tasks can each start 3 forks (confirm in M0). Put a shared build service on the UI test tasks (one at a time) in the convention plugin; do not wait for swap. |
@@ -142,7 +142,7 @@ Three classes are 29 % of everything: `TaxCodesDefaultSizeTest` 243 s (5 tests),
 
 ## 5. The open questions
 
-| # | Recommendation in the draft | Verdict |
+| # | Recommendation in the draft | Judgement |
 |---|---|---|
 | Q1 | Per product area | **Agree.** |
 | Q2 | Slots plus `:shared:*` kits; api only with a reason | **Agree, with changes:** audit is a shared kit, not a feature with slots; name the `PlatformRepositoryImpl` → `OrganizationService` case; add the visibility rule. |
@@ -174,3 +174,62 @@ Three classes are 29 % of everything: `TaxCodesDefaultSizeTest` 243 s (5 tests),
 11. **Smaller:** fix the three core/designsystem back-references and `getPlatform`; clear the Koin baseline before M3 and M7; the `:build-rules` test task declares all module sources as inputs; say that D3 amends the ADR-027 fixture path.
 
 Brief: unclear or missing — (1) Which branch the M-steps land on, and how `phase/hrp-v2` follows, is in neither the brief nor the draft. (2) The draft says "about 14 modules" but lists 17. (3) No compile time is measured anywhere, and I could not run Gradle, so the compile half of point 4 is reasoning plus one bound from wall time. (4) The brief says "HR v2 App screens soon" without saying whether its first lane is expected before or after M3, which is the main timing question.
+
+---
+
+## Revision 2 check
+
+Date: 2026-11-24. Checked: revision 2 of the draft (workspace commit `e2039ce`) against my ranked list, then Jabran's three decisions and Q11–Q13. Read only, no Gradle. The line at the top stays ACCEPT WITH CHANGES: my eleven changes went in correctly, and the new decisions are sound in direction, but they open three holes in the gate and move three pieces of work behind the step that needs them.
+
+### My list
+
+| # | Change | In revision 2 |
+|---|---|---|
+| 1 | Speed section | **In.** Measured table, T0 owns the test gain, baseline after T0, 150 s ceiling. |
+| 2 | Strings | **In.** One `:core:resources` with today's package; HR and Payroll as the trial. One gap: item 5 below. |
+| 3 | Order | **In**, except that HR is born as a module (Jabran's decision, which replaces my "HR in a package"). Gap: item 4 below. |
+| 4 | Module list | **In.** `:shared:audit`, auth folded, 18 counted correctly, `data/mock` split by owner. |
+| 5 | Per-step acceptance | **In.** |
+| 6 | Gate | **In.** Package units through phase B, graph at M8, cache decided in M0, Android build and iOS link before `main`. |
+| 7 | Visibility rule | **In** as a rule; its timing is item 4 below. |
+| 8 | `:shell` step | **In** (size L, links listed). |
+| 9 | Security | **In** as a rule; the work itself is missing from the HR track (item 4). |
+| 10 | Memory | **In.** |
+| 11 | Smaller items | **In.** "Amends ADR-027 Design 5" is the right section (`ADR-027:119-123`). |
+
+### What the revision broke or left open (ranked)
+
+1. **A feature range no longer compiles the root with that feature.** Today every run compiles everything, "so a broken caller fails the compile" (`App/docs/operations/verify.md`, "Units"). Under (a), an HR range runs only `:feature:hr` tasks. The root names HR only in the generated `NeoFeatureSet.kt`, which is not in git, so the scope (git objects only) never adds a root unit. The leave-one-out compile builds the root *without* HR. So a renamed entry object or a changed registration reaches the phase branch uncompiled. **Change:** every scoped run also runs `:composeApp:compileKotlinJvm` and `:composeApp:compileKotlinIosSimulatorArm64` with the full feature set. With the cache this costs the changed module plus the root.
+2. **Unit → task mapping misses tests held in a second module.** HR's size tests stay in `:composeApp` under `features.hr` until M3, but (a) maps `features.hr` to "the module that owns its package", `:feature:hr`. The size tests would then not run on an HR range. **Change:** a unit maps to every module that has test files in that package (read from the git paths), and the unit's floor is summed over them. Those tests can also reach only HR's public names.
+3. **Test tasks and the cache (Q13).** "Always rerun" needs more than leaving a flag out. Verify counts XML as fresh by file time (`App/scripts/verify.sh:597`), and `verify.md:135-136` says `--no-build-cache` is what keeps Gradle from restoring an earlier result. A result restored from the cache is written now, so it would count. **Change:** the convention plugin marks every `Test` task as never cacheable and never up to date; verify fails when a test task in scope reports FROM-CACHE or UP-TO-DATE; one gate self-test proves it.
+4. **The HR track lacks three things that are scheduled after it.**
+   - Visibility: about 45 of the 155 crossing imports sit on the core and designsystem borders (32 main, 13 tests; e.g. `AbstractStateMachine`, `NeoSkeletonBlock`, `readBodyUpTo`). The visibility list is in A1–A7, after M1 and M2 need it. About 14 core and designsystem test files import app or feature code and must stay in the root or be rewritten.
+   - Release environment: `neoBuildEnvironment()` is an `internal expect` in `core/network` with actuals in build-type source sets. Passing it in from `:composeApp` must happen before M1, with the security reviewer. A-core does not list it.
+   - Registry hosts: HR-1 registers "through the registry", but "menu, routes and home tiles onto the registry" is in A1–A7. The menu and route hosts must read the registry (beside today's hard-wired routing) before HR-1.
+   **Change:** add all three to A-core.
+5. **String paths.** The scope reads string files at one fixed path (`App/scripts/risk-check.sh:465`). After M1 and HR-1 that path matches nothing, so every range with a string change becomes a whole-suite run. Safe, but it removes the scoping for most UI lanes. Update the pattern in M1. "One root for the i18n scans" holds only until HR-1: the scans, the baselines, the pseudo-locale generator and its release guard (which checks its own project only, `composeApp/build.gradle.kts:194-199`) must handle several roots from M0.
+6. **The registry contract is underspecified in four places.**
+   - Lifetime: when `start(deps)` runs and when a feature's graph is dropped. A graph that outlives sign-out or a company switch can show one company's data in another (the bug class in `docs/backlog.md:437`). Say that the graph is built per signed-in session and dropped at sign-out, and give this to the security reviewer.
+   - Shared kits: `NeoFeatureDeps` is in core and cannot name `:shared:*` types. Say where the audit and entitlement services are built and how features get them, without rebuilding Koin under another name.
+   - Typed slots: `NeoSlotId` → composable loses the argument types (a company record tab needs the company and the caller's rights). Use a typed key, so a wrong argument is a compile error.
+   - Existing areas: "graph built inside the feature, no Koin" means moving each area's wiring out of `NeoAppDi.kt` (813 lines) and `NeoSmartContentArea.kt` (639 lines), with the DI tests. That is one lane per area and is not in A1–A7.
+7. **M0 is too large for one spike:** build logic, three-platform resource proof, Hot Reload, pseudo-locale, gate tasks, shared cache, registry, feature property, leave-one-out, memory service, graph file, measures. Split it: build and resources proof with the measures; the gate change (a tier-RISK script, its own review); the registry.
+8. **Smaller.** Verify should pass `-Pneoerp.features=<all>` itself, as it does for `neoerp.kmmNetworkPath` (`verify.sh:489`), so an environment or Gradle-home property cannot narrow what the gate builds. Only gate runs write to the shared cache; builders read. M0 must show cache hits from a second worktree at another path, per task (JVM compile, iOS klib compile, resource generation): worktrees differ in absolute path, and I have not confirmed that the Kotlin/Native compile is relocatable. "Per-customer builds need no extra work" is too strong: all strings, destinations and permissions still ship. M6 should also follow A5–A7.
+
+### Jabran's decisions
+
+| Decision | Sound? |
+|---|---|
+| HR and Payroll born as modules, HR track first | **Yes**, with items 2, 4 and 5. The cost is that HR's first App flow waits for four lanes (M0, A-core, M1, M2), of which M1 carries the core move and the gate change. |
+| Per-module gate tasks and a per-Mac build cache from M0 | **Yes**, with items 1, 2, 3 and the cache rules in item 8. Without item 1 the scoped gate is weaker than today's. |
+| Feature registry, `-Pneoerp.features`, leave-one-out compile | **Yes in direction**, with item 6. The property is per Gradle run, so leave-one-out is a second run with its own configuration time. |
+
+### Q11–Q13
+
+| # | Draft's recommendation | My view |
+|---|---|---|
+| Q11 | Once per gate (the changed feature); each feature before `main` | **Change the trigger.** A leak into the root is a change to root sources, so a feature-only range cannot create one, and leaving out the changed feature proves nothing new. A leak into another feature is already refused by the Gradle rule. Do three things: a text rule in `:build-rules` on every run (no root file outside the generated set names a registered feature's package; complete and free); leave-one-out for every feature before `main`; on phase ranges only when root sources or the registry contract changed. Item 1 is needed either way. |
+| Q12 | M0 goes ahead without T0; baseline from T0's report | **Agree, with two conditions.** T0 and M0 both change `verify.sh` and `risk-check.sh`: one of them merges its gate change first and the other rebases, never in parallel. T0's brief measures only the scoped run, so add the configuration / JVM compile / iOS compile / tests split to it, or run that as its own job. |
+| Q13 | No test results from the cache | **Agree**, enforced in the build as in item 3, not by a flag. |
+
+Brief: unclear or missing — whether "the gate" in Jabran's cache decision covers builders' own runs (`--scoped-tests-only`) or only marker runs; I assumed builders read the cache and only gate runs write it.
