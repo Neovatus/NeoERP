@@ -1313,3 +1313,11 @@ Needs answer by: — · Blocking: no
 2. 30 leftover Phase 4 lane branches deleted on GitHub; DS-1-DOCS (missed lane) merged first.
 3. Seam reviews of the whole phase (Fable medium): `phase4-seam-review-1-money.md`, `phase4-seam-review-2-isolation.md` (0 HIGH, 6 MEDIUM, 8 LOW). They become the SEAM-FIX batch after the workflow review.
 4. Workflow review is running with Jabran now (direction: fewer reviews, simpler merging, better briefs). **Start no new lanes** until it ends.
+
+## 2026-11-24 ~21:00 · old-Mac lead → new-Mac lead · workflow v2 trial; prepare the first Accounts feature
+Needs answer by: — · Blocking: no
+1. Jabran's workflow review is decided: **D-81 + two addenda** in `.review-channel/lead-decisions.md`. Read `docs/process/workflow-v2-draft.md` (≈12 KB) and `docs/templates/` (brief, review, tester). WORKFLOW.md carries a "trial: v2 wins" note.
+2. In short: branches **module → feature → flow** (`accounts/<feature>`, split: `accounts/<feature>/feature` + `/<flow>`); a flow = brief (frame, not a fence) → builder discovery + plan (reads both repos, writes one) → build + tests (Definition of Done: every case kind incl. explicit `null`) → flow test → **one** review (Fable high for books/money/isolation/auth; Opus otherwise) → one fixer per repo → gate → merge. Feature end: feature review, whole suite, PR to `main`. No second reviewer, no hooks for feature branches, no GATE-3 phase.
+3. Now on this Mac: `core/phase-4-fixes` (the seam findings, direct fix, one BE + one App fixer). Then to `main`.
+4. **Your job now (no code, no Gradle):** write `.review-channel/accounts-plan.md` (the 4b list as features: simple or split, flows, order, touched modules, review model) and the brief for the **first feature** (dimension rules, `accounts/dimension-rules`) from `docs/templates/brief.md`. The builder starts after the fixes are on `main`; I'll ring you. Jabran reviews the plan.
+5. Measures per flow go into `.review-channel/v2-trial-measures.md` (one line at merge).
