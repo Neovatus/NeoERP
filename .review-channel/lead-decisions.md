@@ -779,3 +779,13 @@ Draft: `docs/process/workflow-v2-draft.md` + `docs/templates/`. Replaces WORKFLO
 - **Addendum 11 (Jabran, same day):** the gate runs **once per feature**, not per flow ("it's for the features"): a reviewed and tested flow merges into its feature branch without a gate run; the scoped gate runs before the feature's PR to `main`; whole suite only on Jabran's yes. Accounts test sub-units per flow: not needed (gate is per feature).
 - **ADR-025 amendment (Jabran 2026-11-24):** three services (`realtime-service` first, `notification-service`, `push-service` later); the stream carries only the person's own events (+ optional coarse module ping); no per-record topics, contracts or snapshots for now; build the SSE base now as `core/realtime`.
 - **Addendum 12 (Jabran, same day): re-review rule, no loops:** MEDIUM/LOW fixes need no re-review (tests prove them); only a HIGH gets one re-check of that fix; a failed re-check stops for the lead/Jabran; never a third review.
+
+## D-82 Dimension rules: system-built lines and opening balances — 2026-11-25 (Jabran)
+Jabran: "Match the industry standard; we just always follow the industry standards."
+- **Q1 system-built lines (flow 2, `post-with-rules`):** as SAP document splitting and Dynamics 365 / Business Central do, lines the posting builds itself **take the dimension from the document they come from** before the REQUIRED check:
+  - the **VAT line** takes the values of the item line it is calculated from;
+  - the **receivable/payable control line** and the **bank line** take a value when all item lines share it; when the lines differ, the value stays empty (proportional splitting is a later row);
+  - **rounding**, and any line with no clear source, are exempt from REQUIRED;
+  - lines sent by **producing modules** (Payroll and others) are checked like person lines; they send explicit values and read the rules ahead (ADR-021 D4, D6).
+- **Q2 opening balances:** opening-balance journals, SIE opening and opening-items imports follow REQUIRED like any new posting (they are normal postings in the reference ERPs).
+- **Standing rule:** where a product rule has an established industry practice, NeoERP follows it; the lead names the reference systems in the proposal. On the accountant review list before go-live.
