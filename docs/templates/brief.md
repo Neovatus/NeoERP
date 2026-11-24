@@ -1,4 +1,4 @@
-# Brief: <batch name> · <module>/phase-<x> · <repo: BackEnd | App>
+# Brief: <flow name> · branch `<module>/<feature>` (or `/<flow>`) · <repo: BackEnd | App> · review: <Fable high | Opus>
 
 Read first: `docs/PRINCIPLES.md` (workspace) · the standards below · this brief. **This brief is a frame, not a fence.**
 
@@ -26,8 +26,8 @@ You own the whole flow, not only the item named here.
 - **Out of scope:** <what not to do, and why>
 
 ## Step 1: discovery and plan (before any code)
-Write `docs/agents/<batch>/plan.md`: how the flow works today end to end; **every path** the change touches (other
-screens, posting paths, services, events); what you will reuse; the decisions you will take; open questions. Stop and send
+Write `docs/agents/<feature>/plan.md`: how the flow works today end to end; **every path** the change touches (other
+screens, posting paths, services, events), **every writer of the data you change**, and "where else?" (the same pattern in sibling screens, documents, services); what you will reuse; the decisions you will take; open questions. Stop and send
 it to the lead; build after the lead's OK.
 
 ## Feature checklist
@@ -44,7 +44,7 @@ test per fix; standards kept; checklist done; hand-back complete) plus:
 - <this batch's own lines>
 
 ## Test table (fill before coding; the reviewer checks it)
-| Case | Kind (success / refusal / edge / rights / repeat / contract / screen) | Expected | Test name |
+| Case | Kind (success / refusal / edge / rights / repeat / contract incl. explicit `null` and unknown enum / screen) | Expected | Test name |
 |---|---|---|---|
 
 ## Hand-back (≤ 15 lines + files)

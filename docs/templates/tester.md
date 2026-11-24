@@ -1,4 +1,4 @@
-# Test session: <batch name> · <module>/phase-<x>
+# Test session: <flow or feature> · branch `<module>/<feature>`
 
 ## Before anyone starts (the lead)
 - [ ] the data script ran and its check passed (companies, users, rights, stand-ins, open items the steps need)

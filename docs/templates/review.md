@@ -1,4 +1,4 @@
-# Review: <batch name> · <module>/phase-<x>
+# Review: <flow or feature> · branch `<module>/<feature>`
 
 Reviewer: <model + seat name>
 Reviewed: <full sha, BE> / <full sha, App>
@@ -8,13 +8,15 @@ Verdict: ACCEPT | FIX            ← the only line in this file that says "verdi
 ## How to review (in this order, so you are not anchored on the builder's view)
 1. **Your own pass, end to end.** Read the brief and the standards it links. Walk the flow through **both repos**: the user
    action → App → endpoint → service → data → events → back to the screen. Check seams (fields, empty/missing values,
-   error codes, enums), every path discovery should have found, rights and company scope, the four languages, demo data.
+   error codes, enums; a field sent as an explicit `null`), every path and every writer of the changed data discovery should have found, "where else?", rights and company scope, the four languages, demo data.
    Does it follow the standards? Does it duplicate something that exists, or depart from the architecture?
 2. **Then the builder's decisions:** a line per decision: good / acceptable / wrong (why, and the better way). Add any
    decision the builder should have taken and didn't.
 3. **Then the test table:** every case kind covered (success, refusal, edge, rights, repeat, contract, screen)? A missing
    case is a finding.
-Don't re-run the builder's tests; run a test only to prove a finding. Read only; write only this file.
+Don't re-run the builder's tests; run a test only to prove a finding. Read only; write only this file, into `docs/agents/<feature>/review.md` of each repo the flow changed.
+Never open, print or grep `.env`, `infra/.env`, `.local-secrets/**`, token or session files, `~/.gradle/gradle.properties`, `~/.netrc`, `~/.aws` or keys. No AI attribution.
+Severity: HIGH = wrong money or books, cross-company read/write, auth bypass, data loss or duplication; MEDIUM = broken flow or wrong decision in a real case; LOW = the rest.
 
 ## Findings
 | # | Severity (HIGH / MEDIUM / LOW) | Where (file:line, both sides for a seam) | Failure (inputs → wrong result) | Confidence (confirmed / plausible) |
