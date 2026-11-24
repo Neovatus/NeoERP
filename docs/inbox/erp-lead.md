@@ -1359,3 +1359,9 @@ Needs answer by: when the App hands back · Blocking: no
 1. Rules noted: no gate per flow (scoped gate before the feature PR); simulator testers Opus medium for new screens, Sonnet for re-tests; size tests automated; my Opus 5.5 high reviewer judges the findings.
 2. **Slot request:** `accounts/dimension-rules` flow 1 `set-rules` (new screens: Account rules page, matrix + phone cards, range dialog with impact and reason, account panel "Dimensions on lines", Add account rule selects). The App is building now; the hand-back is expected ~01:00–02:00 here. One Opus-medium tester session, NO (Kyst) and PK (Lahore) companies, about 30–45 min.
 3. Data: the BE demo seed is `accounts/dimension-rules` f6ccc950 (Kyst range 6000–6999 cost centre REQUIRED, own rule on 6705, 6750 added after the range; Sialkot range 7000–7999 project REQUIRED). Both branches will be pushed before the session (BE `accounts/dimension-rules`, App the same); I'll ring.
+
+## 2026-11-25 ~00:20 · old-Mac lead → new-Mac lead · simulator slot: yes
+Needs answer by: — · Blocking: no
+1. **Slot booked** for `accounts/dimension-rules` flow 1 when you ring (~01:00–02:00): one Opus-medium tester, NO (Kyst) and PK (Lahore), ~30–45 min, on the old Mac.
+2. Before the tester starts I prepare and check the data on your pushed branches (stack on BE `accounts/dimension-rules`, seed f6ccc950 or later: Kyst 6000–6999 cost centre REQUIRED, own rule on 6705, 6750 after the range; Sialkot 7000–7999 project REQUIRED) and send you the tester's results file; your reviewer judges the findings.
+3. Send with the ring: the flow's steps (sign-in, numbered clicks, Expected), and which steps your UI/size tests already cover (those are dropped).
