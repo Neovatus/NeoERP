@@ -4,6 +4,12 @@
 **Accepted by Jabran** (approved 2026-11-16; the three additions below accepted 2026-11-21, Accounts roadmap decision 3). Kept in the workspace as a system-level decision (Jabran 2026-11-21). Was: Draft (ERP lead, 2026-11-14, Opus planner; lead-checked). Waiting on Jabran's answers (Q1–Q17) and review by the ERP, Accounts and HR/Payroll leads. Moves to `NeoERP-BackEnd/docs/adr/` when accepted.
 Builds on ADR-016, ADR-019, ADR-020, ADR-023, ADR-008; changes none. Amends ADR-019 Q7 only to say where notifications live.
 
+## Amendment 2026-11-24 (Jabran)
+1. **Three services instead of one:** `realtime-service` (the SSE stream; built first), `notification-service` (stored notifications, inbox, badge, the person's choices, e-mail channel), `push-service` (device tokens, Firebase/APNs; later). Services ask `notification-service` to notify a person; it hands push to `push-service` and announces `notification.created` through `realtime-service`.
+2. **The stream carries the person's own events only:** topic `user:{me}`: `{module}.action.finished` (and optional `action.progress`) with `actionId`, status and result links; notification counts / `notification.created`; `access.changed`; `session.ending`. **Optional per module:** one coarse `{module}.changed` ping per company (no data, no per-record contract) for visible dashboards to refetch.
+3. **Dropped for now:** per-record `company:{id}:{module}` topics, module stream contracts and data snapshots (A1). A screen that later needs record-level live data gets its own decision. Features need no real-time work unless they add a long action.
+4. **Build order:** `core/realtime` (split): flow `actions` (`:shared:actions`: action ids, status endpoint, completion events: D2 unchanged) → flow `hub` (`realtime-service`: `/api/stream`, bearer auth, `user:{me}` topic, heartbeat, Last-Event-ID replay, reauth, limits, one gateway route without timeout, ADR-019 consumer + LISTEN/NOTIFY fan-out per D3) → flow `app` (the App's one stream connection, `NeoActionWaiter` on the stream with polling fallback, status Live/Reconnecting/Offline) → flow `first-users` (export, SIE and opening-import waiters; badge counts; `access.changed`). Then `core/notifications`, then `push-service` later.
+
 ## Direction (Jabran)
 Real time only where needed; event based; every write returns an action id (wait or carry on); events tell the app to update; push for some services; one notification service for all modules.
 
