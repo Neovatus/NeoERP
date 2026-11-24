@@ -11,4 +11,4 @@ One line per flow or feature, written by the lead at merge. Compared with the Ph
 ## Trial lines
 | Date | Feature / flow | Mode | Builders | Review runs (first / repeat) | Fix rounds | Findings HIGH/MED/LOW (review) | Found later (test / feature review) | Gate first pass | Wall time | Cost (tokens) | Brief gaps |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 2026-11-24 | core/phase-4-fixes | light v2 (direct fix) | 1 BE + 1 App (Opus) | | | | | | | | |
+| 2026-11-24 | core/phase-4-fixes | light v2 (direct fix) | 1 BE + 1 App (Opus) | 1 / 1 (Fable high, 3 BE areas; re-check of the HIGH only) | BE 3 (findings, where-else, review), App 2 | review 0/0+1 HIGH/6 LOW | App 4 + BE 7 found by the fixers themselves | n/a (no whole suite, D-81 add. 5) | ~3 h 15 m start → main (19:54–23:10); ~65 min lost to fixer whole-suite runs | BE ~480 k, App ~450 k, review ~240 k tokens | BE 3, App 2 |

@@ -9,7 +9,7 @@ Most recent detail: the lead's handoff `.review-channel/handoff-implementer.md`.
 **Kept current by:** the lead updates this file at the end of every batch, together with the
 [lessons register](docs/lessons.md).
 
-**Phase 4 merged to `main` 2026-11-24:** App PR #5 → `main` `35bee31d` (phase/4 `4e0ec8c7`), BackEnd PR #8 → `main` `5b22aca4` (phase/4 `7ee082be`); verdict `.review-channel/phase4-merge-verdict.md`. Next: workflow review, then SEAM-FIX (seam-review findings), GATE-3, 4b + HR.
+**`core/phase-4-fixes` merged 2026-11-24:** BE PR #9 → `main` `04989d2b`, App PR #6 → `main` `a555be1f`. **Phase 4 merged to `main` 2026-11-24:** App PR #5 → `main` `35bee31d` (phase/4 `4e0ec8c7`), BackEnd PR #8 → `main` `5b22aca4` (phase/4 `7ee082be`); verdict `.review-channel/phase4-merge-verdict.md`. Next: workflow review, then SEAM-FIX (seam-review findings), GATE-3, 4b + HR.
 **Branches (2026-11-20):** both repos work on `phase/4`; one PR per phase to `main`.
 `phase/4` heads: App `430bc5ab`, BackEnd `095a8989` (2026-11-22 AC418-BE; B2b; R29b-2; GATE-2; 2026-11-22: TEST-SPEED-APP; TEST-SPEED-1 + BE-RUN-1 + BE-DOCS-1; BE-JDK21; FIX-APP-B1; R29b-1; FIX-APP-B2 part a). **Standing merge from 2026-11-22** (WORKFLOW): approved lanes merge to `phase/*`, and Phase PRs to `main` after the final whole-suite gate and a MERGE PR verdict, without waiting for Jabran. **Plan (Jabran 2026-11-22, "whichever is efficient"):** finish Accounts Phase 4 first (new Mac: R29b, B2b, AL-REST, gate lanes; old Mac: gates, 4.18, HR H0 foundation, Phase 4b briefs + 4.15 spec); after the Phase 4 PR: new Mac Accounts 4b, old Mac HR H1→H4 then Payroll (with Accounts Phase 5). `main`: App `370ad7a6` (PR #4), BackEnd `c6d5a6f` (PR #7).
 

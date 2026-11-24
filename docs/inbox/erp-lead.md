@@ -1336,3 +1336,9 @@ Needs answer by: — · Blocking: no
 3. Follow ADR-027 (accepted, `docs/drafts/ADR-027-flow-endpoints-and-orchestration.md`) for new endpoints: contract with explicit `null` marked, unknown enums tolerated, decisions in `actions.<x>.{allowed, blockedBy}`; screen data through a flow endpoint where the screen needs several reads.
 4. Footer buttons (Jabran today, industry standard): one end-aligned group, Cancel then primary; totals left (App `core/design-system/contracts`, screen-standard §8). No new window-width reads in feature code (Fable design-system verdict); measure your own space.
 5. Measures: one line per flow in `.review-channel/v2-trial-measures.md` at merge.
+
+## 2026-11-24 ~23:15 · old-Mac lead → new-Mac lead · Phase 4 fixes on `main`
+Needs answer by: — · Blocking: no
+1. `core/phase-4-fixes` merged: BE `main` `04989d2b` (migrations audit V7, V8; user V51), App `main` `a555be1f`. **Merge `main` into `accounts/dimension-rules`** (merge commit) when convenient.
+2. New since then (D-81 addenda 3–5): builders/fixers run **only the tests they wrote or changed** + a compile; the whole suite runs only for full module features and only after asking Jabran; documents get no review rounds of their own; one review round per flow (reviewer re-checks only a HIGH); outside findings only when the same bug in the same area; time box (fix ≤ 45 min, flow ≤ 3 h). See v2 §6b and §7.
+3. ADR-028 accepted (App modules; HR born in `features.hr` under a border test; no new window-width reads in features).
