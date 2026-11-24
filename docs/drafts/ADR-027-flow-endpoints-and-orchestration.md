@@ -1,7 +1,7 @@
 # ADR-027: Flow endpoints and cross-service orchestration for the App
 
 ## Status
-**Draft** (ERP lead, 2026-11-24) for Jabran to approve. Not accepted; nothing is built from it yet. Kept in the workspace as a system-level decision, like ADR-025; moves to `NeoERP-BackEnd/docs/adr/` when accepted. When accepted, every builder brief that adds or changes an App screen links it.
+**Accepted by Jabran** (2026-11-24: "yes all ok"), with the recommended answers to Q1–Q7 below. Was: Draft (ERP lead, 2026-11-24). Kept in the workspace as a system-level decision, like ADR-025; every builder brief that adds or changes an App screen links it. Q6: the BackEnd copy of each contract example is the source; the App keeps a copy with the BE version it came from, and a check in the App gate fails when the copies differ.
 Builds on ADR-006 (backend decides), ADR-011 (one App), ADR-012/ADR-026 (company isolation), ADR-016 (security), ADR-019 (event relay), ADR-025 (SSE, action ids). Changes none of them.
 Evidence: BackEnd `7ee082b`, App `82b815b0`. `BE/` = `NeoERP-BackEnd/services/`, `App/` = `NeoERP-App/composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/`.
 
@@ -197,7 +197,7 @@ Screens open in 1–2 calls and App code shrinks (masks, chained loaders go). Co
 
 Calls per screen are counted before and after from the App's network log and recorded in the lane report and the workflow v2 measures file.
 
-## Open questions for Jabran
+## Questions answered (Jabran 2026-11-24: the recommendations below)
 | # | Question | Recommendation |
 |---|---|---|
 | Q1 | Decision shape: keep `actions.<x>.{allowed, blockedBy}` or add `canApprove` style fields? | Keep `actions`; one shape, already read by the App |
