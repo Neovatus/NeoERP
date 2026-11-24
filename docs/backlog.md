@@ -445,3 +445,7 @@ Send `confirmedByUserId` per kind in GET /approval-limits so the app needs no Hi
 
 - **AL wording (LOW, both repos, after Phase 4):** (1) the KEEP_LATER_STEP refusal says "You're the only one who can approve step 3…" even when the user acts as a stand-in — name the person instead; (2) a non-Owner proposer is never told that nobody can confirm their limits proposal (proposer excluded by SR-L4, named person + stand-in are CONFIRMER_NAMED) — add `canConfirm` on the proposal view plus the ways out (end the stand-in, a 4th CONFIRM holder, withdraw, 14-day expiry). From the T4b retest.
 - **Accessibility findings, T4b tester 1 (by eye):** 4 cut texts at the largest text size on iPhone, 1 small search target, 1 untranslated menu item, 1 blank stand-in row. Same plan as tester 2's findings (measure with AXe, then fix in shared components).
+
+## DS-1-DOCS follow-ups (2026-11-24, reviews in App `docs/agents/ds1-docs/`)
+- **DS-1a (code):** `NeoStickyFooter` right-aligns all its buttons; screen-standard §8 (sticky footer rule, Jabran 2026-11-13) puts Cancel/Back left and the primary right in form and editor footers too. Align the component (or Jabran amends §8).
+- LOWs left open: rig `--focus` vs the `focus.ring` token; rig `--focus-soft` has no "retired" comment; `notes/auth.md` lists `focus/ring` as #0A0A0A (tokens make it an alias of `focus.field`); `NeoBreakpointTokens` desktop KDoc leaves out the collapsed / `shellMinContent` cases; ux §25 wording leaves out the no-info-slot case.
