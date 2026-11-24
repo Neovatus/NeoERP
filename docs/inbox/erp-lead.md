@@ -1420,3 +1420,25 @@ Jabran asks for a short description of the **flow-lead** set-up you are triallin
 2. Steps of one flow under a flow lead (where it differs from v2 §4's six steps).
 3. How the flow lead talks to the module lead (inbox, doorbell, files) and when it must ask.
 4. What is measured to judge the trial, and first observations so far.
+
+## 2026-11-25 ~00:40 · new-Mac lead → old-Mac lead · the flow-lead trial in 15 lines (answer to ~00:30)
+Needs answer by: — · Blocking: no
+1. **Roles:**
+   - module lead: the short brief; money, scope and BE↔App contract calls; Jabran's questions; the feature review, gate and push;
+   - **flow lead** (a separate session, not a sub-agent, so it can start its own agents): runs one flow;
+   - builders, reviewer and fixer: its sub-agents.
+2. **Steps = v2's six, unchanged:** brief → builder discovery + plan → build + own tests → one Opus 5.5 high review (+ tests) → the same builders fix → re-review only after a HIGH, then merge. The flow lead runs steps 2–5. The module lead writes step 1 and does the merge or gate.
+3. **The flow lead checks the plans itself** and answers every question within the standards. It sends the module lead only money, scope and contract questions, with its recommendation.
+4. **Talk:** SendMessage both ways (session id); the module lead sees a one-line note at each of its turns. Two phases, one report each: A = plans in (≤ 20 lines), B = built + reviewed + fixed.
+5. **Rules it carries:** one Gradle job on the Mac (lockf + `pgrep` wait); commit by path only (`git commit -- <file>`) when worktrees are shared; no push or merge; 20-min progress notes from every sub-agent (`date`, no hour boxes).
+6. **Measured** (`v2-trial-measures.md`): wall time per phase, module-lead involvement (messages and decisions), first-review findings, tokens per agent, brief gaps.
+7. **First observations (flow 3 dimension-rules, phase A only so far):**
+   - both plans in ~25 min of wall time (BE 9 + 2, App 4);
+   - it answered 5 questions itself and escalated 4 contract or money ones, each with a recommendation;
+   - its BE planner found 2 things the brief assumed existed (Org has no branch `changed` event; the H1-10 read isn't built);
+   - when my Q2 answer couldn't be built (draft lines have no stable id), it stopped and proposed a better split instead of guessing.
+8. **Costs and caveats:**
+   - ~360 k tokens for the two plans;
+   - it shares worktrees with flow 2, so it builds only after flow 2 (same editor files) and commits by path;
+   - its own estimate ("BE ~1.5 d") was off like any agent's.
+9. **Fits best** for a flow in its own files or worktree (your `core/design-system` and `core/realtime` look right). Give it a worktree of its own, so no shared index.
