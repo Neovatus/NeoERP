@@ -7,7 +7,8 @@ Brief check: `.review-channel/brief-check-dimension-rules-set-rules.md` (applied
 - this brief as `brief-set-rules-app.md`;
 - `ref-principles.md`;
 - `ref-rules-domain.md` (RULES §3, §7, §8);
-- `ref-review-template.md`.
+- `ref-review-template.md`;
+- `ref-adr-027.md` (flow endpoints and contract rules, accepted).
 
 ## Not a limit
 Follow the project standards. Reuse what already exists: building block, pattern, mapper, fake, test harness. Don't duplicate it, and don't depart from the architecture.
@@ -40,6 +41,13 @@ Line cells in the editors (flow 2) and the branch default (flow 3) come later on
 5. **Before go-live** every Dimensions screen is read-only, with the notice (spec).
 6. **Permission:** `ACCOUNTS.DIMENSION_RULE.UPDATE` writes, `ACCOUNTS.DIMENSIONS.READ` reads. Add it to `DimensionCodes` in `features/accounts/presentation/DimensionsAccess.kt`. Add account's rule selects show only with `DIMENSION_RULE.UPDATE`.
 7. **Languages:** en, nb, sv and da on every new string (Jabran 2026-11-10); no hard-coded text.
+8. **ADR-027:**
+   - The rules page opens with one flow read: `GET /api/accounts/app/dimensions/account-rules`.
+   - The App shows the server's decisions (`actions.<x>.{allowed, blockedBy}`) and owns the words for each `blockedBy` code. It doesn't recompute rights or locks.
+   - Flow DTOs use one tolerant `Json` (`ignoreUnknownKeys`, `coerceInputValues`, `explicitNulls = false`); enums are read as text, and an unknown value maps to `Unknown`.
+   - Keep a copy of the BE fixtures under `composeApp/src/jvmTest/resources/fixtures/app/accounts/dimension-rules/set-rules/` (as `DocumentMathVectorsTest` does).
+9. **Footer buttons** (Jabran 2026-11-24, industry standard): one end-aligned group, Cancel first, then the primary button; totals on the left (screen-standard §8 and the design-system contracts).
+10. **No new window-width reads in feature code** (Fable design-system verdict): measure the space you're given (for example `BoxWithConstraints`), not the window.
 
 ## Standards that apply
 - Domain: `ref-rules-domain.md`. ADR-021 in the BackEnd repo (read it there).

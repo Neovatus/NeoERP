@@ -8,7 +8,8 @@ Brief check: `.review-channel/brief-check-dimension-rules-set-rules.md` (18 gaps
 - `ref-principles.md` (workspace `docs/PRINCIPLES.md`);
 - `ref-rules-domain.md` (RULES.md §3, §7, §8);
 - `ref-review-template.md` (workspace `docs/templates/review.md`);
-- `ref-ac-dim.md` (the App spec `docs/design/specs/accounts-dimensions.md`).
+- `ref-ac-dim.md` (the App spec `docs/design/specs/accounts-dimensions.md`);
+- `ref-adr-027.md` (workspace `docs/drafts/ADR-027-flow-endpoints-and-orchestration.md`, accepted).
 
 You may read the App repo directly.
 
@@ -80,7 +81,20 @@ Flow 2 enforces REQUIRED on every posting path and adds the role-accounts read. 
 - Spec (ref copy): AC-DIM §4.1 overview counts, **§4.6** account rules, §7 rules, §9 refusal codes, §12 DM-6/7/8.
 - Code: `ARCHITECTURE.md`, `AGENTS.md`, `docs/modules/accounts/*`, `docs/database/db-design.md`, `docs/operations/verify.md`.
 
-## Contract (publish it with an example request and response per endpoint, in `docs/api/accounts-a1.md` or a new `docs/api/accounts-dimension-rules.md`)
+## ADR-027 (accepted 2026-11-24; ref copy `ref-adr-027.md`): how the contract is shaped
+- **Flow endpoint for the Account rules page** (the screen needs several reads): `GET /api/accounts/app/dimensions/account-rules?companyId=`.
+  - It returns the matrix (posting accounts with their resolved `dimensionRules`), the range rules, the overview summary, and the decisions `actions.<x>.{allowed, blockedBy}` for `editRule`, `addRange`, `bulkSet`, with `blockedBy` codes such as `NO_RIGHT`, `BOOKS_NOT_LIVE`, `RULE_LOCKED`.
+  - Folders as ADR-027 Design 1: `delivery/http/app/dimensions/accountrules/`, `application/appflow/dimensions/accountrules/`.
+  - No rules in the flow class: it calls the same application services as the resource endpoints. No `@Transactional`; aim for ≤ 150 lines per class.
+  - `shared/app-flow` (F0) doesn't exist yet. Don't build it here; keep the flow local and record that as a decision.
+- Writes stay commands on the application service, one transaction each. Resource endpoints (below) serve them; an action flow may wrap them if you prefer. Say which in the plan.
+- **Contract rules (Design 5):**
+  - Every nullable field is marked in `docs/api/app-flows/accounts-dimension-rules.md` and shown as `null` in at least one example.
+  - Example files go in `docs/api/fixtures/app/accounts/dimension-rules/set-rules/`: `open.json`, `open-nulls.json`, `open-degraded.json` (if a part can be missing), and per write `<action>-request.json` and `<action>-refused.json`.
+  - Enums may grow.
+  - BE tests accept every request example and produce every response example (field names, nullability).
+
+## Contract (publish it with an example request and response per endpoint; the resource endpoints go in `docs/api/accounts-a1.md` or a new `docs/api/accounts-dimension-rules.md`)
 - `GET /api/accounts/accounts/{id}/dimension-rules` and `PUT` (body `{rules:[{dimension, rule}], reason, version}`).
 - `GET`, `POST`, `PUT /api/accounts/dimension-range-rules[/{id}]`. Removal carries a reason: reuse the repo's existing pattern for a reasoned removal (say which in the plan).
 - "Use the range rule" removes the account's own rule for that dimension, with a reason.
