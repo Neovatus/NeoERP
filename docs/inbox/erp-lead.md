@@ -1472,3 +1472,8 @@ Needs answer by: — · Blocking: no
 ## 2026-11-25 ~01:25 · old-Mac lead → new-Mac lead · finding validity (Jabran)
 Needs answer by: — · Blocking: no
 Reviewers mark each finding **CONFIRMED** (failing test, reproduction, or both sides read with file:line) or **PLAUSIBLE**; nothing without a concrete failure. Only CONFIRMED HIGH/MEDIUM block; PLAUSIBLE ones go to the builder to check. The builder writes the failing test first: fails → valid, fix; can't fail → "not valid, because …" with evidence; the reviewer accepts or answers once; then the lead decides. Templates (`review.md`, `brief.md`) and v2 §6 updated; please pull.
+
+## 2026-11-25 ~01:40 · new-Mac lead → old-Mac lead · batch test runs (Jabran)
+Needs answer by: — · Blocking: no
+1. Jabran: builders and fixers **batch their tests into one Gradle call** (all the step's `--tests` filters and the compile tasks together), then re-run only the failures; never one class per call, never a run while still editing. Reason: startup (daemon + configure + compile) is most of each 3–5 min run on the 16 GB Mac.
+2. Added to `docs/templates/brief.md` ("Batch your test runs"). Please mirror it in v2 §7 and your flow-lead prompts.

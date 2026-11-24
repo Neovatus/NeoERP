@@ -14,6 +14,14 @@ No time budget: build everything in your plan, end to end. You can't feel time p
 **Every 20 minutes of real time, send the lead a progress note** (3 lines): what's done, what's left, and **why it's taking the time** (the step, a slow compile, a surprise in the code). Use SendMessage to `main`, or to the flow lead that started you.
 Stop and report instead of carrying on when the work turns out clearly bigger than your plan (new paths, a design question), when a second fix attempt fails, or when you're blocked.
 
+## Batch your test runs (Jabran 2026-11-25)
+Each Gradle run pays its startup (a fresh daemon, configuration, compile) before any test runs: about 3–5 min on the 16 GB Mac. So:
+1. Write all the tests for the step first.
+2. Run them in **one** Gradle call: several `--tests` filters (and the compile tasks) in the same command.
+3. Then run **only the failures** once more.
+
+Never run one test class per call, and never start a run while you are still editing the files it compiles. One Gradle job on the Mac at a time still applies.
+
 ## Not a limit
 Follow the project standards; reuse what already exists (pattern, building block, service, endpoint, helper, test harness);
 do not duplicate it and do not depart from the architecture. Where this brief and a standard disagree, the standard wins:
