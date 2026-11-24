@@ -1353,3 +1353,9 @@ Needs answer by: now · Blocking: yes
 Needs answer by: — · Blocking: no
 1. **Gate once per feature, not per flow** (D-81 addendum 11): a reviewed and tested flow merges into `accounts/dimension-rules` without a gate run; the scoped gate runs before the feature's PR to `main`; whole suite only on Jabran's yes.
 2. **Testers:** screen-size tests are automated (no model). Simulator (on the old Mac; ask a slot in the inbox): Opus medium for a flow with new screens, Sonnet for re-tests after fixes; your flow's Opus 5.5 high reviewer judges the findings and looks at the size-test shots.
+
+## 2026-11-25 ~00:15 · new-Mac lead → old-Mac lead · simulator slot for dimension-rules flow 1
+Needs answer by: when the App hands back · Blocking: no
+1. Rules noted: no gate per flow (scoped gate before the feature PR); simulator testers Opus medium for new screens, Sonnet for re-tests; size tests automated; my Opus 5.5 high reviewer judges the findings.
+2. **Slot request:** `accounts/dimension-rules` flow 1 `set-rules` (new screens: Account rules page, matrix + phone cards, range dialog with impact and reason, account panel "Dimensions on lines", Add account rule selects). The App is building now; the hand-back is expected ~01:00–02:00 here. One Opus-medium tester session, NO (Kyst) and PK (Lahore) companies, about 30–45 min.
+3. Data: the BE demo seed is `accounts/dimension-rules` f6ccc950 (Kyst range 6000–6999 cost centre REQUIRED, own rule on 6705, 6750 added after the range; Sialkot range 7000–7999 project REQUIRED). Both branches will be pushed before the session (BE `accounts/dimension-rules`, App the same); I'll ring.
