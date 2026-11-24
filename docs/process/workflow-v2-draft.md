@@ -39,14 +39,17 @@ main
 3. **Feature end:** every flow merged → **feature review** (§6, reads the whole feature in both repos) → fixes (one fixer per repo, §4 step 6) → **whole suite** in both repos with `main` merged in → MERGE verdict → PR to `main` with a merge commit → checkouts fast-forwarded.
 For a feature with one flow, the flow review is the feature review.
 
-## 4. A flow: three stages (Jabran 2026-11-24)
-| # | Stage | Who | Done when |
+## 4. A flow: six steps (Jabran 2026-11-24)
+| # | Step | Who | Done when |
 |---|---|---|---|
 | 1 | **Brief:** goal, rules, Definition of Done (§5), links to the standards; "not a limit" ([template](../templates/brief.md)) | lead | written |
-| 2 | **Discover, plan, implement and test the flow:** the builder reads both repos, finds every path and writer, writes its plan, builds BE first then App, writes the tests for all cases and runs **only the tests of what it implemented** | builder(s), one per repo | the flow works end to end; its tests pass; hand-back with plan, decisions and "found outside the brief" |
-| 3 | **Review and test → new goal → new builder fixes → review → merge:** one review of the code (BE + App together), the screen tests (UI flow, sizes in en/nb/sv/da) and a simulator test of the flow. The lead turns the findings into a **new brief (the goal again)**; a **new builder** implements the fixes and tests them; then **review and test again** (the same reviewer and tester, on the fixes and the flow they touch); repeat stage 3 until approved; **approved → scoped gate → merged** | reviewer (Fable high for money, books, isolation, auth; Opus otherwise) + tester agent; lead writes the fix brief; a fresh builder per repo; lead gates and merges | `Verdict: ACCEPT` and a scoped gate pass |
+| 2 | **Discover, plan, implement and test the flow:** reads both repos, finds every path and writer, writes the plan, builds BE first then App, writes the tests for all cases and runs **only the tests of what it implemented** | builder, one per repo | the flow works end to end; its tests pass; hand-back with plan, decisions, "found outside the brief" |
+| 3 | **Review and test:** code review of BE + App together; screen tests (UI flow, sizes in en/nb/sv/da); simulator test of the flow | reviewer (Fable high for money, books, isolation, auth; Opus otherwise) + tester agent | findings listed, or approved → step 6's merge |
+| 4 | **Set the goal again:** the findings become a fix brief | lead | written |
+| 5 | **Fix:** a new builder implements the fixes, each with a failing-first test, and runs only those tests | new builder, one per repo | its tests pass |
+| 6 | **Review and test again** (same reviewer and tester, on the fixes and the flow they touch) → **approved → scoped gate → merged**; not approved → back to step 4 | reviewer + tester; lead gates and merges | `Verdict: ACCEPT` and a scoped gate pass |
 
-The second review and test cover the fixes and the parts of the flow they touch. After two rounds without approval the lead decides or asks Jabran. Tooling and gate work runs the same three stages with a done line and a time box.
+After two rounds of steps 4–6 without approval, the lead decides or asks Jabran. Tooling and gate work runs the same steps with a done line and a time box.
 
 ## 5. Definition of Done (every flow; the brief adds its own lines)
 1. The flow works end to end in both repos for **every path and every writer** discovery found.
