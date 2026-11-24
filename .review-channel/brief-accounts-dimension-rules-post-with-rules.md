@@ -51,7 +51,7 @@ WORKFLOW v2 §5 (every discovered path end to end; tests for all cases from a te
 - **App:**
   - a Compose UI test of the main flow: a journal with a line missing a Required cost centre → Submit → the line shows the danger border and the footer reason "Line N needs a cost centre." → fill it → Submit works;
   - size tests in en/nb/sv/da for one editor per kind with rule cells.
-- Your own tests and a compile only (JVM, iOS, Android for the App); no service suites. Time box ~3 h per repo; report at the box.
+- Your own tests and a compile only (JVM, iOS, Android for the App); no service suites. No hours: read `date`, send a 3-line progress note every 20 minutes (done, left, why it takes the time), stop and report when the work outgrows the plan (template "Time and progress").
 
 ## Hand-back
 As the template, plus per path: "checked here, test name".

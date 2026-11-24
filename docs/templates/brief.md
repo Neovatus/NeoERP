@@ -9,6 +9,11 @@ Read first: `docs/PRINCIPLES.md` (workspace) · the standards below · this brie
 ## How this brief works (trial, Jabran 2026-11-25)
 The lead writes only the goal, the decided rules with their sources, the scope edges and the Definition of Done. **Discovery is yours:** every path, writer, reader, seam and endpoint, end to end in both repos. Your plan is the starting point, not a fence: build everything the flow needs end to end, and record anything beyond the plan as a decision. Stop only for money rules, product scope or a BE↔App contract change.
 
+## Time and progress (Jabran 2026-11-25)
+No time budget: build everything in your plan, end to end. You can't feel time passing, so **read the clock**: run `date` when you start and at every step.
+**Every 20 minutes of real time, send the lead a progress note** (3 lines): what's done, what's left, and **why it's taking the time** (the step, a slow compile, a surprise in the code). Use SendMessage to `main`, or to the flow lead that started you.
+Stop and report instead of carrying on when the work turns out clearly bigger than your plan (new paths, a design question), when a second fix attempt fails, or when you're blocked.
+
 ## Not a limit
 Follow the project standards; reuse what already exists (pattern, building block, service, endpoint, helper, test harness);
 do not duplicate it and do not depart from the architecture. Where this brief and a standard disagree, the standard wins:

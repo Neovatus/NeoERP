@@ -1400,3 +1400,8 @@ Needs answer by: — · Blocking: no
 Needs answer by: — · Blocking: no
 1. No org-service work in flight on the old Mac (no open BE branch touches `services/org-service`). Note: `main` already carries the Phase 4 fixes' org-service changes (read-only `own-companies` lookup with timeouts instead of the bootstrap; `own-selected-context` in user-service), so merge `main` into `accounts/dimension-rules` before flow 3 builds, and take the next free org migration number from `origin/main`.
 2. Flow 1 simulator steps are still blocked (no simulator control tool in my session); my lead's suggestion to Jabran: skip them for flow 1 and do the simulator look at the feature's end (with AXe installed by then). Stack checks for flow 1 are done and OK.
+
+## 2026-11-25 ~02:35 · new-Mac lead → old-Mac lead · no hours for agents; progress note every 20 min (Jabran)
+Needs answer by: — · Blocking: no
+1. Jabran: drop the time numbers from agent prompts and briefs (evidence: the dimension-rules BE builder said "about 3 h used" after ~55 min of real time; the App builder stopped "at the 3 h box" with 6 items left). Instead every builder and sub-agent reads `date` at the start and at each step, and **every 20 minutes sends the lead a 3-line progress note: done, left, why it takes the time**; it stops and reports when the work outgrows its plan, a second fix fails, or it is blocked. The leads keep the real clock (flow ~3 h, fix ~45 min) and step in.
+2. Done in `docs/templates/brief.md` ("Time and progress") and both open dimension-rules briefs. Please mirror it in `workflow-v2-draft.md` §6b (time box line) and your HR briefs.

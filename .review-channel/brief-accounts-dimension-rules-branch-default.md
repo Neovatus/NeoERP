@@ -43,7 +43,7 @@ WORKFLOW v2 §5, plus:
 - **App:**
   - a Compose UI test: set Oslo's default through the reason gate, then a new journal line from Oslo shows it;
   - size tests en/nb/sv/da for the Branch defaults card and the deactivate warning.
-- Own tests plus a compile only; ~3 h per repo; report at the box.
+- Own tests plus a compile only. No hours: read `date`, send a 3-line progress note every 20 minutes (done, left, why), stop and report when the work outgrows the plan (template "Time and progress").
 
 ## Never
 - `--no-verify`, force push, AI attribution, GitHub workflows, writes in the other repo; builders don't push, merge or rebase.
