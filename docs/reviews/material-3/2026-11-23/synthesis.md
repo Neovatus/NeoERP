@@ -31,15 +31,20 @@ Codex's corrections to the draft are accepted:
 
 Dropped from the draft: "control heights" (density sets can coexist). Not yet proven: the elevation level-1 mismatch, which needs a rendered comparison.
 
-## Decisions for Jabran (before DS-1a starts)
-Settled already, nothing to decide:
-- **Field focus (C3).** No halo, since 706d1895; DS-1a only fixes the stale docs and KDocs.
+## Decisions (re-checked against origin/phase/4 d1d7f9d1, 2026-11-24)
+Closed (the code or an approved doc already decides); the stale docs are fixed on App branch `phase/4-ds1-stale-docs`:
+- **C3 field focus:** no halo (706d1895). Fixed: screen-standard, building-blocks (colours and contrast now 4.7/4.0 light, 5.9/4.5 dark), list-controls, notes/auth, rig `styles.css`, harness comment, three KDocs.
+- **C1 footer:** two layers (one-third rule first, 25 % fallback). Written into UX §25 and the token description.
+- **C2 footer alignment:** the token description is scoped to dialogs; form footers follow screen-standard §8.
+- **C4 KPI:** never one per row (screen-standard §1); `NeoStatRow` already keeps one row and goes compact (Companies 2 tiles, Platform staff 3). `statColumns` has no callers; marked stale, **DS-1a deletes it**. The old Payroll/Reports screens stack one per row but are v1 modules that HR v2 replaces.
+- **C6/C7 breakpoints:** descriptions now say "below 1024 the drawer, exactly 1024 the mini rail" and "full sidebar from 1280". **DS-1a adds the boundary tests.**
+- **C8 Apple:** the build-order line is marked as history.
 
-Open:
-1. **C1 footer:** no decision needed. Keep both layers (one-third rule first, 25 % cap as fallback). DS-1a writes this in the token description and in UX §25.
-2. **C4 KPI:** recommendation: 3 tiles stay in one row and 4 go 2×2 at every width (screen-standard wins). Fix `statColumns`.
-3. **C5 casing:** recommendation: sentence case everywhere, so drop `uppercase` from the tokens.
-4. **Window classes. Apple sizes change the answer.** M3's width numbers come from Android. Our checked sizes (screen-standard §9) fall on them like this:
+Closed by an approved rule, **code still differs (DS-1a, code change):**
+- **C5 casing:** UX §21 (settled by Jabran 2026-10-27..29) and the i18n style guide §2 say sentence case everywhere, column headers included. The code still uppercases: `NeoText` Overline roles and `String.asOverline()` (15 uses: sidebar, login, reason gate, Accounts labels), and tokens.json:76–77 plus design-system-architecture.md:97–98. DS-1a removes the uppercasing and the `textCase` tokens together.
+
+Still open for Jabran:
+- **Window classes. Apple sizes change the answer.** M3's width numbers come from Android. Our checked sizes (screen-standard §9) fall on them like this:
 
 | Device (rig size) | Width | M3 width class | M3 height class | Our switch today |
 |---|---|---|---|---|
@@ -63,7 +68,7 @@ The M3 **height** class fits Apple well: every iPhone in landscape is under 480 
 
 ## DS-1 plan (App only; one repo per builder)
 - **DS-1a: contract reconciliation** (Sonnet; mostly docs and tokens, plus small code changes):
-  - C1–C8, once the decisions above are made (C3: docs and KDocs only);
+  - code part only (the docs went in `phase/4-ds1-stale-docs`): delete `statColumns`; C5 casing in code and tokens; half-open breakpoint helpers with boundary tests;
   - a "Deviations from M3" section in screen-standard covering density/44, footer wrap, toast timing and the disabled primary.
   - **Acceptance:**
     - boundary tests at 1023/1024/1025 and 1279/1280/1281;
