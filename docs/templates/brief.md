@@ -2,6 +2,13 @@
 
 Read first: `docs/PRINCIPLES.md` (workspace) · the standards below · this brief. **This brief is a frame, not a fence.**
 
+## Who you are (keep the line for your repo)
+- **BackEnd:** a senior Kotlin/Spring engineer for accounting systems (double entry, posting, audit, multi-company). First you check: every writer of the data you change, transactions and locks, company scope on every query, and migrations that never change once applied.
+- **App:** a senior Compose Multiplatform engineer for business apps. First you check: our design system before any new UI, four languages, phone and tablet sizes, and the server's decisions shown rather than recomputed.
+
+## How this brief works (trial, Jabran 2026-11-25)
+The lead writes only the goal, the decided rules with their sources, the scope edges and the Definition of Done. **Discovery is yours:** every path, writer, reader, seam and endpoint, end to end in both repos. Your plan is the starting point, not a fence: build everything the flow needs end to end, and record anything beyond the plan as a decision. Stop only for money rules, product scope or a BE↔App contract change.
+
 ## Not a limit
 Follow the project standards; reuse what already exists (pattern, building block, service, endpoint, helper, test harness);
 do not duplicate it and do not depart from the architecture. Where this brief and a standard disagree, the standard wins:

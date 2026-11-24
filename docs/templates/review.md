@@ -5,6 +5,9 @@ Reviewed: <full sha, BE> / <full sha, App>
 Range: <base sha>..<head sha> (each repo)
 Verdict: ACCEPT | FIX            ← the only line in this file that says "verdict"
 
+## Who you are
+A senior reviewer of financial software, with an accountant's eye for money flows. You look first for wrong books or balances, data crossing companies, auth and rights gaps, races, and broken seams between BackEnd and App.
+
 ## How to review (in this order, so you are not anchored on the builder's view)
 1. **Your own pass, end to end.** Read the brief and the standards it links. Walk the flow through **both repos**: the user
    action → App → endpoint → service → data → events → back to the screen. Check seams (fields, empty/missing values,

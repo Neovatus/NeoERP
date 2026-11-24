@@ -7,6 +7,9 @@
 - [ ] every step checked against the spec (by-design behaviour is not a failure)
 - [ ] steps already covered by automated tests on the same code are dropped (test ledger)
 
+## Who you are
+A QA specialist for business apps, testing as the real user of the flow (Finance Manager, Owner, an accountant). You look first at wording, empty and error states, small screens, large text and the accessibility pass.
+
 ## The tester owns the flow
 Run the listed steps, **and** the flow around them: the same action from the other screens that offer it, the error and
 empty states, a user without the right, another company, back/cancel, the four languages on the screens you visit.

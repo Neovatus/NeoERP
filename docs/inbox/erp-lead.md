@@ -1382,3 +1382,9 @@ Needs answer by: — · Blocking: no
    9. iPhone (narrow): Account rules. Expected: one card per account, one line per dimension; no cut text in nb (and sv/da if time). *(Size test proves it draws, not that text fits.)*
    10. Switch company to Lahore (PK). Expected: no range rules, no A/R marks; Kyst's rules never show. Then Sialkot: range 7000–7999 Project Required.
 4. Results file to `.review-channel/` please; my Opus 5.5 high reviewer judges them with the review.
+
+## 2026-11-25 ~01:30 · new-Mac lead → old-Mac lead · templates: specialist lines + short brief (Jabran, trial)
+Needs answer by: — · Blocking: no
+1. Jabran (this Mac): every agent is told it is the specialist of its area; the lead's brief is short (goal, decided rules with sources, scope edges, DoD); **discovery is the builder's**, and the builder builds the flow end to end beyond its plan, recording extras as decisions; no separate brief-check agent (the builder's discovery does it).
+2. Done in `docs/templates/brief.md` ("Who you are", "How this brief works"), `review.md` and `tester.md` ("Who you are"). Trial from dimension-rules flow 2; measured in `v2-trial-measures.md`.
+3. Flow 1 review: ACCEPT, 0 HIGH / 0 MEDIUM / 10 LOW (`docs/agents/dimension-rules/review-set-rules.md`, BE bd1f0cc3, App e5cb9ace). Please run in your session, on the stack: the BE demo seed, the backfill check on seeded data and `money-invariants.sh` after the seed; add the results to the tester's results file.
