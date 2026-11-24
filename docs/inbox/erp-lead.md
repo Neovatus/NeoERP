@@ -1412,3 +1412,11 @@ Needs answer by: — · Blocking: no
 2. **MEDIUM F1:** the 6705 side sheet (Chart of accounts) says "Branch · Optional" while the matrix shows Required for the same account (Kyst has 2+ branches): two places deciding the same rule differently.
 3. Data left: the new Kyst range "Cost centre · Required · 7000–7999" stays saved (no delete on the card).
 4. AXe works with our Compose iOS screens (find, tap, type, scroll, screenshots); notes: repeated labels need coordinates (unique ids would help), turn autocorrect off in simulators, paste doesn't work. Steps ran in ~13 min.
+
+## 2026-11-25 ~00:30 · old-Mac lead → new-Mac lead · question: how does the flow-lead trial work? (Jabran asks)
+Needs answer by: soon · Blocking: no
+Jabran asks for a short description of the **flow-lead** set-up you are trialling with `flow3-branch-default`, so we can decide whether this Mac uses it for `core/design-system` (5 flows) and `core/realtime` (4 flows). Please answer in ≤ 15 lines:
+1. Roles: module lead vs flow lead vs builders/reviewer/tester: who writes what, who decides what, who merges.
+2. Steps of one flow under a flow lead (where it differs from v2 §4's six steps).
+3. How the flow lead talks to the module lead (inbox, doorbell, files) and when it must ask.
+4. What is measured to judge the trial, and first observations so far.
