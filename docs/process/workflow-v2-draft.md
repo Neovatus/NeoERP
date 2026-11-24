@@ -29,9 +29,9 @@ main
 - The prefix names the **owner**; a branch may change other modules' code (the BackEnd is one repo). The plan names every module touched; that module's lead reads its part in the review.
 - The plan says simple or split before building. Same branch name in both repos when a feature needs both.
 - Two features touching the same files don't run in parallel. Every feature merges `main` in (merge commit) before its PR.
-- **The pre-push hooks protect these patterns** (first job, GATE-3 item 1): a push to `main`, `<module>/<feature>` or `<module>/<feature>/feature` needs a gate marker for that exact commit. Until that job lands, nothing is pushed under the new names.
+- **Only `main` is hook-protected** (as today). Feature and flow branches need no hook (Jabran 2026-11-24): builders don't push, the lead runs the gate before every merge into a feature branch, and the whole suite runs before every PR to `main`.
 - Never `--no-verify`, never force push (also not `--force-with-lease`), no AI attribution in commits, PRs or comments.
-- One script does every merge (`scripts/merge.sh`, part of the hook job): marker present → push from the checkout that holds it → delete the flow branch and worktree → record. A feature PR is refused while any of its flow branches is open.
+- **Close checklist** (lead, before a feature PR): every flow merged, no flow branch or worktree left, gate pushes from the worktree that ran it, record written.
 
 ## 3. A feature (the unit that goes to `main`)
 1. **Plan** (module lead; Jabran reviews the module plan): the flows, simple or split, order, owner and touched modules, review model, test-session slots.
@@ -48,7 +48,7 @@ For a feature with one flow, the flow review is the feature review.
 | 4 | **Flow test** on the local stack | tester agent ([template](../templates/tester.md)) | pass, or findings with steps |
 | 5 | **Review, once, BE + App together** | **one reviewer:** Fable at high effort for books, money, isolation, auth, gate and hook code; Opus otherwise | ACCEPT |
 | 6 | **Fixes:** all findings of the review and test go to **one fixer per repo**, the builder that built it (resumed), each with a failing-first test | same builders; the same reviewer checks the fixes | ACCEPT; a second failed check → stop, write what was tried, lead decides or asks Jabran |
-| 7 | **Gate + merge** into the feature branch (or the feature PR) | lead, merge script | `verify: OK` (scoped), branch deleted, record written |
+| 7 | **Gate + merge** into the feature branch (or the feature PR) | lead | `verify: OK` (scoped), branch deleted, record written |
 | 8 | **Simulator session** for new screens: first looks, real-device behaviour, wording | tester(s), after the data script | findings → the fixer of step 6 |
 
 Tooling and gate work runs the same flow, with a **done line** (the cases it must catch, named up front) and a time box; past the box it becomes a spike report.
@@ -86,7 +86,7 @@ Tooling and gate work runs the same flow, with a **done line** (the cases it mus
 | `docs/backlog.md` | LOWs and later work, each with an owner | anyone |
 | `.review-channel/handoff-<role>.md` | handoff (replace, don't append) | each lead |
 | `.review-channel/claims.md`, `docs/inbox/erp-lead.md` | who works on what; messages between the Macs | leads |
-The merge script records time, first-pass gate result and cost per flow automatically; no hand-filled numbers.
+Per flow the lead records time, first-pass gate result, review and fix rounds and cost in one line of `.review-channel/v2-trial-measures.md` (trial).
 
 ## 9. Agents and models
 - Builders: Opus (money, security, migrations always Opus); Sonnet for fully decided small work; Haiku for mechanical work. Codex only when Jabran asks.
@@ -103,7 +103,8 @@ The merge script records time, first-pass gate result and cost per flow automati
 ## 11. Changing this workflow
 Only at a review point (after a module's feature set). A new rule needs the incident or number behind it, the principle it serves and a check date; rules that didn't help are removed. Between reviews, problems go to the topics list.
 
-## First jobs (GATE-3, cut to the incidents)
-1. **Hooks + merge script** (`core/gate-branches`, Fable high review): protect `main`, `<module>/<feature>`, `<module>/<feature>/feature`; the merge script with the open-flow-branch check; failing test names in the gate output; Gradle-lock waits shown; the gate takes "one review" (D-81).
-2. Then `core/phase-4-fixes` (simple, one BE fixer + one App fixer, one Fable high review).
-3. App gate-v3 dispatcher port: only if it fits job 1.
+## Order (Jabran 2026-11-24)
+1. `core/phase-4-fixes` (direct fix, one BE + one App fixer, one Fable high review) → whole suite → PR to `main`.
+2. Full v2 trial on real features: the first Accounts feature (new Mac) and the first HR feature (old Mac), in parallel.
+3. Later features: `core/backend-decisions` (the App shows the server's decisions), `accounts/editor-speed` (fewer calls per screen).
+GATE-3 hook work is dropped (no hooks for feature branches); its other items go to the backlog and come back only with an incident.

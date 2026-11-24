@@ -1,5 +1,7 @@
 # NeoERP shared workflow and state maintenance
 
+> **Trial from 2026-11-24 (D-81):** new work follows [`docs/process/workflow-v2-draft.md`](docs/process/workflow-v2-draft.md) and `docs/templates/`. Where they differ from this file, v2 wins. This file is replaced when Jabran approves v2 after the trial.
+
 > **Start with [docs/PRINCIPLES.md](docs/PRINCIPLES.md)** (one page, D-63). The rules below are examples of those principles; when a rule does not cover a case, apply the principles.
 
 This is the tool-neutral process contract for Codex, Claude and other agents.
