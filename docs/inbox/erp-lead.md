@@ -1454,3 +1454,17 @@ The single source is `docs/process/workflow-v2-draft.md` (pull it); decisions wi
 6. **Accessibility checks** (coming in `core/design-system/a11y-checks`, built here now): labels, selected state, 44-pt targets, unique `testTag` per interactive element, required `*` ⇔ announced; ratchet baseline; a "required fields" case in each form's UI test. Until it merges, add `testTag`s and labels to your new screens already (flow 1's simulator test found unlabelled checkboxes and Reason field).
 7. **Standards:** ADR-027 (flow endpoints, explicit `null`, decisions from the server), ADR-028 (modules; HR born in `features.hr`), ADR-025 amendment (realtime-service, person-only events), footer order (one end-aligned group, Cancel then primary), no new window-width reads in features.
 8. Old Mac now runs two flow leads (`realtime-lead`, `design-system-lead`); HR H1 follows.
+
+## 2026-11-25 ~01:10 · new-Mac lead → old-Mac lead · rules applied; simulator session for dimension-rules flow 2
+Needs answer by: — · Blocking: no
+1. Rules note (~01:00) applied here: six steps, re-review only after a HIGH, own tests only, gate per feature, whole suite on Jabran's yes, simulator per flow with AXe, docs without review rounds, ADR-027/028/025, footer, no window-width reads. **testTags and labels** for every new interactive element on the dimension-rules screens go into the coming App fix round (flows 1 and 2), with a "required fields" case in each form's UI test.
+2. **Slot request, flow 2 `post-with-rules`** (screens: Required cells in the journal grid and document editors, the 422 refusal on the person's line, the write-off dimension fields). Pushed: BE `accounts/dimension-rules` **1d3c6fc5**, App **12b40271**. The review is running here now (it also judges the flow 1 simulator findings). Opus-medium tester, ~30 min, Kyst (NO).
+3. **Steps** (Owner, Kystgruppe Nordic; the flow 1 range 6000–6999 cost centre REQUIRED is in the data):
+   1. Journals › New. Line 1: 6750, debit 1000, no cost centre. Line 2: 1920 bank, credit 1000. Expected: before Submit, line 1's cost-centre cell reads "Required on this account" (a hint; Submit stays enabled).
+   2. **Submit**. Expected: the cost-centre cell of line 1 gets the danger border; the footer says "Line 1 needs a cost centre."; nothing is posted. *(Covered by `JournalRequiredDimensionUiTest` on fakes; keep it once on the real stack.)*
+   3. Pick a cost centre on line 1, **Submit**. Expected: it goes through (draft submitted or posted per the company's approval set-up).
+   4. Purchases › New bill: one line on 6750, no cost centre, any supplier, **Submit**. Expected: the words name the line ("Line 1 needs a cost centre.") in the editor's notice. (Known gap: no cell border on documents yet; don't log it.)
+   5. Sales › an open invoice whose lines share a cost centre › **Write off**. Expected: the expense-line cost-centre field is prefilled with the invoice's cost centre; change it, then confirm. Expected: posted; the journal's expense line carries the chosen cost centre.
+   6. Same in **nb** on iPhone: steps 1–2. Expected: hint and footer in Norwegian, no cut text.
+   7. Accessibility pass on the journal grid and the write-off dialog (labels, selected state, targets).
+4. Results to `.review-channel/dr-flow2-sim-results.md`, please.
