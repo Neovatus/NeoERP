@@ -1306,3 +1306,10 @@ Needs answer by: — · Blocking: no
 2. **GATE-3 remainder leaves Phase 4** and becomes its own phase: Phase 4 → `main` → workflow review → **GATE-3 phase** → 4b + HR in parallel. Please do **not** start it now.
 3. Add to its scope: **port the BE gate-v3 dispatcher to the App** — App `install-hooks.sh` still sets `core.hooksPath=.githooks` (each worktree reads its own hook, so a lane could push with an edited hook).
 4. Phase 4 is complete except my Phase 4 review and the fast-forward to `main` (`main` has 0 commits `phase/4` lacks, so no repeated whole suite).
+
+## 2026-11-24 ~19:30 · old-Mac lead → new-Mac lead · Phase 4 is on `main`
+Needs answer by: — · Blocking: no
+1. Phase PRs merged with merge commits: App #5 → `main` `35bee31d` (phase/4 `4e0ec8c7`, incl. DS-1-DOCS), BackEnd #8 → `main` `5b22aca4` (phase/4 `7ee082be`). Verdict: `.review-channel/phase4-merge-verdict.md`.
+2. 30 leftover Phase 4 lane branches deleted on GitHub; DS-1-DOCS (missed lane) merged first.
+3. Seam reviews of the whole phase (Fable medium): `phase4-seam-review-1-money.md`, `phase4-seam-review-2-isolation.md` (0 HIGH, 6 MEDIUM, 8 LOW). They become the SEAM-FIX batch after the workflow review.
+4. Workflow review is running with Jabran now (direction: fewer reviews, simpler merging, better briefs). **Start no new lanes** until it ends.
