@@ -71,7 +71,7 @@ Tooling and gate work runs the same flow, with a **done line** (the cases it mus
 - Money and security guardrails stay: a test per finding before close; money invariants after every seed and full run (a break stops the push); company isolation by the tenant architecture test now and database row security by ADR before the first customer; accountant sign-off and pen test before go-live.
 
 ## 7. Tests and gates
-- Builder: its tests + the gate's scoped set (same command) before hand-back. Gate: scoped per flow; **whole suite before every feature PR to `main`**, always.
+- Builder and fixer: the tests of the services/features they changed, plus the architecture tests, before hand-back; **never the whole suite** (Jabran 2026-11-24: a 21-min full run per fix round costs more than the fix). Gate (lead): scoped per flow; **whole suite once before every feature PR to `main`**.
 - Gradle: one job per repo at a time (locks and Gradle homes in `verify.md`); the old Mac may run one BE and one App gate together; no backend stack or simulator during a gate; after a Mac restart check Docker and the infra containers first.
 - Test output stays out of the conversation (`-q`, logs to files, read the summary and "0 failed" before any push).
 - Stack and simulators run only while someone tests, stopped right after; no idle Gradle daemons.
