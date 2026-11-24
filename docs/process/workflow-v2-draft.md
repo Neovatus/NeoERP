@@ -44,7 +44,7 @@ For a feature with one flow, the flow review is the feature review.
 |---|---|---|---|
 | 1 | **Brief:** goal, rules, Definition of Done (§5), links to the standards; "not a limit" ([template](../templates/brief.md)) | lead | written |
 | 2 | **Discover, plan, implement and test the flow:** reads both repos, finds every path and writer, writes the plan, builds BE first then App, writes the tests for all cases and runs **only the tests of what it implemented** | builder, one per repo | the flow works end to end; its tests pass; hand-back with plan, decisions, "found outside the brief" |
-| 3 | **Review and test:** code review of BE + App together; screen tests (UI flow, sizes in en/nb/sv/da); simulator test of the flow | reviewer (Fable high for money, books, isolation, auth; Opus otherwise) + tester agent | findings listed, or approved → step 6's merge |
+| 3 | **Review and test:** code review of BE + App together; screen tests (UI flow, sizes in en/nb/sv/da); simulator test of the flow | reviewer (**one Opus 5.5 at high effort**, every flow) + tester agent | findings listed, or approved → step 6's merge |
 | 4 | **Set the goal again:** the findings become a fix brief | lead | written |
 | 5 | **Fix:** a new builder implements the fixes, each with a failing-first test, and runs only those tests | new builder, one per repo | its tests pass |
 | 6 | **Review and test again** (same reviewer and tester, on the fixes and the flow they touch) → **approved → scoped gate → merged**; not approved → back to step 4 | reviewer + tester; lead gates and merges | `Verdict: ACCEPT` and a scoped gate pass |
@@ -95,9 +95,9 @@ Per flow the lead records time, first-pass gate result, review and fix rounds an
 
 ## 9. Agents and models
 - Builders: Opus (money, security, migrations always Opus); Sonnet for fully decided small work; Haiku for mechanical work. Codex only when Jabran asks.
-- Reviewers: Fable (high) for books, money, isolation, auth, gate; Opus otherwise. Testers: Sonnet in small chunks.
+- Reviewers: **one Opus 5.5 at high effort** for every flow and feature review (Jabran 2026-11-24); Fable only when Jabran asks (e.g. a big ADR). Testers: Sonnet in small chunks.
 - A sub-agent for independence (reviews), large context (builders) or parallel work (testers); otherwise the lead does it. Fixes resume the builder that knows the code.
-- Effort: default, except Fable reviews (high) and when Jabran asks.
+- Effort: default for builders; reviews at high (Opus 5.5); otherwise when Jabran asks.
 
 ## 10. Secrets, machines, limits
 - **Never** open, print, grep or copy `.env` (incl. `infra/.env`), `.local-secrets/**`, token and session files, `~/.gradle/gradle.properties`, `~/.netrc`, `~/.npmrc`, `~/.aws/**`, keychains or keys; read one key only when needed. In a new BackEnd worktree run `chmod 700 .local-secrets && chmod 600 .local-secrets/* .env infra/.env`. Every brief, review and tester template repeats this.
@@ -109,7 +109,7 @@ Per flow the lead records time, first-pass gate result, review and fix rounds an
 Only at a review point (after a module's feature set). A new rule needs the incident or number behind it, the principle it serves and a check date; rules that didn't help are removed. Between reviews, problems go to the topics list.
 
 ## Order (Jabran 2026-11-24)
-1. `core/phase-4-fixes` (direct fix, one BE + one App fixer, one Fable high review) → whole suite → PR to `main`.
+1. `core/phase-4-fixes`: done 2026-11-24 (merged to `main`).
 2. Full v2 trial on real features: the first Accounts feature (new Mac) and the first HR feature (old Mac), in parallel.
 3. Later features: `core/backend-decisions` (the App shows the server's decisions), `accounts/editor-speed` (fewer calls per screen).
 GATE-3 hook work is dropped (no hooks for feature branches); its other items go to the backlog and come back only with an incident.
