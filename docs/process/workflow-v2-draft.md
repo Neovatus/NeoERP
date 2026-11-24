@@ -49,7 +49,7 @@ For a feature with one flow, the flow review is the feature review.
 | 5 | **Fix:** a new builder implements the fixes, each with a failing-first test, and runs only those tests | new builder, one per repo | its tests pass |
 | 6 | **Review and test again** (same reviewer and tester, on the fixes and the flow they touch) → **approved → scoped gate → merged**; not approved → back to step 4 | reviewer + tester; lead gates and merges | `Verdict: ACCEPT` and a scoped gate pass |
 
-After two rounds of steps 4–6 without approval, the lead decides or asks Jabran. Tooling and gate work runs the same steps with a done line and a time box.
+**Steps 3–6 are scoped to the flow, not the feature** (Jabran 2026-11-24): the review reads the flow's changes; screen tests cover the flow's screens; the simulator runs the flow's own steps (none for a flow without screens); fixes and the second review and test cover only what the fixes touched. Whole-feature checks run once at the feature's end (§3). After two rounds of steps 4–6 without approval, the lead decides or asks Jabran. Tooling and gate work runs the same steps with a done line and a time box.
 
 ## 5. Definition of Done (every flow; the brief adds its own lines)
 1. The flow works end to end in both repos for **every path and every writer** discovery found.
