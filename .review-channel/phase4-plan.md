@@ -18,7 +18,7 @@ and rings the other lead; Jabran may change anything.
 | FIX-OB-IMPORT-BE (T4: Excel template as real .xlsx, D-58) | BE | new Mac | `phase/4-b2-fix-ob-import-be` (`8472c728`) | 1 | — | C | **merged `91843a59`** |
 | FIX-OB-IMPORT-APP (T4: OBS-2 Excel template saved as .csv; "Held out" offers entry when drafts exist) | App | new Mac | `phase/4-b2-fix-ob-import-app` (`a8e004a6`) | 1 | FIX-OB-IMPORT-BE merged | C | **merged `d1d7f9d1`** |
 | FIX-AL-RELEASE-BE (T4: `APPROVAL_LIMITS` released = false in the shared entitlement catalog; demo seed switches AL on) | BE (shared catalog) | new Mac; 2nd seat old Mac (D-61) | `phase/4-b2-fix-al-release-be` (`8472c728`) | 1 | — | C | building (reproducing test first) |
-| FIX-B2A-REFRESH-APP (T4b B2a-S6: draft editor does not follow `recurringFeatureOn` on return-to-front) | App | new Mac | `phase/4-b2-fix-b2a-refresh-app` (brief `16b626db`) | 1 | — | C | building (Compose UI test first) |
+| FIX-B2A-REFRESH-APP (T4b B2a-S6: draft editor does not follow `recurringFeatureOn` on return-to-front) | App | new Mac | `phase/4-b2-fix-b2a-refresh-app` (brief `16b626db`) | 1 | — | C | **merged `dae20eb1`** |
 | TEST-SCOPE-1 | BE + App | new Mac | own branches | 2 (gate) | — | beside C | brief check, then build |
 | GATE-3 | BE + App | new Mac | own branches | 2 (gate) | RISK-NARROW-1 merged | any, after A | brief |
 | Retest fix lanes (by feature) | BE / App | new Mac | `phase/4-b2-fix-<feature>-<repo>`; small features joined; ≤ 3 per repo | per defect, highest wins | T4 | C | after T4 |
