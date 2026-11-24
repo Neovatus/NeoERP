@@ -43,10 +43,10 @@ For a feature with one flow, the flow review is the feature review.
 | # | Stage | Who | Done when |
 |---|---|---|---|
 | 1 | **Brief:** goal, rules, Definition of Done (§5), links to the standards; "not a limit" ([template](../templates/brief.md)) | lead | written |
-| 2 | **Discover and build the flow end to end, with its tests, and run them:** the builder reads both repos, finds every path and writer, builds BE first then App, writes the tests for all cases and runs **only those tests** | builder(s), one per repo | the flow works end to end; its own tests pass; hand-back with decisions and "found outside the brief" |
-| 3 | **Review, test, fix, approve:** one review of the code (BE + App together), the screen tests (UI flow, sizes in en/nb/sv/da) and a simulator test of the flow; all findings to the same builder(s); the same reviewer reviews the fixes again; **approved → merged** | reviewer (Fable high for money, books, isolation, auth; Opus otherwise) + tester agent + the same builder(s); lead gates (scoped) and merges | `Verdict: ACCEPT` and a scoped gate pass |
+| 2 | **Discover, plan, implement and test the flow:** the builder reads both repos, finds every path and writer, writes its plan, builds BE first then App, writes the tests for all cases and runs **only the tests of what it implemented** | builder(s), one per repo | the flow works end to end; its tests pass; hand-back with plan, decisions and "found outside the brief" |
+| 3 | **Review and test → new goal → new builder fixes → review → merge:** one review of the code (BE + App together), the screen tests (UI flow, sizes in en/nb/sv/da) and a simulator test of the flow. The lead turns the findings into a **new brief (the goal again)**; a **new builder** implements the fixes and tests them; the reviewer reviews the fixes; **approved → scoped gate → merged** | reviewer (Fable high for money, books, isolation, auth; Opus otherwise) + tester agent; lead writes the fix brief; a fresh builder per repo; lead gates and merges | `Verdict: ACCEPT` and a scoped gate pass |
 
-The re-review in stage 3 reads only the fixes. Tooling and gate work runs the same three stages with a done line and a time box.
+The fix review reads only the fixes. Tooling and gate work runs the same three stages with a done line and a time box.
 
 ## 5. Definition of Done (every flow; the brief adds its own lines)
 1. The flow works end to end in both repos for **every path and every writer** discovery found.
