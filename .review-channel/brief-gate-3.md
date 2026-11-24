@@ -49,3 +49,15 @@ the two scripts aligned.
 ## Report: `docs/agents/gate-3/builder-report.md` per repo
 The report holds a self-check table (item | done | proof), the self-test counts, what ran and on which SHA (D-51), the
 docs and a Timeline draft. Hand back in at most ~8 lines.
+
+## Lead note 2026-11-24 (after TEST-SCOPE-1): rows added to the remainder (G7 was done as GATE-3a)
+Start after **both** TEST-SCOPE-1 halves merge (same files). The base is the merged `phase/4` heads. The D-62 bar applies (natural forms; unsure → FULL; evasion out of scope but documented).
+1. **App, first:** a test that scans the source tree, added in one range, must stay always-run in later ranges.
+   - Move the 12 blob pins into `risk-check.sh`.
+   - A range is FULL whenever any test at the head matches the read pattern and is neither on `SCOPE_ALWAYS_CLASSES` nor pinned (TS-App seat B MEDIUM 1).
+2. **App:** the read pattern adds `PWD`, `resolveSibling` and `File("..")` walk-ups (seat B LOW 1).
+3. **App:** with no KMM-Network folder, verify still passes an explicit flag (or refuses), so an environment-only path can't differ.
+4. **BE:** root `project(":x") {` and `configure(…) {` blocks are checked like `subprojects`. Braces inside strings and comments are stripped before counting (TS-BE seat B LOW 1–2).
+5. **BE:** unpin caller-id literals. A bare project name counts only as a `File(`/`Path.of(`/`resolve(`/`getResource(` argument (77 of 118 pins are data).
+6. **Both:** the hook runs the working tree's own `.githooks/pre-push`, so a push that edits the hook runs its edited copy (pre-existing).
+7. **Workflow review input:** the workflow review (after Phase 4 → main) may change the review rules first, for example "one re-check after a fix round" or "single review for small RISK changes". Hold any review-rule change in this lane until then.
