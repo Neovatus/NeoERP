@@ -447,5 +447,5 @@ Send `confirmedByUserId` per kind in GET /approval-limits so the app needs no Hi
 - **Accessibility findings, T4b tester 1 (by eye):** 4 cut texts at the largest text size on iPhone, 1 small search target, 1 untranslated menu item, 1 blank stand-in row. Same plan as tester 2's findings (measure with AXe, then fix in shared components).
 
 ## DS-1-DOCS follow-ups (2026-11-24, reviews in App `docs/agents/ds1-docs/`)
-- **DS-1a (code):** `NeoStickyFooter` right-aligns all its buttons; screen-standard §8 (sticky footer rule, Jabran 2026-11-13) puts Cancel/Back left and the primary right in form and editor footers too. Align the component (or Jabran amends §8).
+- ~~**DS-1a (code):** `NeoStickyFooter` vs §8 Cancel-left~~ **Closed 2026-11-24:** Jabran chose the industry standard (one end-aligned group, Cancel then primary, totals left); §8 and the tokens now say so (App `core/design-system/contracts`); the code already does it.
 - LOWs left open: rig `--focus` vs the `focus.ring` token; rig `--focus-soft` has no "retired" comment; `notes/auth.md` lists `focus/ring` as #0A0A0A (tokens make it an alias of `focus.field`); `NeoBreakpointTokens` desktop KDoc leaves out the collapsed / `shellMinContent` cases; ux §25 wording leaves out the no-info-slot case.
