@@ -1,202 +1,186 @@
 # ADR-028: Split the App (`:composeApp`) into Gradle modules
 
 ## Status
-**Draft** (ERP lead, 2026-11-24) for Jabran. He has set the direction ("onward we should split composeApp into modules"). This draft decides how. A Fable review follows. Kept in the workspace as a system-level decision, like ADR-027. Every App brief that adds a module or moves code links it.
-Builds on ADR-011 (one App), ADR-027 (flow endpoints, a data layer per feature) and TEST-SCOPE-1 (D-47). Changes none of them.
-Evidence: App `4e0ec8c7` (`phase/4`). `App/` = `NeoERP-App/`, `src/` = `App/composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/`.
+**Draft, revision 2** (ERP lead, 2026-11-24) for Jabran. He has set the direction ("onward we should split composeApp into modules") and made the decisions of 2026-11-24 marked "decided by Jabran" below. Revision 2 applies Fable 5.2's verdict, ACCEPT WITH CHANGES (`docs/reviews/adr-028-fable-verdict.md`). Every App brief that adds a module or moves code links it.
+Builds on ADR-011 (one App) and TEST-SCOPE-1 (D-47). It **amends ADR-027 Design 5**: the App's copy of the flow fixtures moves from `composeApp/src/jvmTest/resources/fixtures/app/` to the owning feature module's `jvmTest/resources`.
+Evidence: App `4e0ec8c7` (`phase/4`). `App/` = `NeoERP-App/`, `src/` = `App/composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/`, `test/` = `App/composeApp/src/jvmTest/kotlin/com/neovatus/neoerp/app/`.
 
 ## Summary
-About 14 Gradle modules, split by **product area**, not by package: `:core:*`, `:designsystem`, `:shell` (chrome), a few `:shared:*` kits, `:feature:<area>`, and `:composeApp`, which stays the composition root and keeps its name. Gradle refuses a feature→feature dependency. Where one feature shows another's screen, `:composeApp` composes it through slots. Domain types used by several features move to `:shared:*`. No api/impl split. Kotlin packages stay, so a move is `git mv` plus resource import lines. About ten steps, one module each, whole suite green. HR v2 starts life as a module, and Accounts moves last, in a quiet window.
+18 Gradle modules cut by product area: five `:core:*`, `:designsystem`, `:shell`, three `:shared:*` kits, six `:feature:*`, `:composeApp` (root, name kept) and `:build-rules`. **New modules start as modules** (decided by Jabran): HR and Payroll never live in `:composeApp`. HR goes first: M0, `:core` (with one shared `:core:resources` keeping today's `Res` package) and `:designsystem` come before HR's first App flow. Features register with the root (menu, routes, home tiles, slots), and a build property picks any subset. From M0 the gate runs per-module tasks with a build cache shared by each Mac's worktrees. Existing areas are decoupled inside the single module under a package → module rule test, then moved. Most of the test-time gain belongs to `core/app-test-speed`; modules give structure, compile savings and per-customer builds.
 
 ## Context: what we measured
 **One module.**
-- `settings.gradle.kts:49` includes only `:composeApp`. KMM-Network comes in as an included build (`:14-16`).
+- `settings.gradle.kts:49` includes only `:composeApp`. KMM-Network is an included build (`:14-16`).
 - One build file defines Android, the static iOS framework `ComposeApp` (`composeApp/build.gradle.kts:60-68`) and the JVM desktop target (`:70-74`).
-- Main code is 1,151 files. Features: 902 files and 205k lines, of which **Accounts is 575 files and 141k lines**. Organization 22k, designsystem 23k, core 7.3k lines.
-- Tests: 463 commonTest files, 210 jvmTest files, 4,122 tests.
+- Main code is 1,151 files. Features are 902 files and 205k lines, of which **Accounts is 575 files and 141k lines**.
 
-**The rule is text, not structure.** "Features never import from other features" (`App/.claude/CLAUDE.md:64`) is a per-pair ratchet (`FeatureImportRuleTest.kt:11-25`) with **31 pairs and 312 references** (`jvmTest/resources/buildrules/feature-imports-baseline.txt:2-36`; the backlog says 289 + 24 in 30 pairs, `docs/backlog.md:422`). Shared code leans on features too:
-- `designsystem/components/NeoReasonGate.kt:21` imports the entitlement `NeoChangeReason`;
-- features import `app.session` 35 times and `data.mock` 12 times;
-- the shell menu imports Accounts and People types (`ui/shell/navigation/NeoMenuModel.kt:15-16`, `NeoSmartSidebar.kt:40`).
+**The rule is text, not structure.**
+- "Features never import from other features" (`App/.claude/CLAUDE.md:64`) is held by a ratchet (`FeatureImportRuleTest.kt:11-25`): **31 pairs, 312 references** (`feature-imports-baseline.txt:2-36`).
+- **Hidden coupling** (Fable §1), which a move does not fix:
+  - at least **155 imports of `internal` names** cross the planned borders (106 main, 49 tests);
+  - features import `data.mock`;
+  - the chrome needs `AppShellState`/`AppPreferences`/`AppSession`, routing, ESS, Accounts, Organization and Koin (`src/ui/shell/NeoEnterpriseShell.kt:7,47-61`, `NeoShellHelpers.kt:5-8`), and `AppShellState` imports Organization (`src/app/shell/AppShellState.kt:8`);
+  - core and designsystem point back to network (`core/auth/NeoAuthMessages.kt:5`, `designsystem/components/NeoFailureCause.kt:10`, `NeoSearchSelectPreviews.kt:20`; `NeoViewport.kt:3` uses `getPlatform`);
+  - `PlatformRepositoryImpl.kt:4` calls Organization's `OrganizationService`: behaviour, not a type.
 
-**The references, by kind** (counted per pair, by type):
-| Kind | Pairs (refs) | Example |
+| Kind of reference | Refs | Resolution |
 |---|---|---|
-| Inside one product area | org→agreement 36, org→companyaccess 4, agreement→org 2, people→iam 10, roles→iam 3, security→iam 6 (**61**) | the company record's Agreement tab |
-| Shared domain type | accounts, agreement, org (64), people, roles, iam, security →entitlement (**90**) | `NeoChangeReason` 18×, `NeoCompanyEntitlements` |
-| Session/auth | context, ess, payroll, profile →auth (**7**) | `PkceAuthorizationRequest` |
-| Home page | dashboard→agreement/org/platform (**20**) | `AgreementRepository` |
-| Screen in another area's screen | org→people 30 / roles 15 / audit 13 / security 6; platform→people 40 / audit 17 / security 8 / org 2; 3 singles (**134**) | `PeopleViewModel` in the company record; `PersonStatusPill` in Platform staff |
+| Inside one product area (org→agreement 36, people→iam 10, …) | 61 | Internal to the area module |
+| Shared entitlement types (org→entitlement 64, …) | 90 | `:shared:entitlement`; `NeoChangeReason` → `:core:common` |
+| Audit used by org / platform / people | 31 | `:shared:audit` (no screen of its own; users build their screens from it) |
+| Session/auth (`PkceAuthorizationRequest`) | 7 | The type moves to core session contracts; the rest of auth stays in `:composeApp` |
+| Home page (dashboard→agreement/org/platform) | 20 | Home tiles through the registry; later ADR-027's `/api/app/home` |
+| Screen in another area's screen (org→people 30, platform→people 40, …) | ~103 | Registry slots (company record tabs: `CompanyPeopleTab.kt`, `CompanyRolesTab.kt`, `CompanyDetailAccess.kt`); person pieces (`PersonDetailLayout.kt`, `PeopleLabels.kt`, `RoleAccessUi.kt`) → `:shared:person` |
 
-**The scoped gate cannot scope the expensive part.**
-- `design` is "about 95 % of the suite's test time" (`App/docs/operations/verify.md:213`).
-- A range that touches `ScreenSizes.kt` runs all of design (`:219-221`). `ScreenSizes.kt` imports the shell chrome (`jvmTest/…/design/ScreenSizes.kt:71-75`), `app.session` and `app.shell` (`:43-44`) and an Accounts fixture (`:69`).
-- So a one-line Roles change ran **680 s against 703 s** for the whole suite (`App/docs/agents/test-scope-1/builder-report-app.md:263,269`). The same range with 12 design classes picked ran 146 s (`:201`).
-- The package graph is dense, so the scope follows importers only one step (`verify.md:181-187`).
-- Every run compiles all 1,151 files for iOS (`App/scripts/verify.sh:86`).
-- 43 of the 61 design test classes import Accounts.
+**Test time** (Fable §4, from the JUnit XML of the last whole-suite run: commit `82b815b0`, 637 classes, 4,147 tests, 1,661 s of class time):
+| Module | Size tests | Other | Share |
+|---|---|---|---|
+| Accounts | 1,368 s (43 classes) | 21 s | 83.6 % |
+| Access | 61 s | 20 s | 4.9 % |
+| `:composeApp` (spans features, dashboard, DI, routing) | 89 s | 7 s | 5.8 % |
+| Company | 38 s | 3 s | 2.5 % |
+| Design system, shell, core, auth | 27 s | 16 s | 2.6 % |
+| Build rules and i18n | — | 9 s | 0.5 % |
 
-**Resources and wiring.**
-- **Strings:** the files are already per area: `strings_<area>_*.xml` (accounts 52, core 15, org 11, iam 9, platform 8, shell 4) in en/nb/sv/da, plus stubs in fi and is.
-- **One `Res`:** a single generated `Res` (`neoerp.composeapp.generated.resources`, used in 441 main files). `core_` keys are used in 197 Accounts files and in every other feature.
-- **DI:** Koin is one module, `neoErpModule` (`src/app/di/NeoAppDi.kt:131`, 813 lines). It is allowed only in `app/di` and the routing boundary (`App/.claude/CLAUDE.md:66-70`).
-- **Navigation:** the `NeoDestination` enum sits in `src/core/navigation/NeoDestination.kt:9`. `ui/shell/routing/NeoSmartContentArea.kt` routes to every feature (Decompose).
-- **iOS host:** Xcode runs `:composeApp:embedAndSignAppleFrameworkForXcode` (`App/iosApp/iosApp.xcodeproj/project.pbxproj:155`).
-- **Versions:** AGP 8.8.2, Kotlin 2.2.21, Compose MP 1.10.0 (`gradle/libs.versions.toml:2,13,15`). `androidLibrary` is already declared at the root (`App/build.gradle.kts:5`).
-- **Caches:** the gate runs `--no-build-cache` (`verify.md:94`).
+- **Size and screenshot tests are 95.8 %** of test time. **The Accounts size tests alone are 82 %.**
+- Three classes are 29 % of all time: `TaxCodesDefaultSizeTest` 243 s, `A4ScreenSizeTest` 124 s, `KeyboardInViewTest` 108 s.
+- Today a one-line Roles change runs all of design, 680 s against 703 s for the whole suite (`App/docs/agents/test-scope-1/builder-report-app.md:263,269`). The cause is that `ScreenSizes.kt` imports the chrome, `app.session`/`app.shell` and an Accounts fixture (`test/design/ScreenSizes.kt:43-44,69,71-75`).
+- The same range ran 146 s with its size tests picked, **inside the one module**. That gain is `core/app-test-speed`'s, not the modules'.
+- **Compile has a small ceiling:** 703 s of wall time against about 554 s of tests on three forks leaves at most about 150 s for configuration, JVM compile and iOS compile together.
+- **The gate never builds Android and never links iOS** (`App/scripts/verify.sh:86`). It runs in fresh worktrees with `--no-build-cache` (`verify.md:94`), so it reuses nothing today.
+
+**Strings** (Fable §2). One generated `Res` (`neoerp.composeapp.generated.resources`) is imported by 494 files (3,781 per-key imports, 258 wildcards). Prefixes do not match modules: `shell_` strings belong to audit, auth, dashboard and profile (the chrome uses `core_`); `strings_iam_company_access.xml` and `strings_platform_agreement.xml` belong to Company; about 40 uses cross areas. A rewrite by prefix is wrong.
+
+**Wiring.** Koin is one module (`src/app/di/NeoAppDi.kt:131`), allowed only in `app/di` and the routing boundary (`App/.claude/CLAUDE.md:66-70`); four Accounts tabs and the sidebar still call it (`koin-baseline.txt:4-12,17-19`). `NeoDestination` is a core enum (`src/core/navigation/NeoDestination.kt:9`), and `NeoSmartContentArea.kt` routes to every feature. Xcode runs `:composeApp:embedAndSignAppleFrameworkForXcode` (`project.pbxproj:155`); Swift uses only `MainViewControllerKt`. Android build-type source sets choose production or dev (`androidRelease/.../NeoBuildEnvironment.android.kt`, checked by `ReleaseEnvironmentSourcePolicyTest.kt:27-31`). AGP 8.8.2, Kotlin 2.2.21, Compose MP 1.10.0.
 
 ## Decision
 
-### D1. Modules by product area; `:composeApp` stays the root
-| Module | Holds (from `src/`) | Kind |
+### D1. Modules (18; 19 if `:shared:mock` is needed)
+| Module | Holds | Kind |
 |---|---|---|
-| `:core:common` | core model, result, text, time, money, format, permissions, presentation, navigation, i18n; session **contracts** (`AppSessionReader/Emitter`, `signOutOnSessionExpiry`, from `app/session`); `strings_core_*` | KMP + Compose resources, public Res |
-| `:core:network` | `core/network`, KMM-Network API | KMP |
-| `:core:auth` | `features/auth` domain and data (PKCE, auth repository) | KMP |
-| `:core:testing` / `:core:testing-ui` | commonTest fakes (`NeoTestText`, `testSession`) / `ScreenSizes`, `FitShots`, `LayoutChecks`, `DesignShots` | KMP test-only / JVM test-only |
-| `:designsystem` | `designsystem/`, fonts, drawables | KMP + Compose, public Res |
-| `:shell` | chrome only: sidebar, rail, top bar, menu mode, `shell_` strings; no routing | KMP + Compose |
-| `:shared:entitlement`, `:shared:person` | entitlement domain and display pieces; person pieces used by Access and Platform | KMP + Compose |
-| `:feature:accounts` | `features/accounts`, `accounts_` strings | KMP + Compose |
-| `:feature:company` | organization, agreement, companyaccess; `org_` | KMP + Compose |
-| `:feature:access` | people, roles, security, iam; `iam_` | KMP + Compose |
-| `:feature:platform`, `:feature:audit` | platform; audit (composed by others through slots) | KMP + Compose |
-| `:feature:hr` | HR v2; Payroll/ESS v2 inside it or as siblings by the same rules | KMP + Compose |
-| `:composeApp` | `App.kt`, `app/` (runtime, session machine, DI, Decompose root), routing, home/dashboard, profile, context, `data/mock`, the v1 modules (old hr, payroll, ess, inbox, reports) until v2 replaces them; Android app, iOS framework, desktop, Hot Reload | as today |
-| `:build-rules` | the tree scans: `buildrules.*`, i18n scans, the always-run source policies | JVM, tests only |
+| `:core:resources` | **all of today's `composeResources`** (strings in en/nb/sv/da plus fi/is stubs, fonts, `files/`), `publicResClass = true`, `packageOfResClass = "neoerp.composeapp.generated.resources"` | KMP + Compose resources |
+| `:core:common` | core model, result, text, time, money, format, permissions, presentation, navigation, i18n; session contracts (`AppSessionReader/Emitter`, `signOutOnSessionExpiry`, `PkceAuthorizationRequest`); `NeoChangeReason`; the **feature registry contract** (D4) | KMP + Compose runtime |
+| `:core:network` | `core/network`, KMM-Network API; `okHttpAuthMain` moves with it as a pair | KMP |
+| `:core:testing` / `:core:testing-ui` | commonTest fakes (`testSession` becomes public API) / the size harness (`ScreenSizes`, `FitShots`, `LayoutChecks`, `DesignShots`) | test-only (KMP / JVM) |
+| `:designsystem` | `designsystem/` | KMP + Compose |
+| `:shell` | the chrome only (sidebar, rail, top bar, menu mode), after `AppShellState` is split | KMP + Compose |
+| `:shared:entitlement`, `:shared:person`, `:shared:audit` | domain + display pieces used by several areas | KMP + Compose |
+| `:feature:hr`, `:feature:payroll` | **born as modules**, own strings (the per-module strings trial) | KMP + Compose |
+| `:feature:accounts`, `:feature:company` (organization, agreement, companyaccess), `:feature:access` (people, roles, security, iam), `:feature:platform` | moved in phase B | KMP + Compose |
+| `:composeApp` | root: `App.kt`, `app/` (runtime, session machine, auth incl. login and PKCE flow, DI, Decompose root), routing host, dashboard host, profile, context, release-environment choice, dev-session hooks, inbox (v1); Android app, iOS framework, desktop, Hot Reload | as today |
+| `:build-rules` | the tree scans (build rules, i18n, source policies); its test task declares **every module's sources** as inputs | JVM, tests only |
 
-- **Why areas:** they match `NeoModule` (`core/model/NeoPermission.kt:6-20`), the sold modules and the string prefixes. 61 references become internal to a module. One module per package would mean 21 modules and 31 pairs to break.
-- **Packages stay.** A move is `git mv` plus Res import lines, so rename detection carries open branches.
-- **`:composeApp` keeps its name.** The Xcode script, `verify.sh`, Hot Reload and the dev bundle stay as they are.
-- **v1 modules** are not moved. They are deleted when v2 replaces them.
+- **Why product areas:** they match `NeoModule`, the modules we sell and the string files. A cut per package would need 21 modules and 31 pairs to break.
+- **Packages stay:** a move does not rename packages.
+- **`:core:auth` is folded into `:composeApp`:** all of its users stay in `:composeApp`.
+- **`data/mock` is split by owner:** each area's mock data moves into that area. Whatever two areas still share after the split becomes `:shared:mock`. Either way, no feature imports `:composeApp`.
+- **Release environment:** the choice stays in `:composeApp`, and the environment is passed into `:core:network`. The lane that touches it, the dev-session hooks or the source-policy tests gets the security reviewer.
+- **Strings (Q8):** one `:core:resources` keeps every import unchanged: no rewrite, one root for the i18n scans. Cost: a new key recompiles every iOS klib. HR and Payroll own their strings (import the module's own `Res` as `<Area>Res`, fixed in M0). The others split only if M0's iOS numbers show it pays, then by a key → module table from the XML, never by prefix.
 
 ### D2. Dependency rules, enforced by Gradle
 | Module | May depend on |
 |---|---|
-| `:core:common` | libraries only |
-| `:core:network`, `:core:auth` | `:core:common` (auth also network) |
-| `:designsystem` | `:core:common` |
+| `:core:resources` | libraries only |
+| `:core:common`, `:core:network` | `:core:resources`; network also `:core:common` (no back-references) |
+| `:designsystem` | `:core:common`, `:core:resources` (not network) |
 | `:shell` | `:core:*`, `:designsystem` |
 | `:shared:<x>` | `:core:*`, `:designsystem`; never `:shared` or `:feature` |
-| `:feature:<x>` | `:core:*`, `:designsystem`, `:shared:*`; **never `:feature:*` or `:shell`** |
+| `:feature:<x>` | `:core:*`, `:designsystem`, `:shared:*`; **never `:feature:*`, `:shell` or `:composeApp`** |
 | `:core:testing(-ui)` | `:core:*`, `:designsystem`, `:shell`; test source sets only |
-| `:composeApp` | everything |
+| `:composeApp` | `:core:*`, `:designsystem`, `:shell`, `:shared:*`, and the **selected** features through the registry only |
 
-- **Enforcement:** convention plugins `neoerp.kmp.library`, `neoerp.kmp.compose` and `neoerp.feature` live in an included `App/build-logic/`, not `buildSrc`, so a change there does not invalidate every module.
-  - `neoerp.feature` fails configuration on a `ProjectDependency` to `:feature:*` or `:shell`.
-  - `checkModuleGraph` writes `App/docs/operations/module-graph.txt`, and a `:build-rules` test fails when the committed file is stale.
-  - Gradle refuses cycles.
-- **The ratchet** keeps scanning every module's `src` while features sit in `:composeApp`. A feature still inside `:composeApp` could otherwise use an extracted feature unseen. It is deleted when no feature package is left in `:composeApp` except the composition ones.
-- **How each kind of pair is resolved:**
-  - **in-area:** it becomes internal (61);
-  - **shared type:** it moves to `:shared:entitlement`, and `NeoChangeReason` goes to `:core:common` because the designsystem uses it (90);
-  - **auth:** it goes to `:core:auth` (7);
-  - **home:** it stays in `:composeApp` and later reads ADR-027's `/api/app/home` (20);
-  - **a screen in another area's screen:** the host takes slots, e.g. `CompanyRecord(peopleTab: @Composable (CompanyId) -> Unit, rolesTab: …, activityTab: …)`, filled in `:composeApp/composition/`, and the guest's ViewModel comes from DI. Shared display pieces go to `:shared:person` (134).
-- **api/impl:** none now. A feature's only dependent is the small `:composeApp`, so an ABI change is cheap. A `:feature:<x>:api` needs a written reason: another feature needs behaviour, not a type or a screen. No `explicitApi` (141k lines of churn).
+- **Enforcement:** convention plugins `neoerp.kmp.library`, `neoerp.kmp.compose`, `neoerp.feature` in an included `App/build-logic/`; `neoerp.feature` fails configuration on a forbidden `ProjectDependency`; `checkModuleGraph` writes `App/docs/operations/module-graph.txt`, checked for staleness by `:build-rules`; Gradle refuses cycles.
+- **Before any move, a module-rule test** in the single module: a package → target-module map checked against this table, with a shrink-only baseline. It is today's ratchet, widened to core, designsystem, shell and `data.mock`. A move is allowed when its packages reach zero.
+- **Visibility:** each `internal` name used across a border (at least 155 imports) is made public, moved, or has its test moved. The builder lists each one in the lane report. Widening to public is a review item, and the lead decides disputed cases.
+- **Behaviour across features** (`PlatformRepositoryImpl` → `OrganizationService`): a small interface in `:shared` or `:core`, filled in `:composeApp`.
+- **api/impl:** none. No `explicitApi`.
+- **Koin** stays only in `:composeApp`. The Koin baseline is cleared before `:shell` and before Accounts move.
 
 ### D3. KMP specifics
-- **Targets:** every module has `androidTarget`, `iosArm64`, `iosSimulatorArm64` and `jvm`, from the conventions. Android library modules use `com.android.library` (namespace `com.neovatus.neoerp.app.<area>`). The KMP android-library plugin waits for an AGP upgrade.
-- **iOS:**
-  - one static framework, `ComposeApp`, from `:composeApp`, with **no `export()`**, so headers and framework size do not grow;
-  - each module compiles its own klib, and they link once.
-- **Compose resources:**
-  - each module has its own `composeResources/values{,-nb,-sv,-da,-fi,-is}/strings_<area>_*.xml` and `packageOfResClass = "com.neovatus.neoerp.app.<area>.resources"`;
-  - `:core:common` and `:designsystem` set `publicResClass = true`;
-  - files using `core_` keys import `…core.common.resources.Res as CoreRes`. The rule is the key prefix, so a script does it;
-  - `NeoUiText`/`StringResource` already cross modules;
-  - the pseudo-locale (`composeApp/build.gradle.kts:179-205`) moves into `neoerp.kmp.compose`;
-  - the i18n baselines get one file per module.
-- **DI:** Koin stays only in `:composeApp` `app/di`. `KoinBoundaryTest` is unchanged. Features stay Koin-free, with constructor parameters. `NeoAppDi.kt` splits into one file per area.
-- **Navigation:**
-  - `NeoDestination` stays in `:core:common`;
-  - a feature opens another area's page only through `AppShellEmitter` plus a destination and its arguments;
-  - routing stays in `:composeApp`;
-  - the menu's Accounts and People imports become a `NeoMenuContribution` interface in `:shell`, filled by `:composeApp`.
-- **KMM-Network:** only `:core:network` and the platform source sets of `:composeApp` declare `dev.kmmkit:*`. The included build substitutes them for every module, and verify's `kmm_network=` record is unchanged.
-- **ADR-027 fixtures** move into the owning feature's `jvmTest/resources`. The hash check (ADR-027 Q6) reads the new paths.
+- **Targets:** every module has Android, `iosArm64`, `iosSimulatorArm64` and `jvm`. Library modules use `com.android.library`. AGP 9 will later need a thin `:androidApp` (confirm in M0; Q3).
+- **iOS:** one static framework, `ComposeApp`, with **no `export()`**. Kotlin/Native has no ABI-based compile avoidance: a change in `:core:*` recompiles every klib above it, and a feature change always recompiles `:composeApp` for iOS. Unchanged klibs keep their native caches in the Xcode loop (confirm in M0).
+- **Memory:** a shared build service in the convention plugin runs **one UI test task at a time**. Each task keeps today's 3 forks of 512 MB.
+- **Hot Reload:** M0 edits a composable and a string inside a library module while the app runs, and checks that `neoerp.env=localLive` is still set (`composeApp/build.gradle.kts:297-306`).
+
+### D4. Feature registry and feature sets (decided by Jabran)
+| Part | Rule |
+|---|---|
+| Contract | `NeoFeature` in `:core:common`: `id`, `module: NeoModule`, menu entries, routes (`NeoDestination` → screen), home tiles, slot contributions (`NeoSlotId` → composable), and `start(deps: NeoFeatureDeps)`. The deps are the core services the root passes in: network runtime, session reader/emitter, shell emitter, environment. |
+| Inside a feature | Each feature has one public entry object (e.g. `HrFeature`). Its graph is built by constructors inside the feature, with no Koin. Koin in the root wires the core services only. |
+| Root | Never names a feature's internals. The only feature names are in a **generated** `NeoFeatureSet.kt` and in the Gradle dependencies, both produced from `-Pneoerp.features=accounts,hr,…` (default: all). Shared modules are always in. |
+| Hosts | The menu, routing, home and slot hosts read the registry. A slot or destination with no registered feature is hidden, like a module switched off by entitlement. |
+| Runtime default | One App for everyone, with modules switched on by the company's plan, as today. Per-customer builds (enterprise, white-label) need no extra work. |
+| Gate check | Every gate compiles `:composeApp` for the JVM **once with one feature left out**: the range's changed feature, else one chosen by commit. A leak into the root or into another feature then fails to compile (Q11). |
+
+`NeoDestination` stays a core enum for now. A change there runs the whole suite anyway.
 
 ## Tests and build speed
-- **Per-module tasks:**
-  - `jvmTest`, the iOS compile and Android unit tests run per module;
-  - size tests live in the feature's own `jvmTest` on `:core:testing-ui`;
-  - M3 ends `design=*`: `ScreenSizes` no longer reaches a feature or `app.*`, and the `Kyst` fixture goes to Accounts.
-- **What Gradle skips:** tests and compiles of unchanged modules (up to date in the gate's own Gradle home) and their iOS klibs. With compile avoidance, a feature change that keeps the ABI does not recompile `:composeApp`. Dev machines also use the build cache.
-- **Scoped gate:**
-  - the module comes from the changed path's folder, plus the **transitive** reverse dependencies from the committed `module-graph.txt`. It still reads git objects only;
-  - the closure stays small because features never depend on features, so the one-step limit goes away between modules;
-  - `:core:*`, `:designsystem`, `:shell`, `build-logic`, settings and gate files stay FULL;
-  - inside an affected module, today's package units and design picking stay as an option (useful for Accounts);
-  - `:build-rules` runs on every range;
-  - `verify.sh` runs `:<m>:jvmTest :<m>:compileKotlinIosSimulatorArm64` per affected module.
-- **Estimate (reasoned, not measured):**
-  - **Access, Company, Platform or HR change:** about 680 s today. Expected 120–200 s (module tests, its few design classes, `:composeApp`, build rules; anchored on the 146 s Roles run);
-  - **Accounts change:** about 75–85 % of today's time, because it owns 43 of 61 design classes. The gain comes from compile, iOS klibs and design picking inside the module;
-  - **iOS compile:** the largest compile gain;
-  - **`:core`, `:designsystem`, `:shell`:** no gain;
-  - **cost:** about 14 projects to configure (configuration cache covers it), still one link.
-- **Measure before M0 and after each step**, on the same quiet Mac:
-  1. per-class time from the last whole-suite JUnit XML, summed per target module. This is the predicted scoped time per module, available now at no cost;
-  2. `--profile` of a clean build and of one-line changes in roles and accounts: JVM compile, iOS compile, configuration;
-  3. iOS link time and framework size;
-  4. `assembleDebug`;
-  5. Hot Reload restart.
-
-  The numbers go in the lane report and the workflow v2 measures file.
+- **`core/app-test-speed` (T0) goes first and owns the test gain**, with four changes for this ADR (Fable §3): size tests get their final package (`features.<area>…`) and run when their unit is in scope; the harness moves to a `testing` package with the company scope passed in (no `Kyst`), naming `AppShellState`/`AppSessionEmitter` as the links M3 cuts; the Accounts size tests are split by flow with time per flow (answers Q4). The baseline for this ADR is taken **after** T0, so modules are not credited with its gain.
+- **The gate, from M0 (decided by Jabran):**
+  - (a) each scope unit maps to the Gradle tasks of the module that owns its package, e.g. `features.hr` → `:feature:hr:jvmTest :feature:hr:compileKotlinIosSimulatorArm64`. Package units stay through phase B and are replaced by the module graph once, at M8;
+  - (b) a **local Gradle build cache shared by the worktrees on each Mac** (one folder per repo, set in the gate's Gradle home). Fresh gate worktrees then reuse unchanged modules' compile outputs. Test tasks in scope always rerun, and only XML written by this run is counted;
+  - the **whole suite before `main` stays**, and gains `:composeApp:assembleDebug` and `linkDebugFrameworkIosSimulatorArm64`.
+- **Expected effect** (to measure, not promised): feature-range tests about 70–110 s (Access) come from T0; modules add skipped compiles from the cache inside the ~150 s ceiling and a faster Xcode loop; Accounts ranges stay near 90 % of today until per-flow picking or Q4.
+- **Measure** (one Gradle job, Mac free; Fable §4): today's gate split into configuration / JVM compile / iOS compile / tests (`--profile`, fresh worktree, one-line roles and accounts changes); the same after T0 (the baseline); the Xcode link after a one-line change (control: `kotlin.incremental.native=true`); in M0 the cache on/off, peak memory with two modules' UI tests, configuration and IDE sync, `assembleDebug`, Hot Reload; why three classes take 475 s; the gate self-tests (989 s).
 
 ## Migration plan
-Each step is one lane and one module (or a small set), whole suite green, one Opus review. The `git mv` commit is separate from the fix commit (build file, imports).
+**Acceptance for every step (Q9):** whole suite green, `:composeApp:assembleDebug`, the iOS framework links, and the App starts on the iOS simulator, an Android emulator and desktop with one screen of the moved module in `en` and `nb` (a missing resource is a run-time crash, not a compile error; `Res.readBytes("files/…")` needs the same proof).
+
+**Where steps land:** each step is one lane with one Opus review, and the review that touches the release environment gets the security reviewer. Steps land on the current App phase branch, and `phase/hrp-v2` merges it after every step.
+
 | Step | Content | Size | After |
 |---|---|---|---|
-| M0 | Spike: `build-logic`; `:core:testing` and one tiny resources module; prove Android, iOS from Xcode **showing a string and a font from a library module**, desktop and Hot Reload, `-Pi18n.pseudo`, `verify.sh`, multi-root scans, graph file; baseline measures | S–M | — |
-| M0b | Still single module: `core_` → `CoreRes` rewrite (script, about 300 files); session contracts → `core/session`; `NeoChangeReason` → `core` | M, mechanical | quiet half-day |
-| M1 | `:core:common`, `:core:network`, `:core:auth`, `:build-rules` | M | M0b |
-| M2 | `:designsystem`, after DS-1a merges and before DS-1b, so DS-1b/c are built in the module | S–M | M1 |
-| M3 | `:shell` chrome + `NeoMenuContribution`; `:core:testing-ui` | M | M2 |
-| M4 | `:shared:entitlement`, `:shared:person` | S each | M1 |
-| M5 | `:feature:hr`, created by HR v2's first App lane | — | M1–M3 |
-| M6 | Slot refactors, then `:feature:audit`, `:access`, `:company`, `:platform`, one per lane; ratchet lines deleted at 0 | S–M each | M4 |
-| M7 | `:feature:accounts` in a quiet window (no open Accounts lane): `git mv` about 575 main + about 350 test files + strings, Res rewrite | M, mechanical | M3, M4 |
-| M8 | Delete the ratchet; scope by module only; update ARCHITECTURE.md, AGENTS.md, `.claude/CLAUDE.md` rule 1, developer docs | S | M7 |
-
-- **No feature stop.** Only the lane that owns the moving area waits: it merges before the move or rebases right after.
-- **Files added under the old path** are moved by re-running the move's own script, `scripts/move-module.sh <area>`.
-- **New code before its module exists** goes in its area package with no cross-area imports.
+| T0 | `core/app-test-speed` with the four changes above; then the baseline measures | (queued) | — |
+| **HR track** (decided by Jabran) | | | |
+| M0 | Spike: `build-logic`, `:core:testing` and one resources module; string, font and `files/` read on iOS, Android and desktop; Hot Reload; `-Pi18n.pseudo`; per-module gate tasks plus the shared cache; registry skeleton plus `neoerp.features` plus the leave-one-out check; memory build service; graph file; measures | M | T0 (Q12) |
+| A-core | Single module: fix the back-references (`NeoAuthMessages`, `NeoFailureCause`, `NeoSearchSelectPreviews`, `getPlatform`); move the session contracts, `PkceAuthorizationRequest` and `NeoChangeReason` into core; add the module-rule test | S–M | M0 |
+| M1 | `:core:resources`, `:core:common`, `:core:network` (with `okHttpAuthMain`), `:build-rules` | M | A-core |
+| M2 | `:designsystem`. No DS lane may be open during the move commit; DS-1b does not wait | S–M | M1 |
+| HR-1 | `:feature:hr` created by HR's first App flow, registered through the registry. Its size tests stay in `:composeApp` under `features.hr` until M3 | — | M2 |
+| — | `:feature:payroll` the same way, when Payroll's first App flow starts | — | M2 |
+| **Phase A, single module** (no quiet window; each lane useful on its own) | | | |
+| A1–A7 | `:shared:audit` shape (drop `AuditWording.kt:11`'s Accounts use); `AppShellState` split; menu, routes and home tiles onto the registry; slots; Koin baseline cleared; mock data split; visibility list; `OrganizationService` interface | S each | A-core |
+| **Phase B, moves** (`git mv` plus a build file; the move commit kept separate) | | | |
+| M3 | `:shell` and `:core:testing-ui`; HR's size tests move into `:feature:hr` | **L** (most likely to slip) | A1–A2 |
+| M4 | `:shared:entitlement`, `:shared:person`, `:shared:audit` | S each | A1 |
+| M5 | `:feature:access`, `:feature:company`, `:feature:platform`, one per lane | S–M each | M4, A4–A7 |
+| M6 | `:feature:accounts`, in one quiet window; Q4 decided before | M | M3, M4 |
+| M8 | Scope by module graph; delete the ratchet; update ARCHITECTURE.md, AGENTS.md, CLAUDE.md rule 1 and the developer docs | S | M6 |
 
 ## Alternatives considered
 | Option | For | Against | Verdict |
 |---|---|---|---|
-| Single module, split tests only (narrow the `ScreenSizes` rule) | No moves | Compile stays whole; rule stays text; dense graph | Fallback only if M3 slips past two weeks |
-| Package rules only (ratchet, Konsist) | Cheap, exists | Enforces, never speeds up | Kept only during migration |
-| One module per package (21) | Finest scope | 31 pairs to break, more config and link work, small gain | Rejected |
-| api/impl everywhere | Best compile avoidance | About 2× modules and boilerplate; the only dependent is small | On request with a reason |
-| JVM-only domain modules | Fast compile | iOS needs the code | KMP everywhere; Compose only where UI or resources exist |
-| Split Accounts now (journals, AP, AR, reports, SIE, setup) | Most test gain | Big refactor during Phase 4 | Later, with M7 numbers (Q4) |
+| Single module, test picking only (T0) | Most of the test gain | Rule stays text; no compile gain; no feature sets | First, not instead |
+| Per-module strings now | Fewer iOS recompiles per key | About 500-file rewrite, misfiled files, about 40 crossing uses | Trial with HR/Payroll; the rest by numbers (Q8) |
+| One module per package (21), or api/impl everywhere | Finest scope, compile avoidance | 31 pairs or about 2× modules; no ABI avoidance on Kotlin/Native | Rejected |
+| HR in a package, moved later (Fable's option) | HR waits for nothing | The rule stays text for new code; a second move | Not taken (Jabran: born as a module) |
 
 ## Risks
 | Risk | Mitigation |
 |---|---|
-| iOS link time, framework size | No `export()`; M0 measures link and size |
-| Library-module resources missing at run time (iOS bundle, Android assets) | M0 shows a string and a font on all three platforms first |
-| Two `Res` in one file | `core_` → `CoreRes` done in the single module (M0b) |
-| Previews, Hot Reload across modules | `uiTooling` in `neoerp.kmp.compose`; both checked in M0 |
-| Circular or forbidden dependencies | Gradle cycle check, `neoerp.feature`, graph file test |
-| Conflicts with running lanes | Separate move commit, packages unchanged, one module per step, quiet windows for M0b and M7 |
-| Scans and scripts hard-code `composeApp/src` (`BuildRules.appPath`, `risk-check.sh:209,255,268`, test inputs `composeApp/build.gradle.kts:163-171`) | Moved to `:build-rules` with all module roots in M1; gate self-tests updated in the same lane |
-| More parallel Gradle work on a 16 GB Mac | One job per repo as today; cap `org.gradle.workers.max` if M0 shows swap |
-| KMM-Network included build | Two declaring modules; verify record unchanged; M0 runs with and without it |
+| Resources missing at run time | Start on three platforms in two languages at every step |
+| iOS recompiles everything after a `:core:*` change | Measured in M0; per-module strings only if it pays |
+| Hidden coupling turns moves into refactors | Phase A and the module-rule test; a move only at zero |
+| Memory on a 16 GB Mac | One UI test task at a time |
+| Release environment drifts into a library | Choice kept in `:composeApp`; security reviewer |
+| A feature leaks into the root | Generated feature set; leave-one-out compile |
 
 ## Consequences
-"Features never import features" becomes a compile error. Feature ranges run their own tests. HR v2 starts clean. Accounts-heavy ranges gain less until Accounts is split. Costs: about ten lanes, `build-logic`, a graph file, verify and risk-check changes, two quiet windows, doc updates.
+The rule becomes a compile error. HR and Payroll start clean, any subset of features can be built, and the gate reuses unchanged modules. Costs: T0 plus about 15 lanes, `build-logic`, a registry, a graph file, verify/risk-check changes twice (M0 tasks and cache; M8 graph), one quiet window (Accounts), doc updates.
 
-## Open questions (lead's recommendation)
-| # | Question | Recommendation |
+## Questions
+| # | Question | Answer |
 |---|---|---|
-| Q1 | Modules per product area or per package? | Per area: `NeoModule`, string prefixes, sold modules; 61 refs become internal |
-| Q2 | Cross-area screens: slots in `:composeApp` or `:feature:<x>:api`? | Slots + `:shared:*` kits; api only with a reason |
-| Q3 | Keep `:composeApp` as the root's path, or rename `:app`? | Keep; a rename later is one lane |
-| Q4 | Split Accounts into sub-modules? | Not now; decide with M7 numbers |
-| Q5 | Move the v1 modules (old hr, payroll, ess, inbox, reports)? | No; they stay until v2 replaces them |
-| Q6 | Build cache for compile tasks in the gate (tests always rerun)? | Not now; decide after M3 with numbers |
-| Q7 | When? | M0–M3 before HR v2's first App lane; M0b and M7 in announced quiet windows |
+| Q1 | Per product area or per package? | Recommendation: per area (Fable agrees) |
+| Q2 | Cross-area screens | **Decided by Jabran:** through the registry (slots, routes, home tiles). Recommendation: shared types in `:shared:*` kits; api modules only with a reason |
+| Q3 | Keep `:composeApp` as the root? | Recommendation: keep; a thin `:androidApp` when AGP 9 needs it |
+| Q4 | Split Accounts into sub-modules? | Recommendation: not now; decide **before** M6 from T0's per-flow table |
+| Q5 | Move the v1 modules? | Recommendation: no. Mostly moot, because `phase/hrp-v2` deletes hr, payroll, ess and reports; inbox stays in the root |
+| Q6 | Gate gain | **Decided by Jabran:** in M0, per-module tasks plus a build cache shared by the worktrees on each Mac; the whole suite before `main` stays |
+| Q7 | Timing | **Decided by Jabran:** new modules start as modules; HR first: M0, `:core` (with `:core:resources`) and `:designsystem` before HR's first App flow; HR waits for no other step |
+| Q8 | Strings: one module or per module? | Recommendation: one `:core:resources` with today's package; HR/Payroll own theirs as the trial |
+| Q9 | Acceptance per step | Recommendation: whole suite, `assembleDebug`, iOS link, start on 3 platforms in en + nb |
+| Q10 | Stop rule if M0 shows no speed gain | Recommendation: continue for structure and feature sets, behind feature work |
+| Q11 | Leave-one-out check: once per gate, or every feature before `main`? | Recommendation: once per gate (changed feature); before `main`, each feature once, JVM compile only |
+| Q12 | If T0 is not merged when HR's first App flow is ready | Recommendation: M0 goes ahead; the baseline comes from T0's own report |
+| Q13 | Test results from the cache? | Recommendation: no; tests in scope always rerun |
