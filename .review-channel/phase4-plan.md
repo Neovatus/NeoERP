@@ -85,3 +85,10 @@ At T5 the owner writes `.review-channel/phase4-review.md`: planned vs real time 
 
 ## T4 trimmed (D-69)
 Before T4 runs, the step list drops steps already covered by automated tests on the merged code (screen-size, screenshot, Compose UI tests) and checks backend-only steps through the API (lead, local stack). Every T4 FAIL's fix lane adds an automated test for it. Target: ~1–1¼ h with two testers.
+
+## Order to close Phase 4 and start the next phases (Jabran 2026-11-24)
+1. Finish Phase 4: TEST-SCOPE-1, DOCS-2c, GATE-3 remainder (new Mac); Phase 4 review `phase4-review.md` (old Mac).
+2. Merge Phase 4 to `main`: merge `main` into `phase/4` both repos, whole suite in parallel, MERGE PR verdicts, merge BackEnd #8 / App #5.
+3. **Workflow review** (briefs and builders: how they performed, brief gaps D-67, first-pass rate, cost, rework causes) — **after the `main` merge, before any new phase**. Its changes go into the 4b and HR plans.
+4. Then 4b (new Mac) and HR H1 (old Mac) start.
+B2a-S6 is confirmed by its 3 UI tests (old FAIL / new PASS) + gate (D-69); no simulator re-check (the simulator tool was unavailable after the session restart).

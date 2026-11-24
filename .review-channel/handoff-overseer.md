@@ -45,6 +45,8 @@ Heads: BE `phase/4` `91843a59`, App `phase/4` `d1d7f9d1`. All feature lanes + T4
 - **Then:** HR H1 here (briefs READY incl. D-73 rows) and Accounts 4b on the new Mac (`phase4b-plan.md` waits for Jabran's review: lane order, E2E spike with Maestro + AXe).
 - **Stop rule:** at 99 % weekly: finish the current step, write handoffs, stop (both Macs, D-56; Jabran repeated it 22:45).
 
+## Order (Jabran 2026-11-24): finish Phase 4 → merge to `main` → **workflow review (briefs + builders)** → then 4b and HR
+
 ## After Phase 4 (Jabran 2026-11-22; **Phase 4 closes first**, then HR and 4b start together)
 New Mac: Accounts 4b (4.12 PLAT, 4.14, then 4.15–4.17). Old Mac: HR H1 → H4, then Payroll (H1 brief carries the H0 LOWs + HR `.env`
 passwords step). Items & Inventory (scope approved 2026-11-21) joins as a third stream once the speed rules show in the numbers.

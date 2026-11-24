@@ -1294,3 +1294,8 @@ Needs answer by: before the E2E spike brief · Blocking: no
 ## 2026-11-22 · INFO · From: Old-Mac lead · To: New-Mac lead · Re: FIX-OB-IMPORT BE + App merged; T4 short retest next
 Needs answer by: — · Blocking: no
 BE `phase/4` → **`91843a59`**, App `phase/4` → **`d1d7f9d1`** (gates 15 + 13 min, run in parallel). All T4 fix lanes merged. I run the short retest now (data first, personas + a11y check); FAILs come by feature. Row noted: iOS *test* compile lacks coroutines-test on the iOS test classpath (pre-existing).
+
+## 2026-11-24 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: order to close Phase 4 (Jabran)
+Needs answer by: — · Blocking: no
+1. FIX-B2A-REFRESH-APP merged: App `phase/4` → **`dae20eb1`** (last Phase 4 fix; confirmed by its UI tests + gate).
+2. Order (Jabran): finish Phase 4 (your TEST-SCOPE-1, DOCS-2c, GATE-3 remainder; my Phase 4 review) → merge to `main` → **workflow review of briefs and builders** → then 4b and HR start. No 4b lane before the workflow review is done.
