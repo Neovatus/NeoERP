@@ -1,4 +1,4 @@
-# Handoff: old-Mac lead (overseer, test + integration Mac) — 2026-11-22 22:50 Europe/Oslo
+# Handoff: old-Mac lead (overseer, test + integration Mac) — 2026-11-24 18:00 Europe/Oslo
 
 Replace, don't append. Read with WORKFLOW.md and `docs/prompts/resume-overseer.md` after a compact.
 
@@ -30,21 +30,21 @@ talk through `docs/inbox/erp-lead.md` + one-line SendMessage doorbells.
 - Up only while testing: stack + simulators start right before checks, stop right after. Simulator sign-in needs `simctl keychain reset`.
 
 ## Heads
-App `phase/4` `d1d7f9d1`; BE `phase/4` `91843a59`; App `phase/hrp-v2` `d91e45cd`; BE `phase/hrp-v2` `f1a6f944`.
+App `phase/4` `82b815b0`; BE `phase/4` `7ee082be`; App `phase/hrp-v2` `d91e45cd`; BE `phase/hrp-v2` `f1a6f944`.
 
 ## Merged today
 TEST-SPEED-1/APP, BE-JDK21, FIX-APP-B1, R29b-1, FIX-APP-B2a, GATE-2, R29b-2, FIX-APP-B2b, AC418-BE, HRP-H0-BE, HRP-H0-APP,
 **R29b-5, OUTBOX-CLAIM-BE (escaped defect fixed), AC418-APP, RISK-NARROW-1 (BE+App)**. Verdicts in `.review-channel/lane-verdict-*.md`.
 
-## Phase 4: what is left, and who (22:50, usage 98 % weekly, reset Tue 24 Nov 15:00)
-Heads: BE `phase/4` `91843a59`, App `phase/4` `d1d7f9d1`. All feature lanes + T4 fix lanes merged (AL release, OB import BE/App, demo FM2 + Ola on Lahore, GATE-3a).
-- **T4b done** (`t4b-results-tester1/2.md`, ledger): OB fixes PASS; AL works end to end; AL-P6/P7/O3 PASS by design (D-64 SR-L4 no exemption); stack and simulators DOWN.
-- **Open:** FIX-B2A-REFRESH-APP **reviewed (both Opus ACCEPT, dae20eb1), gate interrupted at the 99 % stop — not merged.** After the reset: rerun its App gate from a detached worktree on `origin/phase/4-b2-fix-b2a-refresh-app` (`--range origin/phase/4..HEAD --reviews docs/agents/t4-fix-b2a-refresh/review-1-opus.md review-2-opus-sec.md`), merge, then the B2a-S6 iPad confirm (Home, wait 5 s, return ×3). Earlier note: (`bb684213`; cause `AppSession.reread()` stamped the 5 s gap on a failed/empty re-read; fix: one retry after 1.5 s, only a real answer stamps; 3 old FAIL → PASS; JVM 2389/0). After the reset: one Opus review (tier 1) on the new Mac → I gate + merge.
-- **Asked Jabran (no answer yet):** turn 6 uncovered steps (SW-B6, AL-R3, AL-Lang sv/da, B2a-S3.3 RV post, AC418-10b, B2b-3) into automated tests in the first 4b/HR lanes instead of another simulator run (new Mac agrees).
-- Tooling beside: TEST-SCOPE-1 (new Mac; yields the Gradle lock to fix lanes), then GATE-3 remainder.
-- **Then close:** DOCS-2c screenshots → `phase4-review.md` (rule keep/change/drop D-43…D-75, MEASURE-1 incl. cost + first-pass) → merge `main` into `phase/4` both repos → whole suite BE + App in parallel → MERGE PR verdicts → merge BackEnd #8 / App #5.
-- **Then:** HR H1 here (briefs READY incl. D-73 rows) and Accounts 4b on the new Mac (`phase4b-plan.md` waits for Jabran's review: lane order, E2E spike with Maestro + AXe).
-- **Stop rule:** at 99 % weekly: finish the current step, write handoffs, stop (both Macs, D-56; Jabran repeated it 22:45).
+## Phase 4: state at handoff (2026-11-24 ~18:00, context ~81 %)
+Heads: **BE `phase/4` `7ee082be`, App `phase/4` `82b815b0`** — ALL lanes merged (feature, T4 fixes, B2A-REFRESH `dae20eb1`, DOCS-2c `5b65071e`, TEST-SCOPE-1 BE+App). All 7 missing verdicts written (`a86ad29`). Hooks: BE gate-v3 dispatcher reinstalled from the `phase/4` tip on both Macs (Jabran OK), App keeps `core.hooksPath=.githooks`.
+- **Merge check DONE, clean:** ff possible both repos, `main` has 0 commits `phase/4` lacks, 0 AI-attribution lines, gate markers for both heads, no duplicate migrations (accounts V79, user V50).
+- **Fast-forward to `main` is PAUSED for Jabran's go.** Reason: 4 dev-secret files (`.env`, `infra/.env`, `.local-secrets/accounts-bank-keys.properties`, `.local-secrets/demo-passwords`) are NEW in `phase/4` (commit `856ba3a`, Jabran's own 2026-11-20 decision, ERP-Q5) and would reach `main` for the first time. Never open them.
+- **Also open with Jabran:** run a **Fable 5.2 high seam review** of the whole Phase 4 first (two reviewers split **by feature**, each reading BE + App: (1) money/approvals — AL-REST, approval limits + stand-ins, OB import, AC418, recurring; (2) isolation/platform — R29b, outbox, email-uniq, company switch, auth/user/org); ~1–2 h; Phase 4 code was tested whole but never read whole (~1,260 code files, ~72 k lines). My recommendation: seam review first, then merge.
+- **Phase 4 review DONE:** `phase4-review.md` (lead), `phase4-review-independent.md` (Opus, raw sources only, D-79), `phase4-review-compare.md` (neutral agent: 6 agreed, **12 decisions for Jabran — deferred to the workflow review**, Jabran: "for next phase we review the workflow, that might change a lot"; don't record new rules now).
+- **Known hole to fix in the workflow review:** with scoped lane gates (D-47) + the 11-24 "fast-forward without whole suite" plan line, nothing tests all code together. Phase 4 is safe (every gate ran full).
+- **Next after `main`:** workflow review (`.review-channel/workflow-review-topics.md`, incl. Jabran's architecture questions: calls per screen, thin App, cross-service consistency) → GATE-3 phase (maybe cut to a 1-day incident-backed list) → 4b (new Mac) + HR H1 (here) in parallel.
+- **After a Mac restart:** check Docker + infra before any gate (handoff rule).
 
 ## Order (Jabran 2026-11-24, D-77): Phase 4 → `main` → **workflow review** → **GATE-3 phase** (gate scripts + App dispatcher port) → then 4b and HR in parallel
 
