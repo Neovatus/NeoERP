@@ -751,3 +751,6 @@ From the open-source "mobile-agent-testers" template: tester sessions use person
 
 ## D-77 GATE-3 remainder is its own phase, between the workflow review and the parallel streams — 2026-11-24 (Jabran)
 "Move it to the next phase, and we'll see its own phase before doing the parallel." GATE-3's remainder (bash gate/hook scripts; developer tooling, not shipped) leaves Phase 4. Order: Phase 4 → `main` → workflow review → GATE-3 phase (own branch from `main`, merged back) → 4b + HR in parallel from a `main` with the finished gate. Includes porting the BE gate-v3 dispatcher to the App (the App still reads each worktree's own `.githooks/pre-push`).
+
+## D-79 Phase and process reviews are independent too — 2026-11-24 (Jabran: "it should be independent review, as an independent review finds more")
+Every phase review (and the workflow review) gets an **independent** reviewer: a fresh Opus that reads only the raw sources (verdicts, ledger, escaped defects, decisions, review files), never the lead's draft or conclusions, and makes its own calls (top problems, keep/change/drop per rule, what the author is likely to miss). The lead compares both; every disagreement goes to Jabran. Same hooks on both Macs (Jabran): each lead installs from the `phase/<N>` tip in its own checkout.

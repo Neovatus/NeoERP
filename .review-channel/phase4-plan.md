@@ -98,3 +98,6 @@ B2a-S6 is confirmed by its 3 UI tests (old FAIL / new PASS) + gate (D-69); no si
 
 ## GATE-3 remainder moved out of Phase 4 into its own phase (Jabran 2026-11-24, D-77)
 GATE-3's remainder (bash gate/hook scripts: fail-fast reviews, failing-test names, review tier in the gate, kept stamp, gate-lock wait, gradle-job wrapper, merge helper, every `phase/*` gated, always-run list, **App gate-v3 dispatcher port**) is developer tooling, not shipped code. It leaves Phase 4 and becomes **its own phase**, after the workflow review and before 4b and HR start in parallel. Order: Phase 4 → `main` → workflow review → **GATE-3 phase** (own branch from `main`, back to `main`) → 4b + HR in parallel, both from a `main` with the finished gate. **Phase 4 is now complete except the Phase 4 review and the fast-forward to `main`.**
+
+## Phase 4 review = two independent reviews (D-79)
+Lead's review (`phase4-review.md`, built from `phase4-review-data.md`) + an independent Opus (`phase4-review-independent.md`, raw sources only, never the lead's draft). The lead compares; every disagreement goes to Jabran before the `main` merge.
