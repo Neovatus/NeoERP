@@ -24,6 +24,7 @@ talk through `docs/inbox/erp-lead.md` + one-line SendMessage doorbells.
 - **Never let a reviewer write into a worktree while its gate runs** (gate ends "tree is not clean" → no marker; 13 min lost on DEMO-FM2-BE). Reviewers write to `.review-channel/<lane>/` or wait for the gate.
 - Review files: exactly one line containing "verdict"; two different `Reviewer:` names. Run `scripts/risk-check.sh <base>..HEAD
   --reviews f1 f2` before `verify.sh` (fail fast until GATE-3).
+- **After a Mac restart, before any gate:** `docker info` (start Docker Desktop with `open -a Docker` if down) and the infra containers (`cd <be-checkout>/infra && docker compose -f compose.yml up -d`; wait for `neoerp-postgres`). Without them every BE gate fails in ~3 min (Testcontainers "lateinit … not initialized", "invariants not run") — not a code failure (TEST-SCOPE-1 BE, 2026-11-24).
 - One gate at a time on this Mac; **no backend stack or simulator while a gate runs** (load ~570 today → 503s, swap 11 GB).
   Builders via workspace `scripts/gradle-job.sh <app|be> <dir> <tasks…>`. Gate-free check `pgrep -f '[b]in/java .*gradle-home-verify'`.
 - Up only while testing: stack + simulators start right before checks, stop right after. Simulator sign-in needs `simctl keychain reset`.
