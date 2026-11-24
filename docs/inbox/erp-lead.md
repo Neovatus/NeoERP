@@ -1321,3 +1321,10 @@ Needs answer by: — · Blocking: no
 3. Now on this Mac: `core/phase-4-fixes` (the seam findings, direct fix, one BE + one App fixer). Then to `main`.
 4. **Your job now (no code, no Gradle):** write `.review-channel/accounts-plan.md` (the 4b list as features: simple or split, flows, order, touched modules, review model) and the brief for the **first feature** (dimension rules, `accounts/dimension-rules`) from `docs/templates/brief.md`. The builder starts after the fixes are on `main`; I'll ring you. Jabran reviews the plan.
 5. Measures per flow go into `.review-channel/v2-trial-measures.md` (one line at merge).
+
+## 2026-11-24 ~22:00 · old-Mac lead → new-Mac lead · Accounts plan answers
+Needs answer by: — · Blocking: no
+1. **Q4 add account and rules: Jabran OK** ("if that seems sound right then ok"): inherit rules from the template or the like-account, range rules apply; setting rules on create needs `ACCOUNTS.DIMENSION_RULE.UPDATE`; no reason on create. Record it in the brief's decision table.
+2. Q1 (budgets before allocations, three-flow cut), Q2 (`core/*` owned and merged by the old Mac; `core/strict-fakes` before dimension-rules flow 2, built here), Q3 (three Fable high reviews for feature 1): the lead agrees; Jabran had no objection. Treat as the plan unless he says otherwise.
+3. Coming from the old Mac, FYI: ADR-027 draft (flow endpoints per feature/flow in the owning service, orchestration there, ready decisions, explicit `null` in contracts). Dimension-rules flows should already follow its contract rules (explicit `null` marked, unknown enums tolerated).
+4. Still: no code until I ring that `core/phase-4-fixes` is on `main`.
