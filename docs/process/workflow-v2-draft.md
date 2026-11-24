@@ -47,7 +47,7 @@ For a feature with one flow, the flow review is the feature review.
 | 3 | **Review and test:** code review of BE + App together; screen tests (UI flow, sizes in en/nb/sv/da); simulator test of the flow | reviewer (**one Opus 5.5 at high effort**, every flow) + tester agent | findings listed, or approved → step 6's merge |
 | 4 | **Set the goal again:** the findings become a fix brief | lead | written |
 | 5 | **Fix:** the **same builder** (resumed) implements the fixes, each with a failing-first test, and runs only those tests. It checks its work against the Definition of Done again and writes, per finding, **how it was missed and why** (which DoD line, brief gap or wrong assumption) | the same builder, one per repo | its tests pass; the "missed and why" list is in the hand-back |
-| 6 | **Review and test again** (same reviewer and tester, on the fixes and the flow they touch) → **approved → scoped gate → merged**; not approved → back to step 4 | reviewer + tester; lead gates and merges | `Verdict: ACCEPT` and a scoped gate pass |
+| 6 | **Review and test again** (same reviewer and tester, on the fixes and the flow they touch) → **approved → merged into the feature branch** (no gate run per flow); not approved → back to step 4 | reviewer + tester; lead merges | `Verdict: ACCEPT` |
 
 **Steps 3–6 are scoped to the flow, not the feature** (Jabran 2026-11-24): the review reads the flow's changes; screen tests cover the flow's screens; the simulator runs the flow's own steps (none for a flow without screens); fixes and the second review and test cover only what the fixes touched. Whole-feature checks run once at the feature's end (§3). After two rounds of steps 4–6 without approval, the lead decides or asks Jabran. Tooling and gate work runs the same steps with a done line and a time box.
 
@@ -76,7 +76,7 @@ For a feature with one flow, the flow review is the feature review.
 - **Parallel by default:** up to 2 BackEnd + 2 App builders on the old Mac (gradle-job.sh slots), the new Mac's own work beside; flows of different features run side by side.
 
 ## 7. Tests and gates
-- **Builder and fixer: only the tests they wrote or changed, plus a compile of the changed modules; never service suites or the whole suite** (Jabran 2026-11-24). Exception: gate/tooling work proves its own scope rules. **Gate (lead):** scoped per flow before each merge. **Whole suite only for full module features, never for fixes, and only after asking Jabran** (Jabran 2026-11-24). A failure the gate finds goes back to the same builder.
+- **Builder and fixer: only the tests they wrote or changed, plus a compile of the changed modules; never service suites or the whole suite** (Jabran 2026-11-24). Exception: gate/tooling work proves its own scope rules. **Gate (lead): once per feature, not per flow** (Jabran 2026-11-24): the scoped gate runs before the feature's PR to `main`. **Whole suite only for full module features, never for fixes, and only after asking Jabran.** A failure the gate finds goes back to the same builder.
 - Gradle: one job per repo at a time (locks and Gradle homes in `verify.md`); the old Mac may run one BE and one App gate together; no backend stack or simulator during a gate; after a Mac restart check Docker and the infra containers first.
 - Test output stays out of the conversation (`-q`, logs to files, read the summary and "0 failed" before any push).
 - Stack and simulators run only while someone tests, stopped right after; no idle Gradle daemons.
