@@ -754,3 +754,15 @@ From the open-source "mobile-agent-testers" template: tester sessions use person
 
 ## D-79 Phase and process reviews are independent too — 2026-11-24 (Jabran: "it should be independent review, as an independent review finds more")
 Every phase review (and the workflow review) gets an **independent** reviewer: a fresh Opus that reads only the raw sources (verdicts, ledger, escaped defects, decisions, review files), never the lead's draft or conclusions, and makes its own calls (top problems, keep/change/drop per rule, what the author is likely to miss). The lead compares both; every disagreement goes to Jabran. Same hooks on both Macs (Jabran): each lead installs from the `phase/<N>` tip in its own checkout.
+
+## D-81 Workflow v2 direction — 2026-11-24 (Jabran, workflow review)
+Jabran: "a lot of review is unnecessary and multiple; our briefs and builders are not efficient, reviewers and testers find findings all the time; we have made it complex."
+- **Branches:** `main` → one branch per module phase (`accounts/phase-<x>`, `hr/phase-<x>`). Work goes straight into the phase branch when one builder works per repo; batch branches (`<module>/<x>-<batch>`) only for parallel work, deleted at merge. Phase complete → whole-phase review (by feature, BE + App together, like the Phase 4 seam reviews) → fixes → whole suite → PR to `main` (merge commit).
+- **Batch = the unit:** one feature part, both repos, full flow: brief → builder discovery + plan → plan check → build (BE first, then App) → tests → flow test → one review of the batch (BE + App together) → fix → merge into the phase.
+- **Brief = a frame, not a fence:** goal, principles, rules, checklist, Definition of Done, links to the project standards; "not a limit" clause: follow the standards, reuse, no duplication, no departure from the architecture; the standard wins over the brief.
+- **Every agent owns the flow** (builder, reviewer, tester): looks end to end, decides within the standards, records "decisions I took" and "found outside the brief"; money rules, product scope and the BE↔App contract go to the lead.
+- **Discovery is the builder's first step** (same agent builds and fixes); the lead writes the brief and checks the plan.
+- **Definition of Done incl. tests for all cases**, not only success: refusals, edge values, rights/company, repeats/races, contract (missing/empty fields), screens (UI flow, sizes in en/nb/sv/da); a test table first; a missing case is a finding.
+- **Review:** own end-to-end pass first, then a verdict on each builder decision; checks the test table.
+- **Builders read both repos, write only their own** (changes the 2026-11-10 rule's read side; write side unchanged).
+Draft: `docs/process/workflow-v2-draft.md` + `docs/templates/`. Replaces WORKFLOW.md after the independent check and Jabran's approval. Phase 4 merged to `main` the same day; seam findings = the first phase run this way (SEAM-FIX).
