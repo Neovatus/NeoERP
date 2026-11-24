@@ -1,7 +1,7 @@
 # ADR-028: Split the App (`:composeApp`) into Gradle modules
 
 ## Status
-**Draft, revision 3** (ERP lead, 2026-11-24) for Jabran. He has set the direction ("onward we should split composeApp into modules") and made the decisions of 2026-11-24 marked "decided by Jabran" below. Revisions 2 and 3 apply Fable 5.2's verdict (ACCEPT WITH CHANGES) and its "Revision 2 check" (`docs/reviews/adr-028-fable-verdict.md`); the lead checks revision 3, then Jabran. Every App brief that adds a module or moves code links it.
+**Accepted by Jabran** (2026-11-24), revision 3 with the recommendations for Q1, Q3–Q5, Q8–Q13, **and Q14 changed: HR does not wait for the module split** ("HR not wait for other to be modules splits"). HR is built now in its own package `features.hr` inside `:composeApp`, guarded by a border test that refuses imports from other features (the package → module rule); when M0-a/b/c, A-core, M1 and M2 are done, it moves to `:feature:hr` as a plain move. Payroll and later modules do the same. Revisions 2 and 3 applied Fable 5.2's verdict and its revision-2 check.
 Builds on ADR-011 (one App) and TEST-SCOPE-1 (D-47). It **amends ADR-027 Design 5**: the App's copy of the flow fixtures moves from `composeApp/src/jvmTest/resources/fixtures/app/` to the owning feature module's `jvmTest/resources`.
 Evidence: App `4e0ec8c7` (`phase/4`). `App/` = `NeoERP-App/`, `src/` = `App/composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/`, `test/` = `App/composeApp/src/jvmTest/kotlin/com/neovatus/neoerp/app/`.
 
@@ -188,4 +188,4 @@ The rule becomes a compile error. HR and Payroll start clean, any subset of feat
 | Q11 | How to catch a feature leaking into the root? | Recommendation (Fable): text rule in `:build-rules` on every run; leave-one-out for every feature before `main`; on phase ranges only when root sources or the registry contract changed |
 | Q12 | If T0 is not merged when HR is ready | Recommendation (Fable): M0 goes ahead; T0 and M0-b never change `verify.sh`/`risk-check.sh` in parallel (one merges first, the other rebases); T0's brief adds the configuration / JVM / iOS / tests split, or it runs as its own job |
 | Q13 | Test results from the cache? | Recommendation (Fable): never; enforced in the build (non-cacheable `Test` tasks, FROM-CACHE check, self-test), not by a flag |
-| Q14 | HR's wait | Cost of the decided HR track: HR's first App flow waits for M0-a/b/c, A-core, M1, M2 (six lanes, two gate changes). Recommendation: accept; run M0-c and A-core in parallel after M0-a |
+| Q14 | HR's wait | **Decided by Jabran:** HR does not wait. Built in `features.hr` inside `:composeApp` under the border test; moved to `:feature:hr` after M0–M2 as a plain move. The module steps run in parallel on the App side. |

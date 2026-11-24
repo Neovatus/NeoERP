@@ -70,6 +70,13 @@ Tooling and gate work runs the same flow, with a **done line** (the cases it mus
 - One reviewer per flow and per feature review; no second reviewer; no re-stamps after a clean rebase; reviewers don't re-run the builder's tests (only to prove a finding); a finding needs file:line and a concrete failure.
 - Money and security guardrails stay: a test per finding before close; money invariants after every seed and full run (a break stops the push); company isolation by the tenant architecture test now and database row security by ADR before the first customer; accountant sign-off and pen test before go-live.
 
+## 6b. Documents and speed (Jabran 2026-11-24)
+- **Documents are part of the work, not reviewed on their own:** feature docs (user guide, developer pages, contract examples) are written by the builder with the code and updated in the same commit when behaviour changes; the flow's one review covers them. Briefs and plans: written by the lead at the start, updated when scope changes, no review. ADRs: the lead writes, Jabran approves; one independent check only for big decisions (all platforms, money, security), never a second round: the lead applies the check and finishes it.
+- **One review round per flow:** the reviewer re-checks only a HIGH fix; the lead checks MEDIUM fixes against their tests.
+- **Found outside the brief:** fixed in the same round only when it is the same bug in the same area; everything else goes to the backlog unless it is HIGH.
+- **Time box per job:** a fix ≤ 45 min, a flow ≤ 3 h; over the box the agent reports instead of continuing.
+- **Parallel by default:** up to 2 BackEnd + 2 App builders on the old Mac (gradle-job.sh slots), the new Mac's own work beside; flows of different features run side by side.
+
 ## 7. Tests and gates
 - **Builder and fixer: only the tests they wrote or changed, plus a compile of the changed modules; never service suites or the whole suite** (Jabran 2026-11-24). Exception: gate/tooling work proves its own scope rules. **Gate (lead):** scoped per flow before each merge; **whole suite once before every feature PR to `main`**. A failure the gate finds goes back to the same builder.
 - Gradle: one job per repo at a time (locks and Gradle homes in `verify.md`); the old Mac may run one BE and one App gate together; no backend stack or simulator during a gate; after a Mac restart check Docker and the infra containers first.
