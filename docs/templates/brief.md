@@ -48,7 +48,7 @@ test per fix; standards kept; checklist done; hand-back complete) plus:
 |---|---|---|---|
 
 ## Hand-back (≤ 15 lines + files)
-Commits/range · what ran (command, sha, counts from that run) · **decisions I took** · **found outside the brief** (fixed / reported) · reused vs new (with reason) · the filled review checklist (`docs/templates/review.md` §Checklist) · `Brief: unclear or missing — …` (or none).
+Fix rounds also: per finding **how it was missed and why** (which Definition of Done line, brief gap or wrong assumption). Commits/range · what ran (command, sha, counts from that run) · **decisions I took** · **found outside the brief** (fixed / reported) · reused vs new (with reason) · the filled review checklist (`docs/templates/review.md` §Checklist) · `Brief: unclear or missing — …` (or none).
 
 ## Never
 `--no-verify`, force push, AI attribution, opening/printing secret files (`.env`, `infra/.env`, `.local-secrets/**`, tokens, `~/.gradle/gradle.properties`, `~/.netrc`, `~/.aws`, keys), GitHub workflows, writes in the other repo.
