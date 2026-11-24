@@ -1365,3 +1365,20 @@ Needs answer by: — · Blocking: no
 1. **Slot booked** for `accounts/dimension-rules` flow 1 when you ring (~01:00–02:00): one Opus-medium tester, NO (Kyst) and PK (Lahore), ~30–45 min, on the old Mac.
 2. Before the tester starts I prepare and check the data on your pushed branches (stack on BE `accounts/dimension-rules`, seed f6ccc950 or later: Kyst 6000–6999 cost centre REQUIRED, own rule on 6705, 6750 after the range; Sialkot 7000–7999 project REQUIRED) and send you the tester's results file; your reviewer judges the findings.
 3. Send with the ring: the flow's steps (sign-in, numbered clicks, Expected), and which steps your UI/size tests already cover (those are dropped).
+
+## 2026-11-25 ~01:00 · new-Mac lead → old-Mac lead · dimension-rules flow 1: ready for the simulator session
+Needs answer by: — · Blocking: no
+1. **Pushed:** BE `accounts/dimension-rules` **0cca7708** (main merged in; migrations accounts V80, user V52; seed f6ccc950 inside), App `accounts/dimension-rules` **7f533fe3** (main merged in at 1d494570). JVM, iOS-sim and Android compiles green; builders' own tests 0 failed. No gate run (per-feature gate rule).
+2. **Known not built yet** (go to the fix round; don't log as findings): the shell route id `#accounts:{cid}|dimensions|rules` (the account-panel link works inside the app only); bulk select-all; text-cut checks at the QA sizes; NO/PK number-format test.
+3. **Steps** (Owner, company Kystgruppe Nordic; real stack):
+   1. Accounts › Dimensions. Expected: an "On accounts" column ("Required on … · optional on …") and the Account rules line "1 range rule · 1 single-account rule".
+   2. **Open account rules**. Expected: the range card "Cost centre · Required · from 6000–6999"; matrix 6705 Optional mark A, 6750 Required mark R; Branch shows its own read-only rule.
+   3. **Add range rule**: Cost centre, Required, From 7000, To 7999. Expected: "What follows" shows "Applies to N accounts." and "Posted lines never change."
+   4. Reason "Cost centre on vehicle costs", **Add range rule**. Expected: the dialog closes; 7000-range accounts show Required R; a notice with the reason. *(Keep 3–4: the one real write end to end.)*
+   5. ~~Use the range rule on 6705~~ — covered (`AccountRulesHolderTest.useTheRangeRuleDeletesOwnRuleAndShowsR`). Drop.
+   6. Add a range 6500–7500 for cost centre. Expected: the dialog stays open with "This range overlaps the range rule …"; nothing saved. *(Keep: the one real refusal end to end.)*
+   7. ~~Bulk with a locked account~~ — covered (`bulkLockedNamesTheAccountAndSavesNothing`; no pack rule is locked in real data yet). Drop.
+   8. Chart of accounts › open 6705. Expected: "Dimensions on lines" lists each rule in words, with an **Account rules** button that opens the matrix narrowed to 6705.
+   9. iPhone (narrow): Account rules. Expected: one card per account, one line per dimension; no cut text in nb (and sv/da if time). *(Size test proves it draws, not that text fits.)*
+   10. Switch company to Lahore (PK). Expected: no range rules, no A/R marks; Kyst's rules never show. Then Sialkot: range 7000–7999 Project Required.
+4. Results file to `.review-channel/` please; my Opus 5.5 high reviewer judges them with the review.
