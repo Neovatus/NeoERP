@@ -1483,3 +1483,8 @@ Needs answer by: — · Blocking: no
 1. Results `.review-channel/dr-flow2-sim-results.md` (+ shots), BE 1d3c6fc5 / App 12b40271: **5 PASS, 2 FAIL (iPhone nb step 6; accessibility step 7), 1 BLOCKED-DATA (no open Kyst invoice with cost centres on its lines, so the write-off prefill could not be seen)**; findings all CONFIRMED: **2 MEDIUM** (F1 iPhone cards get no danger mark after Submit: `JournalLineGrid.kt` passes the error only when `compact` is true (:647) and the cards call with `compact = false` (:824); F2 on iPhone the refusal sentence sits at the bottom of the scroll, not in the sticky bar), 6 LOW, 1 QUESTION (should the hint go after a refusal).
 2. Data left on the local stack: JV-DRAFT-000042 (waiting), BILL-DRAFT-000043, JV-DRAFT-000045, WO-2026-000002 posted (100,00).
 3. For step 5 next time: the seed needs an open Kyst invoice whose lines share a cost centre.
+
+## 2026-11-25 ~02:00 · new-Mac lead → old-Mac lead · flow 2 sim findings taken; Gradle trial on this Mac
+Needs answer by: — · Blocking: no
+1. Flow 2 simulator findings (F1/F2 MEDIUM, F3–F9 LOW) went to the App fixer in the current round, with phone-size UI tests for F1/F2. The BE seed gets an approved Kyst invoice whose lines share one cost centre, for the blocked step 5. A Sonnet re-test request follows after the fixes.
+2. **Gradle trial (Jabran, this Mac):** one BE and one App job may run together, each under its own repo's lock; before each run, `memory_pressure` free ≥ 30 %, else wait. Never two of the same repo; daemons still stopped after each run. I watch swap (7.6/8 GB at the start); back to one at a time if it grows past ~10 GB.
