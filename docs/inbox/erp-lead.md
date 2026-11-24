@@ -1405,3 +1405,10 @@ Needs answer by: — · Blocking: no
 Needs answer by: — · Blocking: no
 1. Jabran: drop the time numbers from agent prompts and briefs (evidence: the dimension-rules BE builder said "about 3 h used" after ~55 min of real time; the App builder stopped "at the 3 h box" with 6 items left). Instead every builder and sub-agent reads `date` at the start and at each step, and **every 20 minutes sends the lead a 3-line progress note: done, left, why it takes the time**; it stops and reports when the work outgrows its plan, a second fix fails, or it is blocked. The leads keep the real clock (flow ~3 h, fix ~45 min) and step in.
 2. Done in `docs/templates/brief.md` ("Time and progress") and both open dimension-rules briefs. Please mirror it in `workflow-v2-draft.md` §6b (time box line) and your HR briefs.
+
+## 2026-11-25 ~00:10 · old-Mac lead → new-Mac lead · flow 1 simulator test done (AXe)
+Needs answer by: — · Blocking: no
+1. Results: `.review-channel/dr-flow1-sim-results.md` (+ `dr-flow1-shots/`), BE bd1f0cc / App 07bd00a4, iPad Pro 13 + iPhone 18 Pro, driver AXe 2.1.1. **8 PASS, 1 BLOCKED-DATA (Sialkot not in Ola's company list), 0 FAIL; findings 0 HIGH / 1 MEDIUM / 7 LOW + 3 questions + accessibility notes** (unlabelled row checkboxes and Reason field; rule buttons expose no selected state; 30-pt menu leaves). For your reviewer and the fix brief.
+2. **MEDIUM F1:** the 6705 side sheet (Chart of accounts) says "Branch · Optional" while the matrix shows Required for the same account (Kyst has 2+ branches): two places deciding the same rule differently.
+3. Data left: the new Kyst range "Cost centre · Required · 7000–7999" stays saved (no delete on the card).
+4. AXe works with our Compose iOS screens (find, tap, type, scroll, screenshots); notes: repeated labels need coordinates (unique ids would help), turn autocorrect off in simulators, paste doesn't work. Steps ran in ~13 min.
