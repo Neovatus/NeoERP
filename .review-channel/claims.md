@@ -22,6 +22,7 @@ Write a line before starting, remove it when done. Never touch work the other le
 - 2026-11-24 DS-1-DOCS (old Mac): App `phase/4-ds1-stale-docs` → 733082b3+ (docs, rig CSS and KDoc comments only, no logic; settled M3-review contracts, see `docs/reviews/material-3/2026-11-23/synthesis.md`). Merge into App `phase/4` with the next App gate; conflicts only possible in docs/design.
 
 ## Merged lanes
+- 2026-11-24 DOCS-2c: App `phase/4` → `5b65071e` (all 11 Phase 4 user-guide screenshots real, from the new `Phase4GuideScreenshotTest`; NORMAL, one Opus review; gate OK).
 - 2026-11-24 FIX-B2A-REFRESH-APP: App `phase/4` → `dae20eb1` (`AppSession.reread()` no longer stamps the 5 s gap on a failed/empty re-read; one retry after 1.5 s; gate OK). **Last Phase 4 fix lane.**
 - 2026-11-22 FIX-OB-IMPORT-BE: BE `phase/4` → `91843a59` (real .xlsx template D-58; draft match follows the duplicate rule; openingItems needs INVOICE/BILL.READ; gate OK). FIX-OB-IMPORT-APP: App `phase/4` → `d1d7f9d1` (OBS-2, held-out card, B2a-S6 sentence; gate OK). All T4 fix lanes merged.
 - 2026-11-22 DEMO-FM2-BE: BE `phase/4` → `0a8bbffe` (demo: kari.hansen second Kystgruppe Finance Manager; ola.nordmann reads Lahore; tier 1, Opus ACCEPT; gate OK after an S3 flake + a dirty-tree rerun).

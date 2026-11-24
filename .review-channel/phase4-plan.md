@@ -22,7 +22,7 @@ and rings the other lead; Jabran may change anything.
 | TEST-SCOPE-1 | BE + App | new Mac | own branches | 2 (gate) | — | beside C | brief check, then build |
 | GATE-3 | BE + App | new Mac | own branches | 2 (gate) | RISK-NARROW-1 merged | any, after A | brief |
 | Retest fix lanes (by feature) | BE / App | new Mac | `phase/4-b2-fix-<feature>-<repo>`; small features joined; ≤ 3 per repo | per defect, highest wins | T4 | C | after T4 |
-| DOCS-2c | App | new Mac (Sonnet) | `phase/4-b2-docs2c` | 1 (docs) | B, C | D | waits |
+| DOCS-2c | App | new Mac (Sonnet) | `phase/4-b2-docs2c` | 1 (docs) | B, C | D | **merged `5b65071e`** |
 | Phase 4 PR | BE + App | old Mac | `phase/4` ← merge `main` | T5 | all above | E | last |
 
 **Branching rules:** every lane branches from the current `phase/4` head of its repo; one repo per lane (cross-repo = two lanes);
