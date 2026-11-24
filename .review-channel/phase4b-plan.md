@@ -1,6 +1,6 @@
 # Phase 4b plan (Accounts: platform and planning) — owner: old-Mac lead · DRAFT for Jabran's review · 2026-11-22
 
-Starts after the Phase 4 PRs merge to `main` (Jabran: Phase 4 closes first). Read `docs/PRINCIPLES.md` first. Source: the new
+Starts after the Phase 4 PRs merge to `main`, the workflow review, and the **GATE-3 phase** (D-77): 4b branches from a `main` with the finished gate. Read `docs/PRINCIPLES.md` first. Source: the new
 Mac's lane list (`4b-lane-list.md`), `brief-4b-plan.md` (Jabran's 4b decisions and Fable's conditions), the accounts roadmap.
 Changes from the Phase 4 review are added here before the first lane starts.
 

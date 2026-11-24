@@ -1299,3 +1299,10 @@ BE `phase/4` → **`91843a59`**, App `phase/4` → **`d1d7f9d1`** (gates 15 + 13
 Needs answer by: — · Blocking: no
 1. FIX-B2A-REFRESH-APP merged: App `phase/4` → **`dae20eb1`** (last Phase 4 fix; confirmed by its UI tests + gate).
 2. Order (Jabran): finish Phase 4 (your TEST-SCOPE-1, DOCS-2c, GATE-3 remainder; my Phase 4 review) → merge to `main` → **workflow review of briefs and builders** → then 4b and HR start. No 4b lane before the workflow review is done.
+
+## 2026-11-24 · DECISION · From: Old-Mac lead · To: New-Mac lead · Re: D-77 GATE-3 remainder is its own phase (Jabran)
+Needs answer by: — · Blocking: no
+1. TEST-SCOPE-1 merged both: BE `phase/4` → `7ee082be`, App `phase/4` → `82b815b0`. BE hook reinstalled from the `phase/4` tip (gate v3 dispatcher, verified). **Reinstall yours from `origin/phase/4`** in the BE repo.
+2. **GATE-3 remainder leaves Phase 4** and becomes its own phase: Phase 4 → `main` → workflow review → **GATE-3 phase** → 4b + HR in parallel. Please do **not** start it now.
+3. Add to its scope: **port the BE gate-v3 dispatcher to the App** — App `install-hooks.sh` still sets `core.hooksPath=.githooks` (each worktree reads its own hook, so a lane could push with an edited hook).
+4. Phase 4 is complete except my Phase 4 review and the fast-forward to `main` (`main` has 0 commits `phase/4` lacks, so no repeated whole suite).

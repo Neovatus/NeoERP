@@ -748,3 +748,6 @@ From the open-source "mobile-agent-testers" template: tester sessions use person
 - **Rows for after Phase 4** (both repos):
   - the KEEP_LATER words name the person when acting as a stand-in;
   - `canConfirm` on every proposal view, plus a "nobody can confirm" message with the ways out for a non-Owner proposer.
+
+## D-77 GATE-3 remainder is its own phase, between the workflow review and the parallel streams — 2026-11-24 (Jabran)
+"Move it to the next phase, and we'll see its own phase before doing the parallel." GATE-3's remainder (bash gate/hook scripts; developer tooling, not shipped) leaves Phase 4. Order: Phase 4 → `main` → workflow review → GATE-3 phase (own branch from `main`, merged back) → 4b + HR in parallel from a `main` with the finished gate. Includes porting the BE gate-v3 dispatcher to the App (the App still reads each worktree's own `.githooks/pre-push`).
