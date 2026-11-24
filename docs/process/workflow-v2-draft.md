@@ -78,7 +78,7 @@ Tooling and gate work runs the same flow, with a **done line** (the cases it mus
 - **Parallel by default:** up to 2 BackEnd + 2 App builders on the old Mac (gradle-job.sh slots), the new Mac's own work beside; flows of different features run side by side.
 
 ## 7. Tests and gates
-- **Builder and fixer: only the tests they wrote or changed, plus a compile of the changed modules; never service suites or the whole suite** (Jabran 2026-11-24). Exception: gate/tooling work proves its own scope rules. **Gate (lead):** scoped per flow before each merge; **whole suite once before every feature PR to `main`**. A failure the gate finds goes back to the same builder.
+- **Builder and fixer: only the tests they wrote or changed, plus a compile of the changed modules; never service suites or the whole suite** (Jabran 2026-11-24). Exception: gate/tooling work proves its own scope rules. **Gate (lead):** scoped per flow before each merge. **Whole suite only for full module features, never for fixes, and only after asking Jabran** (Jabran 2026-11-24). A failure the gate finds goes back to the same builder.
 - Gradle: one job per repo at a time (locks and Gradle homes in `verify.md`); the old Mac may run one BE and one App gate together; no backend stack or simulator during a gate; after a Mac restart check Docker and the infra containers first.
 - Test output stays out of the conversation (`-q`, logs to files, read the summary and "0 failed" before any push).
 - Stack and simulators run only while someone tests, stopped right after; no idle Gradle daemons.
