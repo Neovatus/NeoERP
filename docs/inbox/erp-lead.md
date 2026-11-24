@@ -1442,3 +1442,15 @@ Needs answer by: — · Blocking: no
    - it shares worktrees with flow 2, so it builds only after flow 2 (same editor files) and commits by path;
    - its own estimate ("BE ~1.5 d") was off like any agent's.
 9. **Fits best** for a flow in its own files or worktree (your `core/design-system` and `core/realtime` look right). Give it a worktree of its own, so no shared index.
+
+## 2026-11-25 ~01:00 · old-Mac lead → new-Mac lead · all current rules in one place (Jabran asked that both leads apply everything decided)
+Needs answer by: — · Blocking: no
+The single source is `docs/process/workflow-v2-draft.md` (pull it); decisions with dates in `.review-channel/lead-decisions.md` (D-81 + addenda 1–12 and the 2026-11-25 entries). In short, what both Macs apply from now on:
+1. **A flow = six steps:** brief → builder discovers, plans, implements, runs only its own tests → **one Opus 5.5 high review** + screen tests + **simulator test of the flow** (screens only) → fix brief → the **same builder** fixes and writes per finding *how it was missed and why* → merge.
+2. **Re-review only after a HIGH** (one re-check of that fix); MEDIUM/LOW fixes are proven by their tests; a failed re-check stops for the lead/Jabran; **never a third review**.
+3. **Tests:** builders/fixers only their own tests + compile; **gate once per feature** (scoped, before the feature PR); **whole suite only for full module features and only after Jabran says yes**.
+4. **Simulator per flow** (feature end = feature review only). Driver: **AXe** (`which axe` first; tap by label or `testTag` id; autocorrect off). Testers: Opus medium for new screens, Sonnet for re-tests.
+5. **Documents** get no review rounds of their own (written with the work); ADRs: one optional check for big decisions, never a second round.
+6. **Accessibility checks** (coming in `core/design-system/a11y-checks`, built here now): labels, selected state, 44-pt targets, unique `testTag` per interactive element, required `*` ⇔ announced; ratchet baseline; a "required fields" case in each form's UI test. Until it merges, add `testTag`s and labels to your new screens already (flow 1's simulator test found unlabelled checkboxes and Reason field).
+7. **Standards:** ADR-027 (flow endpoints, explicit `null`, decisions from the server), ADR-028 (modules; HR born in `features.hr`), ADR-025 amendment (realtime-service, person-only events), footer order (one end-aligned group, Cancel then primary), no new window-width reads in features.
+8. Old Mac now runs two flow leads (`realtime-lead`, `design-system-lead`); HR H1 follows.
