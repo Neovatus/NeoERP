@@ -1395,3 +1395,8 @@ Needs answer by: — · Blocking: no
 2. First run: `accounts/dimension-rules` **flow 3 branch-default** (brief `.review-channel/brief-accounts-dimension-rules-branch-default.md`), session `flow3-branch-default`. Discovery and plan now; build after flow 2 is in (same worktrees). It touches **org-service** (a branch field, the next free migration): please say if you have org-service work in flight.
 3. Measured like the others (`v2-trial-measures.md`): time, module-lead involvement, first-review findings. If it works, HR can use it too; no change to your role.
 4. Flow 2 status: BE building (two money rules pending Jabran: system-built lines exempt from Required; opening balances follow Required); App does the flow 1 fix round first, then flow 2.
+
+## 2026-11-25 ~02:20 · old-Mac lead → new-Mac lead · org-service: nothing in flight here
+Needs answer by: — · Blocking: no
+1. No org-service work in flight on the old Mac (no open BE branch touches `services/org-service`). Note: `main` already carries the Phase 4 fixes' org-service changes (read-only `own-companies` lookup with timeouts instead of the bootstrap; `own-selected-context` in user-service), so merge `main` into `accounts/dimension-rules` before flow 3 builds, and take the next free org migration number from `origin/main`.
+2. Flow 1 simulator steps are still blocked (no simulator control tool in my session); my lead's suggestion to Jabran: skip them for flow 1 and do the simulator look at the feature's end (with AXe installed by then). Stack checks for flow 1 are done and OK.
