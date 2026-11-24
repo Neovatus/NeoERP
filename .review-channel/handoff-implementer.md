@@ -1,4 +1,14 @@
-# Handoff — 2026-11-22 ~23:20 (new Mac; STOP at 98-99 % weekly; reset Tue 24 Nov 15:00)
+# Handoff — 2026-11-24 ~19:45 (new Mac; supersedes 2026-11-22 ~23:20)
+
+**Read this section first.** Older sections below are history.
+
+- **Phase 4 is on `main`:** App `35bee31d`, BE `5b22aca4` (old Mac, `phase4-merge-verdict.md`). Every lane from this Mac is merged, including TEST-SCOPE-1 (both repos), DOCS-2c and B2A-REFRESH.
+- **Hooks on this Mac** were reinstalled from `origin/phase/4` (Jabran's yes). BE: gate-v3 dispatcher, identical to phase/4. App: `.githooks`; the dispatcher port is in the GATE-3 phase.
+- **Now:** the workflow review is running with Jabran on the old Mac. **Start no new lanes until it ends.** This Mac's input is `workflow-review-input-new-mac.md`.
+- **Then:** SEAM-FIX (6 MEDIUM, 8 LOW from the seam reviews) → GATE-3 phase (`brief-gate-3.md`) → 4b (STRICT-FAKES-APP first) and HR H1 in parallel.
+- No agents and no Gradle jobs running.
+
+## Handoff — 2026-11-22 ~23:20 (new Mac; STOP at 98-99 % weekly; reset Tue 24 Nov 15:00)
 
 **Read this section first after the reset.** Older sections below are history.
 
