@@ -47,6 +47,7 @@ it to the lead; build after the lead's OK.
 - [ ] permissions and company scope on every path
 - [ ] demo data incl. the awkward cases (several branches, several open items, a stand-in, an Owner approving own)
 - [ ] four languages (en, nb, sv, da)
+- [ ] App: every interactive element has a label and a `testTag` unique on its screen; toggles expose selected state; targets ≥ 44 pt; required `*` ⇔ announced; a "required fields" case in each form's UI test
 - [ ] user-guide page and developer page (or "none: <reason>")
 - [ ] the endpoints used, with the other repo's side read
 
