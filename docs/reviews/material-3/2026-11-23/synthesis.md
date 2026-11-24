@@ -61,10 +61,22 @@ Still open for Jabran:
 
 The M3 **height** class fits Apple well: every iPhone in landscape is under 480 tall, and no iPad is. That gives width-independent detection of the case UX §25 describes. The M3 **width** numbers fit badly: 840 and 1200 cut straight through the iPad 11" sizes, so the same model would change layout between generations or between portrait and landscape. iOS has only two width classes itself (compact/regular), and in Split View and Stage Manager the window has any width.
 
+**All platforms (one code base).** Every target can give the app a window of any size, so a device name never decides a layout:
+- **Desktop:** the window resizes down to 320×480 (`NeoDesktopHost.kt:58`); half-screen snaps give roughly 683–960 wide; monitors run 1280–2560+.
+- **Android:** the manifest allows resizing, so split screen, freeform, foldables (inner screen about 700–880 wide) and Chromebooks all count; phones are 360–412 wide, tablets about 800 portrait and 1280 landscape.
+- **iOS:** the sizes in the table above, plus iPad Split View and Stage Manager (any width).
+
+Our switches already follow the content rather than the device: 720 is where a table stops fitting, and the full sidebar needs `sidebar` 260 + `shellMinContent` 900 (`NeoEnterpriseShell.kt:318` checks this as well as 1280). Page content stops at `maxContentWidth` 1200.
+
 **Recommendation:**
-- Adopt the M3 height class (compact <480, medium <900, expanded ≥900) and the class *vocabulary*.
-- **Keep our width switches** (600 / 720 / 1024 / 1280), set by our measured device list. Don't adopt 840 / 1200 / 1600.
-- DS-1b tests the classes at our rig sizes plus the iPad 11" widths (820, 834, 1180, 1194, 1210) and a few Split View widths.
+1. **Width:** keep our numbers and give them M3-style names in one place (`NeoWindowClass`): compact <600, medium 600–<1024, expanded 1024–<1280, large ≥1280. All ranges are half-open. Don't adopt 840 / 1200 / 1600: they come from Android device groups and cut through iPads, foldables and half-screen desktop windows.
+2. **Height:** adopt M3's height classes: compact <480, medium 480–<900, expanded ≥900. Below 480 catches every phone in landscape (iOS and Android), short desktop windows and split screens. It adds to UX §25's one-third rule; it doesn't replace it.
+3. **Components keep measuring their own space** (`BoxWithConstraints`, the `content*` thresholds). The window class is for the shell and page layout only.
+4. **Test sizes:** add one row per platform to screen-standard §9. Rig widths stay as they are; the screenshot sweep (320–1440) and boundary tests add:
+   - Android 360×800 / 800×360, a foldable at 840×700, a tablet at 1280×800;
+   - desktop 683×768 (half screen), 1280×720 and 1920×1080;
+   - one height sweep at 1024 wide (360–1000).
+5. **Wider than 1440** is untested today: check 1920 so the 1200 content cap and the table widths behave.
 
 ## DS-1 plan (App only; one repo per builder)
 - **DS-1a: contract reconciliation** (Sonnet; mostly docs and tokens, plus small code changes):
@@ -80,7 +92,7 @@ The M3 **height** class fits Apple well: every iPhone in landscape is under 480 
   - Use it only in the shell and in one pilot flow.
   - **Acceptance:**
     - tests just below, at and just above our switches (600 / 720 / 1024 / 1280) and the heights 480 / 900;
-    - every rig size from screen-standard §9 plus 820, 834, 1180, 1194 and 1210 maps to the expected class;
+    - every size in point 4 above, plus the rig sizes and the iPad 11" widths (820, 834, 1180, 1194, 1210), maps to the expected class;
     - state is kept on resize (typed fields, scroll, open editor).
 - **DS-1c: canonical layouts and focus contracts** (Opus, after DS-1b):
   - list-detail and supporting-pane contracts covering the primary pane, Back, selection and kept state;
