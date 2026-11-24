@@ -20,7 +20,7 @@ Codex's corrections to the draft are accepted:
 ## Verified contradictions (all re-checked by the lead)
 | # | Conflict | Side A | Side B | Note |
 |---|---|---|---|---|
-| C1 | Footer information size | tokens.json:201 `footerInfo/maxShare` 0.25, overflow scrolls inside the footer; used in `NeoStickyFooter.kt:90` | ux-principles.md:267–270, one third of the visible height, then the info moves into the form; `NeoShortHeight.kt:107` | **Both algorithms are live in code**, so this is more than stale metadata. |
+| C1 | Footer information size | tokens.json:201 `footerInfo/maxShare` 0.25, overflow scrolls inside the footer (`NeoStickyFooter.kt:90,142,152`; G32, 2026-11-19) | ux-principles.md:267–270, one third of the visible height, then the info moves into the form (`NeoShortHeight.kt:107`, R03) | **Layers, not a code conflict.** Both came from the short/landscape QA findings. The one-third rule decides first. The 25 % cap is the fallback when the rule is not active, or the footer has no page frame or slot (dialogs, side panels). The docs describe each as "the rule": write both, in that order. |
 | C2 | Footer button alignment | tokens.json:199, page and side-panel footers right-aligned | screen-standard.md:240–244, Cancel/Back left and the primary right | Narrow the token's scope. |
 | C3 | Field focus | tokens.json:225–226, #737373/#8C8C8C, no halo | building-blocks.md:142–143 #525252/#A3A3A3 with a halo; screen-standard.md:37 also has a halo | **Already decided in code:** 706d1895 (2026-10-24) removed the halo; `NeoFieldBorder.kt:16` 1 px, colour only; `NeoColorTokens.kt:155,252` = token values. Only the docs and KDocs are stale: building-blocks.md:142–143, screen-standard.md:37, `NeoSearchInput.kt:38`, `NeoForm.kt:95`. |
 | C4 | KPI columns | screen-standard.md:33–34, never one per row | `NeoBreakpointTokens.kt:49–53` `statColumns` gives 1 at ≤720 | The helper has no real callers (only a KDoc in NeoStatCard.kt:28). Fix or delete it. |
@@ -36,7 +36,7 @@ Settled already, nothing to decide:
 - **Field focus (C3).** No halo, since 706d1895; DS-1a only fixes the stale docs and KDocs.
 
 Open:
-1. **C1 footer:** one algorithm. Recommendation: **the one-third rule (UX §25)**. Remove `footerInfo/maxShare` and the 0.25 cap.
+1. **C1 footer:** no decision needed. Keep both layers (one-third rule first, 25 % cap as fallback). DS-1a writes this in the token description and in UX §25.
 2. **C4 KPI:** recommendation: 3 tiles stay in one row and 4 go 2×2 at every width (screen-standard wins). Fix `statColumns`.
 3. **C5 casing:** recommendation: sentence case everywhere, so drop `uppercase` from the tokens.
 4. **Window classes. Apple sizes change the answer.** M3's width numbers come from Android. Our checked sizes (screen-standard §9) fall on them like this:
@@ -68,7 +68,7 @@ The M3 **height** class fits Apple well: every iPhone in landscape is under 480 
   - **Acceptance:**
     - boundary tests at 1023/1024/1025 and 1279/1280/1281;
     - a test that `statColumns` never returns 1 (or the helper is deleted);
-    - `NeoStickyFooter` uses only the one-third rule;
+    - the token description and UX §25 name both footer layers;
     - the short-landscape footer check from UX §25.
 - **DS-1b: window-class spike** (Opus):
   - Check `org.jetbrains.compose.material3.adaptive` on Android, iOS and JVM. If it isn't usable on all three, write our own `NeoWindowClass` (width and height) in `NeoViewport.kt`.
