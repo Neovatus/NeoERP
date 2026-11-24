@@ -61,3 +61,8 @@ Start after **both** TEST-SCOPE-1 halves merge (same files). The base is the mer
 5. **BE:** unpin caller-id literals. A bare project name counts only as a `File(`/`Path.of(`/`resolve(`/`getResource(` argument (77 of 118 pins are data).
 6. **Both:** the hook runs the working tree's own `.githooks/pre-push`, so a push that edits the hook runs its edited copy (pre-existing).
 7. **Workflow review input:** the workflow review (after Phase 4 → main) may change the review rules first, for example "one re-check after a fix round" or "single review for small RISK changes". Hold any review-rule change in this lane until then.
+
+## D-77 (Jabran via the old Mac, 2026-11-24): GATE-3 is its own phase
+- **Order:** Phase 4 → main → workflow review → **GATE-3 phase** → 4b + HR in parallel. Don't start it before then.
+- **Added to scope:** port the BE gate-v3 dispatcher (`install-hooks.sh`: absolute `core.hooksPath` in the common git dir, running the push base's `.githooks/pre-push`) to the App. The App installer still sets `.githooks`, so a lane could push with an edited hook. This closes row 6 above for the App.
+- **Install note:** the worktrees share the `.git` of Jabran's checkouts (`NeoERP/NeoERP-BackEnd/.git`, `NeoERP-App/.git`). Running the installer changes that shared hook folder and config, so the lead asks Jabran before installing on this Mac.
