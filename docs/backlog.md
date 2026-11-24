@@ -449,3 +449,6 @@ Send `confirmedByUserId` per kind in GET /approval-limits so the app needs no Hi
 ## DS-1-DOCS follow-ups (2026-11-24, reviews in App `docs/agents/ds1-docs/`)
 - ~~**DS-1a (code):** `NeoStickyFooter` vs §8 Cancel-left~~ **Closed 2026-11-24:** Jabran chose the industry standard (one end-aligned group, Cancel then primary, totals left); §8 and the tokens now say so (App `core/design-system/contracts`); the code already does it.
 - LOWs left open: rig `--focus` vs the `focus.ring` token; rig `--focus-soft` has no "retired" comment; `notes/auth.md` lists `focus/ring` as #0A0A0A (tokens make it an alias of `focus.field`); `NeoBreakpointTokens` desktop KDoc leaves out the collapsed / `shellMinContent` cases; ux §25 wording leaves out the no-info-slot case.
+
+## Phase 4 fixes follow-ups (2026-11-24, BE fixer, `core/phase-4-fixes`)
+- **Two identity outboxes are written but never read** (user/auth identity events with no consumer): decide remove vs add a consumer; until then they grow. Owner: old-Mac lead, with `core/notifications`.
