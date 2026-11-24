@@ -92,3 +92,6 @@ Before T4 runs, the step list drops steps already covered by automated tests on 
 3. **Workflow review** (briefs and builders: how they performed, brief gaps D-67, first-pass rate, cost, rework causes) — **after the `main` merge, before any new phase**. Its changes go into the 4b and HR plans.
 4. Then 4b (new Mac) and HR H1 (old Mac) start.
 B2a-S6 is confirmed by its 3 UI tests (old FAIL / new PASS) + gate (D-69); no simulator re-check (the simulator tool was unavailable after the session restart).
+
+## Phase → main without a repeated whole suite (Jabran question, 2026-11-24)
+`main` has 0 commits that `phase/4` lacks (both repos, checked 2026-11-24), so merging `main` in is a no-op, and every Phase 4 gate ran the full suite. The move to `main` is a **fast-forward to the last gated `phase/4` commit** (its marker exists; the push hook accepts it). No separate whole-suite run. The merge check keeps the non-repeat items: every lane closed with a verdict, migration numbers clean, release-gate rows / escaped defects / docs complete, no AI attribution or secrets. **Rule for later phases:** run the phase-level whole suite only when `main` has moved since the phase branched (e.g. once 4b and HR both land) — that combination is untested.
