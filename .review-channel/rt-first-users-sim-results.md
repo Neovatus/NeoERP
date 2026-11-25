@@ -47,3 +47,39 @@ Brief: unclear or missing: steps 4–5 need SE books (Kyst is NO); step 1 needs 
 - realtime-service stored it as `realtime.stream_events` seq 7 (`access.changed`, recipient Bjørn, company Kyst).
 - **`realtime.stream_connections` held only one open connection: Ola's (iPad), opened 06:14:38 after realtime-service was restarted in step 6. Bjørn's iPhone had no open stream, but showed no pill.** So the failure is on the App side: after realtime-service came back, the iPhone did not reconnect (or dropped silently) while still reporting Live. Backend path BE → realtime: works.
 - Step 8 (restore) not run: **Bjørn is DEACTIVATED at Kystgruppe**; the re-test starts by reactivating him as Finance Manager (Ola on the iPad).
+
+## Re-test (BE ee898725 / App 0bc4c7d2, 2026-11-25 06:40–07:02 CET)
+
+- Devices: P = Bjorn on iPhone 18 Pro 45AD3FD4-…; I = Ola (Owner) on iPad Pro 13-inch (M5) 5AB86CDD-…. Driver AXe. Shots: `rt-first-users-shots/retest-*.png`.
+
+| Step | Device | Result | What I saw | Shot |
+|---|---|---|---|---|
+| 0 Reactivate Bjorn | I | PASS (workaround) | The People list showed no deactivated rows and no status filter, so no Reactivate. Used Invite person (bjorn.eriksson@…, Finance Manager): "Invitation sent. Bjorn can already sign in; the company appears at their next sign-in." Lead: membership INACTIVE → ACTIVE at sign-in | retest-00b/c/d/e-i-*.png, retest-00f-p-signed-in.png |
+| 1 GL Excel → Continue → toast (P) | P | PARTIAL | The job runs ("Preparing…" row, then "Your export is ready.", 13 rows under Your exports). The export notice sits ABOVE the long Your exports list, so after tapping Export (below the list) the notice and Continue in background are off-screen. The job finishes in about 2 s, so I could not tap Continue in time on the phone; no toast seen. The toast itself passed on the iPad (step 10) | retest-01-p-preparing.png, retest-02a-p-notice-offscreen.png, retest-02-p-continued.png |
+| 2 (old 6) Stream down / up | P + I | **PASS** | Stop ~06:48:50; pill on both at 06:49:06 (label "Reconnecting… Live updates are reconnecting. Your work isn't affected." — the double stop is fixed). Start: iPhone Live 06:49:37, iPad Live 06:49:48. Lead: both have a new connection row (Bjorn 06:49:36, Ola 06:49:48) | retest-06-i/p-pill-down.png, retest-06-i/p-live-after-start.png |
+| 3 (old 7) Ola deactivates Bjorn | I → P | **FAIL** | Deactivate (reason "Realtime re-test step 7") at 06:50:37; iPad "Deactivated at this company. Their other companies are unchanged." iPhone after ~2.5 min: no toast, no No-company shell, header still "Kystgruppe Nordic · Bjorn Eriksson · Finance Manager", and **no pill** although the stream was closed and the reconnect refused | retest-07-i-reason.png, retest-07-i-after-deactivate.png, retest-07-p-after-wait.png, retest-07-p-final-no-pill.png |
+| 4 (old 8) Reactivate | I | PASS | After the deactivate the row stayed in the list as "Deactivated" with ⋯ → Reactivate; reason given; "Reactivated. Their roles and exceptions are as before." iPhone needed no new sign-in; Journals opens (New journal) | retest-08-i-reactivated.png, retest-08-p-after-reactivate.png |
+| 5 (old 9) Sign out everywhere | I → P | PASS (slow) | Bjorn → Security → Sign out everywhere (reason) at 06:54:55: "13 sessions ended. They're told by email and in the app who did this." iPhone on sign-in with Notice "Your session has ended or was revoked. Please sign in again." seen at 06:55:41 (≤ 46 s, poll every ~4 s) | retest-09-i-dialog.png, retest-09-i-after.png, retest-09-p-after.png |
+| 6 (old 10) nb + largest text | I | PASS | Norsk (applies after an app restart, as the Settings text says). Hovedbok 1920 → Eksporter → Excel → Fortsett i bakgrunnen: toast "Hovedbok · Excel er klar" / "Last den ned under Dine eksporter." At accessibility-XXXL the toast wraps cleanly; pill "Kobler til igjen …" fits in the header (stream stopped by the lead, 06:59:46), gone at 07:00:27 after start. Back to Device language + normal size | retest-10-i-nb-bg-1.png, retest-10-i-xxxl-toast-3.png, retest-10-i-xxxl-pill.png, retest-10-i-back-english.png |
+| 7b Second company | — | BLOCKED-DATA | Not tried (no second company owned by Ola found) | — |
+
+### Lead's evidence for step 3 (old 7), 06:50–06:53
+- iam wrote `access.changed` REVOKED (Bjorn, Kyst) at 06:50:37.873 (outbox seq 3); delivered to realtime 06:50:37.99; realtime stored stream event #16 for Bjorn at 06:50:38.003.
+- Bjorn's 06:49:36 connection row is gone (hub closed his stream after REVOKED, by design). The gateway shows one new `/api/stream` request at 06:50:39.72 (refused, expected 403), then nothing more.
+- So either the REVOKED frame was not delivered before the close, or the App got it and did not act; after the 403 the App's access re-read did not move Bjorn out. Backend path works; FAIL is App side.
+- The two stale connection rows from before the restart (last seen 06:48:44) were still listed 4 min later.
+
+### Findings (re-test)
+
+1. **HIGH, CONFIRMED (shots + lead DB/gateway): removing a person still does not reach their open app.** After the reconnect fix the stream reconnects (step 2 PASS), but on REVOKED the iPhone shows no "You no longer have access to Kystgruppe Nordic", no No-company shell, and keeps the Kyst header. After its one refused reconnect (06:50:39) it stops trying and shows no pill, so it reports Live with no stream. Repro: step 3 above.
+2. **MEDIUM, CONFIRMED (shot + AX): on a phone the export notice is off-screen.** Reports with many rows under Your exports: the "Preparing your export…" notice and Continue in background render above the list, while Export is below it; nothing visible happens on tap, and the job is done before the user can scroll up. Shot retest-02a-p-notice-offscreen.png.
+3. **LOW, PLAUSIBLE: sign-out-everywhere took up to ~46 s to reach the phone** (likely via token refresh, since its stream was dead after finding 1). The words are right but generic: the iPad says people are told "in the app who did this", the phone notice does not say who.
+4. **QUESTION/LOW, CONFIRMED (shots): People list has no way back to a deactivated person after a reload.** After the earlier run's deactivate, People showed no Bjorn row and no status filter (spec §2.2: filter appears when someone is deactivated), so Invite person was the only way back. Right after a deactivate in the same session the row stays with Reactivate. Probably `countsByStatus` / list excludes deactivated after reload.
+5. **LOW, CONFIRMED (AX): TB Excel direct export notice says "Lagrer… / Eksporter"** — the second line is the button verb, not the report name ("Saldobalanse · Excel"). Shot retest-10-i-nb-tb-direct.png.
+6. **LOW, CONFIRMED (shot): nb Dashboard not translated**: title "Dashboard" and breadcrumb "Companies / … / Dashboard" while the menu says "Dashbord"/"Selskaper". Also "Approval limits" and "Sales channel" (dimension name, may be data) in English. Shot retest-10-i-nb-dashboard.png.
+7. Fixed since the first run: the pill screen-reader double stop (finding 2 of the first run) is gone.
+
+### Data left
+- **Bjorn is ACTIVE at Kystgruppe as Finance Manager** (reactivated 06:53:40). All his sessions were ended in step 5; the iPhone is on the sign-in page.
+- Invitation for Bjorn (step 0) was accepted. Extra GL Excel exports: Bjorn ~7 more, Ola 4 + 1 TB direct file.
+- realtime-service running (started ~07:00). iPad: Ola signed in, English (Device language), normal text size.
