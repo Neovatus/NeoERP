@@ -30,3 +30,7 @@
 ## Rules in force
 v2 six steps; one Opus high review; CONFIRMED/PLAUSIBLE; no gate or whole suite; gate files listed for Jabran; D-86 (Sonnet for mechanical work, stay under 50 % context); builders commit, the flow lead pushes the flow branch, the module lead merges.
 Notes: side-session-notes/…/design-system-lead.md. Measures lines for flows 1 and 2 are in v2-trial-measures.md.
+
+## D-87 (Jabran, for tonight): done list
+Each flow keeps an open done list `docs/agents/<feature>/done.md` (template: workspace `docs/templates/done.md`; the brief, review and tester templates were updated in 85bcaa6). Every step verifies the rows it inherits with fresh evidence: re-read, open the test and confirm it proves the row, run it. Never from memory. Anyone may add rows, with no limit.
+**android-state, before the review:** a builder (fresh Sonnet, the work is mechanical) writes `docs/agents/core-design-system/done.md`. The rows come from the brief and the plan, with evidence from a fresh run. The reviewer then verifies the list. The emulator rows belong to the module lead.
