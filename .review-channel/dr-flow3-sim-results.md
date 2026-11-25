@@ -65,3 +65,31 @@
 - App language switch is live (no relaunch needed despite the hint text).
 
 Brief: unclear or missing — step 6 precedence (Q1); step 7 credit note has no Required account (only 3xxx selectable); step 8 delete unreachable (Q4); 12b "save the draft" — the Write-off dialog has no draft save (used submit → Withdraw to draft → Edit); step 10 "small iPhone" — only iPhone 18 Pro available.
+
+## Delta run (BE e3e2fbcd / App 2103d756, 2026-11-25 04:13–04:27 sim clock)
+
+Same devices, persona Ola Nordmann (Owner, Kystgruppe Nordic), English, normal text. AXe 2.1.1. Shots `dr-flow3-shots/delta-*.png`.
+
+| Check | Device | Result | Evidence |
+|---|---|---|---|
+| Steps 1–2 | iPad | PASS | Card rows OSL OSL-OPS, BRG/TRO None; Bergen → BRG-OPS through the gate (reason "Delta run Bergen default check"); toast "Default for Bergen: BRG-OPS…"; BRG-OPS "Default for" Bergen. delta-s01, delta-s02. |
+| **F1 HIGH** (step 3) | iPad | **FIXED** (CONFIRMED) | Org › Branches: Bergen "Default cost centre: BRG-OPS Bergen operations", Oslo HQ "OSL-OPS Oslo operations", Tromsø "None". delta-s03a, delta-s03b. |
+| **F3 HIGH** (12b write-off) | iPad | **NOT FIXED as briefed**: no refusal. Cause looks like design, not a missing check (PLAUSIBLE) | Write off… on INV-2026-000006: prefilled OSL-OPS; set None → field shows "Required on this account"; Submit accepted → WO-DRAFT-000051 "Waiting for approval" (delta-s12b-ipad-writeoff-none, -accepted). BE `WriteOffRules.prepare` (e3e2fbcd) puts `l.costCentreId ?: centre` on the bad-debt line, where `centre` is the cost centre all the invoice's item lines share (D-82). Both INV-6 lines carry OSL-OPS (delta-s12b-ipad-invoice-lines-osl), so "None" means "inherit OSL-OPS" and the BE has nothing to refuse. Posting not checked (not approved). See F3′. |
+| **F2 MEDIUM** (12a iPhone Submit) | iPhone | **NOT FIXED** (CONFIRMED) | 6750 debit 1000 without a cost centre, 1920 credit 1000, memo/doc ref/doc date filled, **Submit for posting** → field red, "Line 1 needs a cost centre." at y 752–767, sticky footer from y 758, so the text is cut under the footer (delta-p12a-iphone-submit-refused). VoiceOver: label "Line 1 cost centre", value "Required on this account". The refusal is not read. App fix ade4c034 says "phone save through the menu with the marked line in view"; the Submit path is unchanged. |
+| Step 4 payment | iPad | PASS | Record payment, Oslo HQ, supplier Bergen Kontorservice, Add bank fee: `payment.adjustment.1.dim.costCentreId.select` OSL-OPS + `.fromBranch` "From branch Oslo HQ" (delta-s04a). Branch → Bergen: untouched line follows to BRG-OPS "From branch Bergen". Cancelled, not saved. |
+| Step 4 receipt | iPad | Prefill PASS · one-invoice values (D-84) **NOT SEEN** (PLAUSIBLE) | Record receipt, Fjordtech, Oslo HQ, Add fee: OSL-OPS "From branch Oslo HQ" (delta-s04b). Branch → Tromsø: None + "Required on this account". Allocated 10 000 to INV-2026-000006 only (lines OSL-OPS): the fee line stays None/Required (delta-s04c). `ReceiptEditor.adjustmentDimensions` (2103d756) takes only the branch default. A grep of the BE accounts-service at e3e2fbcd finds no receipt rule that takes one invoice's values. Not posted, so post-time behaviour wasn't checked. Cancelled, not saved. |
+
+### New / changed findings
+
+- **F3′ · MEDIUM · PLAUSIBLE · Write-off dialog (replaces F3 HIGH, if D-82 inheritance is intended)**: with Cost centre None the dialog says "Required on this account", but the BE silently uses the invoice's shared cost centre (OSL-OPS here) and accepts. The user can't see what will be posted. Expected one of two things: the App shows the inherited value (e.g. "From invoice: OSL-OPS") and drops the Required marker, or the BE refuses an explicit None. Lead decision: should None mean "inherit" or "none"? A refusal can only be tested on an invoice whose lines have different cost centres, and no such invoice exists.
+- **F2 (still open)**: Submit refusal on phone. The sentence is under the sticky footer and the field's VoiceOver label leaves it out. The fix covered the menu Save path only.
+- **F9 · MEDIUM · PLAUSIBLE · Receipt clearing exactly one invoice (D-84)**: the fee line doesn't take that invoice's cost centre in the editor. I found no BE code that does it either. Evidence: delta-s04c plus code reads. Needs a post-time check or a builder to confirm whether it's implemented.
+- **Note**: a phone journal Submit that gets refused still creates a draft (JV-DRAFT-000052 appeared in the list after Cancel). This may be intended (save, then submit).
+- Still seen: activity cards on branch pages show the actor as UUID `1a000000-…0011` (Bergen page, "Update default cost centre").
+
+### Data left
+
+- WO-DRAFT-000051 (INV-2026-000006, cost centre None, reason "Delta F3 recheck no cost centre"). Withdrawn to draft.
+- JV-DRAFT-000052 (6750 1 000 no cc / 1920, memo "DR delta F2 recheck", doc ref DELTA-F2).
+- Bergen default back to None (reason "Delta run reset to seed"); Oslo OSL-OPS, Tromsø None. The audit log has two more entries on Bergen.
+- No payment or receipt saved. Both devices: Ola, Kystgruppe, English, normal text (iPad on Cost centres, iPhone on Journals).
