@@ -98,7 +98,7 @@ it to the lead; build after the lead's OK.
 - [ ] the endpoints used, with the other repo's side read
 
 ## Definition of Done
-**Write it as the flow working (Jabran 2026-11-25):** one row per user action: | Action (who) | Output when it works (screen + books) | Exceptions (refused / waits, with the message) |, then the invariants that always hold, then how it's proven. Process checks (tests, gates) support the rows; they are not the definition.
+**Write it as the flow working (Jabran 2026-11-25):** one row per user action: | Action (who) | Output when it works (screen + books) | Exceptions (refused / waits, with the message) |, then the invariants that always hold, then how it's proven. Process checks (tests, gates) support the rows; they are not the definition. The rows are the floor: discovery and the plan add every edge case under each row (code paths, concurrency, boundaries, other callers); the builder adds what it meets; review and test add what's still missing.
 
 WORKFLOW §5 (end to end on every discovered path; tests for all cases from a test table written first; a failing-first
 test per fix; standards kept; checklist done; hand-back complete) plus:

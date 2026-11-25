@@ -88,6 +88,8 @@ The flow is done when each action below gives its **output** on the screen and i
 | 9 | **Feature switched off** | Approved schedules keep posting; pause still works | Create, submit, approve, change, move and post again are refused with "Spreading is switched off for {company}". |
 | 10 | **Period close** (Finance Manager) | The checklist row shows the count and amount not posted for the period (never blocking). The reconciliation line per balance account ties remaining + ENDED-LEAVE remainders to the ledger, with the difference shown (O9). | A difference ≠ 0 → shown as a warning with "Open account 1749 in the general ledger". |
 
+**These rows are the floor, not the full list.** The planner adds every edge case discovery finds under each row in the plan's test table: code paths, concurrency (two people acting at once, the job running mid-change), boundaries (the last period, the 120-period limit, a 1-cent remainder, a fiscal-year edge), other callers and data states. The builder adds any it meets while building. The reviewer and tester add what's still missing, as findings.
+
 **Always true after every action:** posted (live) + remaining = approved; no journal posts twice for one schedule, period and attempt; the job posts only the approved version's runs; nothing is re-dated; every action is in the audit and the History with its actor and reason.
 
 **How it's proven:** the template's UI-test lines (phone + tablet, `assertIsDisplayed`, edit → reopen, a11y) for rows 1–10; the money-invariants check green on the stack; the test data from section 4 of the rules check, run on the stack before hand-back.
