@@ -838,3 +838,4 @@ Jabran: discovery and the plan didn't define what done means; steps pass on the 
 - **Sub-agents:** one stage each, fresh, right model; no carry-over between stages.
 - **Transition:** the three old-Mac flow leads (realtime, design-system, mock-backend: one session per feature today) finish the flow in hand; the next flow gets a fresh session. The new-Mac lead starts one flow-lead session at a time (D-88).
 - Why: each flow starts clean, leads stay small (D-86), and each stage is a fresh agent that verifies rather than remembers.
+- **D-89 addendum (Jabran, same day): every stage is a new agent**, including build: the planner (Opus, discovery + plan, both repos read) and the builder (new; Sonnet when the plan decides everything, Opus for money/security/design-heavy) are separate. The plan and done list must be complete enough to build from; a builder that finds a gap stops and reports (counted like a brief gap). Table in workflow v2 §5.

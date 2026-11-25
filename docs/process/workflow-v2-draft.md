@@ -53,6 +53,26 @@ For a feature with one flow, the flow review is the feature review.
 
 **Who runs a flow (D-89, Jabran 2026-11-25):** the module lead writes the brief and starts **one fresh flow-lead session per flow**; that session runs every stage with **sub-agents** (BE builder, App builder, combined reviewer + tester, fixer), verifies the done-list rows between stages itself, merges the flow into the feature branch and ends. It never builds, reviews or tests itself. The module lead never builds, reviews or tests; features reach `main` through the old-Mac (integration) lead with Jabran's gate answer.
 
+**Agents per stage (D-89 addendum, Jabran 2026-11-25): every stage is a new agent.**
+
+| # | Stage | Agent (new) | Model | Reads / writes |
+|---|---|---|---|---|
+| 1 | Brief | module lead (no agent) | — | — |
+| 2 | BE discovery + plan | BE planner | Opus | reads both repos; writes BE `plan.md` + done rows (complete enough that another agent can build from it) |
+| — | Plan check | flow-lead session | — | re-runs one or two caller greps; OK in the plan |
+| 3 | BE build | BE builder | Sonnet when the plan decides everything; Opus for money, security or design-heavy | builds from `plan.md` + `done.md` only; contract + examples; own tests |
+| 4 | App discovery + plan | App planner (can run while the BE builds) | Opus | reads both repos + the BE plan; writes App `plan.md` + done rows |
+| — | Plan check | flow-lead session | — | — |
+| 5 | App build (after the BE contract) | App builder | as step 3 | UI tests on the JSON mock data source |
+| — | Verify done rows | flow-lead session | — | fresh run, opens the tests |
+| 6 | Review BE + App together | reviewer | Opus 5.5 high | reads both; writes `review.md` |
+| 7 | Screen tests + simulator | tester | Opus medium for new screens, Sonnet for re-tests | screen rows with shots |
+| 8 | Fix | fixer per repo | Sonnet if mechanical, Opus for money/security | failing-first test per finding |
+| 9 | Re-check (only after a HIGH) | the same reviewer, resumed | Opus 5.5 high | that fix only |
+| 10 | Merge into the feature | flow-lead session | — | spot-checks two rows, measures line, ends |
+
+A builder that finds the plan wrong or incomplete stops and reports to the flow lead (a plan gap is counted like a brief gap); it never fills a gap from guesswork. After the mock backend is on `main`, steps 4–5 run alongside step 3.
+
 ## 5. Definition of Done (every flow; the brief adds its own lines)
 **Done list (D-87, Jabran 2026-11-25):** each flow keeps one open list, `docs/agents/<feature>/done.md` ([template](../templates/done.md)), from the brief to the merge. Every step **verifies** the rows it inherits (re-reads the file, opens and runs the test, looks at the screen) before it adds its own, and moves on only when they hold; evidence comes from that step's own run, never from memory or a summary. Anyone adds rows **inside the scope of the flow's Definition of Done** (the brief's goal and scope edges); nothing limits the rows within it; what is found outside goes under "Outside the scope" (reported or backlog, not built). The lead checks the plan's rows before the build and spot-checks two rows before the merge.
 1. The flow works end to end in both repos for **every path and every writer** discovery found.
