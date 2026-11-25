@@ -24,6 +24,11 @@ The flow lead lists every question it decided (with sources) in the hand-back an
 ## No helper agents (Jabran 2026-11-25, after spreading flow 1)
 One agent per stage, and that agent does its own work: **planners and builders never start helper agents** (no discovery helpers, no split of the build into core / job / docs helpers). Each helper re-reads the brief, the plan and the code, so it multiplies the cost. If a stage is too big for one agent's context, the flow is too big: the flow lead splits the flow. The industry and legal check runs **once per flow, before the brief** (one research agent, Sonnet), not per question.
 
+## Test data ready from the start (Jabran 2026-11-25, after spreading flow 1)
+- **Plan:** the planner lists the test data the flow needs (companies, users and rights, stand-ins, the awkward cases, the open items each test step uses) and writes the simulator steps (`docs/agents/<feature>/tester.md`) in the plan, not at test time.
+- **Build:** the BE builder writes the seed script and **runs it** against the local stack before hand-back (after its Gradle runs, never together); `bash -n` is not a run. The demo sign-ins the steps need are made and checked in the same slot.
+- **Before the review ends:** the flow lead starts the stack and checks the seed and sign-ins while the reviewer reads (the review is read-only, no Gradle), so the tester starts as soon as the fixes land.
+
 ## Time and progress (Jabran 2026-11-25)
 No time budget: build everything in your plan, end to end. You can't feel time passing, so **read the clock**: run `date` when you start and at every step.
 **Every 20 minutes of real time, send the lead a progress note** (3 lines): what's done, what's left, and **why it's taking the time** (the step, a slow compile, a surprise in the code). Use SendMessage to `main`, or to the flow lead that started you.
