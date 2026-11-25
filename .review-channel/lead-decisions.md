@@ -886,3 +886,4 @@ Jabran: "as we work only on one flow, we can directly merge to main?" → "yes, 
 - **Spec text aligned:** R-10 bands a change on the larger of old and new remaining (Fable c7 wins); R-8 reversal per O1.
 - **Flaws fixed in flow:** E1 (2b), E2 (2a), E3 check with a test, E4 (2a: backlog 519; 2b: 511, 512). E5 App F6/F7/F9 stays backlog unless a 2a screen touches them.
 - **O2 → Jabran** (money rule: lowering the remaining amount).
+- **D-96 O2 (Jabran "as recommended", same day):** a change that lowers the remaining amount states its route: (a) source credited — the credit note already moved it; server checks new remaining ≤ the line net after credit; no journal; (b) release now — one journal in the current open period releases the difference, as part of the approved change. Raising stays capped by SOURCE_OVERSPREAD. (D365 cancel unrecognised amounts; SAP delta posting; IAS 8 change in estimate in the period of change.)
