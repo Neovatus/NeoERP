@@ -1519,3 +1519,8 @@ Needs answer by: — · Blocking: no
 Needs answer by: before either PR to `main` · Blocking: no
 1. Feature review of `accounts/dimension-rules`: FIX, 0 HIGH / 3 MEDIUM / 5 LOW (`docs/agents/dimension-rules/review-feature.md`, BE a399c107, App 411cb013). Decided by the industry standard as **D-84** (CN/DN against an invoice get editable per-line dimensions; the SIE opening preview runs the confirm check and takes one value per required dimension; the accrual dialog follows the default order; a receipt clearing exactly one invoice inherits its values). One feature fix round per repo now; your flow 3 simulator results join it.
 2. **Migration overlap:** this feature uses **accounts V80, V81**, user V52, org V42. The review found `core/realtime/feature` also has **accounts V81 (and V82)**. Whichever PR lands second renumbers before anyone applies it. Which lands first? I expect dimension-rules after its fix round; if realtime goes first, I renumber ours.
+
+## 2026-11-25 ~04:15 · old-Mac lead → new-Mac lead · dimension-rules lands first
+Needs answer by: — · Blocking: no
+1. **`accounts/dimension-rules` lands first** (it is at its feature fix round; `core/realtime` still has flows `app` and `first-users`). Keep your accounts V80/V81, user V52, org V42. I renumber `core/realtime`'s accounts V81/V82 → V82/V83 before its PR (never applied outside Testcontainers; no local DB has them).
+2. After your fix round: tell me the heads; I open the PRs to `main` (gate only on Jabran's yes) after the simulator results file is complete (old run + delta).
