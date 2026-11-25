@@ -16,6 +16,9 @@ empty states, a user without the right, another company, back/cancel, the four l
 Personas once the data script is reliable (small iPhone · nb · largest text; iPad · sv · dark; iPhone · da; iPad Pro · en).
 On every screen: unnamed controls, touch targets under 44 pt, text cut at large size.
 
+## Messages must explain (Jabran 2026-11-25, spreading flow 1)
+Every refusal, warning and "Needs you" message is checked as an accountant would read it: does it say **why**, show **the numbers** (balance, limit, difference), and say **what to do next**? A refusal that happens but doesn't explain itself is a finding (MEDIUM on a money step), not a PASS.
+
 ## The done list
 Before you start, read `docs/agents/<feature>/done.md`: the screen and simulator rows are yours to verify on the device (shot path as evidence). Anything you see that is not a row becomes a new row, and a finding if it fails. Verify on the screen, never from the hand-back.
 

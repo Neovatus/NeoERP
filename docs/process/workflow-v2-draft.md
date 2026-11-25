@@ -71,6 +71,8 @@ For a feature with one flow, the flow review is the feature review.
 | 9 | Re-check (only after a HIGH) | the same reviewer, resumed | Opus 5.5 high | that fix only |
 | 10 | Merge into the feature | flow-lead session | — | spot-checks two rows, measures line, ends |
 
+**Flow lead looks at the money screens (Jabran 2026-11-25):** before the merge the flow lead opens the screenshots of every money step (caps, refusals, previews, approval cards) itself, not only the tester's PASS.
+
 **Branches (D-94, Jabran 2026-11-25):** `main` → module `<module>/main` → feature `<module>/<feature>` (small, at once) or `<module>/<feature>/feature` + sub-features `<module>/<feature>/<sub>` (split). Merges go up one level at a time; updates go down (`main` → module → features). Module → `main` only on Jabran's word.
 
 **New Mac: no worktrees (D-92, Jabran 2026-11-25):** flows run in the checkouts `NeoERP-BackEnd` / `NeoERP-App` with the flow branch checked out, one task per repo in sequence; Jabran reads the code in his editor.
