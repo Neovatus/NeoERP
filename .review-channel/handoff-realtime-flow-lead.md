@@ -29,3 +29,6 @@ Paused by Jabran until this evening (via module lead). No agents running. Nothin
 ## Rules in force
 D-86: mechanical fixes → fresh Sonnet builder; no agent past ~50 % context (don't resume the first-users Opus builders — start fresh with the hand-back files). Builders never edit gate scripts; own tests only; finding validity CONFIRMED/PLAUSIBLE.
 Notes log: `~/Library/Application Support/Claude/side-session-notes/local_790aaaa5-…/rt-actions-flow-lead.md`.
+
+## Added 2026-11-25 (D-87, Jabran via module lead)
+Before the core/realtime feature review: write `docs/agents/realtime/done.md` for first-users in each repo (template `docs/templates/done.md`, 85bcaa6) from its brief + the 4 fix rounds, with evidence from a **fresh run** of its own tests (not memory); the feature reviewer verifies it. Do this tonight after the merge question, before report B / feature review.
