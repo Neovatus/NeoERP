@@ -71,6 +71,12 @@ For a feature with one flow, the flow review is the feature review.
 | 9 | Re-check (only after a HIGH) | the same reviewer, resumed | Opus 5.5 high | that fix only |
 | 10 | Merge into the feature | flow-lead session | — | spot-checks two rows, measures line, ends |
 
+**Who answers a question (Jabran 2026-11-25):** three levels.
+1. **Flow lead:** checks each planner/builder question with a research agent against industry practice (named ERPs, with sources), the law (NO/SE/DK/PK bookkeeping, VAT, tax; IFRS), our conventions (`docs/domain/RULES.md`, `lead-decisions.md`, design system, ADRs) and the spec. A clear answer that fits what is already decided: the flow lead decides it, records it with sources in `docs/agents/<feature>/decisions.md`, and the builder goes on.
+2. **Module lead:** anything that changes the brief, an approved decision, the spec, the contract across flows, or another flow or feature; or where the sources disagree.
+3. **Jabran:** only critical points: product scope, legal/licence/cost exposure, or changing something he approved. One question, with a sourced recommendation.
+The flow lead lists every question it decided (with sources) in the hand-back and the measures line; the module lead spot-checks them at the merge.
+
 **A PR for every branch (Jabran 2026-11-25):** as soon as a branch has code and is pushed, the lead who cut it opens a **draft PR to its base** (flow → feature, feature → `main`, phase → `main`) so Jabran sees every branch and its size on GitHub. The owning lead marks it ready after review and tests. Merging is done as now (the lead merges and pushes the base); GitHub then shows the PR as merged. A branch merged or dropped without that closes its PR with a one-line reason.
 
 **Agent titles (Jabran 2026-11-25):** every agent's title shows repo, role and model: "<BE|App|BE+App> <role> · <model> · <feature>" (e.g. "BE builder · Opus · spreading"); helper agents too.

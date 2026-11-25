@@ -15,6 +15,12 @@ The lead writes only the goal, the decided rules with their sources, the scope e
 - **Split big flows:** if the plan sizes the code at more than about 3 000 lines, the flow lead splits it into two flows (e.g. the core, then the entry points), each reviewed on its own.
 - **Test-run time limit:** a Gradle run with no progress for 15 minutes is stopped and reported (a hung test must not hold a repo lock).
 
+**Who answers a question (Jabran 2026-11-25):** three levels.
+1. **Flow lead:** checks each planner/builder question with a research agent against industry practice (named ERPs, with sources), the law (NO/SE/DK/PK bookkeeping, VAT, tax; IFRS), our conventions (`docs/domain/RULES.md`, `lead-decisions.md`, design system, ADRs) and the spec. A clear answer that fits what is already decided: the flow lead decides it, records it with sources in `docs/agents/<feature>/decisions.md`, and the builder goes on.
+2. **Module lead:** anything that changes the brief, an approved decision, the spec, the contract across flows, or another flow or feature; or where the sources disagree.
+3. **Jabran:** only critical points: product scope, legal/licence/cost exposure, or changing something he approved. One question, with a sourced recommendation.
+The flow lead lists every question it decided (with sources) in the hand-back and the measures line; the module lead spot-checks them at the merge.
+
 ## Time and progress (Jabran 2026-11-25)
 No time budget: build everything in your plan, end to end. You can't feel time passing, so **read the clock**: run `date` when you start and at every step.
 **Every 20 minutes of real time, send the lead a progress note** (3 lines): what's done, what's left, and **why it's taking the time** (the step, a slow compile, a surprise in the code). Use SendMessage to `main`, or to the flow lead that started you.
