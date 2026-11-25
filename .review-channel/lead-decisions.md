@@ -811,3 +811,4 @@ Jabran: "Match the industry standard; we just always follow the industry standar
 - **M3, accrual/prepayment dialog:** follows the same order as every manual line (explicit → header → branch default → null) and shows the account's rule (Required hint) through the shared helper.
 - **L7, a receipt or payment that clears exactly one invoice/bill:** its control line takes the cleared document's shared values (one source, as for refunds, D-82); several sources stay the clearing/splitting backlog row.
 Reason: Jabran's standing rule (D-82) to follow the industry standard; each is a real case that blocks the person or misreports by dimension.
+- **Merge order (2026-11-25):** `accounts/dimension-rules` reaches `main` first (accounts V80/V81, user V52, org V42); `core/realtime` renumbers its accounts V81/V82 → V82/V83 before its PR.
