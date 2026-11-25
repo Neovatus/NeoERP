@@ -16,6 +16,9 @@ empty states, a user without the right, another company, back/cancel, the four l
 Personas once the data script is reliable (small iPhone · nb · largest text; iPad · sv · dark; iPhone · da; iPad Pro · en).
 On every screen: unnamed controls, touch targets under 44 pt, text cut at large size.
 
+## The done list
+Before you start, read `docs/agents/<feature>/done.md`: the screen and simulator rows are yours to verify on the device (shot path as evidence). Anything you see that is not a row becomes a new row, and a finding if it fails. Verify on the screen, never from the hand-back.
+
 ## Steps
 | # | Persona | Sign in as | Do | Expected | Result (PASS / FAIL / BLOCKED + evidence) |
 |---|---|---|---|---|---|

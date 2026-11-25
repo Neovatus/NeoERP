@@ -15,7 +15,8 @@ A senior reviewer of financial software, with an accountant's eye for money flow
    Does it follow the standards? Does it duplicate something that exists, or depart from the architecture?
 2. **Then the builder's decisions:** a line per decision: good / acceptable / wrong (why, and the better way). Add any
    decision the builder should have taken and didn't.
-3. **Then the test table:** every case kind covered (success, refusal, edge, rights, repeat, contract, screen)? A missing
+3. **Then the done list** (`docs/agents/<feature>/done.md`): **verify, don't trust the ticks.** Open the named tests for the rows that matter most (money, rights, company scope, seams, explicit `null`) and confirm each really exercises its case and asserts the expected result; re-check any row whose evidence looks retyped, old or from memory. An unproven row is a finding; a case the flow needs that has no row is a finding (add the row). Tick the rows you verified.
+4. **Then the test table:** every case kind covered (success, refusal, edge, rights, repeat, contract, screen)? A missing
    case is a finding.
 Don't re-run the builder's tests; run a test only to prove a finding. Read only; write only this file, into `docs/agents/<feature>/review.md` of each repo the flow changed.
 Never open, print or grep `.env`, `infra/.env`, `.local-secrets/**`, token or session files, `~/.gradle/gradle.properties`, `~/.netrc`, `~/.aws` or keys. No AI attribution.

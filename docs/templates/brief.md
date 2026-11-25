@@ -55,6 +55,9 @@ You own the whole flow, not only the item named here.
 - **Read:** both repos (read the other side of every endpoint you touch). Never write outside this repo.
 - **Out of scope:** <what not to do, and why>
 
+## The done list (D-87, Jabran 2026-11-25)
+Keep `docs/agents/<feature>/done.md` from [the template](done.md) through every step. **Verify, don't just tick:** before your own work, re-check the rows you inherit (re-read the file, open the test, run it); add every row the flow needs, in your own words: the list is open and this brief never limits it. Evidence comes from this step's own run or reading, never from memory or an earlier summary. No hand-back with an empty row.
+
 ## Step 1: discovery and plan (before any code)
 Write `docs/agents/<feature>/plan.md`: how the flow works today end to end; **every path** the change touches (other
 screens, posting paths, services, events), **every writer of the data you change**, and "where else?" (the same pattern in sibling screens, documents, services); what you will reuse; the decisions you will take; open questions. Stop and send
@@ -85,12 +88,12 @@ test per fix; standards kept; checklist done; hand-back complete) plus:
   5. **Accessibility until the automatic checks land:** each new control's UI test asserts its label, its unique `testTag` and, for toggles and segments, its selected state.
 - <this batch's own lines>
 
-## Test table (fill before coding; the reviewer checks it)
+## Test table (fill before coding; the reviewer checks it; each row also goes into the done list)
 | Case | Kind (success / refusal / edge / rights / repeat / contract incl. explicit `null` and unknown enum / screen) | Expected | Test name |
 |---|---|---|---|
 
 ## Hand-back (≤ 15 lines + files)
-Fix rounds also: per finding **valid (the failing test that proves it) or not valid, because … (evidence)**, and for valid ones **how it was missed and why** (which Definition of Done line, brief gap or wrong assumption). Commits/range · what ran (command, sha, counts from that run) · **decisions I took** · **found outside the brief** (fixed / reported) · reused vs new (with reason) · the filled review checklist (`docs/templates/review.md` §Checklist) · `Brief: unclear or missing — …` (or none).
+Fix rounds also: per finding **valid (the failing test that proves it) or not valid, because … (evidence)**, and for valid ones **how it was missed and why** (which Definition of Done line, brief gap or wrong assumption). The done list with every row's evidence from your own run · commits/range · what ran (command, sha, counts from that run) · **decisions I took** · **found outside the brief** (fixed / reported) · reused vs new (with reason) · the filled review checklist (`docs/templates/review.md` §Checklist) · `Brief: unclear or missing — …` (or none).
 
 ## Never
 `--no-verify`, force push, AI attribution, opening/printing secret files (`.env`, `infra/.env`, `.local-secrets/**`, tokens, `~/.gradle/gradle.properties`, `~/.netrc`, `~/.aws`, keys), GitHub workflows, writes in the other repo.
