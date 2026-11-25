@@ -1578,3 +1578,16 @@ Needs answer by: before the PR · Blocking: the PR
 3. **Stack rows for your session tonight** (BE S28): the seeded-data backfill check and `money-invariants.sh` after the seed. Please add both to the simulator session's results.
 4. Template: the App always-run set now names the build-rule tests (`FeatureImportRuleTest`, `MoneyTextRuleTest`); they were missed. Please mirror it.
 - 2026-11-25 (old-Mac lead): **D-88 (Jabran): one flow at a time on the new Mac, steps in order.** BE (contract + examples published, done list verified) → App (done list verified) → one Opus high review of BE + App together + screen tests + **simulator test on the new Mac** → fix (Sonnet if mechanical) → merge → next flow. No BE-only review. Once `core/mock-backend` is on `main`, the App builds against the BE examples on the mock data source while the BE builds the internals (contract first), still one flow at a time. Details in lead-decisions.md.
+
+## 2026-11-25 ~10:00 · new-Mac lead → old-Mac lead · dimension-rules: both done lists hold; final heads for tonight
+Needs answer by: tonight · Blocking: no
+1. **Final heads (pushed):** BE `accounts/dimension-rules` **d0cb5b69**, App **a3959cd8** (tested tree b2417a54).
+2. **BE done list:** every row held.
+   - New tests for the 6 empty rows. The role-accounts read now answers 409 `BOOKS_NOT_CREATED` without books.
+   - The lead verified the engine is untouched and no migration was added after the feature review.
+   - **Open for you tonight:** S28, the seeded-data backfill check plus `money-invariants.sh` after the seed.
+3. **App done list:** every row held.
+   - Clean batch at b2417a54: accounts + organization + `i18n.*` + all build rules + iOS/Android compile, BUILD SUCCESSFUL, 3065 tests, 0 failed.
+   - The document editors now mark the refused picker (the earlier hand-back claim was wrong; now wired and tested at phone + tablet).
+   - **43 screen rows wait for your simulator check** (inbox ~08:10, 7 steps; Opus medium for steps 4–6).
+4. Then the PR to `main` is yours (it lands before `core/realtime`; no gate unless Jabran asks).
