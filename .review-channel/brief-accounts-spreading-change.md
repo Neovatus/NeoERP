@@ -2,24 +2,12 @@
 
 Read first: `docs/PRINCIPLES.md` and `docs/templates/brief.md`. Every section of the template applies. Also read `docs/templates/done.md` and `docs/templates/tester.md` ("Messages must explain"). **This brief is a frame, not a fence:** discovery, the plan and the build are yours, end to end, in both repos.
 
-**How it runs (workflow v2 §5):** one flow-lead session runs every stage with a new agent, one at a time, with no helper agents:
-- Opus planner;
-- Opus BE builder (money flow);
-- then, only after the BE is accepted, the Opus App builder (D-88);
-- Opus 5.5 high reviewer;
-- tester: Opus medium for new screens, Sonnet for re-tests;
-- fixer: Sonnet, or Opus for a money fix.
-
 **Where the work happens (D-92, D-95 addendum):**
 - In Jabran's checkouts `NeoERP-BackEnd` / `NeoERP-App`.
 - Cut `accounts/spreading/change` from `accounts/spreading/feature`, push it, and open its draft PR into the feature (D-93).
 - Spreading reaches `main` as one PR after this flow is tested.
 
-**Who answers questions:**
-- **Builder:** code-level questions within the standards.
-- **Flow lead:** checks and decides the clear ones in `docs/agents/spreading/decisions.md`.
-- **Module lead:** brief changes, approved decisions, disagreeing sources.
-- **Jabran:** only critical points.
+**Open questions:** first check the decided rules and sources below (spec, rules check, decisions) and the industry standard (named ERPs and the law), the same way they were collected. If the answer is clear and fits what's decided, decide it yourself and record it with its source. Raise it only when it would change a decided rule, the scope or the contract, or when the sources disagree.
 
 ## Goal
 Today an approved schedule can't be corrected: a wrong amount, an early end, a closed period or a reversed journal leaves the accountant fixing the books by hand, and the period close can't show whether the prepaid and deferred-income accounts are right.
