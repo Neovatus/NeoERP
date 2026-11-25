@@ -98,6 +98,8 @@ it to the lead; build after the lead's OK.
 - [ ] the endpoints used, with the other repo's side read
 
 ## Definition of Done
+**Write it as the flow working (Jabran 2026-11-25):** one row per user action: | Action (who) | Output when it works (screen + books) | Exceptions (refused / waits, with the message) |, then the invariants that always hold, then how it's proven. Process checks (tests, gates) support the rows; they are not the definition.
+
 WORKFLOW §5 (end to end on every discovered path; tests for all cases from a test table written first; a failing-first
 test per fix; standards kept; checklist done; hand-back complete) plus:
 - **UI tests that catch what the simulator found (Jabran 2026-11-25; from dimension-rules flows 1–2, where 5 of 6 simulator findings had passed the automated tests):**
