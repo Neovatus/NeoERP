@@ -1,6 +1,6 @@
 # core/mock-backend: feature notes for the feature review (flow lead, 2026-11-25)
 
-Feature heads: App `core/mock-backend/feature` = `33cd72f5`, BackEnd `core/mock-backend/feature` = `3d3414c`. Flows merged: 1 `data-source` (App), 2 `be-examples` (BE), 3 `move-areas` (App), 4 `be-examples-2` (BE), 5A `move-areas-2` (App). On hold (Jabran deciding "now" or "when touched"): `be-examples-3` (BE, 7 gaps), 5B `move-areas-3` (journals persona scripts), 5C `move-areas-4` (ScriptedJournals files).
+Feature heads: App `core/mock-backend/feature` = `33cd72f5`, BackEnd `core/mock-backend/feature` = `3d3414c`. Flows merged: 1 `data-source` (App), 2 `be-examples` (BE), 3 `move-areas` (App), 4 `be-examples-2` (BE), 5A `move-areas-2` (App). **Jabran D-85 (2026-11-25): journals moves stop after 5A.** `be-examples-3`, 5B and 5C are not built; the remaining tests move to the JSON mock data source when a flow touches them (backlog row below).
 Per-flow records: `docs/agents/mock-backend/` in each repo (brief, plan, hand-back incl. fix rounds, review, fix brief). Measures: `.review-channel/v2-trial-measures.md` (5 rows).
 
 ## What the feature delivers
@@ -39,6 +39,7 @@ Per-flow records: `docs/agents/mock-backend/` in each repo (brief, plan, hand-ba
 - DoD line for `docs/templates/brief.md` (App), proposed in flow 1 report B.
 
 ## Backlog rows written (workspace `docs/backlog.md`)
+- **Move-when-touched (D-85):** the remaining approval-limits/journals tests on repository mocks (GA3b test, GJ14-tagged tests, journals persona scripts, the 42 `ScriptedJournals`-default files, company-switch ×8) move to the JSON mock data source when a flow touches them; the 7 BE gaps (GA1b, GA3b, GA5b, GJ11–GJ14) are published by the BE flow that needs them first.
 Mock data source LOWs (unused `inOrder` answers, one company per mock, simulated failures' text); Security "end session" reads a timeout as success (PLAUSIBLE); BE fixtures not a Gradle test input (gate unaffected); `approval.periodNotice` in the contract but never set or read.
 
 ## Lessons (for the phase review)
