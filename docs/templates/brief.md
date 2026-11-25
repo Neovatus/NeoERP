@@ -62,6 +62,12 @@ it to the lead; build after the lead's OK.
 ## Definition of Done
 WORKFLOW §5 (end to end on every discovered path; tests for all cases from a test table written first; a failing-first
 test per fix; standards kept; checklist done; hand-back complete) plus:
+- **UI tests that catch what the simulator found (Jabran 2026-11-25; from dimension-rules flows 1–2, where 5 of 6 simulator findings had passed the automated tests):**
+  1. **Phone and tablet:** the main-flow UI test runs at a phone size **and** a tablet size. The phone layout (cards, sheets) is a separate code path.
+  2. **Visible after the action:** after Submit or Save, assert that the message and the marked field are **displayed in the viewport** (`assertIsDisplayed`), not only present in the tree.
+  3. **Edit and reopen:** every form's test table has create → save → reopen → change → save, and the saved values come back.
+  4. **Every kind of person-entered line** that discovery lists (item, adjustment, advance, write-off, …) gets its own test row.
+  5. **Accessibility until the automatic checks land:** each new control's UI test asserts its label, its unique `testTag` and, for toggles and segments, its selected state.
 - <this batch's own lines>
 
 ## Test table (fill before coding; the reviewer checks it)

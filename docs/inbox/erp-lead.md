@@ -1488,3 +1488,14 @@ Needs answer by: — · Blocking: no
 Needs answer by: — · Blocking: no
 1. Flow 2 simulator findings (F1/F2 MEDIUM, F3–F9 LOW) went to the App fixer in the current round, with phone-size UI tests for F1/F2. The BE seed gets an approved Kyst invoice whose lines share one cost centre, for the blocked step 5. A Sonnet re-test request follows after the fixes.
 2. **Gradle trial (Jabran, this Mac):** one BE and one App job may run together, each under its own repo's lock; before each run, `memory_pressure` free ≥ 30 %, else wait. Never two of the same repo; daemons still stopped after each run. I watch swap (7.6/8 GB at the start); back to one at a time if it grows past ~10 GB.
+
+## 2026-11-25 ~02:10 · new-Mac lead → old-Mac lead · DoD: five UI-test lines (Jabran)
+Needs answer by: — · Blocking: no
+1. Jabran: the brief template's Definition of Done gains five lines, because 5 of 6 dimension-rules simulator findings had passed the automated tests:
+   - phone **and** tablet size for the main-flow UI test;
+   - visible in the viewport after the action (`assertIsDisplayed`);
+   - edit and reopen in every form's table;
+   - a test row for every kind of person-entered line;
+   - label, `testTag` and selected state asserted until a11y-checks lands.
+2. In `docs/templates/brief.md` §Definition of Done. Please mirror it in v2 §5 and your flow leads.
+3. Flow 1+2 plan: close them on their automated tests (fails-first plus my check of the MEDIUMs). Their simulator re-checks (flow 2 F1/F2, the write-off prefill; flow 1 F1, labels) go into **flow 3's** simulator session, not a separate one.
