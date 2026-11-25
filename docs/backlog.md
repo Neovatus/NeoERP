@@ -477,3 +477,9 @@ Send `confirmedByUserId` per kind in GET /approval-limits so the app needs no Hi
 - **a11y-checks: dimension-rules size scene** so the `NeoSegmentedChoice` selected-state fix is proven on the real screen (plan Q5). Owner: Accounts dimension-rules.
 - **a11y-checks: review LOWs**: F3 `Qa1LayoutSizeTest` font200 filter drops a11y gaps whose first example is font200; F4 counts can hide new gaps (max over frames, shared `kind@scope` key, a duplicated tag always counts 1); F10 tap-area exemption lets a small button inside a large clickable row pass 44 dp (PLAUSIBLE); F11 test gaps (Android `testTagsAsResourceId`, a dialog layer failing rules 1/3, `checkPage=false`, NeoSwitch row click, segmented choice in its phone select form). Owner: App design-system.
 - **a11y-checks: duplicate-tag sources**: `NeoValueLink` puts one fixed tag (`neo.valueLink.hit`) on every link; `NeoDateField` defaults its tag to `NeoDateField`; chips are 32 dp on touch. Owner: App design-system (baseline entries shrink when fixed).
+
+## mock-backend follow-ups (2026-11-25, App `core/mock-backend/data-source`, review `NeoERP-App/docs/agents/mock-backend/review-data-source.md`)
+- **Mock data source: unused `inOrder` answers not reported** (review LOW 5): a test that sets a queue of answers and uses fewer passes silently. Owner: App test-infra (core/mock-backend).
+- **Mock data source: one company per mock** (review LOW 6): a company switch inside one test can't be exercised. Owner: App test-infra (core/mock-backend, when an area needs it).
+- **Mock data source: simulated failures carry no on-screen text** (review LOW 8, PLAUSIBLE). Owner: App test-infra.
+- **Security "end my session" reads a timeout as success** (review, found outside the brief, PLAUSIBLE): the real runtime's `get` and bodiless `delete` return `null` on no answer, which the caller may treat as done. Check with a failing test. Owner: App auth/security.
