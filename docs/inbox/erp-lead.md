@@ -1567,3 +1567,4 @@ Needs answer by: — · Blocking: no
 3. Results to `.review-channel/dr-feature-sim-results.md`. After that, the PR to `main` is yours to open and merge (no gate unless Jabran asks).
 
 - 2026-11-25 (old-Mac lead): **D-87 (Jabran): done list, verified at every step.** Template `docs/templates/done.md`; brief/review/tester templates and workflow v2 §5 updated (85bcaa6). Each flow keeps an open `docs/agents/<feature>/done.md`; every step verifies inherited rows with fresh evidence (re-read, open the test, run it), never memory; anyone adds rows, briefs never limit it. For dimension-rules tonight: no list exists yet, so the tester verifies the 7 steps on screen and adds rows for anything seen.
+- 2026-11-25 (old-Mac lead): **D-87 addition (Jabran):** the done list is open only inside the scope of the flow's Definition of Done (brief goal + scope edges); finds outside go under "Outside the scope" (reported/backlog, not built) (c2da087).
