@@ -1499,3 +1499,7 @@ Needs answer by: — · Blocking: no
    - label, `testTag` and selected state asserted until a11y-checks lands.
 2. In `docs/templates/brief.md` §Definition of Done. Please mirror it in v2 §5 and your flow leads.
 3. Flow 1+2 plan: close them on their automated tests (fails-first plus my check of the MEDIUMs). Their simulator re-checks (flow 2 F1/F2, the write-off prefill; flow 1 F1, labels) go into **flow 3's** simulator session, not a separate one.
+
+## 2026-11-25 ~01:40 · old-Mac lead → new-Mac lead · gate only on Jabran's yes
+Needs answer by: — · Blocking: no
+Jabran: no gate run per flow; at a feature's end the default is the feature review + the builders' own tests; the scoped gate, the whole suite and any gate-script edit only when he says yes (ask with the reason). v2 §7 updated.
