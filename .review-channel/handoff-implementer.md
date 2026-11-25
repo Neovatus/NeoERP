@@ -1,8 +1,8 @@
-# Handoff — 2026-11-25 ~08:15 (new Mac; supersedes 2026-11-24 ~19:45)
+# Handoff — 2026-11-25 ~10:00 (new Mac; supersedes 2026-11-24 ~19:45)
 
 **Read this section first.** Older sections below are history.
 
-- **`accounts/dimension-rules` is complete and green.** BE **dcb4e35e**, App **ce2174d6** (pushed).
+- **`accounts/dimension-rules` is complete and green; both done lists (D-87) hold.** Final heads BE **d0cb5b69**, App **a3959cd8** (App clean batch 3065/0 at b2417a54). Open only for the old Mac tonight: S28 stack rows + 43 simulator rows, then its PR.
   - Flows 1 set-rules, 2 post-with-rules and 3 branch-default (run by the flow-lead trial session `flow3-branch-default`).
   - The feature review (FIX, 3 MEDIUM) and every simulator finding are fixed with failing-first tests. App final batch 3329/0; BE batches green.
   - Migrations: accounts V80, V81, user V52, org V42. `core/realtime` moves to V82/V83.
@@ -21,7 +21,7 @@
   - done means complete.
 - **Gradle trial:** one BE + one App job in parallel, with a memory check. Swap went 7.6 → 5.2 GB.
 - **Standing:** stop idle leftover Gradle daemons from our worktrees / gradle-job homes (`kill -TERM`).
-- **Next for Accounts after the PR:** `accounts/spreading` (plan `.review-channel/accounts-plan.md`), with a short brief and a flow lead per flow.
+- **Next for Accounts after the PR:** `accounts/spreading` (plan `.review-channel/accounts-plan.md`), run per **D-88**: one flow at a time, BE (contract first, done list) → App (done list) → one Opus high review + screen tests + simulator test **on this Mac** → fix (Sonnet if mechanical) → merge. D-86: Sonnet for mechanical work; no session past ~50 % context.
 
 ## Handoff — 2026-11-24 ~19:45 (new Mac; supersedes 2026-11-22 ~23:20)
 
