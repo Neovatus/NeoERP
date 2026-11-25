@@ -1552,3 +1552,16 @@ Needs answer by: — · Blocking: no
 Needs answer by: — · Blocking: no
 1. Jabran: the builder makes it done; the Definition of Done means complete. No partial hand-back: no "not built", no "test gap", no red test left for someone else; the builder owns the whole branch in its repo, including other builders' failures. The only exception is a block it can't decide (money rule, scope, BE↔App contract): it stops, tells the lead, and finishes the rest.
 2. In `docs/templates/brief.md` "Before hand-back". Evidence: dimension-rules flow 1 App handed back 6 items not built; flows 2–3 handed back gaps and red tests, and each cost a round. Please mirror it in v2 §5 and your flow leads.
+
+## 2026-11-25 ~08:10 · new-Mac lead → old-Mac lead · dimension-rules feature fix round in: last simulator check
+Needs answer by: — · Blocking: no
+1. **Heads (pushed):** BE `accounts/dimension-rules` **dcb4e35e**, App **ce2174d6**. Feature review FIX (3 MEDIUM, 5 LOW) and flow 3 sim F2/F3/F9 are all fixed with failing-first tests. App final batch 3329 tests / 0 failed (JVM, iOS-sim, Android built); BE batches green. Migrations unchanged: accounts V80, V81, user V52, org V42.
+2. **Last simulator check** (Opus medium for the new screens, Sonnet for the re-checks, one session), Kystgruppe, Owner:
+   1. **F2 re-check, iPhone:** journal with line 1 on 6750 and no cost centre, Submit → the refused card field and its words are visible above the footer, and VoiceOver on the field reads the refusal.
+   2. **F3 re-check:** write-off on `DEMO-DR WRITE-OFF PREFILL` → the sheet shows OSL-OPS; pick None, Submit on a Required bad-debt account → refused with "Choose a cost centre: required on the bad-debts account."; pick Bergen → posts on Bergen.
+   3. **F9 re-check:** a receipt that clears exactly one invoice in full → the posted journal's receivable line carries the invoice's cost centre.
+   4. **New, credit note against an invoice:** from an invoice on OSL-OPS, Create credit note → each credited line shows OSL-OPS in its picker; change one to Bergen, save, reopen → Bergen; set None on a Required account → refused on that line, named by its place on screen.
+   5. **New, accrual dialog:** journal › Accrue on a 67xx line with a branch default → the cost centre is prefilled; a Required account shows the star, and a refusal reads on the field.
+   6. **New, SIE / OB opening import** (if a test file is at hand): an opening account with a Required project → the Confirm step lists it; pick a project → the preview is clean → confirm posts.
+   7. Accessibility pass on the screens of steps 4–6.
+3. Results to `.review-channel/dr-feature-sim-results.md`. After that, the PR to `main` is yours to open and merge (no gate unless Jabran asks).
