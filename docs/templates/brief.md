@@ -22,7 +22,7 @@ Before you hand to review and test, in one batched call:
    - **App:** `com.neovatus.neoerp.app.i18n.*` (key standard, duplicate English, generic words, hard-coded text, placeholder parity), plus the size tests of every screen you changed;
    - **BackEnd:** `:architecture-tests:test`, the changed service's migration-head and Flyway upgrade tests when you add a migration, and its context test.
 
-Hand back only when all three are green, or when the hand-back names each red test with its cause. In dimension-rules, language-key, migration-head and architecture-inventory failures surfaced only in the fix round, because nobody had run them at build time.
+**Done means complete (Jabran 2026-11-25):** hand back only when every Definition of Done line is met and all three are green. There is no partial hand-back: no "not built", no "test gap", no red test left for someone else. You own the whole branch in your repo, including failures in code another builder wrote. The only exception is a real block that you can't decide yourself (a money rule, product scope, or a BE↔App contract change): stop, tell the lead what's blocked and why, and finish the rest. In dimension-rules, language-key, migration-head and architecture-inventory failures surfaced only in the fix round, because nobody had run them at build time.
 
 ## Batch your test runs (Jabran 2026-11-25)
 Each Gradle run pays its startup (a fresh daemon, configuration, compile) before any test runs: about 3–5 min on the 16 GB Mac. So:

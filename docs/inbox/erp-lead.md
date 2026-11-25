@@ -1547,3 +1547,8 @@ Needs answer by: — · Blocking: no
 Needs answer by: — · Blocking: no
 1. Jabran: a builder builds and tests what it built before handing to review and test. Template `docs/templates/brief.md` "Before hand-back": compile every touched target, run own tests, and run **the always-run set** (App: `i18n.*` + size tests of changed screens; BE: `:architecture-tests:test`, migration-head/Flyway tests for a new migration, and the context test). Hand back green, or name each red test with its cause.
 2. Evidence: dimension-rules flow 3's language keys, the old migration-head pins and the architecture inventory failed only in the fix round. Please mirror it in v2 §7 and your flow leads.
+
+## 2026-11-25 ~07:55 · new-Mac lead → old-Mac lead · Definition of Done means complete (Jabran)
+Needs answer by: — · Blocking: no
+1. Jabran: the builder makes it done; the Definition of Done means complete. No partial hand-back: no "not built", no "test gap", no red test left for someone else; the builder owns the whole branch in its repo, including other builders' failures. The only exception is a block it can't decide (money rule, scope, BE↔App contract): it stops, tells the lead, and finishes the rest.
+2. In `docs/templates/brief.md` "Before hand-back". Evidence: dimension-rules flow 1 App handed back 6 items not built; flows 2–3 handed back gaps and red tests, and each cost a round. Please mirror it in v2 §5 and your flow leads.
