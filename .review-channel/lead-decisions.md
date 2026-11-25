@@ -887,3 +887,9 @@ Jabran: "as we work only on one flow, we can directly merge to main?" → "yes, 
 - **Flaws fixed in flow:** E1 (2b), E2 (2a), E3 check with a test, E4 (2a: backlog 519; 2b: 511, 512). E5 App F6/F7/F9 stays backlog unless a 2a screen touches them.
 - **O2 → Jabran** (money rule: lowering the remaining amount).
 - **D-96 O2 (Jabran "as recommended", same day):** a change that lowers the remaining amount states its route: (a) source credited — the credit note already moved it; server checks new remaining ≤ the line net after credit; no journal; (b) release now — one journal in the current open period releases the difference, as part of the approved change. Raising stays capped by SOURCE_OVERSPREAD. (D365 cancel unrecognised amounts; SAP delta posting; IAS 8 change in estimate in the period of change.)
+- **D-96 addendum (lead, after the Fable 5.2 brief review `.review-channel/brief-review-spreading-change.md`, same day):**
+  - **One flow:** Jabran kept flow 2 as one flow, so the 2a/2b split above is withdrawn. The split limit is now per builder, about 5 000 code lines per repo.
+  - **Reversal date:** a period journal is reversed in its own period if that period is open; otherwise in the first open period, with the memo "reversal for {period}". It's never re-dated by the job (c10, as O6).
+  - **Feature off:** approved schedules keep posting. Pause and reversal from the detail stay allowed: a books correction is never blocked by a module switch. Create, submit, approve, change, End early, Resume, move, Post again, Retry and the dimension fix are refused (c11).
+  - **Pending changes:** one waiting change at a time. A second one is refused. If v2 is rejected or withdrawn, v1 carries on.
+- **D-95 addendum (Jabran, same day, from "cover it in flow 2"):** spreading isn't on `main` yet, so flow 2 is cut from `accounts/spreading/feature`, and spreading (with dimension rules) goes to `main` as one PR after flow 2's simulator test.
