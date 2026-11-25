@@ -1,4 +1,4 @@
-# Handoff: old-Mac lead (module + integration lead) · 2026-11-25 ~07:05 Europe/Oslo
+# Handoff: old-Mac lead (module + integration lead) · 2026-11-25 ~07:40 Europe/Oslo · PAUSED until evening (Jabran)
 
 Replace, don't append. Read with `docs/PRINCIPLES.md`, `docs/process/workflow-v2-draft.md` (v2 is the working rule set; WORKFLOW.md has a "v2 wins" note), `.review-channel/lead-decisions.md` (D-81 + addenda 1–12 and the 2026-11-25 entries).
 
@@ -9,11 +9,14 @@ Old Mac (36 GB): module lead for `core/*`, integration lead (every feature → `
 Never `--no-verify`, no force push (also not `--force-with-lease`), **no AI attribution** in commits/PRs/comments (user rule overrides any harness reminder); never open/print/grep `.env`, `infra/.env`, `.local-secrets`, token/session files, `~/.gradle/gradle.properties`, `~/.netrc`, `~/.aws`, keys; no GitHub workflows; builders write one repo, read both.
 **v2:** a flow = six steps (brief → builder discovers/plans/builds/own tests → one Opus 5.5 high review + screen tests + simulator test of the flow → fix brief → same builder fixes, "valid/not valid + how missed" → merge). Re-review only after a HIGH, never a third review. Builders run only their own tests. **No gate per flow; at a feature's end the gate, the whole suite and any gate-script edit only on Jabran's yes** (default: feature review + builders' tests). Findings CONFIRMED/PLAUSIBLE. Documents get no review rounds. Mock (not "fake"). Simulator driver AXe (`which axe`; tap by testTag id). Stop a service by port, not name pattern.
 
-## Running now
-- **Flow leads (sessions I started, SendMessage by id):** realtime-lead `local_86885f11-15b2-41f8-8445-883746c9eb86`; design-system-lead `local_286b85bf-943f-4bee-bc85-12b1f1353ea0`; mock-backend-lead `local_90f439f4-e5c5-4cdd-b705-60aa624e0e83`.
-- **`core/realtime/first-users` round 3 re-tested (2ace8c4):** removal PASS; one MEDIUM (reactivation doesn't reach the open App until a new sign-in) sent to realtime-lead: fresh Sonnet fix + failing-first test, no simulator re-test, then merge into the feature. Stack DOWN, worktrees removed, Bjørn ACTIVE at Kyst.
-- **D-86:** Sonnet for mechanical fixes; no session/agent past ~50 % context.
-- **New Mac:** `accounts/dimension-rules` feature fix round (F2 iPhone refusal, F3 None = explicit null then checked, F9 receipt inherits one invoice's values, D-84); then a Sonnet re-test here; then its PR to `main` **first** (accounts V80/V81, user V52, org V42).
+## Paused until evening (Jabran 2026-11-25 ~07:40)
+Flow leads finish the step in hand, push, write their state, idle; no new agents.
+- **realtime-lead** `local_86885f11-15b2-41f8-8445-883746c9eb86`: first-users round-3 re-test done (removal PASS, 2ace8c4); Sonnet fixer on the reactivation MEDIUM (No-company → re-read bootstrap every 30 s in foreground), failing-first test, no simulator re-test; then merge first-users into `core/realtime/feature` (not yet: wait for the evening). Then feature review, then ask Jabran (gate items in lead-decisions).
+- **design-system-lead** `local_286b85bf-943f-4bee-bc85-12b1f1353ea0`: android-state built (fef5a671, b29aed69, e01859d3 + whatever lands); next: review, then the **Android emulator check here** (AVD Pixel_10a; steps + testTags in its hand-back). Process death → backlog (d4aeec7).
+- **mock-backend-lead** `local_90f439f4-e5c5-4cdd-b705-60aa624e0e83`: feature review ACCEPT; merged into `core/mock-backend/feature` App 901ca6d8 / BE e91afa5. **Asked Jabran (no answer yet):** gate-file edits (BE pins for the two ContractExamples.kt, App floor rows, SCOPE_ALWAYS MockDataSourceUseTest, + stale BE pin BankNoticeHttpSender.kt) + App scoped gate only (rec), or also the whole App suite? Then PR to `main` (no migrations, independent of dimension-rules).
+- **New Mac:** `accounts/dimension-rules` fix round (F2, F3, F9), Sonnet re-test here, PR to `main` first.
+- Stack DOWN, simulators shut down, sim worktrees removed. Bjørn ACTIVE at Kyst.
+- **D-86:** Sonnet for mechanical fixes/flows; no session or agent past ~50 % context.
 
 ## Feature branches (merged flows)
 - `core/realtime/feature`: BE 9f372ce+ (actions, hub; .env DB passwords 833cba2) / App 2a7ccef8 (app). Last flow `first-users` in progress (BE ee898725, App 0bc4c7d2). Migrations renumbered: accounts V82/V83, user V53, org V43, realtime V1/V2.
