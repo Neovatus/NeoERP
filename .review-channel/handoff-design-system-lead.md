@@ -34,3 +34,4 @@ Notes: side-session-notes/…/design-system-lead.md. Measures lines for flows 1 
 ## D-87 (Jabran, for tonight): done list
 Each flow keeps an open done list `docs/agents/<feature>/done.md` (template: workspace `docs/templates/done.md`; the brief, review and tester templates were updated in 85bcaa6). Every step verifies the rows it inherits with fresh evidence: re-read, open the test and confirm it proves the row, run it. Never from memory. Anyone may add rows, with no limit.
 **android-state, before the review:** a builder (fresh Sonnet, the work is mechanical) writes `docs/agents/core-design-system/done.md`. The rows come from the brief and the plan, with evidence from a fresh run. The reviewer then verifies the list. The emulator rows belong to the module lead.
+- **D-87 addition:** the list is open only within the flow's Definition of Done (the brief's goal and scope edges). Anything found outside goes under "Outside the scope" (reported or backlog, not built).
