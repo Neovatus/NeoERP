@@ -863,3 +863,9 @@ Jabran: "when we're working on this mac, we can create a branch, not work in the
 
 ## D-93 Every branch has its PR on GitHub — 2026-11-25 (Jabran)
 "Whenever we create a new branch from its base it should be in GitHub as well." Whoever cuts a module, feature or flow branch pushes it at once and opens a **draft PR into its base** (flow → feature, feature → `main`), titled `<module>/<feature>[/<flow>]: <goal>`. The PR description links the brief and later the done list, review and test results; it is marked ready and merged (merge commit) at the step's merge. No GitHub workflows (Actions stay off); no AI attribution in PR text.
+
+## D-94 Branches: main → module → feature → sub-feature — 2026-11-25 (Jabran)
+Jabran: "each module has its own branch from main; from the module branch we create branches for its features; if a feature is small we do it all at once, otherwise we split into sub-feature branches from the feature."
+- `main` → **module** `<module>/main` (`accounts/main`, `hr/main`, `payroll/main`, `core/main`; git can't hold `accounts` beside `accounts/...`) → **feature** `<module>/<feature>` (small, built at once) or `<module>/<feature>/feature` + **sub-features** `<module>/<feature>/<sub>` (split).
+- Merges go up one level (sub-feature → feature → module → `main`; module → `main` only on Jabran's word). Updates go down (`main` → module → open features → their sub-features). Every branch has a draft PR to its parent (D-93).
+- Applying it after spreading flow 1 merges: cut `accounts/main` from `main` in both repos; retarget dimension-rules (BE #11 / App #9) and spreading feature (BE #16 / App #16) to `accounts/main`; merge `main` → `accounts/main` → `accounts/spreading/feature`. The old Mac does the same for `core/*` and `hr/*`.
