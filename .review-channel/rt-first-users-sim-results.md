@@ -83,3 +83,41 @@ Brief: unclear or missing: steps 4–5 need SE books (Kyst is NO); step 1 needs 
 - **Bjorn is ACTIVE at Kystgruppe as Finance Manager** (reactivated 06:53:40). All his sessions were ended in step 5; the iPhone is on the sign-in page.
 - Invitation for Bjorn (step 0) was accepted. Extra GL Excel exports: Bjorn ~7 more, Ola 4 + 1 TB direct file.
 - realtime-service running (started ~07:00). iPad: Ola signed in, English (Device language), normal text size.
+
+## Re-test round 3 (BE ff3898a1, App 1ed44f8c)
+
+Times UTC, 2026-11-25. Shots in `rt-first-users-shots/` (prefix `r3-`).
+
+| Step | Device | Result | Seen | Shots |
+|---|---|---|---|---|
+| 1 Reports open, stream Live | P | PASS | 06:19:52 P on Accounts > Reports (13 exports listed). No "Reconnecting" pill. `realtime.stream_connections` had 2 fresh rows (last seen 06:19:58). | r3-1-p-reports |
+| 2 Deactivate Bjørn | I then P | PASS | I confirmed Deactivate at 06:20:46 (membership INACTIVE 06:20:46.97). First P shot at ~06:20:54 (<10 s) already showed warning toast "You no longer have access to Kystgruppe Nordic / You're not in any company now.", breadcrumb "No company assigned", header "Bjorn Eriksson · Employee". Menu: only Dashboard, Profile, Settings (no Accounts). Stayed so through 60 s. | r3-2-i-dialog, r3-2-p-t5, t15, t25, t40, t60, r3-2-p-menu |
+| 3 Reactivate | I | PASS (iPad) | People row showed "Deactivated" badge; ⋯ offered "Reactivate"; reason entered; confirmed 06:21:52; SQL status = ACTIVE. | r3-3-i-after-deactivate |
+| 3b P returns to Kyst by itself | P | FAIL | 35+ s after reactivation P still shows "No company assigned", menu Dashboard/Profile/Settings only, no company switcher. No realtime push re-granted access. Needs a new sign-in (lead re-sign script). | r3-3-p-after-react |
+| 4 Phone export notice | P | NOT RUN | Blocked: Bjørn not back in Kyst without re-sign-in. Re-run after lead re-signs. | none |
+
+### Findings
+- MEDIUM (CONFIRMED, r3-3-p-after-react): after reactivation the phone does not regain the company without a sign-in; the user stays on "No company assigned" with no hint or "refresh" action. Plausibly expected (token has no membership) but the no-company screen offers no way back and the stream gives no "access restored" event.
+- LOW (CONFIRMED): iPad People page, "More actions for <name>" and menu items such as "People and access" appear twice with the same label (two AX nodes), so `axe tap --label` is ambiguous; no testTag ids on dialog Reason field or Deactivate/Reactivate buttons.
+- LOW (CONFIRMED): an element with empty AXLabel "" appears in the iPad People screen tree (likely the page icon or unlabeled control).
+- LOW (PLAUSIBLE): Reason text field has no stable id; label "Why this change is being made" duplicated.
+- NOTE: Reports page "Your exports" list already had 13 entries (earlier runs), step 4 not yet verified.
+
+### End state
+- Bjørn membership: ACTIVE (SQL).
+- P (iPhone): signed in as Bjørn, still on the No-company shell ("No company assigned"), needs lead re-sign into Kyst.
+- I (iPad): Ola Nordmann, People page, Bjørn row back to active.
+
+### Step 4 addendum (Bjørn re-signed into Kyst by lead; 06:23-06:25 UTC)
+
+| Step | Device | Result | Seen | Shots |
+|---|---|---|---|---|
+| 4 General ledger > Export > Excel x6 (account 1100) | P | PARTIAL | Export menu offers PDF / Excel (.xlsx) / CSV. Each of 6 exports (06:24:06 first, then 06:24:29, :40, :51, 06:25:01, :12) showed a "Saving…" notice directly above the General ledger card (visible, not off-screen) and the Export button turned to "Exporting…"; each finished within ~5 s and opened the iOS share sheet (KYSTNO-general-ledger-1100-…xlsx, 4 KB). The "Preparing…/Working…" notice with "Continue in background" never appeared (exports too fast), so the Continue tap and its toast could NOT be tested. "Your exports" stayed at "· 13" after 6 exports (list not refreshed or sync exports not listed). | r3-4-p-picker, r3-4-p-exportmenu, r3-4-p-export1-a/b/c, r3-4-p-export2..6-a/b |
+
+Findings (addendum)
+- NOT TESTED: "Continue in background" position/toast: needs a slow export (large range or all accounts, or throttled backend).
+- LOW (CONFIRMED, r3-4-p-export1-a/b): "Your exports" count stayed 13 after 6 new Excel exports from the page; either the list does not refresh on completion or these sync downloads aren't recorded there. Verify against the audit log/exports table.
+- LOW (CONFIRMED): the export list is above the report, so on the phone the user must scroll past 13 rows to reach the report selector and Export; the page opens scrolled to the top of a long list (long-list problem, still present).
+- LOW: General ledger shows "Choose an account" and no Export until an account is picked (fine), account picker rows carry both composite and split a11y labels (duplicates).
+
+End state (updated): Bjørn ACTIVE and in Kyst on Accounts > Reports (General ledger, account 1100), share sheet dismissed. iPad: Ola on People.
