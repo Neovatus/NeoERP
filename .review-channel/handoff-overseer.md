@@ -17,6 +17,7 @@ Flow leads finish the step in hand, push, write their state, idle; no new agents
 - **New Mac:** `accounts/dimension-rules` both done lists hold, final heads BE d0cb5b69 / App a3959cd8 (App batch 3065/0); **first thing tonight:** its 7-step simulator check + the S28 stack rows (inbox `docs/inbox/erp-lead.md` ~08:10 and ~10:00; Opus-medium tester for new screens steps 4–6, Sonnet for 1–3 and 7), then the PR to `main` (lands first).
 - Stack DOWN, simulators shut down, sim worktrees removed. Bjørn ACTIVE at Kyst.
 - **D-86:** Sonnet for mechanical fixes/flows; no session or agent past ~50 % context.
+- **D-87** done list verified at every step (inside the DoD scope); **D-88** new Mac one flow at a time, combined BE+App review, parallel after mock backend; **D-89** one fresh flow-lead session per flow, every stage by a sub-agent, flow lead ends after its merge (new Mac confirmed). Transition: realtime-lead finishes first-users + the realtime feature review then is archived; design-system-lead finishes android-state then is archived; mock-backend-lead is done (archive). Next flows get fresh sessions.
 
 ## Feature branches (merged flows)
 - `core/realtime/feature`: BE 9f372ce+ (actions, hub; .env DB passwords 833cba2) / App 2a7ccef8 (app). Last flow `first-users` in progress (BE ee898725, App 0bc4c7d2). Migrations renumbered: accounts V82/V83, user V53, org V43, realtime V1/V2.
