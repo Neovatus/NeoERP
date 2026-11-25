@@ -61,10 +61,16 @@ The template's Definition of Done, including its UI-test lines, plus:
   - a Compose UI test of create → preview → submit, at phone and tablet;
   - the approval card shows the SP-1 c2 cap for an opening balance;
   - size tests en/nb/sv/da.
-- **Simulator test on this Mac** (D-88), steps written by the flow lead.
+- **Simulator test:** on the old Mac until Jabran OKs the AXe install here. The flow lead writes the steps and asks for the slot in `docs/inbox/erp-lead.md`.
 
 ## Hand-back
-As the template. The flow lead merges the flow into `accounts/spreading/feature`, writes its measures line in `.review-channel/v2-trial-measures.md`, reports to the module lead, and ends.
+As the template. **Measures line (first full trial of D-87 to D-89; Jabran):** at the merge, one line in workspace `.review-channel/v2-trial-measures.md`, section "Trial of D-87 – D-89", with:
+- the done rows per source (brief / discovery / plan / review / tester);
+- the rows caught at the plan check;
+- the plan gaps the builder stopped on;
+- the findings that were a missing row;
+- the agents and models per stage;
+- the flow lead's context at the merge. The flow lead merges the flow into `accounts/spreading/feature`, writes its measures line in `.review-channel/v2-trial-measures.md`, reports to the module lead, and ends.
 
 ## Never
 - `--no-verify`, force push, AI attribution, GitHub workflows, writes in the other repo; builders don't push, merge or rebase.
