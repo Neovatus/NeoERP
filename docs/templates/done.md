@@ -2,8 +2,9 @@
 
 One list per flow, kept in `docs/agents/<feature>/done.md` in each repo the flow changes (D-87, Jabran 2026-11-25). It travels with the flow from the brief to the merge. **Every step verifies the rows before it adds its own**, and moves on only when they hold.
 
-## The list is open, not a form
-- Anyone at any step **adds rows**: the lead from the brief, the builder from discovery and the plan, the reviewer for what it finds missing, the tester for what it sees. Write what the flow needs, in your own words: cases, paths, callers, screens, data, docs, anything. The brief and this template never limit what goes in.
+## Open inside the scope of the Definition of Done
+- **Every row serves the brief's goal and its Definition of Done, inside the scope edges.** Something you find outside the scope is written under "Outside the scope" below (reported, or a backlog row), not built in this flow. If you think the scope itself is wrong, stop and ask the lead.
+- Inside that scope the list is open: anyone at any step **adds rows**: the lead from the brief, the builder from discovery and the plan, the reviewer for what it finds missing, the tester for what it sees. Write what the flow needs, in your own words: cases, paths, callers, screens, data, docs, anything. The brief and this template never limit what goes in.
 - A row is never deleted. A row that does not apply gets "not needed, because …" with evidence.
 
 ## Verify, don't just tick
@@ -24,6 +25,10 @@ A tick means **you verified it yourself in this step**, not that someone said so
 | Tester | the screen rows match what it sees | ticks screen/simulator rows with shots; anything seen that is not a row → a new row (and a finding if it fails) |
 | Fix (builder) | the rows the findings touch | the failing-first test per finding as evidence |
 | Merge (lead) | every row has its evidence and ticks; spot-checks two rows itself | — |
+
+## Outside the scope (reported, not built here)
+| Found | By (step) | Where it goes (backlog row / lead / other flow) |
+|---|---|---|
 
 ## Rows
 | # | Row (what must be true) | From (brief / discovery / plan / review / tester) | How verified (test name + run counts + sha, file:line, shot) | Builder ✓ | Review ✓ | Tester ✓ |

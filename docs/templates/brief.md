@@ -56,7 +56,7 @@ You own the whole flow, not only the item named here.
 - **Out of scope:** <what not to do, and why>
 
 ## The done list (D-87, Jabran 2026-11-25)
-Keep `docs/agents/<feature>/done.md` from [the template](done.md) through every step. **Verify, don't just tick:** before your own work, re-check the rows you inherit (re-read the file, open the test, run it); add every row the flow needs, in your own words: the list is open and this brief never limits it. Evidence comes from this step's own run or reading, never from memory or an earlier summary. No hand-back with an empty row.
+Keep `docs/agents/<feature>/done.md` from [the template](done.md) through every step. **Verify, don't just tick:** before your own work, re-check the rows you inherit (re-read the file, open the test, run it); add every row the flow needs to meet its Definition of Done, in your own words: inside the scope edges the list is open; what you find outside them goes under "Outside the scope" (reported, not built). Evidence comes from this step's own run or reading, never from memory or an earlier summary. No hand-back with an empty row.
 
 ## Step 1: discovery and plan (before any code)
 Write `docs/agents/<feature>/plan.md`: how the flow works today end to end; **every path** the change touches (other
