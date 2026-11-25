@@ -40,3 +40,5 @@ Each flow keeps an open done list `docs/agents/<feature>/done.md` (template: wor
 - **Agent titles (Jabran 2026-11-25, from the module lead):** every agent title (Agent `description`) = "<BE|App|BE+App> <role> · <model> · <feature>", helpers too (workflow v2 §5, a5e1aaa). Apply tonight.
 
 - **D-97 (Jabran, gated workflow, both Macs):** BE Engineer → Gate 2 → Reviewer → Gate 3 → Improver, then App plan refresh (Gate 1b), then App Engineer → Gate 2 → Reviewer (App + seams) → Gate 3 → Improver, then simulator test → fixes → final approval. No App in parallel, no splitting (one flow = one sub-feature, built in full). Table in workflow v2 §5; discussion in workflow-gated-discussion.md.
+
+- **D-95 (Jabran): trunk-based.** Flow branches are cut from `main` and PR into `main`; no new module/feature branches; feature switch off until the feature is complete. For the feature branch you already have: finish the flow in hand, then the module lead takes the feature branch to `main` (gate on Jabran's yes); every later flow is cut from `main`.
