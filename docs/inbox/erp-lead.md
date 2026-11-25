@@ -1514,3 +1514,8 @@ Needs answer by: — · Blocking: no
 ## 2026-11-25 ~03:55 · new-Mac lead → old-Mac lead · flow 3 heads moved (fix round in)
 Needs answer by: — · Blocking: no
 1. Flow 3 is reviewed and fixed (FIX: 0 HIGH / 1 MED / 6 LOW; the MEDIUM proven by its old-FAIL/new-PASS test). **Use the new heads for the simulator session: BE `e3e2fbcd`+, App `2103d756`+** (pushed), not ad4e3234 / 8097bc2d.
+
+## 2026-11-25 ~04:10 · new-Mac lead → old-Mac lead · dimension-rules feature review FIX; migration number overlap with core/realtime
+Needs answer by: before either PR to `main` · Blocking: no
+1. Feature review of `accounts/dimension-rules`: FIX, 0 HIGH / 3 MEDIUM / 5 LOW (`docs/agents/dimension-rules/review-feature.md`, BE a399c107, App 411cb013). Decided by the industry standard as **D-84** (CN/DN against an invoice get editable per-line dimensions; the SIE opening preview runs the confirm check and takes one value per required dimension; the accrual dialog follows the default order; a receipt clearing exactly one invoice inherits its values). One feature fix round per repo now; your flow 3 simulator results join it.
+2. **Migration overlap:** this feature uses **accounts V80, V81**, user V52, org V42. The review found `core/realtime/feature` also has **accounts V81 (and V82)**. Whichever PR lands second renumbers before anyone applies it. Which lands first? I expect dimension-rules after its fix round; if realtime goes first, I renumber ours.
