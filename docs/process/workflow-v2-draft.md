@@ -61,7 +61,7 @@ For a feature with one flow, the flow review is the feature review.
 | 2 | BE discovery + plan | BE planner | Opus | reads both repos; writes BE `plan.md` + done rows (complete enough that another agent can build from it) |
 | — | Plan check | flow-lead session | — | re-runs one or two caller greps; OK in the plan |
 | 3 | BE build | BE builder | Sonnet when the plan decides everything; Opus for money, security or design-heavy | builds from `plan.md` + `done.md` only; contract + examples; own tests |
-| 4 | App discovery + plan | App planner (can run while the BE builds) | Opus | reads both repos + the BE plan; writes App `plan.md` + done rows |
+| 4 | App discovery + plan | App planner (after the BE is done, D-88; alongside it only once the mock backend is on `main`) | Opus | reads both repos + the BE plan; writes App `plan.md` + done rows |
 | — | Plan check | flow-lead session | — | — |
 | 5 | App build (after the BE contract) | App builder | as step 3 | UI tests on the JSON mock data source |
 | — | Verify done rows | flow-lead session | — | fresh run, opens the tests |
@@ -73,7 +73,7 @@ For a feature with one flow, the flow review is the feature review.
 
 **Agent titles (Jabran 2026-11-25):** every agent's title shows repo, role and model: "<BE|App|BE+App> <role> · <model> · <feature>" (e.g. "BE builder · Opus · spreading"); helper agents too.
 
-A builder that finds the plan wrong or incomplete stops and reports to the flow lead (a plan gap is counted like a brief gap); it never fills a gap from guesswork. After the mock backend is on `main`, steps 4–5 run alongside step 3.
+A builder that finds the plan wrong or incomplete stops and reports to the flow lead (a plan gap is counted like a brief gap); it never fills a gap from guesswork. **In sequence (D-88, Jabran 2026-11-25):** until the mock backend is on `main`, the steps run one after another with no overlap: the BE builds everything and its done list is verified, then the App plans and builds, then the combined review. After the mock backend is on `main`, steps 4–5 run alongside step 3.
 
 ## 5. Definition of Done (every flow; the brief adds its own lines)
 **Done list (D-87, Jabran 2026-11-25):** each flow keeps one open list, `docs/agents/<feature>/done.md` ([template](../templates/done.md)), from the brief to the merge. Every step **verifies** the rows it inherits (re-reads the file, opens and runs the test, looks at the screen) before it adds its own, and moves on only when they hold; evidence comes from that step's own run, never from memory or a summary. Anyone adds rows **inside the scope of the flow's Definition of Done** (the brief's goal and scope edges); nothing limits the rows within it; what is found outside goes under "Outside the scope" (reported or backlog, not built). The lead checks the plan's rows before the build and spot-checks two rows before the merge.
