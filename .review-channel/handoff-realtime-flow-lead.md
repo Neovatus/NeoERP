@@ -39,3 +39,5 @@ Tonight, in order: (1) first-users done list (D-87) in both repos, (2) report B,
 D-89 addendum: the done list (step 1) and the feature review (step 4) are each a **new agent** (stage table: workflow-v2-draft.md §5); I only verify rows and relay.
 
 - **Agent titles (Jabran 2026-11-25, from the module lead):** every agent title (Agent `description`) = "<BE|App|BE+App> <role> · <model> · <feature>", helpers too (workflow v2 §5, a5e1aaa). Apply tonight.
+
+- **D-97 (Jabran, gated workflow, both Macs):** BE Engineer → Gate 2 → Reviewer → Gate 3 → Improver, then App plan refresh (Gate 1b), then App Engineer → Gate 2 → Reviewer (App + seams) → Gate 3 → Improver, then simulator test → fixes → final approval. No App in parallel, no splitting (one flow = one sub-feature, built in full). Table in workflow v2 §5; discussion in workflow-gated-discussion.md.

@@ -38,3 +38,5 @@ Each flow keeps an open done list `docs/agents/<feature>/done.md` (template: wor
 - **D-89 (Jabran):** one fresh flow-lead session per flow, and every stage is done by a sub-agent. The flow lead verifies the done-list rows between stages, merges the flow into the feature and ends. **Tonight this session:** finish android-state (done list → review sub-agent → fixes → the module lead's emulator check), **merge it into `core/design-system/feature`**, update this handoff, and end. The module lead archives this session and starts a fresh one for the next flow.
 
 - **Agent titles (Jabran 2026-11-25, from the module lead):** every agent title (Agent `description`) = "<BE|App|BE+App> <role> · <model> · <feature>", helpers too (workflow v2 §5, a5e1aaa). Apply tonight.
+
+- **D-97 (Jabran, gated workflow, both Macs):** BE Engineer → Gate 2 → Reviewer → Gate 3 → Improver, then App plan refresh (Gate 1b), then App Engineer → Gate 2 → Reviewer (App + seams) → Gate 3 → Improver, then simulator test → fixes → final approval. No App in parallel, no splitting (one flow = one sub-feature, built in full). Table in workflow v2 §5; discussion in workflow-gated-discussion.md.
