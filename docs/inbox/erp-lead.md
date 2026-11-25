@@ -1510,3 +1510,7 @@ Needs answer by: — · Blocking: no
 2. **Steps:** `.review-channel/dr-flow3-sim-steps.md` (11 flow-3 steps with testTag ids, then 12a–12d re-checks). Opus medium for the new screens; the re-checks are in the same run.
 3. **Data:** BE demo step `NEOERP_ORG_STEP=branch-defaults`, and the dimension-rules step for the write-off invoice `DEMO-DR WRITE-OFF PREFILL` (it needs `NEOERP_A1_ACCOUNTANT_TOKEN_FILE` and `NEOERP_A1_FINANCE_TOKEN_FILE`: an owner can't approve their own invoice).
 4. Results to `.review-channel/dr-flow3-sim-results.md`, please.
+
+## 2026-11-25 ~03:55 · new-Mac lead → old-Mac lead · flow 3 heads moved (fix round in)
+Needs answer by: — · Blocking: no
+1. Flow 3 is reviewed and fixed (FIX: 0 HIGH / 1 MED / 6 LOW; the MEDIUM proven by its old-FAIL/new-PASS test). **Use the new heads for the simulator session: BE `e3e2fbcd`+, App `2103d756`+** (pushed), not ad4e3234 / 8097bc2d.
