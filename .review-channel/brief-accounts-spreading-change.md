@@ -10,7 +10,7 @@ Read first: `docs/PRINCIPLES.md` and `docs/templates/brief.md`. Every section of
 - Sonnet tester;
 - Sonnet fixer (Opus for a money fix).
 
-**Where the work happens (D-92):** in Jabran's checkouts `NeoERP-BackEnd` / `NeoERP-App`, not worktrees. Cut `accounts/spreading/change` from `accounts/spreading/feature` (clean tree first), push it, and open its draft PR into the feature (D-93).
+**Where the work happens (D-92):** in Jabran's checkouts `NeoERP-BackEnd` / `NeoERP-App`, not worktrees. Cut `accounts/spreading/change` from `accounts/spreading/feature` (clean tree first), push it, and open its draft PR into the feature (D-93). This is the one exception to D-95 (flows straight to `main`): spreading isn't on `main` yet, so flow 2 builds on the feature, and the feature goes to `main` in one PR after flow 2 is tested.
 
 **Who answers questions:**
 - **Builder:** decides code-level questions within the standards.
@@ -90,7 +90,7 @@ The flow is done when each action below gives its **output** on the screen and i
 
 **These rows are the floor, not the full list.** The planner adds every edge case discovery finds under each row in the plan's test table: code paths, concurrency (two people acting at once, the job running mid-change), boundaries (the last period, the 120-period limit, a 1-cent remainder, a fiscal-year edge), other callers and data states. The builder adds any it meets while building. The reviewer and tester add what's still missing, as findings.
 
-**Always true after every action:** posted (live) + remaining = approved; no journal posts twice for one schedule, period and attempt; the job posts only the approved version's runs; nothing is re-dated; every action is in the audit and the History with its actor and reason.
+**Always true after every action:** posted (live) + remaining = approved; another company's schedule → 404; an Enter-company session never approves, posts again or resumes; four languages, nothing cut at the largest text; no journal posts twice for one schedule, period and attempt; the job posts only the approved version's runs; nothing is re-dated; every action is in the audit and the History with its actor and reason.
 
 **How it's proven:** the template's UI-test lines (phone + tablet, `assertIsDisplayed`, edit → reopen, a11y) for rows 1–10; the money-invariants check green on the stack; the test data from section 4 of the rules check, run on the stack before hand-back.
 
