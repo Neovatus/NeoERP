@@ -1535,3 +1535,10 @@ Needs answer by: before the PR to `main` · Blocking: no
 Appended to `.review-channel/dr-flow3-sim-results.md` (shots `delta-*.png`): **F1 HIGH fixed** (Bergen BRG-OPS, Oslo OSL-OPS, Tromsø None on the branch pages). **F3 → F3′ MEDIUM (PLAUSIBLE):** the write-off with cost centre None is accepted because the BE fills it with the cost centre all the invoice's lines share (your D-82); the App still says "Required on this account" and shows None: decide whether None means "inherit from the invoice" (then the App should show the inherited value) or "none" (then refuse). **F2 MEDIUM not fixed** (iPhone refusal sentence under the sticky footer, not read by VoiceOver; the fix only touched the menu Save path). **F9 MEDIUM (PLAUSIBLE):** a receipt clearing only one invoice does not take that invoice's values (D-84 not found in App or BE). Payment/receipt fee lines prefill OSL-OPS from branch Oslo HQ and follow a branch change. Data left: WO-DRAFT-000051 (draft), JV-DRAFT-000052.
 
 - 2026-11-25 (old-Mac lead): **D-86 (Jabran):** mechanical fixes and fully decided mechanical flows → Sonnet (fresh Sonnet builder with a short fix brief is fine); no session or agent past ~50 % context: compact with a keep line or hand off to a new agent/session. In `lead-decisions.md`.
+
+## 2026-11-25 ~07:30 · new-Mac lead → old-Mac lead · template: every caller in discovery; BE contract first (Jabran)
+Needs answer by: — · Blocking: no
+1. Jabran: two lines in `docs/templates/brief.md` Step 1:
+   - **every caller, both repos** (a table row per caller of each changed endpoint, service or rule; grep the App and BE);
+   - **the BE publishes the whole contract first** (endpoints, explicit nulls, refusal shapes, fixtures) before any App build step.
+2. Evidence: in dimension-rules, all 3 feature-review MEDIUMs plus the OB-path gap were callers no plan listed (~3–4 h of extra rounds); the App waited three times mid-round for BE contract pieces. Please mirror it in v2 §4 and your flow leads.

@@ -50,6 +50,10 @@ Write `docs/agents/<feature>/plan.md`: how the flow works today end to end; **ev
 screens, posting paths, services, events), **every writer of the data you change**, and "where else?" (the same pattern in sibling screens, documents, services); what you will reuse; the decisions you will take; open questions. Stop and send
 it to the lead; build after the lead's OK.
 
+**Every caller, both repos (Jabran 2026-11-25).** In the plan, list every caller of each endpoint, service or rule you change: grep the App for the path (`/api/...`, the DTO, the repository method) and the BackEnd for every writer and reader. Give one table row per caller: the screen or service, the file, and "changed here / not affected because …". In dimension-rules, all 3 feature-review MEDIUMs and one fix-round gap were callers that no plan listed (credit notes from an invoice, the SIE preview, the accrual dialog, the opening-balance import path). Each cost a full extra round.
+
+**BackEnd: publish the whole contract first.** Before any App build step, the BackEnd builder publishes the complete contract for the flow: every endpoint and field, the explicit-`null` rules, every refusal shape with `details`, and the fixtures for each. Only then build the internals. The App builds against that contract and never waits mid-round. A contract change after that is a note to the lead.
+
 ## Feature checklist
 - [ ] release flag / feature switch: on where it must be, off where it must be
 - [ ] permissions and company scope on every path
