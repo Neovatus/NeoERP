@@ -73,7 +73,7 @@ One flow = one sub-feature, built in full: **no splitting**.
 | G3 | Triage | flow lead | as above |
 | 7 | App Improver (only with findings) | Sonnet | as above |
 | 8 | Simulator test: real app on the real stack | tester Opus medium (new screens) / Sonnet (re-tests); flow lead prepares stack, data, sign-ins | every step PASS with shots; messages explain; flow lead checks money screens |
-| 9 | Fixes for simulator findings | Sonnet / Opus for money | failing-first test; re-test only touched steps |
+| 9 | Fixes for simulator findings | Opus 5.5 medium (they cross BE and App and need the end-to-end view) | failing-first test; re-test only touched steps |
 | ✅ | Final approval | flow lead merges after Jabran has seen it | PR merged; measures line |
 
 Rules: a new agent per stage, titled repo · role · model · feature; no helper agents; one `docs/agents/<feature>/state.md` per flow (stage, heads, PRs, open questions); questions climb only after each level checked the sources (builder → flow lead → module lead → Jabran, critical only); Jabran talks to the flow lead directly; `main`, migration and decision numbers through the integration lead; pull + grep before taking a decision number; our design-system numbers; merge is a click when reviewed, tested and the base hasn't moved.
