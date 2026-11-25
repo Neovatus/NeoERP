@@ -4,7 +4,7 @@ One list per flow, kept in `docs/agents/<feature>/done.md` in each repo the flow
 
 ## Open inside the scope of the Definition of Done
 - **Every row serves the brief's goal and its Definition of Done, inside the scope edges.** Something you find outside the scope is written under "Outside the scope" below (reported, or a backlog row), not built in this flow. If you think the scope itself is wrong, stop and ask the lead.
-- Inside that scope the list is open: anyone at any step **adds rows**: the lead from the brief, the builder from discovery and the plan, the reviewer for what it finds missing, the tester for what it sees. Write what the flow needs, in your own words: cases, paths, callers, screens, data, docs, anything. The brief and this template never limit what goes in.
+- Inside that scope the list is open: anyone at any step **adds rows**: the lead from the brief, the builder from discovery and the plan, the reviewer for what it finds missing, the tester for what it sees. Write what the flow needs, in your own words: cases, paths, callers, screens, data, docs, anything the Definition of Done needs. Within the scope, the brief and this template never limit what goes in.
 - A row is never deleted. A row that does not apply gets "not needed, because …" with evidence.
 
 ## Verify, don't just tick
