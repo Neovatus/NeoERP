@@ -1,4 +1,4 @@
-# Brief: change (flow 2 of 2) · branch `accounts/spreading/change` → `accounts/spreading/feature` · BackEnd + App · review: Opus 5.5 high
+# Brief: change (flow 2 of 2) · branch `accounts/spreading/change` → `accounts/spreading/feature` · BackEnd + App · reviews: backend, then App (D-97)
 
 Read first: `docs/PRINCIPLES.md` and `docs/templates/brief.md`. Every section of the template applies. Also read `docs/templates/done.md` and `docs/templates/tester.md` ("Messages must explain"). **This brief is a frame, not a fence:** discovery, the plan and the build are yours, end to end, in both repos.
 

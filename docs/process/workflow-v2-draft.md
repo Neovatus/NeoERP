@@ -65,13 +65,13 @@ One flow = one sub-feature, built in full: **no splitting**.
 | G2 | Backend build | flow lead | compiles + own tests + always-run set green, read from result files |
 | 3 | Backend Reviewer (beyond the diff) | 1 Opus 5.5 high | — |
 | G3 | Triage | flow lead | CONFIRMED HIGH/MEDIUM → Improver; LOW → backlog |
-| 4 | Backend Improver (only with findings) | Sonnet, Opus for money | failing-first test per finding; one re-check only after a HIGH → backend done, contract final |
+| 4 | Backend Improver (only with findings) | Opus | failing-first test per finding; one re-check only after a HIGH → backend done, contract final |
 | G1b | App plan refresh | flow lead | App plan updated to the finished backend |
 | 5 | App Engineer | 1 Opus builder | — |
 | G2 | App build | flow lead | JVM/iOS/Android compile + own tests + always-run + size tests green |
 | 6 | App Reviewer (App + seams with the backend) | 1 Opus 5.5 high | — |
 | G3 | Triage | flow lead | as above |
-| 7 | App Improver (only with findings) | Sonnet | as above |
+| 7 | App Improver (only with findings) | Opus | as above |
 | 8 | Simulator test: real app on the real stack | tester Opus medium (new screens) / Sonnet (re-tests); flow lead prepares stack, data, sign-ins | every step PASS with shots; messages explain; flow lead checks money screens |
 | 9 | Fixes for simulator findings | Opus 5.5 medium (they cross BE and App and need the end-to-end view) | failing-first test; re-test only touched steps |
 | ✅ | Final approval | flow lead merges after Jabran has seen it | PR merged; measures line |
