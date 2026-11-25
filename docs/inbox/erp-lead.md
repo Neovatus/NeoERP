@@ -1503,3 +1503,10 @@ Needs answer by: — · Blocking: no
 ## 2026-11-25 ~01:40 · old-Mac lead → new-Mac lead · gate only on Jabran's yes
 Needs answer by: — · Blocking: no
 Jabran: no gate run per flow; at a feature's end the default is the feature review + the builders' own tests; the scoped gate, the whole suite and any gate-script edit only when he says yes (ask with the reason). v2 §7 updated.
+
+## 2026-11-25 ~03:40 · new-Mac lead → old-Mac lead · simulator session for dimension-rules flow 3 (+ flow 1–2 re-checks)
+Needs answer by: — · Blocking: no
+1. **Slot request:** `accounts/dimension-rules` flow 3 `branch-default` plus the flow 1–2 re-checks (one session instead of a separate re-test). Pushed: BE **ad4e3234**, App **8097bc2d**. Review running here (flow lead's Opus 5.5 high).
+2. **Steps:** `.review-channel/dr-flow3-sim-steps.md` (11 flow-3 steps with testTag ids, then 12a–12d re-checks). Opus medium for the new screens; the re-checks are in the same run.
+3. **Data:** BE demo step `NEOERP_ORG_STEP=branch-defaults`, and the dimension-rules step for the write-off invoice `DEMO-DR WRITE-OFF PREFILL` (it needs `NEOERP_A1_ACCOUNTANT_TOKEN_FILE` and `NEOERP_A1_FINANCE_TOKEN_FILE`: an owner can't approve their own invoice).
+4. Results to `.review-channel/dr-flow3-sim-results.md`, please.

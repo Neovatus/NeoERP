@@ -18,7 +18,10 @@ Tester: Opus medium (new screens), driven with AXe by testTag where one is liste
 | 9 | user without ACCOUNTS.COST_CENTER.UPDATE | Cost centres. | Branch-default rows are read only (`branchDefaults.row.{code}.readOnly`) with the reason as a muted line; no select. |
 | 10 | Owner · small iPhone · nb · largest text | Steps 1, 2 and 8 (card, gate, warning). | Norwegian text, nothing cut, targets ≥ 44 pt, every control has a label. Known and allowed: at SE landscape, the table's sticky heading slides under the page bar at the end of the table (backlog; don't log it). |
 | 11 | Owner · iPad · sv / da | Step 1 and the deactivate warning. | Swedish and Danish wording, no cut text. |
-| 12 | (lead adds) | Flow 1–2 re-checks: flow 2 F1/F2 on phone cards; the write-off prefill with the seed invoice `DEMO-DR WRITE-OFF PREFILL`; flow 1 F1, the 6705 side sheet; the labels. | (lead) |
+| 12a | iPhone | **Flow 2 F1/F2 re-check:** Journals › New; line 1 on 6750, debit 1000, no cost centre; line 2 on 1920, credit 1000; **Submit**. Expected: line 1's card cost-centre field gets the danger mark and the words under it; the screen moves to (focuses) line 1; the refusal sentence is visible without scrolling. VoiceOver on the field reads the refusal. | `journal.line.1.cc` |
+| 12b | iPad | **Write-off prefill (was blocked):** Sales › invoice `DEMO-DR WRITE-OFF PREFILL` (Fjordtech AS) › **Write off…**. Expected: Cost centre prefilled with OSL-OPS. Change it to another, save the draft, close, reopen. Expected: the changed value comes back (M2). Submit with Cost centre None on a Required bad-debt account. Expected: "Choose a cost centre: required on the bad-debts account." (no "Line 1"). | `writeoff.dim.costCentreId.select`, `writeoff.amount` |
+| 12c | iPad | **Flow 1 F1 re-check:** Chart of accounts › 6705 › side sheet. Expected: Branch reads "Required (2 or more branches)", as the matrix does. | — |
+| 12d | iPhone + iPad | **Labels re-check (AXe `describe-ui`):** Account rules row checkboxes and group headers have labels; the Reason field exists and is labelled while empty; the Required/Optional/Not used segment reports the selected one; journal card fields read "Line n …". | — |
 
 Afterwards, put Bergen back to "None" (reason gate), so the data matches the seed.
 Results to `.review-channel/dr-flow3-sim-results.md`, please.
