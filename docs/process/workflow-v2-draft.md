@@ -71,6 +71,8 @@ For a feature with one flow, the flow review is the feature review.
 | 9 | Re-check (only after a HIGH) | the same reviewer, resumed | Opus 5.5 high | that fix only |
 | 10 | Merge into the feature | flow-lead session | — | spot-checks two rows, measures line, ends |
 
+**Agent titles (Jabran 2026-11-25):** every agent's title shows repo, role and model: "<BE|App|BE+App> <role> · <model> · <feature>" (e.g. "BE builder · Opus · spreading"); helper agents too.
+
 A builder that finds the plan wrong or incomplete stops and reports to the flow lead (a plan gap is counted like a brief gap); it never fills a gap from guesswork. After the mock backend is on `main`, steps 4–5 run alongside step 3.
 
 ## 5. Definition of Done (every flow; the brief adds its own lines)
