@@ -1,4 +1,29 @@
-# Handoff — 2026-11-24 ~19:45 (new Mac; supersedes 2026-11-22 ~23:20)
+# Handoff — 2026-11-25 ~08:15 (new Mac; supersedes 2026-11-24 ~19:45)
+
+**Read this section first.** Older sections below are history.
+
+- **`accounts/dimension-rules` is complete and green.** BE **dcb4e35e**, App **ce2174d6** (pushed).
+  - Flows 1 set-rules, 2 post-with-rules and 3 branch-default (run by the flow-lead trial session `flow3-branch-default`).
+  - The feature review (FIX, 3 MEDIUM) and every simulator finding are fixed with failing-first tests. App final batch 3329/0; BE batches green.
+  - Migrations: accounts V80, V81, user V52, org V42. `core/realtime` moves to V82/V83.
+- **Waiting:** the old Mac is paused until tonight. Then: the last simulator check (inbox 2026-11-25 ~08:10, 7 steps; Opus medium for steps 4–6) → the PR to `main` by the old Mac (lands before realtime). No gate unless Jabran asks.
+- **Decisions:** D-82 (system lines inherit, then checked; opening balances follow Required), D-84 (credit notes from an invoice are editable, the SIE opening preview equals confirm, the accrual dialog follows the default order, a receipt clearing one invoice inherits). Jabran's standing rule: follow the industry standard.
+- **Process changes tonight, in `docs/templates/brief.md`:**
+  - specialist lines;
+  - a short brief, with discovery owned by the builder;
+  - no hours; a 20-min progress note;
+  - batched runs (`--max-workers=2` for App multi-target);
+  - DoD UI-test lines;
+  - finding validity;
+  - every caller in discovery;
+  - the BE contract first;
+  - before hand-back: compiles + own tests + the always-run set;
+  - done means complete.
+- **Gradle trial:** one BE + one App job in parallel, with a memory check. Swap went 7.6 → 5.2 GB.
+- **Standing:** stop idle leftover Gradle daemons from our worktrees / gradle-job homes (`kill -TERM`).
+- **Next for Accounts after the PR:** `accounts/spreading` (plan `.review-channel/accounts-plan.md`), with a short brief and a flow lead per flow.
+
+## Handoff — 2026-11-24 ~19:45 (new Mac; supersedes 2026-11-22 ~23:20)
 
 **Read this section first.** Older sections below are history.
 
