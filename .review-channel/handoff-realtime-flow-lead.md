@@ -32,3 +32,6 @@ Notes log: `~/Library/Application Support/Claude/side-session-notes/local_790aaa
 
 ## Added 2026-11-25 (D-87, Jabran via module lead)
 Before the core/realtime feature review: write `docs/agents/realtime/done.md` for first-users in each repo (template `docs/templates/done.md`, 85bcaa6) from its brief + the 4 fix rounds, with evidence from a **fresh run** of its own tests (not memory); the feature reviewer verifies it. Do this tonight after the merge question, before report B / feature review.
+
+## Added 2026-11-25 (D-89, Jabran via module lead)
+Tonight, in order: (1) first-users done list (D-87) in both repos, (2) report B, (3) module lead merges first-users into core/realtime/feature, (4) **core/realtime feature review, run by a sub-agent** (verifies the done lists) — my last job. Then the module lead archives this session; later realtime work gets a fresh flow-lead session (one per flow; every stage a sub-agent; flow lead verifies done-list rows between stages, merges the flow into the feature, ends).
