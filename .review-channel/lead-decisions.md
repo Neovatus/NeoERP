@@ -818,3 +818,7 @@ Reason: Jabran's standing rule (D-82) to follow the industry standard; each is a
 1. **`core/design-system` order:** `android-state` is the next flow; `module` moves to a quiet window (when few App flows are open, so the move does not conflict with them). New order: a11y-checks → contracts → **android-state** → module (quiet window) → window-class → layouts-focus.
 2. **Journals tests (`core/mock-backend`):** stop after 5A. be-examples-3, 5B and 5C are not built now; the remaining journals tests move to the JSON mock data source **when a flow touches them** (DoD rule already says new UI tests use it). The feature goes to its feature review and then its PR.
 3. **Wide screens ≥ 1920:** the split: lists and tables use the full width; forms and detail pages cap at ~1200–1440 and centre. Built in `layouts-focus` (page-type contracts), tested at 1920 and 2560. Closes the backlog question "How wide pages behave above 1200".
+
+## D-86 Cost rules — 2026-11-25 (Jabran, at 40 % of the weekly limit)
+- **Mechanical fixes and fully decided mechanical flows → Sonnet** (e.g. JSON example files, renames, LOW/MEDIUM fixes with a clear fix brief). Opus stays for discovery, money, security and design-heavy work. Amends Addendum 10 (same builder) for mechanical fixes: a fresh Sonnet builder with a short fix brief is fine.
+- **No session or agent grows past ~50 % context:** before that, compact (with a keep line) or hand the rest to a new agent/session with a short brief. Applies to the leads, flow leads, builders and testers.
