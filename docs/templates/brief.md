@@ -55,6 +55,7 @@ it to the lead; build after the lead's OK.
 - [ ] permissions and company scope on every path
 - [ ] demo data incl. the awkward cases (several branches, several open items, a stand-in, an Owner approving own)
 - [ ] four languages (en, nb, sv, da)
+- [ ] App: new UI tests use the JSON mock data source (`NeoERP-App/docs/operations/mock-data-source.md`) with fixtures copied from the BackEnd's published examples, not a repository mock; repository mocks are removed per area as it moves
 - [ ] App: every interactive element has a label and a `testTag` unique on its screen; toggles expose selected state; targets ≥ 44 pt; required `*` ⇔ announced; a "required fields" case in each form's UI test
 - [ ] user-guide page and developer page (or "none: <reason>")
 - [ ] the endpoints used, with the other repo's side read
