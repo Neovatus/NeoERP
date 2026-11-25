@@ -38,6 +38,7 @@ done ones with the date) every batch. Details and drafts are linked; nothing her
 | C1 | **Accountant sign-off (ERP-Q1)** per country, after the AI double review: arrange the reviewer (a hired country accountant or the first customer's accountant); a few hours per country | 6 weeks before that country's first customer; order PK → NO → SE → DK → FI → IS | Accounts roadmap decision 13 |
 | C2 | Native-speaker read-through of the app per language (go-live L-7) | Before that country's first customer | go-live L-7 |
 | C3 | Iceland and Finland record-keeping arrangements (H-2: a copy in Iceland or a provider arrangement; H-4: inspectable from Finland) | Before the IS / FI launch | go-live H-2, H-4 |
+| C4 | **Norwegian standard account names licence:** the Regnskap Norge 4-digit list (via Skatteetaten SAF-T) may only be used for SAF-T mapping; shipping its names in our NO chart (e.g. 1749, 2965) needs an agreement with Regnskap Norge | Before the first NO customer | D-90 (spreading Q3) |
 
 ## Before the first production customer (hosted)
 | # | What | When | Details |
