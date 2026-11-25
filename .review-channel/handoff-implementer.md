@@ -21,7 +21,7 @@
   - done means complete.
 - **Gradle trial:** one BE + one App job in parallel, with a memory check. Swap went 7.6 → 5.2 GB.
 - **Standing:** stop idle leftover Gradle daemons from our worktrees / gradle-job homes (`kill -TERM`).
-- **Next for Accounts after the PR:** `accounts/spreading` (plan `.review-channel/accounts-plan.md`), run per **D-88**: one flow at a time, BE (contract first, done list) → App (done list) → one Opus high review + screen tests + simulator test **on this Mac** → fix (Sonnet if mechanical) → merge. D-86: Sonnet for mechanical work; no session past ~50 % context.
+- **Next for Accounts after the PR:** `accounts/spreading` (plan `.review-channel/accounts-plan.md`), run per **D-88 + D-89** (one fresh flow-lead session per flow; leads never build, review or test themselves): one flow at a time, BE (contract first, done list) → App (done list) → one Opus high review + screen tests + simulator test **on this Mac** → fix (Sonnet if mechanical) → merge. D-86: Sonnet for mechanical work; no session past ~50 % context.
 
 ## Handoff — 2026-11-24 ~19:45 (new Mac; supersedes 2026-11-22 ~23:20)
 
