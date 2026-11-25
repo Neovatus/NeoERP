@@ -20,10 +20,8 @@ Never `--no-verify`, no force push (also not `--force-with-lease`), **no AI attr
 - `core/mock-backend/feature`: App 33cd72f5 (data-source, move-areas, 5A), BE 3d3414c (be-examples 1+2). On hold: be-examples-3, 5B, 5C (awaiting Jabran: "stop here / move when touched" recommended). Feature notes `.review-channel/core-mock-backend-feature-notes.md`.
 - Feature-end gate items for Jabran per feature are in `lead-decisions.md` (pins, gate files, verify-test-floor rows, migrations, deploy order).
 
-## Open with Jabran (asked, not answered)
-1. Design system: android-state next and `module` in a quiet window (rec), or module now?
-2. Journals tests: stop after 5A and move the rest when touched (rec), or move all now (~8 h)?
-3. Wide screens ≥ 1920: the split (lists/tables full width, forms/detail capped ~1200–1440 centred; rec), full width, or a cap?
+## Decided (D-85, 2026-11-25)
+android-state next (brief sent to design-system-lead), module in a quiet window; journals stop after 5A, mock-backend-lead runs the feature review; wide screens split, built in layouts-focus.
 Also earlier: staff support visits get no live stream (built as refused; he didn't object).
 
 ## Measures and records
