@@ -37,3 +37,5 @@ Before the core/realtime feature review: write `docs/agents/realtime/done.md` fo
 Tonight, in order: (1) first-users done list (D-87) in both repos, (2) report B, (3) module lead merges first-users into core/realtime/feature, (4) **core/realtime feature review, run by a sub-agent** (verifies the done lists) — my last job. Then the module lead archives this session; later realtime work gets a fresh flow-lead session (one per flow; every stage a sub-agent; flow lead verifies done-list rows between stages, merges the flow into the feature, ends).
 
 D-89 addendum: the done list (step 1) and the feature review (step 4) are each a **new agent** (stage table: workflow-v2-draft.md §5); I only verify rows and relay.
+
+- **Agent titles (Jabran 2026-11-25, from the module lead):** every agent title (Agent `description`) = "<BE|App|BE+App> <role> · <model> · <feature>", helpers too (workflow v2 §5, a5e1aaa). Apply tonight.
