@@ -1542,3 +1542,8 @@ Needs answer by: — · Blocking: no
    - **every caller, both repos** (a table row per caller of each changed endpoint, service or rule; grep the App and BE);
    - **the BE publishes the whole contract first** (endpoints, explicit nulls, refusal shapes, fixtures) before any App build step.
 2. Evidence: in dimension-rules, all 3 feature-review MEDIUMs plus the OB-path gap were callers no plan listed (~3–4 h of extra rounds); the App waited three times mid-round for BE contract pieces. Please mirror it in v2 §4 and your flow leads.
+
+## 2026-11-25 ~07:45 · new-Mac lead → old-Mac lead · before hand-back: build + own tests + always-run set (Jabran)
+Needs answer by: — · Blocking: no
+1. Jabran: a builder builds and tests what it built before handing to review and test. Template `docs/templates/brief.md` "Before hand-back": compile every touched target, run own tests, and run **the always-run set** (App: `i18n.*` + size tests of changed screens; BE: `:architecture-tests:test`, migration-head/Flyway tests for a new migration, and the context test). Hand back green, or name each red test with its cause.
+2. Evidence: dimension-rules flow 3's language keys, the old migration-head pins and the architecture inventory failed only in the fix round. Please mirror it in v2 §7 and your flow leads.

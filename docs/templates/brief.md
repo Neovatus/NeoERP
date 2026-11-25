@@ -14,6 +14,16 @@ No time budget: build everything in your plan, end to end. You can't feel time p
 **Every 20 minutes of real time, send the lead a progress note** (3 lines): what's done, what's left, and **why it's taking the time** (the step, a slow compile, a surprise in the code). Use SendMessage to `main`, or to the flow lead that started you.
 Stop and report instead of carrying on when the work turns out clearly bigger than your plan (new paths, a design question), when a second fix attempt fails, or when you're blocked.
 
+## Before hand-back: build and test what you built (Jabran 2026-11-25)
+Before you hand to review and test, in one batched call:
+1. compile every target you touched (App: JVM, iOS-sim, Android with `ANDROID_HOME`; BE: each changed service);
+2. your own new and changed tests;
+3. **the always-run set** (fast repo-wide checks that catch what "own tests only" misses):
+   - **App:** `com.neovatus.neoerp.app.i18n.*` (key standard, duplicate English, generic words, hard-coded text, placeholder parity), plus the size tests of every screen you changed;
+   - **BackEnd:** `:architecture-tests:test`, the changed service's migration-head and Flyway upgrade tests when you add a migration, and its context test.
+
+Hand back only when all three are green, or when the hand-back names each red test with its cause. In dimension-rules, language-key, migration-head and architecture-inventory failures surfaced only in the fix round, because nobody had run them at build time.
+
 ## Batch your test runs (Jabran 2026-11-25)
 Each Gradle run pays its startup (a fresh daemon, configuration, compile) before any test runs: about 3–5 min on the 16 GB Mac. So:
 1. Write all the tests for the step first.
