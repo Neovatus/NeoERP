@@ -2,6 +2,11 @@
 
 Read first: `docs/PRINCIPLES.md`, `docs/templates/brief.md` (every section applies: "Who you are", "How this brief works", time and progress, batched runs, before hand-back and done means complete, every caller, BE contract first) and `docs/templates/done.md`. **This brief is a frame, not a fence.** It's run by one flow-lead session (D-89), one flow at a time (D-88): BE first, then App.
 
+**Agents per stage (D-89 addendum, Jabran 2026-11-25; table in `docs/process/workflow-v2-draft.md` §5): every stage is a new agent, build included.**
+- **Planner (Opus):** discovery plus the plan, reading both repos. The plan and the done list must be complete enough to build from: every caller, every rule decided, every test named.
+- **Builder (a new agent):** this is a **money flow**, so the builders are **Opus**. A builder that finds a gap in the plan stops and reports; it doesn't decide alone.
+- **Then:** the reviewer and tester, then the fixer, each a new agent.
+
 ## Goal
 An accountant can spread a prepaid cost or deferred income over periods. Sources:
 - a posted bill line;
