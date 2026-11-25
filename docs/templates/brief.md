@@ -20,7 +20,7 @@ Each Gradle run pays its startup (a fresh daemon, configuration, compile) before
 2. Run them in **one** Gradle call: several `--tests` filters (and the compile tasks) in the same command.
 3. Then run **only the failures** once more.
 
-Never run one test class per call, and never start a run while you are still editing the files it compiles. One Gradle job on the Mac at a time still applies.
+Never run one test class per call, and never start a run while you are still editing the files it compiles. **App on the 16 GB Mac:** when one call compiles several targets (JVM, iOS, Android), add `--max-workers=2`; three compiles in parallel ran out of memory (2026-11-25). One Gradle job on the Mac at a time still applies.
 
 ## Not a limit
 Follow the project standards; reuse what already exists (pattern, building block, service, endpoint, helper, test harness);
