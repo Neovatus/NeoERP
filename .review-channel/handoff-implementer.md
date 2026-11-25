@@ -1,27 +1,51 @@
-# Handoff — 2026-11-25 ~10:00 (new Mac; supersedes 2026-11-24 ~19:45)
+# Handoff — 2026-11-25 ~10:40 (new Mac, Accounts module lead; supersedes ~10:00)
 
-**Read this section first.** Older sections below are history.
+**Read this section first after the compact.** Older sections below are history.
 
-- **`accounts/dimension-rules` is complete and green; both done lists (D-87) hold.** Final heads BE **d0cb5b69**, App **a3959cd8** (App clean batch 3065/0 at b2417a54). Open only for the old Mac tonight: S28 stack rows + 43 simulator rows, then its PR.
-  - Flows 1 set-rules, 2 post-with-rules and 3 branch-default (run by the flow-lead trial session `flow3-branch-default`).
-  - The feature review (FIX, 3 MEDIUM) and every simulator finding are fixed with failing-first tests. App final batch 3329/0; BE batches green.
-  - Migrations: accounts V80, V81, user V52, org V42. `core/realtime` moves to V82/V83.
-- **Waiting:** the old Mac is paused until tonight. Then: the last simulator check (inbox 2026-11-25 ~08:10, 7 steps; Opus medium for steps 4–6) → the PR to `main` by the old Mac (lands before realtime). No gate unless Jabran asks.
-- **Decisions:** D-82 (system lines inherit, then checked; opening balances follow Required), D-84 (credit notes from an invoice are editable, the SIE opening preview equals confirm, the accrual dialog follows the default order, a receipt clearing one invoice inherits). Jabran's standing rule: follow the industry standard.
-- **Process changes tonight, in `docs/templates/brief.md`:**
-  - specialist lines;
+## State
+- **`accounts/dimension-rules`: complete; both done lists hold.**
+  - Final heads BE `d0cb5b69`, App `a3959cd8` (the App clean batch was 3065/0 at `b2417a54`).
+  - Migrations: accounts V80, V81, user V52, org V42.
+  - The old Mac runs tonight: the simulator check (inbox 2026-11-25 ~08:10, 7 steps) + the BE stack row S28 (seeded backfill + `money-invariants.sh`) → then **its PR to `main`**, which lands before `core/realtime`. If a dimension-rules fix is needed, merge it into `accounts/spreading/feature` after.
+- **`accounts/spreading`: started.**
+  - `accounts/spreading/feature` was cut from the dimension-rules heads in both repos.
+  - Flow 1 `schedule` is on branch `accounts/spreading/schedule` (pushed), worktrees `NeoERP-worktrees/spreading-be` and `spreading-app`.
+  - Brief: `.review-channel/brief-accounts-spreading-schedule.md`, copied to `docs/agents/spreading/brief-schedule.md`, with the refs, the spec AC-SPR and the Fable conditions.
+  - **The flow-lead session is NOT started yet:** a Remote Control turn can't start sessions. Jabran starts "Flow lead: spreading flow 1 (schedule)" in the desktop app (the start text is in the conversation). Flow 2 `change` comes after flow 1 merges.
+  - Migrations for spreading start at accounts **V84**, user **V54**, org **V44** (`core/realtime` takes V82/V83, V53, V43).
+- **The simulator test** for spreading runs on the old Mac until Jabran OKs `brew install cameroncooke/axe/axe` here. This Mac has Xcode 27.2, 13 iPhone + 6 iPad simulators and Docker; memory is tight with the stack + simulators, so run it with no Gradle job going.
+- **Trial of D-87 – D-89:** spreading flow 1 is the first full trial. At the merge, the flow lead writes a line in the `v2-trial-measures.md` section "Trial of D-87 – D-89": done rows per source, caught at the plan check, plan gaps the builder stopped on, findings that were a missing row, agents and models, its context. After 3 flows the old Mac reports to Jabran.
+
+## How the new Mac works now (Jabran 2026-11-25; templates in `docs/templates/`)
+- **D-88/D-89:** one flow at a time. The module lead writes a short brief and starts **one fresh flow-lead session per flow**. That session runs every stage as **a new agent**:
+  1. Opus planner;
+  2. a separate builder (Opus for money/security/design, Sonnet when the plan decides everything);
+  3. BE first with the **contract + fixtures first**, then App;
+  4. one Opus 5.5 high reviewer + tester (simulator);
+  5. fixer (Sonnet if mechanical).
+
+  The flow lead verifies the done-list rows between stages, merges the flow into the feature, writes the measures line and ends. **Leads never build, review or test themselves** (no lead-run test batches).
+- **D-87:** `docs/agents/<feature>/done.md` (template `done.md`, with a "done when" exit check per step); every step verifies rows with fresh evidence, never memory.
+- **Brief template rules:**
+  - "Who you are";
   - a short brief, with discovery owned by the builder;
-  - no hours; a 20-min progress note;
-  - batched runs (`--max-workers=2` for App multi-target);
-  - DoD UI-test lines;
-  - finding validity;
-  - every caller in discovery;
-  - the BE contract first;
-  - before hand-back: compiles + own tests + the always-run set;
-  - done means complete.
-- **Gradle trial:** one BE + one App job in parallel, with a memory check. Swap went 7.6 → 5.2 GB.
-- **Standing:** stop idle leftover Gradle daemons from our worktrees / gradle-job homes (`kill -TERM`).
-- **Next for Accounts after the PR:** `accounts/spreading` (plan `.review-channel/accounts-plan.md`), run per **D-88 + D-89** (one fresh flow-lead session per flow; leads never build, review or test themselves): one flow at a time, BE (contract first, done list) → App (done list) → one Opus high review + screen tests + simulator test **on this Mac** → fix (Sonnet if mechanical) → merge. D-86: Sonnet for mechanical work; no session past ~50 % context.
+  - **every caller in both repos** in the plan;
+  - no hours: a 20-min progress note via `date`;
+  - **batched Gradle runs** (`--max-workers=2` for App multi-target);
+  - **before hand-back:** compiles + own tests + the always-run set (App `i18n.*` + build-rule tests + size tests; BE architecture + migration-head/Flyway + context);
+  - **done means complete**;
+  - the DoD UI-test lines (phone + tablet, `assertIsDisplayed`, edit/reopen, every line kind, a11y asserts);
+  - finding validity (CONFIRMED / PLAUSIBLE, a failing test first or "not valid, because").
+- **D-82:** always follow the industry standard (name SAP / Dynamics 365 BC / Nordic systems in proposals). **D-84** decided the dimension-rules feature MEDIUMs.
+- **D-86:** Sonnet for mechanical work; no session or agent past ~50 % context.
+- **Gradle:** the trial lets one BE and one App job run in parallel (each repo lock; `memory_pressure` free ≥ 30 %). Stop idle leftover Gradle daemons from our worktrees / gradle-job homes with `kill -TERM` (standing OK), never `gradlew --stop`, never touch Jabran's checkouts.
+- **Gate:** only on Jabran's yes. The default at a feature's end is the feature review + the builders' own tests. The whole suite only on his yes.
+
+## Open threads
+- The old Mac tonight: the dimension-rules sim + S28 → PR. Watch its results file `.review-channel/dr-feature-sim-results.md`.
+- Jabran: start the spreading flow-lead session; OK (or not) the AXe install.
+- Backlog rows added today: see the bottom of `docs/backlog.md` (dimension-rules follow-ups, design-system select ellipsis, the Add-account fixture, clearing split, etc.).
+
 
 ## Handoff — 2026-11-24 ~19:45 (new Mac; supersedes 2026-11-22 ~23:20)
 
