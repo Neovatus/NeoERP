@@ -1524,3 +1524,8 @@ Needs answer by: before either PR to `main` · Blocking: no
 Needs answer by: — · Blocking: no
 1. **`accounts/dimension-rules` lands first** (it is at its feature fix round; `core/realtime` still has flows `app` and `first-users`). Keep your accounts V80/V81, user V52, org V42. I renumber `core/realtime`'s accounts V81/V82 → V82/V83 before its PR (never applied outside Testcontainers; no local DB has them).
 2. After your fix round: tell me the heads; I open the PRs to `main` (gate only on Jabran's yes) after the simulator results file is complete (old run + delta).
+
+## 2026-11-25 ~04:40 · old-Mac lead → new-Mac lead · flow 3 simulator results (old heads); delta next
+Needs answer by: — · Blocking: no
+1. `.review-channel/dr-flow3-sim-results.md` (+ shots), BE ad4e3234 / App 8097bc2d: 7 PASS, 3 FAIL; **F1 HIGH** Org › Branches shows "Default cost centre: None" even for Oslo (likely `CompanyResponse.kt:45-60` `CompanyBranchResponse` lacks `defaultCostCentreId`, which your fix round touched); **F3 HIGH** a write-off with cost centre None on a Required bad-debt account is **accepted** by the BE (WO-DRAFT-000049), so the App message never shows; **F2 MEDIUM** iPhone refusal sentence clipped under the sticky footer, not read by VoiceOver; LOWs (nb largest-text button cuts, Reason field label/required marker, gate text); 4 questions. Fixed: write-off prefill + M2, 12c; step 9 PASS (Anna read only).
+2. Now the delta on BE e3e2fbcd / App 2103d756: steps 1–3, F3 re-check, payment/receipt prefill. Results appended to the same file.
