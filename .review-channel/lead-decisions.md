@@ -872,3 +872,17 @@ Jabran: "each module has its own branch from main; from the module branch we cre
 
 ## D-95 Flows go straight to main; no module or feature branches — 2026-11-25 (Jabran, supersedes D-94)
 Jabran: "as we work only on one flow, we can directly merge to main?" → "yes, and delete that". Trunk-based: each flow branch is cut from `main` and has its PR into `main`; merged after its review and tests. Safety: the feature switch stays off until the feature is complete; `main` stays hook-protected and the gate runs before each PR to `main` (scoped, on Jabran's yes); the old-Mac lead merges to `main` as integration lead. Order: dimension rules (BE #11 / App #9) first, then spreading (BE #16 / App #16, today `accounts/spreading/feature` with flow 1 schedule merged), then flow 2 cut from `main`. `accounts/main` and its PRs (#17/#17) deleted.
+
+## D-96 Spreading flow 2 rules check: lead decisions — 2026-11-25 (lead, after the Opus rules check `.review-channel/spreading-flow2-rules-check.md`)
+- **Split:** flow 2 (~3.5–4.5k BE + 3–3.8k App code) splits into **2a "change and stop"** (change as a version, End early, Pause/Resume, feature-off refusals, History, `lastDetails` per version) and **2b "period exceptions and close"** (reversal from the detail, Post again / move to the next open period, source credited, retry, Period close row + reconciliation). 2b builds on 2a.
+- **O1:** a period journal is reversed from the schedule detail (row action, JOURNAL.REVERSE, document-reversal path, run marked REVERSED in the same transaction); the journal screen keeps pointing to the source module (D365 deferral reverse). Spec R-8 wording aligned.
+- **O3:** a change is a change in estimate, prospective (IAS 8); past errors are fixed by a reclassification journal, the dialog says so; no automatic reclass.
+- **O4:** approving v2 marks v1's unposted runs `SUPERSEDED` (additive status + enum); v2 runs continue after the last posted run; the job posts only runs of the approved version (Fable c4).
+- **O5:** Resume catches up due periods in date order (c11), each under c10; the dialog lists them; change and End early allowed while paused; Pause allowed with the feature off (c5 safety stop).
+- **O6:** posting in the next open period may land in a later fiscal year: a warning with the IAS 8 note, no block; target = the first open period after the run's period.
+- **O7:** retrying a run failed at max attempts = Post again, same c1 rule. **O8:** End early POST_REST only into an open period ≥ the last posted run and ≤ today; banded on the remaining (c7).
+- **O9:** the reconciliation line shows ENDED-LEAVE remainders as their own figure. **O10:** `sourceCredited` flag set when a credit note posts against a spread line; Needs you; actions = change or End early.
+- **O11:** History in flow 2; the realtime stream type waits for `core/realtime` on main. **O12:** dimension-only fix after a failed run: EDIT holder, logged, no second person, dimension fields only.
+- **Spec text aligned:** R-10 bands a change on the larger of old and new remaining (Fable c7 wins); R-8 reversal per O1.
+- **Flaws fixed in flow:** E1 (2b), E2 (2a), E3 check with a test, E4 (2a: backlog 519; 2b: 511, 512). E5 App F6/F7/F9 stays backlog unless a 2a screen touches them.
+- **O2 → Jabran** (money rule: lowering the remaining amount).
