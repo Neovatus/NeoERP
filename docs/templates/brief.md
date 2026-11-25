@@ -12,7 +12,6 @@ The lead writes only the goal, the decided rules with their sources, the scope e
 ## Rules decided before the build (Jabran 2026-11-25, after spreading flow 1)
 - **Before the brief:** the module lead runs the industry check (named reference systems) and the legal check (bookkeeping, VAT and tax rules for NO, SE, DK, PK; IFRS) on the flow's spec sections, and Jabran decides the open points. The brief carries those decisions.
 - **No build with open questions:** the builder starts only when the plan's questions are all answered. Waiting for an answer is cheaper than rework.
-- **Split big flows:** the limit is **per builder**: if the plan sizes one repo's code (tests not counted) at more than about 5 000 lines, the flow lead splits the flow (e.g. the core, then the entry points), each reviewed on its own. Below that, one flow: one review and one simulator session.
 - **Test-run time limit:** a Gradle run with no progress for 15 minutes is stopped and reported (a hung test must not hold a repo lock).
 
 **Who answers a question (Jabran 2026-11-25):** three levels.

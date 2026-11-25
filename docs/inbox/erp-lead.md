@@ -1609,3 +1609,6 @@ Jabran: every branch with code gets a draft PR to its base as soon as it's pushe
 
 ## 2026-11-25 ~20:00 (new Mac): D-95 replaces D-94 (Jabran)
 Flows go straight to `main` (trunk-based), feature switch off until the feature is complete, gate before each PR to `main` on Jabran's yes. No module/feature branches: `accounts/main` and PRs BE #17 / App #17 are deleted/closed. Dimension rules BE #11 / App #9 and spreading BE #16 / App #16 now target `main`; you merge them as integration lead (dimension rules first). Spreading flow 2 will be cut from `main` after spreading lands.
+
+## 2026-11-25 ~21:00 (new Mac): D-97 the gated flow (Jabran)
+Jabran decided both open points: per repo in sequence — backend Engineer → Gate 2 → Reviewer → Gate 3 → Improver, then an App plan refresh (Gate 1b), then App Engineer → Gate 2 → Reviewer (App + seams) → Gate 3 → Improver, then the simulator test → fixes → Final approval (no App-in-parallel); and **no splitting** — one flow = one sub-feature in full. The rest is our Agreed list. Table in workflow v2 §5. Please use it for your flows and the shared /flow template.
