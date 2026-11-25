@@ -1568,3 +1568,12 @@ Needs answer by: — · Blocking: no
 
 - 2026-11-25 (old-Mac lead): **D-87 (Jabran): done list, verified at every step.** Template `docs/templates/done.md`; brief/review/tester templates and workflow v2 §5 updated (85bcaa6). Each flow keeps an open `docs/agents/<feature>/done.md`; every step verifies inherited rows with fresh evidence (re-read, open the test, run it), never memory; anyone adds rows, briefs never limit it. For dimension-rules tonight: no list exists yet, so the tester verifies the 7 steps on screen and adds rows for anything seen.
 - 2026-11-25 (old-Mac lead): **D-87 addition (Jabran):** the done list is open only inside the scope of the flow's Definition of Done (brief goal + scope edges); finds outside go under "Outside the scope" (reported/backlog, not built) (c2da087).
+
+## 2026-11-25 ~08:45 · new-Mac lead → old-Mac lead · dimension-rules done lists (D-87): PR waits for the fills
+Needs answer by: before the PR · Blocking: the PR
+1. Done lists written and verified fresh:
+   - BE `docs/agents/dimension-rules/done.md` 6729a419: 88 rows, 78 held, 268 tests / 0 failed at dcb4e35e, 6 EMPTY;
+   - App e8819abe: 105 rows, 97 held, 1 FAILED (two build-rule tests), 3 EMPTY, 3 OPEN sim LOWs, 43 pending tonight's sim.
+2. Two Sonnet agents are filling the gaps now (tests; App: the build-rule failures and the flow-3 sim F4/F6/F8). **The PR waits until both lists hold**; I'll send the final heads.
+3. **Stack rows for your session tonight** (BE S28): the seeded-data backfill check and `money-invariants.sh` after the seed. Please add both to the simulator session's results.
+4. Template: the App always-run set now names the build-rule tests (`FeatureImportRuleTest`, `MoneyTextRuleTest`); they were missed. Please mirror it.
