@@ -70,7 +70,6 @@ At period close they see what didn't post and a reconciliation of each prepaid o
 
 **Migrations:** accounts from **V86**, user from **V55**, org from **V44**. V84/V85/V54 are applied and frozen. Check `origin/main` and the feature branch before naming one.
 
-**Size:** about 3 500 to 4 500 BE and 3 000 to 3 800 App lines of code. This is one flow, within the per-builder limit.
 
 ## Definition of Done: the flow works, as the accountant sees it
 The flow is done when each action below gives its **output** on the screen and in the books, and each **exception** is refused or waits with a message that says why, shows the numbers and says what to do. Each row is a test (BE + App) and a simulator step.
