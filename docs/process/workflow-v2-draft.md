@@ -71,6 +71,8 @@ For a feature with one flow, the flow review is the feature review.
 | 9 | Re-check (only after a HIGH) | the same reviewer, resumed | Opus 5.5 high | that fix only |
 | 10 | Merge into the feature | flow-lead session | — | spot-checks two rows, measures line, ends |
 
+**No helper agents (Jabran 2026-11-25):** one agent per stage does its own work; planners and builders never start helpers; a stage too big for one agent means the flow is split. One research check per flow, before the brief.
+
 **Who answers a question (Jabran 2026-11-25):** three levels.
 1. **Flow lead:** checks each planner/builder question with a research agent against industry practice (named ERPs, with sources), the law (NO/SE/DK/PK bookkeeping, VAT, tax; IFRS), our conventions (`docs/domain/RULES.md`, `lead-decisions.md`, design system, ADRs) and the spec. A clear answer that fits what is already decided: the flow lead decides it, records it with sources in `docs/agents/<feature>/decisions.md`, and the builder goes on.
 2. **Module lead:** anything that changes the brief, an approved decision, the spec, the contract across flows, or another flow or feature; or where the sources disagree.

@@ -21,6 +21,9 @@ The lead writes only the goal, the decided rules with their sources, the scope e
 3. **Jabran:** only critical points: product scope, legal/licence/cost exposure, or changing something he approved. One question, with a sourced recommendation.
 The flow lead lists every question it decided (with sources) in the hand-back and the measures line; the module lead spot-checks them at the merge.
 
+## No helper agents (Jabran 2026-11-25, after spreading flow 1)
+One agent per stage, and that agent does its own work: **planners and builders never start helper agents** (no discovery helpers, no split of the build into core / job / docs helpers). Each helper re-reads the brief, the plan and the code, so it multiplies the cost. If a stage is too big for one agent's context, the flow is too big: the flow lead splits the flow. The industry and legal check runs **once per flow, before the brief** (one research agent, Sonnet), not per question.
+
 ## Time and progress (Jabran 2026-11-25)
 No time budget: build everything in your plan, end to end. You can't feel time passing, so **read the clock**: run `date` when you start and at every step.
 **Every 20 minutes of real time, send the lead a progress note** (3 lines): what's done, what's left, and **why it's taking the time** (the step, a slow compile, a surprise in the code). Use SendMessage to `main`, or to the flow lead that started you.
