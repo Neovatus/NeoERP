@@ -73,7 +73,7 @@ For a feature with one flow, the flow review is the feature review.
 
 **Flow lead looks at the money screens (Jabran 2026-11-25):** before the merge the flow lead opens the screenshots of every money step (caps, refusals, previews, approval cards) itself, not only the tester's PASS.
 
-**Branches (D-94, Jabran 2026-11-25):** `main` → module `<module>/main` → feature `<module>/<feature>` (small, at once) or `<module>/<feature>/feature` + sub-features `<module>/<feature>/<sub>` (split). Merges go up one level at a time; updates go down (`main` → module → features). Module → `main` only on Jabran's word.
+**Branches (D-95, Jabran 2026-11-25; replaces D-94):** each flow branch is cut from `main` and its PR goes into `main` (trunk-based); the feature switch stays off until the feature is complete; the gate runs before each PR to `main` on Jabran's yes. No module or feature branches.
 
 **New Mac: no worktrees (D-92, Jabran 2026-11-25):** flows run in the checkouts `NeoERP-BackEnd` / `NeoERP-App` with the flow branch checked out, one task per repo in sequence; Jabran reads the code in his editor.
 

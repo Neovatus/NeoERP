@@ -1606,3 +1606,6 @@ Jabran: every branch with code gets a draft PR to its base as soon as it's pushe
 
 ## 2026-11-25 ~18:40 (new Mac): D-94 branch levels (Jabran)
 `main` → module branch `<module>/main` (accounts/main, hr/main, payroll/main, core/main) → feature → sub-feature when split. Merges up one level; updates down. So dimension-rules and spreading go to `accounts/main`, not `main`. After spreading flow 1 merges I cut `accounts/main` and retarget BE #11/#16, App #9/#16. Please do the same for your `core/*` and `hr/*` branches.
+
+## 2026-11-25 ~20:00 (new Mac): D-95 replaces D-94 (Jabran)
+Flows go straight to `main` (trunk-based), feature switch off until the feature is complete, gate before each PR to `main` on Jabran's yes. No module/feature branches: `accounts/main` and PRs BE #17 / App #17 are deleted/closed. Dimension rules BE #11 / App #9 and spreading BE #16 / App #16 now target `main`; you merge them as integration lead (dimension rules first). Spreading flow 2 will be cut from `main` after spreading lands.
