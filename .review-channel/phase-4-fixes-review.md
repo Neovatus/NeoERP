@@ -1,9 +1,9 @@
 # Review: Phase 4 fixes, risky BackEnd parts · branch `core/phase-4-fixes`
 
 Reviewer: Fable 5.2 (high)
-Reviewed: 6aff24b (BE, 6aff24ba4af1df760f79dccc70b1f625cc561811) / 193a52f1 (App, read only for the `EMAIL_TAKEN` words)
+Reviewed: 6aff24b (BE, 6aff24ba4af1df760f79dccc70b1f625cc561811); re-check of F1 on acd727d / 193a52f1 (App, read only for the `EMAIL_TAKEN` words)
 Range: 5b22aca..6aff24b (BE, `origin/main..HEAD`)
-Verdict: FIX
+Verdict: ACCEPT
 
 Scope (Jabran): only (1) sign-in email clash, (2) outbox claims and duplicate checks, (3) read-only lookups replacing
 bootstrap. Read only; nothing was run. Paths below: `U/` = `services/user-service/src/main/kotlin/com/neovatus/user/`,
@@ -60,3 +60,17 @@ One blocking finding (F1, a one-line fix plus a test). Everything else is LOW.
 - Tests read: `SignInEmailClashIntegrationTest`, `SessionRevocationOutboxIntegrationTest`, `OwnCompaniesTest`, `AuthzControllerWebMvcTest` additions; names only for the other test classes of these areas.
 
 Brief: unclear or missing — the brief does not say how many instances of a service run (decides how much F3 matters), whether the identity provider lets a person change or hold an unverified email (decides how easy F1 is), or the rollout order of services (F9). The hand-back still says "Migrations: audit V7 only" and "no shared-module change" (round 2 added audit V8, user V51 and the shared client change; plan.md is right).
+
+## Re-check (acd727d, `git diff 6aff24b..acd727d`, read only, nothing run)
+- **F1 fixed.** `UserMeMapper.kt:57-63`: in the clash path (`!takeTokenEmail`) the row keeps `existing.emailVerified`; the
+  two other branches are as before (a different token address carries the token's flag, the same address keeps "once
+  verified"). New test `SignInEmailClashIntegrationTest.a clashing verified token email does not verify the kept
+  unverified address`: stored unverified + clashing verified token → row stays unverified, its invitation stays
+  `PENDING`. By reading, both assertions fail on 6aff24b (flag became true; the invitation was then closed as accepted),
+  and the test runs with the default `require-verified-email-to-accept=true`. The plan does not record the old-code
+  FAIL run for this test; add that line when the gate runs.
+- **F4 glance: nothing broken.** `InProcessEffectivePermissionSource.selectedBranch` now reads `OwnSelectedContextUseCase`
+  (one bean, `MembershipService`, taken lazily). Same answer as before: branch only for the asked company, a person who
+  is not active or another token → `Unavailable` (write 503, read company level). No bootstrap dependency left there.
+- Not re-checked (LOW, backlog): F2, F3, F5, F6, F7, F8. F9 has its rollout note in `docs/api/user-iam.md`.
+- Cosmetic: one `@Test` line in `SignInEmailClashIntegrationTest` is indented too far.
