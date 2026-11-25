@@ -71,6 +71,8 @@ For a feature with one flow, the flow review is the feature review.
 | 9 | Re-check (only after a HIGH) | the same reviewer, resumed | Opus 5.5 high | that fix only |
 | 10 | Merge into the feature | flow-lead session | — | spot-checks two rows, measures line, ends |
 
+**New Mac: no worktrees (D-92, Jabran 2026-11-25):** flows run in the checkouts `NeoERP-BackEnd` / `NeoERP-App` with the flow branch checked out, one task per repo in sequence; Jabran reads the code in his editor.
+
 **No helper agents (Jabran 2026-11-25):** one agent per stage does its own work; planners and builders never start helpers; a stage too big for one agent means the flow is split. One research check per flow, before the brief.
 
 **Who answers a question (Jabran 2026-11-25):** three levels.
