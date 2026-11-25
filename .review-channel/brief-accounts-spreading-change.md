@@ -72,36 +72,27 @@ At period close they see what didn't post and a reconciliation of each prepaid o
 
 **Size:** about 3 500 to 4 500 BE and 3 000 to 3 800 App lines of code. This is one flow, within the per-builder limit.
 
-## Definition of Done
-The template's Definition of Done, including the UI-test lines (phone and tablet, `assertIsDisplayed`, edit and reopen, every line kind, a11y), plus:
+## Definition of Done: the flow works, as the accountant sees it
+The flow is done when each action below gives its **output** on the screen and in the books, and each **exception** is refused or waits with a message that says why, shows the numbers and says what to do. Each row is a test (BE + App) and a simulator step.
 
-**Money:**
-- posted (live) + remaining = approved after every action;
-- no journal posts twice for one schedule, period and attempt;
-- a lowered remaining amount always leaves the balance account tied (O2);
-- the reconciliation line ties to the ledger, with ENDED-LEAVE remainders shown on their own;
-- the money-invariants check is green on the stack.
+| # | Action (who) | Output when it works | Exceptions (refused / waits) |
+|---|---|---|---|
+| 1 | **Change** an approved schedule: amount, end, method, accounts, dimensions (EDIT) | A new version v2 waits for approval; v1 keeps posting until v2 is approved; on approval v1's unposted periods become `SUPERSEDED`, v2's preview periods post from then on; posted periods never change; History shows v1 → v2 with before/after | The approver is a writer of any version → refused (c6). Over the journal limit → two-step approval (c7, larger of old and new remaining). Feature off → refused. Another company → 404. |
+| 2 | **Lower the remaining amount** (EDIT) | Route (a), source credited: no journal, the remaining drops. Route (b), release now: one journal in the current open period moves the difference to P&L. The balance account still ties (O2). | Route (a) when no credit note covers it → refused with the amounts. Lowering below what's posted → refused. Raising above the source net → `SOURCE_OVERSPREAD` with the figures. |
+| 3 | **End early** (EDIT) | LEAVE: the schedule ends, no journal, the remainder shown as "left on 1749". POST_REST: one journal in the chosen open period posts the rest, approved like a change (O8). | A reason of 5 characters or fewer → refused. A period before the last posted or after today → refused. A closed period → refused with the next open one named. |
+| 4 | **Pause / Resume** (pause: APPROVE or JOURNAL.REVERSE; resume: a non-writer APPROVE) | Paused: no period posts; the list shows Paused. Resume: the dialog lists the periods that will post, then they post in date order (O5). | Resume by a writer → refused (c5). Pause without a reason → refused. Pause works even with the feature off. |
+| 5 | **Reverse a period's journal** from the schedule detail (JOURNAL.REVERSE) | A reversal journal posts; that period shows Reversed, its amount returns to the remaining, Needs you appears (O1, E1) | Reversing from the journal screen → points to the schedule (source module). No right → the action isn't shown. |
+| 6 | **Post again / Post in the next open period / Retry** (a non-writer APPROVE) | A reversed, waiting or failed period posts once (attempt n+1) in the same period, or in the first open period after it with the memo "for Oct 2026"; a later fiscal year gets the IAS 8 warning (O6, O7) | A writer → refused (c1). A locked period → only "next open period" is offered, never a re-date. A second click → no second journal. |
+| 7 | **Source credited** (a credit note posts against a spread bill line) | The schedule shows "Source credited" + Needs you; the person changes it (route a) or ends it (O10) | The schedule never changes by itself. |
+| 8 | **Fix the dimension** after a run failed on a dimension rule (EDIT) | Only the dimension fields change, logged, with no second person; the run posts on its next try (O12, D-91 G4) | Changing anything else → it becomes a full change (row 1). |
+| 9 | **Feature switched off** | Approved schedules keep posting; pause still works | Create, submit, approve, change, move and post again are refused with "Spreading is switched off for {company}". |
+| 10 | **Period close** (Finance Manager) | The checklist row shows the count and amount not posted for the period (never blocking). The reconciliation line per balance account ties remaining + ENDED-LEAVE remainders to the ledger, with the difference shown (O9). | A difference ≠ 0 → shown as a warning with "Open account 1749 in the general ledger". |
 
-**Rights:**
-- c1, c5 and c6 hold;
-- nobody approves their own change;
-- feature off refuses everything except pause;
-- another company → 404;
-- Enter-company sessions can't approve.
+**Always true after every action:** posted (live) + remaining = approved; no journal posts twice for one schedule, period and attempt; the job posts only the approved version's runs; nothing is re-dated; every action is in the audit and the History with its actor and reason.
 
-**The job:**
-- posts only the approved version's runs;
-- Resume and moves catch up in date order;
-- a locked period is never re-dated.
+**How it's proven:** the template's UI-test lines (phone + tablet, `assertIsDisplayed`, edit → reopen, a11y) for rows 1–10; the money-invariants check green on the stack; the test data from section 4 of the rules check, run on the stack before hand-back.
 
-**Test data, in the plan and run on the stack before hand-back:** the list in section 4 of the rules check, including an Enter-company Owner session and a user without `SPREADING.READ`.
-
-**Simulator test** (this Mac, one session) covers:
-- flow 2's own steps;
-- dimension rules' 7 steps;
-- flow 1's leftovers (steps 8, 4, 9, 14 and FE-1 on a fresh database).
-
-All of these are listed in `.review-channel/spreading-feature-end-checklist.md`. The flow lead opens the screenshots of the money steps itself before the merge.
+**One simulator session on this Mac** covers rows 1–10, dimension rules' 7 steps, and flow 1's leftovers (steps 8, 4, 9, 14 and FE-1 on a fresh database). These are listed in `.review-channel/spreading-feature-end-checklist.md`. The flow lead opens the money steps' screenshots itself before the merge.
 
 ## Hand-back
 As the template. At the merge, one measures line in `.review-channel/v2-trial-measures.md` with:
