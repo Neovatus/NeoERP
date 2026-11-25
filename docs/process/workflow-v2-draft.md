@@ -80,6 +80,7 @@ For a feature with one flow, the flow review is the feature review.
 **No helper agents (Jabran 2026-11-25):** one agent per stage does its own work; planners and builders never start helpers; a stage too big for one agent means the flow is split. One research check per flow, before the brief.
 
 **Who answers a question (Jabran 2026-11-25):** three levels.
+0. **Planner / builder first:** checks the brief's decided rules and sources and the industry standard (named ERPs, the law) itself; a clear answer that fits what's decided is its own decision, recorded with the source. Only what would change a decided rule, the scope or the contract, or where the sources disagree, goes up.
 1. **Flow lead:** checks each planner/builder question with a research agent against industry practice (named ERPs, with sources), the law (NO/SE/DK/PK bookkeeping, VAT, tax; IFRS), our conventions (`docs/domain/RULES.md`, `lead-decisions.md`, design system, ADRs) and the spec. A clear answer that fits what is already decided: the flow lead decides it, records it with sources in `docs/agents/<feature>/decisions.md`, and the builder goes on.
 2. **Module lead:** anything that changes the brief, an approved decision, the spec, the contract across flows, or another flow or feature; or where the sources disagree.
 3. **Jabran:** only critical points: product scope, legal/licence/cost exposure, or changing something he approved. One question, with a sourced recommendation.
