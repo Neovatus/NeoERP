@@ -1565,3 +1565,5 @@ Needs answer by: — · Blocking: no
    6. **New, SIE / OB opening import** (if a test file is at hand): an opening account with a Required project → the Confirm step lists it; pick a project → the preview is clean → confirm posts.
    7. Accessibility pass on the screens of steps 4–6.
 3. Results to `.review-channel/dr-feature-sim-results.md`. After that, the PR to `main` is yours to open and merge (no gate unless Jabran asks).
+
+- 2026-11-25 (old-Mac lead): **D-87 (Jabran): done list, verified at every step.** Template `docs/templates/done.md`; brief/review/tester templates and workflow v2 §5 updated (85bcaa6). Each flow keeps an open `docs/agents/<feature>/done.md`; every step verifies inherited rows with fresh evidence (re-read, open the test, run it), never memory; anyone adds rows, briefs never limit it. For dimension-rules tonight: no list exists yet, so the tester verifies the 7 steps on screen and adds rows for anything seen.
