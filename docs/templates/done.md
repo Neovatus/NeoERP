@@ -1,4 +1,4 @@
-# Done list: <flow> · branch `<module>/<feature>/<flow>` · repo(s) <BE / App>
+# Done list: <flow> · branch `<module>/<feature>/<flow>` (cut from `main`, PR into `main`) · repo(s) <BE / App>
 
 One list per flow, kept in `docs/agents/<feature>/done.md` in each repo the flow changes (D-87, Jabran 2026-11-25). It travels with the flow from the brief to the merge. **Every step verifies the rows before it adds its own**, and moves on only when they hold.
 

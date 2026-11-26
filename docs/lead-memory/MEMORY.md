@@ -1,7 +1,7 @@
 - [Orchestrator mode](orchestrator-mode.md) — main agent stays interactive, runs many parallel agents, checks their output
 - [App tests vs Hot Reload](app-tests-hot-reload.md) — in-place jvmTest can clash with Hot Reload; superseded on copies by [Work directly in the checkouts]
 - [Worktree isolation picks cwd repo](worktree-isolation-repo.md) — cd into the target repo before spawning worktree agents
-- [Targeted test runs](targeted-test-runs.md) — targeted tests per step; reviewers do not re-run; ONE full run per merge batch (≤3 related slices) before push (Jabran 2026-11-05)
+- [Targeted test runs](targeted-test-runs.md) — **SUPERSEDED (D-81/D-97: own tests per stage; whole suite only on Jabran's yes)**; was: targeted tests per step; reviewers do not re-run; ONE full run per merge batch (≤3 related slices) before push (Jabran 2026-11-05)
 - [Sub-agent models](subagent-models.md) — Opus default builder (spec decisions usually open); Sonnet only fully decided work; fresh Opus review after every build; Haiku mechanical; Fable only critical (2026-11-15)
 - [Builders: isolated checkout](builders-isolated-checkout.md) — SUPERSEDED 2026-10-27 (work in the checkouts); still: never /tmp, migrations freeze once applied
 - [No compile per change](no-compile-each-change.md) — UI edits: commit, Jabran runs the app and reports errors; compile before push
@@ -20,7 +20,7 @@
 - [Gradle one at a time](gradle-one-at-a-time.md) — two locks since 2026-11-21 (App first, then BackEnd; one job per repo; whole-suite runs take both, L33); no helper agents; builders compile only, lead tests once (Jabran 2026-11-10)
 - [One repo per builder](one-repo-per-builder.md) — app builders see only NeoERP-App, backend only BackEnd; briefs inside the repo; Codex too (Jabran 2026-11-10; move after I18N round)
 - [No AI co-author](no-claude-coauthor.md) — never Co-Authored-By Claude or Codex, nor AI attribution, in commits/PRs/comments; tell all builders incl. Codex (Jabran 2026-11-12)
-- [Branch per phase](branch-per-phase.md) — slices → lane → phase/N → main (one PR per phase per repo); Phase 3 fixes on fix/phase3-test-fixes; Phase 4 lanes in worktrees; FMT-T after the fix merge (2026-11-15)
+- [Branch per phase](branch-per-phase.md) — **SUPERSEDED (D-95: flows cut from main, PR into main)**; was: slices → lane → phase/N → main (one PR per phase per repo); Phase 3 fixes on fix/phase3-test-fixes; Phase 4 lanes in worktrees; FMT-T after the fix merge (2026-11-15)
 - [Collect, then fix per test](collect-then-fix-per-test.md) — during manual tests, log findings; fix only after Jabran finishes each T, no App edits mid-test (2026-11-15)
 - [Save usage limits](save-usage-limits.md) — one builder at a time, Sonnet for small fixes, bigger batches, Opus only for money/security; Jabran prefers waiting (2026-11-15)
 - [Usage stop thresholds](usage-stop-thresholds.md) — start new work up to 99 %; at 99 % finish the step, hand off, stop (D-56, 2026-11-22)
@@ -34,22 +34,22 @@
 - [Lead sub-agent reads](lead-subagent-reads.md) — small reads myself; >3 files, logs, web pages via sub-agent (trial L07, 2026-11-20)
 - [Money/security guardrails](money-security-guardrails.md) — mandatory, not trials: test per finding, invariant checks block push, 2nd different reviewer, accountant + pen test at go-live (Jabran 2026-11-20)
 - [Project state current](project-state-current.md) — PROJECT-STATE.md in git; lead updates it every batch; .claude/.codex copies deprecated (Jabran 2026-11-20)
-- [Two Macs: probation](two-macs-probation.md) — new-Mac lead builds on lane branches; old-Mac lead reviews lane-ready files and writes MERGE/FIX verdicts (Jabran 2026-11-21)
+- [Two Macs: probation](two-macs-probation.md) — **SUPERSEDED (D-89/lead-seats: module leads + integration lead)**; was: new-Mac lead builds on lane branches; old-Mac lead reviews lane-ready files and writes MERGE/FIX verdicts (Jabran 2026-11-21)
 - [Verify trust check](verify-trust-check.md) — Lane 0: old full run + verify.sh side by side in lane-ready (BE and App); then verify.sh alone per merge (Jabran 2026-11-21)
-- [Second reviewer independent](second-reviewer-independent.md) — /security-review or Codex gets diff + brief only, not the first review (Jabran 2026-11-21)
+- [Second reviewer independent](second-reviewer-independent.md) — **SUPERSEDED (D-81/D-97: one Opus 5.5 high reviewer)**; was: /security-review or Codex gets diff + brief only, not the first review (Jabran 2026-11-21)
 - [Regression test per finding](regression-test-per-finding.md) — HIGH/MEDIUM fixes proven old FAIL / new PASS; big LOWs to a fix-lane row (Jabran 2026-11-21)
 - [Lane-ready docs pages](lane-ready-docs-pages.md) — every lane-ready lists user-guide + developer pages changed or "none: reason"; missing = FIX (Jabran 2026-11-21)
 - [Account models/effort + new-Mac decisions](new-mac-lead-effort-decisions.md) — BOTH leads: default effort, Opus high only for security reviews, Sonnet high if needed (D-44); Fable stops at 45% → Opus 2nd reviewer (D-43); NEW MAC ONLY: decisions need reasons + Fable approval (2026-11-22)
 - [No pilot decided](no-pilot-decided.md) — no pilot customer or first country decided (Jabran 2026-11-21); first market group = Pakistan + Nordic together, then EU, then others
 - [No GitHub CI in dev](no-github-ci-dev.md) — Actions off on all 3 repos (2026-11-21); never enable Actions or add a workflow without Jabran OK
-- [Fable budget](fable-budget.md) — PAUSED: no new Fable work until the weekly reset (D-43, 2026-11-22, at 42%); 2nd reviewer = fresh Opus (high for security); normally ≤45% stop
+- [Fable budget](fable-budget.md) — **SUPERSEDED (D-81: Fable only when Jabran asks)**; was: PAUSED: no new Fable work until the weekly reset (D-43, 2026-11-22, at 42%); 2nd reviewer = fresh Opus (high for security); normally ≤45% stop
 - [Dev speed review](dev-speed-review.md) — after the new Mac finishes speed lanes + B1: tests slower than dev, leftover memory/disk, GitHub, two Macs parallel (Jabran 2026-11-22)
 - [Builder Mac / test Mac](builder-mac-test-mac.md) — after the new Mac's 3 lanes: new Mac builds (targeted tests only); old Mac 36 GB runs full gates, stack, reviews, merges, assigns new-Mac tasks, builds HR (Jabran 2026-11-22)
 - [Short hand-backs](short-handbacks.md) — reviewers write own review files, builders own reports, hand-back ≤10 lines, only FIX reviewer re-checks, compact ~50% (trial L35, both leads, 2026-11-22)
 - [Secret files never printed](secret-files-never-printed.md) — never print .env/infra/.env, .local-secrets, tokens, ~/.gradle/gradle.properties, ~/.netrc, ~/.aws, keys; one key only; in every brief (2026-11-22)
-- [Standing merge](standing-merge.md) — approved lanes → phase/*, and Phase PRs → main after final gate + MERGE verdict, merge without Jabran; money rules/product scope still his (2026-11-22)
+- [Standing merge](standing-merge.md) — **SUPERSEDED (D-95: integration lead merges flows to main after Jabran's gate answer)**; was: approved lanes → phase/*, and Phase PRs → main after final gate + MERGE verdict, merge without Jabran; money rules/product scope still his (2026-11-22)
 - [Compact keep list](compact-keep-list.md) — before /compact: handoff-overseer.md + Keep/Drop line (open decisions, rules, running work); re-read after (Jabran 2026-11-22)
-- [Review tiers](review-tiers.md) — 2nd reviewer only on tier 2 (books/isolation/auth/gate/large); tier 1 one Opus; no repeat re-stamps; no Sonnet 2nd (D-46, 2026-11-22)
+- [Review tiers](review-tiers.md) — **SUPERSEDED (D-81/D-97: one reviewer per flow, no second seat)**; was: 2nd reviewer only on tier 2 (books/isolation/auth/gate/large); tier 1 one Opus; no repeat re-stamps; no Sonnet 2nd (D-46, 2026-11-22)
 - [Speed rules](speed-rules.md) — D-51: batch fixes, flow test before review, Opus brief check, check first / do not repeat / ask (2026-11-22)
 - [Principles first](principles-first.md) — PRINCIPLES.md linked in every brief; log cost + first-pass per lane; prune rules at phase review (D-63, 2026-11-22)
 - [Workflow v2 (D-81)](workflow-v2.md) — module/feature/flow branches, one Fable-high or Opus reviewer, one fixer per repo; supersedes review tiers 2nd seat (2026-11-24)

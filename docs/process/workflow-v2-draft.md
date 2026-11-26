@@ -17,6 +17,8 @@ domain `docs/domain/RULES.md`; design `NeoERP-App/docs/design/` (`screen-standar
 - **Builders commit; only leads push.**
 
 ## 2. Branches: module → feature → flow
+**Superseded by D-95 (2026-11-25):** every new flow branch is cut from `main` and its PR goes into `main`. The tree below is history. The three feature branches made before D-95 (`core/realtime/feature`, `core/design-system/feature`, `accounts/spreading/feature`) finish as they are; no new module or feature branches.
+
 ```
 main
  ├── accounts/dimension               simple: one branch, one PR; flows done in order inside it
@@ -74,7 +76,7 @@ One flow = one sub-feature, built in full: **no splitting**.
 | 7 | App Improver (only with findings) | Opus | as above |
 | 8 | Simulator test: real app on the real stack | tester Opus medium (new screens) / Sonnet (re-tests); flow lead prepares stack, data, sign-ins | every step PASS with shots; messages explain; flow lead checks money screens |
 | 9 | Fixes for simulator findings | Opus 5.5 medium (they cross BE and App and need the end-to-end view) | failing-first test; re-test only touched steps |
-| ✅ | Final approval | flow lead merges after Jabran has seen it | PR merged; measures line |
+| ✅ | Final approval | flow lead marks the PR ready after Jabran has seen it; the integration lead merges to `main` (D-95) | PR merged; measures line |
 
 Rules: a new agent per stage, titled repo · role · model · feature; no helper agents; one `docs/agents/<feature>/state.md` per flow (stage, heads, PRs, open questions); questions climb only after each level checked the sources (builder → flow lead → module lead → Jabran, critical only); Jabran talks to the flow lead directly; `main`, migration and decision numbers through the integration lead; pull + grep before taking a decision number; our design-system numbers; merge is a click when reviewed, tested and the base hasn't moved.
 
@@ -86,7 +88,7 @@ Rules: a new agent per stage, titled repo · role · model · feature; no helper
 | 2 | BE discovery + plan | BE planner | Opus | reads both repos; writes BE `plan.md` + done rows (complete enough that another agent can build from it) |
 | — | Plan check | flow-lead session | — | re-runs one or two caller greps; OK in the plan |
 | 3 | BE build | BE builder | Sonnet when the plan decides everything; Opus for money, security or design-heavy | builds from `plan.md` + `done.md` only; contract + examples; own tests |
-| 4 | App discovery + plan | App planner (after the BE is done, D-88; alongside it only once the mock backend is on `main`) | Opus | reads both repos + the BE plan; writes App `plan.md` + done rows |
+| 4 | App discovery + plan | App planner (after the BE is done and reviewed, D-97; never in parallel) | Opus | reads both repos + the BE plan; writes App `plan.md` + done rows |
 | — | Plan check | flow-lead session | — | — |
 | 5 | App build (after the BE contract) | App builder | as step 3 | UI tests on the JSON mock data source |
 | — | Verify done rows | flow-lead session | — | fresh run, opens the tests |
@@ -94,7 +96,7 @@ Rules: a new agent per stage, titled repo · role · model · feature; no helper
 | 7 | Screen tests + simulator | tester | Opus medium for new screens, Sonnet for re-tests | screen rows with shots |
 | 8 | Fix | fixer per repo | Sonnet if mechanical, Opus for money/security | failing-first test per finding |
 | 9 | Re-check (only after a HIGH) | the same reviewer, resumed | Opus 5.5 high | that fix only |
-| 10 | Merge into the feature | flow-lead session | — | spot-checks two rows, measures line, ends |
+| 10 | PR ready for `main` | flow-lead session | — | spot-checks two rows, marks the PR ready, measures line, ends; the integration lead merges (D-95) |
 
 **Flow lead looks at the money screens (Jabran 2026-11-25):** before the merge the flow lead opens the screenshots of every money step (caps, refusals, previews, approval cards) itself, not only the tester's PASS.
 
@@ -115,7 +117,7 @@ The flow lead lists every question it decided (with sources) in the hand-back an
 
 **Agent titles (Jabran 2026-11-25):** every agent's title shows repo, role and model: "<BE|App|BE+App> <role> · <model> · <feature>" (e.g. "BE builder · Opus · spreading"); helper agents too.
 
-A builder that finds the plan wrong or incomplete stops and reports to the flow lead (a plan gap is counted like a brief gap); it never fills a gap from guesswork. **In sequence (D-88, Jabran 2026-11-25):** until the mock backend is on `main`, the steps run one after another with no overlap: the BE builds everything and its done list is verified, then the App plans and builds, then the combined review. After the mock backend is on `main`, steps 4–5 run alongside step 3.
+A builder that finds the plan wrong or incomplete stops and reports to the flow lead (a plan gap is counted like a brief gap); it never fills a gap from guesswork. **In sequence (D-88, Jabran 2026-11-25):** until the mock backend is on `main`, the steps run one after another with no overlap: the BE builds everything and its done list is verified, then the App plans and builds, then the combined review. **D-97 replaces the parallel option:** even with the mock backend on `main`, each repo is finished and reviewed before the next starts (App plan refresh at Gate 1b).
 
 ## 5. Definition of Done (every flow; the brief adds its own lines)
 **Done list (D-87, Jabran 2026-11-25):** each flow keeps one open list, `docs/agents/<feature>/done.md` ([template](../templates/done.md)), from the brief to the merge. Every step **verifies** the rows it inherits (re-reads the file, opens and runs the test, looks at the screen) before it adds its own, and moves on only when they hold; evidence comes from that step's own run, never from memory or a summary. Anyone adds rows **inside the scope of the flow's Definition of Done** (the brief's goal and scope edges); nothing limits the rows within it; what is found outside goes under "Outside the scope" (reported or backlog, not built). The lead checks the plan's rows before the build and spot-checks two rows before the merge.

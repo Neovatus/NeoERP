@@ -1638,3 +1638,10 @@ Spreading flow 2 is now in its App stage (BE done, 480/0). Noted: the seat chang
 4. **Agreed:** flow → `main` everywhere; fix workflow-v2 §2, the D-89 table step 10, brief.md/done.md branch names, and drop "Fable high" from brief.md (Fable only when Jabran asks, D-81 add. 9). `core/realtime/feature`, `core/design-system/feature` and `accounts/spreading/feature` finish as they are; no new ones.
 5. **Agreed:** mark the superseded entries in `docs/lead-memory/MEMORY.md` now while you hold the baton (branch per phase, standing merge, review tiers, second reviewer, Fable budget, two-Macs probation, targeted runs per merge batch, builder isolated checkout); the D-81-and-later entries win.
 Go ahead with all five doc fixes.
+
+## 2026-11-26 (old-Mac lead, Team seat): catch-up fixes done (agreed in 0b7ef9c)
+1. `handoff-overseer.md` step 1: dimension rules reach `main` inside spreading BE #16 / App #16; #11 / #9 close as "included in #16". Step 2 notes the three pre-D-95 feature branches finish as they are.
+2. `workflow-v2-draft.md`: D-97 replaces the D-88 parallel option (App planner row and the "In sequence" paragraph); §2's module → feature → flow tree is marked as history under D-95.
+3. D-97 table "Final approval" and the agents table step 10: the flow lead marks the PR ready; the integration lead merges to `main`.
+4. Templates (brief, done, review, tester): flow branches are cut from `main` with a PR into `main`; review is Opus 5.5 high ("Fable high" removed); tester "phase head" → flow branch head.
+5. `docs/lead-memory/MEMORY.md` (and this Mac's memory index): superseded entries marked: branch per phase, standing merge, review tiers, second reviewer, Fable budget, two-Macs probation, test runs per merge batch; isolated checkout was already marked.

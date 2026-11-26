@@ -1,4 +1,4 @@
-# Brief: <flow name> · branch `<module>/<feature>` (or `/<flow>`) · <repo: BackEnd | App> · review: <Fable high | Opus>
+# Brief: <flow name> · branch `<module>/<feature>/<flow>`, cut from `main`, PR into `main` (D-95) · <repo: BackEnd | App> · review: Opus 5.5 high
 
 Read first: `docs/PRINCIPLES.md` and `docs/VISION.md` (workspace) · the standards below · this brief. **This brief is a frame, not a fence.**
 

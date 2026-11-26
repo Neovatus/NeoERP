@@ -1,4 +1,4 @@
-# Review: <flow or feature> · branch `<module>/<feature>`
+# Review: <flow> · branch `<module>/<feature>/<flow>` (PR into `main`)
 
 Reviewer: <model + seat name>
 Reviewed: <full sha, BE> / <full sha, App>
