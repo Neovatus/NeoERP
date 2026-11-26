@@ -47,6 +47,6 @@ Recording working time is an **employer duty for every company**, not a project 
 
 ## Open (for Jabran)
 1. Overhead in the cost rate: payroll costs only, or a configurable overhead % per company?
-2. Attendance in HR H1 or H2? **Recommended: the core in H1, the rest in H2.** H1: hours record per person per day (app and manual entry, import), worker types, absence as a time type, approval and period close, change log, employee self-view, company settings and starter templates; this meets the legal duty and is what Payroll needs. H2: clock devices and geofence, the per-country legal-limit packs, the SE/NO register views and exports, allocation lines to projects and customers.
+2. ~~Attendance in HR H1 or H2?~~ **Decided D-98 (2026-11-26): the core in H1, the rest in H2.** H1: hours record per person per day (app and manual entry, import), worker types, absence as a time type, approval and period close, change log, employee self-view, company settings and starter templates; this meets the legal duty and is what Payroll needs. H2: clock devices and geofence, the per-country legal-limit packs, the SE/NO register views and exports, allocation lines to projects and customers.
 3. Order after Payroll: Projects and Time first, then Workforce scheduling?
 4. A Pakistani labour lawyer and a Nordic payroll accountant to confirm the packs before they are built (go-live list)?

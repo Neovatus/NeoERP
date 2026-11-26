@@ -910,3 +910,9 @@ Rules check → Architect (brief + discovery + plan, both repos) → Gate 1 → 
   - A version without stored writers never posts.
   - The text is in `docs/drafts/fable-check-4b-money-decisions.md` c6.
   - Also noted: FC-36 (flow lead): End POST_REST is refused while an unabsorbed credit sits on the balance account. The brief's invariant now reads "one live journal per schedule and run".
+
+## D-98 Time and attendance: HR core, company-configured; core in H1, rest in H2 — 2026-11-26 (Jabran: "yes")
+- Time and attendance is **HR core for every company and worker type** (permanent, part-time, hourly, temporary, agency; contractors optional); projects, customers and bill rates are optional on top (ADR-035 v2, rules check `.review-channel/rules-check-time-attendance.md`).
+- **Each company sets up its own way of working** inside its country's law (capture method, allocation required/optional/off, worker types, approvals, close rhythm, overtime pre-approval, optional modules), from **industry starter templates**; the law pack decides what can't be switched off.
+- **HR H1:** hours record per person per day (app, manual, import), worker types, absence as a time type, approval and period close, change log, employee self-view, company settings and templates. **HR H2:** clock devices and geofence, per-country legal-limit packs, SE/NO staff-register views and exports, allocation to projects and customers.
+- Country packs are built only after their "Not verified" items are closed (Pakistani labour lawyer, Nordic payroll accountant: go-live list).
