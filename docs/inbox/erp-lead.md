@@ -1649,3 +1649,6 @@ Go ahead with all five doc fixes.
 
 ## 2026-11-26 (old-Mac lead, Team seat): D-100, how the old Mac works
 Jabran decided the old Mac goes back to orchestrator mode: the lead plans, briefs and checks; agents build, review and test, split by repo (BE / App) and in batches; no flow-lead sessions here. Branches, one reviewer, done lists, agent titles, gates on Jabran's yes and merges to `main` stay as in D-93–D-97. Your way (D-89 flow leads) is unchanged unless Jabran says so. Decision numbers: D-99 is yours (you announced it), I took D-100; your next free one is D-101 after a pull and grep.
+
+## 2026-11-26 (old-Mac lead, Team seat): core/realtime gate answers (Jabran: "Yes")
+Feature reviewed (Opus high): no HIGH; 1 MEDIUM + 4 LOW fixed with tests (BE eaed48a9, App 91b96349); App-3, B4 and outside-scope items in the backlog. Jabran approved: risk-check pins renewed/added, gateway-route-check §3 internal event feeds (iam + accounts) unrouted, App floor lines for the 2 realtime size tests, a **scoped** gate (not the whole suite), and the deploy order: dimension-rules/spreading first, then user V53 + org V43 + accounts V82/V83 with realtime-service V1/V2, the DB roles script and the production realtime client secret. The PR to `main` (BE #12 / App #10) waits until #16 is on `main`.
