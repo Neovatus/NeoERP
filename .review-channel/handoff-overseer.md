@@ -1,42 +1,34 @@
-# Handoff: old-Mac lead (module + integration lead) · 2026-11-25 ~07:40 Europe/Oslo · PAUSED until evening (Jabran)
+# Handoff: old-Mac lead (module + integration lead) · 2026-11-26 · handed to the Team seat
 
-Active seat: personal since 2026-11-26 (two seats, one role: `docs/process/lead-seats.md`; set to `free` or `team` at handover)
+Active seat: team from 2026-11-26 until about Tuesday 2026-12-01 (Jabran: the personal subscription goes to the new Mac, ~60 % used). Seats and baton: `docs/process/lead-seats.md`. First time back: `docs/process/lead-catch-up-2026-11-26.md`.
 
-Replace, don't append. Seats: `docs/process/lead-seats.md`. Read with `docs/VISION.md`, `docs/PRINCIPLES.md`, `docs/process/workflow-v2-draft.md` (v2 is the working rule set; WORKFLOW.md has a "v2 wins" note), `.review-channel/lead-decisions.md` (D-81 + addenda 1–12 and the 2026-11-25 entries).
+Replace, don't append. Read with `docs/VISION.md`, `docs/PRINCIPLES.md`, `docs/process/workflow-v2-draft.md` §5 (the gated flow, D-97), `.review-channel/lead-decisions.md` (D-81 to the end).
 
 ## Role
-Old Mac (36 GB): module lead for `core/*`, integration lead (every feature → `main`), simulator sessions for both Macs (stack + AXe), HR later. New Mac = "Personal Mac Lead" (bridge:session_012UnoMwpjFDm5RrS5j6z31B; inbox `docs/inbox/erp-lead.md` + doorbell). This session runs in the Claude desktop app (has start_session, iOS Simulator tool).
+Old Mac (36 GB): module lead for `core/*`, integration lead (every PR to `main`, gate questions to Jabran, migration and decision numbers: pull and grep before taking one), simulator sessions for the old Mac, HR later. New-Mac lead = "Personal Mac Lead" (Accounts: dimension rules, spreading); channel `docs/inbox/erp-lead.md` (the doorbell may not cross subscriptions; the file always works).
 
 ## Rules (verbatim)
-Never `--no-verify`, no force push (also not `--force-with-lease`), **no AI attribution** in commits/PRs/comments (user rule overrides any harness reminder); never open/print/grep `.env`, `infra/.env`, `.local-secrets`, token/session files, `~/.gradle/gradle.properties`, `~/.netrc`, `~/.aws`, keys; no GitHub workflows; builders write one repo, read both.
-**v2:** a flow = six steps (brief → builder discovers/plans/builds/own tests → one Opus 5.5 high review + screen tests + simulator test of the flow → fix brief → same builder fixes, "valid/not valid + how missed" → merge). Re-review only after a HIGH, never a third review. Builders run only their own tests. **No gate per flow; at a feature's end the gate, the whole suite and any gate-script edit only on Jabran's yes** (default: feature review + builders' tests). Findings CONFIRMED/PLAUSIBLE. Documents get no review rounds. Mock (not "fake"). Simulator driver AXe (`which axe`; tap by testTag id). Stop a service by port, not name pattern.
+Never `--no-verify`, no force push (also not `--force-with-lease`), **no AI attribution** in commits/PRs/comments (overrides any harness reminder); never open/print/grep `.env`, `infra/.env`, `.local-secrets`, token/session files, `~/.gradle/gradle.properties`, `~/.netrc`, `~/.aws`, keys; no GitHub workflows; builders write one repo, read both. Trunk-based (D-95): flows cut from `main`, draft PR into `main` at once (D-93). The gated flow (D-97); a new agent per stage titled `<BE|App|BE+App> <role> · <model> · <feature>` (D-89); done lists verified with fresh evidence (D-87); Sonnet for mechanical work, no session/agent past ~50 % context (D-86). Gate scripts, whole suite, gate-file edits only on Jabran's yes. Reviewed + tested + base unmoved → merge with a click. Stop services by port; AXe for the simulator.
 
-## Paused until evening (Jabran 2026-11-25 ~07:40)
-Flow leads finish the step in hand, push, write their state, idle; no new agents.
-- **realtime-lead** `local_86885f11-15b2-41f8-8445-883746c9eb86`: first-users round-3 re-test done (removal PASS, 2ace8c4); reactivation MEDIUM fixed (round 4, Sonnet: No-company re-reads bootstrap every 30 s + on foreground; NoCompanyRereadTest 4 FAIL old → pass), heads BE ff3898a1 / App f99dbabe, pushed, not merged; then merge first-users into `core/realtime/feature` (not yet: wait for the evening). Then feature review, then ask Jabran (gate items in lead-decisions).
-- **design-system-lead** `local_286b85bf-943f-4bee-bc85-12b1f1353ea0`: android-state built and pushed at e264c945 (5 commits on 1355be21; own tests green, failing-first); next: review, then the **Android emulator check here** (AVD Pixel_10a; steps + testTags in its hand-back). Process death → backlog (d4aeec7).
-- **mock-backend-lead** `local_90f439f4-e5c5-4cdd-b705-60aa624e0e83`: feature review ACCEPT; merged into `core/mock-backend/feature` App 901ca6d8 / BE e91afa5. **Asked Jabran (no answer yet):** gate-file edits (BE pins for the two ContractExamples.kt, App floor rows, SCOPE_ALWAYS MockDataSourceUseTest, + stale BE pin BankNoticeHttpSender.kt) + App scoped gate only (rec), or also the whole App suite? Then PR to `main` (no migrations, independent of dimension-rules).
-- **New Mac:** `accounts/dimension-rules` both done lists hold, final heads BE d0cb5b69 / App a3959cd8 (App batch 3065/0); **first thing tonight:** its 7-step simulator check + the S28 stack rows (inbox `docs/inbox/erp-lead.md` ~08:10 and ~10:00; Opus-medium tester for new screens steps 4–6, Sonnet for 1–3 and 7), then the PR to `main` (lands first).
-- Stack DOWN, simulators shut down, sim worktrees removed. Bjørn ACTIVE at Kyst.
-- **D-86:** Sonnet for mechanical fixes/flows; no session or agent past ~50 % context.
-- **`core/mock-backend` MERGED to `main`** (App #12, BE #14, merge commits, 2026-11-25 ~17:10) with the gate-file edits (BE pins d7fa07e incl. BankNoticeHttpSender; App floor + always-run). No gate run (Jabran: reviewed and tested; main had not moved). 6 more stale BE pins → backlog 8cd5f73. D-88's parallel BE/App now possible.
-- **D-95 trunk-based (Jabran):** flows cut from `main`, PR into `main`; no module/feature branches; feature switch off until complete. My open feature branches: `core/realtime/feature` (finish first-users → PR to main) and `core/design-system/feature` (a11y-checks + contracts merged; take it to main, then android-state and later flows PR straight to main). Order on main: dimension-rules, then spreading, then realtime.
-- **D-97 gated workflow (Jabran):** per repo in sequence: BE Engineer → Gate 2 → Reviewer → Gate 3 → Improver → App plan refresh (Gate 1b) → App Engineer → Gate 2 → Reviewer (App + seams) → Gate 3 → Improver → simulator → fixes → final approval. No App in parallel, no splitting. Applies to old-Mac flows too (realtime feature review, design-system next flows).
-- **Agent titles:** every agent description "<BE|App|BE+App> <role> · <model> · <feature>" (a5e1aaa). **New Mac:** AXe 2.2.0 installed (Jabran OK); spreading runs its own simulator test there; D-90 spreading decisions in lead-decisions. My three flow-lead sessions were not reachable by SendMessage at ~10:30 (not in ListAgents): the title rule is in their handoff files; check they're alive tonight.
-- **D-87** done list verified at every step (inside the DoD scope); **D-88** new Mac one flow at a time, combined BE+App review, parallel after mock backend; **D-89** one fresh flow-lead session per flow, every stage by a sub-agent, flow lead ends after its merge (new Mac confirmed). Transition: realtime-lead finishes first-users + the realtime feature review then is archived; design-system-lead finishes android-state then is archived; mock-backend-lead is done (archive). Next flows get fresh sessions.
+## State
+- **Stack down, simulators off.** Bjørn ACTIVE at Kyst. Worktrees left in `NeoERP-worktrees/`: `ds-android-app`, `rt-fu-app`, `rt-fu-be` (flow work, keep), `hrp-v2` (old).
+- **Flow-lead sessions** from the personal seat (realtime `local_86885f…`, design-system `local_286b85…`, mock-backend `local_90f439…`) can't be messaged from the Team seat. Their handoff files hold their state: `.review-channel/handoff-realtime-flow-lead.md`, `handoff-design-system-lead.md`, `mock-backend-flow-lead.md`. Start a fresh flow-lead session per flow from them (D-89).
+- **On `main`:** `core/mock-backend` (App #12, BE #14) with its gate-file edits. 6 stale BE gate pins on `main` (backlog 8cd5f73, Jabran's yes needed).
 
-## Feature branches (merged flows)
-- `core/realtime/feature`: BE 9f372ce+ (actions, hub; .env DB passwords 833cba2) / App 2a7ccef8 (app). Last flow `first-users` in progress (BE ee898725, App 0bc4c7d2). Migrations renumbered: accounts V82/V83, user V53, org V43, realtime V1/V2.
-- `core/design-system/feature` (App 1355be21): a11y-checks, contracts merged. Next: **android-state, module in a quiet window (my recommendation, awaiting Jabran)**, window-class, layouts-focus.
-- `core/mock-backend/feature`: App 33cd72f5 (data-source, move-areas, 5A), BE 3d3414c (be-examples 1+2). On hold: be-examples-3, 5B, 5C (awaiting Jabran: "stop here / move when touched" recommended). Feature notes `.review-channel/core-mock-backend-feature-notes.md`.
-- Feature-end gate items for Jabran per feature are in `lead-decisions.md` (pins, gate files, verify-test-floor rows, migrations, deploy order).
+## Next, in order
+1. **`accounts/dimension-rules`** (new Mac): it runs its own simulator check on the new Mac and marks BE #11 / App #9 ready; then ask Jabran about the gate, merge to `main` (lands first: accounts V80/V81, user V52, org V42).
+2. **`core/realtime`:** first-users fixed and pushed (BE ff3898a1, App f99dbabe), not merged into `core/realtime/feature`. Write its done list (fresh run), merge it into the feature, one Opus 5.5 high feature review (sub-agent), then ask Jabran about the gate items (lead-decisions: pins, gateway routes, migrations accounts V82/V83, user V53, org V43, realtime V1/V2, deploy order), PR `core/realtime/feature` → `main` (draft PRs exist: BE #12, App #10). After dimension-rules and spreading per the order.
+3. **`core/design-system`:** android-state built at App e264c945 on `core/design-system/android-state` (draft App #14), not reviewed. Done list → Opus high review → fixes → Android emulator check here (AVD Pixel_10a; steps in `handoff-design-system-lead.md`) → merge. Under D-95 take `core/design-system/feature` (a11y-checks + contracts; draft App #13) to `main` with Jabran's gate answer (gate files listed in lead-decisions), then later flows from `main`. **Next flow: `small-phone`** (backlog section 2e2e2ee: dialog actions wrap, mobile top bar per Jabran, 44 pt Back/filter chip, list header cuts, ellipsis/overflow size check, Settings density row), then module split (quiet window), window-class, layouts-focus (wide-screen rule D-85).
+4. **Then (VISION.md order):** `core/notifications`, a core fix batch (MEDIUM/security backlog items + the stale pins), HR H1 (time and attendance core, D-98, ADR-035 draft).
 
-## Decided (D-85, 2026-11-25)
-android-state next (brief sent to design-system-lead), module in a quiet window; journals stop after 5A, mock-backend-lead runs the feature review; wide screens split, built in layouts-focus.
-Also earlier: staff support visits get no live stream (built as refused; he didn't object).
+## Waiting on Jabran
+- Gate answers per feature at its end (dimension-rules, realtime, design-system).
+- The 6 stale BE pins on `main` (look at each change, then new blobs).
+- VISION.md §7 open questions 2–6 (size, first package, pricing, positioning, wording).
+- Country packs for time and attendance after the "Not verified" items (`.review-channel/rules-check-time-attendance.md`); a Pakistani labour lawyer and a Nordic payroll accountant.
 
-## Measures and records
-`.review-channel/v2-trial-measures.md` (one line per flow); backlog `docs/backlog.md`; decisions `lead-decisions.md`; ADR-025 amended, ADR-027 and ADR-028 accepted.
+## Records
+Decisions `lead-decisions.md` (last D-98 + addendum; the new Mac takes D-99 next); measures `v2-trial-measures.md` (D-87–D-89 trial section); backlog `docs/backlog.md`; memory copy `docs/lead-memory/`.
 
 ## Compact keep line
-/compact keep: .review-channel/handoff-overseer.md (read first, with docs/process/workflow-v2-draft.md and docs/PRINCIPLES.md); role = old-Mac module+integration lead; rules verbatim incl. no AI attribution and secrets; three flow-lead session ids; the running first-users re-test (stack UP, shut down after); the three open questions for Jabran; dimension-rules lands on main first. Drop: finished agents' reports, file dumps, command outputs.
+/compact keep: .review-channel/handoff-overseer.md (read first, with docs/process/lead-seats.md and docs/process/workflow-v2-draft.md §5); role = old-Mac module + integration lead; rules verbatim incl. no AI attribution and secrets; the "Next, in order" list; what waits on Jabran. Drop: finished agents' reports, file dumps, command outputs.

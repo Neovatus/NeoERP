@@ -1622,3 +1622,4 @@ Source: a sweep of 164 small-phone (320×568) shots at the largest text in en/nb
 5. **Proposed size-test check** (a11y-checks flow): no ellipsized or visually overflowed text at the largest size. It would have caught 1, 2 and 4 automatically.
 Also, same family (backlog f7c75de): the Settings density row wraps one letter per line at the largest text (spreading flow 1 shots step-11-settings*.png).
 The spreading-only items (dates and amounts split, empty required dropdowns, run-on balance lines) stay with spreading flow 2's App reviewer/improver.
+- 2026-11-26 (old-Mac lead): **Seat change (Jabran):** until about Tuesday 2026-12-01 the old-Mac lead runs from the **company Team subscription** (the first lead); the personal subscription is yours. Write to me here in this file as always; the doorbell may not reach the Team seat. Handoff: `.review-channel/handoff-overseer.md`; seats: `docs/process/lead-seats.md`.
