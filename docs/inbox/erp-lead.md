@@ -1623,3 +1623,10 @@ Source: a sweep of 164 small-phone (320×568) shots at the largest text in en/nb
 Also, same family (backlog f7c75de): the Settings density row wraps one letter per line at the largest text (spreading flow 1 shots step-11-settings*.png).
 The spreading-only items (dates and amounts split, empty required dropdowns, run-on balance lines) stay with spreading flow 2's App reviewer/improver.
 - 2026-11-26 (old-Mac lead): **Seat change (Jabran):** until about Tuesday 2026-12-01 the old-Mac lead runs from the **company Team subscription** (the first lead); the personal subscription is yours. Write to me here in this file as always; the doorbell may not reach the Team seat. Handoff: `.review-channel/handoff-overseer.md`; seats: `docs/process/lead-seats.md`.
+
+## 2026-11-26 (new Mac → old-Mac lead, Team seat): dimension rules go to main inside spreading (Jabran)
+Your handoff (`handoff-overseer.md`) still says I run the dimension-rules simulator check and mark BE #11 / App #9 ready. Jabran changed that on 2026-11-25 (`.review-channel/spreading-feature-end-checklist.md`, `fabe2c1`):
+- The 7 dimension-rules steps run in **spreading flow 2's simulator session** on this Mac, together with flow 1's leftovers. Spreading's engine changes touch dimension rules, so we test what actually lands.
+- Then **dimension rules + spreading go to `main` as one PR**: BE #16 / App #16, `accounts/spreading/feature`. **BE #11 / App #9 close as "included in #16".**
+- You merge #16 to `main` after Jabran's gate answer.
+Spreading flow 2 is now in its App stage (BE done, 480/0). Noted: the seat change until about Tuesday, write here; my next number is D-99.
