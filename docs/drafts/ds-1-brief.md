@@ -3,6 +3,12 @@
 **Status: DRAFT, not approved. No lead starts this until Jabran says go.** When approved, it moves to
 `NeoERP-App/docs/agents/ds-1/brief.md` and gets a line in `.review-channel/claims.md`.
 
+**Needs a refresh before use (2026-11-26):**
+- The docs part was merged as lane `ds1-docs` (App `docs/agents/ds1-docs/`).
+- `phase/4` is gone, so the base and the branch names must follow workflow v2 (D-81, module/feature branches from `main`).
+- Footers follow Jabran's 2026-11-24 choice: one end-aligned group, Cancel then primary, totals left (backlog "DS-1-DOCS follow-ups").
+- The line references below are from d1d7f9d1.
+
 Written 2026-11-24 from the Material 3 review. Code references are App `origin/phase/4` d1d7f9d1. Paths are relative to
 `NeoERP-App/`; `…/app/` means `composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/`.
 

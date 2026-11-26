@@ -18,9 +18,6 @@ Write a line before starting, remove it when done. Never touch work the other le
 2. An open decision where the lead has a recommendation is written to [lead-decisions.md](lead-decisions.md): question, options, pick and **why**. A reviewer given the entry and its sources only approves or rejects it: **substantial decisions** (design, security mechanism, hard to reverse) a fresh Fable 5.2 (default effort), batched; **small ones** (wording, test scope, one-line mechanics, easily reversed) the lead or a fresh Opus (Jabran 2026-11-21). APPROVE → the lead acts. REJECT or still open → Jabran. Critical decisions (money, security, approved scope, product direction) go to Jabran directly, with the Fable view attached. Decisions Jabran already owns stay his.
 3. **Fable budget (Jabran 2026-11-21):** Fable uses at most 50 % of the weekly limit (plan below 40 %, nothing new at 45 %). Fable does substantial work only: independent security reviews of gate, money and security lanes, batched checks of substantial decisions, and views on Jabran's critical lists. Few-line reviews, small fix confirmations and small decisions go to the lead, Opus or Sonnet.
 
-## Waiting for merge
-- 2026-11-24 DS-1-DOCS (old Mac): App `phase/4-ds1-stale-docs` → 733082b3+ (docs, rig CSS and KDoc comments only, no logic; settled M3-review contracts, see `docs/reviews/material-3/2026-11-23/synthesis.md`). Merge into App `phase/4` with the next App gate; conflicts only possible in docs/design.
-
 ## Merged lanes
 - 2026-11-24 DOCS-2c: App `phase/4` → `5b65071e` (all 11 Phase 4 user-guide screenshots real, from the new `Phase4GuideScreenshotTest`; NORMAL, one Opus review; gate OK).
 - 2026-11-24 FIX-B2A-REFRESH-APP: App `phase/4` → `dae20eb1` (`AppSession.reread()` no longer stamps the 5 s gap on a failed/empty re-read; one retry after 1.5 s; gate OK). **Last Phase 4 fix lane.**
