@@ -541,3 +541,10 @@ Next design-system flow after android-state (proposed name `small-phone`, cut fr
 ## core/design-system android-state review follow-ups (2026-11-26, App `docs/agents/core-design-system/review-android-state.md`)
 - **F8 (LOW, outside the flow):** with `uiMode` handled, system bar contrast no longer follows a system dark-mode switch. Re-apply the edge-to-edge / system bar style on configuration change. Owner: design-system (small-phone or window-class flow).
 - **Robolectric:** not added (Jabran 2026-11-26); Android lifecycle order is proven on the emulator. Revisit if Android-only lifecycle bugs repeat.
+
+## App: right-to-left readiness (Urdu, Arabic, …) (Jabran 2026-11-27: note it, not now)
+Measured on App `main` 2026-11-27. Not needed for the first market group; do it as one small design-system flow before any RTL translation.
+1. **Rule test now (cheap, stops new debt):** a build rule that refuses new absolute left/right code (`TextAlign.Left/Right`, `Alignment.Left`, `AbsoluteAlignment`, `Arrangement.Absolute*`, `padding(left/right)`, `absolutePadding`, `offset(x)`) with a baseline of today's 10 sites, and refuses literal "←"/"→" in string resources (15 today).
+2. **RTL flow (later):** replace the 10 absolute sites and the 15 string arrows (arrows become `AutoMirrored` icons; 3 arrow icons are not mirrored today, 0 `AutoMirrored`); add a pseudo-RTL locale to the size tests (every screen mirrored, largest text); fonts with Arabic script (e.g. Noto Naskh Arabic, Noto Nastaliq Urdu) as fallbacks; per-script line heights in the typography tokens (Nastaliq is much taller than 12.5/17); amounts, account numbers and dates stay LTR inside RTL text, digits (Western or Eastern Arabic) chosen per language; all 6 Arabic plural forms filled.
+3. **BackEnd:** server messages, PDFs and e-invoices need the same (RTL layout and fonts).
+Already in place: per-language `values-xx` resources, plural-aware strings, the pseudo-locale (`-Pi18n.pseudo`), size tests in every language, start/end layout almost everywhere, and Android rebuilds on a direction change (`layoutDirection` not handled, android-state).
