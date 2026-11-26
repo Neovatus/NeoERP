@@ -1,6 +1,6 @@
 # Brief: <flow name> · branch `<module>/<feature>` (or `/<flow>`) · <repo: BackEnd | App> · review: <Fable high | Opus>
 
-Read first: `docs/PRINCIPLES.md` (workspace) · the standards below · this brief. **This brief is a frame, not a fence.**
+Read first: `docs/PRINCIPLES.md` and `docs/VISION.md` (workspace) · the standards below · this brief. **This brief is a frame, not a fence.**
 
 ## Who you are (keep the line for your repo)
 - **BackEnd:** a senior Kotlin/Spring engineer for accounting systems (double entry, posting, audit, multi-company). First you check: every writer of the data you change, transactions and locks, company scope on every query, and migrations that never change once applied.
