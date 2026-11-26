@@ -15,19 +15,23 @@
 - **Built for it:** country packs (charts, tax codes, fiscal calendars, SIE/SAF-T, payroll rules; ADR-010), four languages today (en, nb, sv, da), per-company currency and fiscal year.
 
 ## 3. Who we build for (target businesses)
-**Open: Jabran to choose the top targets.** Nothing is decided; the capacity model's "10 large retailers" (`docs/agents/arch1/capacity-model.md`) is a sizing example, not a market choice. **Proposed** order, from what the product already does best:
+**Decided (Jabran 2026-11-26): all six below are targets**, and each can come **two ways**: (a) the whole business on NeoERP, or (b) **back office only**: they keep their own operations system (POS, web shop, field service, industry software) and run HR, Payroll, Accounts and invoicing/purchasing through us via the integration API and imports. The capacity model's "10 large retailers" is a sizing example, not a ranking.
 
-| # | Target business | Why it fits NeoERP | Built today | Missing for a first sale |
+| # | Target business | Why it fits NeoERP | Built today | Needed |
 |---|---|---|---|---|
-| 1 | **Groups of companies and franchises** (holding + several legal entities, shared or own agreements, branches) | The org model is the product's core: legal entity vs operating unit (ADR-013), company-scoped roles (ADR-014), franchise agreement holder (ADR-015), company switching, per-company modules | Org, people, roles, agreements, entitlements; Accounts per company with branches and dimensions; approval limits | Group reporting and consolidation (ADR-023 level 6), intercompany |
-| 2 | **Multi-branch retail and restaurant chains** (many shops, high volume, offline tills) | Offline store edge and idempotent posting were designed early (ADR-007, ADR-008, ADR-009); dimensions per branch | Accounts, branches, the integration-posting plan for daily totals | POS/store edge, inventory, sales |
-| 3 | **Mid-size service and trading companies** (finance team of 3–30, receivables/payables heavy) | Accounts is the most complete module: invoices, bills, receipts, payments, credit notes, approvals, opening balances, SIE import/export, spreading | Accounts A0–A4, approval limits, dimension rules, exports | Bank feeds per country, e-invoicing per country |
-| 4 | **Accounting firms running many clients** (Nordic *regnskapsbyrå*, PK tax practices) | Multi-company from day one; staff support visits; country compliance | Company switching, support access | Client portal, bulk filing |
+| 1 | **Groups of companies and franchises** (holding + several legal entities, shared or own agreements, branches) | The org model is the core: legal entity vs operating unit (ADR-013), company-scoped roles (ADR-014), franchise agreement holder (ADR-015), per-company modules | Org, people, roles, agreements, entitlements; Accounts per company with branches and dimensions; approval limits | Group reporting and consolidation (ADR-023), intercompany |
+| 2 | **Multi-branch retail and restaurant chains** (many shops, high volume, offline tills) | Offline store edge and idempotent posting designed early (ADR-007, 008, 009); dimensions per branch | Accounts, branches | Integration posting API (their own POS), later our POS/store edge, inventory, sales |
+| 3 | **Service and trading companies** (finance team of 3–30, receivables/payables heavy) | Accounts is the most complete module | Accounts A0–A4, approval limits, dimension rules, spreading, exports | Bank feeds and e-invoicing per country |
+| 4 | **Service and project companies** (consultancy, IT, engineering, agencies): staff log time on projects; the company bills, costs and pays | `project` is already a dimension on every money line (ADR-021) | Accounts invoicing, dimensions | **Projects and Time** (projects, timesheets, bill rates, invoice from time, margin), HR, Payroll (cost rate): ADR-035 |
+| 5 | **Shift-based workforces** (retail, restaurants, healthcare, security, cleaning, logistics) | HR and Payroll designed with country rules; branch/department dimensions | — | **Workforce scheduling** (rotas, shifts, swaps, clock-in/out, attendance → Payroll), shift and overtime rules per country and collective agreement: ADR-035 |
+| 6 | **Accounting firms running many clients** (Nordic *regnskapsbyrå*, PK tax practices) | Multi-company from day one; staff support access; country compliance | Company switching, support access | Client portal, bulk filing |
+
+**Time logging is for every company, not only billing ones** (Decided 2026-11-26): internal projects (R&D, internal IT, an office move, a capital project) log hours at cost only (cost rate × hours), against project budgets; billable projects add an optional bill rate and an invoice from time. Who owns pay rates, cost rates, bill rates and hours: **ADR-035 (draft)**.
 
 ## 4. What we sell (modules)
 - **Decided (2026-11-03):** sold by module; each customer takes the modules it needs (ADR-028: the App builds any subset of modules).
 - **Built:** Platform (companies, agreements, entitlements, audit), Org, People and roles, Sign-in and security, **Accounts** (books, receivables, payables, reports, approvals, dimensions and dimension rules, spreading in progress; budgets planned in ADR-022), live updates (`core/realtime`).
-- **Next (module sequence, `NeoERP-App/docs/module-sequence.md`):** HR, then Payroll (needs HR), self-service (ESS, expenses), then Inventory, Sales, Purchasing, Manufacturing, POS, one at a time.
+- **Next (Proposed order, 2026-11-26):** finish the running features (dimension rules, spreading, realtime, design system) → **integration API and imports** (post totals; imported invoices and bills: opens the back-office-only customers) → **HR** (H1, with role, grade, working-time pattern and cost centre for later modules) → **Payroll** (publishes the cost rate) → **Projects and Time** → **Workforce scheduling** → self-service (ESS, expenses) alongside → Inventory, Sales, Purchasing, Manufacturing, POS, one at a time. Each starts with a rules check and benchmark (e.g. Harvest, Visma Severa, Tripletex Project for projects; Planday, Quinyx for shifts).
 - **Core design, not add-ons (Decided 2026-11-03):** shared dimensions (ADR-021), budget control (ADR-022), reporting layer (ADR-023), approval limits, later consolidation.
 - **Proposed first package for a sale:** Platform + Accounts (+ approval limits and dimensions), then HR + Payroll per country as the second package.
 
@@ -46,7 +50,7 @@
 - No pilot-driven shortcuts: features are built complete, behind a feature switch until done (D-95).
 
 ## 7. Open questions for Jabran
-1. **Top target businesses:** keep the order in §3, change it, or name others (manufacturing, construction, healthcare, NGOs, …)?
+1. ~~Top target businesses~~ **Decided 2026-11-26:** the six in §3, each whole-business or back-office-only. Still open: others later (manufacturing, construction, healthcare, NGOs, …)?
 2. **Customer size for the first sales:** large groups only, mid-size too, or both from the start?
 3. **First package:** Platform + Accounts, or Accounts + HR + Payroll together?
 4. **Pricing model:** per module per company, per user, or per group?
