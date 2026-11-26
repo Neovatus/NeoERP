@@ -531,3 +531,8 @@ Next design-system flow after android-state (proposed name `small-phone`, cut fr
   2. **Dates:** the shared formatter (`JournalFormats.kt:44/:50` → `NeoFormat.date`) shows English month names in nb/sv/da ("7 Jan 2026") and splits "7 Jan / 2026" across lines. It needs localised months and non-breaking spaces inside a date. This is an i18n bug in all four languages, not only layout.
   3. **The list toolbar status filter is cut** ("4 statu…", `NeoListToolbar`).
   Owner: whoever runs `small-phone` (the old-Mac team is paused until about Tuesday).
+
+## core/realtime feature review follow-ups (2026-11-26, reviews `docs/agents/realtime/review-feature.md` in both repos)
+- **App-3 (LOW, PLAUSIBLE):** since fix round 2, a stream that keeps answering 401 makes the App refresh its token every ≤30 s with no end. Needs a small design choice (retry limit or back-off, what the person sees) before a fix. Owner: old-Mac lead, `core/realtime` or `core/notifications`.
+- **B4 (LOW, PLAUSIBLE):** permission migrations that run after user V53 (e.g. spreading's V54) send `access.changed` to every holder of the changed role at deploy. Harmless one-time burst; note it in the deploy order with spreading, or skip events for migration-time permission changes. Owner: old-Mac lead (deploy order, P-29).
+- **Outside the scope from the realtime done lists:** 14 App items (`rt-feat-app` `docs/agents/realtime/done.md` "Outside the scope": People list keeps a deactivated person after reload, nb Dashboard not translated, "Your exports" count after direct-file exports, phone sign-out notice doesn't say who, People page a11y labels) and BE items (company-less `session.ending` needs an ADR-019 D7 amendment; Keycloak no-hook cases).
