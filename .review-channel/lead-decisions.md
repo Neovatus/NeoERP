@@ -896,3 +896,11 @@ Jabran: "as we work only on one flow, we can directly merge to main?" → "yes, 
 
 ## D-97 The gated flow — 2026-11-25 (Jabran, after both leads' discussion `.review-channel/workflow-gated-discussion.md`)
 Rules check → Architect (brief + discovery + plan, both repos) → Gate 1 → **Backend:** Engineer → Gate 2 → Reviewer → Gate 3 → Improver (only with findings) → **App plan refresh (Gate 1b)** → **App:** Engineer → Gate 2 → Reviewer (App + seams) → Gate 3 → Improver → **simulator test** (real app on the real stack) → fixes → Final approval. Each repo finished and reviewed before the next starts (answers "App in parallel": no). **No splitting:** one flow = one sub-feature, built in full (answers the split-size question). Table and rules in `docs/process/workflow-v2-draft.md` §5.
+- **D-96 O2 refined (Jabran, via the spreading flow 2 flow lead at G1, 2026-11-26; FC-21/FC-22 in BE `docs/agents/spreading/decisions.md`):**
+  - **FC-21:** route (a) "source credited" is allowed only when all three hold:
+    - the source sits on the balance account;
+    - the new total ≤ the line's net after credit;
+    - the drop ≤ the credit not yet used.
+    Otherwise it's refused with `SOURCE_CREDIT_NOT_COVERING` and the figures, and route (b) applies.
+  - **FC-22:** raising a schedule that has an SP-3 move is refused with `RAISE_WITH_MOVE`: "spread the extra with a second schedule".
+  - **FC-15 (lead, noted):** with the feature off, spreading reads stay open, so pause and reverse can work (D-96 addendum). This replaces flow 1's "refuse reads too" reading of SP-8. Approved schedules keep posting either way.
