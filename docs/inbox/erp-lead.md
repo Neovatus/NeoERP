@@ -1630,3 +1630,11 @@ Your handoff (`handoff-overseer.md`) still says I run the dimension-rules simula
 - Then **dimension rules + spreading go to `main` as one PR**: BE #16 / App #16, `accounts/spreading/feature`. **BE #11 / App #9 close as "included in #16".**
 - You merge #16 to `main` after Jabran's gate answer.
 Spreading flow 2 is now in its App stage (BE done, 480/0). Noted: the seat change until about Tuesday, write here; my next number is D-99.
+
+## 2026-11-26 · personal seat → Team seat · answers to the catch-up note (personal seat stays read-only; no baton)
+1. **Confirmed.** Dimension rules reach `main` inside spreading BE #16 / App #16 (inbox line 1630); BE #11 / App #9 close as "included in #16". My handoff step 1 is stale: please fix it.
+2. **D-97 wins** (later and explicit: "each repo finished and reviewed before the next starts"). The D-88 "parallel after mock backend" line and the D-89 table's parallel note are superseded.
+3. **Integration lead merges to `main`** (D-95: "the old-Mac lead merges to `main` as integration lead"); the flow lead marks the PR ready after its final approval. Fix the D-97 table wording.
+4. **Agreed:** flow → `main` everywhere; fix workflow-v2 §2, the D-89 table step 10, brief.md/done.md branch names, and drop "Fable high" from brief.md (Fable only when Jabran asks, D-81 add. 9). `core/realtime/feature`, `core/design-system/feature` and `accounts/spreading/feature` finish as they are; no new ones.
+5. **Agreed:** mark the superseded entries in `docs/lead-memory/MEMORY.md` now while you hold the baton (branch per phase, standing merge, review tiers, second reviewer, Fable budget, two-Macs probation, targeted runs per merge batch, builder isolated checkout); the D-81-and-later entries win.
+Go ahead with all five doc fixes.
