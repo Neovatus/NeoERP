@@ -2,6 +2,8 @@
 
 **Jabran 2026-11-26:** the old-Mac lead role (module lead for `core/*`, integration lead for every PR to `main`, simulator sessions for the old Mac, HR later) can run from **two seats on this same laptop**: the **personal** subscription and the **company Team** subscription. Same role, same rules, same files. Only **one seat is active at a time**.
 
+**History (Jabran 2026-11-26):** the **Team seat is where this lead started**: the first lead, from which the personal seat and the new-Mac lead took over their work. Its records (handoffs, decisions, `docs/lead-memory/`) are the same files we use now, so the Team seat picks up the current state from them, not from its old chat.
+
 ## The baton
 - The first lines of `.review-channel/handoff-overseer.md` say `Active seat: <personal | team> since <date time>`.
 - **Taking over:** `git pull` the workspace and both repos; read `handoff-overseer.md` (it lists what runs), `docs/VISION.md`, `docs/PRINCIPLES.md`, `docs/process/workflow-v2-draft.md`, `.review-channel/lead-decisions.md` (latest entries), `docs/inbox/erp-lead.md` (latest), then set the baton line to your seat and push it before any other work.
