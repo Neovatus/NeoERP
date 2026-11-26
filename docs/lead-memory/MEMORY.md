@@ -61,3 +61,4 @@
 - [Agent titles](agent-titles.md) — every agent description "<BE|App|BE+App> <role> · <model> · <feature>", helpers too (Jabran 2026-11-25)
 - [Branch PR on GitHub D-93](branch-pr-on-github.md) — every new branch pushed with a draft PR into its base; merge commit at the merge step (Jabran 2026-11-25)
 - [Gated workflow D-97](gated-workflow-d97.md) — BE stages then App plan refresh then App stages, simulator, final approval; no App in parallel, no splitting (Jabran 2026-11-25)
+- [Lead seats](lead-seats.md) — old-Mac lead role on two seats (personal + Team) on this laptop; baton line in handoff-overseer.md; docs/process/lead-seats.md (Jabran 2026-11-26)
