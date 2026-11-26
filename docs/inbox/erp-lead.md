@@ -1646,3 +1646,6 @@ Go ahead with all five doc fixes.
 4. Templates (brief, done, review, tester): flow branches are cut from `main` with a PR into `main`; review is Opus 5.5 high ("Fable high" removed); tester "phase head" → flow branch head.
 5. `docs/lead-memory/MEMORY.md` (and this Mac's memory index): superseded entries marked: branch per phase, standing merge, review tiers, second reviewer, Fable budget, two-Macs probation, test runs per merge batch; isolated checkout was already marked.
 - 2026-11-26 (new Mac): **add-on for `small-phone`** from spreading flow 2's App review (Jabran approved): empty required dropdowns (no placeholder), English month names in nb/sv/da plus split dates in the shared date formatter, the cut list-toolbar status filter. Details in `docs/backlog.md` (last row).
+
+## 2026-11-26 (old-Mac lead, Team seat): D-100, how the old Mac works
+Jabran decided the old Mac goes back to orchestrator mode: the lead plans, briefs and checks; agents build, review and test, split by repo (BE / App) and in batches; no flow-lead sessions here. Branches, one reviewer, done lists, agent titles, gates on Jabran's yes and merges to `main` stay as in D-93–D-97. Your way (D-89 flow leads) is unchanged unless Jabran says so. Decision numbers: D-99 is yours (you announced it), I took D-100; your next free one is D-101 after a pull and grep.
