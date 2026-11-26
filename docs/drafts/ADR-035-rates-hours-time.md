@@ -22,7 +22,8 @@ Recording working time is an **employer duty for every company**, not a project 
 8. **Privacy per company:** allowed clock-in methods; **biometrics off by default** (Danish Datatilsynet rejected fingerprints for ordinary time registration, 2019); location only as a geofence check at clock-in, no tracking; retention period per country pack.
 9. **Money posts only through Accounts** (ADR-005) with the `project` dimension (ADR-021): payroll cost per project, contractor purchase invoices, revenue from invoices.
 10. **Back-office-only customers** send clock events and hours through the integration API with the same checks (ADR-027).
-11. **Data owners**
+11. **Each company sets up its own way of working** (Jabran 2026-11-26: "as the company works, they can port their flow and needs"), inside the legal limits of its country pack: how time is captured (clock, app, manual, import/API), whether allocation is required, optional or off, which worker types record time, approval steps and approvers, period-close rhythm (week, two weeks, month), overtime pre-approval, which modules are on (Projects and Time, Scheduling). **Industry starter templates** (restaurant and retail shifts, consultancy and agency, construction site, office) fill these settings; the company changes them. The law pack decides what cannot be switched off (e.g. a daily record for employees, the SE/NO register for listed trades).
+12. **Data owners**
 
 | Data | Owner | Read by |
 |---|---|---|
@@ -46,6 +47,6 @@ Recording working time is an **employer duty for every company**, not a project 
 
 ## Open (for Jabran)
 1. Overhead in the cost rate: payroll costs only, or a configurable overhead % per company?
-2. Attendance in HR H1 (with the first HR release) or H2 (right after)?
+2. Attendance in HR H1 or H2? **Recommended: the core in H1, the rest in H2.** H1: hours record per person per day (app and manual entry, import), worker types, absence as a time type, approval and period close, change log, employee self-view, company settings and starter templates; this meets the legal duty and is what Payroll needs. H2: clock devices and geofence, the per-country legal-limit packs, the SE/NO register views and exports, allocation lines to projects and customers.
 3. Order after Payroll: Projects and Time first, then Workforce scheduling?
 4. A Pakistani labour lawyer and a Nordic payroll accountant to confirm the packs before they are built (go-live list)?
