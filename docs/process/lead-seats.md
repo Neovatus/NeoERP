@@ -1,6 +1,6 @@
 # Lead seats: one old-Mac lead role, two subscriptions
 
-**Jabran 2026-11-26:** the old-Mac lead role (module lead for `core/*`, integration lead for every PR to `main`, simulator sessions for the old Mac, HR later) can run from **two seats on this same laptop**: the **personal** subscription and the **company Team** subscription. Same role, same rules, same files. Only **one seat is active at a time**.
+**Jabran 2026-11-26:** the old-Mac lead role (module lead for `core/*`, integration lead for every PR to `main`, simulator sessions for the old Mac, HR later) can run from **two seats on this same laptop**: the **personal** subscription and the **company Team** subscription. Same role, same rules, same files. Only **one seat is active at a time**. **Team seat, first time back: read `docs/process/lead-catch-up-2026-11-26.md` first.**
 
 **History (Jabran 2026-11-26):** the **Team seat is where this lead started**: the first lead, from which the personal seat and the new-Mac lead took over their work. Its records (handoffs, decisions, `docs/lead-memory/`) are the same files we use now, so the Team seat picks up the current state from them, not from its old chat.
 
