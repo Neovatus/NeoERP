@@ -79,6 +79,11 @@ Verdict: ACCEPT WITH CONDITIONS
    writer; a person is used once per approval (SR-H2). Multi-step bands complete before the first posting.
    Tests: `SpreadingApprovalTest.writerOfEarlierVersionCannotApproveChange`,
    `SpreadingApprovalTest.standInForWriterRefused`, `SpreadingApprovalTest.samePersonTwoStepsRefused`.
+   **Clarified 2026-11-26 (Jabran, after a Fable 5.2 check; spreading flow 2 FC-35):**
+   - Approving any step, Post again, Resume and posting by a person are checked against the writers of all versions.
+   - An automatic posting is checked against the writers stored on the version it posts: everyone who was a writer of the schedule when that version got its last approval. For a dimension fix, that is the fixed version's writers plus the fixer.
+   - A version without stored writers never posts.
+   - The approver of record still cannot do the dimension fix.
 7. **Approval-limit chain.** Snapshot of the journal band at submit (AL-D3) on the amount still to release in base
    currency; a change is banded on the larger of the old and the new remaining amount; several schedules on one
    source line are banded on the line's total open spread amount (stops splitting under a band); limits read

@@ -904,3 +904,9 @@ Rules check → Architect (brief + discovery + plan, both repos) → Gate 1 → 
     Otherwise it's refused with `SOURCE_CREDIT_NOT_COVERING` and the figures, and route (b) applies.
   - **FC-22:** raising a schedule that has an SP-3 move is refused with `RAISE_WITH_MOVE`: "spread the extra with a second schedule".
   - **FC-15 (lead, noted):** with the feature off, spreading reads stay open, so pause and reverse can work (D-96 addendum). This replaces flow 1's "refuse reads too" reading of SP-8. Approved schedules keep posting either way.
+- **Fable c6 clarified (Jabran, after a Fable 5.2 check; spreading flow 2 review M1, FC-35, 2026-11-26):**
+  - People's actions (approve, Post again, Resume, manual posting) are checked against the writers of all versions.
+  - The automatic job checks against the writers stored on the version it posts (the writers when that version got its last approval; for a dimension fix, the fixed version's writers plus the fixer).
+  - A version without stored writers never posts.
+  - The text is in `docs/drafts/fable-check-4b-money-decisions.md` c6.
+  - Also noted: FC-36 (flow lead): End POST_REST is refused while an unabsorbed credit sits on the balance account. The brief's invariant now reads "one live journal per schedule and run".

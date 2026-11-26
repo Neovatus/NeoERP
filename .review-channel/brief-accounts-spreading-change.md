@@ -66,7 +66,7 @@ Each action below gives its **output** on the screen and in the books. Each **ex
 
 **Always true after every action:**
 - posted (live) + remaining = approved;
-- at most one live journal per schedule and period;
+- at most one live journal per schedule and run;
 - the job posts only the approved version's runs;
 - nothing is ever re-dated;
 - rights are checked on the server, not only hidden in the App;
