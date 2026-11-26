@@ -526,3 +526,8 @@ Next design-system flow after android-state (proposed name `small-phone`, cut fr
 - **List page header cuts:** sticky title next to "+ New…", the banner action button, the tab strip at the edge.
 - **New size-test check** (extends a11y-checks): no ellipsized or visually overflowing text at the largest size; would have caught the three cuts above. Gate-adjacent (baseline): Jabran's yes at feature end.
 - **Settings density row** wraps one letter per line at the largest text (backlog f7c75de; same family).
+- **core/design-system `small-phone` add-on (spreading flow 2 App review, 2026-11-26; Jabran approved; review `NeoERP-App/docs/agents/spreading/review-change.md` App 19bd566a, sweep `shots/size-change-sweep.md`):** shared, not changed by spreading:
+  1. **Required dropdowns show nothing:** the segmented-choice fallback has no placeholder (`NeoEntitlementControls.kt:115–121`).
+  2. **Dates:** the shared formatter (`JournalFormats.kt:44/:50` → `NeoFormat.date`) shows English month names in nb/sv/da ("7 Jan 2026") and splits "7 Jan / 2026" across lines. It needs localised months and non-breaking spaces inside a date. This is an i18n bug in all four languages, not only layout.
+  3. **The list toolbar status filter is cut** ("4 statu…", `NeoListToolbar`).
+  Owner: whoever runs `small-phone` (the old-Mac team is paused until about Tuesday).

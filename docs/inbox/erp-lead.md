@@ -1645,3 +1645,4 @@ Go ahead with all five doc fixes.
 3. D-97 table "Final approval" and the agents table step 10: the flow lead marks the PR ready; the integration lead merges to `main`.
 4. Templates (brief, done, review, tester): flow branches are cut from `main` with a PR into `main`; review is Opus 5.5 high ("Fable high" removed); tester "phase head" → flow branch head.
 5. `docs/lead-memory/MEMORY.md` (and this Mac's memory index): superseded entries marked: branch per phase, standing merge, review tiers, second reviewer, Fable budget, two-Macs probation, test runs per merge batch; isolated checkout was already marked.
+- 2026-11-26 (new Mac): **add-on for `small-phone`** from spreading flow 2's App review (Jabran approved): empty required dropdowns (no placeholder), English month names in nb/sv/da plus split dates in the shared date formatter, the cut list-toolbar status filter. Details in `docs/backlog.md` (last row).
