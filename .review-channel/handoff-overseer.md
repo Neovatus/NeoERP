@@ -1,6 +1,8 @@
 # Handoff: old-Mac lead (module + integration lead) · 2026-11-25 ~07:40 Europe/Oslo · PAUSED until evening (Jabran)
 
-Replace, don't append. Read with `docs/VISION.md`, `docs/PRINCIPLES.md`, `docs/process/workflow-v2-draft.md` (v2 is the working rule set; WORKFLOW.md has a "v2 wins" note), `.review-channel/lead-decisions.md` (D-81 + addenda 1–12 and the 2026-11-25 entries).
+Active seat: personal since 2026-11-26 (two seats, one role: `docs/process/lead-seats.md`; set to `free` or `team` at handover)
+
+Replace, don't append. Seats: `docs/process/lead-seats.md`. Read with `docs/VISION.md`, `docs/PRINCIPLES.md`, `docs/process/workflow-v2-draft.md` (v2 is the working rule set; WORKFLOW.md has a "v2 wins" note), `.review-channel/lead-decisions.md` (D-81 + addenda 1–12 and the 2026-11-25 entries).
 
 ## Role
 Old Mac (36 GB): module lead for `core/*`, integration lead (every feature → `main`), simulator sessions for both Macs (stack + AXe), HR later. New Mac = "Personal Mac Lead" (bridge:session_012UnoMwpjFDm5RrS5j6z31B; inbox `docs/inbox/erp-lead.md` + doorbell). This session runs in the Claude desktop app (has start_session, iOS Simulator tool).
