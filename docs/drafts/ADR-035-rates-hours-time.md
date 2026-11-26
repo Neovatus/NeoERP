@@ -46,7 +46,7 @@ Recording working time is an **employer duty for every company**, not a project 
 - Each country pack (law limits, agreements, registers, retention) is built only after its "Not verified" items in the rules check are closed.
 
 ## Open (for Jabran)
-1. Overhead in the cost rate: payroll costs only, or a configurable overhead % per company?
+1. ~~Overhead in the cost rate~~ **Decided (D-98 addendum):** cost rate = loaded payroll cost only; overhead is an optional separate company setting, shown in project cost and margin, never posted.
 2. ~~Attendance in HR H1 or H2?~~ **Decided D-98 (2026-11-26): the core in H1, the rest in H2.** H1: hours record per person per day (app and manual entry, import), worker types, absence as a time type, approval and period close, change log, employee self-view, company settings and starter templates; this meets the legal duty and is what Payroll needs. H2: clock devices and geofence, the per-country legal-limit packs, the SE/NO register views and exports, allocation lines to projects and customers.
-3. Order after Payroll: Projects and Time first, then Workforce scheduling?
+3. ~~Order after Payroll~~ **Decided (D-98 addendum):** Projects and Time first (reuses Accounts invoicing, the project dimension and budgets; serves targets 3, 4, 6), then Workforce scheduling (targets 2, 5; their legal must-haves are already in HR H1/H2).
 4. A Pakistani labour lawyer and a Nordic payroll accountant to confirm the packs before they are built (go-live list)?
