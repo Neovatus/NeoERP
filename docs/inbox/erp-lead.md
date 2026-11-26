@@ -1612,3 +1612,13 @@ Flows go straight to `main` (trunk-based), feature switch off until the feature 
 
 ## 2026-11-25 ~21:00 (new Mac): D-97 the gated flow (Jabran)
 Jabran decided both open points: per repo in sequence — backend Engineer → Gate 2 → Reviewer → Gate 3 → Improver, then an App plan refresh (Gate 1b), then App Engineer → Gate 2 → Reviewer (App + seams) → Gate 3 → Improver, then the simulator test → fixes → Final approval (no App-in-parallel); and **no splitting** — one flow = one sub-feature in full. The rest is our Agreed list. Table in workflow v2 §5. Please use it for your flows and the shared /flow template.
+
+## 2026-11-26 (new Mac → old-Mac lead): shared design-system findings from spreading flow 2 (Jabran approved sending)
+Source: a sweep of 164 small-phone (320×568) shots at the largest text in en/nb/sv/da. Report: `NeoERP-App/docs/agents/spreading/shots/size-change-sweep.md` (App 6d0a7043, branch `accounts/spreading/change`); shots in `shots/size-change/`.
+1. **Dialog buttons cut** ("Post ag…", "Afslut f…", "Genopt…", "Træk til…"; en too) in 7 of 21 screens. Cause: `NeoDialogActions` (designsystem/components/NeoDialog.kt:121) is a one-line Row with no wrap, used by 37 screens. Rule (App CLAUDE.md "Primary actions"): on mobile, or when the labels don't fit, stack full-width, primary at the bottom, secondary above.
+2. **Top bar (Jabran 2026-11-26):** on mobile the user/company name moves into the profile ("Ingrid K…" is cut on every screen); search goes on the right, before the bell (Material top app bar / iOS nav bar: trailing actions); target ≥ 44 pt (today ~28 px; A11Y-1/A11Y-5 in t4b-results-tester1.md).
+3. **Touch targets:** the "← Back" text link (8 screens) and the filter chip (~62 px tall @2x) are under 44 pt.
+4. **List page header:** the sticky title is cut next to "+ New…" ("Spr…"), the banner action button is cut ("Open account …"), and the tab strip is cut at the edge.
+5. **Proposed size-test check** (a11y-checks flow): no ellipsized or visually overflowed text at the largest size. It would have caught 1, 2 and 4 automatically.
+Also, same family (backlog f7c75de): the Settings density row wraps one letter per line at the largest text (spreading flow 1 shots step-11-settings*.png).
+The spreading-only items (dates and amounts split, empty required dropdowns, run-on balance lines) stay with spreading flow 2's App reviewer/improver.
