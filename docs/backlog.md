@@ -612,3 +612,8 @@ Owner: core/design-system. All start after #16 lands (same components).
 - **FE-T6** Maria (read-only, Neovatus) sees "1 waiting for you to approve" in the sidebar; **FE-T7** a user without SPREADING.READ sees "Spread · SP-xxxx" text on a bill line; **FE-T9** write-off source reads "Ar write off". Owners: **core/auth shell**, **Accounts spreading**, **Accounts receivables**.
 - **Not re-run after FC-55:** the full accounts-service suite (journals, period close, reports) — Jabran skipped the BE gate at the feature end; #16's gate should include accounts-service. Owner: **module lead / #16 integrator**.
 - **Dev tooling:** demo tokens live 5 min (seeds that wait for the job need a refresh loop) and `.local-secrets/demo-passwords` lacks siri.dahl, per.holm, kari.hansen, maria.olsen; `verify.sh --tasks` runs risk-check on `origin/main..HEAD`, which hangs on large ranges. Owner: **core tooling**.
+
+## Accounts be-fixes follow-ups (2026-11-27, BE `docs/agents/be-fixes/decisions.md`)
+- **Post-dated cheque register** (D365 style: register + clearing account) so a received post-dated cheque is tracked before its date. Owner: Accounts receivables/bank. Today it stays a draft until its date (BF-1).
+- **"Date after today" warning** on manual journal lines (non-blocking typo guard, e.g. 2027 typed for 2026). Owner: Accounts journals (App part after D-107).
+- **Posting-date override** (company "allow up to N days ahead", BC-style per-user allowed dates). Owner: Accounts. Not needed now (BF-4).
