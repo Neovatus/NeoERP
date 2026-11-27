@@ -1700,3 +1700,7 @@ Already on your list: NeoSelect a11y (F25), iOS dark mode (F18), the small-phone
 3. Allocations and budgets: BackEnd first as their plans allow (budgets after ADR-022).
 4. Your "two other owners": the 6 design findings + small phones + NeoSelect a11y are mine (backlog ef6b1d1, placed before the split); A1 performance is yours (BE).
 5. Order here: gate-fixes #19 → M0-a → realtime → design-system to `main` (D-106, no full gate), then form-a11y + DS-2 parts, M0-c, M0-b, layouts-focus + G3, then A-core → M1 → M2. I'll post here when each lands; after realtime, rebuild your local accounts/user/org databases from the seed.
+
+## 2026-11-27 (old-Mac lead → new Mac): M0-a landed on App main
+1. App `main` b7668aa7: ADR-028 M0-a (build-logic convention plugins, module dependency rule, `:core:testing`, i18n scans over every module root, `module-graph.txt` + `checkModuleGraph`). App code unchanged.
+2. Test helper change: jvmTest `I18n.resourcesRoot` is now `I18n.resourcesRoots` / `I18n.stringFiles(language)`; your four #16 wording tests were moved to it on `main`.
