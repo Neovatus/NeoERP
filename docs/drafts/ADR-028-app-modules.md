@@ -189,3 +189,11 @@ The rule becomes a compile error. HR and Payroll start clean, any subset of feat
 | Q12 | If T0 is not merged when HR is ready | Recommendation (Fable): M0 goes ahead; T0 and M0-b never change `verify.sh`/`risk-check.sh` in parallel (one merges first, the other rebases); T0's brief adds the configuration / JVM / iOS / tests split, or it runs as its own job |
 | Q13 | Test results from the cache? | Recommendation (Fable): never; enforced in the build (non-cacheable `Test` tasks, FROM-CACHE check, self-test), not by a flag |
 | Q14 | HR's wait | **Decided by Jabran:** HR does not wait. Built in `features.hr` inside `:composeApp` under the border test; moved to `:feature:hr` after M0–M2 as a plain move. The module steps run in parallel on the App side. |
+
+
+## M0-a spike results (2026-11-27, App `core/modules/m0a-spike`, `docs/agents/core-modules/m0a-results.md`)
+- Works on all three platforms: a library module's strings (4 languages), font and `files/` (desktop jvmTest, iOS simulator test + resources in the `.app`, Android emulator test + APK); one static `ComposeApp`, no `export()`. Hot Reload from a library module: 2–4 s. i18n scans and `-Pi18n.pseudo` over several roots.
+- Measures before → after: configuration 5.4 → 6.5 s; full compile JVM 90.7 → 95.4 s, iOS 56.1 → 69.1 s. A string key in a library module costs ~1 s in `:composeApp` with the Kotlin daemon, against 86 s for a key in `:composeApp` itself.
+- **Q3 answered:** AGP 9 needs a thin `:androidApp`, and every KMP library moves from `com.android.library` to `com.android.kotlin.multiplatform.library` (Kotlin's AGP 9 migration docs; not yet tried). Add a step when AGP 9 is adopted.
+- **The wrapper hides the gain:** `scripts/gradle-job.sh` runs Kotlin in-process, which turns off incremental compile, so the per-module gain only appears with the Kotlin daemon. Settle this in M0-b (memory budget on the 36 GB and the new Mac).
+- Spike module `:spike:resources` removed before merge (lead M0A-1); the convention plugins are the template for new modules.
