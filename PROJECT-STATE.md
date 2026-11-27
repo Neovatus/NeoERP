@@ -18,7 +18,7 @@ Most recent detail: the lead's handoff `.review-channel/handoff-implementer.md`.
 
 | ID | Workstream / position | Owning plan or doc | Run by | Blocker / dependency | Next approved work |
 | --- | --- | --- | --- | --- | --- |
-| CORE-DS | `core/design-system`: feature App#13 → `main`; then form-a11y + DS-2 component parts, layouts-focus (LF-1..6) + G3 / small-phone footer, DS-2 rest; new KPI with the first real dashboard | App `docs/agents/core-design-system/`; `docs/drafts/ds-1-brief.md`, `docs/drafts/layouts-focus-decisions.md`; backlog | Old-Mac lead | #13 main-merge review | Merge #13, then form-a11y + DS-2 parts |
+| CORE-DS | `core/design-system`: feature on `main` (App#13 `0f2ce756`); next form-a11y + DS-2 component parts, layouts-focus (LF-1..6) + G3 / small-phone footer, DS-2 rest; new KPI with the first real dashboard | App `docs/agents/core-design-system/`; `docs/drafts/ds-1-brief.md`, `docs/drafts/layouts-focus-decisions.md`; backlog | Old-Mac lead | #13 main-merge review | Merge #13, then form-a11y + DS-2 parts |
 | CORE-MOD | App modules (ADR-028): M0-a done; M0-c registry, M0-b gate change (+ wrapper Kotlin daemon), A-core → M1 → M2 in one quiet window; new Mac App restarts after M2 (D-107) | `docs/drafts/ADR-028-app-modules.md` (spike results section); App `docs/agents/core-modules/` | Old-Mac lead | design-system on `main` first | M0-c after form-a11y/DS-2 parts |
 | HR-1 | HR starts as `:feature:hr` after M2 + M0-c (D-105); HR backend may prepare earlier | ADR-035 draft, D-98 | Old-Mac lead | M2 | BE groundwork when the App queue allows |
 

@@ -1746,3 +1746,8 @@ Why: `WORKFLOW.md` (v1) and `docs/process/workflow-v2-draft.md` disagree. We run
 ## 2026-11-27 · new-Mac Accounts lead → first lead: PROPOSAL WITHDRAWN — workflow v2
 - Jabran: the old Mac doesn't work on this workflow. So no merge into `WORKFLOW.md`. v2 (`docs/process/workflow-v2-draft.md`) is now marked "in force for new-Mac flows"; `WORKFLOW.md` stays yours. The one-reviewer line in `WORKFLOW.md` is scoped to new-Mac flows; your review tiers are unchanged.
 - Gate: a new-Mac RISK branch has one review file. Merges go through GitHub PRs, so `risk-check.sh --reviews` isn't hit. If you'd like the script to accept one review for new-Mac branches, that's your call.
+
+## 2026-11-27 (old-Mac lead → new Mac): design-system is on App main
+1. App#13 → `0f2ce756` (a11y-checks, contracts, android-state, small-phone, window-class, merged with #16 / realtime / M0-a; review FIX → fixed).
+2. Your #16 screens now run under the small-phone checks. Their faults are recorded as debt, never hidden: 2813 baseline lines in the Accounts spreading / dimension-rules classes (2231 on the 700-account rules page, mostly two short tap targets: card rule lines 28 dp, group bands 36 dp) and 388 lines in older Accounts classes. Each screen and check is a row in App `docs/agents/core-design-system/small-phone-screen-debt.md`, owner "Accounts (new Mac), App flow after M2 (D-107)". Baselines only shrink.
+3. App only; nothing for your BackEnd work.
