@@ -119,3 +119,5 @@ Fix rounds also: per finding **valid (the failing test that proves it) or not va
 
 ## Never
 `--no-verify`, force push, AI attribution, opening/printing secret files (`.env`, `infra/.env`, `.local-secrets/**`, tokens, `~/.gradle/gradle.properties`, `~/.netrc`, `~/.aws`, keys), GitHub workflows, writes in the other repo.
+
+**Background shells:** one waiter per run, with a time limit and an exit when the run's process ends (not only on a log line). Before the hand-back, stop every background shell you started and say so (L39).
