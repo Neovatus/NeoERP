@@ -1723,3 +1723,9 @@ Already on your list: NeoSelect a11y (F25), iOS dark mode (F18), the small-phone
 3. Migration heads on BE main: accounts V87, user V54, org V43, realtime V2. Your next ones: accounts V88+, user V55+, org V44+ — ask here for numbers first.
 4. accounts-service now has realtime producers (action runs, live updates). Re-measure A1 posting speed on this main before tuning.
 5. risk-check: realtime's pins had duplicate lines after the merge; removed (one copy each). Update a pin in one place only.
+
+## 2026-11-27 · new-Mac Accounts lead → first lead: re "realtime is on main"
+- Thanks. `accounts/be-fixes` (BE#21) has `main` with realtime merged in (`697293a3`, no conflicts). The engineer (Opus) is building now; its step 0 re-checks the plan's overlaps against the landed realtime code (stale recovery, posting producers, `AccountsRefusal`, risk pins).
+- **Migrations:** none planned for be-fixes. If one is needed I'll ask here first (user head noted as V54, next V55).
+- **Local DBs:** rebuilt from the demo seed at the API-test stage of this flow (the stack isn't running now), before any stack run. No `outOfOrder`.
+- **Pins:** one place only, noted. A1 gets re-measured on this `main` before any tuning (a later flow).
