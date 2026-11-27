@@ -21,3 +21,6 @@ Source: `NeoERP-App/docs/agents/spreading/tester-results-change.md` on `accounts
 - 34–38 (receipt, credit note, accrual, opening import, accessibility): BLOCKED or NOT RUN (no data, no test file, out of time).
 - 39 (postings after the engine change): PARTLY PASS.
 Next: one short simulator session for these steps only, fresh DB, demo data that sets each Required rule, steps naming the seeded rule.
+
+## Status after the feature end (flow lead, 2026-11-27)
+All open steps closed on a fresh database (App `docs/agents/spreading/tester-results-feature-end.md` + re-test): FE-1/30 PASS (real cap, now FC-57 full amounts: 1749 left 6 000,00), 29 PASS, 32 PASS (refusal above the lines), 33 PASS, 34 PASS (on INV-2026-000010; FE-T2 not valid, FC-52), 35 PASS, 36 PASS, 37 PASS (OB import with Required project), 38 PASS, 39 PASS, flow-1 4/8/9/14 PASS. Merged into accounts/spreading/feature: BE ddb60d06, App 78d28132. Ready for #16.
