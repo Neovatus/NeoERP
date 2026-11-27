@@ -1,3 +1,25 @@
+# Handoff — 2026-11-27 evening (new Mac, Accounts module lead; supersedes 2026-11-25)
+
+## State
+- **Spreading + dimension rules on `main`** via #16 (BE `cf713a7c`, App `7b9fd136`; feature switch off). BE#11 / App#9 included. All `accounts/spreading/*` and `accounts/dimension-rules` branches deleted; dimension-rules worktrees removed. Both checkouts on `main` (App now `b7668aa7`, M0-a from the old Mac).
+- Flow measures: flow 1 and flow 2 lines in `.review-channel/v2-trial-measures.md`; feature end by its flow lead (session "Flow lead: spreading feature end", done).
+- Decisions today: D-99 (history `actorId`), D-90 Q2 changed (opening cap = full amounts, waiting schedules count, per-account lock; Jabran yes), D-101 (#16 without a further gate). Old Mac took D-100, D-102..D-107. **My next number: check the file; D-108 or later.**
+- **D-107 (Jabran):** new Mac is **BackEnd only** (plus workspace docs) until the old Mac posts in `docs/inbox/erp-lead.md` that the App modules are ready (ADR-028 M2). **D-106:** no full gate at merges to main; each branch takes main in, runs targeted tests + compiles for touched areas, merges with a merge commit; full runs only when Jabran asks.
+- **Realtime** lands on `main` soon (old Mac). Then rebuild the local accounts/user/org databases from the demo seed (realtime migrations accounts V82/V83, user V53, org V43 sit below #16's numbers; Flyway refuses out of order).
+
+## Next (approved order, D-107)
+1. **Accounts BE fixes flow** (gated D-97, BE stages only): backlog 247, 248, 253, 263, 266, 286, 466; BE side of F-R4 (credit note Qty/Price) and spreading "Posted by". Each checked against today's code first (file:line); already fixed → struck with proof. Brief not written yet.
+2. Approval limits S5–S6 + the 4.11 owner-may-not-post-own-journal switch (BE).
+3. A1 posting speed (251 ms vs 150 ms target; accounts-service).
+4. Allocations, then budgets (after ADR-022), BE first.
+- App parts wait for one App flow after M2: FE-T6/T7/T9, 469, G25, large-text journal tables, 406, C2, P2, the switch in the App, App side of F-R4 / "Posted by".
+- Jabran's own tests open: S4 on iPad (N1), A4 acceptance script, M1–M3 pass state, Danish labels (N12).
+
+## How we work (unchanged rules, see memory + `docs/process/workflow-v2-draft.md` §5)
+- D-97 gated flow; one flow lead per flow; new agent per stage, titled "<BE|App|BE+App> <role> · <model> · <feature>"; no helpers; Opus for money/security, Opus 5.5 high reviewer + independent second reviewer on money; regression test per finding; flow lead opens money screenshots.
+- Questions: builder → flow lead → module lead → Jabran (critical only), after checking sources + industry standard (D-82); record lead decisions with reasons.
+- Old Mac only via `docs/inbox/erp-lead.md`, batched per stage end; push at once for blockers, merge requests, decisions affecting it.
+
 # Handoff — 2026-11-25 ~10:40 (new Mac, Accounts module lead; supersedes ~10:00)
 
 **Read this section first after the compact.** Older sections below are history.
