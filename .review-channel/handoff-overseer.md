@@ -4,6 +4,11 @@ Active seat: team from 2026-11-26 until about Tuesday 2026-12-01 (Jabran: the pe
 
 Replace, don't append. Read with `docs/VISION.md`, `docs/PRINCIPLES.md`, `docs/process/workflow-v2-draft.md` §5 (the gated flow, D-97), `.review-channel/lead-decisions.md` (D-81 to the end).
 
+## PAUSED 2026-11-27 (Team seat, Jabran: pause until his next message)
+- Nothing running: no agents, no Gradle, no services, no simulators (Docker up).
+- `ds-small-phone` (App `core/design-system/small-phone`): **mid `git revert` of d182b949, staged, not committed** (restores the `NeoCardLine` MayShorten mark per ux §25 line 281; the lead's earlier revert was wrong). To resume: re-apply the TB-2/F10 docs and SP-18 wording (card-line labels may end in "…", mark stays; F10 accepted), `git revert --continue`, run the size classes without `-Pa11y.baseline=update` + Android/iOS compiles, push, then a short simulator re-test of: Journals/Bills head card (sv), Recurring status filter + tab 2 (nb), Settings density/dark-mode name/language note, Bills list card (sv), toast + back link after withdraw (sv), Dashboard tiles. Then merge small-phone into `core/design-system/feature` (worktree `ds-feature-app`).
+- Ready for the combined merge when #16 is ready: BE gate-fixes (#19) → #16 → realtime (#12); App #16 → realtime (#10) → design-system feature (#13). Decisions D-100, D-102–D-104.
+
 ## Role
 Old Mac (36 GB): module lead for `core/*`, integration lead (every PR to `main`, gate questions to Jabran, migration and decision numbers: pull and grep before taking one), simulator sessions for the old Mac, HR later. New-Mac lead = "Personal Mac Lead" (Accounts: dimension rules, spreading); channel `docs/inbox/erp-lead.md` (the doorbell may not cross subscriptions; the file always works).
 
