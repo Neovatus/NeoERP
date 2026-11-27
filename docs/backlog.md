@@ -557,3 +557,20 @@ Today `verify.sh` scopes only `phase/<N>` ranges (D-47) and the `main` hook acce
 - **E6 (LOW, App):** sign-out drops unsaved invoice text without a warning (industry standard: warn on unsaved changes). Owner: design-system DS-2 or Accounts.
 - **Dev script:** `scripts/run-all-services.sh` printed "All services stopped" twice but left every service running; testers had to stop them by PID. Fix its exit handler. Owner: core fix batch.
 - **Row 34 keyboard step:** needs an AVD without a fixed keyboard (or a real device). Create one for the next Android session.
+
+## Spreading flow 2 `change` leftovers (merged into accounts/spreading/feature 2026-11-27; reports `NeoERP-App/docs/agents/spreading/tester-results-change.md`, `review-change.md`)
+- **Spreading App LOWs from the flow 2 re-test.** Owner: **Accounts spreading feature-review fixer** (App, Sonnet, one batch before the feature PR to main).
+  - R-F2: the approve dialog shows "Oct 2026: 1 142,85 → —" with no reason. Say "waits to post again" or "removed".
+  - R-F3: nb Preview line "Du senket restbeløpet. Velg hvordan: …" has no figures, but the Submit refusal has them.
+  - R-F4: the proposer reads his own change in the third person ("A change from Ola Nordmann is waiting…").
+  - R-F5: da period-close panel "Difference" is in English, and the heading names no check.
+- **Spreading App LOWs from the flow 2 review.** Owner: same fixer batch.
+  - R-2: Reject/Withdraw "mine" is matched by display name (`SpreadingChangeRules.kt:140–141`). Use the user id.
+  - R-3: Post again is offered on SKIPPED_PERIOD_CLOSED/FAILED runs (`SpreadingDetailViewModel.kt:286`). Check the answer and the wording.
+- **Spreading: flow 1 items marked "Owner: flow 2"** (lines above: next-fiscal-year warning, FL-9 credit-line branch check, run `lastDetails` from the run's own version). Owner: the feature-review fixer. First check whether flow 2 already covers each one (file:line), then fix or move it here with a reason.
+- **App dark mode not applied on iOS simulator** (F18; sv iPad, `simctl ui … appearance dark`, the app stays light). Owner: **core/design-system** (theme follows the system).
+- **"Kind of line" dropdown has no accessibility element** (F25, NeoSelect; VoiceOver and AXe can't reach it). Owner: **core/design-system** (NeoSelect a11y, with the small-phone add-on).
+- **Multi-line field focus after typing** (F27; may be the AXe driver). Owner: **core/design-system**. First reproduce by hand on a simulator. If it doesn't reproduce, drop it.
+- **Session lost after ~20 min on iPad Pro 13** (R-F6; may be the driver or the session file). Owner: **core/auth session**. Check the refresh against the dev-session expiry first.
+- **Job-posted journals show no "Posted by"** (the spreading job posts as the system). Owner: **Accounts journals**. Show "Spreading job (SP-xxxx)" like History does (FC-45).
+- **Danish labels "Stornér" / "Fjern" need a native check.** Owner: **Jabran** (native speaker or translator). On JABRAN-TODO.

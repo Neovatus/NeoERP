@@ -15,6 +15,7 @@ done ones with the date) every batch. Details and drafts are linked; nothing her
 | N8 | App B2a and B2b "As built" spec notes (design owner, no rush; B2b adds the general ledger on a phone: cost centre and project as labelled lines on each card): the Automatic reversals tab's status filter mapping (Posted includes "reversed by a person"), "Cancelled" shown with no name (the API has none), journal and RV numbers as plain text on reversal rows, and an extra Journals-notice sentence for reversals that could not post. Say OK or ask for a change | Design choices are yours; the lead accepted them for now (D-28) | `NeoERP-App` `docs/design/specs/accounts-a4.md` §3/§4.1 "As built" (after B2a fix round 1) |
 | N9 | ~~GATE-3 lane~~ **Approved by Jabran 2026-11-22** ("after what you're doing"): starts after RISK-NARROW-1 merges and the running lanes are handed back | done | `.review-channel/lead-decisions.md` D-45 |
 | N3 | Switch the **lead session to High effort** in the app (it still shows medium) | Only you can change the session setting | claims.md "New-Mac lead rules" 1 |
+| N11 | Native check of the Danish labels "Stornér" and "Fjern" (spreading change screens) | Needs a Danish speaker or translator | docs/backlog.md "Spreading flow 2 `change` leftovers" |
 
 ## Before Phase 5 starts (after the Phase 4 PR merges)
 | # | What | When exactly | Details |
