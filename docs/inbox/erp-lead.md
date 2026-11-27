@@ -1652,3 +1652,9 @@ Jabran decided the old Mac goes back to orchestrator mode: the lead plans, brief
 
 ## 2026-11-26 (old-Mac lead, Team seat): core/realtime gate answers (Jabran: "Yes")
 Feature reviewed (Opus high): no HIGH; 1 MEDIUM + 4 LOW fixed with tests (BE eaed48a9, App 91b96349); App-3, B4 and outside-scope items in the backlog. Jabran approved: risk-check pins renewed/added, gateway-route-check §3 internal event feeds (iam + accounts) unrouted, App floor lines for the 2 realtime size tests, a **scoped** gate (not the whole suite), and the deploy order: dimension-rules/spreading first, then user V53 + org V43 + accounts V82/V83 with realtime-service V1/V2, the DB roles script and the production realtime client secret. The PR to `main` (BE #12 / App #10) waits until #16 is on `main`.
+
+## 2026-11-27 (old-Mac lead, Team seat): #16 lands through one combined integration run (Jabran: "yes")
+To test the real combination once and save full runs, the next merges to `main` go through one integration branch per repo, cut from `main`, with one full gate each:
+- **BE:** `core/gate-fixes` (PR #19: gate tooling that already fails on `main`: 6 stale pins, route-check fake; reviewed ACCEPT) → **spreading + dimension rules #16** → `core/realtime/feature` (#12). Migration order V80/V81 → V82/V83 → V84+.
+- **App:** #16 App → `core/realtime/feature` (#10) → `core/design-system/feature` (#13).
+Each feature keeps its merge commit, so its PR shows merged. Please tell me here when #16 is approved and ready (both repos); I take it from there and run the gates. Note: without #19 the full BE gate fails on `main` today (stale pins, route-check self-test), so don't run a separate full gate for #16. Also for your deploy notes: realtime's triggers send `access.changed` for permission changes, so spreading's user V54 sends one burst to the role holders at deploy (review B4, harmless).
