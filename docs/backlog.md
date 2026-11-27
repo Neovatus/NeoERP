@@ -551,3 +551,9 @@ Already in place: per-language `values-xx` resources, plural-aware strings, the 
 
 ## Gate: scoped by default for flow branches to `main` (Jabran 2026-11-27, BE and App)
 Today `verify.sh` scopes only `phase/<N>` ranges (D-47) and the `main` hook accepts only a full marker, so every merge to `main` runs the whole suite. Change both repos so a flow branch cut from `main` gets a **scoped** gate by default: the touched services/modules + everything that depends on them + the always-run set (risk, route check, floors, fixtures, translations, money invariants, company isolation, contract tests) + **all migrations on one fresh database** (BE). **Full** only for: migrations that change shared tables, gate-script edits, and shared code (auth, session, gateway, app shell, design-system core). The `main` hook accepts a matching scoped marker. A gate run costs time and machine, not usage limits; this is a speed change. After the module split (ADR-028) the App scope comes from the Gradle module graph. Gate-file change: one gate-tooling agent + one review + Jabran's yes. After the current merges (gate-fixes, design system, realtime).
+
+## Android-state emulator test follow-ups (2026-11-27, App `docs/agents/core-design-system/emulator-results.md`)
+- **E3 (LOW, BackEnd/auth):** a system language change during the browser sign-in ends on "Sign-in didn't complete" even with the app never in front; the same flow without the language change works. Owner: core fix batch (auth).
+- **E6 (LOW, App):** sign-out drops unsaved invoice text without a warning (industry standard: warn on unsaved changes). Owner: design-system DS-2 or Accounts.
+- **Dev script:** `scripts/run-all-services.sh` printed "All services stopped" twice but left every service running; testers had to stop them by PID. Fix its exit handler. Owner: core fix batch.
+- **Row 34 keyboard step:** needs an AVD without a fixed keyboard (or a real device). Create one for the next Android session.
