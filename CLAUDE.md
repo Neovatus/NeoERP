@@ -14,6 +14,11 @@ checkpoint are mandatory, without user reminders. The shared workflow owns
 record locations, stage updates, lead/worker coordination, approval rules and
 the temporary procedure while canonical project state is missing.
 
+**Exception, the old-Mac lead (Jabran 2026-11-28, D-100 addendum):** it does not
+follow `WORKFLOW.md` or the workflow v2 stages. It works by D-100 (orchestrator,
+agents by repo, in batches) and `docs/PRINCIPLES.md`, and shares only the inbox,
+decisions, `PROJECT-STATE.md`, the backlog and the security rules with the new Mac.
+
 ## Workspace shape
 
 This folder contains two code repositories and the workspace docs:
