@@ -961,3 +961,8 @@ Gate-file changes (risk-check, route check, floors, baselines, rule tests, verif
 - Changes ADR-028 Q14 ("HR does not wait for the module split"): HR's first App flow (HR-1) now starts only after the ADR's HR track, M0-a → M0-b → M0-c → A-core → M1 → M2. It creates `:feature:hr` through the registry, so HR code never lives in `features.hr` inside `:composeApp`. The design-system work finishes first as well (layouts-focus, G3 + small-phone follow-up, form-a11y, DS-2).
 - Order on the old Mac (one App builder at a time): M0-a (now, no overlap with #16) → form-a11y + DS-2 component parts → M0-c → M0-b → after #16 and the combined merge: layouts-focus, G3 → A-core, M1, M2 in the quiet window → HR-1.
 - The HR backend (BE) may still prepare: it is a different repo and moves no App files.
+
+## D-101 Spreading PR #16 to main without a further full gate — 2026-11-27 (Jabran: "we don't need full gates, as they are already tested many times; we can merge, and if needed when all features or modules are completed we can do that")
+- **What:** #16 (BE + App, `accounts/spreading/feature` → `main`; spreading flows 1–2, feature end, dimension rules) merges at BE `ddb60d06` / App `78d28132` with no extra full run. Covered by the flow gates: App 270/0 spreading + i18n, spreading BE suites (273/0), money-invariants OK (103 journals), three reviews MERGE, simulator 7/7.
+- **Known gap, accepted:** the full accounts-service BE run (journals, period close) was not re-run after FC-55 (`PostingValidator` copiedDimensions).
+- **Later:** one full BE + App run when the Accounts features/modules are complete (release-gates row). #11 (BE) / #9 (App) close as "included in #16".
