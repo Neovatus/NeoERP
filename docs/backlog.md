@@ -574,3 +574,7 @@ Today `verify.sh` scopes only `phase/<N>` ranges (D-47) and the `main` hook acce
 - **Session lost after ~20 min on iPad Pro 13** (R-F6; may be the driver or the session file). Owner: **core/auth session**. Check the refresh against the dev-session expiry first.
 - **Job-posted journals show no "Posted by"** (the spreading job posts as the system). Owner: **Accounts journals**. Show "Spreading job (SP-xxxx)" like History does (FC-45).
 - **Danish labels "Stornér" / "Fjern" need a native check.** Owner: **Jabran** (native speaker or translator). On JABRAN-TODO.
+
+## small-phone re-test follow-up (2026-11-27)
+- F13 (Low, i18n): "Approval limits" drawer item untranslated in nb and sv (sim re-test c01792fa). Fix with the next Accounts i18n touch.
+- small-phone had no draft PR (D-93); it went straight into `core/design-system/feature` (b81a6183), which has draft App #13.
