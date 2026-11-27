@@ -966,3 +966,8 @@ Gate-file changes (risk-check, route check, floors, baselines, rule tests, verif
 - **What:** #16 (BE + App, `accounts/spreading/feature` → `main`; spreading flows 1–2, feature end, dimension rules) merges at BE `ddb60d06` / App `78d28132` with no extra full run. Covered by the flow gates: App 270/0 spreading + i18n, spreading BE suites (273/0), money-invariants OK (103 journals), three reviews MERGE, simulator 7/7.
 - **Known gap, accepted:** the full accounts-service BE run (journals, period close) was not re-run after FC-55 (`PostingValidator` copiedDimensions).
 - **Later:** one full BE + App run when the Accounts features/modules are complete (release-gates row). #11 (BE) / #9 (App) close as "included in #16".
+
+## D-106 No full gate at merges to main; full runs only when Jabran asks for a module or feature set — 2026-11-27 (Jabran: "No full gate, as we are testing many times and compile; if needed we'll run when modules or features we want to run on")
+- Extends D-101 to `core/gate-fixes` (#19), `core/realtime/feature` (BE #12 / App #10) and `core/design-system/feature` (App #13), and to later flows: they merge to `main` after their own flow evidence (done list, review, targeted tests, compiles, simulator where it applies). Replaces the combined-integration "one full gate per repo" (2026-11-27 "yes").
+- Each branch first takes `main` in (merge, not rebase), resolves conflicts, and re-runs the targeted tests and compiles of the areas the conflicts touched. Then a merge commit on GitHub.
+- Full BE / App runs: only on Jabran's word, for a module or feature set (release-gates row stays).
