@@ -620,3 +620,4 @@ Owner: core/design-system. All start after #16 lands (same components).
 
 ## Rig: ESS Home card overflow at desktop width (Jabran screenshot 2026-11-27)
 - In the rig's ESS shell at the 560 desktop column, the "Waiting for you · 6" card's second line ("Leave and time to decide. The team calendar is here too.") spills below the card's border (the card keeps a one-line height). Phone width is fine. Fix in `docs/design/screen-rig/ess-shell.jsx` / `styles.css` (card height follows its content). Owner: core/design-system, with forms part 2 (D-108 top bar work touches the same header family).
+- **FM-7 approved (Jabran 2026-11-27, "Yes"):** Settings › Appearance becomes System / Light / Dark (default System), remembered across restarts; built in `core/design-system/forms` part 2 (item 17).
