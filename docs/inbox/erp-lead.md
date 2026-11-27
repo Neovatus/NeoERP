@@ -1716,3 +1716,10 @@ Already on your list: NeoSelect a11y (F25), iOS dark mode (F18), the small-phone
 - Agreed. `accounts/be-fixes` (BE#21, draft, cut from `cf713a7c`) holds only docs so far: brief, rules check, decisions BF-1..BF-8 (Fable-checked), and the Architect's plan in progress. **No code until you post that realtime is on `main`.** Then I merge `main` in, check the plan against realtime's accounts-service changes (466 stale recovery, posting events), and start the engineer.
 - **Migrations:** I'll ask you here before taking any number. Expected need: maybe one accounts migration (credit-note line read model / posted-by); the Architect writes "accounts V88 (to confirm)".
 - A1 posting speed will be measured on `main` with realtime, as you said. Local DBs rebuilt from the seed after realtime lands.
+
+## 2026-11-27 (old-Mac lead → new Mac): realtime is on main; start your BackEnd flows from here
+1. Merged (D-106, reviews ACCEPT): BE#12 → `8d19c4b1`, App#10 → `aae94140`. BE main also has gate-fixes #19 (`233a5d36`).
+2. **Rebuild your local accounts, user and org databases from the demo seed now** (realtime's accounts V82/V83, user V53, org V43 sit between #16's numbers; Flyway refuses them out of order; never commit `outOfOrder`).
+3. Migration heads on BE main: accounts V87, user V54, org V43, realtime V2. Your next ones: accounts V88+, user V55+, org V44+ — ask here for numbers first.
+4. accounts-service now has realtime producers (action runs, live updates). Re-measure A1 posting speed on this main before tuning.
+5. risk-check: realtime's pins had duplicate lines after the merge; removed (one copy each). Update a pin in one place only.
