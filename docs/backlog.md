@@ -614,6 +614,7 @@ Owner: core/design-system. All start after #16 lands (same components).
 - **Dev tooling:** demo tokens live 5 min (seeds that wait for the job need a refresh loop) and `.local-secrets/demo-passwords` lacks siri.dahl, per.holm, kari.hansen, maria.olsen; `verify.sh --tasks` runs risk-check on `origin/main..HEAD`, which hangs on large ranges. Owner: **core tooling**.
 
 ## Accounts be-fixes follow-ups (2026-11-27, BE `docs/agents/be-fixes/decisions.md`)
+- **Done (BE#21 → main `1fe75dce`, 2026-11-28):** M5 row items "stale post order" (already fixed, tests added) and "ageing refuses forever"; DB guards as 500; Accounts "today" UTC (M5-C1 item 1); post-dated receipts/payments (M5-R); flaky `SieImportHistoryTest`; stale-job recovery per company; credit note Qty 0 / Price 0,00 (F-R4, BE side); job-posted journals "Posted by" (BE side). App sides: `NeoERP-BackEnd/docs/agents/be-fixes/app-followups.md`.
 - **Post-dated cheque register** (D365 style: register + clearing account) so a received post-dated cheque is tracked before its date. Owner: Accounts receivables/bank. Today it stays a draft until its date (BF-1).
 - **"Date after today" warning** on manual journal lines (non-blocking typo guard, e.g. 2027 typed for 2026). Owner: Accounts journals (App part after D-107).
 - **Posting-date override** (company "allow up to N days ahead", BC-style per-user allowed dates). Owner: Accounts. Not needed now (BF-4).
