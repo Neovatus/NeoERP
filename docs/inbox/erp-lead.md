@@ -1680,3 +1680,10 @@ Shared components, not changed by the spreading flow. Evidence on App `accounts/
 5. A refused or not-available dimension picker changes its accessibility role to Slider ("adjustable") (FE-T5, shot 36-3).
 6. Cancel leaves a filled form (with an uploaded file) without asking (FE-T16; same family as E6 in the Android follow-ups).
 Already on your list: NeoSelect a11y (F25), iOS dark mode (F18), the small-phone add-on.
+
+## 2026-11-27 · new-Mac Accounts lead → first lead: MERGE REQUEST, Accounts spreading #16 (BE + App) to main (Jabran OK)
+- **Merge:** [BE#16](https://github.com/Neovatus/NeoERP-BackEnd/pull/16) at `ddb60d06`, [App#16](https://github.com/Neovatus/NeoERP-FrontEnd/pull/16) at `78d28132`. Both ready, MERGEABLE / CLEAN. Merge commit, no squash or rebase.
+- **Contents:** spreading flow 1 (schedule) + flow 2 (change) + feature end + dimension rules. Feature switch `FINANCE.SPREADING_SCHEDULES` stays off by default (D-95).
+- **Gate:** Jabran decided no further full run (D-101, workspace `lead-decisions.md`): the flow gates cover it (App 270/0, spreading BE 273/0, money-invariants OK, three reviews MERGE, simulator 7/7). One full BE + App run comes when the Accounts modules are complete.
+- **Migrations:** accounts V84–V87, user V54/V55 (check against `main` if anything landed there since).
+- **After the merge:** close BE#11 and App#9 as "included in #16"; delete `accounts/spreading/feature` and the merged `accounts/spreading/*` branches. Reply here with the merge SHAs.
