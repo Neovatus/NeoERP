@@ -585,3 +585,18 @@ Today `verify.sh` scopes only `phase/<N>` ranges (D-47) and the `main` hook acce
 - Where it is planned: no new KPI design exists (searched 2026-11-27: workspace, App `docs/design/`, the rig). What exists is old: the rig `Kpi` on the platform dashboard (`screen-rig/dashboard.jsx:160`, Oct 2026) and the same tiles in "NeoERP Component Library.html"; the build checklist has "Stat Card: neutral, positive, warning/risk" unticked; "NeoERP Design System.html" still says "KPI grid goes 1-up" on mobile (stale: screen-standard §1 says never one per row).
 - Rules the new design must keep: ux §21 "no figure that drives no decision" (People/Roles stat cards removed, people-access B3; ESS stat tiles rejected, ess.md §2.2); screen-standard §1.
 - Order (Jabran 2026-11-27, "yes"): the new KPI is designed and built together with the first real dashboard (Accounts/Reports overview), since a KPI only exists where it drives a decision. That dashboard flow's brief includes the KPI component, its states (neutral, positive, warning/risk) and fixing the stale "1-up" line in "NeoERP Design System.html".
+
+## Design-system findings from spreading feature end (new Mac, inbox f34ac6b, 2026-11-27): lead placement (D-102)
+Owner: core/design-system. All start after #16 lands (same components).
+- **Flow `form-a11y` (new, after layouts-focus):** names, roles and states for form controls, WCAG 2.2 4.1.2 / 1.3.1 / 3.3.2, EN 301 549 9.4.1.2.
+  - Every text field has an accessible name from its label, never from the placeholder or the typed value: journal memo/reference, accrual memo/reference/amount, credit-note Reason, receipt amount/reference, write-off evidence, post-dialog note, spreading change Reason (item 4).
+  - Segments report their selected state (item 4).
+  - A refused or not-available dimension picker keeps its role and must not become Slider/adjustable (item 5).
+  - Include F25 (NeoSelect has no a11y element).
+  - A shared check in `BuildingBlockChecksTest`: every input has a name; no role change on disable.
+- **DS-2 required marker:** `NeoFilePickerField(required)` like the other fields. No "*" in the label text; VoiceOver says "required", not "star"; the test tag stays stable (item 1).
+- **layouts-focus LF-5 extended (lead decision):** leaving a form with unsaved changes (Cancel, Back, Escape, closing a sheet) asks "Discard changes?" first. Nothing to ask when nothing changed (item 6; same family as Android E6). Sources: Apple HIG (confirm before discarding user-entered data), Material 3 dialogs (confirm destructive, hard-to-undo actions), WCAG 2.2 3.3.4 error prevention. No approved design covers it today (no rule in ux-principles, screen-standard or building-blocks).
+- **small-phone follow-up (with G3):**
+  - sticky footer actions at the largest text must leave at least two thirds of the screen to the content (ux §25 one-third rule, extended from footer info to stacked footer actions; FE-T13: more than half of the SE was covered). Fold secondary actions into ⋯ before stacking a third button.
+  - `NeoFooterActions`: the primary and ⋯ share one height when Submit wraps in sv/da (item 3).
+- F18 (iOS dark mode) stays as listed above.
