@@ -36,7 +36,7 @@ Closed (the code or an approved doc already decides); the stale docs are fixed o
 - **C3 field focus:** no halo (706d1895). Fixed: screen-standard, building-blocks (colours and contrast now 4.7/4.0 light, 5.9/4.5 dark), list-controls, notes/auth, rig `styles.css`, harness comment, three KDocs.
 - **C1 footer:** two layers (one-third rule first, 25 % fallback). Written into UX §25 and the token description.
 - **C2 footer alignment:** the token description is scoped to dialogs; form footers follow screen-standard §8.
-- **C4 KPI:** never one per row (screen-standard §1); `NeoStatRow` already keeps one row and goes compact (Companies 2 tiles, Platform staff 3). `statColumns` has no callers; marked stale, **DS-1a deletes it**. The old Payroll/Reports screens stack one per row but are v1 modules that HR v2 replaces.
+- **C4 KPI:** (2026-11-27: the old KPI gets rebuilt new per Jabran, see backlog "KPI / stat cards") never one per row (screen-standard §1); `NeoStatRow` already keeps one row and goes compact (Companies 2 tiles, Platform staff 3). `statColumns` has no callers; marked stale, **DS-1a deletes it**. The old Payroll/Reports screens stack one per row but are v1 modules that HR v2 replaces.
 - **C6/C7 breakpoints:** descriptions now say "below 1024 the drawer, exactly 1024 the mini rail" and "full sidebar from 1280". **DS-1a adds the boundary tests.**
 - **C8 Apple:** the build-order line is marked as history.
 

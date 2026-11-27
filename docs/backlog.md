@@ -578,3 +578,8 @@ Today `verify.sh` scopes only `phase/<N>` ranges (D-47) and the `main` hook acce
 ## small-phone re-test follow-up (2026-11-27)
 - F13 (Low, i18n): "Approval limits" drawer item untranslated in nb and sv (sim re-test c01792fa). Fix with the next Accounts i18n touch.
 - small-phone had no draft PR (D-93); it went straight into `core/design-system/feature` (b81a6183), which has draft App #13.
+
+## KPI / stat cards: rebuilt new (Jabran 2026-11-27)
+- The old KPI pieces (`NeoStatCard`, `NeoStatRow`, the v1 Payroll/Reports stat tiles) have not been updated in a long time; they get a new design, not fixes. No flow fixes or extends the old ones meanwhile (window-class, layouts-focus and DS-2 leave them alone).
+- The new KPI keeps the approved rules: never one per row (screen-standard §1), metric 26/29 bold tabular (tokens), delta and optional icon/sparkline (design-system architecture "Stat Card").
+- Where it is planned: not found in writing on 2026-11-27 (searched backlog, decisions, drafts, design docs); ask Jabran where it sits in the order before writing its brief.
