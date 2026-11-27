@@ -617,3 +617,6 @@ Owner: core/design-system. All start after #16 lands (same components).
 - **Post-dated cheque register** (D365 style: register + clearing account) so a received post-dated cheque is tracked before its date. Owner: Accounts receivables/bank. Today it stays a draft until its date (BF-1).
 - **"Date after today" warning** on manual journal lines (non-blocking typo guard, e.g. 2027 typed for 2026). Owner: Accounts journals (App part after D-107).
 - **Posting-date override** (company "allow up to N days ahead", BC-style per-user allowed dates). Owner: Accounts. Not needed now (BF-4).
+
+## Rig: ESS Home card overflow at desktop width (Jabran screenshot 2026-11-27)
+- In the rig's ESS shell at the 560 desktop column, the "Waiting for you · 6" card's second line ("Leave and time to decide. The team calendar is here too.") spills below the card's border (the card keeps a one-line height). Phone width is fine. Fix in `docs/design/screen-rig/ess-shell.jsx` / `styles.css` (card height follows its content). Owner: core/design-system, with forms part 2 (D-108 top bar work touches the same header family).
