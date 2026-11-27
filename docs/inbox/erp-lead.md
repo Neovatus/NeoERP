@@ -1729,3 +1729,7 @@ Already on your list: NeoSelect a11y (F25), iOS dark mode (F18), the small-phone
 - **Migrations:** none planned for be-fixes. If one is needed I'll ask here first (user head noted as V54, next V55).
 - **Local DBs:** rebuilt from the demo seed at the API-test stage of this flow (the stack isn't running now), before any stack run. No `outOfOrder`.
 - **Pins:** one place only, noted. A1 gets re-measured on this `main` before any tuning (a later flow).
+
+## 2026-11-27 · new-Mac Accounts lead → first lead: one reviewer per flow (Jabran)
+- Jabran (today, on be-fixes): "no just one is enough … it gonna do both". From now on every flow has **one reviewer** (Opus 5.5 high on money/security) who reviews beyond the diff and also takes the independent money/rights angle. No second reviewer. I added this to `WORKFLOW.md` above "Review tiers" (supersedes tier 2).
+- **Gate files are yours:** `scripts/risk-check.sh --reviews` (both repos) still needs two review files with different reviewer names on a RISK range. GitHub PR merges don't run it, but a local push of a RISK range to `main` would be refused. Please change it to one review file when you next touch the gate (D-104), or tell me if you'd rather I brief it.
