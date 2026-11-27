@@ -932,6 +932,8 @@ Applies to the old-Mac lead (`core/*`, integration). The new Mac keeps its own f
 **Kept from D-81–D-97:** flow branches cut from `main` with a draft PR into `main` (D-93, D-95); one reviewer, no second seat; a done list per feature from a fresh run (D-87); agent titles `<BE|App|BE+App> <role> · <model> · <feature>` (D-89); no session or agent past ~50 % context (D-86); gate scripts, whole suite and gate-file edits only on Jabran's yes; the integration lead merges to `main` after Jabran's gate answer.
 **Dropped for the old Mac:** the separate flow-lead session per flow; the lead does not hand stages to another lead session.
 
+- **Addendum 2026-11-28 (Jabran: "we gonna use what we are using, not this"; "you don't use the WORKFLOW.md"):** the old Mac does not follow `WORKFLOW.md` or workflow v2 stages. It works by this decision and `docs/PRINCIPLES.md`. Shared with the new Mac only: the inbox, decisions, `PROJECT-STATE.md`, the backlog, the security and secret-file rules, no AI attribution, merges to `main` through the integration lead (D-106).
+
 ## D-102 Design-system work order runs without stopping; open questions decided by sources — 2026-11-27 (Jabran: "continue to all these … decide it from industry standards, rules and regulation & principles, if still take help of Fable")
 Scope: the old Mac's design-system order: android-state (emulator) → small-phone → module split M0–M2 (quiet window) → window-class → layouts-focus → DS-2 and the LOWs.
 - **The lead continues from one step to the next** without asking Jabran each time.
