@@ -559,15 +559,15 @@ Today `verify.sh` scopes only `phase/<N>` ranges (D-47) and the `main` hook acce
 - **Row 34 keyboard step:** needs an AVD without a fixed keyboard (or a real device). Create one for the next Android session.
 
 ## Spreading flow 2 `change` leftovers (merged into accounts/spreading/feature 2026-11-27; reports `NeoERP-App/docs/agents/spreading/tester-results-change.md`, `review-change.md`)
-- **Spreading App LOWs from the flow 2 re-test.** Owner: **Accounts spreading feature-review fixer** (App, Sonnet, one batch before the feature PR to main).
+- ~~**Spreading App LOWs from the flow 2 re-test.** Owner: **Accounts spreading feature-review fixer** (App, Sonnet, one batch before the feature PR to main).~~ **Done** in spreading feature end (App 37367aeb, merged to main via #16, 2026-11-27).
   - R-F2: the approve dialog shows "Oct 2026: 1 142,85 → —" with no reason. Say "waits to post again" or "removed".
   - R-F3: nb Preview line "Du senket restbeløpet. Velg hvordan: …" has no figures, but the Submit refusal has them.
   - R-F4: the proposer reads his own change in the third person ("A change from Ola Nordmann is waiting…").
   - R-F5: da period-close panel "Difference" is in English, and the heading names no check.
-- **Spreading App LOWs from the flow 2 review.** Owner: same fixer batch.
+- ~~**Spreading App LOWs from the flow 2 review.** Owner: same fixer batch.~~ **Done** in spreading feature end (R-2 by user id D-99: BE c72ff238, App 5b5f014e; R-3 kept by design, wording fixed).
   - R-2: Reject/Withdraw "mine" is matched by display name (`SpreadingChangeRules.kt:140–141`). Use the user id.
   - R-3: Post again is offered on SKIPPED_PERIOD_CLOSED/FAILED runs (`SpreadingDetailViewModel.kt:286`). Check the answer and the wording.
-- **Spreading: flow 1 items marked "Owner: flow 2"** (lines above: next-fiscal-year warning, FL-9 credit-line branch check, run `lastDetails` from the run's own version). Owner: the feature-review fixer. First check whether flow 2 already covers each one (file:line), then fix or move it here with a reason.
+- ~~**Spreading: flow 1 items marked "Owner: flow 2"** (lines above: next-fiscal-year warning, FL-9 credit-line branch check, run `lastDetails` from the run's own version). Owner: the feature-review fixer. First check whether flow 2 already covers each one (file:line), then fix or move it here with a reason.~~ **Done**: 3 already covered by flow 2, the 4th fixed as FC-49 (BE 64f91b2b).
 - **App dark mode not applied on iOS simulator** (F18; sv iPad, `simctl ui … appearance dark`, the app stays light). Owner: **core/design-system** (theme follows the system).
 - **"Kind of line" dropdown has no accessibility element** (F25, NeoSelect; VoiceOver and AXe can't reach it). Owner: **core/design-system** (NeoSelect a11y, with the small-phone add-on).
 - **Multi-line field focus after typing** (F27; may be the AXe driver). Owner: **core/design-system**. First reproduce by hand on a simulator. If it doesn't reproduce, drop it.

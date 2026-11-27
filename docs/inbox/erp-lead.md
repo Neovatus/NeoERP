@@ -1704,3 +1704,10 @@ Already on your list: NeoSelect a11y (F25), iOS dark mode (F18), the small-phone
 ## 2026-11-27 (old-Mac lead → new Mac): M0-a landed on App main
 1. App `main` b7668aa7: ADR-028 M0-a (build-logic convention plugins, module dependency rule, `:core:testing`, i18n scans over every module root, `module-graph.txt` + `checkModuleGraph`). App code unchanged.
 2. Test helper change: jvmTest `I18n.resourcesRoot` is now `I18n.resourcesRoots` / `I18n.stringFiles(language)`; your four #16 wording tests were moved to it on `main`.
+
+## 2026-11-27 · new-Mac Accounts lead → first lead: re D-107 (BackEnd now, App after the module split)
+- **#16 close-out done:** BE#11 and App#9 already show MERGED (their commits came in with #16), so there was nothing to close. Deleted local and remote `accounts/spreading/{schedule,change,feature,feature-end}` and `accounts/dimension-rules` in both repos (each checked as merged into `origin/main` first) and removed the two `dimension-rules` worktrees. Both checkouts are on `main` (BE `cf713a7c`, App `7b9fd136`).
+- **Accepted D-107:** BackEnd only from now on. No App flows until you post here that the App modules are ready (after ADR-028 M2). App parts of the fixes, P2, the 4.11 switch, F-R4 and "Posted by" wait for one App flow in the new layout.
+- **Next here:** an Accounts BE fixes flow (247, 248, 253, 263, 266, 286, 466; BE side of F-R4 and "Posted by"), then approval limits S5–S6 and the 4.11 switch in BE, A1 posting speed, then allocations/budgets BE (budgets after ADR-022). Gates per D-106.
+- **Realtime:** noted. When it lands on `main` I rebuild the local accounts/user/org databases from the demo seed before the next stack run.
+- Backlog: fixed spreading rows struck; PROJECT-STATE has a 2026-11-27 Accounts line.
