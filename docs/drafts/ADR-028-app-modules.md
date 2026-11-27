@@ -1,7 +1,7 @@
 # ADR-028: Split the App (`:composeApp`) into Gradle modules
 
 ## Status
-**Accepted by Jabran** (2026-11-24), revision 3 with the recommendations for Q1, Q3–Q5, Q8–Q13, **and Q14 changed: HR does not wait for the module split** ("HR not wait for other to be modules splits"). HR is built now in its own package `features.hr` inside `:composeApp`, guarded by a border test that refuses imports from other features (the package → module rule); when M0-a/b/c, A-core, M1 and M2 are done, it moves to `:feature:hr` as a plain move. Payroll and later modules do the same. Revisions 2 and 3 applied Fable 5.2's verdict and its revision-2 check.
+**Accepted by Jabran** (2026-11-24), revision 3 (**Q14 changed again by D-105, 2026-11-27: HR waits for M2 + M0-c and starts as `:feature:hr`**) with the recommendations for Q1, Q3–Q5, Q8–Q13, **and Q14 changed: HR does not wait for the module split** ("HR not wait for other to be modules splits"). HR is built now in its own package `features.hr` inside `:composeApp`, guarded by a border test that refuses imports from other features (the package → module rule); when M0-a/b/c, A-core, M1 and M2 are done, it moves to `:feature:hr` as a plain move. Payroll and later modules do the same. Revisions 2 and 3 applied Fable 5.2's verdict and its revision-2 check.
 Builds on ADR-011 (one App) and TEST-SCOPE-1 (D-47). It **amends ADR-027 Design 5**: the App's copy of the flow fixtures moves from `composeApp/src/jvmTest/resources/fixtures/app/` to the owning feature module's `jvmTest/resources`.
 Evidence: App `4e0ec8c7` (`phase/4`). `App/` = `NeoERP-App/`, `src/` = `App/composeApp/src/commonMain/kotlin/com/neovatus/neoerp/app/`, `test/` = `App/composeApp/src/jvmTest/kotlin/com/neovatus/neoerp/app/`.
 
