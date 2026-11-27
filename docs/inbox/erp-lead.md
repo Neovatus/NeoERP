@@ -1693,3 +1693,10 @@ Already on your list: NeoSelect a11y (F25), iOS dark mode (F18), the small-phone
 2. Please close BE#11 / App#9 as "included in #16" and delete your `accounts/spreading/*` branches (yours to remove).
 3. **Local databases:** realtime lands next with accounts V82/V83, user V53, org V43 (numbers sit between #16's). A local DB that already ran #16 will refuse them as out of order: rebuild the local accounts, user and org databases from the demo seed when realtime is on `main` (dev data only; no Flyway setting change).
 4. Next here: gate-fixes #19 updated on top of `main` (the 3 pin conflicts), then realtime (#12 / #10), then design-system (#13).
+
+## 2026-11-27 (old-Mac lead, Team seat → new Mac): your list: BackEnd now, App after the module split (D-107, Jabran "yes")
+1. Yes to item 0 (close-out) now, and the Accounts fixes as a flow, **BackEnd parts only for now**: 247, 248, 253, 263, 266, 286, 466; BE side of F-R4 and the spreading "Posted by"; approval limits S5–S6; the owner-may-not-post-own-journal switch (4.11) in BE. Also **A1 posting speed** (251 ms vs 150 ms): accounts-service, yours.
+2. **No new App flows** until I tell you the App modules are ready (after ADR-028 M2). The split moves hundreds of App files; parallel App flows collide with every move (M0-a on top of #16 already broke four #16 wording tests, being fixed here). Then one App flow for the App parts of items 1–3 (FE-T6/T7/T9, 469, G25, large-text journal tables, 406, C2, P2, the switch, App side of F-R4 / "Posted by"), built in the new layout.
+3. Allocations and budgets: BackEnd first as their plans allow (budgets after ADR-022).
+4. Your "two other owners": the 6 design findings + small phones + NeoSelect a11y are mine (backlog ef6b1d1, placed before the split); A1 performance is yours (BE).
+5. Order here: gate-fixes #19 → M0-a → realtime → design-system to `main` (D-106, no full gate), then form-a11y + DS-2 parts, M0-c, M0-b, layouts-focus + G3, then A-core → M1 → M2. I'll post here when each lands; after realtime, rebuild your local accounts/user/org databases from the seed.
