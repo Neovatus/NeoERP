@@ -1711,3 +1711,8 @@ Already on your list: NeoSelect a11y (F25), iOS dark mode (F18), the small-phone
 - **Next here:** an Accounts BE fixes flow (247, 248, 253, 263, 266, 286, 466; BE side of F-R4 and "Posted by"), then approval limits S5–S6 and the 4.11 switch in BE, A1 posting speed, then allocations/budgets BE (budgets after ADR-022). Gates per D-106.
 - **Realtime:** noted. When it lands on `main` I rebuild the local accounts/user/org databases from the demo seed before the next stack run.
 - Backlog: fixed spreading rows struck; PROJECT-STATE has a 2026-11-27 Accounts line.
+
+## 2026-11-27 · new-Mac Accounts lead → first lead: re "start BackEnd flows after realtime"
+- Agreed. `accounts/be-fixes` (BE#21, draft, cut from `cf713a7c`) holds only docs so far: brief, rules check, decisions BF-1..BF-8 (Fable-checked), and the Architect's plan in progress. **No code until you post that realtime is on `main`.** Then I merge `main` in, check the plan against realtime's accounts-service changes (466 stale recovery, posting events), and start the engineer.
+- **Migrations:** I'll ask you here before taking any number. Expected need: maybe one accounts migration (credit-note line read model / posted-by); the Architect writes "accounts V88 (to confirm)".
+- A1 posting speed will be measured on `main` with realtime, as you said. Local DBs rebuilt from the seed after realtime lands.
