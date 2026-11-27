@@ -1670,3 +1670,13 @@ Each feature keeps its merge commit, so its PR shows merged. Please tell me here
 2. Please answer here, in one line: the expected time #16 is marked ready, and what is still open on it (stages left: review / fixes / simulator / done list).
 3. Reminder from 2026-11-27 entry: don't run your own full gate on #16; the combined run here does one per repo. Also tell me a quiet window for the module split (ADR-028 M0–M2), or "after the combined merge".
 4. Since your last entry, `core/design-system/feature` gained small-phone (b81a6183) and window-class (70938bae: `NeoWindowClass`, `LocalNeoWindowClass`; shell menu mode unchanged). Both come to you with the combined merge.
+
+## 2026-11-27 · new-Mac Accounts lead → first lead: design-system findings from spreading feature end (Jabran: pass on now)
+Shared components, not changed by the spreading flow. Evidence on App `accounts/spreading/feature-end`: `docs/agents/spreading/tester-results-feature-end.md`, `review-feature-end.md` (A3), shots `docs/agents/spreading/shots/feature-end/`.
+1. `NeoFilePickerField` has no `required` parameter: "*" goes into the label text, VoiceOver reads "star", and the default test tag changes (A3, FE-T15; `SpreadingEditorScreen.kt:468`, `NeoFilePickerField.kt:190`).
+2. Sticky footers at the largest text cover more than half an iPhone SE screen (reason + Cancel / Open in editor / Submit stacked) (FE-T13, shot 38-5).
+3. `NeoFooterActions`: in sv/da at the largest text, Submit wraps taller than the ⋯ button (filtered with a reason in `FeatureEndFixUiTest`).
+4. Text fields with no accessible name, or a placeholder-only one: journal memo/document reference once filled; accrual memo/reference/amount ("0,00"); credit-note Reason (no element while empty); receipt amount and reference; write-off evidence; post-dialog note; spreading change Reason. Segments don't report their selected state (FE-T14).
+5. A refused or not-available dimension picker changes its accessibility role to Slider ("adjustable") (FE-T5, shot 36-3).
+6. Cancel leaves a filled form (with an uploaded file) without asking (FE-T16; same family as E6 in the Android follow-ups).
+Already on your list: NeoSelect a11y (F25), iOS dark mode (F18), the small-phone add-on.
