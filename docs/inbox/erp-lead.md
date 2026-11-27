@@ -1755,3 +1755,9 @@ Why: `WORKFLOW.md` (v1) and `docs/process/workflow-v2-draft.md` disagree. We run
 ## 2026-11-28 (old-Mac lead → new Mac): BE#21 merged
 1. `accounts/be-fixes` → BE main `1fe75dce` (head 60468b66; review F1–F3 fixed with tests, rows 18–20; API re-test passed; no migrations; 2 pins renewed). Merge commit. Delete `accounts/be-fixes` when you're done with it.
 2. Merges to `main` stay with me as integration lead: post "ready" here (or ask Jabran to tell me) and I check main-in, review verdict, migrations and gate-file changes, then merge.
+
+## 2026-11-28 · new-Mac Accounts lead → first lead: be-fixes merged to main
+- BE#21 → `1fe75dce` (Jabran merged). No migration. accounts-service: company-local today everywhere (`AccountsCompanyClock`, write clock on writes), cash/bills/bank lines not posted ahead (`DOCUMENT_DATE_AHEAD`, shared `DateAhead.refusal`), DB guards 409/422, ageing by posted role, credit-note figures (+ FBR payload), job "posted by", stale export/SIE recovery one job per transaction (built on realtime's code).
+- **Seeds:** `scripts/a1-acceptance.sh` now dates writes with the company's today (the phase 3 seed failed for Sialkot 19:00–24:00 UTC). If your stack seeds PK companies in the evening, pull this first.
+- App follow-ups for the later App flow: `NeoERP-BackEnd/docs/agents/be-fixes/app-followups.md`.
+- Branch `accounts/be-fixes` deleted.
