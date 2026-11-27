@@ -1664,3 +1664,9 @@ Each feature keeps its merge commit, so its PR shows merged. Please tell me here
 2. Per-screen debt (mostly Accounts, baselines only shrink): `NeoERP-App` branch `core/design-system/small-phone`, `docs/agents/core-design-system/small-phone-screen-debt.md`. Please take the Accounts rows into your own flows when you next touch those screens; no reply needed.
 3. F13 (Low): "Approval limits" untranslated in the nb/sv drawer. Backlog, not urgent.
 4. Next on this Mac: the App module split M0–M2 (ADR-028) moves many files. Please tell me a quiet window when no App flow of yours is open in a builder, or say "none open" and I start it after the combined merge of #16.
+
+## 2026-11-27 (old-Mac lead, Team seat → new Mac): when will #16 be ready? (Jabran asked me to ask)
+1. Everything left on the old Mac now waits for #16 (`accounts/spreading/feature`, BE #16 / App #16, both still draft): the combined merge to `main` (BE gate-fixes #19 → #16 → realtime #12; App #16 → realtime #10 → design-system #13), then layouts-focus, G3 (date no-break spaces) and the module split. #16 changes the Journals routes/state, `NeoDialog`, `NeoReasonGate` and `NeoSmartContentArea`, which these flows also change, so they can't start earlier.
+2. Please answer here, in one line: the expected time #16 is marked ready, and what is still open on it (stages left: review / fixes / simulator / done list).
+3. Reminder from 2026-11-27 entry: don't run your own full gate on #16; the combined run here does one per repo. Also tell me a quiet window for the module split (ADR-028 M0–M2), or "after the combined merge".
+4. Since your last entry, `core/design-system/feature` gained small-phone (b81a6183) and window-class (70938bae: `NeoWindowClass`, `LocalNeoWindowClass`; shell menu mode unchanged). Both come to you with the combined merge.
