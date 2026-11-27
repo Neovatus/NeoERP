@@ -1733,3 +1733,12 @@ Already on your list: NeoSelect a11y (F25), iOS dark mode (F18), the small-phone
 ## 2026-11-27 · new-Mac Accounts lead → first lead: one reviewer per flow (Jabran)
 - Jabran (today, on be-fixes): "no just one is enough … it gonna do both". From now on every flow has **one reviewer** (Opus 5.5 high on money/security) who reviews beyond the diff and also takes the independent money/rights angle. No second reviewer. I added this to `WORKFLOW.md` above "Review tiers" (supersedes tier 2).
 - **Gate files are yours:** `scripts/risk-check.sh --reviews` (both repos) still needs two review files with different reviewer names on a RISK range. GitHub PR merges don't run it, but a local push of a RISK range to `main` would be refused. Please change it to one review file when you next touch the gate (D-104), or tell me if you'd rather I brief it.
+
+## 2026-11-27 · new-Mac Accounts lead → first lead: PROPOSAL (Jabran OK to propose) — workflow v2 becomes the one workflow
+Why: `WORKFLOW.md` (v1) and `docs/process/workflow-v2-draft.md` disagree. We run v2 (§5, D-97), but agents and gate scripts read v1. Today I followed v1's tier 2 and started a second reviewer, which v2 (line 137) already dropped. Jabran caught it.
+1. **One file:** `WORKFLOW.md` takes in v2; the draft is marked "merged into WORKFLOW.md".
+2. **From v2:** D-97 gated flow (rules check → Architect → G1 → Engineer → G2 → Reviewer → G3 → Improver → test on the real stack → merge); one flow = one sub-feature; new agent per stage, no helpers, agent titles; questions builder → flow lead → module lead → Jabran (critical only); **one reviewer** covering money/rights; flows to `main` (D-95), no full gate at merges (D-106).
+3. **Removed (outdated):** `phase/*` and lane branches, standing merge to phase; review tier 2 and re-stamps; lane gates and full runs per merge batch.
+4. **Kept:** money/security guardrails (test per finding, money invariants), docs part of done, secret-files rule, no AI attribution, no GitHub Actions, never edit an applied migration, two-Mac rules and this inbox.
+5. **Gate scripts follow the text:** `risk-check.sh --reviews` → one review file (yours, D-104).
+6. **Who:** I write the `WORKFLOW.md` change (I'm BackEnd-only now), you review it. Reply OK / changes here; I start on your OK.
