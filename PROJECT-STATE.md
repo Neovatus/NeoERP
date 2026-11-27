@@ -1,6 +1,6 @@
 # NeoERP project state: active-workstream index
 
-**Updated 2026-11-22.** This is the one current state file. `PROJECT-STATE.claude.md` and
+**Updated 2026-11-27** (old-Mac block below; older rows from 2026-11-22 not yet re-checked). This is the one current state file. `PROJECT-STATE.claude.md` and
 `PROJECT-STATE.codex.md` are deprecated (history only).
 Format: [WORKFLOW.md](WORKFLOW.md) "One owner per record". Links, not history; detail lives in the owning plan.
 Most recent detail: the lead's handoff `.review-channel/handoff-implementer.md`.
@@ -13,6 +13,14 @@ Most recent detail: the lead's handoff `.review-channel/handoff-implementer.md`.
 **Accounts (new Mac) 2026-11-27:** spreading (flows 1–2 + feature end) and dimension rules **merged to `main`** via #16 (BE `cf713a7c`, App `7b9fd136`; feature switch off; D-95, D-101); BE#11 / App#9 included; `accounts/spreading/*` and `accounts/dimension-rules` branches deleted. Next, **BackEnd only** until the App modules are ready (D-107): Accounts BE fixes flow (247, 248, 253, 263, 266, 286, 466, BE side of F-R4 and spreading "Posted by"), approval limits S5–S6, the 4.11 own-journal switch, A1 posting speed, then allocations and budgets (after ADR-022). Gates: D-106. After realtime lands on `main`, rebuild the local accounts/user/org databases from the demo seed (Flyway order).
 **Branches (2026-11-20):** both repos work on `phase/4`; one PR per phase to `main`.
 `phase/4` heads: App `430bc5ab`, BackEnd `095a8989` (2026-11-22 AC418-BE; B2b; R29b-2; GATE-2; 2026-11-22: TEST-SPEED-APP; TEST-SPEED-1 + BE-RUN-1 + BE-DOCS-1; BE-JDK21; FIX-APP-B1; R29b-1; FIX-APP-B2 part a). **Standing merge from 2026-11-22** (WORKFLOW): approved lanes merge to `phase/*`, and Phase PRs to `main` after the final whole-suite gate and a MERGE PR verdict, without waiting for Jabran. **Plan (Jabran 2026-11-22, "whichever is efficient"):** finish Accounts Phase 4 first (new Mac: R29b, B2b, AL-REST, gate lanes; old Mac: gates, 4.18, HR H0 foundation, Phase 4b briefs + 4.15 spec); after the Phase 4 PR: new Mac Accounts 4b, old Mac HR H1→H4 then Payroll (with Accounts Phase 5). `main`: App `370ad7a6` (PR #4), BackEnd `c6d5a6f` (PR #7).
+
+**Old-Mac lead, core/* and integration (2026-11-27):** on `main` today: gate-fixes BE#19 `233a5d36`; realtime BE#12 `8d19c4b1`, App#10 `aae94140`; ADR-028 M0-a App#21 `b7668aa7` (D-101, D-106: no full gate at merges). Design-system feature (App#13: a11y-checks, contracts, android-state, small-phone, window-class) is being merged with `main` (Accounts debt recorded, D-107), then review and merge. Decisions D-105 (HR starts on modules), D-106 (no full gate at merges), D-107 (new Mac BackEnd only until the App modules are ready). Handoff: `.review-channel/handoff-overseer.md`.
+
+| ID | Workstream / position | Owning plan or doc | Run by | Blocker / dependency | Next approved work |
+| --- | --- | --- | --- | --- | --- |
+| CORE-DS | `core/design-system`: feature App#13 → `main`; then form-a11y + DS-2 component parts, layouts-focus (LF-1..6) + G3 / small-phone footer, DS-2 rest; new KPI with the first real dashboard | App `docs/agents/core-design-system/`; `docs/drafts/ds-1-brief.md`, `docs/drafts/layouts-focus-decisions.md`; backlog | Old-Mac lead | #13 main-merge review | Merge #13, then form-a11y + DS-2 parts |
+| CORE-MOD | App modules (ADR-028): M0-a done; M0-c registry, M0-b gate change (+ wrapper Kotlin daemon), A-core → M1 → M2 in one quiet window; new Mac App restarts after M2 (D-107) | `docs/drafts/ADR-028-app-modules.md` (spike results section); App `docs/agents/core-modules/` | Old-Mac lead | design-system on `main` first | M0-c after form-a11y/DS-2 parts |
+| HR-1 | HR starts as `:feature:hr` after M2 + M0-c (D-105); HR backend may prepare earlier | ADR-035 draft, D-98 | Old-Mac lead | M2 | BE groundwork when the App queue allows |
 
 Integration owner for every row: **Jabran** (decides scope, approves). The lead runs the work.
 
