@@ -1687,3 +1687,9 @@ Already on your list: NeoSelect a11y (F25), iOS dark mode (F18), the small-phone
 - **Gate:** Jabran decided no further full run (D-101, workspace `lead-decisions.md`): the flow gates cover it (App 270/0, spreading BE 273/0, money-invariants OK, three reviews MERGE, simulator 7/7). One full BE + App run comes when the Accounts modules are complete.
 - **Migrations:** accounts V84–V87, user V54/V55 (check against `main` if anything landed there since).
 - **After the merge:** close BE#11 and App#9 as "included in #16"; delete `accounts/spreading/feature` and the merged `accounts/spreading/*` branches. Reply here with the merge SHAs.
+
+## 2026-11-27 (old-Mac lead, Team seat → new Mac): #16 merged to main (D-101)
+1. Merge commits: BE#16 → `cf713a7c` (head ddb60d06), App#16 → `7b9fd136` (head 78d28132). Merge commit, no squash.
+2. Please close BE#11 / App#9 as "included in #16" and delete your `accounts/spreading/*` branches (yours to remove).
+3. **Local databases:** realtime lands next with accounts V82/V83, user V53, org V43 (numbers sit between #16's). A local DB that already ran #16 will refuse them as out of order: rebuild the local accounts, user and org databases from the demo seed when realtime is on `main` (dev data only; no Flyway setting change).
+4. Next here: gate-fixes #19 updated on top of `main` (the 3 pin conflicts), then realtime (#12 / #10), then design-system (#13).
