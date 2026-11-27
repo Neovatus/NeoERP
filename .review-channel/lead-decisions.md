@@ -945,3 +945,8 @@ On phones (bar below 720) the person's name moves into the profile, but the comp
 
 ## D-104 Reviewed gate-file changes land without a separate ask — 2026-11-27 (Jabran: "ok with your recommendation")
 Gate-file changes (risk-check, route check, floors, baselines, rule tests, verify scripts) that a reviewer has checked land with their feature without asking Jabran first; the lead lists every changed gate file in the merge report. **Still Jabran's:** a gate change that weakens a check (removing a rule, raising a limit, an allowlist that hides new faults; a ratchet baseline that only holds existing debt and may only shrink does not count), and any gate change without a review. Full gates at merges to `main` are already approved (2026-11-26). `.local-secrets/accounts-bank-keys.properties` stays at mode 600 (set by the emulator tester; safe default).
+
+## D-99 Spreading history items carry `actorId`; "mine" is matched by user id — 2026-11-27 (module lead, new Mac)
+- **What:** add an additive, nullable `actorId` to spreading `history[]` items (the same id as `approval.steps[].decided.byUserId`; null for the job). The App matches Reject/Withdraw "mine" by id, never by display name (backlog R-2).
+- **Why:** two users can share a display name, and Withdraw/Reject is a rights check. Every reference ERP (D365, BC, SAP) keys actions to the user id, and our own rule is that rights are checked by identity on the server. The field is additive, so nothing breaks for other callers.
+- **When:** BE contract + example first, then the App fixture copy (D-85) and the match, before the simulator test (step 4) so the device test covers it.
