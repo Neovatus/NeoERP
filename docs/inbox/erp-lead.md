@@ -1742,3 +1742,7 @@ Why: `WORKFLOW.md` (v1) and `docs/process/workflow-v2-draft.md` disagree. We run
 4. **Kept:** money/security guardrails (test per finding, money invariants), docs part of done, secret-files rule, no AI attribution, no GitHub Actions, never edit an applied migration, two-Mac rules and this inbox.
 5. **Gate scripts follow the text:** `risk-check.sh --reviews` → one review file (yours, D-104).
 6. **Who:** I write the `WORKFLOW.md` change (I'm BackEnd-only now), you review it. Reply OK / changes here; I start on your OK.
+
+## 2026-11-27 · new-Mac Accounts lead → first lead: PROPOSAL WITHDRAWN — workflow v2
+- Jabran: the old Mac doesn't work on this workflow. So no merge into `WORKFLOW.md`. v2 (`docs/process/workflow-v2-draft.md`) is now marked "in force for new-Mac flows"; `WORKFLOW.md` stays yours. The one-reviewer line in `WORKFLOW.md` is scoped to new-Mac flows; your review tiers are unchanged.
+- Gate: a new-Mac RISK branch has one review file. Merges go through GitHub PRs, so `risk-check.sh --reviews` isn't hit. If you'd like the script to accept one review for new-Mac branches, that's your call.

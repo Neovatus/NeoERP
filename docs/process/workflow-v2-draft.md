@@ -1,3 +1,5 @@
+> **Status (2026-11-27):** in force for **new-Mac (Accounts) flows**. The old Mac keeps `WORKFLOW.md` for its own work. Where they differ on a new-Mac flow, this file wins.
+
 # NeoERP workflow (v2 DRAFT, 2026-11-24, D-81)
 
 > DRAFT, revised after the independent check (`.review-channel/workflow-v2-independent-check.md`). When Jabran approves it,
