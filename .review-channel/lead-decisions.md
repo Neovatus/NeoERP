@@ -931,3 +931,11 @@ Applies to the old-Mac lead (`core/*`, integration). The new Mac keeps its own f
 7. **Models:** Opus for building, reviews, money and security; Sonnet for clear and simple work (seeds, docs, re-tests, wording); Fable only when Jabran asks.
 **Kept from D-81–D-97:** flow branches cut from `main` with a draft PR into `main` (D-93, D-95); one reviewer, no second seat; a done list per feature from a fresh run (D-87); agent titles `<BE|App|BE+App> <role> · <model> · <feature>` (D-89); no session or agent past ~50 % context (D-86); gate scripts, whole suite and gate-file edits only on Jabran's yes; the integration lead merges to `main` after Jabran's gate answer.
 **Dropped for the old Mac:** the separate flow-lead session per flow; the lead does not hand stages to another lead session.
+
+## D-102 Design-system work order runs without stopping; open questions decided by sources — 2026-11-27 (Jabran: "continue to all these … decide it from industry standards, rules and regulation & principles, if still take help of Fable")
+Scope: the old Mac's design-system order: android-state (emulator) → small-phone → module split M0–M2 (quiet window) → window-class → layouts-focus → DS-2 and the LOWs.
+- **The lead continues from one step to the next** without asking Jabran each time.
+- **Open questions are decided in this order:** (1) industry standard (named reference systems: Material 3 / Apple HIG / platform guidance, comparable ERPs); (2) rules and regulation (accessibility: WCAG 2.2, EN 301 549, the EU Accessibility Act; platform store rules); (3) our principles and approved designs (`PRINCIPLES.md`, `VISION.md`, ux-principles, screen-standard, ADR-027/028, D-85). Each decision is recorded with its sources in the flow's `decisions.md`.
+- **If the sources disagree or don't settle it:** one Fable check (Fable used at Jabran's request here), and its answer decides.
+- **Still Jabran's:** money rules, product scope, changing something he approved, and gate runs / gate-file edits at each feature's end (one-line ask, as before).
+Note: D-101 is left for the new Mac (it announced D-99/next numbers); this entry takes D-102.
