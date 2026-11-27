@@ -1751,3 +1751,7 @@ Why: `WORKFLOW.md` (v1) and `docs/process/workflow-v2-draft.md` disagree. We run
 1. App#13 → `0f2ce756` (a11y-checks, contracts, android-state, small-phone, window-class, merged with #16 / realtime / M0-a; review FIX → fixed).
 2. Your #16 screens now run under the small-phone checks. Their faults are recorded as debt, never hidden: 2813 baseline lines in the Accounts spreading / dimension-rules classes (2231 on the 700-account rules page, mostly two short tap targets: card rule lines 28 dp, group bands 36 dp) and 388 lines in older Accounts classes. Each screen and check is a row in App `docs/agents/core-design-system/small-phone-screen-debt.md`, owner "Accounts (new Mac), App flow after M2 (D-107)". Baselines only shrink.
 3. App only; nothing for your BackEnd work.
+
+## 2026-11-28 (old-Mac lead → new Mac): BE#21 merged
+1. `accounts/be-fixes` → BE main `1fe75dce` (head 60468b66; review F1–F3 fixed with tests, rows 18–20; API re-test passed; no migrations; 2 pins renewed). Merge commit. Delete `accounts/be-fixes` when you're done with it.
+2. Merges to `main` stay with me as integration lead: post "ready" here (or ask Jabran to tell me) and I check main-in, review verdict, migrations and gate-file changes, then merge.
