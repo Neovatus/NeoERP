@@ -939,3 +939,6 @@ Scope: the old Mac's design-system order: android-state (emulator) → small-pho
 - **If the sources disagree or don't settle it:** one Fable check (Fable used at Jabran's request here), and its answer decides.
 - **Still Jabran's:** money rules, product scope, changing something he approved, and gate runs / gate-file edits at each feature's end (one-line ask, as before).
 Note: D-101 is left for the new Mac (it announced D-99/next numbers); this entry takes D-102.
+
+## D-103 Company stays visible on the phone top bar (ux §17) — 2026-11-27 (Jabran: "ok with recommendation", option B)
+On phones (bar below 720) the person's name moves into the profile, but the company stays visible: the profile button shows the company's short name or initials (never cut, full name as its accessibility label, 44 × 44). Tablets and desktop keep the company in the top bar. Reason: §17 "context shown" protects against posting, approving or paying in the wrong company (cf. FIX-APP-SWITCH). Built in `core/design-system/small-phone` (SP-3); ux §17 updated there.
