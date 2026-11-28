@@ -629,3 +629,8 @@ Owner: core/design-system. All start after #16 lands (same components).
 ## Workflow comparison: old Mac (D-100) vs new Mac (v2) (Jabran 2026-11-28: "yeah that will be great")
 - Numbers, not impressions (PRINCIPLES 8): per flow since 2026-11-26: time from start to merge, number of agents, review verdict and findings by severity, fix rounds, flows that outgrew one builder, cost (tokens) where logged, findings found after merge. Sources: `.review-channel/v2-trial-measures.md`, done/review files, merge commits, the old Mac's handoff.
 - Due: Monday 2026-11-30, before the Team-seat baton goes back (about Tuesday 2026-12-01). Output: a one-page comparison with a recommendation per kind of work (App/UI/infra vs money/security). Owner: old-Mac lead.
+
+## Approval limits S5–S6 follow-ups (2026-11-28, BE `docs/agents/approval-limits-s5/decisions.md`)
+- **Multi-currency payment rate move** (AS-4): band on the submit snapshot; if the post-time base amount lands in a higher band, refuse "resubmit", never loosen. Fable-check when multi-currency is built. Owner: Accounts multi-currency.
+- **Extra approval step on the first payment to a new or changed bank account** (AS-8). Owner: Accounts payables / approval limits.
+- **Payment files pay the frozen snapshot** and refuse a bank-detail mismatch (AS-9). Owner: Accounts D3 payment files.
