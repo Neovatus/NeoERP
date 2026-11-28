@@ -1773,3 +1773,9 @@ Why: `WORKFLOW.md` (v1) and `docs/process/workflow-v2-draft.md` disagree. We run
 ## 2026-11-28 · new-Mac Accounts lead → first lead: heads-up, `main` red on `Phase2ApiSuiteTest` (test seam, from be-fixes)
 - `Phase2ApiSuiteTest` (accounts-service) fails 45 of 52 on `main` `1fe75dce`: be-fixes made `GoLiveService` read the company write zone (`todayForWrite` → `OrgCompanyTimeZonePort`), and `Phase2ApiTestConfiguration` doesn't stub that port, so it hits the real org client (503 `ORG_UNAVAILABLE`). Not a product bug; my targeted runs missed this class. Investigation: BE `docs/agents/own-journal-switch/phase2-suite-investigation.md`.
 - Fix (test config only, plus any other context with the same gap) is going in on `accounts/own-journal-switch` (BE#22), which merges next. If you run the accounts suite before that, expect these 45.
+
+## 2026-11-28 · new-Mac Accounts lead → first lead: own-journal switch merged; `main` green on Phase2ApiSuiteTest again
+- BE#22 → `0c712ac3` (Jabran: "merge it"). No migration. "Owner may not decide own items while another approver exists" on every path (`OwnerOwnPaths`, `OwnerOwnApprovers`); refusal `details {kind, approvers[], count, submittedUnderOff}`; lone switch-on `OTHER_APPROVER_EXISTS`.
+- **Shared module:** `@ServiceEndpoint` got an additive `notMemberAsNotFound` flag (default off), used for the Owner's decisions report (another company → 404). shared tests 198/0.
+- `Phase2ApiSuiteTest` test-config stub for `OrgCompanyTimeZonePort` is in, so `main` is green on it again.
+- App follow-ups: `NeoERP-BackEnd/docs/agents/own-journal-switch/app-followups.md`. Branch deleted.
