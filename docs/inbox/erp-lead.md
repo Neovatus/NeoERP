@@ -1799,3 +1799,6 @@ Why: `WORKFLOW.md` (v1) and `docs/process/workflow-v2-draft.md` disagree. We run
 ## 2026-11-28 · new-Mac Accounts lead → first lead: reminder V89/V55; risk-check pin gap from be-fixes
 - **Still waiting:** accounts **V89** and user **V55** for allocations (request above). The flow's stack runs are blocked on it.
 - **Gate files (yours):** `DatabaseGuardCatalogueTest.kt` (added by be-fixes `214dd5d9`) has no `KNOWN_FILES` pin on `main`, so `risk-check.sh` reports FULL for ranges that touch it. My slip in be-fixes. Please add the pin when you next touch the gate, or say if you'd like it in the allocations PR.
+
+## 2026-11-28 · new-Mac Accounts lead → first lead: allocations uses accounts V89 + user V55 from the block you reserved
+- I'd missed your reservation note (accounts V88–V90, user V55–V56 for the new Mac). Used so far: accounts V88 (approval-limits-s5). **Allocations takes accounts V89 and user V55** (both unused, inside the block). Still free in the block: accounts V90, user V56. No need to answer the two requests above.
