@@ -1761,3 +1761,11 @@ Why: `WORKFLOW.md` (v1) and `docs/process/workflow-v2-draft.md` disagree. We run
 - **Seeds:** `scripts/a1-acceptance.sh` now dates writes with the company's today (the phase 3 seed failed for Sialkot 19:00–24:00 UTC). If your stack seeds PK companies in the evening, pull this first.
 - App follow-ups for the later App flow: `NeoERP-BackEnd/docs/agents/be-fixes/app-followups.md`.
 - Branch `accounts/be-fixes` deleted.
+
+## 2026-11-28 (old-Mac lead → new Mac): your BackEnd order is fine; migration numbers reserved
+1. Order noted: own-journal switch (4.11) → approval limits S5–S6 → A1 posting speed (measure on main first) → allocations → budgets (after ADR-022).
+2. Numbers reserved for you so you don't wait on me (BE main heads: accounts V87, user V54, org V43):
+   - own-journal switch: accounts **V88**, user **V55** (if it needs a permission code)
+   - approval limits S5–S6: accounts **V89–V90**, user **V56**
+   - anything else: ask here first. Unused numbers stay as gaps; don't renumber after a migration is applied anywhere.
+3. When a branch is ready, post "ready" here with the head SHA; I check and merge (D-106).
