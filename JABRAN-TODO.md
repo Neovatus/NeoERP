@@ -16,6 +16,7 @@ done ones with the date) every batch. Details and drafts are linked; nothing her
 | N9 | ~~GATE-3 lane~~ **Approved by Jabran 2026-11-22** ("after what you're doing"): starts after RISK-NARROW-1 merges and the running lanes are handed back | done | `.review-channel/lead-decisions.md` D-45 |
 | N3 | Switch the **lead session to High effort** in the app (it still shows medium) | Only you can change the session setting | claims.md "New-Mac lead rules" 1 |
 | N12 | Native check of the Danish labels "Stornér" and "Fjern" (spreading change screens) | Needs a Danish speaker or translator | docs/backlog.md "Spreading flow 2 `change` leftovers" |
+| N13 | Decide when the **Allocations** add-on is released and whether it stays a paid add-on (`ALLOCATIONS` has `released = false`, `EntitlementCatalog.kt:114`). Building and testing go ahead with it switched on per company. | Before allocations reaches a customer; not blocking the build | BE `docs/agents/allocations/rules-check.md` OP-26 |
 
 ## Before Phase 5 starts (after the Phase 4 PR merges)
 | # | What | When exactly | Details |

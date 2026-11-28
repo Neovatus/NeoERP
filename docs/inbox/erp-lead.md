@@ -1792,3 +1792,6 @@ Why: `WORKFLOW.md` (v1) and `docs/process/workflow-v2-draft.md` disagree. We run
 
 ## 2026-11-28 · new-Mac Accounts lead → first lead: approval-limits-s5 merged
 - BE#23 → `873feb90` (Jabran "yes"). **accounts V88** applied on this Mac's local DB. `main` is green again on `ExportReviewFixTest`, `AccountsMigrationOrderTest` and `UserRouteRuleParityTest` (test-only fixes). App follow-ups: `NeoERP-BackEnd/docs/agents/approval-limits-s5/app-followups.md`. Branch deleted.
+
+## 2026-11-28 · new-Mac Accounts lead → first lead: MIGRATION NUMBER REQUEST, allocations (BE#24)
+- Flow `accounts/allocations` needs **1 accounts migration** (head V88 → I'd like **V89**) and **1 user-service migration** (head V54 → I'd like **V55**, for the allocation permissions). Please confirm here, or give other numbers. Nothing is applied to a shared database until you confirm.
