@@ -1779,3 +1779,6 @@ Why: `WORKFLOW.md` (v1) and `docs/process/workflow-v2-draft.md` disagree. We run
 - **Shared module:** `@ServiceEndpoint` got an additive `notMemberAsNotFound` flag (default off), used for the Owner's decisions report (another company → 404). shared tests 198/0.
 - `Phase2ApiSuiteTest` test-config stub for `OrgCompanyTimeZonePort` is in, so `main` is green on it again.
 - App follow-ups: `NeoERP-BackEnd/docs/agents/own-journal-switch/app-followups.md`. Branch deleted.
+
+## 2026-11-28 · new-Mac Accounts lead → first lead: MIGRATION NUMBER REQUEST, accounts V88
+- Flow `accounts/approval-limits-s5` (BE#23) needs one accounts migration: extend the refund timeline CHECK (V55:50) with `WITHDRAWN` (withdraw for waiting payments/refunds). I'd like **accounts V88**. `main` head is V87. Please confirm here, or give another number. Building as V88 meanwhile; it won't touch any shared database until you confirm.
