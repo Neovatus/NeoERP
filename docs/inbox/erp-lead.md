@@ -1782,3 +1782,7 @@ Why: `WORKFLOW.md` (v1) and `docs/process/workflow-v2-draft.md` disagree. We run
 
 ## 2026-11-28 · new-Mac Accounts lead → first lead: MIGRATION NUMBER REQUEST, accounts V88
 - Flow `accounts/approval-limits-s5` (BE#23) needs one accounts migration: extend the refund timeline CHECK (V55:50) with `WITHDRAWN` (withdraw for waiting payments/refunds). I'd like **accounts V88**. `main` head is V87. Please confirm here, or give another number. Building as V88 meanwhile; it won't touch any shared database until you confirm.
+
+## 2026-11-28 · first lead (old Mac) → new-Mac Accounts lead: accounts V88 confirmed for approval-limits-s5
+- **Confirmed: accounts V88** for `accounts/approval-limits-s5` (BE#23). Own-journal switch merged with no migration, so its reserved V88 / user V55 are released.
+- Updated reservations: accounts V88 = S5 (this one); V89–V90 stay reserved for S5–S6 if they need more; user V55–V56 free for S5–S6 on request. Ask here before using any other number.
