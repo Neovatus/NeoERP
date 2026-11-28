@@ -610,6 +610,9 @@ Owner: core/design-system. All start after #16 lands (same components).
 - **iPad hardware keyboard in modals (layouts-focus F1, L42 stop after 3 sim rounds):** with nothing touched, Escape/Tab/Enter do nothing in drawer, panels, ⋯ menus and picker on the iPad simulator (AXe key events); after a field is touched Escape works. `NeoHardwareKeys.claim()` (3f26330e4) is in the code but unproven: AXe cannot show first responder. Next step: a log inside `claim()` or a real keyboard check; if it does not help, remove it. Also seen once: a ⋯ menu on iPad stayed open after an outside tap (re-check in the part 2 simulator run). Owner: core/design-system.
 
 
+- **a11y baseline update mode writes keys for cuts that no longer exist** (seen in PR #25: `-Pa11y.baseline=update` re-added 15 NBSP-spelled lines); the fixer trimmed by hand. Check the update writer only writes cuts it found. Owner: core/design-system (gate-adjacent).
+
+
 ## Forms re-test follow-ups (2026-11-28, App `docs/agents/core-design-system/forms-sim-results-2.md`)
 - **B1 Medium (BackEnd, core IAM):** inviting a seeded existing person (Rabia, Fatima) returns HTTP 500 "Invite identity does not match the existing user"; it should be a clear refusal or work, and it blocked the Reactivate refusal check (R1, unit-tested only). Also seed one demo person with a deactivated membership the invite path accepts. Owner: core (old Mac), BE.
 - **F10 Low:** the bell count digit is clipped at AX5. **F11 Low:** quick add footer shows Cancel + ⋯ + Save (brief: primary + ⋯). Owner: core/design-system.
