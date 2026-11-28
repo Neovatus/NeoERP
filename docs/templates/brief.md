@@ -123,4 +123,4 @@ Fix rounds also: per finding **valid (the failing test that proves it) or not va
 
 **Secret files are not touched at all:** no `chmod`, copy, move or rewrite, and never build your own password or token file. If `make-demo-tokens.sh` or a sign-in step fails, stop and report it to the lead (forms re-test 2026-11-28).
 
-**Background shells:** one waiter per run, with a time limit and an exit when the run's process ends (not only on a log line). Before the hand-back, stop every background shell you started and say so (L39). A waiter watches only your own run's log and exits when your run's process is gone.
+**Background shells:** one waiter per run, with a time limit and an exit when the run's process ends (not only on a log line). Before the hand-back, stop every background shell you started and say so (L39). A waiter watches only your own run's log and exits when your run's process is gone. Simulator testers who build with xcodebuild (it runs Gradle in the default home) stop that daemon at the end with `./gradlew --stop` in the worktree and say so.
