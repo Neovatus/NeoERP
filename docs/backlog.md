@@ -613,6 +613,10 @@ Owner: core/design-system. All start after #16 lands (same components).
 - **a11y baseline update mode writes keys for cuts that no longer exist** (seen in PR #25: `-Pa11y.baseline=update` re-added 15 NBSP-spelled lines); the fixer trimmed by hand. Check the update writer only writes cuts it found. Owner: core/design-system (gate-adjacent).
 
 
+- **Journal breadcrumb from its recurring source** (layouts-focus sim-4 F2, pre-existing on main): a waiting journal opened from the Journals list shows "Recurring journals / {name}" because `JournalsHost.kt` (QA1 G23) builds the crumb from the recurring source. Decide: crumb follows where the person came from (Journals) with the recurring link inside the page. Owner: Accounts App.
+- **Phone page header stays pinned** and covers about a fifth of the iPhone SE screen (sim-4 F3, info); look at it with the top bar block change. Owner: core/design-system.
+
+
 ## Forms re-test follow-ups (2026-11-28, App `docs/agents/core-design-system/forms-sim-results-2.md`)
 - **B1 Medium (BackEnd, core IAM):** inviting a seeded existing person (Rabia, Fatima) returns HTTP 500 "Invite identity does not match the existing user"; it should be a clear refusal or work, and it blocked the Reactivate refusal check (R1, unit-tested only). Also seed one demo person with a deactivated membership the invite path accepts. Owner: core (old Mac), BE.
 - **F10 Low:** the bell count digit is clipped at AX5. **F11 Low:** quick add footer shows Cancel + ⋯ + Save (brief: primary + ⋯). Owner: core/design-system.
