@@ -607,6 +607,9 @@ Owner: core/design-system. All start after #16 lands (same components).
 - **Compose upgrade check (layouts-focus LF-8 round 2):** iOS hardware keys in modals rely on the internal Compose class `OverlayInputView` (ui-uikit 1.10 `window/InputViews.uikit.kt`) via `NeoHardwareKeys.claim()`. Re-check at every Compose Multiplatform upgrade; Escape/Tab in iPad modals with a hardware keyboard is the test. Owner: core/design-system.
 
 
+- **iPad hardware keyboard in modals (layouts-focus F1, L42 stop after 3 sim rounds):** with nothing touched, Escape/Tab/Enter do nothing in drawer, panels, ⋯ menus and picker on the iPad simulator (AXe key events); after a field is touched Escape works. `NeoHardwareKeys.claim()` (3f26330e4) is in the code but unproven: AXe cannot show first responder. Next step: a log inside `claim()` or a real keyboard check; if it does not help, remove it. Also seen once: a ⋯ menu on iPad stayed open after an outside tap (re-check in the part 2 simulator run). Owner: core/design-system.
+
+
 ## Forms re-test follow-ups (2026-11-28, App `docs/agents/core-design-system/forms-sim-results-2.md`)
 - **B1 Medium (BackEnd, core IAM):** inviting a seeded existing person (Rabia, Fatima) returns HTTP 500 "Invite identity does not match the existing user"; it should be a clear refusal or work, and it blocked the Reactivate refusal check (R1, unit-tested only). Also seed one demo person with a deactivated membership the invite path accepts. Owner: core (old Mac), BE.
 - **F10 Low:** the bell count digit is clipped at AX5. **F11 Low:** quick add footer shows Cancel + ⋯ + Save (brief: primary + ⋯). Owner: core/design-system.
