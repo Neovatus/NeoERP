@@ -600,6 +600,12 @@ Owner: core/design-system. All start after #16 lands (same components).
   - sticky footer actions at the largest text must leave at least two thirds of the screen to the content (ux §25 one-third rule, extended from footer info to stacked footer actions; FE-T13: more than half of the SE was covered). Fold secondary actions into ⋯ before stacking a third button.
   - `NeoFooterActions`: the primary and ⋯ share one height when Submit wraps in sv/da (item 3).
 - F18 (iOS dark mode) stays as listed above.
+## Forms re-test follow-ups (2026-11-28, App `docs/agents/core-design-system/forms-sim-results-2.md`)
+- **B1 Medium (BackEnd, core IAM):** inviting a seeded existing person (Rabia, Fatima) returns HTTP 500 "Invite identity does not match the existing user"; it should be a clear refusal or work, and it blocked the Reactivate refusal check (R1, unit-tested only). Also seed one demo person with a deactivated membership the invite path accepts. Owner: core (old Mac), BE.
+- **F10 Low:** the bell count digit is clipped at AX5. **F11 Low:** quick add footer shows Cancel + ⋯ + Save (brief: primary + ⋯). Owner: core/design-system.
+- **Tester setup:** `make-demo-tokens.sh` stopped after two people (needs every demo person covered); jar-mode BackEnd build on this Mac needs a Metaspace setting. Owner: old-Mac lead.
+
+
 ## G3 dates follow-up (2026-11-28, App PR #23 `docs/agents/core-design-system/dates-report.md`)
 - **Server-sent period names** ("Jan 2026", "Period 13") are shown as sent: English in nb/sv/da and with a plain space, so they can wrap. Fix: send an ISO period (year + period number) in the contract and format it in the App, or wrap at each call site. Owner: Accounts (BE contract first, then App).
 - building-blocks.md: one line on the no-break space inside dates and the nb/da day dot, at its next edit.
