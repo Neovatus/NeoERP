@@ -600,6 +600,11 @@ Owner: core/design-system. All start after #16 lands (same components).
   - sticky footer actions at the largest text must leave at least two thirds of the screen to the content (ux §25 one-third rule, extended from footer info to stacked footer actions; FE-T13: more than half of the SE was covered). Fold secondary actions into ⋯ before stacking a third button.
   - `NeoFooterActions`: the primary and ⋯ share one height when Submit wraps in sv/da (item 3).
 - F18 (iOS dark mode) stays as listed above.
+## G3 dates follow-up (2026-11-28, App PR #23 `docs/agents/core-design-system/dates-report.md`)
+- **Server-sent period names** ("Jan 2026", "Period 13") are shown as sent: English in nb/sv/da and with a plain space, so they can wrap. Fix: send an ISO period (year + period number) in the contract and format it in the App, or wrap at each call site. Owner: Accounts (BE contract first, then App).
+- building-blocks.md: one line on the no-break space inside dates and the nb/da day dot, at its next edit.
+
+
 ## Spreading feature end leftovers (merged into accounts/spreading/feature 2026-11-27; App `docs/agents/spreading/tester-results-feature-end.md`, BE/App `review-feature-end*.md`)
 - **Design system (sent to the old-Mac lead 2026-11-27):** NeoFilePickerField `required` parameter (A3/FE-T15); sticky footers too tall at the largest text and Submit off screen with the keyboard up on iPhone SE (FE-T13, F-R1); NeoFooterActions Submit wraps taller than ⋯ in sv/da; text fields with no or placeholder names, segments without selected state (FE-T14); refused dimension picker reads as Slider (FE-T5); Cancel leaves a filled form without asking (FE-T16). Owner: **core/design-system**.
 - **App-wide: group repeated warnings** (Jabran 2026-11-27): any warning list that arrives per item/period prints one line each; group by kind with count, range and next step (spreading editor done in 69b0ce50). Sweep recurring journals, scheduled reversals, journal/opening/SIE imports, statements. Owner: **core/design-system** + module owners.
