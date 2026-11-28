@@ -604,6 +604,9 @@ Owner: core/design-system. All start after #16 lands (same components).
 - **App-wide wide-screen cap (LF-6):** forms and detail pages cap at `maxContentWidth` and centre at ≥1920 through `NeoPageFrame`; this flow does only the Journals detail. Owner: core/design-system, own flow.
 
 
+- **Compose upgrade check (layouts-focus LF-8 round 2):** iOS hardware keys in modals rely on the internal Compose class `OverlayInputView` (ui-uikit 1.10 `window/InputViews.uikit.kt`) via `NeoHardwareKeys.claim()`. Re-check at every Compose Multiplatform upgrade; Escape/Tab in iPad modals with a hardware keyboard is the test. Owner: core/design-system.
+
+
 ## Forms re-test follow-ups (2026-11-28, App `docs/agents/core-design-system/forms-sim-results-2.md`)
 - **B1 Medium (BackEnd, core IAM):** inviting a seeded existing person (Rabia, Fatima) returns HTTP 500 "Invite identity does not match the existing user"; it should be a clear refusal or work, and it blocked the Reactivate refusal check (R1, unit-tested only). Also seed one demo person with a deactivated membership the invite path accepts. Owner: core (old Mac), BE.
 - **F10 Low:** the bell count digit is clipped at AX5. **F11 Low:** quick add footer shows Cancel + ⋯ + Save (brief: primary + ⋯). Owner: core/design-system.
