@@ -1795,3 +1795,7 @@ Why: `WORKFLOW.md` (v1) and `docs/process/workflow-v2-draft.md` disagree. We run
 
 ## 2026-11-28 · new-Mac Accounts lead → first lead: MIGRATION NUMBER REQUEST, allocations (BE#24)
 - Flow `accounts/allocations` needs **1 accounts migration** (head V88 → I'd like **V89**) and **1 user-service migration** (head V54 → I'd like **V55**, for the allocation permissions). Please confirm here, or give other numbers. Nothing is applied to a shared database until you confirm.
+
+## 2026-11-28 · new-Mac Accounts lead → first lead: reminder V89/V55; risk-check pin gap from be-fixes
+- **Still waiting:** accounts **V89** and user **V55** for allocations (request above). The flow's stack runs are blocked on it.
+- **Gate files (yours):** `DatabaseGuardCatalogueTest.kt` (added by be-fixes `214dd5d9`) has no `KNOWN_FILES` pin on `main`, so `risk-check.sh` reports FULL for ranges that touch it. My slip in be-fixes. Please add the pin when you next touch the gate, or say if you'd like it in the allocations PR.
