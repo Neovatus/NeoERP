@@ -625,3 +625,7 @@ Owner: core/design-system. All start after #16 lands (same components).
 
 ## Owner own-journal switch follow-ups (2026-11-28, BE `docs/agents/own-journal-switch/decisions.md` G3)
 - **Flag a lone switch-on after removing an approver.** In the Owner's decisions report, mark a lone switch-on (OJ-6) made within 30 days of the Owner removing or deactivating another holder of that kind's decide code, so an auditor sees "removed Finance Manager, turned own approval on, posted". Needs user-service membership history. Owner: Accounts approval limits (BE), App part after D-107.
+
+## Workflow comparison: old Mac (D-100) vs new Mac (v2) (Jabran 2026-11-28: "yeah that will be great")
+- Numbers, not impressions (PRINCIPLES 8): per flow since 2026-11-26: time from start to merge, number of agents, review verdict and findings by severity, fix rounds, flows that outgrew one builder, cost (tokens) where logged, findings found after merge. Sources: `.review-channel/v2-trial-measures.md`, done/review files, merge commits, the old Mac's handoff.
+- Due: Monday 2026-11-30, before the Team-seat baton goes back (about Tuesday 2026-12-01). Output: a one-page comparison with a recommendation per kind of work (App/UI/infra vs money/security). Owner: old-Mac lead.
