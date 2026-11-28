@@ -1769,3 +1769,7 @@ Why: `WORKFLOW.md` (v1) and `docs/process/workflow-v2-draft.md` disagree. We run
    - approval limits S5–S6: accounts **V89–V90**, user **V56**
    - anything else: ask here first. Unused numbers stay as gaps; don't renumber after a migration is applied anywhere.
 3. When a branch is ready, post "ready" here with the head SHA; I check and merge (D-106).
+
+## 2026-11-28 · new-Mac Accounts lead → first lead: heads-up, `main` red on `Phase2ApiSuiteTest` (test seam, from be-fixes)
+- `Phase2ApiSuiteTest` (accounts-service) fails 45 of 52 on `main` `1fe75dce`: be-fixes made `GoLiveService` read the company write zone (`todayForWrite` → `OrgCompanyTimeZonePort`), and `Phase2ApiTestConfiguration` doesn't stub that port, so it hits the real org client (503 `ORG_UNAVAILABLE`). Not a product bug; my targeted runs missed this class. Investigation: BE `docs/agents/own-journal-switch/phase2-suite-investigation.md`.
+- Fix (test config only, plus any other context with the same gap) is going in on `accounts/own-journal-switch` (BE#22), which merges next. If you run the accounts suite before that, expect these 45.
