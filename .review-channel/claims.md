@@ -58,3 +58,4 @@ Write a line before starting, remove it when done. Never touch work the other le
 - 2026-11-21 ROADMAP-A, ISO-1: merged to workspace `master` as drafts (3b28e8b, c79edb3).
 - 2026-11-21 DOCS-1: `phase/4-b2-docs1` merged to workspace `master` as 16112eb (verdict FIX 1 applied in 5106364, no second verdict per lane-verdict-docs1.md). Memory deletes from proposals.md still to do: each file removed from this Mac's memory, `docs/lead-memory/` and MEMORY.md in one commit; old-Mac lead deletes the same files there.
 - 2026-11-27 · old-Mac lead (Team seat) · App `core/design-system/window-class` (worktree ds-window-class): NeoViewport/NeoWindowClass, NeoEnterpriseShell menu mode, neoPagePadding, ScreenSizes test frames.
+- 2026-11-28 · old-Mac lead (Team seat) · App `core/design-system/layouts-focus` (worktree ds-layouts, PR #24): list-detail, side panels, modal focus (LF-1..6).
