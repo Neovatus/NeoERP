@@ -668,3 +668,4 @@ Owner: core/design-system. All start after #16 lands (same components).
 
 - Whole-quarter (and half-year, year) allocation: one run over several months. This round has monthly schedules only (AD-38), because a run is one month; other frequencies are refused with `ALLOCATION_SCHEDULE_MONTHLY_ONLY`.
 - Lift the 1000-line ceiling for allocation journals with a higher limit for this origin (AD-34; the engine already sets limits per journal type, `PostingValidator.kt:164-167`, `V10:28`).
+- **Approval read "nobody can finish this approval"** (allocations review 2, G7): AS-2's `gaps` is per step, so a journal whose steps need more distinct free people than there are (contributors excluded) shows `unfillable: false` on every step, and the one free approver gets `APPROVAL_KEEP_LATER_STEP`. A read across all steps would tell the poster early. Owner: Accounts approval limits (A1/AS-2).
