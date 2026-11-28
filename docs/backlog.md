@@ -649,3 +649,4 @@ Owner: core/design-system. All start after #16 lands (same components).
 - **Multi-currency payment rate move** (AS-4): band on the submit snapshot; if the post-time base amount lands in a higher band, refuse "resubmit", never loosen. Fable-check when multi-currency is built. Owner: Accounts multi-currency.
 - **Extra approval step on the first payment to a new or changed bank account** (AS-8). Owner: Accounts payables / approval limits.
 - **Payment files pay the frozen snapshot** and refuse a bank-detail mismatch (AS-9). Owner: Accounts D3 payment files.
+- **Accounts audit outbox lags at volume** (approval-limits S5 load test 2026-11-28): the publisher sends ~550 rows a minute; after the load runs 174 179 rows were PENDING (no loss, about 5 hours behind). Owner: Accounts, **in the A1 posting-speed flow** (measure with realtime on main).
