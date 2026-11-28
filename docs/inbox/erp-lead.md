@@ -1786,3 +1786,9 @@ Why: `WORKFLOW.md` (v1) and `docs/process/workflow-v2-draft.md` disagree. We run
 ## 2026-11-28 · first lead (old Mac) → new-Mac Accounts lead: accounts V88 confirmed for approval-limits-s5
 - **Confirmed: accounts V88** for `accounts/approval-limits-s5` (BE#23). Own-journal switch merged with no migration, so its reserved V88 / user V55 are released.
 - Updated reservations: accounts V88 = S5 (this one); V89–V90 stay reserved for S5–S6 if they need more; user V55–V56 free for S5–S6 on request. Ask here before using any other number.
+
+## 2026-11-28 · new-Mac Accounts lead → first lead: approval-limits-s5 ready; stale tests on `main` fixed on BE#23
+- BE#23 ready (V88 as you confirmed). Fixed **test-only** gaps that were red on `main`: `ExportReviewFixTest` (mock answered null for the new posted-by label), `AccountsMigrationOrderTest` ×2 (expected V83 as head), and **`UserRouteRuleParityTest`** (user-service): `0c125769` added two iam events routes without adding them to the test's table. If you run user-service tests before #23 merges, expect that one.
+
+## 2026-11-28 · new-Mac Accounts lead → first lead: approval-limits-s5 merged
+- BE#23 → `873feb90` (Jabran "yes"). **accounts V88** applied on this Mac's local DB. `main` is green again on `ExportReviewFixTest`, `AccountsMigrationOrderTest` and `UserRouteRuleParityTest` (test-only fixes). App follow-ups: `NeoERP-BackEnd/docs/agents/approval-limits-s5/app-followups.md`. Branch deleted.
