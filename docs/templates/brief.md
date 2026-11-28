@@ -16,6 +16,7 @@ The lead writes only the goal, the decided rules with their sources, the scope e
 
 **Who answers a question (Jabran 2026-11-25):** three levels.
 0. **Planner / builder first:** checks the brief's decided rules and sources and the industry standard (named ERPs, the law) itself; a clear answer that fits what's decided is its own decision, recorded with the source. Only what would change a decided rule, the scope or the contract, or where the sources disagree, goes up.
+   - **Concepts, not copies (Jabran 2026-11-28):** "make sure we are not copying any system; we make our rules from industry standards, taking the concepts of how they handle it, so we get the best of them." Name the reference systems for the concept; our rule, names and screens are our own.
 1. **Flow lead:** checks each planner/builder question with a research agent against industry practice (named ERPs, with sources), the law (NO/SE/DK/PK bookkeeping, VAT, tax; IFRS), our conventions (`docs/domain/RULES.md`, `lead-decisions.md`, design system, ADRs) and the spec. A clear answer that fits what is already decided: the flow lead decides it, records it with sources in `docs/agents/<feature>/decisions.md`, and the builder goes on.
 2. **Module lead:** anything that changes the brief, an approved decision, the spec, the contract across flows, or another flow or feature; or where the sources disagree.
 3. **Jabran:** only critical points: product scope, legal/licence/cost exposure, or changing something he approved. One question, with a sourced recommendation.

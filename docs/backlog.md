@@ -663,3 +663,8 @@ Owner: core/design-system. All start after #16 lands (same components).
 - **Extra approval step on the first payment to a new or changed bank account** (AS-8). Owner: Accounts payables / approval limits.
 - **Payment files pay the frozen snapshot** and refuse a bank-detail mismatch (AS-9). Owner: Accounts D3 payment files.
 - **Accounts audit outbox lags at volume** (approval-limits S5 load test 2026-11-28): the publisher sends ~550 rows a minute; after the load runs 174 179 rows were PENDING (no loss, about 5 hours behind). Owner: Accounts, with A1 posting speed **at the end of Accounts, on a representative host** (Jabran 2026-11-28).
+
+## Accounts allocations (4.16, from `NeoERP-BackEnd/docs/agents/allocations/decisions.md`)
+
+- Whole-quarter (and half-year, year) allocation: one run over several months. This round has monthly schedules only (AD-38), because a run is one month; other frequencies are refused with `ALLOCATION_SCHEDULE_MONTHLY_ONLY`.
+- Lift the 1000-line ceiling for allocation journals with a higher limit for this origin (AD-34; the engine already sets limits per journal type, `PostingValidator.kt:164-167`, `V10:28`).
